@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://tokenfactory.nebius.com/sandboxes/about",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the Sandboxes page and docs state no egress allowance or price; the service is free while in beta",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "Python SDK, REST API, CLI and MCP server; beta access is requested before use",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -49,7 +49,7 @@
       "source": "https://tokenfactory.nebius.com/sandboxes/about"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -57,7 +57,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the sandboxes page was read on 2026-10-22 and states the free-while-in-beta condition and the access gate.",
+  "confidence_note": "The sandboxes page was read on 2026-10-22 and states the free-while-in-beta condition and access requirements.",
   "evidence": [
     {
       "url": "https://tokenfactory.nebius.com/sandboxes/about",

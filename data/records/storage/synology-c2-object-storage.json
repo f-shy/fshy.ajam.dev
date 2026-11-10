@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://c2.synology.com/en-us/object-storage/overview",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://c2.synology.com/en-us/object-storage/overview",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   "tooling": "any S3 client; Synology Hyper Backup, rclone generic S3",
   "chaining": "S3 -> AList/rclone/Cloudflare",
   "limits": [],
-  "limits_note": "Restructure risk: KB article states 'Effective June 22, 2026, the subscription model for C2 Object Storage will transition to C2 OneStorage' — pricing and capacity conversion applies. Verify current SKU before committing.",
+  "limits_note": "Restructure risk: KB article states 'Effective June 22, 2026, the subscription model for C2 Object Storage will transition to C2 OneStorage'. Pricing and capacity conversion applies. Verify current SKU before committing.",
   "identity_cost": {
     "kind": "email",
     "detail": "the account is a Synology Account, reached by email and a password or by Google or Apple sign-in, and the vendor does not list the fields of that sign-up, so whether it asks a phone number is unverified. Every subscription needs a payment method, listed as credit or debit card, SEPA direct debit and ACH direct debit",

@@ -5,7 +5,7 @@
   "url": "https://3d.si.edu/open-source-resources",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all — the 3D API is described as…",
+    "stated": "None reachable: Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all. The 3D API is described as 'vers.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://3d.si.edu/open-source-resources",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://3d.si.edu/open-source-resources",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all — the 3D API is described as…",
+  "reliability_note": "Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all. The 3D API is described as 'vers.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://3d.si.edu/open-source-resources",
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all — the 3D API is described as…",
+  "notes": "Read-only. The Open Access corpus (2.8M 2D images + ~2,346 3D assets as of the FAQ) is downloadable, but there is no contributor upload path at all. The 3D API is described as 'vers.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

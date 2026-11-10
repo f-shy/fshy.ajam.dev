@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://gitverse.ru/docs/limits-lfs-cicd/limits-releases",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "git",
   "tooling": "standard git + git-lfs over HTTPS/SSH; registries for npm, PyPI, Maven, Go, NuGet, Docker, Generic, Helm, deb, rpm",
-  "chaining": "caps are per user/org TOTAL, not per repo — unlimited repos x 4 GB does NOT multiply. Only new orgs/users do: 4 GB per org. 20 TiB would need 5 000 orgs.",
+  "chaining": "Caps are per user/org TOTAL, not per repo. Unlimited repos x 4 GB does NOT multiply. Only new orgs/users do: 4 GB per org. 20 TiB would need 5 000 orgs.",
   "limits": [
     {
       "kind": "per-object-cap",

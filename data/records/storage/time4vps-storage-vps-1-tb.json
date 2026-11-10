@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.time4vps.com/storage-vps/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.time4vps.com/storage-vps/",
     "notes": "not stated"
   },
@@ -33,13 +33,13 @@
   "tooling": "unrestricted",
   "chaining": "MinIO/NFS",
   "limits": [],
-  "limits_note": "Tops out at 1 TB — cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.",
+  "limits_note": "Tops out at 1 TB. Cannot reach 10 TiB or 20 TiB without stacking many units. 'No backups'.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",
     "country": null
   },
-  "reliability_note": "The advertised €4.17 is a first-term promotional rate on a 24-month commit; the renewal is €8.35 — a 2× step-up. Their own billing cart shows the undiscounted €11.99 monthly rate.",
+  "reliability_note": "Advertised 4.17 EUR rate is a promotional discount requiring a 24-month initial commitment. Standard renewal pricing increases to 8.35 EUR monthly, and monthly billing without commitment is 11.99 EUR.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

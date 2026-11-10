@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.exavault.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.exavault.com/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "N/A — egress is your own VM's bandwidth. Note: 'Encryption at rest comes from your VM environment'.",
+    "terms": "N/A. Egress is your own VM's bandwidth. Note: 'Encryption at rest comes from your VM environment'.",
     "metered": false
   },
   "interface": [
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "sftp / ftp / webdav / rest (web manager, share links)",
   "tooling": "the user installs and runs the appliance image (VMware OVA, AWS Marketplace or GCP Marketplace image) on a rented or free machine; 4 CPU / 12 GB RAM / 100 GB primary disk plus a sized data drive; every installation needs outbound HTTPS to a license service and one source IP address",
-  "chaining": "Unlimited free 'accounts' (appliance deployments) x whatever disk you attach. This is not free storage — it is free software for storage you already pay for. Worth recording because the category's free tier has structurally migrated here: the vendor monetises seats and support, not bytes.",
+  "chaining": "Unlimited free 'accounts' (appliance deployments) x whatever disk you attach. This is not free storage. It is free software for storage you already pay for. Worth recording because the category's free tier has structurally migrated here: the vendor monetises seats and support, not bytes.",
   "limits": [],
   "limits_note": "per-object-cap none imposed by the software; retention none; the binding constraints become your VM's disk and network. Paid tier adds SSO/2FA/syslog and >50 users ($99/mo per 50-user pack).",
   "identity_cost": {

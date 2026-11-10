@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": null,
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "These repos all solve the wrong problem: they archive, clean up or mount Slack - none of them removes the 5 GB cap or the 1-year deletion. slackfs is a FUSE view over channels (6 stars)…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": null,

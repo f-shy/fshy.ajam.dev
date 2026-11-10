@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "A Paris machine at USD 25.72 with a 1 Gbps unmetered port and 4 TB of disk is the cheapest European dedicated entry found, and it pairs with the OVH or Hetzner object storage that charges per byte rather than per port.",
+  "chaining": "A Paris machine at USD 25.72 with a 1 Gbps unmetered port and 4 TB of disk is the cheapest European dedicated entry found among evaluated providers, and it pairs with the OVH or Hetzner object storage that charges per byte rather than per port.",
   "limits": [
     {
       "kind": "per-ip-shaping",

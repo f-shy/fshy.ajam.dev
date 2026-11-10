@@ -57,7 +57,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": null,
+  "binding_note": "Monthly bandwidth allowance is 1 GB (approximately 0.0009 TiB) and port mappings expire after 30 days.",
   "identity_cost": {
     "kind": "national-id",
     "detail": "The vendor sells from a mainland company address and answers support over QQ and WeChat, both of which are phone-bound.",

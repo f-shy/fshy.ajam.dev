@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.fil.one/pricing/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "S3-compatible buckets with scoped keys.",
-  "chaining": "30-day trial x unlimited accounts is a treadmill, not storage — the data must be re-uploaded every 30 days and each new account needs a distinct signup.",
+  "chaining": "30-day trial x unlimited accounts is a treadmill, not storage. The data must be re-uploaded every 30 days and each new account needs a distinct signup.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Reasonable-use clause explicitly targets egress-heavy workloads and says they 'will contact you first' — a shaping/ban path for serving use.",
+  "reliability_note": "Reasonable-use clause explicitly targets egress-heavy workloads and says they 'will contact you first'. A shaping/ban path for serving use.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -73,5 +73,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

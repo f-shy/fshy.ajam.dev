@@ -90,7 +90,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:35.125Z",
-  "notes": "Found via computeprices. The description calls the servers bare-metal while the index prices them per GPU-hour on a vCPU count, which is not a contradiction only if the host is dedicated and the billing is hourly.",
+  "notes": "Found via computeprices. The description calls the servers bare-metal while the index prices them per GPU-hour on a vCPU count, which is not a contradiction only if the host is dedicated and the billing is hourly; the page does not resolve it. Unverified: swissgpu.ch/pricing, which the index links, for the billing unit and the disk size.",
   "extras": {
     "facets": {
       "class": null,

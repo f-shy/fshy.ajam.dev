@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hearthis.at/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hearthis.at/",
     "notes": "not stated"
   },
@@ -30,10 +30,10 @@
     "unknown"
   ],
   "interface_detail": "wrapper-only",
-  "tooling": "No API. Web upload plus a 'Sounds import from sharehosters' feature (pull from a sharehoster URL rather than uploading through the browser) — that is the automation-adjacent path.",
+  "tooling": "No API. Web upload plus a 'Sounds import from sharehosters' feature (pull from a sharehoster URL rather than uploading through the browser). That is the automation-adjacent path.",
   "chaining": "400 MB/week x N accounts, accumulating indefinitely (the quota resets, storage does not expire). ~1.7 GB/month/account at zero cost, so 10 accounts is ~17 GB/month and 100 accounts ~170 GB/month. Throughput, not quota, is the constraint.",
   "limits": [],
-  "limits_note": "400 MB/week on Free; transcode to a single house format — 'We convert all uploaded tracks to a unified streaming format: 192 kbit/s, constant bitrate (CBR), joint stereo'; Premium can pick bitrate and gets 'original (mp3 only)' play quality.",
+  "limits_note": "400 MB/week on Free; transcode to a single house format. 'We convert all uploaded tracks to a unified streaming format: 192 kbit/s, constant bitrate (CBR), joint stereo'; Premium can pick bitrate and gets 'original (mp3 only)' play quality.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

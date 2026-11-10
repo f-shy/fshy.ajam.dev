@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://bilibilihelp.com/creator/bilibili-video-upload-guide/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free playback CDN, but segment/m3u8 delivery with Referer and anti-leech checks — not a plain file GET",
+    "terms": "Free playback CDN, but segment/m3u8 delivery with Referer and anti-leech checks. Not a plain file GET.",
     "metered": false
   },
   "interface": [

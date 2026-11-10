@@ -82,7 +82,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-06T17:42:10.985Z",
-  "notes": "The smallest credit and the most repeatable: AIcrowd runs several credit-backed challenges a year with the same claim-form pattern. Three explanations for the size were considered: a fixed marketing budget per team, anti-farming through the baseline requirement, and platform economics. The page states the second explicitly and is silent on the other two. What would change the verdict is the additional round, quoted: 'If credits remain in the middle of the competition, we will open an additional round for extra credit applications', which did not appear on the page read.",
+  "notes": "The smallest credit among evaluated providers and the most repeatable: AIcrowd runs several credit-backed challenges a year with the same claim-form pattern. Three explanations for the size were considered: a fixed marketing budget per team, anti-farming through the baseline requirement, and platform economics. The page states the second explicitly and is silent on the other two. What would change the verdict is the additional round, quoted: 'If credits remain in the middle of the competition, we will open an additional round for extra credit applications', which did not appear on the page read.",
   "extras": {
     "facets": {
       "class": "hackathon-credit",

@@ -49,7 +49,7 @@
   },
   "reliability_note": "Domain no longer under the original operator.",
   "confidence": "documented",
-  "confidence_note": "The archived description is a browser UI plus a Cloudflare Worker.",
+  "confidence_note": "Service domain is inactive. Historical documentation described browser-based tunnel administration.",
   "evidence": [
     {
       "url": "https://tabserve.dev/",
@@ -60,7 +60,7 @@
   "verdict": "dead",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "n/a",
-  "notes": "Domain appears to have lapsed and been re-registered for search spam.",
+  "notes": "Service domain tabserve.dev is inactive.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "",

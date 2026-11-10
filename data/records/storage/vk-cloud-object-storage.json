@@ -5,7 +5,7 @@
   "url": "https://cloud.vk.ru/storage/",
   "category": "iaas",
   "free_tier": {
-    "stated": "no perpetual free volume — pay-as-you-go per GB, per storage class (Hotbox/Icebox/Backup)",
+    "stated": "No perpetual free volume. Pay-as-you-go per GB, per storage class (Hotbox/Icebox/Backup).",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://cloud.vk.ru/docs/en/storage/s3/tariffication",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.vk.ru/docs/en/storage/s3/tariffication",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "metered: 'Outgoing traffic is any downloading of information from the bucket ... In both cases, the bucket is accessed using an external IP address' — charged per GB on Hotbox and Icebox; only incoming traffic and API calls are free",
+    "terms": "Metered: 'Outgoing traffic is any downloading of information from the bucket .. In both cases, the bucket is accessed using an external IP address'. Charged per GB on Hotbox and Icebox; only incoming traffic and API calls are free.",
     "metered": true
   },
   "interface": [
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Bonus-grant model means the storage disappears at day 60 unless paid.",
+  "reliability_note": "Promotional credit model expires after 60 days unless upgraded to paid tiers. Outbound egress is billed at metered per-gigabyte rates.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -69,7 +69,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "no perpetual free volume — pay-as-you-go per GB, per storage class (Hotbox/Icebox/Backup)",
+  "notes": "No perpetual free volume. Pay-as-you-go per GB, per storage class (Hotbox/Icebox/Backup).",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -79,5 +79,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

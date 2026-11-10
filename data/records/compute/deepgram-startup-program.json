@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "the standard USD 200 credit recorded separately is the reachable substitute.",
+  "chaining": "if awarded, USD 100,000 at the Nova-3 pre-recorded rate of USD 0.0043 a minute is about 23 million minutes, which is 388,000 hours of transcription, and no single workload comes close; the standard USD 200 credit recorded separately among evaluated providers is the reachable substitute.",
   "limits": [
     {
       "kind": "write-gated",
@@ -73,7 +73,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "These are inference credits, not general compute. 'Up to' is the vendor's word and no floor is published, so the number to plan with is unknown even for an award.",
+  "notes": "The startup program provides additional credits beyond the standard USD 200 sign-up grant, requiring initial credits to be utilized first.",
   "extras": {
     "facets": {
       "class": "refutation",

@@ -33,7 +33,7 @@
   ],
   "interface_detail": "none",
   "tooling": "No public API. Only the crypto layer is open source (github.com/webtorrent/wormhole-crypto).",
-  "chaining": "5 GB stored x 24 hours. Nothing compounds — files are permanently deleted after 24 hours and the service has no account model.",
+  "chaining": "5 GB stored x 24 hours. Nothing compounds. Files are permanently deleted after 24 hours and the service has no account model.",
   "limits": [
     {
       "kind": "retention-clamped",

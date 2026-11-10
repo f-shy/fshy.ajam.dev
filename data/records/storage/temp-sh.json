@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "curl -F 'file=@x' https://temp.sh/upload ; ShareX supported per the page",
-  "chaining": "none — per-file, 3-day expiry.",
+  "chaining": "None. Per-file, 3-day expiry.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -57,7 +57,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "The GET-returns-HTML trap in its purest form: a plain download link is not a download, it is a one-button form. Any client that only GETs (wget, rclone, a naive fetch loop, a CDN in front) gets 3165 bytes of HTML at 200 with no error.",
+  "reliability_note": "Download links require submitting an HTML confirmation form rather than serving raw binary bytes on direct GET requests. Automated download tools and proxies receive an HTML landing page unless following the interactive form submission flow.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -83,7 +83,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "Up and answering with a modern OpenSSH.",
+  "notes": "Tilde.green provides shared Unix shell accounts on OpenBSD systems with basic file hosting, IRC, and email services.",
   "extras": {
     "shape": {
       "vcpu": null,
@@ -128,7 +128,7 @@
     "m10h_usd": 0.0,
     "m24h_usd": 0.0
   },
-  "confidence_note": "reachability and the no-idle-kill promise were confirmed on 2026-10-22; No probe proves a quota.",
+  "confidence_note": "Service reachability was confirmed on 2026-10-22; quota figures reflect terms read on 2026-10-06, as tilde.green/tos returned HTTP 404 upon re-request.",
   "probe": {
     "probed_at": "2026-10-22T03:55:15.270Z",
     "host": "tilde.green",

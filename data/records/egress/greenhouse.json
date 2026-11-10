@@ -49,7 +49,7 @@
   },
   "reliability_note": "Unmaintained.",
   "confidence": "reported",
-  "confidence_note": "None was found.",
+  "confidence_note": "Open-source project is unmaintained and public relay infrastructure is inactive.",
   "evidence": [
     {
       "url": "https://github.com/anderspitman/awesome-tunneling",

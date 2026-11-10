@@ -49,7 +49,7 @@
   },
   "reliability_note": "'should be considered experimental software'; the coordination server's uptime is the constraint",
   "confidence": "documented",
-  "confidence_note": null,
+  "confidence_note": "Point-to-point WireGuard mesh network. Overlay coordination and peer configuration are documented in repository manuals.",
   "evidence": [
     {
       "url": "https://github.com/tonarino/innernet",

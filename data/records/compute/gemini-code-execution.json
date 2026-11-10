@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://ai.google.dev/gemini-api/docs/code-execution",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API (POST to generativelanguage.googleapis.com/v1beta/interactions with the code_execution tool) and the Google GenAI SDK, both documented on the code execution page.",
   "tooling": "Google GenAI SDK (Python package google-genai, JavaScript package @google/genai, Go and Java); the REST API directly.",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -44,7 +44,7 @@
       "source": "https://ai.google.dev/gemini-api/docs/code-execution"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "email: a Google account, because the API key page redirects to Google's sign-in, which asks for a Google Account, and AI Studio then creates the project and the key. No card is required for the free tier: linking a billing account is what moving to the paid tier means. No phone is named, and access is limited to the countries and territories Google lists.",

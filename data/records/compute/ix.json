@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Billing on CPU time actually used rather than allocated is what makes a 24/7 agent VM affordable here: a machine that sits idle at 1 percent of a vCPU with 0.5 GiB resident costs USD 4.20 for 30 days, which is the cheapest always-up shape found, and free egress means serving from it costs nothing extra.",
+  "chaining": "Billing on CPU time actually used rather than allocated is what makes a 24/7 agent VM affordable here: a machine that sits idle at 1 percent of a vCPU with 0.5 GiB resident costs USD 4.20 for 30 days, which is the cheapest always-up shape found among evaluated providers, and free egress means serving from it costs nothing extra.",
   "limits": [],
   "limits_note": "Nothing binds above the scale except the balance: running machines stop at once when funds run out with no grace period, and disks and snapshots are kept 24 hours before deletion.",
   "binding": "none",
@@ -67,7 +67,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The notable terms are the free egress and the idle arithmetic: USD 4.20 for a month of an idle 0.5 GiB machine against USD 47.95 for BoxLite's Small box running 30 days and USD 20 flat for RemoteHost's Starter. Machines go up to 100 vCPUs. What kills a running job is the balance, with no grace period and a 24-hour window before the disk is deleted.",
+  "notes": "Classified as paid-only because the vendor states plainly that there is no free credit on signup; that sentence is the finding, since three other providers among evaluated providers give USD 20 to USD 100 without a card. The notable terms are the free egress and the idle arithmetic: USD 4.20 for a month of an idle 0.5 GiB machine against USD 47.95 for BoxLite's Small box running 30 days and USD 20 flat for RemoteHost's Starter. Machines go up to 100 vCPUs. What kills a running job is the balance, with no grace period and a 24-hour window before the disk is deleted.",
   "extras": {
     "facets": {
       "class": "used-resource-vm",

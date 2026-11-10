@@ -5,7 +5,7 @@
   "url": "https://strapi.io",
   "category": "paas",
   "free_tier": {
-    "stated": "50 GB asset storage + 50 GB asset bandwidth on Starter — but Starter is $35/month, NOT free",
+    "stated": "50 GB asset storage + 50 GB asset bandwidth on Starter. But Starter is $35/month, NOT free.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://strapi.io/pricing-cloud",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://strapi.io/pricing-cloud",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://strapi.io/pricing-cloud",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Strapi REST + GraphQL, upload plugin → any S3-compatible provider, `strapi` CLI; self-host is MIT-licensed",
-  "chaining": "No free tier on Cloud at all — the cheapest plan is $35/project/month. The free path is self-hosting Strapi on free compute (Oracle/AWS free tier) pointed at another storage backend, which is orchestration, not a free storage tier.",
+  "chaining": "No free tier on Cloud at all. The cheapest plan is $35/project/month. The free path is self-hosting Strapi on free compute (Oracle/AWS free tier) pointed at another storage backend, which is orchestration, not a free storage tier.",
   "limits": [],
   "limits_note": "Paid-only. 50 GB storage / 50 GB bandwidth at $35/mo; unlimited DB entries.",
   "identity_cost": {
@@ -43,7 +43,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "N/A — commercial hosting, stable.",
+  "reliability_note": "N/A. Commercial hosting, stable.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -55,7 +55,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "50 GB asset storage + 50 GB asset bandwidth on Starter — but Starter is $35/month, NOT free",
+  "notes": "50 GB asset storage + 50 GB asset bandwidth on Starter. But Starter is $35/month, NOT free.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.cdn77.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.cdn77.com/pricing",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "S3 API; 'Seamless integration with CDN77 delivery platform'. Growth plan is $990/mo for 250 TB traffic with $3.96/TB overage.",
-  "chaining": "The free-to-own-CDN egress is the same architectural trick as Bunny and Gcore: keep the origin on CDN77 and never pay egress, because the CDN absorbs it. At $20/TB at rest it is 2x Telnyx and 3x Hetzner, so it only wins if you need 250 TB/month of delivery — which is.",
+  "chaining": "Origin storage integrates with CDN77 without separate origin egress charges. Storage at rest is priced at $20 per TB monthly.",
   "limits": [],
   "limits_note": "per-object-cap: none published. Storage at $0.03/10k requests after 1M free. Request pricing exists, unlike Bunny/CacheFly.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "330 Tbps, enterprise-oriented; sales-gated plans ('Talk to sales') rather than self-serve checkout. Also one of the few CDNs that explicitly sponsors OSS (Blender, GNOME, Let's Encrypt, Fedora, Manjaro) — see the Fast Forward note.",
+  "reliability_note": "330 Tbps, enterprise-oriented; sales-gated plans ('Talk to sales') rather than self-serve checkout. Also one of the few CDNs that explicitly sponsors OSS (Blender, GNOME, Let's Encrypt, Fedora, Manjaro). See the Fast Forward note.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

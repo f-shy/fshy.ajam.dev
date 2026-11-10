@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "USD 70,000 average is the largest per-person award after OTF, and it is paid as an award rather than a salary, so it can be spent entirely on rented accelerators during the stated work period.",
+  "chaining": "USD 70,000 average is the largest per-person award among evaluated providers after OTF, and it is paid as an award rather than a salary, so it can be spent entirely on rented accelerators during the stated work period.",
   "limits": [
     {
       "kind": "write-gated",

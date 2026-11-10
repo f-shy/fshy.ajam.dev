@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://zoolz.com/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://zoolz.com/pricing/",
     "notes": "not stated"
   },
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "Windows client, S3-ish 'Instant Vault' for the hot portion",
   "tooling": "no rclone/WebDAV found for the cold tier",
-  "chaining": "poor — cold tier is restore-on-request, not a filesystem",
+  "chaining": "Poor. Cold tier is restore-on-request, not a filesystem.",
   "limits": [],
-  "limits_note": "Constraint type: write-gated — cold storage means the restore is a request workflow. File upload size 20 GB on the small tier.",
+  "limits_note": "Constraint type: write-gated. Cold storage means the restore is a request workflow. File upload size 20 GB on the small tier.",
   "identity_cost": {
     "kind": "card",
     "detail": "the sign-up form asks for a full name, email address, password, company name, country and a license key, and the trial it opens is 14 days. Payment is a card through a Stripe checkout, and the terms say a card on file is charged automatically on renewal. No phone field is on the form.",

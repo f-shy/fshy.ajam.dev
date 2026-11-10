@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://namespace.so/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price on https://namespace.so/pricing and https://namespace.so/docs/workspaces/billing-and-limits.md",
@@ -38,7 +38,7 @@
   ],
   "interface_detail": "nsc CLI and devbox CLI with SSH into instances; a public API served over gRPC and Connect (listed as rest: no grpc term); TypeScript and Go SDKs",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -46,7 +46,7 @@
       "source": "https://namespace.so/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

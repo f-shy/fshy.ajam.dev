@@ -5,7 +5,7 @@
   "url": "https://lex.st/storagebox/",
   "category": "iaas",
   "free_tier": {
-    "stated": "150 GB HDD RAID-6 (NVMe cached), 1000 GB bandwidth, 2 domains, jailed SSH, DirectAdmin, Salt Lake City — free permanently.",
+    "stated": "150 GB HDD RAID-6 (NVMe cached), 1000 GB bandwidth, 2 domains, jailed SSH, DirectAdmin, Salt Lake City. Free permanently.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://lowendtalk.com/discussion/203759/introducing-lex-st-free-150gb-usa-storage-boxes",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lowendtalk.com/discussion/203759/introducing-lex-st-free-150gb-usa-storage-boxes",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lowendtalk.com/discussion/203759/introducing-lex-st-free-150gb-usa-storage-boxes",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "1000 GB/month included — metered and small; this is the binding limit, not the 150 GB.",
+    "terms": "1000 GB/month included. Metered and small; this is the binding limit, not the 150 GB.",
     "metered": true,
     "free_allowance": "1000 GB per month"
   },
@@ -37,13 +37,13 @@
   "tooling": "Jailed SSH explicitly 'for rsync and the likes', plus DirectAdmin, plus NextCloud optionally available. rclone sftp works against jailed SSH if the jail exposes the storage path.",
   "chaining": "Application-gated, so not repeatable: signups go through a Google-Form review and the host states users with '~1-100 comments and that have recently signed up can expect to be rejected'. The filter targets the several-accounts pattern.",
   "limits": [],
-  "limits_note": "1 TB/mo bandwidth.",
+  "limits_note": "Fixed storage quota is 150 GB with 1 TB per month bandwidth.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "The offer is unreachable with endpoints /, /storagebox/, and /storagebox/signup/ returning HTTP 530 origin unreachable on 2026-10-21.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -60,7 +60,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "150 GB HDD RAID-6 (NVMe cached), 1000 GB bandwidth, 2 domains, jailed SSH, DirectAdmin, Salt Lake City — free permanently.",
+  "notes": "150 GB HDD RAID-6 (NVMe cached), 1000 GB bandwidth, 2 domains, jailed SSH, DirectAdmin, Salt Lake City. Free permanently.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

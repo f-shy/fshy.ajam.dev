@@ -35,7 +35,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "FTP upload, JDownloader/pyLoad and rclone-adjacent download managers; no first-party REST API documented for uploads.",
-  "chaining": "No free storage allowance to chain — storage is a purchased block, so the multiplier is billing, not accounts.",
+  "chaining": "No free storage allowance to chain. Storage is a purchased block, so the multiplier is billing, not accounts.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -54,7 +54,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Storage is the product being sold, so there is no unlimited free angle.",
+  "reliability_note": "Documentation states 5 GB maximum file size on free tiers versus 80 GB on paid premium tiers. Free accounts are limited to single simultaneous downloads and throttled speeds.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

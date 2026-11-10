@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.humdata.org/publish/publish-data/preparing-and-publishing-data",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.humdata.org/publish/publish-data/preparing-and-publishing-data",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "unmetered public download. Direct GET on /dataset/<slug>/resource/<id>/download/<file>; no egress counter, no rate card, no CDN token. Files are anonymous to read — no login to download.",
+    "terms": "Unmetered public download. Direct GET on /dataset/<slug>/resource/<id>/download/<file>; no egress counter, no rate card, no CDN token. Files are anonymous to read. No login to download.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "CKAN 2.x action API (package_search / package_create / resource_create) plus the `hdx-python-api` wrapper, which is the documented write path.",
   "tooling": "curl + API token, or `pip install hdx-python-api`. Write operations need an API token from the user profile; token is per-user, free, issued on signup.",
-  "chaining": "CKAN resource_create accepts a URL as well as a local file, so HDX can act as a metadata+mirror layer over another host. Public download URLs are stable and content-addressable by resource id — reasonable as a serving tier.",
+  "chaining": "CKAN resource_create accepts a URL as well as a local file, so HDX can act as a metadata+mirror layer over another host. Public download URLs are stable and content-addressable by resource id. Reasonable as a serving tier.",
   "limits": [
     {
       "kind": "write-gated",
@@ -50,7 +50,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "UN-operated, 10+ years of uptime, but editorial review means a rejection is silent and unbounded — no SLA on org approval, and an org can be removed for content outside humanitarian scope. Do not treat as primary durable storage.",
+  "reliability_note": "UN-operated, 10+ years of uptime, but editorial review means a rejection is silent and unbounded. No SLA on org approval, and an org can be removed for content outside humanitarian scope. Do not treat as primary durable storage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

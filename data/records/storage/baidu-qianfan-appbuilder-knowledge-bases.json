@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://qianfan.cloud.baidu.com/qianfandev/topic/361340",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "REST (Qianfan API: upload-to-knowledge-base, create dataset); the BOS-backed path is the only one with a real quota story",
   "tooling": "Baidu Qianfan SDK / plain REST; BOS S3-like API for the source-import path",
-  "chaining": "100 KBs x 800 files = 80,000 files per account on shared storage; 'unlimited' only on the BOS/BES enterprise path, which means paying for BOS — that collapses to BOS pricing, which is out of scope.",
+  "chaining": "100 KBs x 800 files = 80,000 files per account on shared storage; 'unlimited' only on the BOS/BES enterprise path, which means paying for BOS. That collapses to BOS pricing, which is out of scope.",
   "limits": [
     {
       "kind": "per-object-cap",

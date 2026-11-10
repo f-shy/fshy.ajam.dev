@@ -29,7 +29,7 @@
   ],
   "interface_detail": "KVM with a public IPv4 included; the page does not state root or SSH, so the interface is unconfirmed here",
   "tooling": "any SSH client; the vendor's own order panel",
-  "chaining": "a 2 GB KVM box in Jakarta with a public IPv4 and a QRIS payment rail; the one row that needs neither a card nor a foreign-currency bank transfer",
+  "chaining": "a 2 GB KVM box in Jakarta with a public IPv4 and a QRIS payment rail; the one row among documented hosts that needs neither a card nor a foreign-currency bank transfer",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -62,7 +62,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-24T03:25:00.000Z",
   "price_per_tb_month": null,
-  "notes": "The second-best GiB per USD after Bulutova, and the only row whose payment rail is a domestic QR code rather than a card. Not established: the legal entity behind vpsindonesia.co.id. No company name, registration number or address appears on the page read, and WHOIS was not checked. Treat the seller as unverified until that is found.",
+  "notes": "The second-best GiB per USD in this category after Bulutova, and the only row whose payment rail is a domestic QR code rather than a card. Not established: the legal entity behind vpsindonesia.co.id. No company name, registration number or address appears on the page read, and WHOIS was not checked. Treat the seller as unverified until that is found.",
   "extras": {
     "shape": {
       "vcpu": 1,

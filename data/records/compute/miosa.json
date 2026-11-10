@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://miosa.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Egress is billed at $0.054 per GB from the first GB, with no free tier; plans cap egress per month: Free 5 GB, Developer 100 GB, Business 1 TB, Enterprise 5 TB",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "CLI (miosa create, ssh, files cp, exec), SSH into a sandbox, REST API and a TypeScript SDK",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -50,7 +50,7 @@
       "source": "https://miosa.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

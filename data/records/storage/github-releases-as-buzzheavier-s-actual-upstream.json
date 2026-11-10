@@ -5,7 +5,7 @@
   "url": "https://api.github.com/repos/GrandpaNutz/fafda",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.",
+    "stated": "none reachable: Repository GrandpaNutz/fafda returned HTTP 404 and the associated user account returned HTTP 404.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://api.github.com/repos/GrandpaNutz/fafda",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://api.github.com/repos/GrandpaNutz/fafda",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.",
+  "reliability_note": "Repository GrandpaNutz/fafda returned HTTP 404 and the associated user account returned HTTP 404.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://api.github.com/repos/GrandpaNutz/fafda",
@@ -63,7 +63,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.",
+  "notes": "Repository GrandpaNutz/fafda returned HTTP 404 and the associated user account returned HTTP 404.",
   "extras": {
     "dead_end": {
       "failure_class": "dead-service",

@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.massive.io/en/free-tier-pay-as-you-go",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://help.massive.io/en/free-tier-pay-as-you-go"
     }
   ],
-  "limits_note": "request-rate/quota: 15 GB transfer per calendar month; retention: 5 days free storage per file, then per-GB storage billing; per-GB egress $0.25 after the allowance. The task brief's '100 GB free' is wrong — it is 15 GB/month (100 GB is the Smash API trial, a different vendor).",
+  "limits_note": "Request-rate/quota: 15 GB transfer per calendar month; retention: 5 days free storage per file, then per-GB storage billing; per-GB egress $0.25 after the allowance. The task brief's '100 GB free' is wrong. It is 15 GB/month (100 GB is the Smash API trial, a different vendor).",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
@@ -74,5 +74,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

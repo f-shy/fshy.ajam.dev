@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Estimated uptime is the one vendor-published figure a scheduler can gate on before launching: if it returns 10 minutes and the checkpoint interval is 10 minutes, is not worth the setup cost and the scheduler should move zone.",
+  "chaining": "Estimated uptime is the one vendor-published figure a scheduler can gate on before launching: if it returns 10 minutes and the checkpoint interval is 10 minutes, evaluated offerings is not worth the setup cost and the scheduler should move zone.",
   "limits": [],
   "limits_note": "Estimated uptime is bucketed to three values and is a floor for the majority of VMs, so it cannot be converted into a per-hour probability without assuming a distribution.",
   "binding": "none",

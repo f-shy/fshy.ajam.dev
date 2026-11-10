@@ -16,7 +16,7 @@
     "stated": "unverified: no archive size limit is stated on the pages read; the upload is a single .zip, .tgz or .tar.gz archive",
     "bytes": null,
     "source_url": "https://www.ctan.org/upload",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "rest"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "documented HTTP upload interface (POST /submit/validate and POST /submit/upload) in addition to the web form; the upload is passed to the CTAN upload workflow for review",
   "chaining": "not recorded",
   "limits": [

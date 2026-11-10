@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.febbox.com/faq",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "A free account that stays inactive for 3 consecutive months can have its files removed after prior notification.",
@@ -32,7 +32,7 @@
     "webdav"
   ],
   "interface_detail": "WebDAV (beta, announced May 2025), enabled on the website; directories can be read-only or read/write.",
-  "tooling": "not recorded",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [
     {

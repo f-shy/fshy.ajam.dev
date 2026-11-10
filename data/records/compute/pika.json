@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "the free account is a shell for buying packs, so it composes with nothing: no API access on packs, no commercial licence, and no recurring grant. What breaks: the absence of any allowance, which makes Pika the clearest paid-only entry.",
+  "chaining": "the free account is a shell for buying packs, so it composes with nothing: no API access on packs, no commercial licence, and no recurring grant. What breaks: the absence of any allowance, which makes Pika the clearest paid-only entry among documented hosts.",
   "limits": [
     {
       "kind": "volume-quota",

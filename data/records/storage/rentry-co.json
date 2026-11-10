@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://rentry.co/what",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Official Python client github.com/radude/rentry (593 stars) + pip package 'rentry'; single-file CLI with zero dependencies.",
-  "chaining": "unlimited anonymous entries x 200,000 chars (~150 KB of base64 binary after the 4/3 encoder penalty). To reach 500 GB you would need ~3.5M entries, so this is a control-plane / manifest store, not a data tier — unless an unlimited free identity source is added, and even then the operator's storage is the ceiling.",
+  "chaining": "Unlimited anonymous entries x 200,000 chars (~150 KB of base64 binary after the 4/3 encoder penalty). To reach 500 GB you would need ~3.5M entries, so this is a control-plane / manifest store, not a data tier. Unless an unlimited free identity source is added, and even then the operator's storage is the ceiling.",
   "limits": [
     {
       "kind": "request-rate",
@@ -41,7 +41,7 @@
     },
     {
       "kind": "write-gated",
-      "value": "application and stated in the 400 error, so silent truncation does not happen — writes fail",
+      "value": "Application and stated in the 400 error, so silent truncation does not happen. Writes fail.",
       "source": "https://rentry.co/what"
     }
   ],

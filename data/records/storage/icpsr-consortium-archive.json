@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.icpsr.umich.edu/sites/shared/posts/deposit-options",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.icpsr.umich.edu/sites/shared/posts/deposit-options",
     "notes": "not stated"
   },

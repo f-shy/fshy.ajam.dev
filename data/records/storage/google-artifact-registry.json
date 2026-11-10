@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/artifact-registry/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/artifact-registry/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "NOT free — this is the clearest egress failure among the three hyperscalers: 'Pricing for outbound Internet data transfer is based on Premium tier pricing. This is network traffic leaving a repository to a client that is not a Google product, such as using a local server that is downloading artifacts.' Intra-Google traffic is $0.00, and same-continent repository-to-service moves are $0.00, but anything to the open internet is metered at Google's premium internet egress rates. There is no anonymous or public-repo egress allowance.",
+    "terms": "NOT free. This is the clearest egress failure among the three hyperscalers: 'Pricing for outbound Internet data transfer is based on Premium tier pricing. This is network traffic leaving a repository to a client that is not a Google product, such as using a local server that is downloading artifacts.' Intra-Google traffic is $0.00, and same-continent repository-to-service moves are $0.00, but anything to the open internet is metered at Google's premium internet egress rates. There is no anonymous or public-repo egress allowance.",
     "metered": true
   },
   "interface": [

@@ -44,7 +44,7 @@
     }
   ],
   "binding": "volume-quota",
-  "binding_note": "1 TB a month is the smallest allowance of any row, and it fails before the 2 GiB of RAM does for anything that serves bytes.",
+  "binding_note": "1 TB a month is the smallest allowance of any row in evaluated offerings, and it fails before the 2 GiB of RAM does for anything that serves bytes.",
   "identity_cost": {
     "kind": "card",
     "detail": "an account and a payment method at order.",
@@ -68,7 +68,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-24T01:56:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Inside the line at USD 4.00 for 2 GiB, but the 10 GB disk and 1 TB traffic make it the thinnest row per dollar of RAM. The 4 GB rung is USD 6.00 and therefore out. Prices are 'from', so a location may quote higher; the page does not enumerate per-location rates.",
+  "notes": "Inside the line at USD 4.00 for 2 GiB, but the 10 GB disk and 1 TB traffic make it the thinnest row in evaluated offerings per dollar of RAM. The 4 GB rung is USD 6.00 and therefore out. Prices are 'from', so a location may quote higher; the page does not enumerate per-location rates.",
   "extras": {
     "shape": {
       "vcpu": 1,

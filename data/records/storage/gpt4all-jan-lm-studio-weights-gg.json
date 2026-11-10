@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": null,
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "All four are distribution front-ends, not storage: gpt4all.io 301s to nomic.ai/gpt4all and its model catalogue is a static JSON in a GitHub repo (gpt4all-chat/metadata/models3.json, 40 KB)…",
+  "reliability_note": "All four are distribution front-ends, not storage: gpt4all.io 301s to nomic.ai/gpt4all and its model catalogue is a static JSON in a GitHub repo (gpt4all-chat/metadata/models3.json, 40 KB).",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": null,

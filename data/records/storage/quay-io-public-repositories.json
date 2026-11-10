@@ -5,7 +5,7 @@
   "url": "https://quay.io",
   "category": "registry",
   "free_tier": {
-    "stated": "\"We offer unlimited storage and serving of public repositories\" — Red Hat's own support article. Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan.",
+    "stated": "\"We offer unlimited storage and serving of public repositories\". Red Hat's own support article. Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://access.redhat.com/articles/quayio-help",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://access.redhat.com/articles/quayio-help",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Included in 'unlimited storage and serving of public repositories' — no per-GB line item exists for public repos on any plan. Served over quay.io's own CDN edge.",
+    "terms": "Included in 'unlimited storage and serving of public repositories'. No per-GB line item exists for public repos on any plan. Served over quay.io's own CDN edge.",
     "metered": false
   },
   "interface": [
@@ -67,7 +67,7 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "\"We offer unlimited storage and serving of public repositories\" — Red Hat's own support article. Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan.",
+  "notes": "\"We offer unlimited storage and serving of public repositories\". Red Hat's own support article. Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan.",
   "extras": {},
   "binding": "none",
   "binding_note": null

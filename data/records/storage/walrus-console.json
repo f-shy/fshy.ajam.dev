@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://walrus.xyz/blog/introducing-walrus-console/",
     "notes": "not stated"
   },
@@ -31,9 +31,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "Genuinely good for an agent workflow: API keys plus an MCP server that plugs into Claude Code, Codex and Cursor; 'Agent Storage Loop' SDK for batched small writes with durability confirmation. Encrypted by default, per-file on-chain fingerprint.",
-  "chaining": "The paid path is buying WAL and paying per epoch (storage is leased in time units, not bytes-forever) — so cost scales with retention period × size, which is the opposite of an archive.",
+  "chaining": "The paid path is buying WAL and paying per epoch (storage is leased in time units, not bytes-forever). So cost scales with retention period × size, which is the opposite of an archive.",
   "limits": [],
-  "limits_note": "fails-quota at 5 GB by two orders of magnitude. Retention is epoch-based, so data expires unless renewed — a retention-clamped model at the protocol level.",
+  "limits_note": "Fails-quota at 5 GB by two orders of magnitude. Retention is epoch-based, so data expires unless renewed. A retention-clamped model at the protocol level.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

@@ -53,7 +53,7 @@
   ],
   "limits_note": "",
   "binding": "volume-quota",
-  "binding_note": "the unlimited plan removes the counter but requires the $9.99 monthly relationship. A card is required either way.",
+  "binding_note": "150 GB/month on the entry plan is 15% of 1 TiB of monthly transfer; the unlimited plan removes the counter but requires the $9.99 monthly relationship. A card is required either way.",
   "identity_cost": {
     "kind": "card",
     "detail": "Every plan is a paid subscription; the 30-day guarantee is a refund against a charge, not a free tier. The checkout asks for an email address and one of three payment methods: a credit card (first name, last name, zip code, country and card number), PayPal, or cryptocurrency (BTC and other coins); a cryptocurrency purchase is not refundable. The form has no phone field.",

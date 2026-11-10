@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://onecli.sh",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing table lists seats, agents, integration calls, credits and audit retention and no egress allowance or price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "CLI and SDK listed as an integration on the pricing table; no REST reference read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "volume-quota",
@@ -44,7 +44,7 @@
       "source": "https://onecli.sh/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

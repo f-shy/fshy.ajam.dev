@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githubusercontent.com/farcasterxyz/protocol/main/docs/SPECIFICATION.md",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githubusercontent.com/farcasterxyz/protocol/main/docs/SPECIFICATION.md",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "n/a — hubs replicate messages, media is a URL in the cast body pointing at an external host (often Cloudflare Images / imgur).",
+    "terms": "N/a. Hubs replicate messages, media is a URL in the cast body pointing at an external host (often Cloudflare Images / imgur).",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "grpc",
   "tooling": "gRPC hub API (submitMessage); `@farcaster/hub-nodejs`. Storage must be purchased on-chain before a message is accepted.",
-  "chaining": "None. Media is never stored by the protocol — a cast embed is a plain URL. Farcaster is a message log with paid rent, not a file store.",
+  "chaining": "None. Media is never stored by the protocol. A cast embed is a plain URL. Farcaster is a message log with paid rent, not a file store.",
   "limits": [],
   "limits_note": "per-object-cap not applicable; the binding limit is storage units paid for on Optimism plus per-CRDT message-count accounting. Free tier = whatever 1 storage unit covers (a few hundred casts).",
   "identity_cost": {

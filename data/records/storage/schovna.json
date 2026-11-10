@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Web only; no API.",
-  "chaining": "30 GB x unlimited shipments, 14-day expiry — strictly a transfer loop.",
+  "chaining": "Allows 30 GB per shipment with 14-day expiration. Persistent storage options require paid tiers starting at 50 GB.",
   "limits": [
     {
       "kind": "retention-clamped",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Nothing.",
+  "chaining": "Nothing. Documented so the subsequent evaluation does not apply.",
   "limits": [],
   "limits_note": "The provider no longer exists, so nothing binds; the failure mode was organisational, with the chief executive unreachable and co-location unpaid.",
   "binding": "none",

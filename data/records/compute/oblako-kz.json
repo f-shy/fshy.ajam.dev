@@ -89,7 +89,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T06:40:26.615Z",
-  "notes": "The constraint that matters is that it is discretionary: the provider states it may refuse without a reason, so it is not a quota a plan can rest on.",
+  "notes": "Oblako offers a 3-day trial providing up to 8 vCPU, 16 GB RAM, and 200 GB disk in Kazakhstan. Trial access is granted at vendor discretion following account registration.",
   "extras": {
     "facets": {
       "class": "regional-trial",

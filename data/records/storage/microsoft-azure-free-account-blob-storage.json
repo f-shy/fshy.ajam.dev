@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://azure.microsoft.com/en-us/pricing/free-services",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://azure.microsoft.com/en-us/pricing/free-services",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "s3",
   "tooling": "Azure Blob REST API; rclone 'azureblob' backend; azcopy; SAS tokens/public containers for anonymous reads.",
-  "chaining": "One free account per customer, and the 5 GB ends at month 12 while the storage keeps running and starts billing — a negative multiplier unless torn down. $200 credit is 30 days.",
+  "chaining": "One free account per customer, and the 5 GB ends at month 12 while the storage keeps running and starts billing. A negative multiplier unless torn down. $200 credit is 30 days.",
   "limits": [],
   "limits_note": "5 GB for 12 months then paid (~$0.0184/GB-month hot LRS). 100 GB/month egress is the binding constraint for serving.",
   "identity_cost": {

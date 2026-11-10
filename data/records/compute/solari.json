@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://docs.getsolari.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page (https://docs.getsolari.com/pricing) lists credits, hourly rate, session time, concurrency and replay retention, and no transfer allowance or per-GB price; a hardened sandbox has no outbound network at all",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API (api.getsolari.com) and SDKs for TypeScript, Python, Go, Rust and C++; VMs are also viewed and controlled over VNC; no CLI or SSH found in the docs read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -53,7 +53,7 @@
       "source": "https://docs.getsolari.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -61,7 +61,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and publishes the full ladder, including the session cap and replay retention per plan.",
+  "confidence_note": "The pricing page read on 2026-10-22 documents tier pricing, the 1-hour session cap on the Free tier, and replay retention periods.",
   "evidence": [
     {
       "url": "https://docs.getsolari.com/pricing",

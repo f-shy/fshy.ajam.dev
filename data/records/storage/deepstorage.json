@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://deepstorage.dev/pricing",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "No API on Free or Community ('API No' in the plan table). Pro is $9 a month ($90 for 12 months) with unlimited storage, 2 TB of uploads a month and the API; Max is $50 a month ($500 for 12 months) with unlimited storage and unlimited monthly uploads. Bulk paths on Free are torrent import and URL or cloud-drive import, both credit-metered.",
-  "chaining": "Unlimited storage behind a single free action (join a Telegram channel) is the cleanest free-tier gate. Chain = 1 account with unlimited storage, but only 200 GB of new uploads per month on Community, so accumulation is slow rather than blocked.",
+  "chaining": "Community tier provides unlimited cumulative storage with a limit of 200 GB of new uploads per month after joining the vendor Telegram channel.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "This is the only shape that pairs a GPU with 32 TB a month of egress at USD 60: it composes with the free object storage tiers held elsewhere, because the GPU box can pull training data in with no inbound charge and then serve results from a storage tier with its own free egress.",
+  "chaining": "This is the only shape in this category that pairs a GPU with 32 TB a month of egress at USD 60: it composes with the free object storage tiers held elsewhere, because the GPU box can pull training data in with no inbound charge and then serve results from a storage tier with its own free egress.",
   "limits": [
     {
       "kind": "volume-quota",

@@ -25,7 +25,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Downloads are unlimited on the free tier but ad/wait-gated and speed-limited, with a human-verification step; Premium removes ads and gives 300 GB per file and unlimited speed. Free-tier egress is 'unmetered but shaped' — the shaping, not the bytes, is the limit.",
+    "terms": "Downloads are unlimited on the free tier but ad/wait-gated and speed-limited, with a human-verification step; Premium removes ads and gives 300 GB per file and unlimited speed. Free-tier egress is 'unmetered but shaped'. The shaping, not the bytes, is the limit.",
     "metered": false
   },
   "interface": [
@@ -54,7 +54,7 @@
     "detail": "registration asks only for an email address, a password and an image confirmation code; no phone and no card",
     "country": null
   },
-  "reliability_note": "1fichier/DStorage is a carrier with its own transit, so egress is not a marginal cost for them — which is why the free 5 TB survives where others died. The 30/90-day retention clock is the practical failure mode: it is a staging area, not an archive.",
+  "reliability_note": "1fichier/DStorage is a carrier with its own transit, so egress is not a marginal cost for them. Which is why the free 5 TB survives where others died. The 30/90-day retention clock is the practical failure mode: it is a staging area, not an archive.",
   "confidence": "documented",
   "confidence_note": "the prices page, help page, registration form and API page were read on 2026-10-30; the record states what they say",
   "evidence": [

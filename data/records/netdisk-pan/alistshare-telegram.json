@@ -29,7 +29,7 @@
     "rest"
   ],
   "tooling": "the /s/ preview is readable without an account; the message feed is HTML",
-  "chaining": null,
+  "chaining": "Inactive discovery channel. It previously provided instance hosts but no longer publishes new endpoints.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -59,7 +59,7 @@
   "verdict": "dead",
   "verified_at": "2026-10-22T03:37:00.574Z",
   "binding": "retention-clamped",
-  "notes": null,
+  "notes": "Documented to record channel status. Historical instance listings originated from this Telegram channel, which has ceased publishing new instance hostnames.",
   "extras": {
     "access_mode": "index",
     "still_lists_instances": false

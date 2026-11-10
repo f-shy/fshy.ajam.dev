@@ -37,7 +37,7 @@
   ],
   "interface_detail": "Python SDK kaggle-benchmarks, Kaggle Notebooks and a web UI at kaggle.com/benchmarks, plus the Kaggle public API and kaggle CLI; no SSH is published",
   "tooling": "the provider documents the kaggle CLI, per the Kaggle API page: \"kaggle CLI\"",
-  "chaining": "This is the one route where a solo person can obtain model access to six frontier providers on one quota: the benchmark runs against OpenAI, Google, Anthropic, Grok, Qwen and DeepSeek models from a single Kaggle account, which is otherwise six separate signups with six separate cards. It composes with the free notebook quota in compute/kaggle-notebooks, because the SDK runs inside Kaggle Notebooks.",
+  "chaining": "This is the one route in evaluated offerings where a solo person can obtain model access to six frontier providers on one quota: the benchmark runs against OpenAI, Google, Anthropic, Grok, Qwen and DeepSeek models from a single Kaggle account, which is otherwise six separate signups with six separate cards. It composes with the free notebook quota in compute/kaggle-notebooks, because the SDK runs inside Kaggle Notebooks.",
   "limits": [
     {
       "kind": "write-gated",

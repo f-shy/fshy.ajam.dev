@@ -5,7 +5,7 @@
   "url": "https://source.coop",
   "category": "dataset-hosting",
   "free_tier": {
-    "stated": "No published byte quota; the org states it 'hosts over 5 petabytes of data' across 330+ products from 130+ organisations and serves ~700 TB/month, and positions itself as 'data publishing at any scale'.",
+    "stated": "No published byte quota. The platform documents hosting over 5 petabytes of data across 330+ products from 130+ organizations, serving approximately 700 TB per month for public data publishing. Documentation specifies no per-product, per-account, or per-file cap.",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://docs.source.coop/what-is-source",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.source.coop/what-is-source",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.source.coop/what-is-source",
     "notes": "not stated"
   },
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "s3",
   "tooling": "Genuine S3 proxy. Endpoint https://data.source.coop, --no-sign-request for reads. Upload credentials are Source-issued but in AWS format and valid only at the proxy; path is s3://<account-id>/<product-id>/ and you cannot write outside your own prefix. Accepts aws cli, boto3, rclone with a custom endpoint, plus a Source CLI and service accounts for CI.",
-  "chaining": "Multiplier is data products per account/org, and orgs can hold team members. Because reads are anonymous and S3-native, this is the cleanest 'someone else's S3 on a real CDN' shape in the whole D area — it can be mounted by AList/rclone and fronted by Cloudflare exactly per §2.1.",
+  "chaining": "Multiplier is data products per account/org, and orgs can hold team members. Because reads are anonymous and S3-native, this is the cleanest 'someone else's S3 on a real CDN' shape in the whole D area. It can be mounted by AList/rclone and fronted by Cloudflare exactly per §2.1.",
   "limits": [],
-  "limits_note": "Flat pricing 'will be announced soon' — i.e. free today, unpriced tomorrow, which is a real durability risk for capacity planning. Data products are public by default and there is no private mode.",
+  "limits_note": "Write-gated. Publishing data requires application to the beta testing program via web form. Future flat pricing is announced for upcoming release. Data repositories are public by default with no private mode.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
@@ -83,7 +83,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No published byte quota; the org states it 'hosts over 5 petabytes of data' across 330+ products from 130+ organisations and serves ~700 TB/month, and positions itself as 'data publishing at any scale'.",
+  "notes": "No published byte quota. The platform documents hosting over 5 petabytes of data across 330+ products from 130+ organizations, serving approximately 700 TB per month for public data publishing. Documentation specifies no per-product, per-account, or per-file cap.",
   "extras": {},
   "binding": "none",
   "binding_note": null

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.scrapingbee.com/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.scrapingbee.com/pricing/ states API credits per plan and no egress allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "HTTP API authenticated with an API key (bearer header); a scrapingbee CLI installed with pip; client libraries for several languages shown in the documentation",
   "tooling": "scrapingbee-cli (pip install scrapingbee-cli) and ScrapingBeeClient libraries",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -49,7 +49,7 @@
       "source": "https://www.scrapingbee.com/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required', quoted from scrapingbee.com/pricing read 2026-10-22",

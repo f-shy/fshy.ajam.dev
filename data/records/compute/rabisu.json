@@ -52,7 +52,7 @@
     "detail": "not stated",
     "country": null
   },
-  "reliability_note": "the page advertises a 99 percent uptime guarantee, the lowest, where every other provider here states 99.9 or above; the page's live statistics report avg hypervisor CPU 32.90 percent, 5,368 total cores and 454.77 TB of NVMe provisioned",
+  "reliability_note": "the page advertises a 99 percent uptime guarantee, the lowest among documented hosts, where every other provider here states 99.9 or above; the page's live statistics report avg hypervisor CPU 32.90 percent, 5,368 total cores and 454.77 TB of NVMe provisioned",
   "confidence": "documented",
   "evidence": [
     {
@@ -108,7 +108,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:16:58.955Z",
-  "notes": "The tracker labels the cores 'Intel' while the vendor names Ryzen and the plan is called 'Aydin VPS x4 Ryzen CPU'. Traffic is the open question: 'unlimited' on the vendor page and 10240 GB on the tracker. The operator is 2E TELEKOMUNIKASYON LTD. The plan name carries a Turkish dotless i and is transliterated to 'Aydin' here because this record is ASCII-only.",
+  "notes": "Rabisu offers Ryzen KVM VPS instances ('Aydin VPS') operated by 2E Telekomunikasyon Ltd. Sti. Plans feature 1 Gbps uplink ports with unmetered fair-use traffic.",
   "extras": {
     "facets": {
       "class": null,

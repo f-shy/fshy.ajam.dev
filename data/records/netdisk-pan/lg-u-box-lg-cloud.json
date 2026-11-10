@@ -73,7 +73,7 @@
   "verified_at": "2026-10-21T00:00:00.000Z",
   "binding": "retention-clamped",
   "binding_note": "The service has ended, so the retention clamp is total: there is no offer to test.",
-  "notes": null,
+  "notes": "Service officially decommissioned, reflecting the consolidation of telecom carrier cloud offerings into partner services like Google One.",
   "extras": {
     "access_mode": "none",
     "closed": "2021-12-01",

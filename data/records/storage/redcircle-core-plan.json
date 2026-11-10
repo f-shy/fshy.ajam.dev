@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.redcircle.com/articles/7581935770-redcircle-account-plans",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.redcircle.com/articles/7581935770-redcircle-account-plans",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unlimited / unmetered — the plan table lists 'bandwidth: Unlimited' and 'Number of Downloads: Unlimited'. No egress pricing exists at any tier.",
+    "terms": "Unlimited / unmetered. The plan table lists 'bandwidth: Unlimited' and 'Number of Downloads: Unlimited'. No egress pricing exists at any tier.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "No public upload API found (search surfaced only third-party 'integration' marketing pages). Web dashboard only for uploads; the RSS feed itself is a plain GET, so read-side automation is trivial. Public feed format: https://feeds.redcircle.com/<show-uuid> (documented in RedCircle's own Apple distribution guide).",
-  "chaining": "1 podcast per free account, but unlimited episodes per podcast and unlimited storage — so capacity is per-account, not per-episode: N accounts x unbounded. 200 MB/episode is the only multiplier, so large volumes need many episodes rather than few large files (200 MB x unlimited episodes is still unbounded).",
+  "chaining": "1 podcast per free account, but unlimited episodes per podcast and unlimited storage. So capacity is per-account, not per-episode: N accounts x unbounded. 200 MB/episode is the only multiplier, so large volumes need many episodes rather than few large files (200 MB x unlimited episodes is still unbounded).",
   "limits": [],
   "limits_note": "200 MB per audio file on Core (250 MB on Pro/Enterprise); 10 GB for video, but video upload is Pro/Enterprise only. 1 podcast on Core. Feed refreshes periodically, so a new episode is not instantly in the RSS.",
   "identity_cost": {

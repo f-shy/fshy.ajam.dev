@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "A KS-5 at EUR 17.99 with 2 x 2 TB is 4 TB of raw disk with a whole machine attached, which is the cheapest way in documented records to get multi-terabyte local storage that is not billed per byte.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -98,7 +98,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Kimsufi is not a separate brand any more: kimsufi.com now redirects to eco.ovhcloud.com, and the KS SKUs sit inside the OVH eco catalogue beside the Advance and Rise ranges. Querying the regional variants as well showed seven orderable codes, and the pattern is that the surviving stock is Asia-Pacific and North American while Europe is empty. So the cheapest orderable Kimsufi is EUR 16.99 in Singapore, not EUR 9.99 anywhere, and the Singapore machine is metered at 25 TB a month. A reader who wants the unlimited European term cannot buy it on this date. The catalogue returns setup fees of 0 for these SKUs while the website prints a one-month installation fee, so the setup figure here comes from the website and the disagreement is recorded rather than resolved.",
+  "notes": "Kimsufi dedicated servers are integrated into the OVH Eco catalog alongside Rise and Advance servers. Entry-level European configurations frequently experience stock shortages, with availability concentrated in North America and Asia-Pacific datacenters.",
   "extras": {
     "facets": {
       "class": "floor-price",

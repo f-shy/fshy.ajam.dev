@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://xiaoyi.vc/chaoxing.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Upload/download not speed-limited ('上传下载不限速'). Downloads of shared files require login — a read-gate on the sharing path, not the byte path.",
+    "terms": "Upload/download not speed-limited ('上传下载不限速'). Downloads of shared files require login. A read-gate on the sharing path, not the byte path.",
     "metered": false
   },
   "interface": [
@@ -32,8 +32,8 @@
     "webdav-proxy"
   ],
   "interface_detail": "rest",
-  "tooling": "OpenList driver `chaoxing` (超星小组盘 — group drive variant, explicitly '需要代理才能使用') and qaiu/netdisk-fast-download `pcx` with a mandatory `Referer: https://pan-yz.chaoxing.com`. Both are reverse-engineered.",
-  "chaining": "Realistically one identity = 100 GB.",
+  "tooling": "OpenList driver `chaoxing` (超星小组盘. Group drive variant, explicitly '需要代理才能使用') and qaiu/netdisk-fast-download `pcx` with a mandatory `Referer: https://pan-yz.chaoxing.com`. Both are reverse-engineered.",
+  "chaining": "Accounts provide 100 GB each, tied to institutional student identifiers (学号), with group drives (小组盘) adding shared pools per course.",
   "limits": [
     {
       "kind": "per-object-cap",

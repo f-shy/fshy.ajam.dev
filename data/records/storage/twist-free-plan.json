@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://get.twist.help/hc/en-us/articles/360004758880-Add-files-to-Twist",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://get.twist.help/hc/en-us/articles/360004758880-Add-files-to-Twist",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Twist REST API (api.twist.com/api/v3) with attachment upload by `file_id`; OAuth2 app registration. Weaker client ecosystem than Slack.",
-  "chaining": "Unlimited free teams per account ('create a separate, free team'), so N teams x 5 GB is trivially repeatable — but each team needs its own members/invites.",
+  "chaining": "Unlimited free teams per account ('create a separate, free team'), so N teams x 5 GB is trivially repeatable. But each team needs its own members/invites.",
   "limits": [
     {
       "kind": "per-object-cap",

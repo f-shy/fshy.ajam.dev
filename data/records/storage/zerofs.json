@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://zerofs.link/faq/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Files inactive for 15 days are deleted — the shortest retention of any live host",
+    "stated": "Files inactive for 15 days are deleted.",
     "days": 15,
     "source_url": "https://zerofs.link/faq/",
     "notes": "not stated"
@@ -34,10 +34,10 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "Anonymous browser uploader plus a region selector; no published API. Optional account ID (no email) to track files. No rclone/webdav/S3 backend found.",
+  "tooling": "Anonymous browser uploader with region selector. No public REST API, rclone, WebDAV, or S3 backend is documented. Optional account identifier tracks uploaded files.",
   "chaining": "Account-less uploads, so unlimited identities; the binding constraint is the 15-day inactivity deletion, which needs a re-access cron per file. At unlimited file size this is >= 500 GB per 'unit' trivially.",
   "limits": [],
-  "limits_note": "No file size limit. Files inactive for 15 days are deleted — the shortest retention of any live host. No login required.",
+  "limits_note": "No file size limit. Files inactive for 15 days are deleted. No login required.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

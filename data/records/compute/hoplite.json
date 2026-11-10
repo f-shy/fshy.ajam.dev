@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://hoplite.sh",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "a REST API described by an OpenAPI specification, authenticated with a scoped API key sent as X-Api-Key or Bearer; an MCP server at https://api.hoplite.sh/mcp behind OAuth; a CLI published on npm as @usehoplite/cli",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -45,7 +45,7 @@
       "source": "https://hoplite.sh"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "The Free plan needs a card that is not charged: a new workspace's signup opens a Stripe setup checkout for a billing address and card, and prepaid cards are not accepted. Repository access is through a GitHub App installation. Whether a phone number is asked is unverified: the public pages do not say.",

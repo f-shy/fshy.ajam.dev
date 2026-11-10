@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "control panel with OS reinstall, 1-2 minute provisioning, custom ISO; no API documented on the page read",
-  "chaining": "A Ryzen 9 3900 core, 15 GB of NVMe and an unlimited 100 Mbps port in Germany for RUB 279 is a better per-ruble shape than any metered German row, if the port is enough",
+  "chaining": "A Ryzen 9 3900 core, 15 GB of NVMe and an unlimited 100 Mbps port in Germany for RUB 279 is a better per-ruble shape than any metered German row among evaluated providers, if the port is enough.",
   "limits": [
     {
       "kind": "per-ip-shaping",

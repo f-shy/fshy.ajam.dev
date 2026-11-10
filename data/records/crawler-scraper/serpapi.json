@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST, Google and other engines as JSON",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "A price reference for what a Google-backed search costs at volume, which is the ceiling a free tier is measured against",
   "limits": [
     {

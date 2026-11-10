@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "self-service panel at my.it-garage.pro for OS install and resource change; no API documented on the page read",
-  "chaining": "A Ryzen 9 5950X core at RUB 218 is the highest single-core clock, which matters for a single-threaded scraper that cannot parallelise",
+  "chaining": "A Ryzen 9 5950X core at RUB 218 is the highest single-core clock among evaluated providers, which matters for a single-threaded scraper that cannot parallelise.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -68,7 +68,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Source: vps.today index row, then the vendor homepage. Rendering and provenance: currency written as RUB.",
+  "notes": "Source: vps.today index row, then the vendor homepage. The homepage sells and does not price, so the record is reported. verification criteria: the order form's cheapest configuration. Rendering and provenance: currency written as RUB.",
   "extras": {
     "facets": {
       "class": null,

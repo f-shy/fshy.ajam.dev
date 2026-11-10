@@ -5,7 +5,7 @@
   "url": "https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users",
   "category": "iaas",
   "free_tier": {
-    "stated": "Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months — the docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure.",
+    "stated": "Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months. The docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure.",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.alibabacloud.com/help/en/oss/free-quota-for-new-users",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
     "rclone"
   ],
   "interface_detail": "s3",
-  "tooling": "OSS S3-compatible API — rclone 's3' provider 'Alibaba Cloud (Aliyun) Object Storage System (OSS)'; ossutil; OSS SDKs.",
+  "tooling": "OSS S3-compatible API. Rclone 's3' provider 'Alibaba Cloud (Aliyun) Object Storage System (OSS)'; ossutil; OSS SDKs.",
   "chaining": "New-user-only, one trial per verified identity. The 500 GB is 30 days, not recurring. No free per-account multiplication.",
   "limits": [],
   "limits_note": "1 month; 2 GB (trial) + 5 GB/month outbound traffic; 200,000 API requests for 3 months. A 500 GB store with 7 GB/month of egress is a write-only archive you cannot read back for free.",
@@ -63,7 +63,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months — the docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure.",
+  "notes": "Current international page: 'Standard LRS resource plan: 500 GB for 1 month' (individual) / '1 TB for 1 month' (enterprise), stacking with a 5 GB/month perpetual allowance to 505 GB (individual) / 1,029 GB (enterprise) during the trial month. The help.aliyun.com (China) variant of the same doc instead states 20 GB for 3 months. The docs disagree, so treat 500 GB/1 month as the international figure and 20 GB/3 months as the China figure.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

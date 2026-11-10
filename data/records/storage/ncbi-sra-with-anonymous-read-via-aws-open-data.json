@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ncbi.nlm.nih.gov/sra/docs/submitfiles/",
     "notes": "not stated"
   },
@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free. Read side is mirrored to AWS Open Data (`sra-pub-run-odp.s3.amazonaws.com`) with anonymous, ranged, CORS-open access — no requester-pays, no auth.",
+    "terms": "Free. Read side is mirrored to AWS Open Data (`sra-pub-run-odp.s3.amazonaws.com`) with anonymous, ranged, CORS-open access. No requester-pays, no auth.",
     "metered": false
   },
   "interface": [
@@ -34,7 +34,7 @@
   "tooling": "Aspera Connect / ascp, sra-tools (prefetch/fasterq-dump), and the AWS Open Data mirror which behaves like any public S3 bucket.",
   "chaining": "Deposit is per-submission and effectively unbounded; the AWS mirror means the fetch workload does not touch NCBI's own edge at all, so read capacity is Amazon's, not NCBI's. Each public run is an independently addressable anonymous object.",
   "limits": [],
-  "limits_note": "per-object-cap: none on deposit; individual runs of hundreds of GB are normal. Retention: permanent, no expiry. Binding limit on read is per-ip-shaping from S3 — not a storage cap.",
+  "limits_note": "Per-object-cap: none on deposit; individual runs of hundreds of GB are normal. Retention: permanent, no expiry. Binding limit on read is per-ip-shaping from S3. Not a storage cap.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

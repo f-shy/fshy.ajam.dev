@@ -5,7 +5,7 @@
   "url": "https://pan.wo.cn",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "60 GB free — raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效'). Site tagline '不限速'. Non-Unicom numbers can register ('非联通用户也能注册').",
+    "stated": "60 GB free. Raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效'). Site tagline '不限速'. Non-Unicom numbers can register ('非联通用户也能注册').",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://forum.naixi.net/thread-5251-1-1.html",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://forum.naixi.net/thread-5251-1-1.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "60 GB free — raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效')",
+    "stated": "60 GB free. Raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效').",
     "source_url": "https://forum.naixi.net/thread-5251-1-1.html",
     "notes": "not stated"
   },
@@ -31,10 +31,10 @@
     "webdav-proxy"
   ],
   "interface_detail": "rest",
-  "tooling": "OpenList driver `wopan` (has its own SDK: github.com/OpenListTeam/wopan-sdk-go, refresh-token + family-id support) — maintained, not reverse-engineered, which is unusual for a Chinese carrier drive.",
+  "tooling": "OpenList driver `wopan` (has its own SDK: github.com/OpenListTeam/wopan-sdk-go, refresh-token + family-id support). Maintained, not reverse-engineered, which is unusual for a Chinese carrier drive.",
   "chaining": "60 GB per account, phone-bound; each additional carrier number is a new identity. Carrier-family sharing ('family_id') pools within a household. Not a 500 GB play unless multiplied.",
   "limits": [],
-  "limits_note": "quota 60 GB is the binding limit. No published per-file cap in what. Free tier is explicitly a growth/acquisition tier ('现在是能薅则薅的阶段...长期稳定性存疑').",
+  "limits_note": "Account quota of 60 GB is the primary constraint. No per-file size cap is published in official documentation.",
   "identity_cost": {
     "kind": "country-phone",
     "detail": "country-phone (PRC number; non-Unicom accepted).",
@@ -62,7 +62,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "60 GB free — raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效'). Site tagline '不限速'. Non-Unicom numbers can register ('非联通用户也能注册').",
+  "notes": "60 GB free. Raised from 10 GB by a 2025-09-01→15 promotion that was made permanent ('免费用户存储空间 由10GB 提升至60GB，空间长期有效'). Site tagline '不限速'. Non-Unicom numbers can register ('非联通用户也能注册').",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

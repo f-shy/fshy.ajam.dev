@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://en.wikipedia.org/wiki/DigiLocker",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "not applicable — documents are private to the account holder and to requesting agencies via consent; there is no public/anonymous retrieval URL. That alone disqualifies it as a serving or archive tier.",
+    "terms": "Not applicable. Documents are private to the account holder and to requesting agencies via consent; there is no public/anonymous retrieval URL. That alone disqualifies it as a serving or archive tier.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "No public upload API. Partner agencies integrate via DigiLocker APIs; individuals use the app/web UI only.",
   "tooling": "none for bulk; UI-only for citizens.",
-  "chaining": "none — private namespace, consent-gated sharing, no direct link model.",
+  "chaining": "None. Private namespace, consent-gated sharing, no direct link model.",
   "limits": [
     {
       "kind": "per-object-cap",

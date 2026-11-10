@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.opendrive.com/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free plan is capped at 1 GB/day bandwidth — a hard daily meter, not a throttle. Paid Personal Unlimited claims 'Unlimited Storage, Bandwidth, File Size'.",
+    "terms": "Free plan is capped at 1 GB/day bandwidth. A hard daily meter, not a throttle. Paid Personal Unlimited claims 'Unlimited Storage, Bandwidth, File Size'.",
     "metered": false
   },
   "interface": [

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The only grant with no geography clause, no entity clause and no institutional sponsor: USD 5,000 at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) is about 1,253 H100-hours, which is more than enough for one reproducible experiment on a competition dataset. It composes with Zindi and DrivenData competitions, where the compute cost of entry is exactly this size.",
+  "chaining": "The only grant in this category with no geography clause, no entity clause and no institutional sponsor: USD 5,000 at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) is about 1,253 H100-hours, which is more than enough for one reproducible experiment on a competition dataset. It composes with Zindi and DrivenData competitions, where the compute cost of entry is exactly this size.",
   "limits": [
     {
       "kind": "write-gated",
@@ -68,7 +68,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The weakness is durability: one iteration ran, 29 applications arrived, and the site promises future rounds without dates. Its interest rate is that USD 5,000 at marketplace rates is real capacity, not a demo. The site as read advertises the first iteration and its results only.",
+  "notes": "Zoltan's FLOPS GPU grants provide up to USD 5,000 in GPU marketplace credits for independent researchers, distributed via application review.",
   "extras": {
     "facets": {
       "class": "community-grant",

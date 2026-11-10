@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://launchpad-help.readthedocs.io/en/latest/how-to/distribute-ubuntu-software.html",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "`dput`/`dput-ng` (rsync+ftp upload to ppa.launchpad.net), `apt`/`deb-src` for consumption, Launchpad REST API + `launchpadlib`. No rclone backend.",
-  "chaining": "N PPAs per owner ('one or more per user or team') x 8 GiB each x unlimited free Launchpad accounts and teams. A team can own multiple PPAs, so 8 GiB x N.",
+  "chaining": "Users and teams can create multiple Personal Package Archives with 8 GiB capacity each. Aggregating capacity scales across distinct PPA repositories and signing keys.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -83,5 +83,5 @@
   "notes": "8 GiB of disk per PPA - current official reference: 'Disk space | 8 GiB; larger quotas considered on request at https://answers.launchpad.net/launchpad'. (Historical: PPAs were raised to a 2 GiB minimum in 2010 per the Launchpad blog; the 8 GiB figure is the current documented one.) 'PPAs per owner: One or more per user or team; each has its own URL.'",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

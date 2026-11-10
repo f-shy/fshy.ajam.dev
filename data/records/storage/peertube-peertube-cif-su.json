@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://peertube.cif.su/api/v1/config",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://peertube.cif.su/api/v1/config",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free — instance serves HTTP + WebTorrent/HLS; no egress meter. Peers can also seed via BitTorrent, offloading the host.",
+    "terms": "Free. Instance serves HTTP + WebTorrent/HLS; no egress meter. Peers can also seed via BitTorrent, offloading the host.",
     "metered": false
   },
   "interface": [
@@ -61,7 +61,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Volunteer-run instances disappear without notice — a single admin's disk decision deletes the archive. `videoFile.update` is disabled on cif.su, so you cannot patch an upload in place.",
+  "reliability_note": "Volunteer-run instances disappear without notice. A single admin's disk decision deletes the archive. `videoFile.update` is disabled on cif.su, so you cannot patch an upload in place.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

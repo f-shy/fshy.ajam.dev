@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Arweave reads are effectively unmetered through gateways (arweave.net, ar.io gateways) — genuinely free egress, which is why this would otherwise be interesting. But there is nothing to serve.",
+    "terms": "Arweave reads are effectively unmetered through gateways (arweave.net, ar.io gateways). Genuinely free egress, which is why this would otherwise be interesting. But there is nothing to serve.",
     "metered": false
   },
   "interface": [

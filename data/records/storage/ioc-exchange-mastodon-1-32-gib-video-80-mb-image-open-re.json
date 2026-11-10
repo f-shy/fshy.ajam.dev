@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ioc.exchange/api/v2/instance",
     "notes": "not stated"
   },

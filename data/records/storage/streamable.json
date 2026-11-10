@@ -5,7 +5,7 @@
   "url": "https://streamable.com",
   "category": "media",
   "free_tier": {
-    "stated": "250 MB per file, 10 minutes per video on the free plan. No storage pool — the unit is the individual clip.",
+    "stated": "250 MB per file, 10 minutes per video on the free plan. No storage pool. The unit is the individual clip.",
     "unit": "MB",
     "metered_on": "stored-bytes",
     "source_url": "https://streamable-support.zendesk.com/hc/en-us/articles/35415717293204-Free-Plan-Limits",
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "yt-dlp `Streamable` extractor (verified present). Undocumented upload endpoint only.",
-  "chaining": "Unlimited clips at 250 MB — mathematically unbounded but practically useless: 500 GB would need 2,000 separate uploads, each expiring in 90 days.",
+  "chaining": "Unlimited clips at 250 MB. Mathematically unbounded but practically useless: 500 GB would need 2,000 separate uploads, each expiring in 90 days.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -69,7 +69,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "250 MB per file, 10 minutes per video on the free plan. No storage pool — the unit is the individual clip.",
+  "notes": "250 MB per file, 10 minutes per video on the free plan. No storage pool. The unit is the individual clip.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

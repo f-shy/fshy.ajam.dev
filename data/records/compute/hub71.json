@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The AED 500,000 cash half is equity, not a grant, so the effective free capacity is the AED 250,000 in-kind tranche, which is spent with Hub71's service providers rather than on a cloud bill; that is what limits it as a compute resource even though the headline number is the largest in the MENA slice.",
+  "chaining": "The AED 500,000 cash half is equity, not a grant, so the effective free capacity is the AED 250,000 in-kind tranche, which is spent with Hub71's service providers rather than on a cloud bill; that is what limits it as a compute resource even though the headline number is the largest in the MENA slice of evaluated providers.",
   "limits": [
     {
       "kind": "write-gated",

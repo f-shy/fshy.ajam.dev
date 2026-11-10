@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "a binding on a Worker, or REST; models for rerank, convert and generate",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "Reranks search and works, converts documents to Markdown, and describes an image when asked",
   "limits": [
     {
@@ -167,6 +167,6 @@
       "quote": "| Workers Free | 10,000 Neurons per day | N/A - Upgrade to Workers Paid |"
     }
   ],
-  "notes": null,
+  "notes": "Used for result re-ranking where bge-reranker-base scores query results. When the daily allocation is spent, results fall back to the search provider order.",
   "binding_note": "the 10,000 Neurons a day per account are spent long before any per-minute rate limit binds"
 }

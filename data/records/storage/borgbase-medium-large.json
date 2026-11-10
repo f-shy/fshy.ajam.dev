@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.borgbase.com/pricing",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "SSH (borg/restic), web UI, REST API",
   "tooling": "borg, borgmatic, restic, Vorta; rclone only via SFTP",
-  "chaining": "Append-only repository — a backup tier, not a mountable serving tier",
+  "chaining": "Append-only repository. A backup tier, not a mountable serving tier.",
   "limits": [],
   "limits_note": "Plan size + 3x flexible quota; append-only mode; no S3",
   "identity_cost": {
@@ -42,7 +42,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "EU or US region choice; 30-day refund on annual. Small operator — the 2 TB ceiling means 20 TB would need a custom plan.",
+  "reliability_note": "EU or US region choice; 30-day refund on annual. Small operator. The 2 TB ceiling means 20 TB would need a custom plan.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

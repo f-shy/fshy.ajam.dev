@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Web form, folder upload supported. No API.",
-  "chaining": "50 GB x unlimited drops, 7 days — a high-throughput transfer pipe, not storage.",
+  "chaining": "50 GB x unlimited drops, 7 days. A high-throughput transfer pipe, not storage.",
   "limits": [
     {
       "kind": "per-object-cap",

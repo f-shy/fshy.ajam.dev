@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "The pack is the widest single aggregator found, but it composes with nothing because verification is the single point of failure for all 60 offers at once.",
+  "chaining": "The pack is the widest single aggregator found on 2026-10-22, but it composes with nothing because verification is the single point of failure for all 60 offers at once.",
   "limits": [
     {
       "kind": "write-gated",
@@ -73,7 +73,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Refutation of the headline program in this class. The vendor's own application page says the evidence required is enrollment documentation, which makes the identity cost institution and the verdict fails-identity rather than fails-quota. The three cheapest verification documents to produce would be a class schedule, a transcript or an enrollment letter, and none is held.",
+  "notes": "The student developer pack requires academic enrollment verification.",
   "extras": {
     "facets": {
       "class": "student-pack",

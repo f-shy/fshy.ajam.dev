@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free from Telegram, served as HTTP from your host — so Cloudflare-cacheable. Multi-bot load balancing is the advertised scaling lever.",
+    "terms": "Free from Telegram, served as HTTP from your host. So Cloudflare-cacheable. Multi-bot load balancing is the advertised scaling lever.",
     "metered": false
   },
   "interface": [

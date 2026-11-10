@@ -5,7 +5,7 @@
   "url": "https://www.acast.com",
   "category": "media",
   "free_tier": {
-    "stated": "1 show, 5 episodes on Free — 'unlimited episodes when you make your show available in Acast's advertising marketplace'. So free capacity is 5 episodes unless you opt into ad monetisation, in which case episodes are unlimited but storage is still bounded by the 150 MB file cap.",
+    "stated": "1 show, 5 episodes on Free. 'unlimited episodes when you make your show available in Acast's advertising marketplace'. So free capacity is 5 episodes unless you opt into ad monetisation, in which case episodes are unlimited but storage is still bounded by the 150 MB file cap.",
     "unit": "objects",
     "metered_on": "object-count",
     "source_url": "https://www.acast.com/en/pricing",
@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.acast.com/en/pricing",
     "notes": "not stated"
   },
@@ -44,7 +44,7 @@
       "source": "https://learn.acast.com/en/articles/3505536-which-audio-file-format-should-i-use-for-my-podcast"
     }
   ],
-  "limits_note": "150 MB hard per-episode cap — 'Acast sets the internal limit to 150MB also', and going over produces an 'episode unavailable' error on listener devices because Apple caps cellular downloads at 150 MB. MP3 or M4A only (no WAV/FLAC).",
+  "limits_note": "150 MB hard per-episode cap. 'Acast sets the internal limit to 150MB also', and going over produces an 'episode unavailable' error on listener devices because Apple caps cellular downloads at 150 MB. MP3 or M4A only (no WAV/FLAC).",
   "identity_cost": {
     "kind": "email",
     "detail": null,

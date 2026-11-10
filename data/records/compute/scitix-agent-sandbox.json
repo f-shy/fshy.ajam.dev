@@ -5,7 +5,7 @@
   "url": "https://scitix.github.io/Agent-Sandbox/",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": null,
+    "stated": "free tier published without a credit amount",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://scitix.github.io/Agent-Sandbox/",
@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://scitix.github.io/Agent-Sandbox/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: open-source software with no hosted plan, price or transfer allowance on the project site or docs introduction; egress is whatever the cluster's provider charges",
@@ -37,15 +37,15 @@
   ],
   "interface_detail": "HTTP API served by the controller, the `abx` CLI, and E2B-compatible agent SDKs; the user installs the platform with Helm on a Kubernetes cluster and the CLI on a machine",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "no plan and no price: the project is software a user runs, compatible with the E2B API",
+      "value": "no plan and no price: the project is software users run, compatible with the E2B API",
       "source": "https://scitix.github.io/Agent-Sandbox/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -53,7 +53,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the project site was read on 2026-10-22. It is an open-source sandbox for evaluation harnesses with no plan or price, which confirms paid-only and explains it: the software runs on a user's cluster",
+  "confidence_note": "the project site was read on 2026-10-22. It is an open-source sandbox for evaluation harnesses with no plan or price, which confirms paid-only and explains it: the software runs on the user's cluster",
   "evidence": [
     {
       "url": "https://scitix.github.io/Agent-Sandbox/",

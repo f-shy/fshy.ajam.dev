@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "The open-source build can be deployed on self-hosted or remote infrastructure, but as sold it provides no hosted compute and no allowance.",
   "limits": [
     {
       "kind": "write-gated",

@@ -133,6 +133,6 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-03T00:38:57.492Z",
-  "notes": "The GLM-5.3 cap of USD 15 a month at USD 1.40 per 1M input is about 10.7M input tokens with no output.",
+  "notes": "The plan publishes a per-model dollar ceiling. The GLM-5.3 cap of USD 15 a month at USD 1.40 per 1M input represents about 10.7M input tokens with no output.",
   "binding": "request-rate"
 }

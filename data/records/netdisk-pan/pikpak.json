@@ -80,7 +80,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T00:21:08.723Z",
   "binding": "per-object-cap",
-  "notes": "The landing page states that more than 80% of files can be downloaded to the drive in seconds through the cloud-download server, and that is a claim about acquisition rather than storage.",
+  "notes": "The landing page advertises high-speed cloud transfer to drive storage. Detailed quota, retention, and transfer pricing terms are unconfirmed because mypikpak.com/en/price returned non-HTML dynamic content to automated HTTP requests.",
   "extras": {
     "access_mode": "registration-gated",
     "blocked": "pricing page served as a binary body"

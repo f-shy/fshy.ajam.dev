@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://send-anywhere.com/pricing",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://send-anywhere.com/pricing"
     }
   ],
-  "limits_note": "per-object-cap: 10 GB stored link / 50 GB real-time. Retention: expires, and expired links are unrecoverable. pull-count: 'download data' is a metered allowance — this is the actual binding constraint on free, and exhausting it blocks further downloads from your own links.",
+  "limits_note": "Per-object-cap: 10 GB stored link / 50 GB real-time. Retention: expires, and expired links are unrecoverable. pull-count: 'download data' is a metered allowance. This is the actual binding constraint on free, and exhausting it blocks further downloads from your own links.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

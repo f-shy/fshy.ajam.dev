@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.vpsserver.com/free-vps-server/",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Includes 5 TB outbound transfer (1 TB in Asia and Australia), followed by metered overage rates.",
     "metered": true
   },
   "interface": [

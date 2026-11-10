@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githubusercontent.com/bluesky-social/atproto/main/packages/pds/src/config/config.ts",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Blob GC is literal and fast — an upload without a referencing record vanishes. That is the single most important fact about this candidate.",
+  "reliability_note": "Blob GC is literal and fast. An upload without a referencing record vanishes. That is the single most important fact about this candidate.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

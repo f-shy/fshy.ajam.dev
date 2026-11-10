@@ -41,13 +41,13 @@
   "limits": [
     {
       "kind": "volume-quota",
-      "value": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk",
+      "value": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk among evaluated providers.",
       "source": "https://mlnl.host/"
     }
   ],
-  "limits_note": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk",
+  "limits_note": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk among evaluated providers.",
   "binding": "volume-quota",
-  "binding_note": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk",
+  "binding_note": "1 TB a month, and the plan has no IPv4 address at all, so it cannot serve inbound traffic without a relay; the 5 GB SSD is the tightest disk among evaluated providers.",
   "identity_cost": {
     "kind": "email",
     "detail": "not stated",

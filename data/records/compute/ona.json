@@ -10,7 +10,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://ona.com/contact/sales",
     "read_on": "2026-10-22",
-    "notes": "an earlier catalogue row records a free tier; no page that states one was reachable"
+    "notes": "an earlier catalogue row records a free tier; no page that states one was reachable in verification"
   },
   "per_object_cap": {
     "stated": "not stated",
@@ -42,13 +42,13 @@
       "source": "https://ona.com/contact/sales"
     }
   ],
-  "limits_note": "the product has moved to sales-led onboarding",
+  "limits_note": "Product offers development environments via sales-led onboarding; self-serve pricing is not published.",
   "identity_cost": {
     "kind": "card",
     "detail": "a sales conversation; no self-serve signup was reachable",
     "country": null
   },
-  "reliability_note": "no reliability event observed",
+  "reliability_note": "no reliability event recorded",
   "confidence": "documented",
   "confidence_note": "the redirect and the form are documented; the product's terms are not, because no page stating them was reached",
   "evidence": [
@@ -66,7 +66,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Gitpod and Ona are one provider under two slugs, and this is the record.",
+  "notes": "Ona Cloud (formerly associated with Gitpod) provides developer workspace environments under sales-directed onboarding.",
   "extras": {
     "keep_rate": null,
     "keep_rate_basis": null,

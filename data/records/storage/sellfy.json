@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://sellfy.com/sell-downloads/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Web upload; REST API on paid plans.",
   "tooling": "Web/API.",
-  "chaining": "50 files/product x unlimited products.",
+  "chaining": "Allows up to 20 GB per file, supporting 50 files per product and unlimited products on store accounts.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -46,7 +46,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "No free tier — plans start at $22/mo with a 14-day trial, so it is paid-only. CloudFront egress is a cost the seller does not see but which the platform will police.",
+  "reliability_note": "No free tier. Plans start at $22/mo with a 14-day trial, so it is paid-only. CloudFront egress is a cost the seller does not see but which the platform will police.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

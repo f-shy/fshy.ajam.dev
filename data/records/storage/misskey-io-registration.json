@@ -5,7 +5,7 @@
   "url": "https://misskey.io/api/meta",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely — the operator states it cannot add server capacity because their cloud provider was breached. Capacity…",
+    "stated": "None reachable: Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely. The operator states it cannot add server capacity because their cloud provider was breached. Capacity witho.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://misskey.io/api/meta",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://misskey.io/api/meta",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely — the operator states it cannot add server capacity because their cloud provider was breached. Capacity…",
+  "reliability_note": "Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely. The operator states it cannot add server capacity because their cloud provider was breached. Capacity witho.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://misskey.io/api/meta",
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely — the operator states it cannot add server capacity because their cloud provider was breached. Capacity…",
+  "notes": "Its numbers are good (10 GiB, 500 MiB objects) but signup is closed indefinitely. The operator states it cannot add server capacity because their cloud provider was breached. Capacity witho.",
   "extras": {
     "dead_end": {
       "failure_class": "identity",

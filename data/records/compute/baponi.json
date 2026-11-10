@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://baponi.ai/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price is stated on https://baponi.ai/pricing/ or in the API docs; the default network policy is blocked, and an unrestricted sandbox has its outbound bytes metered internally for billing",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "REST API, an MCP server and a Python SDK (pip install baponi); no CLI or SSH interface is documented",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://baponi.ai/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card required' and 'Free forever' on the pricing page, read 2026-10-22; the page states no other gate",

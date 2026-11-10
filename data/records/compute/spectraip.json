@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read beyond the order button; a client area is linked",
-  "chaining": "5 TB for EUR 3.29 with 40 GB of NVMe is the best published bytes-per-euro row apart from Skhron's counting rule",
+  "chaining": "5 TB for EUR 3.29 with 40 GB of NVMe is the best published bytes-per-euro row among documented hosts apart from Skhron's counting rule",
   "limits": [
     {
       "kind": "volume-quota",

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hostingby.design/app-hosting/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hostingby.design/app-hosting/",
     "notes": "not stated"
   },
@@ -42,7 +42,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "seedbox.io now 301-redirects to hostingby.design — same operator (HNielsen Technologies ApS, DK). Brand consolidation means the old seedbox.io plans/prices are no longer separately purchasable.",
+  "reliability_note": "Seedbox.io now 301-redirects to hostingby.design. Same operator (HNielsen Technologies ApS, DK). Brand consolidation means the old seedbox.io plans/prices are no longer separately purchasable.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

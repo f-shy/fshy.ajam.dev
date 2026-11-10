@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM guest with root and a 30-day money-back guarantee; ssh and rsync reach it",
-  "chaining": "EUR 4.17 for the first terabyte is the cheapest euro first-terabyte, and the renewal at twice the price is the catch. The 64 TB of transfer on the 8 TB plan is what a mirror needs",
+  "chaining": "EUR 4.17 for the first terabyte is the cheapest euro first-terabyte among documented hosts, and the renewal at twice the price is the catch. The 64 TB of transfer on the 8 TB plan is what a mirror needs",
   "limits": [
     {
       "kind": "volume-quota",
@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "This is the only provider where the page prints the promotional rate and the renewal rate side by side for every plan, so the second year is not unknown here. Prices use a comma decimal on the page (4,17) and a point in this record.",
+  "notes": "This is the only provider in this category where the page prints the promotional rate and the renewal rate side by side for every plan, so the second year is not unknown here. Prices use a comma decimal on the page (4,17) and a point in this record.",
   "extras": {
     "facets": {
       "class": null,

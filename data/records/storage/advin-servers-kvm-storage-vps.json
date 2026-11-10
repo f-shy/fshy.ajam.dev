@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://advinservers.com/vps",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://advinservers.com/vps",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Bundled and generous, no overage schedule published: 8 TB / 16 TB / 32 TB / 48 TB per month for the four rungs. At the 20 TB tier that is 48 TB of transfer, which is the best storage:bandwidth ratio found outside ServaRica's unlimited option.",
+    "terms": "Bundled bandwidth without published overage schedule: 8 TB, 16 TB, 32 TB, and 48 TB per month across tiers. The 20 TB tier provides 48 TB of transfer.",
     "metered": true,
     "free_allowance": "48 TB per month"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "sftp, rsync, rest (self-hosted)",
   "tooling": "rclone SFTP, documented JSON control API (console.advinservers.com/api/v1)",
-  "chaining": null,
+  "chaining": "A 10 Gbps network port paired with a 20 TB single virtual machine allows hosting a 20 TB archive on a single instance without sharding.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -49,7 +49,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Delaware-based, ~30 nodes US+EU, 99.9% SLA, 14-day money-back, own hardware. Stock is chronic — its own store shows '0 Available' across most standard lines too.",
+  "reliability_note": "Delaware-based provider with approximately 30 nodes in US and EU, 99.9% SLA, 14-day money-back guarantee, and owned hardware. Hardware stock is frequently limited with zero availability across standard tiers.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -82,5 +82,5 @@
     "price_verbatim": "$2.50/TB/mo at both tiers ($25 for 10.24 TB, $50 for 20.48 TB). At 5 TB: the 5.12 TB rung at $15/mo = $2.93/TB. Cheapest large-footprint option on paper, but not purchasable."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

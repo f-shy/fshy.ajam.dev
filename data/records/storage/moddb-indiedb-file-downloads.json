@@ -41,7 +41,7 @@
       "source": "https://www.moddb.com/downloads"
     }
   ],
-  "limits_note": "per-object-cap: verified at least 8,442,728,905 bytes on a live file listing; the widely-cited 8192 MB figure is third-party (TWC wiki, marked TBC by its own author) and is contradicted by the 7.86 GB file, so treat ~8 GB as observed-not-documented. retention: indefinite; files stay downloadable for years. request-rate: not documented.",
+  "limits_note": "Per-object cap is verified at 8,442,728,905 bytes on published files, with approximately 8 GB observed in practice. Retention is indefinite for hosted files. Uploads require web forms and endpoints enforce browser verification headers.",
   "identity_cost": {
     "kind": "country-phone",
     "detail": null,

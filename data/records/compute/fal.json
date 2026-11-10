@@ -5,7 +5,7 @@
   "url": "https://fal.ai/pricing",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": null,
+    "stated": "free tier published without a credit amount",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://fal.ai/pricing",
@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://fal.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -34,9 +34,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -49,7 +49,7 @@
       "source": "https://fal.ai/pricing"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. GPU only.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

@@ -33,7 +33,7 @@
   ],
   "interface_detail": "none",
   "tooling": "No public API or CLI found. Account-gated workspace product (quantum-safe E2EE suite: Transfer + Drive + Notes + Messaging).",
-  "chaining": "2 free workspaces x 2 GB — trivial volume, and the transfer allowance and Drive storage are separate small pools. Nothing here multiplies.",
+  "chaining": "2 free workspaces x 2 GB. Trivial volume, and the transfer allowance and Drive storage are separate small pools. Nothing here multiplies.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Its marketing page claims 'No size limits' for Transfer while its own pricing page says 2 GB — a direct contradiction within the same site. Trust the pricing page.",
+  "reliability_note": "Its marketing page claims 'No size limits' for Transfer while its own pricing page says 2 GB. A direct contradiction within the same site. Trust the pricing page.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

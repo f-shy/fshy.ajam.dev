@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a dedicated server with root, rescue system, VNC install and an installimage script; rsync, rclone, ssh, NFS and MinIO all run on it",
-  "chaining": "308 TB for EUR 599.00 a month is the largest single machine and the cheapest per terabyte at that size.",
+  "chaining": "308 TB for EUR 599.00 a month is the largest single machine among evaluated providers and the cheapest per terabyte at that size. It is the only row that covers the 20 TB dataset on one invoice with room for the active dataset.",
   "limits": [
     {
       "kind": "per-ip-shaping",

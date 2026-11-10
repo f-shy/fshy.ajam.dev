@@ -52,7 +52,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Browser-upload path is fragile above ~2.8 GB and there is no resume, so a failed 12-hour upload wastes the slot. media.moddb.com answered 200 with real bytes (238,600) on probe, but the site root returns 503 to datacenter egress — expect intermittent blocking.",
+  "reliability_note": "Browser-upload path is fragile above ~2.8 GB and there is no resume, so a failed 12-hour upload wastes the slot. media.moddb.com answered 200 with real bytes (238,600) on probe, but the site root returns 503 to datacenter egress. Expect intermittent blocking.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

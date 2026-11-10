@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.bitchute.com/creators/how-to-upload-a-video",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "yt-dlp `BitChute` / `BitChuteChannel` extractors (verified present). No upload API — web form only.",
+  "tooling": "Yt-dlp `BitChute` / `BitChuteChannel` extractors (verified present). No upload API. Web form only.",
   "chaining": "Unlimited accounts x ~2 GB. Weak multiplier because the per-file cap is small and there is no API to automate ingestion.",
   "limits": [
     {

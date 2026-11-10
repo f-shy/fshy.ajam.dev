@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.crust.network/docs/en/DSM",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.crust.network/docs/en/DSM",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "crust CLI, IPFS, apps.crust.network",
   "chaining": "IPFS-compatible, so any IPFS gateway can read it",
   "limits": [],
-  "limits_note": "Six-month order duration is the whole product, which is incompatible with a 20 TiB growing archive. The network's own homepage served '0 TB / 0' capacity widgets, i.e. the stats are not loading. Cannot be priced bottom-up from public pages.",
+  "limits_note": "Storage orders specify fixed 6-month durations. No free tier is provided, and public capacity metric endpoints on the homepage return unpopulated values.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

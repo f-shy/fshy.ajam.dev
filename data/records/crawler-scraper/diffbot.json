@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST Article, Product, Discussion and Knowledge Graph APIs",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "The structured extractor; its Knowledge Graph queries cost 25 credits each, so a KG lookup is 25 pages of budget",
   "limits": [
     {

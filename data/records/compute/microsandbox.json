@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://microsandbox.dev/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page meters vCPU, memory, disk and durable storage and states no egress allowance or price; public internet access is on by default and can be cut to an allowlist or disabled",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "CLI (msb), and SDKs for Rust, TypeScript, Python and Go; with an API key the same SDK runs on microsandbox cloud; an MCP server exists",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://microsandbox.dev/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

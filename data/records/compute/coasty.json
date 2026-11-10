@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://coasty.ai/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://coasty.ai/pricing meters $0.05 per managed step and states no egress allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API with an OpenAPI schema, an MCP server (npx @coasty/mcp) and managed SSH and VNC credentials for machines; no CLI is documented",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://coasty.ai/pricing"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "'No credit card, no subscription', quoted from coasty.ai/pricing read 2026-10-22",
@@ -52,7 +52,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states the signup credit and the per-step rate.",
+  "confidence_note": "The free grant is one-time and metering is per step.",
   "evidence": [
     {
       "url": "https://coasty.ai/pricing",

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://maritime.sh/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "No egress allowance or overage price is published on the pricing page; usage is machine time and disk only.",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API and CLI, per maritime.sh/llms.txt: \"one REST API\" and \"the maritime CLI\"",
   "tooling": "the provider documents TypeScript SDK (npm maritime-sdk), Python SDK (pip maritime) and the maritime CLI (npm maritime-cli), per maritime.sh/llms.txt",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://maritime.sh/pricing"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": "'Try it out, no card needed' on the pricing page, read 2026-10-22",

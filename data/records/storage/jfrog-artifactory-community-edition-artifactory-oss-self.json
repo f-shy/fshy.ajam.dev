@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://jfrog.com/blog/announcing-jfrog-artifactory-community-edition-c-c/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free by construction — you serve it from your own host/object store, so egress is your bill (or zero behind Cloudflare). Not a hosted egress concession.",
+    "terms": "Free by construction. You serve it from your own host/object store, so egress is your bill (or zero behind Cloudflare). Not a hosted egress concession.",
     "metered": false
   },
   "interface": [
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Mature, no data-vanishing risk; the catch is that 'free' means free software, not free storage — you are the storage provider.",
+  "reliability_note": "Mature, no data-vanishing risk; the catch is that 'free' means free software, not free storage. You are the storage provider.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

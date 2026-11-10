@@ -5,7 +5,7 @@
   "url": "https://www.snowflake.com/en/snowflake-trial/",
   "category": "iaas",
   "free_tier": {
-    "stated": "$400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota — storage is billed from the credit balance.",
+    "stated": "$400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota. Storage is billed from the credit balance.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://www.snowflake.com/en/snowflake-trial/",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.snowflake.com/en/snowflake-trial/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Snowflake SQL API / Snowpark; internal stages + `GET`/`PUT` for file transfer. No rclone backend; files sit inside stages or named internal stages, not a general object store.",
-  "chaining": "New email = new trial, explicitly ('you can sign up ... all you need is a valid email address; no payment information'). So $400 x N throwaway trials — but each dies at 30 days.",
+  "chaining": "New email = new trial, explicitly ('you can sign up .. all you need is a valid email address; no payment information'). So $400 x N throwaway trials. But each dies at 30 days.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Hard 30-day cliff with documented data loss on non-conversion. Not storage — a compute trial that happens to include stage space.",
+  "reliability_note": "Hard 30-day cliff with documented data loss on non-conversion. Not storage. A compute trial that happens to include stage space.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -69,7 +69,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "$400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota — storage is billed from the credit balance.",
+  "notes": "$400 in free credits on a 30-day trial ('Start your 30-day Snowflake trial today. Get $400 in credits'). No byte quota. Storage is billed from the credit balance.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -79,5 +79,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

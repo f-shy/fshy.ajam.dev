@@ -5,7 +5,7 @@
   "url": "https://www.clarin.si",
   "category": "academic",
   "free_tier": {
-    "stated": "No published per-item byte ceiling; deposit is by the authors themselves and free. Uploading files larger than 2 GB requires special handling via the help desk — i.e. the ceiling is procedural, not numeric.",
+    "stated": "No published per-item byte ceiling; deposit is by the authors themselves and free. Uploading files larger than 2 GB requires special handling via the help desk. I.e. the ceiling is procedural, not numeric.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://www.clarin.si/repository/xmlui/page/deposit",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.clarin.si/repository/xmlui/page/deposit",
     "notes": "not stated"
   },
@@ -155,7 +155,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-01T21:26:42.531Z",
-  "notes": "No published per-item byte ceiling; deposit is by the authors themselves and free. Uploading files larger than 2 GB requires special handling via the help desk — i.e. the ceiling is procedural, not numeric.",
+  "notes": "No published per-item byte ceiling; deposit is by the authors themselves and free. Uploading files larger than 2 GB requires special handling via the help desk. I.e. the ceiling is procedural, not numeric.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

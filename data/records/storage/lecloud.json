@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://iknow.lenovo.com.cn/detail/195851",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://iknow.lenovo.com.cn/detail/195851",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'全程不限速' on the homepage — the one genuinely good property.",
+    "terms": "'全程不限速' on the homepage. The one genuinely good property.",
     "metered": false
   },
   "interface": [

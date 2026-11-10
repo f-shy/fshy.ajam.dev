@@ -5,7 +5,7 @@
   "url": "https://dataverse.harvard.edu",
   "category": "academic",
   "free_tier": {
-    "stated": "2.5 GB per file; 1 TB per Dataverse Collection for non-Harvard researchers (2.5 TB for Harvard affiliates). The 1 TB is real and stated by Harvard, but it is a service/support threshold, not a hard enforced cap — see limits.",
+    "stated": "2.5 GB per file; 1 TB per Dataverse Collection for non-Harvard researchers (2.5 TB for Harvard affiliates). The 1 TB is real and stated by Harvard, but it is a service/support threshold, not a hard enforced cap. See limits.",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://support.dataverse.harvard.edu/researchers",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.dataverse.harvard.edu/researchers",
     "notes": "not stated"
   },
@@ -60,7 +60,7 @@
   },
   "reliability_note": "Mature, 15+ year old service with DOI permanence and S3-backed bytes; the only soft failure mode is a curator rejecting a deposit at the review gate, and the storage-quota feature is flagged 'new and still experimental' upstream.",
   "confidence": "documented",
-  "confidence_note": "The quota endpoint answers were re-read. The record keeps `reported` because the per-file cap and the identity field were not measured. Was reported; now documented.",
+  "confidence_note": "The quota endpoint answers were read on 2026-10-21. The record keeps reported because the per-file cap and the identity field were not measured. Was reported, now documented.",
   "evidence": [
     {
       "url": "https://support.dataverse.harvard.edu/researchers",
@@ -90,7 +90,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "2.5 GB per file; 1 TB per Dataverse Collection for non-Harvard researchers (2.5 TB for Harvard affiliates). The 1 TB is real and stated by Harvard, but it is a service/support threshold, not a hard enforced cap — see limits.",
+  "notes": "2.5 GB per file; 1 TB per Dataverse Collection for non-Harvard researchers (2.5 TB for Harvard affiliates). The 1 TB is real and stated by Harvard, but it is a service/support threshold, not a hard enforced cap. See limits.",
   "extras": {
     "verified": [
       {

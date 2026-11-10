@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free and unmetered from cdn.stoatusercontent.com (Cloudflare).",
+    "terms": "Free and unmetered via cdn.stoatusercontent.com on Cloudflare. CDN responses specify `Cache-Control: public, max-age=2073600`, providing 24 days of edge caching.",
     "metered": false
   },
   "interface": [
@@ -40,7 +40,7 @@
       "source": "https://api.stoat.chat/"
     }
   ],
-  "limits_note": "20 MB per file; 5 attachments per message; body_limit_size 20,000,000 bytes globally. Live limits object also gives: emojis 500 KB, icons 2.5 MB, banners/backgrounds 6 MB, avatars 4 MB — those are separate, smaller buckets.",
+  "limits_note": "20 MB per file; 5 attachments per message; body_limit_size 20,000,000 bytes globally. Live limits object also gives: emojis 500 KB, icons 2.5 MB, banners/backgrounds 6 MB, avatars 4 MB. Those are separate, smaller buckets.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

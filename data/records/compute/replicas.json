@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://replicas.dev",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Team plan adds access to a static egress IP; no egress data allowance or overage price is published on the pricing page.",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API at https://api.replicas.dev with a bearer API key, and the replicas CLI",
   "tooling": "the replicas CLI (npm package replicas-cli) and the REST API",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://replicas.dev"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'$100 of free usage, no card required.', quoted from replicas.dev read 2026-10-22",

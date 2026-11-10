@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.gov.ro/pages/publish",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.gov.ro/pages/publish",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "CKAN 2.x action API, fully live (package_search returns 200).",
   "tooling": "curl + CKAN API key. Session-based upload via /dataset/new.",
-  "chaining": "none meaningful — the write path is not reachable without an institutional organisation.",
+  "chaining": "None meaningful. The write path is not reachable without an institutional organisation.",
   "limits": [],
   "limits_note": "write-gated at the organisation level. `/user/register` is a plain open form (username, full name, email, password) with NO invitation code, but `POST /api/3/action/organization_create` unauthenticated returns `Acces interzis: Action organization_create is not authorized`. Publishing is per the national Law 179/2022 open-data regime, i.e. public bodies.",
   "identity_cost": {

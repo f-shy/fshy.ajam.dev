@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://blog.mapillary.com/update/2024/07/08/expanding-public-street-level-imagery-access.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://blog.mapillary.com/update/2024/07/08/expanding-public-street-level-imagery-access.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free for all use, including commercial, since the Meta acquisition (2020) — but API reads are rate-limited, not byte-metered",
+    "terms": "Free for all use, including commercial, since the Meta acquisition (2020). But API reads are rate-limited, not byte-metered.",
     "metered": false
   },
   "interface": [
@@ -48,10 +48,10 @@
   "limits_note": "per-image: 200 MP resolution ceiling, landscape orientation, EXIF GPS + timestamp required. Read side: graph.mapillary.com 50,000 requests/minute/app; tiles.mapillary.com 50,000 requests/DAY. The forum thread 'Can and does someone replicate the Mapillary images database?' states outright that the free plan's 50,000-image limit blocks bulk re-download.",
   "identity_cost": {
     "kind": "email",
-    "detail": "email — confirmed: graph.mapillary.com with no token returns {\"message\":\"Invalid OAuth 2.0 Access Token\",\"code\":190}, and signup is a Meta/Facebook or email account with a free developer token; no affiliation check. help.mapillary.com article 'An Introduction to Mapillary' says 'All you need to start contributing is your smartphone and our mobile app.'",
+    "detail": "Email. Confirmed: graph.mapillary.com with no token returns {\"message\":\"Invalid OAuth 2.0 Access Token\",\"code\":190}, and signup is a Meta/Facebook or email account with a free developer token; no affiliation check. help.mapillary.com article 'An Introduction to Mapillary' says 'All you need to start contributing is your smartphone and our mobile app.'.",
     "country": null
   },
-  "reliability_note": "Upload-open / read-gated is the exact pattern: storage is unlimited but pulling your own archive back out at volume is throttled to 50k tile requests/day. Treat as an archive of record, not a working set.",
+  "reliability_note": "Uploads are unmetered, while bulk retrieval is rate-limited to 50,000 vector tile requests per day via API.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -28,7 +28,7 @@
   "confidence": "documented",
   "verified_at": "2026-10-22T00:00:00.000Z",
   "price_per_tb_month": null,
-  "notes": "It is a Durable Object allowance and attributing it to Workers was a category error.",
+  "notes": "The 13,000 GB-s figure is on the Durable Objects pricing page, not the Workers limits page earlier evaluation cited. It is a Durable Object allowance and attributing it to Workers was a category error.",
   "slug": "cloudflare-durable-objects",
   "provider": "Cloudflare Durable Objects",
   "url": "https://developers.cloudflare.com/workers/platform/limits/",

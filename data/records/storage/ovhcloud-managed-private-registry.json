@@ -5,7 +5,7 @@
   "url": "https://www.ovhcloud.com/en/public-cloud/managed-private-registry/",
   "category": "registry",
   "free_tier": {
-    "stated": "No free tier — three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'.",
+    "stated": "No free tier. Three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.ovhcloud.com/en/public-cloud/prices/",
@@ -13,17 +13,17 @@
     "notes": "plans are billed by the hour actually used; the monthly figure is the hourly price x 730 hours"
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ovhcloud.com/en/public-cloud/prices/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ovhcloud.com/en/public-cloud/prices/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Egress is genuinely unlimited and free — 'Traffic is unlimited, no matter what its destination' and 'Inbound/outbound traffic and maintenance are also included in the price' — but the storage is a flat monthly subscription, so the free-egress advantage is unusable without paying.",
+    "terms": "Egress is genuinely unlimited and free. 'Traffic is unlimited, no matter what its destination' and 'Inbound/outbound traffic and maintenance are also included in the price'. But the storage is a flat monthly subscription, so the free-egress advantage is unusable without paying.",
     "metered": false
   },
   "interface": [
@@ -135,7 +135,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T01:28:44.369Z",
-  "notes": "No free tier — three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'.",
+  "notes": "No free tier. Three paid plans: 'S | 200 GiB | $0.027/hour | ~$19.71/month', 'M | 600 GiB | $0.0613/hour | ~$44.749/month', 'L | 5 TiB | $0.291/hour | ~$212.43/month'.",
   "extras": {
     "dead_end": {
       "failure_class": "paid",

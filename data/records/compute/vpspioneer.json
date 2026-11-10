@@ -37,7 +37,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a customer portal at customer.vpspioneer.com is named; no API, CLI or rclone backend is documented on the page read",
-  "chaining": "the useful row here is the shared line rather than the VPS: USD 2.49/month for 5 GB, 50 GB of traffic, 5 mailboxes and 200 outbound messages a day is the cheapest way to get a mailbox and a small site on one invoice, and the 3-day trial makes it testable without paying",
+  "chaining": "the useful row here is the shared line rather than the VPS: USD 2.49/month for 5 GB, 50 GB of traffic, 5 mailboxes and 200 outbound messages a day is the cheapest way among documented hosts to get a mailbox and a small site on one invoice, and the 3-day trial makes it testable without paying",
   "limits": [
     {
       "kind": "volume-quota",
@@ -104,7 +104,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-06T17:42:12.769Z",
-  "notes": null,
+  "notes": "The record covers a shared-hosting product as well as a VPS one, which is why the shape describes the Cloud VPS S rather than the cheaper shared plan: the shared plan's RAM is an LVE limit and not a machine. Unverified: whether Pioneer Start carries 50 GB or 250 GB of monthly traffic, since the two pages read on the same day disagree, and whether the 3-day trial is self-serve or ticket-gated.",
   "extras": {
     "facets": {
       "class": null,

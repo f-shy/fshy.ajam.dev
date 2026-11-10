@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.calameo.com/en/terms",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.calameo.com/en/terms",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free storage is 1 GB — and conversion failures are common on large PDFs.",
+  "reliability_note": "Free tier storage is 1 GB. Document processing errors may occur on large PDF uploads.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

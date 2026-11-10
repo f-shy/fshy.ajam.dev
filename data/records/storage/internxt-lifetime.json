@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://internxt.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://internxt.com/pricing",
     "notes": "not stated"
   },
@@ -32,9 +32,9 @@
     "rclone",
     "cli"
   ],
-  "interface_detail": "rclone — but CONDITIONAL. Vendor: 'Internxt now supports Rclone in two ways: via our object storage subscription, WebDAV, and natively. Rclone support is available for Ultimate plans.' WebDAV requires the Internxt CLI as a bridge, and rclone issue #7610 / internxt/cli#248 document that the WebDAV layer omits COPY and PROPPATCH, which breaks backup software.",
+  "interface_detail": "Rclone. But CONDITIONAL. Vendor: 'Internxt now supports Rclone in two ways: via our object storage subscription, WebDAV, and natively. Rclone support is available for Ultimate plans.' WebDAV requires the Internxt CLI as a bridge, and rclone issue #7610 / internxt/cli#248 document that the WebDAV layer omits COPY and PROPPATCH, which breaks backup software.",
   "tooling": "CLI + WebDAV bridge + native rclone on Ultimate only. No S3.",
-  "chaining": "WEAK. No COPY method in WebDAV means server-side move/copy workflows fail; must round-trip through a user.",
+  "chaining": "WebDAV implementation lacks support for the COPY HTTP method, requiring file move and copy operations to transfer through local clients.",
   "limits": [
     {
       "kind": "write-gated",
@@ -42,7 +42,7 @@
       "source": "https://internxt.com/pricing"
     }
   ],
-  "limits_note": "Constraint type: write-gated (CLI bridge) + request-rate. StackSocial fine print: 'This is available to new users ONLY. Codes are NOT stackable' on the 10 TB and 100 TB SKUs — directly contradicting the on-site stacking claim. VERIFY WHICH APPLIES.",
+  "limits_note": "Constraint type: write-gated (CLI bridge) + request-rate. StackSocial fine print: 'This is available to new users ONLY. Codes are NOT stackable' on the 10 TB and 100 TB SKUs. Directly contradicting the on-site stacking claim. VERIFY WHICH APPLIES.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

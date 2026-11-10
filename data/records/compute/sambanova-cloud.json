@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "nothing composes: needs a card before the first request.",
+  "chaining": "nothing composes: this category needs a card before the first request.",
   "limits": [
     {
       "kind": "write-gated",

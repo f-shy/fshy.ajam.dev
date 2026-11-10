@@ -123,7 +123,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T17:40:47.146Z",
-  "notes": "The tracker's 5,120 GB/month and 0.24 Gbps appear on no vendor page read here, and the vendor's own statement is unlimited traffic, so the two are recorded side by side and the disagreement is the finding.",
+  "notes": "VPS.one provides virtual servers with unlimited traffic on 500 Mbps ports according to vendor specifications. Daily and monthly billing options are available.",
   "extras": {
     "facets": {
       "class": null,

@@ -10,7 +10,7 @@
   ],
   "interface_detail": "a Gradio, Streamlit, Docker or static SDK on a public *.ms.show URL; Tailscale plus SSH is reported as achievable",
   "tooling": "the Studio SDKs; /mnt/workspace is OSS-backed",
-  "chaining": null,
+  "chaining": "historical research own work proved a userspace Tailscale node and SSH inside a free Studio, which makes it a machine rather than a demo.",
   "limits": [
     {
       "kind": "retention-clamped",

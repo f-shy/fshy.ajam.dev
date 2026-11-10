@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "configurator with OS choice and region choice; no API documented on the page read",
-  "chaining": "2 GB of RAM on 25 GB of NVMe for EUR 3.16 in Warsaw or Stockholm is the cheapest European shape that states its post-allowance throttle rather than leaving it unknown",
+  "chaining": "2 GB of RAM on 25 GB of NVMe for EUR 3.16 in Warsaw or Stockholm is the cheapest European shape among documented hosts that states its post-allowance throttle rather than leaving it unknown",
   "limits": [
     {
       "kind": "per-ip-shaping",

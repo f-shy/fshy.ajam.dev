@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://nitroflare.com/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "JDownloader, Mipony and other multihost downloaders; no documented open API.",
-  "chaining": "10 GB per file with no stated total — chaining is bounded by an unpublished retention policy, so it cannot be sized.",
+  "chaining": "10 GB per file with no stated total. Chaining is bounded by an unpublished retention policy, so it cannot be sized.",
   "limits": [
     {
       "kind": "per-ip-shaping",

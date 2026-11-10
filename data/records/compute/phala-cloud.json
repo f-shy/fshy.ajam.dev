@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Phala is the cheapest attested-TEE lane found among DePIN records, but it is a prepaid invoice rather than a credit, so it does not chain with a zero-budget start.",
+  "chaining": "Phala is the cheapest attested-TEE lane found among the category's DePIN records, but it is a prepaid invoice rather than a credit, so it does not chain with a zero-budget start.",
   "limits": [
     {
       "kind": "write-gated",

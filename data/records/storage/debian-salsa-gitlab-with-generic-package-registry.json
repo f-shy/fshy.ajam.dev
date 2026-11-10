@@ -51,7 +51,7 @@
       "source": "https://salsa.debian.org/help/instance_configuration"
     }
   ],
-  "limits_note": "per-object-cap: 5 GiB per Generic package file; 750 MiB per CI artifact; THE GATE: 'New user registrations are manually reviewed due to the high volume of spam registrations. It may take a few days before a new account is approved.'",
+  "limits_note": "per-object-cap: 5 GiB per Generic package file; 750 MiB per CI artifact; 300 MiB Pages. retention: indefinite for packages and repos. Documentation publishes rate limit sections for Files, Users, Groups, and Projects APIs. New user registrations are manually reviewed due to spam volumes.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

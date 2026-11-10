@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://dokument.pub/faqs",
     "notes": "not stated"
   },
@@ -148,7 +148,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T02:22:32.524Z",
-  "notes": "\"Upload as much as you need! Unlimited volume of uploaded files\" — no document count or account quota; dokument.pub FAQ caps a single PDF at 200 MB and states \"No limitation\" on number of pages/uploads. Per-record unlimited x unlimited records.",
+  "notes": "\"Upload as much as you need! Unlimited volume of uploaded files\". No document count or account quota; dokument.pub FAQ caps a single PDF at 200 MB and states \"No limitation\" on number of pages/uploads. Per-record unlimited x unlimited records.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

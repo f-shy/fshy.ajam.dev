@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://dl.acronis.com/u/rc/Acronis-Cyber-Protect-Edition-Comparison-EN-US-220421.pdf",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Cloud storage is a license add-on, not a product. Essentials tier includes 5 GB per workstation; 50 GB requires Standard, 250 GB requires Advanced/Server. No free storage-only tier, no…",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://dl.acronis.com/u/rc/Acronis-Cyber-Protect-Edition-Comparison-EN-US-220421.pdf",

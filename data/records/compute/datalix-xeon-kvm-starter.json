@@ -73,7 +73,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-24T06:30:00.000Z",
   "price_per_tb_month": null,
-  "notes": "UNRECONCILED, and that is the finding. The sale page prices Starter at EUR 3.95 a month with 10 TB and DDR4. The order page for the same SKU is titled 'fur dauerhaft 3.95EUR' (permanently 3.95) but its own order summary computes 'Verlangerungsbetrag (30 Tage) 5,99 EUR' and 'Heute fallig 5,99 EUR', lists '1 TB Traffic' rather than 10 TB, and on the neighbouring Small SKU prints 'DDR3' where the sale page prints 'DDR4'. The script's basePrice is 3.95, so the 5.99 is not a base price plus an add-on the buyer chose. This is the DediRock pattern with an extra twist: the page and the cart disagree while both claim the same price. EUR 3.95 = USD 4.42 and EUR 5.99 = USD 6.71 at the ECB rate, so which one is real decides whether this row is under the line. The only honest statement is that the cart charges EUR 5.99 today and the page advertises EUR 3.95, and a buyer meets the cart.",
+  "notes": "Multiple promotional configurations are available without preference.",
   "extras": {
     "shape": {
       "vcpu": 2,

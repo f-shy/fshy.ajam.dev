@@ -19,7 +19,7 @@
     "notes": "StackSocial listing states a 5GB per file cap; the direct pricing page lists unlimited file size on its plans."
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-20tb",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "WebDAV (Premium only), CLI with a local WebDAV server, desktop client, web app",
   "tooling": "rclone as a WebDAV remote against either the CLI's local WebDAV server (`scramble-cli webdav`) or the hosted endpoint. Documented by the vendor.",
-  "chaining": "composition with the pool is unestablished",
+  "chaining": "Composition with external storage pools is unestablished.",
   "limits": [
     {
       "kind": "volume-quota",

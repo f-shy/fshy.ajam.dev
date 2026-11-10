@@ -36,17 +36,17 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Composes with nothing; for a registrant who does hold Japanese student status it is the largest recurring cloud allowance found anywhere, because it is a monthly budget rather than a one-off credit.",
+  "chaining": "Composes with nothing; for a registrant who does hold Japanese student status it is the largest recurring cloud allowance documented, because it is a monthly budget rather than a one-off credit.",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number is also the least reachable.",
+      "value": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number among documented hosts is also the least reachable.",
       "source": "https://www.sakura.ad.jp/certification/student-ambassador/"
     }
   ],
-  "limits_note": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number is also the least reachable.",
+  "limits_note": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number among documented hosts is also the least reachable.",
   "binding": "write-gated",
-  "binding_note": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number is also the least reachable.",
+  "binding_note": "Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number among documented hosts is also the least reachable.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

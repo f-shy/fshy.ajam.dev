@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.e-resident.gov.ee/become-an-e-resident/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.e-resident.gov.ee/become-an-e-resident/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "DigiDoc client; no object store.",
   "chaining": "n/a.",
   "limits": [],
-  "limits_note": "Fails on quota outright (0 GB). Also costs a state fee and requires an in-person card pickup at an embassy — so it is slower and pricier than any qualifying provider while delivering no bytes.",
+  "limits_note": "Fails on quota outright (0 GB). Also costs a state fee and requires an in-person card pickup at an embassy. So it is slower and pricier than any qualifying provider while delivering no bytes.",
   "identity_cost": {
     "kind": "national-id",
     "detail": "national-id",

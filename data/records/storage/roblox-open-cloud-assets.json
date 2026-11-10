@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free — asset delivery is served by Roblox's own CDN (assetdelivery.roblox.com / rbxcdn), never metered to the uploader.",
+    "terms": "Free. Asset delivery is served by Roblox's own CDN (assetdelivery.roblox.com / rbxcdn), never metered to the uploader.",
     "metered": false
   },
   "interface": [

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://remote-browser.dev/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://remote-browser.dev/pricing meters active browser-hours and lists no data-transfer allowance or price",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "a REST API (POST create session, GET status) that returns a CDP WebSocket URL for Playwright, Puppeteer or browser-use, plus a console",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://remote-browser.dev/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'No card required', quoted from the pricing page read 2026-10-22",
@@ -51,7 +51,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22. The free allowance is one browser-hour a month, which at a 24/7 duty cycle is 0.14% of the month  -  the figure that decides it",
+  "confidence_note": "the pricing page was read on 2026-10-22. The free allowance is one browser-hour a month, which at a 24/7 duty cycle is 0.14% of the month - the figure that decides it",
   "evidence": [
     {
       "url": "https://remote-browser.dev/pricing",

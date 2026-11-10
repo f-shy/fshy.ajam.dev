@@ -5,7 +5,7 @@
   "url": "https://www.weiyun.com",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "About 10 GB free; paid ~¥10/month.",
+    "stated": "Free tier offers approximately 10 GB storage. Paid tiers start around 10 CNY per month.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://panhunt.com/compare",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://panhunt.com/compare",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://panhunt.com/compare",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Throttled for non-members — PanHunt: '非会员限速'.",
+    "terms": "Throttled for non-members. PanHunt: '非会员限速'.",
     "metered": false
   },
   "interface": [
@@ -57,7 +57,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "About 10 GB free; paid ~¥10/month.",
+  "notes": "Free tier offers approximately 10 GB storage. Paid tiers start around 10 CNY per month.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

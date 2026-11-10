@@ -5,7 +5,7 @@
   "url": "https://gitcode.com",
   "category": "registry",
   "free_tier": {
-    "stated": "No number published. GitCode documents that it meters four resources per user — Git Repository Storage (all branches + all history, excluding LFS), Container Usage (core-hours), Git LFS Storage (all LFS-tracked files, all versions), and Project Count — with alerts at 80% and 95% of 'the quota'. The quota values themselves are only visible in the logged-in console.",
+    "stated": "No number published. GitCode documents that it meters four resources per user. Git Repository Storage (all branches + all history, excluding LFS), Container Usage (core-hours), Git LFS Storage (all LFS-tracked files, all versions), and Project Count. With alerts at 80% and 95% of 'the quota'. The quota values themselves are only visible in the logged-in console.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.gitcode.com/en/docs/help/home/user_center/data_management/usage_and_storage",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.gitcode.com/en/docs/help/home/user_center/data_management/usage_and_storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.gitcode.com/en/docs/help/home/user_center/data_management/usage_and_storage",
     "notes": "not stated"
   },
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No number published. GitCode documents that it meters four resources per user — Git Repository Storage (all branches + all history, excluding LFS), Container Usage (core-hours), Git LFS Storage (all LFS-tracked files, all versions), and Project Count — with alerts at 80% and 95% of 'the quota'. The quota values themselves are only visible in the logged-in console.",
+  "notes": "No number published. GitCode documents that it meters four resources per user. Git Repository Storage (all branches + all history, excluding LFS), Container Usage (core-hours), Git LFS Storage (all LFS-tracked files, all versions), and Project Count. With alerts at 80% and 95% of 'the quota'. The quota values themselves are only visible in the logged-in console.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

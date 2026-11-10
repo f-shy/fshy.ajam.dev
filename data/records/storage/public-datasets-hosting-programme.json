@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.cloud.google.com/storage/docs/public-datasets",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.cloud.google.com/storage/docs/public-datasets",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://docs.cloud.google.com/storage/docs/public-datasets"
     }
   ],
-  "limits_note": "There is no application form. The only stated route is 'If you have any questions about listing your public dataset on Cloud Storage, please contact us at [address removed]'. Effectively invitation-only, and the catalogue has grown slowly relative to AWS's 300+ PB.",
+  "limits_note": "There is no open self-service application form. The published route directs inquiries to program administrators for review. Listing datasets is invitation-only.",
   "identity_cost": {
     "kind": "card",
     "detail": "inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence",

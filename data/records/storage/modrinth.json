@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githubusercontent.com/modrinth/code/main/apps/labrinth/src/routes/v3/version_creation.rs",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githubusercontent.com/modrinth/code/main/apps/labrinth/src/routes/v3/version_creation.rs",
     "notes": "not stated"
   },

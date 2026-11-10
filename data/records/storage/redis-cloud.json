@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://redis.io/pricing/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "redis-cli, any Redis client (redis-py, ioredis), RESP over TLS; RedisInsight GUI",
-  "chaining": "30 MB x 1 DB. Creating multiple free databases is the only path, and Redis Cloud's free plan is one 30 MB DB per subscription — you would need ~17,000 free subscriptions for 500 GB. This is the weakest structured store on bytes.",
+  "chaining": "30 MB x 1 DB. Creating multiple free databases is the only path, and Redis Cloud's free plan is one 30 MB DB per subscription. You would need ~17,000 free subscriptions for 500 GB. This is the weakest structured store on bytes.",
   "limits": [],
   "limits_note": "30 MB memory; single DB; no persistence guarantees on the free tier beyond snapshotting; eviction policy applies under memory pressure",
   "identity_cost": {

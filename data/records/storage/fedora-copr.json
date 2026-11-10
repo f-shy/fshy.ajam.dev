@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.copr.fedorainfracloud.org/user_documentation/",
     "notes": "not stated"
   },
@@ -83,5 +83,5 @@
   "notes": "No published byte quota. Official docs FAQ: 'We keep one build for each package in one project indefinitely. All other builds (old packages, failed builds) are deleted after 14 days.' Unlimited projects and builds for Fedora Account holders. Storage is therefore effectively 'one build per package per project, forever', multiplied by packages and projects.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

@@ -29,9 +29,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "volume-quota",
@@ -39,7 +39,7 @@
       "source": "https://www.baseten.co/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "a paid account: the pricing page describes only pay-for-use billing and states no free plan",
@@ -47,7 +47,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the absence of a free tier is read from the full pricing page.",
+  "confidence_note": "the absence of a free tier is read from the full pricing page. earlier readings carried a free tier at reported confidence with no amount; that is not supported by the page.",
   "evidence": [
     {
       "url": "https://docs.baseten.co/deployment/resources",

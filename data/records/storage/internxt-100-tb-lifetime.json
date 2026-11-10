@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-100tb",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.stacksocial.com/sales/internxt-cloud-storage-lifetime-subscription-100tb",
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "No numerical egress bandwidth limit is stated in the product listing or FAQ. Written egress terms are unverified.",
     "metered": false
   },
   "interface": [
@@ -33,13 +33,13 @@
   "tooling": "The lifetime plan does not include CLI, WebDAV, Backups, Mail, Meet, Cleaner, Password-Protected File Sharing, Advanced Sharing, AI, File versioning or Antivirus, which are sold separately; the listing names no programmatic interface.",
   "chaining": "None available on the lifetime SKU without buying the add-ons separately, at which point the price advantage evaporates.",
   "limits": [],
-  "limits_note": "\"This is available to new users ONLY\" and \"Codes are NOT stackable\" — note this contradicts Internxt's own FAQ (\"Internxt lifetime plans are stackable ... up to 100 TB\"). Filen-style quota withholding behind VPN IPs is a known Internxt behaviour.",
+  "limits_note": "\"This is available to new users ONLY\" and \"Codes are NOT stackable\". Note this contradicts Internxt's own FAQ (\"Internxt lifetime plans are stackable .. up to 100 TB\"). Filen-style quota withholding behind VPN IPs is a known Internxt behaviour.",
   "identity_cost": {
     "kind": "email",
     "detail": "A free Internxt account needs a name and an email address; no identity or email verification is required.",
     "country": null
   },
-  "reliability_note": "But the company has run near-continuous 85-91%-off 'lifetime' promotions for years, which is a solvency signal rather than a discount signal, and the StackSocial vs own-site price gap (5 TB $229.99 vs €585) is large enough to make unit economics doubtful.",
+  "reliability_note": "Technically credible. But the company has run near-continuous 85-91%-off 'lifetime' promotions for years, which is a solvency signal rather than a discount signal, and the StackSocial vs own-site price gap (5 TB $229.99 vs €585) is large enough to make unit economics doubtful.",
   "confidence": "documented",
   "confidence_note": "documented from vendor pages read on 2026-11-03: the 100 TB lifetime listing and price (https://www.stacksocial.com/search?query=internxt), the CLI and WebDAV exclusion (the StackSocial listing), and the sign-up fields (https://internxt.com/pricing). Egress, retention and per-object cap were not read on that date.",
   "evidence": [

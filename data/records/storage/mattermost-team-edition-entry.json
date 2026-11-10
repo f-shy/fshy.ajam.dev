@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.mattermost.com/configure/environment-configuration-settings.html",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Mattermost REST API v4 `POST /api/v4/files` (multipart, up to 10 files per post) returning file IDs. Team Edition is MIT-licensed; Entry is the free mode of Enterprise Edition.",
-  "chaining": "N self-hosted deployments; 10,000 teams per deployment; users per team 'no enforced limit'. Storage is whatever disk you mount — including an S3/MinIO backend via FileSettings.",
+  "chaining": "N self-hosted deployments; 10,000 teams per deployment; users per team 'no enforced limit'. Storage is whatever disk you mount. Including an S3/MinIO backend via FileSettings.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Zero platform risk — nothing can delete your files. The failure mode is operational: attachments live on the app server's local disk unless you configure S3, and the docs warn that raising MaxFileSize risks server crashes on large uploads.",
+  "reliability_note": "Zero platform risk. Nothing can delete your files. The failure mode is operational: attachments live on the app server's local disk unless you configure S3, and the docs warn that raising MaxFileSize risks server crashes on large uploads.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

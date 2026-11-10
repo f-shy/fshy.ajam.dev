@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.replit.com/billing/object-storage-billing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.replit.com/billing/object-storage-billing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'App Storage Data Transfer: $0.05 per GiB' — plain metered egress, no free allowance.",
+    "terms": "'App Storage Data Transfer: $0.05 per GiB'. Plain metered egress, no free allowance.",
     "metered": true
   },
   "interface": [
@@ -40,7 +40,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Backed by Google Cloud Storage with metered rates for storage and egress. No perpetual free storage tier is provided.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

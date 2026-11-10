@@ -5,7 +5,7 @@
   "url": "https://www.omnara.com/pricing",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "no platform fee: the software is free and a user brings models and machines, or pays $0.0414 a GiB-hour of memory for an Omnara-managed machine, which auto-sleeps when idle",
+    "stated": "no platform fee: the software is free and users bring models and machines, or pays $0.0414 a GiB-hour of memory for an Omnara-managed machine, which auto-sleeps when idle",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.omnara.com/pricing",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.omnara.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page bills Omnara-managed machines for memory runtime and retention and states no egress allowance or price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "web dashboard, CLI, REST API and TypeScript SDK",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -49,7 +49,7 @@
       "source": "https://www.omnara.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

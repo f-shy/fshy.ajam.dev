@@ -113,7 +113,7 @@
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T00:21:08.720Z",
   "binding": "per-object-cap",
-  "binding_note": "The per-file cap is the one that survives even a multiplication of accounts.",
+  "binding_note": "Storage is limited to 30 GB total with a 4 GB per-file cap, and stored content is deleted after 730 days of account dormancy. The 4 GB per-file ceiling remains an immutable boundary across multiple accounts.",
   "notes": "The cleanest documented API in the Asian drive set and the smallest quota.",
   "extras": {
     "access_mode": "registration-gated",

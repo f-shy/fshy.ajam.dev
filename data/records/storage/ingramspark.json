@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ingramspark.com/hubfs/downloads/file-creation-guide.pdf",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "None — file exists for print production.",
+    "terms": "None. File exists for print production.",
     "metered": false
   },
   "interface": [

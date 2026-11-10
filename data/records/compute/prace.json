@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "PRACE's review machinery is the same machinery now operating the EuroHPC calls, so its successor is the EuroHPC Benchmark, Development, Regular and Extreme Scale set recorded elsewhere in this record.",
+  "chaining": "PRACE's review machinery is the same machinery now operating the EuroHPC calls, so its successor is the EuroHPC Benchmark, Development, Regular and Extreme Scale set recorded elsewhere in documented records.",
   "limits": [],
   "limits_note": "There is nothing left to apply for: the programme's allocation function moved into the EuroHPC JU, so the successor question is answered by the EuroHPC rows rather than by a PRACE row.",
   "binding": "none",

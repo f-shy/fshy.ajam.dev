@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developer.webex.com/docs/basics#message-attachments",
     "notes": "not stated"
   },
@@ -23,7 +23,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No per-GB egress charge found, but files are fetched by authenticated API call or a short-lived download URL tied to the message — not an anonymous CDN path.",
+    "terms": "No per-GB egress charge found, but files are fetched by authenticated API call or a short-lived download URL tied to the message. Not an anonymous CDN path.",
     "metered": false
   },
   "interface": [
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Retention is policy-driven rather than fixed, so an admin policy change or license lapse can remove content without any API-visible warning. Unverified for the free tier specifically — blocked from the retention help page.",
+  "reliability_note": "Retention is policy-driven rather than fixed, so an admin policy change or license lapse can remove content without any API-visible warning. Unverified for the free tier specifically. Blocked from the retention help page.",
   "confidence": "inferred",
   "confidence_note": null,
   "evidence": [

@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://freifunk.net/en/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "no hosted storage offer; the user installs and runs the Freifunk firmware (a Linux distribution) on a WLAN router",
   "chaining": "not recorded",
   "limits": [],

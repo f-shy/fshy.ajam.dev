@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://fil.org/filecoin-plus",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://fil.org/filecoin-plus",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
   },
   "reliability_note": "Pending DataCap allocations became unusable at activation; unclaimed allocations are simply lost.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 200, 180635 bytes, sha256 ae552419811ef0cd). The page states the number in the record. The claim is documented, not measured.",
   "evidence": [
     {
       "url": "https://github.com/filecoin-project/FIPs/blob/master/FIPS/fip-0118.md",

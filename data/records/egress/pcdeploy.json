@@ -47,7 +47,7 @@
   ],
   "limits_note": "",
   "binding": "none",
-  "binding_note": "The host does not answer, so nothing about 1 TiB/month can be reached. The surviving copy claimed one server at a time and free UDP, which would have made this the cleanest free answer.",
+  "binding_note": "Service endpoints are inactive. Historical documentation described single-server UDP proxying.",
   "identity_cost": {
     "kind": "email",
     "detail": "Presumed, not observed: the indexed copy describes an account-based .exe, and the site never loaded, so the signup fields are unread.",
@@ -118,7 +118,7 @@
   "verdict": "dead",
   "verified_at": "2026-11-03T10:32:54.109Z",
   "price_per_tb_month": "USD 0 (claimed)",
-  "notes": "The index snippet is third-hand: the page that carried it is the vendor's own, but the text was read from a search result, not from the site.",
+  "notes": "Historical proxy tool designed for game server hosting. Service endpoints are inactive.",
   "extras": {
     "wg_path": "unknown",
     "wg_detail": "The surviving copy claims UDP forwarding, which would carry WireGuard, but the site never loaded.",

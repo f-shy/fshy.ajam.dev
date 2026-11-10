@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.zhihu.com/en/answer/1983511455",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.zhihu.com/en/answer/1983511455",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "no public API; zhihu-oauth projects are abandoned. Web editor only",
-  "chaining": "unverified — per-image cap too small and per-account behaviour too opaque to model",
+  "chaining": "Unverified. Per-image cap too small and per-account behaviour too opaque to model.",
   "limits": [],
   "limits_note": "unverified; multiple users report failures under 2 MB and 10 MB, suggesting a small, elastic cap",
   "identity_cost": {

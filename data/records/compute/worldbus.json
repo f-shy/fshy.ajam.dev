@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "SolusVM control panel named on the plan card; no API or client documented on the page read",
-  "chaining": "USD 8.49 in Istanbul is the only Turkey entry, and a 2 TB allowance at 1 Gbps makes it a regional egress point for traffic that must appear to originate there",
+  "chaining": "USD 8.49 in Istanbul is the only Turkey entry among documented hosts, and a 2 TB allowance at 1 Gbps makes it a regional egress point for traffic that must appear to originate there",
   "limits": [
     {
       "kind": "volume-quota",

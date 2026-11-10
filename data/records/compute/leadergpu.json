@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "A 48 GB A6000 at USD 0.278 per hour is the cheapest 48 GB card found for continuous use, below Massed Compute at USD 0.55 on demand, and it arrives with a whole server's RAM and 2 TB of NVMe rather than a rented slice.",
+  "chaining": "A 48 GB A6000 at USD 0.278 per hour is the cheapest 48 GB card found among evaluated providers for continuous use, below Massed Compute at USD 0.55 on demand, and it arrives with a whole server's RAM and 2 TB of NVMe rather than a rented slice.",
   "limits": [
     {
       "kind": "write-gated",

@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://tresorit.com/pricing/personal",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Personal Lite plan provides 50 GB storage with a 2 GB maximum file size and 2 GB link sharing allowance. Business plans start at significantly higher monthly rates.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://tresorit.com/pricing/personal",
@@ -74,7 +74,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-30T18:09:53.247Z",
-  "notes": null,
+  "notes": "Personal Lite plan provides 50 GB storage with a 2 GB maximum file size and 2 GB link sharing allowance. Business plans start at significantly higher monthly rates.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

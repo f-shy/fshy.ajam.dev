@@ -36,7 +36,7 @@
   ],
   "interface_detail": "HTTP API with reference documentation at docs.rev.ai/api, and official Java, Node and Python SDKs listed at docs.rev.ai/sdk",
   "tooling": "official Java, Node and Python SDKs (docs.rev.ai/sdk); the page names no CLI",
-  "chaining": "five hours of Reverb is enough to transcribe a small corpus once and no more; the interesting composition is the 15-second minimum, which on a folder of short clips burns the credit on silence.",
+  "chaining": "Five hours of Reverb provides audio transcription allowance with a 15-second minimum per audio clip. The grant is denominated in hours for a single model and does not transfer to alternative models.",
   "limits": [
     {
       "kind": "volume-quota",

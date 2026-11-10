@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.feralhosting.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.feralhosting.com/pricing",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "SSH, SFTP/FTP, full shell, Plex via Docker",
   "tooling": "rclone/rsync/borg over SSH",
-  "chaining": "The one famous seedbox with genuinely no upload cap — but the per-TB price is 4-5x the floor",
+  "chaining": "The one famous seedbox with genuinely no upload cap. But the per-TB price is 4-5x the floor.",
   "limits": [],
   "limits_note": "Storage quota; over-quota tolerated 'a little bit'; weekend peak shaping",
   "identity_cost": {

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://neurovault.org/FAQ",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "per-object-cap: unstated; scope is restrictive — statistical maps/parcellations/atlases only. Retention: permanent URLs",
+    "stated": "Per-object-cap: unstated; scope is restrictive. Statistical maps/parcellations/atlases only. Retention: permanent URLs.",
     "source_url": "https://neurovault.org/FAQ",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "Documented REST API (`/api/images/?format=json`, `/api/collections/`), plus the `pynv`/`nilearn` fetch-atlas path. Upload needs an account but is API-driven.",
   "chaining": "Unlimited collections per account; each image is an independent anonymous object. The API exposes every image's `file` URL and `file_size`, so a caller can enumerate and pull the whole corpus without auth.",
   "limits": [],
-  "limits_note": "per-object-cap: unstated; scope is restrictive — statistical maps/parcellations/atlases only. Retention: permanent URLs. Read limit: none observed, no CDN in front (bare origin), so throughput is modest.",
+  "limits_note": "Per-object-cap: unstated; scope is restrictive. Statistical maps/parcellations/atlases only. Retention: permanent URLs. Read limit: none observed, no CDN in front (bare origin), so throughput is modest.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

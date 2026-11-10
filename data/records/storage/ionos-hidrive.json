@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ionos.com/office-solutions/hidrive-cloud-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ionos.com/office-solutions/hidrive-cloud-storage",
     "notes": "not stated"
   },
@@ -36,13 +36,13 @@
   "tooling": "rclone `hidrive` backend",
   "chaining": "rclone mount",
   "limits": [],
-  "limits_note": "The $1/mo headline is a 12-month promotional rate: 'Save 90% — $10 → $1/month with a 1-year term — Then only $7/month'.",
+  "limits_note": "Consumer tiers cap at 2 TB on the self-serve portal, with higher capacity requiring Business plans. The $1 per month pricing represents a 12-month promotional introductory rate renews at standard monthly fees.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Classic trial-vs-steady-state confusion: the $1 figure is term-locked and reverts to $7. The 1 TB tier at $7/mo is $7/TB — competitive on paper but capped at 2 TB and with protocol access behind an add-on.",
+  "reliability_note": "Classic trial-vs-steady-state confusion: the $1 figure is term-locked and reverts to $7. The 1 TB tier at $7/mo is $7/TB. Competitive on paper but capped at 2 TB and with protocol access behind an add-on.",
   "confidence": "documented",
   "confidence_note": "documented from the vendor page read on 2026-11-03 (https://www.ionos.com/office-solutions/hidrive-cloud-storage): the plan ladder of 100 GB, 250 GB, 1 TB and 2 TB storage. Egress, identity, retention and per-object cap were not read.",
   "evidence": [

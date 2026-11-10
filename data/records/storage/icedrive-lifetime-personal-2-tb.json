@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://icedrive.net/lifetime-plans",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://icedrive.net/lifetime-plans"
     }
   ],
-  "limits_note": "Stacks cannot be combined with each other arbitrarily — Icedrive community staff: 'Its not possible to stack lifetime plans on top of one another. Only by purchasing Stacks ... can you add more storage.' So the 2 TB entry point is a ceiling unless you buy 5 TB stacks.",
+  "limits_note": "Stacks cannot be combined with each other arbitrarily. Icedrive community staff: 'Its not possible to stack lifetime plans on top of one another. Only by purchasing Stacks .. can you add more storage.' So the 2 TB entry point is a ceiling unless you buy 5 TB stacks.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",
@@ -70,5 +70,5 @@
     "price_verbatim": "One-time $249.50/TB at 2 TB ($499). Over 5 years: $4.16/TB/mo. Over 10 years: $2.08/TB/mo. Expensive relative to pCloud at the same capacity."
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

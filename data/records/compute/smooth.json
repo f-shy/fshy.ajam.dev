@@ -21,10 +21,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.smooth.sh/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API with an API reference and an OpenAPI spec, Python and TypeScript SDKs, and a Smooth CLI, per the vendor docs",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://www.smooth.sh/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "an email address, or a Google or GitHub account: the dashboard sign-in lists an email provider beside Google and GitHub. The free key needs no card: 'sign up to get a free key, no credit card required', and the docs state 'Unlock your free welcome credits. No credit card required.' The phone requirement is not published on https://app.smooth.sh/api/auth/providers. Country: not published on https://app.smooth.sh/api/auth/providers.",

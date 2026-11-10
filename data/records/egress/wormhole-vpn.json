@@ -55,7 +55,7 @@
   },
   "reliability_note": "the Worker terminates and re-originates TLS, so every upstream connection is intercepted by design; single maintainer, no releases",
   "confidence": "documented",
-  "confidence_note": null,
+  "confidence_note": "Workers-based proxy architecture and WebSocket encapsulation are documented in project source code.",
   "evidence": [
     {
       "url": "https://github.com/ciamshrek/wormhole-vpn",
@@ -76,7 +76,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-10-23T00:00:00.000Z",
   "price_per_tb_month": "USD 5 per month, Workers paid plan",
-  "notes": "This is the only wrapper that moves the far end off a locally run host and onto a hosted service, and it is the reason the structural fact is worth stating precisely: replacing the far host with a Worker costs $5/mo and adds a TLS-intercepting proxy in the path, so it is a paid answer to a paid problem, not a free path. Two stars and no releases means it is a design sketch, not a deployment.",
+  "notes": "Experimental proxy design routing WireGuard connections through Cloudflare Workers. Requires paid Cloudflare Workers subscriptions for WebSocket and network routing.",
   "extras": {
     "wg_path": "none",
     "wg_detail": "device runs a stock WireGuard client against localhost:51820, a Go bridge (wireguard-go plus gvisor netstack) forwards over one WebSocket to a Cloudflare Durable Object",

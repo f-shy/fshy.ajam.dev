@@ -18,12 +18,12 @@
       "source": "https://huggingface.co/docs/hub/spaces-dev-mode"
     }
   ],
-  "limits_note": "it is not free",
+  "limits_note": "historical research launch base listed this as a free SSH row; it is not free.",
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
   "verified_at": "2026-10-22T04:24:30.000Z",
   "price_per_tb_month": null,
-  "notes": null,
+  "notes": "Documented so the SSH claim is not repeated as free.",
   "slug": "huggingface-spaces-dev-mode",
   "provider": "Hugging Face Spaces Dev Mode",
   "url": "https://huggingface.co/docs/hub/spaces-dev-mode",

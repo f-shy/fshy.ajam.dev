@@ -80,7 +80,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:16:58.956Z",
-  "notes": "The vendor cart page and the tracker agree on EUR 4.00, 256 MB and 1,000 GB. A site-wide code 30%OFF is advertised in the header; it is a coupon, not a price, and no discounted figure is recorded.",
+  "notes": "The vendor cart page and the tracker agree on EUR 4.00, 256 MB and 1,000 GB. A site-wide code 30%OFF is advertised in the header; it is a coupon, not a price, and no discounted figure is recorded. Unverified: a probe of the order form to see whether the 1 vCPU is a fair-share core and whether 256 MB runs a current Debian image.",
   "extras": {
     "facets": {
       "class": null,

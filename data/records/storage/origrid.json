@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Own REST API, documented and keyless for the anonymous path. /api/upload/create, /api/upload/part, /api/upload/complete. Remote-upload endpoint POST /api/upload/remote pulls a URL server-side (no local bandwidth).",
-  "chaining": "Anonymous upload needs no key at all, so per-identity multiplication is free; but each anon file lives only 15 days from last download. The interesting route is the automatic Contributor tier: park 25 GB, wait 30 days, and links stop expiring (100 GB) — a slow-burn archive, not a hot tier.",
+  "chaining": "Anonymous upload needs no key at all, so per-identity multiplication is free; but each anon file lives only 15 days from last download. The interesting route is the automatic Contributor tier: park 25 GB, wait 30 days, and links stop expiring (100 GB). A slow-burn archive, not a hot tier.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -62,7 +62,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "READ PATH IS GATED BY A MINTED TOKEN, not a static URL: /d/<id> is HTML whose Download button is a signed /dl/<JWT> that 302s to an R2 presigned URL with X-Amz-Expires=21600. The token is re-minted on every page view, so the file is durable but the link is not shareable as a bytes URL — you must re-scrape /d/<id> to fetch. Retains originals byte-exact.",
+  "reliability_note": "READ PATH IS GATED BY A MINTED TOKEN, not a static URL: /d/<id> is HTML whose Download button is a signed /dl/<JWT> that 302s to an R2 presigned URL with X-Amz-Expires=21600. The token is re-minted on every page view, so the file is durable but the link is not shareable as a bytes URL. You must re-scrape /d/<id> to fetch. Retains originals byte-exact.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

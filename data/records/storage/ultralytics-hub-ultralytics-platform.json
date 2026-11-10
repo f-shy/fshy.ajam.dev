@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.ultralytics.com/plans",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not metered — storage is the only billed dimension, and models/datasets download without a per-GB charge. No egress line on the pricing page.",
+    "terms": "Not metered. Storage is the only billed dimension, and models/datasets download without a per-GB charge. No egress line on the pricing page.",
     "metered": true
   },
   "interface": [
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "The `ultralytics` Python package itself (YOLO) is the client: `model.train(data=..., project=...)` pushes datasets and weights to the platform; there is also a documented REST API and CLI. Extremely well maintained (the YOLO package is one of the most-installed ML packages).",
-  "chaining": "Unlimited datasets × but 100 GB account total, so dataset count does not add bytes. The only multiplier is N accounts. Note the asymmetry: 'You can upload unlimited datasets across all plans ... There's no cap on the number of datasets themselves, only on total storage' — so the cap is total, cleanly.",
+  "chaining": "Unlimited datasets × but 100 GB account total, so dataset count does not add bytes. The only multiplier is N accounts. Note the asymmetry: 'You can upload unlimited datasets across all plans .. There's no cap on the number of datasets themselves, only on total storage'. So the cap is total, cleanly.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -52,7 +52,7 @@
     "detail": "email (Google/GitHub OAuth available).",
     "country": null
   },
-  "reliability_note": "Stable commercial vendor with a huge user base. Data is tied to the training platform, so it is a walled garden rather than a general-purpose store — but downloads of your own artifacts are not paywalled.",
+  "reliability_note": "Stable commercial vendor with a huge user base. Data is tied to the training platform, so it is a walled garden rather than a general-purpose store. But downloads of your own artifacts are not paywalled.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

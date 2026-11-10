@@ -14,7 +14,7 @@
     "notes": ""
   },
   "per_object_cap": {
-    "stated": "no per-object cap is published",
+    "stated": "no per-object cap is published; no per-object cap is published; the unit of retrieval is a Usenet article, approximately 750 KB by convention, so 1 TiB of monthly transfer corresponds to roughly 1.4 million article…",
     "bytes": null,
     "source_url": "https://www.frugalusenet.com/",
     "notes": null
@@ -34,9 +34,9 @@
   "interface": [
     "nntp"
   ],
-  "interface_detail": "NNTP over TLS on port 563; no HTTP or object API exists for the download path, so a user drives it through SABnzbd, NZBGet or nzbdav",
+  "interface_detail": "NNTP over TLS on port 563. No HTTP or object API exists for the download path, which is driven through SABnzbd, NZBGet or nzbdav.",
   "tooling": null,
-  "chaining": "One subscription gives a NetNews primary plus a UsenetFarm bonus server, the cheapest two-backbone stack; add a block only for content older than 5,000 days.",
+  "chaining": "One subscription gives a NetNews primary plus a UsenetFarm bonus server, the cheapest two-backbone stack in the sector; add a block only for content older than 5,000 days.",
   "limits": [
     {
       "kind": "request-rate",

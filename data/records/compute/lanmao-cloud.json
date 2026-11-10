@@ -5,7 +5,7 @@
   "url": "https://www.nodeseek.com/post-620036-1",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "The lowest absolute price found: a Hong Kong NAT instance at CNY 2.62 a month with 2 TB of traffic, tested and posted by a user in a 75-percent-off promotion. A Singapore StarHub-shape instance at 1 vCPU / 256 MB / 500 GB renews at CNY 12 a month. The merchant also issues free machines, mostly a Japanese line it calls 狗妈, and resale listings trade those free instances at CNY 180 to CNY 600, which is the market's own valuation of a perpetual-free box.",
+    "stated": "The lowest absolute price found among evaluated providers: a Hong Kong NAT instance at CNY 2.62 a month with 2 TB of traffic, tested and posted by a user in a 75-percent-off promotion. A Singapore StarHub-shape instance at 1 vCPU / 256 MB / 500 GB renews at CNY 12 a month. The merchant also issues free machines, mostly a Japanese line it calls 狗妈, and resale listings trade those free instances at CNY 180 to CNY 600, which is the market's own valuation of a perpetual-free box.",
     "unit": "GiB",
     "metered_on": "wall-clock",
     "source_url": "https://www.nodeseek.com/post-620036-1",
@@ -78,7 +78,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Two cautions are recorded in the entry itself: the 2.62 figure came from a promotion code and is not the list price, and the free machines are a marketing device whose renewal depends on the merchant continuing to hand out coupons. The resale prices are the most useful datum, because they show what the market pays for a perpetual-free instance when it cannot be obtained directly.",
+  "notes": "New to earlier readings, and the cheapest monthly figure in evaluated offerings. Two cautions are recorded in the entry itself: the 2.62 figure came from a promotion code and is not the list price, and the free machines are a marketing device whose renewal depends on the merchant continuing to hand out coupons. The resale prices are the most useful datum, because they show what the market pays for a perpetual-free instance when it cannot be obtained directly.",
   "extras": {
     "facets": {
       "class": "regional-floor-price",

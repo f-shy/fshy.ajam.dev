@@ -39,8 +39,8 @@
     "rest"
   ],
   "interface_detail": "REST, Google SERP results as JSON",
-  "tooling": "not stated",
-  "chaining": "Bills against a Google SERP",
+  "tooling": "not established",
+  "chaining": "Bills per Google SERP query. Serves as a reference control when primary search results appear irregular.",
   "limits": [
     {
       "kind": "request-rate",

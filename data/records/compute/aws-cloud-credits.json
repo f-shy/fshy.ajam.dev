@@ -36,7 +36,7 @@
   ],
   "interface_detail": "a command-line tool, per the AWS CLI page: \"The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services.\"",
   "tooling": "the provider documents its own CLI, the AWS CLI, per https://aws.amazon.com/cli/: \"The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services.\"",
-  "chaining": "Credits that cover 'compute resources, storage, database services' are the broadest instrument after a cash grant: the same balance pays for EC2 spot time, S3 and a managed database, so a whole pipeline runs on one award.",
+  "chaining": "Credits that cover 'compute resources, storage, database services' are the broadest instrument among evaluated providers after a cash grant: the same balance pays for EC2 spot time, S3 and a managed database, so a whole pipeline runs on one award.",
   "limits": [
     {
       "kind": "write-gated",

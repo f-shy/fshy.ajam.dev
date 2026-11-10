@@ -18,12 +18,12 @@
     "notes": "stated in the vendor's technical-limits list (control-panel guide)"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://beget.com/ru/cloud/storage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "FREE and generous: «Безлимитный трафик. Полоса 350 Мбит/с. Бесплатные GET/POST/PUT-запросы» — unlimited traffic, 350 Mbit/s, free GET/POST/PUT requests. A Russian price-comparison article (serverdelo.ru, prices verified 2026-10-03) independently confirms «Скачивать бесплатно можно у Beget и Рег.облака. Трафик и запросы входят в цену».",
+    "terms": "FREE and generous: «Безлимитный трафик. Полоса 350 Мбит/с. Бесплатные GET/POST/PUT-запросы». Unlimited traffic, 350 Mbit/s, free GET/POST/PUT requests. A Russian price-comparison article (serverdelo.ru, prices verified 2026-10-03) independently confirms «Скачивать бесплатно можно у Beget и Рег.облака. Трафик и запросы входят в цену».",
     "metered": false
   },
   "interface": [
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "s3 + ftp",
   "tooling": "S3 API, HTTPS, FTP; Terraform provider (github.com/LTD-Beget/terraform-provider-beget); rclone `s3`; custom subdomain + auto SSL. Documentation and CORS supported.",
-  "chaining": "Per-GB daily, no cap — same rate at 5 TB and 20 TB.",
+  "chaining": "Per-GB daily, no cap. Same rate at 5 TB and 20 TB.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -161,5 +161,5 @@
     "price_verbatim": "$26.04/TB/mo at both 5 TB and 20 TB (₽0.07/GB/day × 30 × 1024 GB × 0.012111), egress $0 and requests $0. Compare OVH One-Zone at $9.34/TB/mo with the same free-egress structure — Beget is 2.8× the price for geography."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

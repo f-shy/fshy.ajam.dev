@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.coda.io/hc/en-us/articles/39555760015757-Overview-Doc-limits",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.coda.io/hc/en-us/articles/39555760015757-Overview-Doc-limits",
     "notes": "not stated"
   },

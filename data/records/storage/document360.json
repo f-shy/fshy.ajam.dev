@@ -5,7 +5,7 @@
   "url": "https://docs.document360.com/docs/adding-folders-and-files",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Free plan is 1 GB media storage (Startup 50 GB, Business 'Unlimited'), 150 MB per upload, 5,000 files per folder.",
+    "stated": "none reachable: Free plan provides 1 GB media storage, 150 MB per upload, and 5,000 files per folder. Higher tiers require custom sales quotes.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.document360.com/docs/adding-folders-and-files",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.document360.com/docs/adding-folders-and-files",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free plan is 1 GB media storage (Startup 50 GB, Business 'Unlimited'), 150 MB per upload, 5,000 files per folder.",
+  "reliability_note": "Free plan provides 1 GB media storage, 150 MB per upload, and 5,000 files per folder. Higher tiers require custom sales quotes.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://docs.document360.com/docs/adding-folders-and-files",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free plan is 1 GB media storage (Startup 50 GB, Business 'Unlimited'), 150 MB per upload, 5,000 files per folder.",
+  "notes": "Free plan provides 1 GB media storage, 150 MB per upload, and 5,000 files per folder. Higher tiers require custom sales quotes.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

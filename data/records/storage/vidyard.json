@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://knowledge.vidyard.com/hc/en-us/articles/360009875374-Video-usage-and-length-limits-in-Vidyard-Free",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://knowledge.vidyard.com/hc/en-us/articles/360009875374-Video-usage-and-length-limits-in-Vidyard-Free",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "No yt-dlp extractor (absent from `--list-extractors`). No public upload API on Free.",
-  "chaining": "5/month x unlimited accounts — but 25-slot library means each account tops out at 25 videos.",
+  "chaining": "5/month x unlimited accounts. But 25-slot library means each account tops out at 25 videos.",
   "limits": [],
   "limits_note": "5 new videos/month and a 25-video rolling library. Deleting is mandatory to keep uploading; it cannot accumulate.",
   "identity_cost": {

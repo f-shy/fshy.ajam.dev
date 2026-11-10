@@ -5,7 +5,7 @@
   "url": "https://veilid.com/how-it-works/networking/",
   "category": "p2p-relay-network",
   "free_tier": {
-    "stated": "no quota and no account — 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'",
+    "stated": "No quota and no account. 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://veilid.com/how-it-works/networking/",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://veilid.com/how-it-works/networking/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://veilid.com/how-it-works/networking/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free — peer-to-peer, with inbound/outbound relays only for reachability.",
+    "terms": "Free. Peer-to-peer, with inbound/outbound relays only for reachability.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "AppMessage / AppCall primitives over routes; the core never parses app bytes. DHT for storage of small records.",
   "tooling": "veilid-core in Rust with bindings; veilid-server binary.",
-  "chaining": "not a file transport. Designed mobile-first for 'intermittent network connections, volatile IP addresses, CGNAT, limited storage and bandwidth' — the opposite of a bulk path.",
+  "chaining": "Not a file transport. Designed mobile-first for 'intermittent network connections, volatile IP addresses, CGNAT, limited storage and bandwidth'. The opposite of a bulk path.",
   "limits": [
     {
       "kind": "write-gated",
@@ -39,7 +39,7 @@
       "source": "https://veilid.com/how-it-works/networking/"
     }
   ],
-  "limits_note": "no congestion control implemented — open issue #404 'congestion control could be implemented with NodeStatus'; relay throttling is a to-do, not a feature.",
+  "limits_note": "No congestion control implemented. Open issue #404 'congestion control could be implemented with NodeStatus'; relay throttling is a to-do, not a feature.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "anonymous",
@@ -72,7 +72,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "no quota and no account — 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'",
+  "notes": "No quota and no account. 'All Veilid applications running veilid-core are nodes, and they are all equal in the eyes of the network. No nodes are special. Nodes are only limited by the resources they bring.'.",
   "extras": {
     "dead_end": {
       "failure_class": "write-gated",

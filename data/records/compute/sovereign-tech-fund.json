@@ -78,7 +78,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The fund excludes prototypes and does not fund user-facing applications, which is the real filter: a data-science tool has to be a component other software builds on. The EUR 50,000 minimum is also a floor that a solo applicant must reach with a genuine multi-month plan.",
+  "notes": "The Sovereign Tech Fund finances foundational open-source components with grants starting from EUR 50,000, excluding user-facing applications and early prototypes. Contracts accommodate international developers under established procurement rules.",
   "extras": {
     "facets": {
       "class": "grant-individual",

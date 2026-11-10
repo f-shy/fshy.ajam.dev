@@ -5,7 +5,7 @@
   "url": "https://www.gitbook.com/pricing",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Free plan exists but publishes zero storage, bandwidth or file-size figures — it is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms…",
+    "stated": "None reachable: Free plan exists but publishes zero storage, bandwidth or file-size figures. It is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms ar.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.gitbook.com/pricing",
@@ -16,7 +16,7 @@
     "stated": "uploaded files up to 100MB per file",
     "bytes": null,
     "source_url": "https://www.gitbook.com/pricing",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free plan exists but publishes zero storage, bandwidth or file-size figures — it is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms…",
+  "reliability_note": "Free plan exists but publishes zero storage, bandwidth or file-size figures. It is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms ar.",
   "confidence": "reported",
   "confidence_note": "the 2026-11-03 read covered https://www.gitbook.com/pricing (unlimited page views, no traffic limit) and https://gitbook.com/docs/create-content/blocks/insert-files (100MB per uploaded file); neither page states a storage quota, so the no-quota basis of the verdict is not re-proved by a quote",
   "evidence": [
@@ -79,7 +79,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-03T15:04:23.415Z",
-  "notes": "Free plan exists but publishes zero storage, bandwidth or file-size figures — it is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms…",
+  "notes": "Free plan exists but publishes zero storage, bandwidth or file-size figures. It is positioned as a docs editor, not a host. No quota to verify means no basis to qualify it; hosting terms ar.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

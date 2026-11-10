@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "a .gitlab-ci.yml pipeline on GitLab.com hosted runners; any container image set with the image keyword; the saas-linux runners run in privileged mode and support Docker-in-Docker",
-  "chaining": null,
+  "chaining": "GitLab open-source program grants Ultimate tier access, unlocking the saas-linux-medium-amd64-gpu-standard T4 runner for eligible open-source projects.",
   "limits": [
     {
       "kind": "write-gated",

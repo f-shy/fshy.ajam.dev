@@ -5,7 +5,7 @@
   "url": "https://trello.com",
   "category": "paas",
   "free_tier": {
-    "stated": "10 MB per attachment on Free, 250 MB on Standard — and explicitly 'there is no total limit for storage, just a per-file limit'",
+    "stated": "10 MB per attachment on Free, 250 MB on Standard. And explicitly 'there is no total limit for storage, just a per-file limit'.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://support.atlassian.com/trello/docs/which-trello-plan-is-best-for-me/",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.atlassian.com/trello/docs/which-trello-plan-is-best-for-me/",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://support.atlassian.com/trello/docs/which-trello-plan-is-best-for-me/"
     }
   ],
-  "limits_note": "10 MB/file on Free; per-board attachment ceiling exists in the API response model (limits.attachments.perBoard warnAt 32400 / disableAt 36000) — i.e. ~32k attachments/board before hard stop; 10 MB is small for bulk data",
+  "limits_note": "10 MB/file on Free; per-board attachment ceiling exists in the API response model (limits.attachments.perBoard warnAt 32400 / disableAt 36000). I.e. ~32k attachments/board before hard stop; 10 MB is small for bulk data.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
@@ -69,7 +69,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "10 MB per attachment on Free, 250 MB on Standard — and explicitly 'there is no total limit for storage, just a per-file limit'",
+  "notes": "10 MB per attachment on Free, 250 MB on Standard. And explicitly 'there is no total limit for storage, just a per-file limit'.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

@@ -13,7 +13,7 @@
     "notes": "Access to EuroHPC systems is free of charge."
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.eurohpc-ju.europa.eu/supercomputers/supercomputers-access-policy-and-faq_en",
     "notes": "not stated"
   },

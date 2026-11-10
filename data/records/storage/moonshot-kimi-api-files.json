@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://platform.kimi.com/docs/api/files-delete",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free — file upload/extract are not billed; only tokens are.",
+    "terms": "Free. File upload/extract are not billed; only tokens are.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "OpenAI-compatible /v1/files; also session filesystem browsing at /v1/sessions/{id}/filesystem",
   "tooling": "openai-python with base_url https://api.moonshot.cn/v1; curl",
-  "chaining": "10 GiB per org, and projects under the `2026-09-01-beta` kimi-api-version header scope lists per project — a possible multiplicative axis, unverified.",
+  "chaining": "10 GiB per org, and projects under the `2026-09-01-beta` kimi-api-version header scope lists per project. A possible multiplicative axis, unverified.",
   "limits": [
     {
       "kind": "per-object-cap",

@@ -5,7 +5,7 @@
   "url": "https://lap.dev/pricing/",
   "category": "dev environment",
   "free_tier": {
-    "stated": "free during public beta, with unlimited developers and catalogs, installed into a user's own Kubernetes clusters",
+    "stated": "free during public beta, with unlimited developers and catalogs, installed into the user's own Kubernetes clusters.",
     "unit": "unlimited",
     "metered_on": "none",
     "source_url": "https://lap.dev/pricing/",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://lap.dev/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price on https://lap.dev/pricing/ and https://docs.lap.dev",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "lapdev CLI (Devbox) and the dashboard at app.lap.dev; no REST API or SSH documented on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -44,11 +44,11 @@
     },
     {
       "kind": "write-gated",
-      "value": "a user installs lapdev-kube-manager into their own cluster, so there is no hosted compute",
+      "value": "the user installs lapdev-kube-manager into their own cluster, so there is no hosted compute.",
       "source": "https://lap.dev/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -56,7 +56,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states that the product is free during beta and runs in a user's own clusters. The free half is the software, and the end of beta is the…",
+  "confidence_note": "the pricing page was read on 2026-10-22 and states that the product is free during beta and runs in the user's own clusters. The free half is the software, and the end of beta is the clock.",
   "evidence": [
     {
       "url": "https://lap.dev/pricing/",

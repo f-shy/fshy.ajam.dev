@@ -5,7 +5,7 @@
   "url": "https://tabstack.ai/",
   "category": "browser host",
   "free_tier": {
-    "stated": null,
+    "stated": "free tier published without a credit amount",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://tabstack.ai/",
@@ -22,10 +22,10 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://tabstack.ai/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "not stated",
+    "terms": "not published",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "HTTP API with an OpenAPI 3.0.3 spec, TypeScript and Python SDKs and a CLI authenticated with an API key; no MCP is named on the site",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -45,7 +45,7 @@
       "source": "https://tabstack.ai/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "an account created with an email address: the console sign-up form carries one visible field, 'type=\"email\" name=\"user_signup[email_address]\"'. No credit card is required: 'No. Every new account includes the 10,000 credits without one.' The phone requirement is not published on https://console.tabstack.ai/signup. Country: not published on https://console.tabstack.ai/signup.",

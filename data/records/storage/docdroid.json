@@ -5,7 +5,7 @@
   "url": "https://www.docdroid.com",
   "category": "document-hosting",
   "free_tier": {
-    "stated": "Free/Standard account: 10 uploads per 24h, no document-count or storage figure published; Pro is \"Unlimited Documents\" for $19/month (3-day trial). Home page now flags free uploads as \"Restricted Demo Mode\" — only you can view them.",
+    "stated": "Free/Standard account: 10 uploads per 24h, no document-count or storage figure published; Pro is \"Unlimited Documents\" for $19/month (3-day trial). Home page now flags free uploads as \"Restricted Demo Mode\". Only you can view them.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://www.docdroid.com/apidocs",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.docdroid.com/apidocs",
     "notes": "not stated"
   },
@@ -79,7 +79,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free/Standard account: 10 uploads per 24h, no document-count or storage figure published; Pro is \"Unlimited Documents\" for $19/month (3-day trial). Home page now flags free uploads as \"Restricted Demo Mode\" — only you can view them.",
+  "notes": "Free/Standard account: 10 uploads per 24h, no document-count or storage figure published; Pro is \"Unlimited Documents\" for $19/month (3-day trial). Home page now flags free uploads as \"Restricted Demo Mode\". Only you can view them.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -89,5 +89,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read",
-  "chaining": "USD 1.25 for 384 MB is the cheapest paid machine by a wide margin and it buys an always-on socket, a cron runner or a tiny relay. The stock history is the reason not to build on it: an offer whose last confirmed in-stock date is 2019 is a price on a page, not capacity",
+  "chaining": "USD 1.25 for 384 MB is the cheapest paid machine among documented hosts by a wide margin and it buys an always-on socket, a cron runner or a tiny relay. The stock history is the reason not to build on it: an offer whose last confirmed in-stock date is 2019 is a price on a page, not capacity",
   "limits": [
     {
       "kind": "volume-quota",
@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Found via serverhunter.",
+  "notes": "Found via serverhunter. Recorded despite the stale stock line because the price is what the index publishes and the staleness is itself the finding. Unverified: an attempt to order the plan, which is the only test of whether USD 1.25 is still a purchasable machine.",
   "extras": {
     "facets": {
       "class": null,

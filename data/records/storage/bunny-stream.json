@@ -5,7 +5,7 @@
   "url": "https://bunny.net/pricing/stream/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top — this is exactly the per-GB metered model that was…",
+    "stated": "None reachable: Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top. This is exactly the per-GB metered model that was rejected.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://bunny.net/pricing/stream/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://bunny.net/pricing/stream/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top — this is exactly the per-GB metered model that was…",
+  "reliability_note": "Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top. This is exactly the per-GB metered model that was rejected.",
   "confidence": "documented",
   "confidence_note": "Re-read on 2026-11-03 from vendor pages: https://bunny.net/pricing/stream/ (player, transcoding and security free; traffic billed, CDN from $0.005/GB) and https://bunny.net/pricing/ (first 500 TB $0.005/GB). Delivery is billed by traffic with no free allowance stated, which decides the verdict. The per-GB storage price stays unverified.",
   "evidence": [
@@ -74,7 +74,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T15:04:24.328Z",
-  "notes": "Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top — this is exactly the per-GB metered model that was…",
+  "notes": "Paid per GB stored and per GB delivered. Transcoding and player are free, storage is 'From $0.01/GB' and traffic is billed on top. This is exactly the per-GB metered model that was rejected.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

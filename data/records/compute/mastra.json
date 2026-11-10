@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://mastra.ai",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Starter includes 10 GB of Server data egress, then USD 0.10 per GB; the Teams and Enterprise columns list 100 GB then USD 0.10 per GB",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "the mastra CLI (mastra deploy) pushes a project to a platform environment; no hosted management REST API or SSH was found on the pages read",
   "tooling": "the mastra CLI with mastra deploy to the hosted platform",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "volume-quota",
@@ -44,7 +44,7 @@
       "source": "https://mastra.ai/pricing"
     }
   ],
-  "limits_note": null,
+  "limits_note": "Session cap, idle-reap and network policy are not documented. Exceeds capacity threshold.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

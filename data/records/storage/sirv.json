@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.sirv.com/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.sirv.com/pricing/",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "REST/S3-compatible upload, URL image transformations, spin/360 tooling.",
-  "chaining": "Unlimited free accounts x 0.5 GB — 2,000 accounts for 1 TB, which is not trivial.",
+  "chaining": "Unlimited free accounts x 0.5 GB. 2,000 accounts for 1 TB, which is not trivial.",
   "limits": [],
   "limits_note": "0.5 GB storage, 2 GB bandwidth, 5,000 processing requests/month. Soft limits allow 2x allowance for 30 days.",
   "identity_cost": {

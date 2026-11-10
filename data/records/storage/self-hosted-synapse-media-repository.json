@@ -5,7 +5,7 @@
   "url": "https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html",
   "category": "messaging",
   "free_tier": {
-    "stated": "Unbounded — `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled.",
+    "stated": "Unbounded. `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Your own server's bandwidth.",
+    "terms": "Bandwidth depends on host server allocation. Fronting endpoints with caching CDNs allows media caching to reduce origin egress traffic.",
     "metered": false
   },
   "interface": [
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Synapse (Python) or Dendrite/Conduit; standard Matrix media API so rclone's `s3`/`webdav`-adjacent tooling plus any Matrix SDK works. Admin media API allows listing and purging media per user/room.",
-  "chaining": "Not a free provider — the multiplier angle is that media is content-addressed and deduplicated by Synapse, and federation lets you push copies to other homeservers as a second replica.",
+  "chaining": "Not a free provider. The multiplier angle is that media is content-addressed and deduplicated by Synapse, and federation lets you push copies to other homeservers as a second replica.",
   "limits": [],
   "limits_note": "`max_upload_size` default 50M; reverse proxy must be raised too (nginx default body size bites first). `media_retention.local_media_lifetime` / `remote_media_lifetime` can silently delete anything not accessed within the window.",
   "identity_cost": {
@@ -42,7 +42,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Default installs are safe; the risk is operator misconfiguration — enabling media_retention turns the repo into a TTL cache. Federation media cache is the first thing purged.",
+  "reliability_note": "Default installs are safe; the risk is operator misconfiguration. Enabling media_retention turns the repo into a TTL cache. Federation media cache is the first thing purged.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -59,7 +59,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Unbounded — `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled.",
+  "notes": "Unbounded. `max_upload_size` defaults to 50M and can be set to any value; storage and media retention are entirely operator-controlled.",
   "extras": {
     "dead_end": {
       "failure_class": "retention",

@@ -48,9 +48,9 @@
     "detail": "A free personal account needs an email address, verified by email, or a Google or Apple social login; uploading a release asset needs write permission on the repository, and downloading one needs no account.",
     "country": null
   },
-  "reliability_note": "Very stable; assets are immutable per release. Deleting a release or repo destroys the assets. Uploading >1000 assets to one release requires multiple releases — plan release granularity, not asset count.",
+  "reliability_note": "Very stable; assets are immutable per release. Deleting a release or repo destroys the assets. Uploading >1000 assets to one release requires multiple releases. Plan release granularity, not asset count.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 200, 3494 bytes, sha256 422579c390d76156). The page states the number in the record. The claim is documented, not measured.",
   "evidence": [
     {
       "url": "https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases",

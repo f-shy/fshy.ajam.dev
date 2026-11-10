@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "unlimited inline completion with no token bill is the one part that never runs out; it needs a desktop IDE, so it chains with a free remote desktop rather than with a headless server.",
+  "chaining": "unlimited inline completion with no token bill is the one part of evaluated providers that never runs out; it needs a desktop IDE, so it chains with a free remote desktop rather than with a headless server.",
   "limits": [
     {
       "kind": "request-rate",

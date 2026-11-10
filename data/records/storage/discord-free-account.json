@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered and free — cdn.discordapp.com is Cloudflare-fronted and there is no bandwidth metering or egress billing of any kind. This is the strongest egress position in the whole survey.",
+    "terms": "Unmetered and free. Cdn.discordapp.com is Cloudflare-fronted and there is no bandwidth metering or egress billing of any kind. This is the strongest egress position in the whole survey.",
     "metered": false
   },
   "interface": [
@@ -41,7 +41,7 @@
       "source": "https://docs.discord.com/developers/change-log"
     }
   ],
-  "limits_note": "20 MiB per file is the hard bite. Message create is ~5 messages / 5 s per channel; global ~50 req/s per token; 10,000 invalid requests per 10 min triggers a 24 h Cloudflare ban. Attachment URLs carry `ex`/`is`/`hm` and stop working after 24 h — see reliability_note.",
+  "limits_note": "20 MiB per file is the hard bite. Message create is ~5 messages / 5 s per channel; global ~50 req/s per token; 10,000 invalid requests per 10 min triggers a 24 h Cloudflare ban. Attachment URLs carry `ex`/`is`/`hm` and stop working after 24 h. See reliability_note.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

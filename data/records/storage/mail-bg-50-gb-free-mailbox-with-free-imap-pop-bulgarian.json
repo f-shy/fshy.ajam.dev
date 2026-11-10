@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mail.bg/signup",
     "notes": "not stated"
   },
@@ -31,8 +31,8 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "IMAP probe-verified live: `imap.mail.bg:993` -> `* OK IMAP4 ready` / `* CAPABILITY IMAP4 IMAP4rev1 QUOTA UIDPLUS MULTIAPPEND BINARY IDLE AUTH=PLAIN`. QUOTA and MULTIAPPEND support is notable — you can read remaining bytes in-band and append several messages per round trip.",
-  "chaining": "50 GB × N free accounts. Also offers free mail hosting on a user-owned domain, which means many mailboxes per domain rather than per signup — the multiplier is domains, not accounts.",
+  "tooling": "IMAP probe-verified live: `imap.mail.bg:993` -> `* OK IMAP4 ready` / `* CAPABILITY IMAP4 IMAP4rev1 QUOTA UIDPLUS MULTIAPPEND BINARY IDLE AUTH=PLAIN`. QUOTA and MULTIAPPEND support is notable. You can read remaining bytes in-band and append several messages per round trip.",
+  "chaining": "50 GB × N free accounts. Also offers free mail hosting on a user-owned domain, which means many mailboxes per domain rather than per signup. The multiplier is domains, not accounts.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -40,7 +40,7 @@
       "source": "https://mail.bg/signup"
     }
   ],
-  "limits_note": "per-object-cap 20 MB per attachment (the binding constraint — 50 GB / 20 MB = ~2,500 messages to fill). No published daily upload meter. IMAP QUOTA extension present so the real byte ceiling is readable before you fill it.",
+  "limits_note": "Per-object-cap 20 MB per attachment (the binding constraint. 50 GB / 20 MB = ~2,500 messages to fill). No published daily upload meter. IMAP QUOTA extension present so the real byte ceiling is readable before you fill it.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

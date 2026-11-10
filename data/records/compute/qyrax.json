@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "order through the vendor's own store; no API documented on the page read",
-  "chaining": "32 TB a month for USD 3.00 is the widest allowance at this price, and the per-state list means the egress point can be moved without changing provider",
+  "chaining": "32 TB a month for USD 3.00 is the widest allowance at this price in this category, and the per-state list means the egress point can be moved without changing provider",
   "limits": [
     {
       "kind": "volume-quota",

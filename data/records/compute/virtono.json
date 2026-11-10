@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read; the vendor documents a client area and store, no client or API",
-  "chaining": "EUR 2.50 for a 512 MB box in any of 29 cities is the cheapest way to place an egress hop in a country the data has to leave from, and 500 GB is the budget that hop can spend",
+  "chaining": "EUR 2.50 for a 512 MB box in any of 29 cities is the cheapest way among documented hosts to place an egress hop in a country the data has to leave from, and 500 GB is the budget that hop can spend",
   "limits": [
     {
       "kind": "volume-quota",
@@ -85,7 +85,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T17:40:47.141Z",
-  "notes": "Tracker and vendor agree on every field of the entry plan. The ordered table pairs EUR 2.50 with KVM 512M and EUR 4.50 with KVM 1G, and this record follows the table; the price span is bound to the row by id 'KVM512MYL'.",
+  "notes": "Virtono KVM VPS plans start from EUR 2.50 monthly for KVM 512M (512 MB RAM, 15 GB SSD, 1 TB transfer) and EUR 4.50 monthly for KVM 1G (1 GB RAM, 25 GB SSD, 2 TB transfer).",
   "extras": {
     "facets": {
       "class": null,

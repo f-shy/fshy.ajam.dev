@@ -5,7 +5,7 @@
   "url": "https://mbd.pub",
   "category": "Chinese digital-content marketplace — claims unlimited hosting",
   "free_tier": {
-    "stated": "Their help centre says '面包多提供无限制的文件托管和高速下载服务(文件<1G)' — unlimited file hosting, with a per-file note of <1 GB. So: unlimited total, 1 GB per object.",
+    "stated": "Their help centre says '面包多提供无限制的文件托管和高速下载服务(文件<1G)'. Unlimited file hosting, with a per-file note of <1 GB. So: unlimited total, 1 GB per object.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://mbd.pub/help/",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://mbd.pub/help/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Web; some developer/OAuth surface for payments (afdian-style), but no public upload API found.",
   "tooling": "Web only.",
-  "chaining": "Unlimited x 1 GB is exactly the shard shape that works — but registration is the blocker, see identity_cost.",
+  "chaining": "Unlimited x 1 GB is exactly the shard shape that works. But registration is the blocker, see identity_cost.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -68,7 +68,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Their help centre says '面包多提供无限制的文件托管和高速下载服务(文件<1G)' — unlimited file hosting, with a per-file note of <1 GB. So: unlimited total, 1 GB per object.",
+  "notes": "Their help centre says '面包多提供无限制的文件托管和高速下载服务(文件<1G)'. Unlimited file hosting, with a per-file note of <1 GB. So: unlimited total, 1 GB per object.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

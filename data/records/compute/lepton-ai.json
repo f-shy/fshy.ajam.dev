@@ -5,7 +5,7 @@
   "url": "https://www.lepton.ai/",
   "category": "inference API",
   "free_tier": {
-    "stated": "withdrawn. The platform told users it would stop operating on 2025-05-20 after NVIDIA acquired the company, and the site has not served content since: a Wayback capture from 2026-02-27 recorded status 503, and two live routes returned nothing.",
+    "stated": "withdrawn. The platform told users it would stop operating on 2025-05-20 after NVIDIA acquired the company, and the site has not served content since: a Wayback capture from 2026-02-27 recorded status 503, and two live routes through automated retrieval returned nothing.",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://www.lepton.ai/",
@@ -67,7 +67,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The rung is reported, not documented, because the vendor page no longer serves a sentence to quote and the archive holds a 503 rather than content. The shutdown notice is a user message reproduced by two Chinese outlets, alongside NVIDIA acquisition coverage. Stale aggregators still list Lepton with per-token pricing.",
+  "notes": "Classified as inactive because service discontinued on a stated date.",
   "extras": {
     "facets": {
       "class": "retired",

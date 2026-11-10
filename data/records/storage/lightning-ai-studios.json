@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lightning.ai/pricing",
     "notes": "not stated"
   },
@@ -24,7 +24,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No egress meter or per-GB transfer price is published on the pricing page — free/public app serving on Studios is included in the plan.",
+    "terms": "No egress meter or per-GB transfer price is published on the pricing page. Free/public app serving on Studios is included in the plan.",
     "metered": false
   },
   "interface": [
@@ -80,5 +80,5 @@
   "notes": "Free plan: '1 free active Studio (4 hour restarts)', 'Persistent storage (200 GB limit)'. Studio docs say the default Studio disk is 400 GB; pricing page caps the free tier at 200 GB.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

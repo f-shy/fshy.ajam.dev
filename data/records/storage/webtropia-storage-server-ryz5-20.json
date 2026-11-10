@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.webtropia.com/en/amd-storage-server.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.webtropia.com/en/amd-storage-server.html",
     "notes": "not stated"
   },
@@ -34,13 +34,13 @@
   "tooling": "unrestricted",
   "chaining": "as any dedicated server",
   "limits": [],
-  "limits_note": "Guaranteed bandwidth is only 300 Mbit (peak 1 Gbit) — at 300 Mbit sustained the theoretical monthly ceiling is ~97 TB, so even 'unlimited' would be shaped well below Hetzner's 1 Gbit. Setup €0.00. Windows +€31/mo, CloudLinux +€12/mo.",
+  "limits_note": "Guaranteed bandwidth is only 300 Mbit (peak 1 Gbit). At 300 Mbit sustained the theoretical monthly ceiling is ~97 TB, so even 'unlimited' would be shaped well below Hetzner's 1 Gbit. Setup €0.00. Windows +€31/mo, CloudLinux +€12/mo.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Cheapest raw €/TB found in Europe, but the traffic term is unverified — do not commit without a ticket. German provider (webtropia.com / Host Europe group lineage).",
+  "reliability_note": "Cheapest raw €/TB found in Europe, but the traffic term is unverified. Do not commit without a ticket. German provider (webtropia.com / Host Europe group lineage).",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

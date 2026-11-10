@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.server4agent.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Free plan: 10 GB egress a month, overage n/a. Paid plans: Starter 100 GB then $0.12 / GB, Pro 250 GB then $0.10 / GB, Business 1 TB then $0.08 / GB, Enterprise custom and negotiated",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "REST API at https://api.server4agent.com with an OpenAPI spec, a CLI (@server4agent/cli), typed JavaScript/TypeScript, Python and Go SDK clients, an MCP server (https://mcp.server4agent.com), webhooks and a browser dashboard",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -54,7 +54,7 @@
       "source": "https://www.server4agent.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

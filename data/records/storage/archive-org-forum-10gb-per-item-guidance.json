@@ -16,7 +16,7 @@
     "stated": "1 TB per item page; recommended maximum 500 GB or 1000 files per item",
     "bytes": null,
     "source_url": "https://archive.org/post/379280/file-size-limit",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [
     {

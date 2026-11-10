@@ -88,9 +88,9 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-22T04:06:37.166Z",
   "binding": "write-gated",
-  "binding_note": "What binds is the terms: section 5.4 forbids the several-accounts pattern that 20 TiB would need, so the 1 TB is a hard 1 TB.",
+  "binding_note": "Offers 1 TB of free storage with class 2 WebDAV endpoint access without phone verification. the provider explicitly prohibits maintaining multiple accounts, enforcing a strict 1 TB account limit.",
   "confidence_note": "The 1 TB offer was re-read live on the landing page; `documented` and not `measured` because the DAV endpoint refused without a credential, which is the expected answer and not a measurement of the read path.",
-  "notes": "The one provider in this topic that names the sharding pattern and rules it out in advance.",
+  "notes": "The service provides no formal uptime or data durability SLA.",
   "extras": {
     "access_mode": "registration-gated",
     "free_tier_exists": true,

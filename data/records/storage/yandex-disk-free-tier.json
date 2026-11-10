@@ -5,7 +5,7 @@
   "url": "https://disk.yandex.ru",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "5 GB by default for users without a plan: 'По умолчанию пользователям без тарифа доступно 5 ГБ места в хранилище'. Photo/video 'unlimited' auto-upload is a plan feature only — without a Yandex 360 plan, mobile uploads count against the 5 GB.",
+    "stated": "5 GB by default for users without a plan: 'По умолчанию пользователям без тарифа доступно 5 ГБ места в хранилище'. Photo/video 'unlimited' auto-upload is a plan feature only. Without a Yandex 360 plan, mobile uploads count against the 5 GB.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://yandex.ru/support/yandex-360/customers/disk/web/ru/enlarge/disk-space",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://yandex.ru/support/yandex-360/customers/disk/web/ru/enlarge/disk-space",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://yandex.ru/support/yandex-360/customers/disk/web/ru/enlarge/disk-space",
     "notes": "not stated"
   },
@@ -33,9 +33,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "WebDAV + REST API + rclone backend exist, which is why this matters despite the quota.",
-  "chaining": "The old 'unlimited photos' loophole is now plan-gated.",
+  "chaining": "Free tier provides 5 GB storage per registered account. Unlimited photo storage features require paid subscription plans.",
   "limits": [],
-  "limits_note": "5 GB total shared with Mail. As of 2026-06-03, desktop sync for Windows/macOS requires a paid subscription — free users keep only local files in the client.",
+  "limits_note": "5 GB total shared with Mail. As of 2026-06-03, desktop sync for Windows/macOS requires a paid subscription. Free users keep only local files in the client.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "5 GB by default for users without a plan: 'По умолчанию пользователям без тарифа доступно 5 ГБ места в хранилище'. Photo/video 'unlimited' auto-upload is a plan feature only — without a Yandex 360 plan, mobile uploads count against the 5 GB.",
+  "notes": "5 GB by default for users without a plan: 'По умолчанию пользователям без тарифа доступно 5 ГБ места в хранилище'. Photo/video 'unlimited' auto-upload is a plan feature only. Without a Yandex 360 plan, mobile uploads count against the 5 GB.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

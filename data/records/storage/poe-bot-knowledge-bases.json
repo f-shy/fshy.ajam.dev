@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://poe-developers.gitbook.io/documentation/prompt-bots/how-to-create-a-prompt-bot",
     "notes": "not stated"
   },
@@ -51,7 +51,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "The read path is the bot's own retrieval, and no export of the uploaded corpus is documented. Rate limits differ per model.",
+  "reliability_note": "Knowledge base uploads allow 5 GB per bot with unlimited bot creation. Read access is restricted to model retrieval prompts without documented bulk export endpoints. Rate limits vary by underlying model.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -83,5 +83,5 @@
     }
   },
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

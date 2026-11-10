@@ -52,7 +52,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Its own FAQ says premium 'removes the ads and the \"verify you are human\" check on downloads' — i.e. free downloads require human verification by design. That alone disqualifies it for automated fetch. It also ships a download manager because 'browser downloads stall on big files'.",
+  "reliability_note": "Its own FAQ says premium 'removes the ads and the \"verify you are human\" check on downloads'. I.e. free downloads require human verification by design. That alone disqualifies it for automated fetch. It also ships a download manager because 'browser downloads stall on big files'.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read; the vendor documents a client portal and a deploy button, no client or API",
-  "chaining": "unmetered transfer at USD 5 with 2 GB of RAM is the cheapest shape for a relaying or proxying workload where bytes matter more than disk; it would sit in front of a metered storage host",
+  "chaining": "unmetered transfer at USD 5 with 2 GB of RAM is the cheapest shape among documented hosts for a relaying or proxying workload where bytes matter more than disk; it would sit in front of a metered storage host",
   "limits": [],
   "limits_note": "no monthly byte allowance is stated: the vendor sells 'unmetered data transfer'. The tracker's card quantifies it at 50,000 GB a month on a 10 Gbps port, which is the tracker's figure and not the vendor's, so no cap is asserted here.",
   "binding": "none",

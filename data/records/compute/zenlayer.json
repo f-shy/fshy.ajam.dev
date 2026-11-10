@@ -36,8 +36,8 @@
     "cli"
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
-  "tooling": "web console, API and Terraform provider documented on the vendor page; this is the only provider with a Terraform path stated",
-  "chaining": "A Terraform and API path with hourly billing across 20 or more countries is the shape a scripted fleet needs, and the 95th-percentile bandwidth mode is the only one priced on aggregate rather than per machine",
+  "tooling": "web console, API and Terraform provider documented on the vendor page; this is the only provider among documented hosts with a Terraform path stated",
+  "chaining": "A Terraform and API path with hourly billing across 20 or more countries is the shape a scripted fleet needs, and the 95th-percentile bandwidth mode is the only one among documented hosts priced on aggregate rather than per machine",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -69,7 +69,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Source: zhujiceping offer listing, then the vendor page. Neither page prints a plan row, so the record is reported and the shape is empty rather than guessed. Rendering and provenance: currency written as USD.",
+  "notes": "Source: zhujiceping offer listing, then the vendor page. Neither page prints a plan row, so the record is reported and the shape is empty rather than guessed. The 30 percent code is the review site's exclusive and may not be available through other channels. Unverified: the console's price for the cheapest hourly shape in Hong Kong. Rendering and provenance: currency written as USD.",
   "extras": {
     "facets": {
       "class": null,

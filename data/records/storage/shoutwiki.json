@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.shoutwiki.com/w/api.php?action=query&meta=siteinfo&siprop=general&format=json",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
       "source": "https://www.shoutwiki.com/w/api.php?action=query&meta=siteinfo&siprop=general&format=json"
     }
   ],
-  "limits_note": "per-object-cap: 100 MB (104,857,600 B, from siteinfo). request-rate: the wiki HTML and the Action API are behind an Anubis proof-of-work challenge — a POST to `/w/api.php` returned the 'Making sure you're not a bot!' page instead of JSON, so programmatic access needs a PoW-capable client. Retention: no expiry published.",
+  "limits_note": "Per-object-cap: 100 MB (104,857,600 B, from siteinfo). request-rate: the wiki HTML and the Action API are behind an Anubis proof-of-work challenge. A POST to `/w/api.php` returned the 'Making sure you're not a bot!' page instead of JSON, so programmatic access needs a PoW-capable client. Retention: no expiry published.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

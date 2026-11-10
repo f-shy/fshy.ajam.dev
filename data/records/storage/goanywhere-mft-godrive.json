@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.goanywhere.com/products/goanywhere-free/efss",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.goanywhere.com/products/goanywhere-free/efss",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "N/A — on-premises.",
+    "terms": "N/A. On-premises.",
     "metered": false
   },
   "interface": [

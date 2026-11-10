@@ -62,7 +62,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The two Spanish hosts that use a free-sounding name, vpsfree.es and vpsFree.cz, are both paid, which is why neither belongs in a free-tier table.",
+  "notes": "vpsFree.es sells commercial VPS hosting plans with no free tier. Account registration requires standard payment.",
   "extras": {
     "facets": {
       "class": "refutation-not-free",

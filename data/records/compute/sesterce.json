@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated on the page read",
-  "chaining": "An A10 with 30 vCPU and 200 GB of system RAM for USD 1.42 an hour is the most CPU-per-GPU shape, which is what a data pipeline that touches the accelerator intermittently wants: the 24 GB card is small enough for embedding and inference work, and the 200 GB of RAM is where the batch lives. The zone labels are the reason not to read this as one price, because the same card is printed at different rates per zone",
+  "chaining": "An A10 with 30 vCPU and 200 GB of system RAM for USD 1.42 an hour is the most CPU-per-GPU shape among documented hosts, which is what a data pipeline that touches the accelerator intermittently wants: the 24 GB card is small enough for embedding and inference work, and the 200 GB of RAM is where the batch lives. The zone labels are the reason not to read this as one price, because the same card is printed at different rates per zone",
   "limits": [],
   "limits_note": "No quota is stated: the page publishes a per-GPU hourly rate, VRAM, vCPU count, RAM and a zone label. The page header also prints 'From / hour $0.17' without naming the card or zone, so the true floor is below the cheapest row that carries a specification and is unverified.",
   "binding": "none",
@@ -125,7 +125,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:33.436Z",
-  "notes": "Found via computeprices.",
+  "notes": "Found via computeprices. The zone naming ('Zone 5', 'Zone 7', 'Zone 13') is the index's own, and the vendor's zone-to-city mapping was not read. Unverified: cloud.sesterce.com's price list for what each zone is and the disk that ships with the A10 row.",
   "extras": {
     "facets": {
       "class": null,

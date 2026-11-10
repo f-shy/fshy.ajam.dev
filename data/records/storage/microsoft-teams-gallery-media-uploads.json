@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored",
     "notes": "not stated"
   },

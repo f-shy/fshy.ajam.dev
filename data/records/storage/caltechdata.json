@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://libanswers.caltech.edu/faq/163212",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://libanswers.caltech.edu/faq/163212",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered — no egress terms; Content-Security-Policy references caltech2.osn.mghpcc.org, i.e. storage sits on the Open Storage Network, an NSF-funded academic fabric",
+    "terms": "Unmetered egress. Downloads stream directly from data.caltech.edu. Storage resides on the Open Storage Network, an NSF-funded academic infrastructure fabric.",
     "metered": false
   },
   "interface": [
@@ -31,9 +31,9 @@
   ],
   "interface_detail": "rest",
   "tooling": "InvenioRDM REST API (/api/records, files under /api/records/<id>/files/<key>/content); purpose-built client caltechlibrary/caltechdata_api (github.com/caltechlibrary/caltechdata_api, 13 stars); the whole instance's source is public at caltechlibrary/caltechdata (11 stars) so the quota config is auditable",
-  "chaining": "Records themselves are not account-capped, so 1 TB is a floor rather than a ceiling.",
+  "chaining": "Default allocation is 1 TB free per registered institutional user. Deposited records are not individually account-capped, providing higher baseline capacity than general repositories.",
   "limits": [],
-  "limits_note": "550 files per record; deposit requires a Caltech (access.caltech) identity, which is the real gate — the API reads are fully anonymous but writes are not open to the public.",
+  "limits_note": "550 files per record; deposit requires a Caltech (access.caltech) identity, which is the real gate. The API reads are fully anonymous but writes are not open to the public.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

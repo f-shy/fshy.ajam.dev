@@ -103,5 +103,5 @@
     }
   ],
   "verdict": "fails-quota",
-  "notes": "Observable was once a free notebook compute host. The current plan table gives Free no compute at all. Whether the blank cell means zero or 'not applicable' is not stated in words."
+  "notes": "Observable offers a Free tier for notebooks without hosted compute allowances; compute is client-side or connected to external database services."
 }

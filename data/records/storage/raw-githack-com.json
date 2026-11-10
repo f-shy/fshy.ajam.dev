@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://raw.githack.com/",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Two URL forms: raw.githack.com/<owner>/<repo>/<branch|tag>/<path> (development, minutes of cache) and rawcdn.githack.com/<owner>/<repo>/<tag|commit>/<path> (production, cached permanently). Plain GET.",
-  "chaining": "Serves GitHub files at 50 MB where jsDelivr's /gh/ stops at 20 MB — that is the single most useful number here, because it doubles the shard size on an otherwise identical origin. Use rawcdn.githack.com for immutable shards and jsDelivr /gh/ as a second mirror for the smaller ones.",
+  "chaining": "Serves GitHub files at 50 MB where jsDelivr's /gh/ stops at 20 MB. That is the single most useful number here, because it doubles the shard size on an otherwise identical origin. Use rawcdn.githack.com for immutable shards and jsDelivr /gh/ as a second mirror for the smaller ones.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -45,13 +45,13 @@
       "source": "https://raw.githack.com/"
     }
   ],
-  "limits_note": "per-object-cap: GitHub's 100 MiB repo block is the real ceiling (50 MB proven). commit-ref must be used for permanence; branch refs are re-fetched within minutes. HTML is gated behind an interstitial confirmation page — irrelevant for blobs, fatal if you need to serve HTML.",
+  "limits_note": "Per-object-cap: GitHub's 100 MiB repo block is the real ceiling (50 MB proven). commit-ref must be used for permanence; branch refs are re-fetched within minutes. HTML is gated behind an interstitial confirmation page. Irrelevant for blobs, fatal if you need to serve HTML.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Small independent operator — its own homepage says it serves 479M+ requests and 46 TB+ of traffic monthly, which is ~0.2% of the 1 TiB/day requirement, so treat it as a mirror, never the primary. A branch-ref URL 301s to raw.githubusercontent.com (i.e. it silently stops being a CDN and bills GitHub instead).",
+  "reliability_note": "Small independent operator. Its own homepage says it serves 479M+ requests and 46 TB+ of traffic monthly, which is ~0.2% of the 1 TiB/day requirement, so treat it as a mirror, never the primary. A branch-ref URL 301s to raw.githubusercontent.com (i.e. it silently stops being a CDN and bills GitHub instead).",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

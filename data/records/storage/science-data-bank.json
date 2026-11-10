@@ -5,7 +5,7 @@
   "url": "https://www.scidb.cn/en",
   "category": "academic",
   "free_tier": {
-    "stated": "1 TB per dataset and 2,000 files per dataset, with no per-user or per-account cap; the 1 TB/2,000-file line is a soft gate (contact [address removed] for more) rather than a hard refusal. 'Data packages' bundle multiple datasets under one published record.",
+    "stated": "Allowance is 1 TB per dataset and 2,000 files per dataset with no published per-user or per-account cap. The 1 TB limit is a soft threshold requiring administrator coordination for larger submissions. Data packages bundle multiple datasets under one published record.",
     "unit": "objects",
     "metered_on": "unstated",
     "source_url": "https://www.scidb.cn/en/faq",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.scidb.cn/en/faq",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.scidb.cn/en/faq",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "CNIC-operated, long-lived (Springer Nature recommended-repository status).",
+  "reliability_note": "Operated by CNIC with Springer Nature recommended repository status. Single-stream network throughput outside mainland China is unmeasured.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -68,7 +68,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "1 TB per dataset and 2,000 files per dataset, with no per-user or per-account cap; the 1 TB/2,000-file line is a soft gate (contact [address removed] for more) rather than a hard refusal. 'Data packages' bundle multiple datasets under one published record.",
+  "notes": "Allowance is 1 TB per dataset and 2,000 files per dataset with no published per-user or per-account cap. The 1 TB limit is a soft threshold requiring administrator coordination for larger submissions. Data packages bundle multiple datasets under one published record.",
   "extras": {},
   "binding": "write-gated",
   "binding_note": null

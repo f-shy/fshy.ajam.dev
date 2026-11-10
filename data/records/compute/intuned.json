@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://intunedhq.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the page read states no egress allowance and no overage price per TB",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "HTTP API for Web Tasks; Projects use the Intuned CLI and IDE",
   "tooling": "API for Web Tasks; CLI and IDE for Projects",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -54,7 +54,7 @@
       "source": "https://intunedhq.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "The phone requirement is not published on https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper. Country: not published on https://intunedhq.com/docs/main/00-getting-started/quickstarts/scraper.",
@@ -62,7 +62,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states the free plan's compute hours, its trial credit and its retention window.",
+  "confidence_note": "Retention is limited to 7 days.",
   "evidence": [
     {
       "url": "https://intunedhq.com/pricing",

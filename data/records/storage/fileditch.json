@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Extension blocklist is broad (php, html, js, exe, dll, apk, sh, py, xml, svg, iso-adjacent script types) — .bin/.parquet/.npy/.zip/.7z are fine. Retention: indefinite while accessed; only 45+ day untouched files are reclaim candidates.",
+    "stated": "Extension blocklist is broad (php, html, js, exe, dll, apk, sh, py, xml, svg, iso-adjacent script types). .bin/.parquet/.npy/.zip/.7z are fine. Retention: indefinite while accessed; only 45+ day untouched files are reclaim candidates.",
     "source_url": "https://new.fileditch.com/",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
       "source": "https://new.fileditch.com/"
     }
   ],
-  "limits_note": "155 GiB / 150 GB per file (live JS constant). 128 MiB chunks, 6 parallel. Extension blocklist is broad (php, html, js, exe, dll, apk, sh, py, xml, svg, iso-adjacent script types) — .bin/.parquet/.npy/.zip/.7z are fine. Retention: indefinite while accessed; only 45+ day untouched files are reclaim candidates.",
+  "limits_note": "155 GiB / 150 GB per file (live JS constant). 128 MiB chunks, 6 parallel. Extension blocklist is broad (php, html, js, exe, dll, apk, sh, py, xml, svg, iso-adjacent script types). .bin/.parquet/.npy/.zip/.7z are fine. Retention: indefinite while accessed; only 45+ day untouched files are reclaim candidates.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,

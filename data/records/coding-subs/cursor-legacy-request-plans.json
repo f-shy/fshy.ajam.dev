@@ -56,6 +56,6 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T04:31:20.000Z",
-  "notes": "Existing holders keep it working until then, which is not the same as it being purchasable.",
+  "notes": "Closed to new accounts. New customers are routed to The X Subscription, and the request-based page states that an existing holder is migrated to usage-based pricing at their next renewal. Existing holders keep access until renewal.",
   "binding": "request-rate"
 }

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "CLI, per the CodeSandbox SDK CLI page: \"The CodeSandbox SDK provides a command-line interface (CLI) called `csb` for managing sandboxes, templates, and configurations.\"",
   "tooling": "the csb command-line interface of the CodeSandbox SDK, per the CLI page: \"The CodeSandbox SDK provides a command-line interface (CLI) called `csb`\"",
-  "chaining": "40 Nano-VM hours a month is a free headless Linux box with a filesystem and a port, which is what a build, a scrape or a test run needs; it is the cheapest server-shaped free tier per credit, and it composes with any static host for the output.",
+  "chaining": "40 Nano-VM hours a month is a free headless Linux box with a filesystem and a port, which is what a build, a scrape or a test run needs; it is the cheapest server-shaped free tier among evaluated providers per credit, and it composes with any static host for the output.",
   "limits": [
     {
       "kind": "request-rate",

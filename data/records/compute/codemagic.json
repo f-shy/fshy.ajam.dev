@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://codemagic.io/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Egress traffic and data storage are included in Codemagic Patch pricing, with no bandwidth fees",
@@ -33,13 +33,13 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
-      "value": "free below 100,000 monthly active users of a user's own app",
+      "value": "free below 100,000 monthly active users of the user's own app.",
       "source": "https://codemagic.io/pricing/"
     },
     {
@@ -48,7 +48,7 @@
       "source": "https://codemagic.io/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -56,7 +56,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states a free tier gated on monthly active users rather than on machine time.",
+  "confidence_note": "The free tier is metered on monthly active users rather than machine execution time.",
   "evidence": [
     {
       "url": "https://codemagic.io/pricing/",

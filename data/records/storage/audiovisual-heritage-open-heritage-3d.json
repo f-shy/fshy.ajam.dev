@@ -5,7 +5,7 @@
   "url": "https://openheritage3d.org",
   "category": "academic",
   "free_tier": {
-    "stated": "No published quota. The project is a consortium repository — 'we invite others to join the Open Heritage 3D project and contribute their datasets' — with 200+ datasets and DOIs under the 10.26301 prefix. Contribution is by organisational agreement, not self-serve signup.",
+    "stated": "No published quota. The project is a consortium repository. 'we invite others to join the Open Heritage 3D project and contribute their datasets'. With 200+ datasets and DOIs under the 10.26301 prefix. Contribution is by organisational agreement, not self-serve signup.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://openheritage3d.org/about",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://openheritage3d.org/about",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://openheritage3d.org/about",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "Web catalogue with per-project pages and DOI resolution; no public upload API and no documented deposit endpoint. Joining requires contacting the consortium (CHEI at UCSD, CyArk, Politecnico di Torino G4CH, Washington and Lee).",
-  "chaining": "Not chainable by an individual — the unit is an institutional partnership. A single organisation could contribute many datasets, but the door is a consortium agreement.",
+  "chaining": "Not chainable by an individual. The unit is an institutional partnership. A single organisation could contribute many datasets, but the door is a consortium agreement.",
   "limits": [
     {
       "kind": "write-gated",
@@ -45,7 +45,7 @@
     "detail": "unverified: the about page invites others to join and contribute datasets but states no application form, fee or identity requirement",
     "country": null
   },
-  "reliability_note": "Stable academic consortium with DOI permanence and mirrored preservation, but there is no self-service path — this is a partnership, not a storage provider.",
+  "reliability_note": "Stable academic consortium with DOI permanence and mirrored preservation, but there is no self-service path. This is a partnership, not a storage provider.",
   "confidence": "reported",
   "confidence_note": "The 2026-11-03 evidence rows read https://openheritage3d.org/about (invitation to join and contribute datasets) and https://openheritage3d.org/project.php?id=07af-c325 (download links are emailed). No page read states that contribution is by organisational agreement, and the identity requirement is unverified, so the rung stays reported.",
   "evidence": [
@@ -83,7 +83,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T00:31:28.059Z",
-  "notes": "No published quota. The project is a consortium repository — 'we invite others to join the Open Heritage 3D project and contribute their datasets' — with 200+ datasets and DOIs under the 10.26301 prefix. Contribution is by organisational agreement, not self-serve signup.",
+  "notes": "No published quota. The project is a consortium repository. 'we invite others to join the Open Heritage 3D project and contribute their datasets'. With 200+ datasets and DOIs under the 10.26301 prefix. Contribution is by organisational agreement, not self-serve signup.",
   "extras": {
     "dead_end": {
       "failure_class": "write-gated",

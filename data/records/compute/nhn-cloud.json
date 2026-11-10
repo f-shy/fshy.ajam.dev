@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "KRW 200,000 with GPU instances excluded lands on CPU instances only, which is the one class documented records already holds at USD 13.20 a month for 1 vCPU / 1 GB from the same provider.",
   "limits": [
     {
       "kind": "volume-quota",

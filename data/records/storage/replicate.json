@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://replicate.com/docs/topics/predictions/data-retention",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "`cog push r8.im/<owner>/<model>`, replicate-python Files API (files.create/list/get/delete).",
-  "chaining": "No viable chain: 100 MB per object x 1-hour retention. This is the textbook 'big per-file cap lives where retention is shortest' inverse — here small cap AND short retention.",
+  "chaining": "No viable chain: 100 MB per object x 1-hour retention. This is the textbook 'big per-file cap lives where retention is shortest' inverse. Here small cap AND short retention.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "Container registry r8.im requires authentication. Anonymous requests to `/v2/` return HTTP 401 and manifest queries redirect to account login pages.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

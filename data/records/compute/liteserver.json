@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "WHMCS cart at clients.liteserver.nl with per-plan add-ons for cores, RAM, HDD blocks and bandwidth blocks; no API is documented on the pages read; KVM with instant setup and a 24 hour manual verification window",
-  "chaining": "512 GB of HDD for EUR 6 is the largest disk on the cheapest plan, and the throttle-instead-of-suspend policy makes it usable as a mirror target rather than a host that goes dark at the cap",
+  "chaining": "512 GB of HDD for EUR 6 is the largest disk on the cheapest plan among evaluated providers, and the throttle-instead-of-suspend policy makes it usable as a mirror target rather than a host that goes dark at the cap; 15 TB a month is about one full replication pass of the 10 TB active dataset, so it is a backup tier rather than a serving tier, and the 20 TB dataset does not fit on one such plan at all.",
   "limits": [
     {
       "kind": "volume-quota",

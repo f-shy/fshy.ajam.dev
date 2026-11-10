@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.line.biz/en/docs/messaging-api/receiving-messages/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://developers.line.biz/en/docs/messaging-api/receiving-messages/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "line-bot-sdk (Python/Node/Java/Go/PHP). The SDK exposes get_message_content() and nothing else — no listing, no expiry control, no bulk export.",
+  "tooling": "Line-bot-sdk (Python/Node/Java/Go/PHP). The SDK exposes get_message_content() and nothing else. No listing, no expiry control, no bulk export.",
   "chaining": "Not chainable: there is no enumeration API, so you cannot even address stored objects after the fact without having logged every messageId yourself.",
   "limits": [],
   "limits_note": "Explicit auto-deletion with an undisclosed period: 'Content that users send is automatically deleted after a certain period of time.' LINE does not publish the number, which is worse than a known 30 days because it cannot be reasoned about. No listing endpoint, no bulk download.",

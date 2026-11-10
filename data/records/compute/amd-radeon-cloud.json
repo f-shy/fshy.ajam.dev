@@ -38,7 +38,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "A recurring 20 GPU-hours a day on a ROCm container with SSH, a CLI and a persistent volume is the first free allowance found that is not a one-time credit or a notebook tab, and it composes with Token Factory: inference costs nothing, so the 20 hours can be spent entirely on training.",
+  "chaining": "A recurring 20 GPU-hours a day on a ROCm container with SSH, a CLI and a persistent volume is the first free allowance found among evaluated offerings that is not a one-time credit or a notebook tab, and it composes with Token Factory: inference costs nothing, so the 20 hours can be spent entirely on training.",
   "limits": [
     {
       "kind": "request-rate",

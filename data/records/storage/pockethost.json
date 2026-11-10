@@ -5,7 +5,7 @@
   "url": "https://pockethost.io",
   "category": "paas",
   "free_tier": {
-    "stated": "10 GB file storage + 250 MB DB per PocketBase slot — slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial",
+    "stated": "10 GB file storage + 250 MB DB per PocketBase slot. Slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://pockethost.io/pricing",
@@ -13,18 +13,18 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pockethost.io/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "10 GB file storage + 250 MB DB per PocketBase slot — slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial",
+    "stated": "10 GB file storage + 250 MB DB per PocketBase slot. Slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial.",
     "days": 7,
     "source_url": "https://pockethost.io/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered bandwidth and CPU, fair use — this is the standout: storage is paid but egress is genuinely unmetered.",
+    "terms": "Unmetered bandwidth and CPU, fair use. This is the standout: storage is paid but egress is genuinely unmetered.",
     "metered": false
   },
   "interface": [
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "PocketBase REST/realtime API, `pocketbase` JS/Dart SDKs, SFTP file access on PocketHost, S3 storage backend supported (like standalone PocketBase)",
-  "chaining": "Storage pools across slots ('Storage adds to your account pool, shared across every PocketBase you run'), so 10 slots = 100 GB for ~$50-100/mo. Not free, but the only entrant here with unmetered egress. Self-hosting PocketBase is free/MIT — that is the free path, on compute that is already available.",
+  "chaining": "Storage pools across slots ('Storage adds to your account pool, shared across every PocketBase you run'), so 10 slots = 100 GB for ~$50-100/mo. Not free, but the only entrant here with unmetered egress. Self-hosting PocketBase is free/MIT. That is the free path, on compute that is already available.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -65,7 +65,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "10 GB file storage + 250 MB DB per PocketBase slot — slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial",
+  "notes": "10 GB file storage + 250 MB DB per PocketBase slot. Slots are $9.99/mo (or $5/mo annual, or lifetime), with a 7-day trial.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -75,5 +75,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

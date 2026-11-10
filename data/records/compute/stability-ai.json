@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "What breaks: the allowance does not renew, and the cheapest useful batch (100 images on SD 3.5 Flash) costs 250 credits, ten times the grant.",
+  "chaining": "The 25 credits allow testing API integration. The allowance is one-time and does not renew, while generating 100 images on SD 3.5 Flash requires 250 credits.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -73,7 +73,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "These are inference credits, not general compute. Not established: expiry of the 25 credits; the page states none.",
+  "notes": "Stability AI provides an initial one-time promotional grant of 25 API credits (approximately USD 0.25 in model generation value) for testing developer endpoints.",
   "extras": {
     "facets": {
       "class": "credit-too-small-for-a-workload",

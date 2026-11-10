@@ -18,12 +18,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://surge.sh/docs/cli/publishing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "No bandwidth quota or metering is documented anywhere on the free plan; every project is served from all 10 of Surge's own edge nodes ('Every project—free or paid—serves from all of them').",
+    "terms": "No bandwidth quota or metering is documented anywhere on the free plan; every project is served from all 10 of Surge's own edge nodes ('Every project. Free or paid. Serves from all of them').",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Official `surge` CLI (npm, ~free) and a documented raw REST deploy API: PUT /:domain with Basic auth, Content-Type: application/gzip, a gzipped tarball body plus file-count and project-size headers. That is directly scriptable, no CLI needed.",
-  "chaining": "Unlimited projects x 450 MB = arbitrary total per account; unlimited free accounts (email+password in-terminal, no card). Sharding is natural because each project is just a folder.",
+  "chaining": "Allows unlimited projects per account with each project capped at 450 MB. Free accounts register via command-line without payment credentials. Sharding divides data across independent project directories.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -56,7 +56,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Deploy is full-replace, not incremental — a slow link makes each publish expensive. Free tier has no stated SLA and no published bandwidth ceiling, so behaviour at 1 TiB/day is unproven.",
+  "reliability_note": "Deploy is full-replace, not incremental. A slow link makes each publish expensive. Free tier has no stated SLA and no published bandwidth ceiling, so behaviour at 1 TiB/day is unproven.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -49,7 +49,7 @@
   "binding_note": "The review fails first: AWS has unpublished internal requirements, applications go unedited once submitted, and reports of repeated rejection for legitimate applicants are common. After approval the two-year expiry and the USD 1,000 size are what bind.",
   "identity_cost": {
     "kind": "email",
-    "detail": "No incorporation requirement appears in the English eligibility list or the seven-step application guide. The gates are an AWS Builder ID, a business email matching a startup domain (the guide says to use the business email for the Builder ID and the Activate profile), a live company website, and a linked AWS account.",
+    "detail": "No incorporation requirement appears in the English eligibility list or seven-step application guide. Access requires an AWS Builder ID, startup domain business email, active company website, and linked AWS account.",
     "country": null
   },
   "reliability_note": "no reliability event recorded",
@@ -92,7 +92,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-11-04T02:23:48.988Z",
-  "notes": "The evidence reversed that verdict. AWS's seven-step application guide and its Japanese getting-started page both name a website, a domain business email and a LinkedIn profile rather than a legal entity, and one third-party tracker records solo-founder eligibility as yes. The residual risk is the unpublished internal review, which is where rejections actually happen. Its numbers stand, its identity field does not.",
+  "notes": "Eligibility terms specify an AWS Builder ID, a business email matching a startup domain, a live company website, and a linked AWS account without requiring formal company incorporation.",
   "extras": {
     "facets": {
       "class": "startup-credit",

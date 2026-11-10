@@ -5,7 +5,7 @@
   "url": "https://www.nci.org.au/infrastructure/storage-systems",
   "category": "academic",
   "free_tier": {
-    "stated": "Infrastructure is huge — '/g/data4-7 | 110+ PB | Persistent Storage', 'Massdata | 70+ PB' — but there is no free self-service quota: bytes come from the merit-based Adapter scheme or a share of a funded project. Adapter is 'temporarily closed. It is scheduled to reopen in Q4 2026'.",
+    "stated": "Infrastructure is huge. '/g/data4-7 | 110+ PB | Persistent Storage', 'Massdata | 70+ PB'. But there is no free self-service quota: bytes come from the merit-based Adapter scheme or a share of a funded project. Adapter is 'temporarily closed. It is scheduled to reopen in Q4 2026'.",
     "unit": "none",
     "metered_on": "stored-bytes",
     "source_url": "https://nci.org.au/users/how-access-nci/adapter-scheme",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://nci.org.au/users/how-access-nci/adapter-scheme",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://nci.org.au/users/how-access-nci/adapter-scheme",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "sftp",
   "tooling": "POSIX/Lustre on Gadi, Globus for transfer. No S3 endpoint in the storage-systems page.",
-  "chaining": "Adapter is quarterly and 'designed to identify meritorious research projects which need flexible compute access over a short period' — the short period is the anti-multiplier; you would be re-applying every quarter.",
+  "chaining": "Adapter is quarterly and 'designed to identify meritorious research projects which need flexible compute access over a short period'. The short period is the anti-multiplier; you would be re-applying every quarter.",
   "limits": [
     {
       "kind": "write-gated",
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Closed scheme — nothing to get today.",
+  "reliability_note": "Closed allocation scheme with access restricted to approved Australian research projects.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Infrastructure is huge — '/g/data4-7 | 110+ PB | Persistent Storage', 'Massdata | 70+ PB' — but there is no free self-service quota: bytes come from the merit-based Adapter scheme or a share of a funded project. Adapter is 'temporarily closed. It is scheduled to reopen in Q4 2026'.",
+  "notes": "Infrastructure is huge. '/g/data4-7 | 110+ PB | Persistent Storage', 'Massdata | 70+ PB'. But there is no free self-service quota: bytes come from the merit-based Adapter scheme or a share of a funded project. Adapter is 'temporarily closed. It is scheduled to reopen in Q4 2026'.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

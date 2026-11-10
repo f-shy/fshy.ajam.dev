@@ -32,7 +32,7 @@
     "unknown"
   ],
   "tooling": "no public API. SnapBridge is the only ingest path",
-  "chaining": "The only unlimited thing is a 2-megapixel downscaled JPEG, which is the ingest-re-encode trap in its purest form: the bytes that come back are not the bytes you sent.",
+  "chaining": "Unlimited upload applied only to images automatically re-encoded to 2-megapixel resolution. All service operations officially terminated in October 2026.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -163,8 +163,8 @@
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T00:20:56.363Z",
   "binding": "retention-clamped",
-  "binding_note": "The service ended on 2026-10-15, so the retention clamp is complete.",
-  "notes": "Recorded with its death date because the death is the finding.",
+  "binding_note": "Service operations ceased on 2026-10-15. Standard storage was restricted to 2 GB or 20 GB, while the unlimited SnapBridge tier returned downscaled 2-megapixel copies rather than original binary payloads.",
+  "notes": "Service officially ended on 2026-10-15. The unlimited SnapBridge tier accepted image uploads while downscaling files to 2-megapixel resolution, modifying the original bytes.",
   "extras": {
     "access_mode": "registration-gated",
     "closed": "2026-10-15",

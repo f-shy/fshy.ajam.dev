@@ -18,12 +18,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://forgejo.org/docs/latest/admin/advanced/quota/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Yours to pay for — unless the LFS backend is one of the free S3 endpoints (HF buckets, IA), in which case egress is the backend's and is free/CDN.",
+    "terms": "Yours to pay for. Unless the LFS backend is one of the free S3 endpoints (HF buckets, IA), in which case egress is the backend's and is free/CDN.",
     "metered": false
   },
   "interface": [
@@ -41,7 +41,7 @@
       "source": "https://forgejo.org/docs/latest/admin/advanced/quota/"
     }
   ],
-  "limits_note": "Soft-quota only: 'Forgejo checks the quota usage only before an action is executed, but it will allow a started action to complete' — so it can be overshot. No per-file cap unless you set one.",
+  "limits_note": "Soft-quota only: 'Forgejo checks the quota usage only before an action is executed, but it will allow a started action to complete'. So it can be overshot. No per-file cap unless you set one.",
   "identity_cost": {
     "kind": "email",
     "detail": null,

@@ -5,7 +5,7 @@
   "url": "https://git-annex.branchable.com/special_remotes/rclone/",
   "category": "registry",
   "free_tier": {
-    "stated": "The docs' own list (still current) names Drive, OneDrive, Dropbox, Mega, pCloud, Box, Yandex, Jottacloud, WebDAV, FTP, SFTP, Swift, B2, S3.",
+    "stated": "N/A. Front-end to rclone storage backends, inheriting free tiers of supported providers. Documentation lists Drive, OneDrive, Dropbox, Mega, pCloud, Box, Yandex, Jottacloud, WebDAV, FTP, SFTP, Swift, B2, and S3.",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://git-annex.branchable.com/special_remotes/rclone/",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://git-annex.branchable.com/special_remotes/rclone/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://git-annex.branchable.com/special_remotes/rclone/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Rclone throttles/retries but does not pay for egress.",
+    "terms": "Determined by the selected rclone backend. Rclone handles throttling and retries across remote endpoints.",
     "metered": false
   },
   "interface": [
@@ -32,8 +32,8 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "Two paths: (a) `git annex initremote type=rclone ...` — native, no extra install, documented via `rclone gitannex -h`; (b) the older `git-annex-remote-rclone` bash script (DanielDent, ~300 lines). rclone itself is a single static binary.",
-  "chaining": "The strongest multiplier: annex gives you versioning + hash verification + partial clone, rclone gives you ~70 free-tier backends. One annex repo can have a dozen rclone remotes across a dozen free accounts of different providers, with `git annex copy --to` fanning out. This is literally the 'google-drive-service-account' pattern applied to large-file versioning.",
+  "tooling": "Two paths: (a) `git annex initremote type=rclone ..`. Native, no extra install, documented via `rclone gitannex -h`; (b) the older `git-annex-remote-rclone` bash script (DanielDent, ~300 lines). rclone itself is a single static binary.",
+  "chaining": "Combines git-annex versioning, checksum verification, and partial checkouts with rclone remote storage backends. A single repository can configure multiple rclone remotes across diverse storage providers using git annex copy commands.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -69,9 +69,9 @@
   ],
   "verdict": "qualifies",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "The docs' own list (still current) names Drive, OneDrive, Dropbox, Mega, pCloud, Box, Yandex, Jottacloud, WebDAV, FTP, SFTP, Swift, B2, S3.",
+  "notes": "N/A. Front-end to rclone storage backends, inheriting free tiers of supported providers. Documentation lists Drive, OneDrive, Dropbox, Mega, pCloud, Box, Yandex, Jottacloud, WebDAV, FTP, SFTP, Swift, B2, and S3.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null,
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams",
   "self_hosted": true
 }

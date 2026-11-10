@@ -77,7 +77,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-23T01:52:28.000Z",
   "price_per_tb_month": "USD 0",
-  "notes": "The best machine-readable torrent feed that needs nothing: no key, documented parameters, 300 results per call, and a magnet in every hit that carries a hash. Its weakness is exactly the thing asks about: the operator publishes no rate, only a threat.",
+  "notes": "The best machine-readable torrent feed in the sector that needs nothing: no key, documented parameters, 300 results per call, and a magnet in every hit that carries a hash. Its weakness is exactly the thing the sector asks about: the vendor publishes no rate, only a threat.",
   "extras": {
     "max_results": 300,
     "protocol": "rest-json",

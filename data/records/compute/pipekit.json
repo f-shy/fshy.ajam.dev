@@ -5,7 +5,7 @@
   "url": "https://pipekit.io/pricing",
   "category": "dev environment",
   "free_tier": {
-    "stated": "a free trial rather than a free tier; the paid product is priced per cluster a month and manages Argo Workflows on a user's own Kubernetes",
+    "stated": "a free trial rather than a free tier; the paid product is priced per cluster a month and manages Argo Workflows on self-hosted Kubernetes",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pipekit.io/pricing",
@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://pipekit.io/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price on https://pipekit.io/pricing and https://docs.pipekit.io/why-pipekit",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "Pipekit CLI, REST API and a web UI; Python SDK and MCP server also listed",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -45,11 +45,11 @@
     },
     {
       "kind": "write-gated",
-      "value": "the free path is a trial; the compute is a user's own Kubernetes cluster",
+      "value": "the free path is a trial; the compute is self-hosted Kubernetes cluster",
       "source": "https://pipekit.io/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -57,7 +57,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and offers a free trial over a per-cluster monthly price. The product orchestrates a user's own cluster, so a free trial buys the control plane rather than compute",
+  "confidence_note": "the pricing page was read on 2026-10-22 and offers a free trial over a per-cluster monthly price. The product orchestrates self-hosted cluster, so a free trial buys the control plane rather than compute",
   "evidence": [
     {
       "url": "https://pipekit.io/pricing",

@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://help.nexusmods.com/article/42-what-are-the-benefits-of-creating-a-nexus-mods-account",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free, no egress quota — but per-IP shaped (see reliability_note). No Cloudflare in front of the file CDN; downloads come from their own edge.",
+    "terms": "Free, no egress quota. But per-IP shaped (see reliability_note). No Cloudflare in front of the file CDN; downloads come from their own edge.",
     "metered": false
   },
   "interface": [
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Web upload + REST API v1 (api.nexusmods.com, `users/validate.json` returned 401 unauthenticated = live and auth-gated, not dead). Free API key issued per account.",
   "tooling": "REST + a maintained community uploader (Digitalroot.ModUploader, supports `nexusmods` commands).",
-  "chaining": "No hot-link story — downloads require a session/API key, so it is archive-tier, not serving-tier.",
+  "chaining": "Offers 20 GB per object with no aggregate storage quota. Downloads require session authentication or API keys, operating as an archive store rather than a direct origin.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -56,7 +56,7 @@
     "detail": "email",
     "country": null
   },
-  "reliability_note": "The 1–1.5 MB/s un-premium cap is the real constraint — ~3.5–5 GB/hour per stream, so per-IP-shaping governs, not storage. Files are virus-scanned and quarantined on false positives (WinRAR .rar especially).",
+  "reliability_note": "The 1–1.5 MB/s un-premium cap is the real constraint. ~3.5–5 GB/hour per stream, so per-IP-shaping governs, not storage. Files are virus-scanned and quarantined on false positives (WinRAR .rar especially).",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

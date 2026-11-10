@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://brightdata.com/pricing/proxy-network",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://brightdata.com/pricing/proxy-network",
     "notes": "not stated"
   },
@@ -45,7 +45,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "None specific; this is the reference retail price.",
+  "reliability_note": "Standard retail residential proxy network pricing.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -74,5 +74,5 @@
     "price_verbatim": "$4096/TB (egress at $4/GB)"
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

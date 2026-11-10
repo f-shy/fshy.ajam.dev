@@ -129,7 +129,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:16:57.718Z",
-  "notes": "The plan table renders client-side, but the page's JS bundle calls api.cloud.onidel.com/instance_plans, which returns the full plan list with per-cycle prices and per-region data allowances; the entry-plan numbers are now the vendor's own. Conflicting labels worth resolving: the vendor meta description says 'dedicated vCPU' while the tracker row says '(shared)'; the plans API does not state either. Stock is not published: the plans API has no stock field and deploy requires an account.",
+  "notes": "or docs/ (searched both trees for onidel, no hit). The plan table renders client-side, but the page's JS bundle calls api.cloud.onidel.com/instance_plans, which returns the full plan list with per-cycle prices and per-region data allowances; the entry-plan numbers are now the vendor's own. Conflicting labels worth resolving: the vendor meta description says 'dedicated vCPU' while the tracker row says '(shared)'; the plans API does not state either. Stock is not published: the plans API has no stock field and deploy requires an account.",
   "extras": {
     "facets": {
       "class": null,

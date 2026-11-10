@@ -5,7 +5,7 @@
   "url": "https://gallery.ecr.aws",
   "category": "registry",
   "free_tier": {
-    "stated": "50 GB per month of always-free storage for public repositories: 'Both new and existing customers get 50 GB per month of always-free storage for their public repositories.' Past 50 GB it is not blocked — storage is billed to the repository owner: pricing table 'All storage / month ... per GB' resolves via AWS's price API to $0.1000000000/GB-month.",
+    "stated": "50 GB per month of always-free storage for public repositories: 'Both new and existing customers get 50 GB per month of always-free storage for their public repositories.' Past 50 GB it is not blocked. Storage is billed to the repository owner: pricing table 'All storage / month .. per GB' resolves via AWS's price API to $0.1000000000/GB-month.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://aws.amazon.com/ecr/pricing/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://aws.amazon.com/ecr/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://aws.amazon.com/ecr/pricing/",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   "tooling": "docker/skopeo/oras/crane; ORAS pushes arbitrary blobs as OCI artifacts. AWS CLI for auth (aws ecr-public get-login-password).",
   "chaining": "50 GB x N AWS accounts. Egress is per-downloader-IP for anonymous pulls and 5 TB/month for any authenticated AWS account, so a single account gives 5 TB/mo of public egress, and each additional free AWS account gives another 5 TB/mo as the authenticated client. Storage is only 50 GB/account, so the economics are inverted versus most registries: egress scales, storage does not.",
   "limits": [],
-  "limits_note": "Max layer size 10,000 MiB; max layer part 10 MiB; 100,000 images/repo; 1,000 tags/image; unauthenticated pulls rate-limited to 1/s and capped at 500 GB/month per source IP; authenticated pulls 10/s. Repos are always publicly listable — 'Using a repository policy to deny access to view or pull from a public repository is not supported.'",
+  "limits_note": "Max layer size 10,000 MiB; max layer part 10 MiB; 100,000 images/repo; 1,000 tags/image; unauthenticated pulls rate-limited to 1/s and capped at 500 GB/month per source IP; authenticated pulls 10/s. Repos are always publicly listable. 'Using a repository policy to deny access to view or pull from a public repository is not supported.'.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
@@ -68,7 +68,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "50 GB per month of always-free storage for public repositories: 'Both new and existing customers get 50 GB per month of always-free storage for their public repositories.' Past 50 GB it is not blocked — storage is billed to the repository owner: pricing table 'All storage / month ... per GB' resolves via AWS's price API to $0.1000000000/GB-month.",
+  "notes": "50 GB per month of always-free storage for public repositories: 'Both new and existing customers get 50 GB per month of always-free storage for their public repositories.' Past 50 GB it is not blocked. Storage is billed to the repository owner: pricing table 'All storage / month .. per GB' resolves via AWS's price API to $0.1000000000/GB-month.",
   "extras": {},
   "binding": "none",
   "binding_note": null

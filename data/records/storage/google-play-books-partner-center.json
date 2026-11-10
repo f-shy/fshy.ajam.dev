@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.google.com/books/partner/answer/3424254?hl=en",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "Partner Center web upload; also automated content fetching (ONIX/feed) per answer/2763162.",
   "tooling": "Web + feed-based automation.",
-  "chaining": "2 GB/file with multi-part naming (ISBN_1of3.pdf) means a large work can be split across parts with no stated part count — the sharding is built into the naming convention.",
+  "chaining": "2 GB/file with multi-part naming (ISBN_1of3.pdf) means a large work can be split across parts with no stated part count. The sharding is built into the naming convention.",
   "limits": [
     {
       "kind": "write-gated",
@@ -51,7 +51,7 @@
     "detail": "a Google Account, or a new account: the checklist says to sign in using a Google Account or create a new account. Publishing then needs a payment profile whose form asks for a business name, contact name, address and phone number, and all publishers must submit tax information. No card is charged at signup.",
     "country": null
   },
-  "reliability_note": "Payout requires tax/payment setup; publishing is write-gated by Google's review. Ingest is heavily normalised — this is not a byte-preserving store.",
+  "reliability_note": "Payout requires tax/payment setup; publishing is write-gated by Google's review. Ingest is heavily normalised. This is not a byte-preserving store.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

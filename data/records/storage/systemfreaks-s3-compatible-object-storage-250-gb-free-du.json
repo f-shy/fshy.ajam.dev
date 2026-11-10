@@ -19,7 +19,7 @@
     "notes": "the earlier value was the beta's free storage allowance, not a per-object cap"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lowendtalk.com/discussion/201922/systemfreaks-com-early-access-to-our-object-storage",
     "notes": "not stated"
   },

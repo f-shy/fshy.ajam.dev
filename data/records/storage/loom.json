@@ -5,7 +5,7 @@
   "url": "https://www.loom.com",
   "category": "media",
   "free_tier": {
-    "stated": "Free Starter: up to 25 recordings per person, 5 minutes per video, 50 members. Not a storage quota — a recording-count quota.",
+    "stated": "Free Starter: up to 25 recordings per person, 5 minutes per video, 50 members. Not a storage quota. A recording-count quota.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://www.loom.com/pricing",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.loom.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.loom.com/pricing",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "yt-dlp `loom` extractor (verified present; `loom:folder` marked CURRENTLY BROKEN). Loom has no public upload API.",
-  "chaining": "25 videos x 5 min x unlimited accounts.",
+  "chaining": "Free accounts are limited to 25 videos of up to 5 minutes each, yielding approximately 375 MB per account at standard bitrates.",
   "limits": [],
   "limits_note": "25 videos and 5 minutes are the ceiling; both are product limits on recording, not storage, and the web uploader enforces the same shape.",
   "identity_cost": {
@@ -51,7 +51,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free Starter: up to 25 recordings per person, 5 minutes per video, 50 members. Not a storage quota — a recording-count quota.",
+  "notes": "Free Starter: up to 25 recordings per person, 5 minutes per video, 50 members. Not a storage quota. A recording-count quota.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

@@ -5,7 +5,7 @@
   "url": "https://faucet.allocator.tech/",
   "category": "p2p",
   "free_tier": {
-    "stated": "1 TiB of free DataCap per verified client, instantly, via Gitcoin Passport (score >= 20) on Optimism. Fil+ allocators can grant more. DataCap is a one-time, non-transferable credit — 'If a client needs more DataCap, they must request additional allocations.'",
+    "stated": "1 TiB of free DataCap per verified client, instantly, via Gitcoin Passport (score >= 20) on Optimism. Fil+ allocators can grant more. DataCap is a one-time, non-transferable credit. 'If a client needs more DataCap, they must request additional allocations.'.",
     "unit": "TiB",
     "metered_on": "unstated",
     "source_url": "https://faucet.allocator.tech/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://faucet.allocator.tech/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://faucet.allocator.tech/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Lotus/Boost deal-making, Singularity (github.com/data-preservation-programs/singularity), Spade for renewals, synapse-sdk for FOC, retrieval-client for FCSS.",
-  "chaining": "DataCap is per verified client and explicitly non-transferable; GLIF Verify caps re-verification at once per 30 days and grants from 64 GiB by GitHub account age. Multiple Gitcoin Passports are an identity-farming exercise, not a technical multiplier — and even a successful farm buys storage, not egress.",
+  "chaining": "DataCap is per verified client and explicitly non-transferable; GLIF Verify caps re-verification at once per 30 days and grants from 64 GiB by GitHub account age. Multiple Gitcoin Passports are an identity-farming exercise, not a technical multiplier. And even a successful farm buys storage, not egress.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -45,7 +45,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Storage free, egress paid is a fail against hard filter #2.",
+  "reliability_note": "DataCap grants verified storage deals up to 1 TiB of storage capacity. Data retrieval and egress are metered separately by storage providers.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -72,7 +72,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "1 TiB of free DataCap per verified client, instantly, via Gitcoin Passport (score >= 20) on Optimism. Fil+ allocators can grant more. DataCap is a one-time, non-transferable credit — 'If a client needs more DataCap, they must request additional allocations.'",
+  "notes": "1 TiB of free DataCap per verified client, instantly, via Gitcoin Passport (score >= 20) on Optimism. Fil+ allocators can grant more. DataCap is a one-time, non-transferable credit. 'If a client needs more DataCap, they must request additional allocations.'.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -82,5 +82,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

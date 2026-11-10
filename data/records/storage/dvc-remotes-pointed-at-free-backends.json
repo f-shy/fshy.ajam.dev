@@ -5,7 +5,7 @@
   "url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
   "category": "registry",
   "free_tier": {
-    "stated": "N/A — DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
+    "stated": "N/A. DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
     "notes": "not stated"
   },
@@ -35,7 +35,7 @@
   "tooling": "`dvc` CLI + dvcfilesystem (fsspec). `dvc remote add s3://bucket && dvc remote modify myremote endpointurl https://s3.hf.co/<ns>` works. Native read-only Git-LFS support means `dvc get`/`dvc import` can pull straight from a Hugging Face repo without installing git-lfs.",
   "chaining": "One repo, many remotes (`dvc remote add` x N), plus `dvc push -r <remote>` to pick. Any S3-compatible free endpoint multiplies: HF buckets, IA's IAS3, MinIO on a free VM, an Oracle/Cloudflare-adjacent free tier. DVC's content-addressed cache means the same 20 TiB corpus can be pushed to N stores and only the missing blobs transfer.",
   "limits": [],
-  "limits_note": "No per-file logic of its own; the backend's limits apply. WebDAV is the weakest link (DVC's WebDAV support is newer and less battle-tested than S3). HTTP remote is read-only, so it cannot be a primary. No built-in retry-sharding across remotes — you script it.",
+  "limits_note": "No per-file logic of its own; the backend's limits apply. WebDAV is the weakest link (DVC's WebDAV support is newer and less battle-tested than S3). HTTP remote is read-only, so it cannot be a primary. No built-in retry-sharding across remotes. You script it.",
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -63,7 +63,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "N/A — DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
+  "notes": "N/A. DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
   "extras": {},
   "binding": "none",
   "binding_note": null,

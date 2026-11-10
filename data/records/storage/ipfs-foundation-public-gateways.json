@@ -5,7 +5,7 @@
   "url": "https://docs.ipfs.tech/concepts/public-utilities/",
   "category": "p2p",
   "free_tier": {
-    "stated": "No storage at all — gateway only. And the gateway itself is being retired: ipfs.io/dweb.link return HTTP 429 with 'Retry-After: 900' and 'Sunset: Mon, 21 Sep 2026', and redirect browsers to inbrowser.link.",
+    "stated": "No storage at all. Gateway only. And the gateway itself is being retired: ipfs.io/dweb.link return HTTP 429 with 'Retry-After: 900' and 'Sunset: Mon, 21 Sep 2026', and redirect browsers to inbrowser.link.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://gatewaychanges.ipfs.io/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://gatewaychanges.ipfs.io/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://gatewaychanges.ipfs.io/",
     "notes": "not stated"
   },
@@ -66,7 +66,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No storage at all — gateway only. And the gateway itself is being retired: ipfs.io/dweb.link return HTTP 429 with 'Retry-After: 900' and 'Sunset: Mon, 21 Sep 2026', and redirect browsers to inbrowser.link.",
+  "notes": "No storage at all. Gateway only. And the gateway itself is being retired: ipfs.io/dweb.link return HTTP 429 with 'Retry-After: 900' and 'Sunset: Mon, 21 Sep 2026', and redirect browsers to inbrowser.link.",
   "extras": {
     "dead_end": {
       "failure_class": "dead-service",

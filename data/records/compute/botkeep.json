@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "A container with a public HTTPS URL that never sleeps is the piece earlier T3 rows lack: it can hold an inbound webhook for an Oracle or GCP box, or run the poller that keeps a pubnix account from being disabled.",
   "limits": [
     {
       "kind": "retention-clamped",

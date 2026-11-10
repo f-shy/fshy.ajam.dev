@@ -50,7 +50,7 @@
   "binding_note": "The account must be verified with a credit or debit card before applying and any monthly overage bills the card; the allocation is set by Salesforce and unused credit is forfeited monthly.",
   "identity_cost": {
     "kind": "card",
-    "detail": "a card is required before applying: the programme page states the account must be verified with a credit or debit card before applying and any monthly overage bills that card, so a debit card is accepted alongside credit. No hold or authorisation amount is stated, whether prepaid cards are accepted is not stated, and the programme adds a second gate — \"you must be a maintainer on the open source software project and its supporting infra must run or intend to run on Heroku\"",
+    "detail": "A card is required before applying: the programme page states the account must be verified with a credit or debit card before applying and any monthly overage bills that card, so a debit card is accepted alongside credit. No hold or authorisation amount is stated, whether prepaid cards are accepted is not stated, and the programme adds a second gate. \"you must be a maintainer on the open source software project and its supporting infra must run or intend to run on Heroku\".",
     "country": null
   },
   "reliability_note": "no reliability event recorded",

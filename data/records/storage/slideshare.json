@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://support.scribd.com/hc/en-us/articles/360055259612-Supported-SlideShare-file-formats-and-sizes",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Own help centre states: 'Slideshare presentation uploads are unavailable right now' — the ingest path is down, so this is not a storage target at all today.",
+  "reliability_note": "Own help centre states: 'Slideshare presentation uploads are unavailable right now'. The ingest path is down, so this is not a storage target at all today.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

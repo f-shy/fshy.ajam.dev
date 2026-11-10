@@ -5,7 +5,7 @@
   "url": "https://allfiles.org",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "'Upload, store, and send files up to 200 GB for free' — 100 GB per file, 200 GB per transfer, 30-day retention, no registration.",
+    "stated": "'Upload, store, and send files up to 200 GB for free'. 100 GB per file, 200 GB per transfer, 30-day retention, no registration.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://allfiles.org/ru",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "'Upload, store, and send files up to 200 GB for free' — 100 GB per file, 200 GB per transfer, 30-day retention, no registration",
+    "stated": "'Upload, store, and send files up to 200 GB for free'. 100 GB per file, 200 GB per transfer, 30-day retention, no registration.",
     "days": 30,
     "source_url": "https://allfiles.org/ru",
     "notes": "not stated"
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Web form. No API documented.",
-  "chaining": "100 GB x unlimited objects, 30-day expiry — a re-upload loop with an unusually large per-object ceiling for the retention class.",
+  "chaining": "100 GB x unlimited objects, 30-day expiry. A re-upload loop with an unusually large per-object ceiling for the retention class.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -52,7 +52,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Presents as a multi-language generic transfer host (identical copy in RU and EN). Small operator, no track record — the 1000 Mbit/s claim is unverified.",
+  "reliability_note": "Presents as a multi-language generic transfer host (identical copy in RU and EN). Small operator, no track record. The 1000 Mbit/s claim is unverified.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -69,7 +69,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "'Upload, store, and send files up to 200 GB for free' — 100 GB per file, 200 GB per transfer, 30-day retention, no registration.",
+  "notes": "'Upload, store, and send files up to 200 GB for free'. 100 GB per file, 200 GB per transfer, 30-day retention, no registration.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

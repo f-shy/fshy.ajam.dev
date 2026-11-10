@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://degoo.com/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "free plan: 90 days account inactivity; Pro and Ultimate plans: files stored forever",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "rclone feature request 4424 asks for a Degoo backend and its maintainer would support a contributor who maintains a reverse-engineered backend; the vendor offers a web app at app.degoo.com",
   "chaining": "not recorded",
   "limits": [

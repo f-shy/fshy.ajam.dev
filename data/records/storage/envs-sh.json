@@ -5,7 +5,7 @@
   "url": "https://envs.sh/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Domain is PARKED and for sale — 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is",
+    "stated": "None reachable: Domain is PARKED and for sale. 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://envs.sh/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://envs.sh/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Domain is PARKED and for sale — 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is",
+  "reliability_note": "Domain is PARKED and for sale. 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://envs.sh/",
@@ -53,7 +53,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Domain is PARKED and for sale — 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is",
+  "notes": "Domain is PARKED and for sale. 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is.",
   "extras": {
     "dead_end": {
       "failure_class": "dead-service",

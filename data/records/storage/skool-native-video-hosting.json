@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.skool.com/educate/native-video-hosting-is-here",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
   ],
   "interface_detail": "wrapper-only",
   "tooling": "No official API. A community reverse-engineering effort exists (skool-api.cristiantala.com) using playwright + Google's Browserless actor with cookie auth; the `files:uploadImage` actor is documented empirically, not by Skool.",
-  "chaining": "N free communities? No — Skool is $9/mo hobby or $99/mo pro after a 14-day trial, so the multiplier is paid seats, which fails the 'free' premise.",
+  "chaining": "N free communities? No. Skool is $9/mo hobby or $99/mo pro after a 14-day trial, so the multiplier is paid seats, which fails the 'free' premise.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -51,7 +51,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Not free and not programmatic.",
+  "reliability_note": "Paid commercial platform without programmatic API upload endpoints. Supports up to 30 GB per uploaded video file.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -5,7 +5,7 @@
   "url": "https://www.europeana.eu/",
   "category": "gov-cultural-aggregator",
   "free_tier": {
-    "stated": "No direct deposit at all — Europeana ingests metadata via accredited national aggregators; the media object stays on the provider's own server and is only linked.",
+    "stated": "No direct deposit at all. Europeana ingests metadata via accredited national aggregators; the media object stays on the provider's own server and is only linked.",
     "unit": "mixed",
     "metered_on": "unstated",
     "source_url": "https://pro.europeana.eu/share-your-data/process",
@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pro.europeana.eu/share-your-data/process",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pro.europeana.eu/share-your-data/process",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "n/a — link-only.",
+    "terms": "N/a. Link-only.",
     "metered": false
   },
   "interface": [
@@ -56,7 +56,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No direct deposit at all — Europeana ingests metadata via accredited national aggregators; the media object stays on the provider's own server and is only linked.",
+  "notes": "No direct deposit at all. Europeana ingests metadata via accredited national aggregators; the media object stays on the provider's own server and is only linked.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

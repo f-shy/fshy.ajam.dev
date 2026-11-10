@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST and a large Actor store; actors run on the platform's compute",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "A place to run somebody else's scraper, which is a different shape from a crawl API that returns pages",
   "limits": [
     {

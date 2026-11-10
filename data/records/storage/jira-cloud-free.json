@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.atlassian.com/software/jira/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.atlassian.com/software/jira/pricing",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "identical bucket economics to Confluence Free — only worth it if you are already farming Atlassian sites; issue-per-attachment bookkeeping is worse than Confluence pages",
+  "reliability_note": "Identical bucket economics to Confluence Free. Only worth it if you are already farming Atlassian sites; issue-per-attachment bookkeeping is worse than Confluence pages.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

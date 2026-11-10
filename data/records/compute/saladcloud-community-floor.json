@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "At USD 0.09 a 3090-hour, USD 10 buys 111 hours on a 24 GB card, which is the cheapest way to run a long checkpointed fine-tune; the preemption risk is what the discount pays for.",
+  "chaining": "At USD 0.09 a 3090-hour, USD 10 buys 111 hours on a 24 GB card, which is the cheapest way among documented hosts to run a long checkpointed fine-tune; the preemption risk is what the discount pays for.",
   "limits": [
     {
       "kind": "retention-clamped",

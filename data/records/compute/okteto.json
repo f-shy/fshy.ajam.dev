@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://okteto.com",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: no egress allowance or overage price on https://www.okteto.com/pricing/",
@@ -36,11 +36,11 @@
   ],
   "interface_detail": "Okteto CLI, a web dashboard, and an Okteto API (BETA, defined with OpenAPI) reached with an Admin Access Token",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
-      "value": "environments run on a user's own Kubernetes infrastructure; the free plan does not supply compute",
+      "value": "environments run on self-hosted Kubernetes infrastructure; the free plan does not supply compute",
       "source": "https://okteto.com"
     },
     {
@@ -49,7 +49,7 @@
       "source": "https://okteto.com"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -57,7 +57,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the site was read on 2026-10-22 and describes environments spun up on a user's own infrastructure, with a free signup. The compute is a user's cluster, so a free plan is a control plane rather than capacity",
+  "confidence_note": "the site was read on 2026-10-22 and describes environments spun up on self-hosted infrastructure, with a free signup. The compute is the user's cluster, so a free plan is a control plane rather than capacity",
   "evidence": [
     {
       "url": "https://okteto.com",

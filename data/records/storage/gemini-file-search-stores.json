@@ -33,7 +33,7 @@
   ],
   "interface_detail": "google-genai `client.file_search_stores.create` / `uploadToFileSearchStore` / `documents.list`",
   "tooling": "pip install google-genai; REST fileSearchStores.documents",
-  "chaining": "Multiple stores per project, but the project-wide total is the cap. 'File Search store size is computed on the backend … typically approximately 3 times the size of your input data' — so 1 TB of Tier 3 store ≈ 340 GB of input. On free tier, 1 GB store ≈ 333 MB of input.",
+  "chaining": "Multiple stores per project, but the project-wide total is the cap. 'File Search store size is computed on the backend … typically approximately 3 times the size of your input data'. So 1 TB of Tier 3 store ≈ 340 GB of input. On free tier, 1 GB store ≈ 333 MB of input.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -46,13 +46,13 @@
       "source": "https://ai.google.dev/gemini-api/docs/file-search"
     }
   ],
-  "limits_note": "per-object-cap 100 MB. 'Recommendation: Limit the size of each File Search store to under 20 GB'. No TTL on embeddings — they persist until manually deleted or the model is deprecated.",
+  "limits_note": "Per-object-cap 100 MB. 'Recommendation: Limit the size of each File Search store to under 20 GB'. No TTL on embeddings. They persist until manually deleted or the model is deprecated.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Embeddings are not bytes. Raw files are deleted after 48 hours; only chunked embeddings persist, and there is no documented route to reassemble originals. The 3x expansion factor is the trap — the marketing number understates the cost of the input by 3x.",
+  "reliability_note": "Raw files are automatically deleted after 48 hours, leaving only vector embeddings without endpoints to retrieve original source files. Free tier provides 1 GB of storage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

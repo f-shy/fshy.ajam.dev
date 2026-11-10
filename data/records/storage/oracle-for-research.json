@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://go.oracle.com/research-project-award",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://go.oracle.com/research-project-award",
     "notes": "not stated"
   },
   "egress": {
-    "terms": null,
+    "terms": "Includes 10 TB per month free outbound internet egress on Oracle Cloud Infrastructure, followed by standard metered rates.",
     "metered": true,
     "free_allowance": "10 TB per month"
   },

@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/free/docs/free-cloud-features",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.google.com/free/docs/free-cloud-features",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "100 GB/month outbound to all destinations excluding China/Australia — described in the Always Free table as '100 GB of outbound data transfer from North America'. Beyond that it is $0.12/GiB, metered.",
+    "terms": "100 GB/month outbound to all destinations excluding China/Australia. Described in the Always Free table as '100 GB of outbound data transfer from North America'. Beyond that it is $0.12/GiB, metered.",
     "metered": true,
     "free_allowance": "100 GB per month"
   },
@@ -85,5 +85,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

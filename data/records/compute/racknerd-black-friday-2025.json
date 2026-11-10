@@ -29,7 +29,7 @@
   ],
   "interface_detail": "root SSH, KVM/SolusVM control panel, one dedicated IPv4",
   "tooling": "any SSH client; SolusVM panel",
-  "chaining": "A USD 10.60 a year 1 GiB VPS would be the cheapest orderable machine, if any of the five VPS tiers had stock.",
+  "chaining": "A USD 10.60 a year 1 GiB VPS would be the cheapest orderable machine among documented hosts, if any of the five VPS tiers had stock.",
   "limits": [
     {
       "kind": "volume-quota",

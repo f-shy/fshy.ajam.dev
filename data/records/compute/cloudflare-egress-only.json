@@ -23,7 +23,7 @@
   "confidence": "documented",
   "verified_at": "2026-10-22T00:00:00.000Z",
   "price_per_tb_month": null,
-  "notes": null,
+  "notes": "Kept as its own record so provider listings row and the pricing fact are joined rather than argued about.",
   "slug": "cloudflare-egress-only",
   "provider": "Cloudflare Containers (free tier question)",
   "url": "https://developers.cloudflare.com/containers/",
@@ -34,7 +34,7 @@
     "metered_on": "wall-clock",
     "source_url": "https://developers.cloudflare.com/containers/",
     "read_on": "2026-10-06",
-    "notes": null
+    "notes": "Recorded separately because catalog listings listed Containers as a free row."
   },
   "retention": {
     "stated": "not applicable: no free plan",

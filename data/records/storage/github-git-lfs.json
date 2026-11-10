@@ -5,7 +5,7 @@
   "url": "https://github.com/pricing",
   "category": "registry",
   "free_tier": {
-    "stated": "10 GiB storage AND 10 GiB/month bandwidth on GitHub Free (also 10/10 on Pro and Free-for-orgs; 250 GiB each on Team/Enterprise Cloud). This is UP from the old 1 GiB/1 GiB — the docs now show a 10 GiB table. Pre-paid data packs are gone; it is metered with a budget setting.",
+    "stated": "10 GiB storage AND 10 GiB/month bandwidth on GitHub Free (also 10/10 on Pro and Free-for-orgs; 250 GiB each on Team/Enterprise Cloud). This is UP from the old 1 GiB/1 GiB. The docs now show a 10 GiB table. Pre-paid data packs are gone; it is metered with a budget setting.",
     "unit": "GiB",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.github.com/en/billing/concepts/product-billing/git-lfs",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/billing/concepts/product-billing/git-lfs",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
   ],
   "interface_detail": "git",
   "tooling": "git-lfs (git-lfs/git-lfs, ~10k stars). git-annex can also use GitHub LFS as a special-remote backend (see the git-lfs remote entry). REST API for repo management.",
-  "chaining": "10 GiB per account x unlimited free accounts. Note the ownership trick in GitHub's own docs: 'Anyone with write access to a repository can push files to Git LFS without increasing their personal bandwidth and storage use' — usage lands on the REPO OWNER. So a collaborator-heavy layout concentrates the bill on one account, which is the opposite of what you want; the shardable axis is accounts-as-repo-owners.",
+  "chaining": "10 GiB per account x unlimited free accounts. Note the ownership trick in GitHub's own docs: 'Anyone with write access to a repository can push files to Git LFS without increasing their personal bandwidth and storage use'. Usage lands on the REPO OWNER. So a collaborator-heavy layout concentrates the bill on one account, which is the opposite of what you want; the shardable axis is accounts-as-repo-owners.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -70,7 +70,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "10 GiB storage AND 10 GiB/month bandwidth on GitHub Free (also 10/10 on Pro and Free-for-orgs; 250 GiB each on Team/Enterprise Cloud). This is UP from the old 1 GiB/1 GiB — the docs now show a 10 GiB table. Pre-paid data packs are gone; it is metered with a budget setting.",
+  "notes": "10 GiB storage AND 10 GiB/month bandwidth on GitHub Free (also 10/10 on Pro and Free-for-orgs; 250 GiB each on Team/Enterprise Cloud). This is UP from the old 1 GiB/1 GiB. The docs now show a 10 GiB table. Pre-paid data packs are gone; it is metered with a budget setting.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

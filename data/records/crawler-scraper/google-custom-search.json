@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST with a key and a search engine id",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {

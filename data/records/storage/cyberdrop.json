@@ -5,7 +5,7 @@
   "url": "https://cyberdrop.cr",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "Not stated numerically — 'Will you keep my files forever? Yes'. No published storage ceiling found; account creation is unverified and email-less.",
+    "stated": "Not stated numerically. 'Will you keep my files forever? Yes'. No published storage ceiling found; account creation is unverified and email-less.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://cyberdrop.cr/faq",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cyberdrop.cr/faq",
     "notes": "not stated"
   },
@@ -30,10 +30,10 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "No public API documented. Upload is web-only per the FAQ.",
-  "chaining": "Unlimited email-less accounts x no stated quota x permanent retention — the classic anonfiles shape.",
+  "tooling": "No public API documented. Community downloader cyberdrop-dl exists. Upload is web-only per published documentation.",
+  "chaining": "Unlimited email-less accounts x no stated quota x permanent retention. The classic anonfiles shape.",
   "limits": [],
-  "limits_note": "Strict extension allowlist: only video/audio/image/archive/doc extensions (.mp4 .mkv .mp3 .flac .png .pdf .zip .7z .tar .iso .torrent .kdbx ...). No .bin/.parquet/.npy — this kills it as a raw dataset store. CSAM scanning via Cloudflare tooling purges the entire account on any hit.",
+  "limits_note": "Strict extension allowlist: only video/audio/image/archive/doc extensions (.mp4 .mkv .mp3 .flac .png .pdf .zip .7z .tar .iso .torrent .kdbx ..). No .bin/.parquet/.npy. This kills it as a raw dataset store. CSAM scanning via Cloudflare tooling purges the entire account on any hit.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": null,
@@ -56,7 +56,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Not stated numerically — 'Will you keep my files forever? Yes'. No published storage ceiling found; account creation is unverified and email-less.",
+  "notes": "Not stated numerically. 'Will you keep my files forever? Yes'. No published storage ceiling found; account creation is unverified and email-less.",
   "extras": {},
   "binding": "none",
   "binding_note": null

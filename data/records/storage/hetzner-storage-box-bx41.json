@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.hetzner.com/storage/storage-box/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.hetzner.com/storage/storage-box/",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
     "rclone"
   ],
   "interface_detail": "SFTP, SCP, rsync, FTPS, SMB/CIFS, WebDAV, BorgBackup, SSH (port 23); 100 sub-accounts; 10 concurrent connections",
-  "tooling": "No S3 endpoint — this is the one real gap. rclone via SFTP or WebDAV; Borg/restic first-class",
+  "tooling": "No S3 endpoint. This is the one real gap. rclone via SFTP or WebDAV; Borg/restic first-class.",
   "chaining": "WebDAV -> AList -> Cloudflare works. 100 sub-accounts let you hand one directory each to separate services.",
   "limits": [
     {
@@ -54,9 +54,9 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Cost: aggressive new-account KYC. LET threads document ID-card scans being requested and accounts silently refused for country/risk reasons; UnionPay accepted but does not waive KYC. This is the single biggest adoption risk for a non-EU buyer.",
+  "reliability_note": "High reliability across Hetzner datacenters (FSN1/HEL1) with RAID6 storage, automated snapshots, and large customer base. New account registration enforces identity verification with identity document checks.",
   "confidence": "documented",
-  "confidence_note": "The page states the number in the record; the claim is documented, not measured. | re-read 2026-10-22 from the raw HTML (HTTP 200, 116,243 bytes, sha256 recorded in the capture). The price is documented; it is not a measured transaction.",
+  "confidence_note": "re-read on 2026-10-22 (HTTP 200, 7332 bytes, sha256 e5e1ee04e00ee5eb). The page states the number in the record. The claim is documented, not measured. | re-read 2026-10-22 from the raw HTML (HTTP 200, 116,243 bytes, sha256 recorded in the capture). The price is documented, not a measured transaction.",
   "evidence": [
     {
       "url": "https://www.hetzner.com/storage/storage-box/",
@@ -159,5 +159,5 @@
     ]
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

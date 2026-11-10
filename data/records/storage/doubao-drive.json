@@ -5,7 +5,7 @@
   "url": "https://www.doubao.com",
   "category": "cloud-drive",
   "free_tier": {
-    "stated": "The stated allowance is deliberately unquantified: '豆包通过云盘功能向普通账号提供一定额度的免费云存储空间'. Reported reality: legacy users 100 GB, new users 10 GB, API reports 5 TB but that is decorative — '注：抓包/facade/get_user_storage会显示5TB空间，但实测为上限为100G'. A 2026-06 protocol revision added paid expansion on top of the free allowance.",
+    "stated": "The stated allowance is deliberately unquantified: '豆包通过云盘功能向普通账号提供一定额度的免费云存储空间'. Reported reality: legacy users 100 GB, new users 10 GB, API reports 5 TB but that is decorative. '注：抓包/facade/get_user_storage会显示5TB空间，但实测为上限为100G'. A 2026-06 protocol revision added paid expansion on top of the free allowance.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://www.doubao.com/legal/ai_space",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.doubao.com/legal/ai_space",
     "notes": "not stated"
   },
@@ -32,7 +32,7 @@
     "webdav-proxy"
   ],
   "interface_detail": "rest",
-  "tooling": "OpenList driver `doubao` (cookie auth, download_api select get_file_url/get_download_info, 2 r/s client-side rate limit) — reverse-engineered and explicitly unmaintained ('本接口是基于历史产物的逆向接口').",
+  "tooling": "OpenList driver `doubao` (cookie auth, download_api select get_file_url/get_download_info, 2 r/s client-side rate limit). Reverse-engineered and explicitly unmaintained ('本接口是基于历史产物的逆向接口').",
   "chaining": "ByteDance account per phone number, 10–100 GB each. The 5 TB figure in the API is exactly the 'unlimited that isn't' trap from §3.",
   "limits": [
     {
@@ -69,7 +69,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "The stated allowance is deliberately unquantified: '豆包通过云盘功能向普通账号提供一定额度的免费云存储空间'. Reported reality: legacy users 100 GB, new users 10 GB, API reports 5 TB but that is decorative — '注：抓包/facade/get_user_storage会显示5TB空间，但实测为上限为100G'. A 2026-06 protocol revision added paid expansion on top of the free allowance.",
+  "notes": "The stated allowance is deliberately unquantified: '豆包通过云盘功能向普通账号提供一定额度的免费云存储空间'. Reported reality: legacy users 100 GB, new users 10 GB, API reports 5 TB but that is decorative. '注：抓包/facade/get_user_storage会显示5TB空间，但实测为上限为100G'. A 2026-06 protocol revision added paid expansion on top of the free allowance.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

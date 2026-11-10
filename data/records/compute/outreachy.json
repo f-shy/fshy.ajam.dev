@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "USD 7,000 is the largest flat, non-PPP-adjusted stipend, so the same figure applies wherever the intern lives; at USD 7 an hour it is 1,000 hours of rented accelerator time, and the reader supplies the rate.",
+  "chaining": "USD 7,000 is the largest flat, non-PPP-adjusted stipend among documented hosts, so the same figure applies wherever the intern lives; at USD 7 an hour it is 1,000 hours of rented accelerator time, and the reader supplies the rate.",
   "limits": [
     {
       "kind": "write-gated",

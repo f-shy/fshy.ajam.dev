@@ -36,7 +36,7 @@
   ],
   "interface_detail": "SSH to a compute node (VS Code Remote-SSH through an SSH tunnel); the connector project is end-of-life",
   "tooling": "the Intel DevCloud Connector for oneAPI Toolkits VS Code extension with the VS Code Remote-SSH extension",
-  "chaining": "the 120-day clock and the retired GPU generation are what cap it.",
+  "chaining": "192 GB of RAM on a Xeon box is the largest free single-machine memory figure found evaluated offerings and would let a pandas or oneAPI workload run that no small PaaS can hold; the 120-day clock and the retired GPU generation are what cap it.",
   "limits": [
     {
       "kind": "retention-clamped",

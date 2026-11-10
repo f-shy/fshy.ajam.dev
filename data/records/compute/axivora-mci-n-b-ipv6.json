@@ -32,7 +32,7 @@
   ],
   "interface_detail": "an instance with one dedicated IPv6 address as a /128; there is no IPv4 at all and no NAT layer, so every port on that single address is reachable and nothing else is.",
   "tooling": "any SSH client over IPv6; BGP is available up to 20 routes with downstream support after a ticket",
-  "chaining": "1 GiB for EUR 1.25 a month is the second-best shape per dollar, but a /128 rather than a prefix means the box has exactly one address to listen on",
+  "chaining": "1 GiB for EUR 1.25 a month is the second-best shape per dollar among evaluated providers, but a /128 rather than a prefix means the box has exactly one address to listen on.",
   "limits": [
     {
       "kind": "per-ip-shaping",

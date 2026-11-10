@@ -5,7 +5,7 @@
   "url": "https://relays.syncthing.net/",
   "category": "P2P relay pool (operator-donated)",
   "free_tier": {
-    "stated": "No quota at all — relay operators cap themselves with -global-rate (commonly ~20 Mbps in and out). The pool is anonymous and unvetted.",
+    "stated": "No quota at all. Relay operators cap themselves with -global-rate (commonly ~20 Mbps in and out). The pool is anonymous and unvetted.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://relays.syncthing.net/endpoint",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://relays.syncthing.net/endpoint",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://relays.syncthing.net/endpoint",
     "notes": "not stated"
   },
@@ -72,8 +72,8 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No quota at all — relay operators cap themselves with -global-rate (commonly ~20 Mbps in and out). The pool is anonymous and unvetted.",
+  "notes": "No quota at all. Relay operators cap themselves with -global-rate (commonly ~20 Mbps in and out). The pool is anonymous and unvetted.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hostingmammoth.com/object-storage",
     "notes": "not stated"
   },
@@ -33,10 +33,10 @@
     "cli"
   ],
   "interface_detail": "S3 API, AWS Signature V4",
-  "tooling": "AWS CLI, rclone, Cyberduck, s3cmd, MinIO client, Node/Python(boto3)/Go SDKs — all named",
+  "tooling": "AWS CLI, rclone, Cyberduck, s3cmd, MinIO client, Node/Python(boto3)/Go SDKs. All named.",
   "chaining": "S3 origin; versioning, object lock/WORM, lifecycle, presigned URLs, SSE-C all supported.",
   "limits": [],
-  "limits_note": "Single-provider small host; static website hosting explicitly not supported; no per-TB graduated tier — the overage rate is a derived per-GB rate, not a published block price.",
+  "limits_note": "Single-provider small host; static website hosting explicitly not supported; no per-TB graduated tier. The overage rate is a derived per-GB rate, not a published block price.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

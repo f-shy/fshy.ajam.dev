@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://stackblitz.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page and FAQ state no egress, bandwidth or data-transfer term",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "a JavaScript API (@webcontainer/api, npm) that boots the runtime inside a browser page; no REST API, CLI or SSH is documented on the pages read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://stackblitz.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'you do need a GitHub account to save your work or collaborate with others', quoted from stackblitz.com/pricing read 2026-10-22",
@@ -56,7 +56,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the pricing page was read on 2026-10-22 and states the free plan's terms and the GitHub gate.",
+  "confidence_note": "Pricing documentation read on 2026-10-22 confirms free plan terms and GitHub account requirements. Free usage permits unlimited projects subject to identity verification.",
   "evidence": [
     {
       "url": "https://stackblitz.com/pricing",

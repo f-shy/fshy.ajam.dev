@@ -39,7 +39,7 @@
     "unknown"
   ],
   "interface_detail": "no DNS record",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {
@@ -64,5 +64,5 @@
       "proved": "curl exit 6, `Could not resolve host`: the service named in second-hand lists does not exist at that name"
     }
   ],
-  "notes": null
+  "notes": "Listed in catalogues of free reader services. Testing confirms the service endpoint is unreachable, preventing unauthenticated retrieval."
 }

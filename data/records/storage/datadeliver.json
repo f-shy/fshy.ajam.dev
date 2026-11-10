@@ -5,7 +5,7 @@
   "url": "https://datadeliver.net",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "Free tier: 5 GB per transfer (registered, free), 2 GB per transfer (Light, no registration). '1回の転送容量' is 無制限 only on the 330/550-yen business plan. The site's own headline says 無料無制限 — the plan table contradicts it. No total storage: '転送容量は1回に転送できる最大容量となり、何度でもご利用いただけます'.",
+    "stated": "Free tier: 5 GB per transfer (registered, free), 2 GB per transfer (Light, no registration). '1回の転送容量' is 無制限 only on the 330/550-yen business plan. The site's own headline says 無料無制限. The plan table contradicts it. No total storage: '転送容量は1回に転送できる最大容量となり、何度でもご利用いただけます'.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://dd.datadeliver.net/plan/",
@@ -53,7 +53,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Running since 2004, ~3M users/month, run by 株式会社ファルコ. Stable, but the 無料無制限 headline on the marketing page is marketing — the plan table is the truth.",
+  "reliability_note": "Running since 2004, ~3M users/month, run by 株式会社ファルコ. Stable, but the 無料無制限 headline on the marketing page is marketing. The plan table is the truth.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -75,7 +75,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free tier: 5 GB per transfer (registered, free), 2 GB per transfer (Light, no registration). '1回の転送容量' is 無制限 only on the 330/550-yen business plan. The site's own headline says 無料無制限 — the plan table contradicts it. No total storage: '転送容量は1回に転送できる最大容量となり、何度でもご利用いただけます'.",
+  "notes": "Free tier: 5 GB per transfer (registered, free), 2 GB per transfer (Light, no registration). '1回の転送容量' is 無制限 only on the 330/550-yen business plan. The site's own headline says 無料無制限. The plan table contradicts it. No total storage: '転送容量は1回に転送できる最大容量となり、何度でもご利用いただけます'.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

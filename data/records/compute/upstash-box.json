@@ -90,7 +90,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "The free tier is 5 CPU hours, which at 2 vCPU is about 2.5 hours of a Small box a month.",
+  "notes": "Upstash Box provides serverless container sandboxes with a free tier offering 5 CPU hours monthly, alongside metered usage plans starting from USD 3.29 monthly.",
   "extras": {
     "shape": {
       "vcpu": 2,

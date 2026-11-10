@@ -5,7 +5,7 @@
   "url": "https://github.com/features/actions",
   "category": "paas",
   "free_tier": {
-    "stated": "Plan table still lists artifact storage 500 MB (Free) / 1 GB (Pro) / 2 GB (Team) / 50 GB (Enterprise), and that pool is SHARED with GitHub Packages. Billing docs state Actions usage is free for public repositories. Artifact storage for public repos is not metered in practice, but the docs do not say 'unlimited' explicitly — flag as ambiguity.",
+    "stated": "Plan table still lists artifact storage 500 MB (Free) / 1 GB (Pro) / 2 GB (Team) / 50 GB (Enterprise), and that pool is SHARED with GitHub Packages. Billing docs state Actions usage is free for public repositories. Artifact storage for public repos is not metered in practice, but the docs do not say 'unlimited' explicitly. Flag as ambiguity.",
     "unit": "GB",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
     "notes": "not stated"
   },
@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Hard TTL — artifacts are deleted at expiry and cannot be restored. Separate 10 GB/repo cache is also 7-day-evicted. Fine as a 90-day hot tier, useless as an archive.",
+  "reliability_note": "Hard TTL. Artifacts are deleted at expiry and cannot be restored. Separate 10 GB/repo cache is also 7-day-evicted. Fine as a 90-day hot tier, useless as an archive.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -74,8 +74,8 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Plan table still lists artifact storage 500 MB (Free) / 1 GB (Pro) / 2 GB (Team) / 50 GB (Enterprise), and that pool is SHARED with GitHub Packages. Billing docs state Actions usage is free for public repositories. Artifact storage for public repos is not metered in practice, but the docs do not say 'unlimited' explicitly — flag as ambiguity.",
+  "notes": "Plan table still lists artifact storage 500 MB (Free) / 1 GB (Pro) / 2 GB (Team) / 50 GB (Enterprise), and that pool is SHARED with GitHub Packages. Billing docs state Actions usage is free for public repositories. Artifact storage for public repos is not metered in practice, but the docs do not say 'unlimited' explicitly. Flag as ambiguity.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

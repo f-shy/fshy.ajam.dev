@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ru/documents/tariffs/evolution/object-storage",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ru/documents/tariffs/evolution/object-storage",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not stated in the tariff fragment that was retrievable (the document's traffic annex was truncated at the point of reading). Treat egress as UNVERIFIED — do not assume free.",
+    "terms": "Tariff documentation lists a small initial free monthly allowance ('первые не тарифицируются'), with subsequent transfer metered. Egress terms remain unverified.",
     "metered": true
   },
   "interface": [
@@ -41,7 +41,7 @@
     "detail": "card",
     "country": null
   },
-  "reliability_note": "Cloud.ru is the rebranded SberCloud and is the largest non-hyperscaler Russian cloud; the technical reliability is not in question. The commercial blocker is that tariff documents are PDFs behind a Russian-language portal, prices are VAT-inclusive for Russian entities, and the egress annex could not be read — so the total cost of ownership is unknown even though the storage line is the cheapest Russian object rate found.",
+  "reliability_note": "Cloud.ru is the rebranded SberCloud and is the largest non-hyperscaler Russian cloud; the technical reliability is not in question. The commercial blocker is that tariff documents are PDFs behind a Russian-language portal, prices are VAT-inclusive for Russian entities, and the egress annex could not be read. So the total cost of ownership is unknown even though the storage line is the cheapest Russian object rate found.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

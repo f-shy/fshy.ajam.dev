@@ -5,7 +5,7 @@
   "url": "https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": null,
+    "stated": "USD 300.0 of one-time credit, from catalog records; unverified against live endpoints",
     "unit": "mixed",
     "metered_on": "wall-clock",
     "source_url": "https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing",
@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page lists no egress allowance or overage price for sandbox environments",
@@ -34,9 +34,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -49,7 +49,7 @@
       "source": "https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,
@@ -57,7 +57,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
-  "confidence_note": "the pricing page and the free-features document were read on 2026-10-22.",
+  "confidence_note": "the pricing page and the free-features document were read on 2026-10-22. Neither states a free allowance for computer use specifically, so the USD 300 credit the record rests on still comes from documented records card and the rung stays `reported`",
   "evidence": [
     {
       "url": "https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing",

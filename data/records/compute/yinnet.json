@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "WHMCS cart and client area; no API documented",
-  "chaining": "USD 48 a year for a UK residential IP with 1 TB a month is the cheapest European residential egress, and residential is what a datacentre-blocking target accepts",
+  "chaining": "USD 48 a year for a UK residential IP with 1 TB a month is the cheapest European residential egress among documented hosts, and residential is what a datacentre-blocking target accepts",
   "limits": [
     {
       "kind": "volume-quota",

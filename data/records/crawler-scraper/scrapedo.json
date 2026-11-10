@@ -6,7 +6,7 @@
   "category": "reader and extractor API",
   "verdict": "qualifies-with-caveat",
   "confidence": "reported",
-  "confidence_note": "no page read",
+  "confidence_note": "Unverified against live pricing pages on 2026-10-22.",
   "verified_at": "2026-10-22T00:00:00.000Z",
   "free_tier": {
     "stated": "1,000 successful calls a month",
@@ -39,7 +39,7 @@
     "rest"
   ],
   "interface_detail": "REST, 5 concurrent on the free tier",
-  "tooling": "not stated",
+  "tooling": "not established",
   "chaining": "not established",
   "limits": [
     {

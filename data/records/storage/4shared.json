@@ -59,7 +59,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free tier deletes the account and all files after 180 days of inactivity — that alone disqualifies it for a growing archive. Downloads are ad-gated unless you pay.",
+  "reliability_note": "Free tier deletes the account and all files after 180 days of inactivity. That alone disqualifies it for a growing archive. Downloads are ad-gated unless you pay.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

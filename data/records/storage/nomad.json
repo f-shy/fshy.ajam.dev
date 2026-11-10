@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.nomad-lab.eu/howto/manage/gui/upload.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.nomad-lab.eu/howto/manage/gui/upload.html",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "Parsers are plugin-based, so what counts as a valid file is deployment-specific.",
+  "tooling": "Documented REST API requires HTTP authentication tokens for uploads via API endpoints. File parsers are plugin-based and format validation depends on target deployment configuration.",
   "chaining": "10 unpublished projects × 32 GiB = 320 GiB of live scratch on a free account, and publishing an entry releases a slot. So the steady-state ceiling is bounded by how fast a human can publish, not by bytes.",
   "limits": [],
   "limits_note": "fails-quota at 32 GiB, and write-gated by the parser: 'A project must contain at least one successfully processed entry before it can be published.' Content must be materials-science-shaped (DFT codes, ELN exports) to be parseable at all. Both limits together make it useless as bulk storage despite the clean API.",

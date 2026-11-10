@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://bonndata.uni-bonn.de/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://bonndata.uni-bonn.de/api/dataverses/:root/storage/quota?showInherited=true",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "REST (native Dataverse API v1)",
   "tooling": "curl / DVUploader",
-  "chaining": null,
+  "chaining": "The repository API enforces no explicit quota, while signup verification was obstructed by network proof-of-work challenges.",
   "limits": [],
   "limits_note": "No published cap; no quota number returned.",
   "identity_cost": {

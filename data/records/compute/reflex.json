@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://reflex.dev/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://reflex.dev/pricing/ read 2026-11-04 prints no egress allowance or overage price",
@@ -33,9 +33,9 @@
   "interface": [
     "cli"
   ],
-  "interface_detail": "Reflex Cloud deploys from the reflex CLI: the dashboard supplies a project-specific `reflex deploy --project ...` command, run from the project directory",
+  "interface_detail": "Reflex Cloud deploys from the reflex CLI: the dashboard supplies a project-specific `reflex deploy --project...` command, run from the project directory",
   "tooling": "the reflex CLI (`reflex deploy`)",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://reflex.dev/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

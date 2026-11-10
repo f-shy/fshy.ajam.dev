@@ -18,12 +18,12 @@
       "source": "https://groq.com/pricing/"
     }
   ],
-  "limits_note": null,
+  "limits_note": "no session, no disk, no SSH: provider listings counts this class by mistake.",
   "reliability_note": "no reliability event recorded",
   "confidence": "reported",
   "verified_at": "2026-10-22T04:47:11.088Z",
   "price_per_tb_month": null,
-  "notes": null,
+  "notes": "Offering represents an inference API rather than general compute.",
   "slug": "inference-api-hosts",
   "provider": "Hosted inference APIs (as a compute class)",
   "url": "https://groq.com/pricing/",
@@ -34,7 +34,7 @@
     "metered_on": "request-count",
     "source_url": "https://groq.com/pricing/",
     "read_on": "2026-10-06",
-    "notes": null
+    "notes": "Recorded separately to distinguish API endpoints from hosted compute."
   },
   "retention": {
     "stated": "no machine and no disk",

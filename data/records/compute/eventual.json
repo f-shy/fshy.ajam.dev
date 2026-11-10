@@ -5,7 +5,7 @@
   "url": "https://www.eventual.ai/",
   "category": "platform host",
   "free_tier": {
-    "stated": null,
+    "stated": "free tier published without a credit amount",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://www.eventual.ai/",
@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.eventual.ai/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.eventual.ai/ states no data-transfer allowance or overage price",
@@ -34,9 +34,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://www.eventual.ai/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

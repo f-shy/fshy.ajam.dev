@@ -19,19 +19,19 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "| Immutable: 'Previously served immutable files may be retained in permanent storage even after upstream deletion' — deletion upstream does not remove it from jsDelivr",
+    "stated": "| Immutable: 'Previously served immutable files may be retained in permanent storage even after upstream deletion'. Deletion upstream does not remove it from jsDelivr.",
     "source_url": "https://www.jsdelivr.com/terms/acceptable-use-policy",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered, and immutable-cached at the edge: probed 'Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable' plus Access-Control-Allow-Origin: *.",
+    "terms": "Unmetered and cached at edge locations with headers 'Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable' and Access-Control-Allow-Origin: *.",
     "metered": false
   },
   "interface": [
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "URL pattern https://cdn.jsdelivr.net/gh/USER/REPO@TAG/path — no client needed, no auth, no config. Purge API exists for cache busting.",
+  "tooling": "URL pattern https://cdn.jsdelivr.net/gh/USER/REPO@TAG/path. No client needed, no auth, no config. Purge API exists for cache busting.",
   "chaining": "Serving layer only: pair it with Releases (storage) or a git repo (small files). One repo backs 1 TiB/day because the edge absorbs repeats with a 1-year immutable TTL.",
   "limits": [
     {
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Immutable: 'Previously served immutable files may be retained in permanent storage even after upstream deletion' — deletion upstream does not remove it from jsDelivr. Extension blocklist exists; binaries with unusual extensions can be refused.",
+  "reliability_note": "Immutable: 'Previously served immutable files may be retained in permanent storage even after upstream deletion'. Deletion upstream does not remove it from jsDelivr. Extension blocklist exists; binaries with unusual extensions can be refused.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -124,7 +124,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-30T18:09:47.045Z",
-  "notes": null,
+  "notes": "Provides CDN distribution rather than origin storage. Documentation states 'there are no limits on bandwidth or number of requests' (the provider), with soft limits of 10,000 actively accessed files and 100,000 files per repository.",
   "extras": {},
   "binding": "per-object-cap",
   "binding_note": null

@@ -47,7 +47,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Two read-path traps in one host. (1) `static.wikia.nocookie.net` returns `403 Cf-Mitigated: challenge` to any non-browser — a hard read gate. (2) When it does serve, it RE-ENCODES: a request for a .png returned `Content-Type: image/webp`, 6,326 bytes, sha1 ada19fa5... — NOT the 9,979-byte original whose sha1 ce3dee8b... matches the API. You must append `&format=original` to get your bytes back. Textbook 'gives you storage but not your bytes'.",
+  "reliability_note": "Two read-path traps in one host. (1) `static.wikia.nocookie.net` returns `403 Cf-Mitigated: challenge` to any non-browser. A hard read gate. (2) When it does serve, it RE-ENCODES: a request for a .png returned `Content-Type: image/webp`, 6,326 bytes, sha1 ada19fa5.. NOT the 9,979-byte original whose sha1 ce3dee8b.. matches the API. You must append `&format=original` to get your bytes back. Textbook 'gives you storage but not your bytes'.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "No quota — media is retained indefinitely",
+    "stated": "No quota. Media is retained indefinitely.",
     "source_url": "https://www.twilio.com/docs/messaging/api/media-resource",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "twilio-python / twilio-node; .media.list() and .media(sid).fetch(). Clean API, but nothing removes the auth requirement.",
-  "chaining": "5 MB per message is the wall. To reach 1 TB you need ~200,000 MMS, each billed per message — this is the opposite of a free tier. Retention is excellent and completely unusable at this scale.",
+  "chaining": "5 MB per message is the wall. To reach 1 TB you need ~200,000 MMS, each billed per message. This is the opposite of a free tier. Retention is excellent and completely unusable at this scale.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -111,7 +111,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-04T01:24:45.963Z",
-  "notes": "No quota — media is retained indefinitely. The docs say Twilio 'retains the stored media until you delete the related Media subresource instance', i.e. retention is customer-controlled and unbounded in time.",
+  "notes": "No quota. Media is retained indefinitely. The docs say Twilio 'retains the stored media until you delete the related Media subresource instance', i.e. retention is customer-controlled and unbounded in time.",
   "extras": {
     "dead_end": {
       "failure_class": "retention",

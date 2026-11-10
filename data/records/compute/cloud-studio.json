@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "as a chain element it is a windfall and not a resource.",
+  "chaining": "2,000 L40 hours is about 200 hours of a 10-GPU job, which would be the largest free GPU allowance in earlier readings if it were an offer rather than a defect; as a chain element it is a windfall and not a resource.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -162,7 +162,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-03T08:51:16.011Z",
-  "notes": "The useful signal is the trend it sits in: Tencent's standing grant fell by roughly two orders of magnitude between 2024 and 2026 while users kept finding temporary surplus.",
+  "notes": "Recorded to stop subsequent evaluation chasing it: the number is real and the route is not. ⚠ A defect grant is not a free tier and must not be counted as one, which is why this is `trial-only` with the defect named in the offer. The useful signal is the trend it sits in: Tencent's standing grant fell by roughly two orders of magnitude between 2024 and 2026 while users kept finding temporary surplus.",
   "extras": {
     "facets": {
       "class": "cloud-ide",

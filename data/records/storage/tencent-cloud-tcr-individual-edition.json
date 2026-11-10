@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.tencentcloud.com/document/product/1051/37243",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.tencentcloud.com/document/product/1051/37243",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "'the image repository of TCR Individual Edition is shared with all other public cloud accounts, the images that have been pulled/pushed are blocked in the queue and are not displayed. You can try to push the images again' — i.e. pushes intermittently fail silently under contention.",
+  "reliability_note": "'the image repository of TCR Individual Edition is shared with all other public cloud accounts, the images that have been pulled/pushed are blocked in the queue and are not displayed. You can try to push the images again'. I.e. pushes intermittently fail silently under contention.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -76,5 +76,5 @@
   "notes": "Free, count-based only: 'The TCR Individual Edition is free of charge and can be activated directly.' Quotas: 'Number of image namespaces in a single region | 10', 'Number of image repositories in a single region | 500 in the Guangzhou region and 100 in other regions', 'Number of image tags for a single image | 100'. No byte quota is published for Individual Edition.",
   "extras": {},
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

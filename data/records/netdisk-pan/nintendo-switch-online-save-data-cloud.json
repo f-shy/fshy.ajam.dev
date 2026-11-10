@@ -108,7 +108,7 @@
   "verified_at": "2026-11-04T00:20:56.364Z",
   "binding": "per-object-cap",
   "binding_note": "The advertised absence of a storage limit is bound to one save file per title, so the per-object cap is the whole quota. There is no pool to measure.",
-  "notes": null,
+  "notes": "Documentation advertises 'no limit to the amount of storage space' alongside 'one save data file per software title'. Access is restricted strictly to console hardware with no web, mobile, or programmatic API endpoints.",
   "extras": {
     "access_mode": "registration-gated",
     "api": "none, console only",

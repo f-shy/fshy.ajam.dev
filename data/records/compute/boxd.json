@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://boxd.sh/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the rate card prices vCPU-hours, RAM and disk only and states no egress allowance or overage",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "SSH, the boxd CLI with --json output, and an API with API keys",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -45,7 +45,7 @@
       "source": "https://boxd.sh/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "a payment method is added to receive the €30 of credits; the page states nothing is charged when it is added",

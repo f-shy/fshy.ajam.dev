@@ -76,7 +76,7 @@
   "verdict": "qualifies",
   "verified_at": "2026-10-23T02:20:00.000Z",
   "price_per_tb_month": null,
-  "notes": "Recorded for the payment stack, not the price. It is the counter-example to every other market: an Indian reseller that exposes both a domestic and an international gateway, so neither a local buyer without an international card nor a foreign buyer is locked out.",
+  "notes": "Recorded for the payment stack, not the price. It is the counter-example to every other market among debrid providers: an Indian reseller that exposes both a domestic and an international gateway, so neither a local buyer without an international card nor a foreign buyer is locked out. Trigger condition: the checkout is found to be dead.",
   "extras": {
     "local_gateway": "Indian cards, 52 banks debit, 15 banks net banking, Itz cash cards, INR",
     "international_gateway": "Amex, Carte Bleue, Visa, Discover, Diners, Maestro, MasterCard, JCB, Solo; USD/EUR/JPY/INR",

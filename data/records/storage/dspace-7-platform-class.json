@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://github.com/DSpace/DSpace/blob/main/dspace-server-webapp/src/main/resources/application.properties",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "REST (/server/api), OAI-PMH, SWORD",
   "tooling": "curl / dspace CLI / OAI-PMH harvesters",
-  "chaining": "Unbounded by construction — but every instance's write path is affiliation-gated in practice, and the registry is dominated by pre-7 installs with no REST API at all.",
+  "chaining": "Unbounded by construction. But every instance's write path is affiliation-gated in practice, and the registry is dominated by pre-7 installs with no REST API at all.",
   "limits": [
     {
       "kind": "per-object-cap",
@@ -47,7 +47,7 @@
     "detail": "institution",
     "country": null
   },
-  "reliability_note": "60 of 60 sampled registry sites returned no /server/api/info, i.e. they are DSpace 6 or earlier and expose no modern REST API — the registry is a lagging indicator of what is programmatically usable.",
+  "reliability_note": "60 of 60 sampled registry sites returned no /server/api/info, i.e. they are DSpace 6 or earlier and expose no modern REST API. The registry is a lagging indicator of what is programmatically usable.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

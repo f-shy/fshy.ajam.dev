@@ -5,7 +5,7 @@
   "url": "https://pixelfed.social/api/v1/instance",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Both returned Cloudflare 521 (origin unreachable) on every probe. The software works and pixelfed.de/pixelfed.au answered normally, but the two biggest hosts were down…",
+    "stated": "none reachable: Hosts pixelfed.social and pixelfed.art returned Cloudflare 521 origin unreachable on 2026-10-21. Regional instances answered normally but the primary instances were unreachable.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://pixelfed.social/api/v1/instance",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://pixelfed.social/api/v1/instance",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Both returned Cloudflare 521 (origin unreachable) on every probe. The software works and pixelfed.de/pixelfed.au answered normally, but the two biggest hosts were down…",
+  "reliability_note": "Hosts pixelfed.social and pixelfed.art returned Cloudflare 521 origin unreachable on 2026-10-21. Regional instances answered normally but the primary instances were unreachable.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://pixelfed.social/api/v1/instance",
@@ -63,7 +63,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Both returned Cloudflare 521 (origin unreachable) on every probe. The software works and pixelfed.de/pixelfed.au answered normally, but the two biggest hosts were down…",
+  "notes": "Hosts pixelfed.social and pixelfed.art returned Cloudflare 521 origin unreachable on 2026-10-21. Regional instances answered normally but the primary instances were unreachable.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

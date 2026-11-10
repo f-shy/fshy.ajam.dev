@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://ncar-hpc-docs.readthedocs.io/en/latest/storage-systems/glade/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "Scratch is purged after 180 days; Work is not purged; Campaign Storage is medium-term, typically three to five years.",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "Globus web and command-line transfers to the NSF NCAR Campaign Storage collection; /glade paths on the Derecho and Casper clusters",
   "chaining": "not recorded",
   "limits": [

@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.data.qld.gov.au/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.data.qld.gov.au/",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
       "source": "https://www.data.qld.gov.au/"
     }
   ],
-  "limits_note": "The most open registration form found in the whole survey — /user/register accepts only Username, Displayed name, Email, Password, with no domain or invite restriction, and the page title is 'Register - Open Data Portal | Queensland Government'. But a self-registered account still lands with no organisation, and publishing is governed by the Queensland Government data-publishing standards for agencies. Unauthenticated organization_create returned an empty body (not a clean denial), so treat the write path as unproven rather than open.",
+  "limits_note": "The most open registration form found in the whole survey. /user/register accepts only Username, Displayed name, Email, Password, with no domain or invite restriction, and the page title is 'Register - Open Data Portal | Queensland Government'. But a self-registered account still lands with no organisation, and publishing is governed by the Queensland Government data-publishing standards for agencies. Unauthenticated organization_create returned an empty body (not a clean denial), so treat the write path as unproven rather than open.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

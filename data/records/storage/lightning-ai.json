@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lightning.ai/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://lightning.ai/pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Not metered — 'without incurring costs' is the only storage statement, and there is no egress line.",
+    "terms": "Not metered. 'without incurring costs' is the only storage statement, and there is no egress line.",
     "metered": true
   },
   "interface": [
@@ -34,7 +34,7 @@
   "tooling": "`lightning` CLI, `lightning studio` mount/sync, and a Python SDK; Studios are Docker containers with a persistent /teamspace. Real client, real product.",
   "chaining": "One free Studio runs 24/7 per account, so N accounts x 1 persistent volume. The ceiling per volume is undisclosed, which makes planning impossible.",
   "limits": [],
-  "limits_note": "Free Studio restarts every 4 h (a forced restart, not a deletion). 80 free GPU hours. No published per-file cap, no published total, and — importantly — no published statement that the volume survives account downgrade or inactivity.",
+  "limits_note": "Free Studio restarts every 4 h (a forced restart, not a deletion). 80 free GPU hours. No published per-file cap, no published total, and. Importantly. No published statement that the volume survives account downgrade or inactivity.",
   "identity_cost": {
     "kind": "email",
     "detail": "email (GitHub OAuth).",

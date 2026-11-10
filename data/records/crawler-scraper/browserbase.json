@@ -39,8 +39,8 @@
     "rest"
   ],
   "interface_detail": "REST sessions and a Search and Fetch API",
-  "tooling": "not stated",
-  "chaining": null,
+  "tooling": "not established",
+  "chaining": "A session model requiring stateful browser lifecycles, suitable for asynchronous batch crawl jobs rather than short-lived stateless edge functions.",
   "limits": [
     {
       "kind": "request-rate",

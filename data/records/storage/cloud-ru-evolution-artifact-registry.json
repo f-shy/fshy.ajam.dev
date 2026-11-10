@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ru/docs/artifact-registry-evolution/ug/topics/overview__limitations",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloud.ru/docs/artifact-registry-evolution/ug/topics/overview__limitations",
     "notes": "not stated"
   },
@@ -52,7 +52,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Fully metered — 500 GB is a cap, not an allowance; no free tier is documented for this service, so it costs money from the first GB.",
+  "reliability_note": "Fully metered. 500 GB is a cap, not an allowance; no free tier is documented for this service, so it costs money from the first GB.",
   "confidence": "documented",
   "confidence_note": "the verdict rests on vendor pages read on 2026-11-03: the free tier page lists the services with a free tier (Artifact Registry is not among them), the limitations page quotes the initial stored-space quota, the pricing page quotes the unbilled first part of monthly egress, and the tariff PDF quotes the egress and storage rates",
   "evidence": [
@@ -137,7 +137,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T15:34:57.681Z",
-  "notes": "500 GB storage quota and 1 TB/month egress quota per organisation — but storage is billed, no free tier",
+  "notes": "500 GB storage quota and 1 TB/month egress quota per organisation. But storage is billed, no free tier.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

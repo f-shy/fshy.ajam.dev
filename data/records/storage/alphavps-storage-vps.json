@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://alphavps.com/storage-vps",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://alphavps.com/storage-vps",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Metered, not free. Plan transfer allowances: 1 TB plan = 3 TB/mo, 2 TB plan = 6 TB, 4 TB = 10 TB, 8 TB = 20 TB, 16 TB = 40 TB, all on ports 'up to 10 Gbit'. Overage is charged, not throttled: the provider, §Traffic Usage, read 'All account plans come with a predetermined monthly amount of traffic allowance. We charge 3.0EUR additional per TB over the allowance, unless otherwise agreed upon.' (https://alphavps.com/terms). The backup-storage landing page separately advertises 'No egress fees, no vendor lock-in' and 'EGRESS €0 - FLAT' — that is marketing copy contradicted and the provider are the binding document. Treat egress as €3/TB metered.",
+    "terms": "Metered, not free. Plan transfer allowances: 1 TB plan = 3 TB/mo, 2 TB plan = 6 TB, 4 TB = 10 TB, 8 TB = 20 TB, 16 TB = 40 TB, all on ports 'up to 10 Gbit'. Overage is charged, not throttled: the provider, §Traffic Usage, read 'All account plans come with a predetermined monthly amount of traffic allowance. We charge 3.0EUR additional per TB over the allowance, unless otherwise agreed upon.' (https://alphavps.com/terms). The backup-storage landing page separately advertises 'No egress fees, no vendor lock-in' and 'EGRESS €0 - FLAT'. Treat egress as €3/TB metered.",
     "metered": false,
     "free_allowance": "3 TB per month",
     "price_per_tb": "€3/TB",
@@ -39,7 +39,7 @@
     "rclone"
   ],
   "interface_detail": "sftp, rsync, nfs, rest (self-hosted: MinIO/SeaweedFS/Nextcloud on the VPS, or WebDAV)",
-  "tooling": "rclone over SFTP/WebDAV, BorgBackup, Restic, rsync. No native S3 — you host your own gateway.",
+  "tooling": "Rclone over SFTP/WebDAV, BorgBackup, Restic, rsync. No native S3. You host your own gateway.",
   "chaining": "Best of the VPS class for the archive half: root KVM, so AList/OpenList or MinIO can be installed and fronted by Cloudflare for cache-covered egress. Not usable as a raw S3 origin without running MinIO.",
   "limits": [],
   "limits_note": "per-object-cap: none (block device). RAID-60 with NVMe read cache. 14-day money-back on FIRST order only, excludes promos, crypto, and orders from China.",

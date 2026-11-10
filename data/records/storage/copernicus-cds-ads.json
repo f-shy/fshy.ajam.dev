@@ -5,7 +5,7 @@
   "url": "https://cds.climate.copernicus.eu/how-to-api",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data — it is a data source, not stor",
+    "stated": "None reachable: Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data. It is a data source, not stor.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cds.climate.copernicus.eu/how-to-api",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://cds.climate.copernicus.eu/how-to-api",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data — it is a data source, not stor",
+  "reliability_note": "Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data. It is a data source, not stor.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://cds.climate.copernicus.eu/how-to-api",
@@ -53,7 +53,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data — it is a data source, not stor",
+  "notes": "Retrieval-only by design: a queue-based API (`cdsapi`) that materialises requested slices. There is no user deposit path, so it cannot store data. It is a data source, not stor.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

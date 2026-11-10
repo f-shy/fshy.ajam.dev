@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Nil while closed.",
+  "chaining": "Nil while closed. The composition that would matter is the one earlier readings already records for Mozilla Foundation: the separate Human-Scale AI Incubator is live with a November 20, 2026 deadline and USD 300,000 base awards, so a builder who wants Mozilla money today goes there, not here.",
   "limits": [
     {
       "kind": "write-gated",
@@ -73,7 +73,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "The search that would distinguish them returned only the 2024 blog post and aggregator pages that repeat the 2024 dates, and the Foundation's own programme is a different legal entity with its own page, which supports the second reading without proving it.",
+  "notes": "The program was integrated into the Foundation's Incubator.",
   "extras": {
     "facets": {
       "class": "grant",

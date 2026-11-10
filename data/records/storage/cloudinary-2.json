@@ -5,7 +5,7 @@
   "url": "https://cloudinary.com/documentation/pricing.md",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations — i.e. 25 GB total across storage+delivery combined, and max raw file size is 10…",
+    "stated": "None reachable: Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations. I.e. 25 GB total across storage+delivery combined, and max raw file size is 10 MB.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloudinary.com/documentation/pricing.md",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://cloudinary.com/documentation/pricing.md",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations — i.e. 25 GB total across storage+delivery combined, and max raw file size is 10…",
+  "reliability_note": "Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations. I.e. 25 GB total across storage+delivery combined, and max raw file size is 10 MB.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://cloudinary.com/documentation/pricing.md",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations — i.e. 25 GB total across storage+delivery combined, and max raw file size is 10…",
+  "notes": "Free plan is 25 credits/month where 1 credit = 1 GB storage OR 1 GB CDN bandwidth OR 1,000 transformations. I.e. 25 GB total across storage+delivery combined, and max raw file size is 10 MB.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

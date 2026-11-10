@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "SST is the cheapest way to describe AWS infrastructure in TypeScript and the Console is free at hobby size, but every service it creates bills to AWS; it composes with AWS credits and with nothing else.",
+  "chaining": "SST is the cheapest way to describe AWS infrastructure in TypeScript and the Console is free at hobby size, but every service it creates bills to AWS; it composes with AWS credits and with nothing else among documented hosts.",
   "limits": [
     {
       "kind": "write-gated",
@@ -73,7 +73,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Names Sst, and sst.dev/pricing returns 404 while sst.dev/docs/console carries the pricing, so the record is written against the docs page. Verdict is paid-only because no free runtime exists, even though the tooling fee is zero.",
+  "notes": "SST Ion provides deployment tooling for applications running on AWS infrastructure. The SST Console includes a recurring free tier up to 350 managed resources; AWS compute costs bill separately.",
   "extras": {
     "facets": {
       "class": "bring-your-own-cloud",

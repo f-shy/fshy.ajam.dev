@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://degoo.com/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://degoo.com/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "unknown"
   ],
   "interface_detail": "Web/app only. No WebDAV, no rclone, no S3 found.",
-  "tooling": "none — this is the disqualifier for a programmatic workload",
+  "tooling": "None. This is the disqualifier for a programmatic workload.",
   "chaining": "none",
   "limits": [
     {
@@ -44,7 +44,7 @@
       "source": "https://degoo.com/"
     }
   ],
-  "limits_note": "Constraint type: write-gated/pull-count — upload and restore speeds are the complaint in every review",
+  "limits_note": "Constraint type: write-gated/pull-count. Upload and restore speeds are the complaint in every review.",
   "identity_cost": {
     "kind": "card",
     "detail": "card",

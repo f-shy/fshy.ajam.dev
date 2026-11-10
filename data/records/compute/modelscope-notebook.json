@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "it composes with AMD Radeon Cloud's Token Factory for serving and leaves the GPU hours for training.",
+  "chaining": "192 GB of VRAM is enough to hold a 70B model at half precision with room for activations, which no other free resource in comparative records reaches; it composes with AMD Radeon Cloud's Token Factory for serving and leaves the GPU hours for training.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -206,7 +206,7 @@
   ],
   "verdict": "fails-identity",
   "verified_at": "2026-11-03T10:24:22.537Z",
-  "notes": "The 1,000-hour total is the vendor's own arithmetic over three paths, two of which are content review, so the realistic first number is 100. Whether modelscope.ai carries the same AMD offer is unverified and is the single most valuable open question here.",
+  "notes": "modelscope-studio.json is fails-identity for the Studio tier on the.cn site, with 2 vCPU and 8 GiB. That record is right about the Studio, and the AMD notebook is a different product with a different number. 192 GB of VRAM behind a real-name gate is the largest single free GPU measured. The 1,000-hour total is the vendor's own arithmetic over three paths, two of which are content review, so the realistic first number is 100. Whether modelscope.ai carries the same AMD offer is unverified and is the single most valuable open question here.",
   "extras": {
     "facets": {
       "class": "vendor-developer-program",

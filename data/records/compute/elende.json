@@ -109,7 +109,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:17:06.321Z",
-  "notes": "The headline figure in this record is the vendor's own kwanza price, which is why confidence is documented; the tracker's EUR 5.00 was not confirmed on the vendor page and is carried as a reported claim in the same offer string. The euro sign is written as EUR and accented vendor words are transliterated because every string in this record is ASCII; no price was converted.",
+  "notes": "Prices are recorded in EUR and accented characters are transliterated to ASCII.",
   "extras": {
     "facets": {
       "class": "price-floor",

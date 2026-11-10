@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://streamruby.com/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://streamruby.com/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "free, explicitly unmetered — 'Unlimited Bandwidth / Never worry about traffic spikes or overage fees'; HLS delivery from their CDN",
+    "terms": "Free, explicitly unmetered. 'Unlimited Bandwidth / Never worry about traffic spikes or overage fees'; HLS delivery from their CDN.",
     "metered": false
   },
   "interface": [
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "XFileSharing-style api.html + PolyUploader (github.com/spel987/PolyUploader) lists StreamRuby; XFS '?op=api' key pattern applies",
-  "chaining": "the quota scales with views rather than accounts, i.e. 250 GB + 250 GB per 1.5k monthly views — a view-inflation loop (or simply many free accounts) turns this into an unbounded pool; each account independently starts at 250 GB",
+  "chaining": "The quota scales with views rather than accounts, i.e. 250 GB + 250 GB per 1.5k monthly views. A view-inflation loop (or simply many free accounts) turns this into an unbounded pool; each account independently starts at 250 GB.",
   "limits": [],
   "limits_note": "20,000 MB (20 GB) per file per the official plan table; video-only (HLS transcode); 60-day deletion when unviewed for free tier",
   "identity_cost": {

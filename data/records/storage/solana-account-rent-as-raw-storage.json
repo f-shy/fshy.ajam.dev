@@ -5,7 +5,7 @@
   "url": "https://solana.com/docs/core/accounts",
   "category": "blockchain",
   "free_tier": {
-    "stated": "No free tier — storage is a refundable rent-exempt deposit: 10 MiB account costs 53,268,311,040 lamports (~53.27 SOL) to create, reclaimed only on close.",
+    "stated": "No free tier. Storage is a refundable rent-exempt deposit: 10 MiB account costs 53,268,311,040 lamports (~53.27 SOL) to create, reclaimed only on close.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://solana.com/docs/core/accounts/account-structure",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://solana.com/docs/core/accounts/account-structure",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://solana.com/docs/core/accounts/account-structure",
     "notes": "not stated"
   },
@@ -61,7 +61,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No free tier — storage is a refundable rent-exempt deposit: 10 MiB account costs 53,268,311,040 lamports (~53.27 SOL) to create, reclaimed only on close.",
+  "notes": "No free tier. Storage is a refundable rent-exempt deposit: 10 MiB account costs 53,268,311,040 lamports (~53.27 SOL) to create, reclaimed only on close.",
   "extras": {
     "unit_note": "free_tier.unit is 'mixed' because the headline is denominated in MiB or KiB, which the schema enum does not carry; the verbatim free_tier.stated keeps the true unit.",
     "dead_end": {

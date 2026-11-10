@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.convex.dev/production/state/limits",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.convex.dev/production/state/limits",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "1 GB/month data egress total on Free (serving user files, accessing files in functions, backups) — equal to the storage size, so a full store can be fetched exactly once per month.",
+    "terms": "1 GB/month data egress total on Free (serving user files, accessing files in functions, backups). Equal to the storage size, so a full store can be fetched exactly once per month.",
     "metered": false,
     "free_allowance": "1 GB per month"
   },
@@ -32,8 +32,8 @@
     "cli"
   ],
   "interface_detail": "rest",
-  "tooling": "Convex client SDKs (JS/Python/Rust), HTTP actions, `npx convex` CLI, `storage.getUrl()` bearer URLs — 'anyone with the URL can access the file' (public, no auth)",
-  "chaining": "Free/Starter is per TEAM; 40 deployments per team on Free. But file storage is 1 GB total per team, not per deployment — so deployments do not multiply storage. Multiple teams/accounts is the only axis. Upload URLs are one-time and short-lived, which makes external tools awkward.",
+  "tooling": "Convex client SDKs (JS/Python/Rust), HTTP actions, `npx convex` CLI, `storage.getUrl()` bearer URLs. 'anyone with the URL can access the file' (public, no auth).",
+  "chaining": "Free/Starter is per TEAM; 40 deployments per team on Free. But file storage is 1 GB total per team, not per deployment. So deployments do not multiply storage. Multiple teams/accounts is the only axis. Upload URLs are one-time and short-lived, which makes external tools awkward.",
   "limits": [],
   "limits_note": "1 GB storage AND 1 GB egress; HTTP action responses capped at 100 MiB so you cannot proxy large files; file URLs are unrevocable except by deleting the file.",
   "identity_cost": {

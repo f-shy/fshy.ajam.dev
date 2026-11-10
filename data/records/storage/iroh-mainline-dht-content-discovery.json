@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
     "notes": "not stated"
   },
@@ -33,13 +33,13 @@
   "tooling": "Publishes a signed endpoint record (endpoint id + UDP socket + timestamp) to a tiny UDP address-index service, then `announce_peer` for SHA-1(BLAKE3 hash). Discovery returns candidate EndpointIds which are then dialled with normal iroh hole punching.",
   "chaining": "Removes the last central dependency: no DNS, no pkarr relay, no account. Requires at least one reachable address-index service, found by rendezvous hash or a curated BEP 44 record.",
   "limits": [],
-  "limits_note": "Mainline traffic is unencrypted and 'easily blocked by middleboxes'; no privacy ('anybody can look up your ip address'); the address-index service is last-writer-wins, in-memory, and records expire — publishers must re-announce on a schedule.",
+  "limits_note": "Mainline traffic is unencrypted and 'easily blocked by middleboxes'; no privacy ('anybody can look up your ip address'); the address-index service is last-writer-wins, in-memory, and records expire. Publishers must re-announce on a schedule.",
   "identity_cost": {
     "kind": "anonymous",
     "detail": "anonymous",
     "country": null
   },
-  "reliability_note": "Experimental repo (12 stars, last push 2026-10-16). SHA-1 is used only as a keyspace key, so a malicious DHT answer can waste time but cannot corrupt data — verification is against the BLAKE3 root.",
+  "reliability_note": "Experimental repo (12 stars, last push 2026-10-16). SHA-1 is used only as a keyspace key, so a malicious DHT answer can waste time but cannot corrupt data. Verification is against the BLAKE3 root.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

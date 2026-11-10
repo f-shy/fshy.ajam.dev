@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "This is the only record denominated in inference rather than machines, and it is the cheapest way to run an agent over a repository: six months of a frontier coding subscription plus API credit covers the review loop that the other records would have to pay for in tokens.",
+  "chaining": "This is the only record in this category denominated in inference rather than machines, and it is the cheapest way to run an agent over a repository: six months of a frontier coding subscription plus API credit covers the review loop that the other records would have to pay for in tokens.",
   "limits": [
     {
       "kind": "write-gated",

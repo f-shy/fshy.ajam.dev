@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "request-rate: 100 req / 10 s / app and 250,000 / day per account on Free ('Privately distributed apps, Free and Starter, 100/app, 250,000/account'). Retention: none documented — files persist until deleted",
+    "stated": "Request-rate: 100 req / 10 s / app and 250,000 / day per account on Free ('Privately distributed apps, Free and Starter, 100/app, 250,000/account'). Retention: none documented. Files persist until deleted.",
     "source_url": "https://knowledge.hubspot.com/files/supported-file-types",
     "notes": "not stated"
   },
@@ -46,7 +46,7 @@
       "source": "https://knowledge.hubspot.com/files/supported-file-types"
     }
   ],
-  "limits_note": "per-object-cap: 20 MB per file on free tools (the binding constraint by a wide margin); the docs note 'If a file is 1 GB or more, you may experience issues'. request-rate: 100 req / 10 s / app and 250,000 / day per account on Free ('Privately distributed apps, Free and Starter, 100/app, 250,000/account'). Retention: none documented — files persist until deleted. Download URLs can 429 if the rate limit is exceeded.",
+  "limits_note": "Per-object-cap: 20 MB per file on free tools (the binding constraint by a wide margin); the docs note 'If a file is 1 GB or more, you may experience issues'. request-rate: 100 req / 10 s / app and 250,000 / day per account on Free ('Privately distributed apps, Free and Starter, 100/app, 250,000/account'). Retention: none documented. Files persist until deleted. Download URLs can 429 if the rate limit is exceeded.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

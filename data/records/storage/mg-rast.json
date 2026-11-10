@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.mg-rast.org/legal.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.mg-rast.org/legal.html",
     "notes": "not stated"
   },
@@ -44,7 +44,7 @@
       "source": "https://www.mg-rast.org/legal.html"
     }
   ],
-  "limits_note": "Retention is the trap: 'We reserve the right to delete non-public data sets after 120 days' — only PUBLIC deposits persist.",
+  "limits_note": "Retention is the trap: 'We reserve the right to delete non-public data sets after 120 days'. Only PUBLIC deposits persist.",
   "identity_cost": {
     "kind": "institution",
     "detail": "inferred from the category 'academic'; the source record states no identity cost, so this is a class assumption, not evidence",
@@ -70,5 +70,5 @@
   "notes": "No published per-account byte or sequence-count quota; described as 'an open source, open submission web application server' and 'one of the biggest repositories for metagenomic data'.",
   "extras": {},
   "binding": "retention-clamped",
-  "binding_note": null
+  "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"
 }

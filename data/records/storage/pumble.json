@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pumble.com/help/using-pumble/sharing-files/file-storage/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pumble.com/help/using-pumble/sharing-files/file-storage/",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "No public file API documented; web/desktop clients only. Wrapper would have to be scraped.",
-  "chaining": "10 GB x N free workspaces.",
+  "chaining": "Workspaces include 10 GB storage each with no documented automated deletion policy. Multiple free workspaces can be registered independently.",
   "limits": [],
   "limits_note": "10 GB workspace total; storage counts uploads across channels, DMs and meeting recordings; at the limit you must delete files before uploading more",
   "identity_cost": {

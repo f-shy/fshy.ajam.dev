@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.idrive.com/pricing",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "cli"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "vendor desktop application with a command line interface on Linux; a support reply reported on the rclone tracker says the Personal account does not support WebDAV",
   "chaining": "not recorded",
   "limits": [

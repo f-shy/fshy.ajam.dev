@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "It would compose with the free Cerebras inference tier already recorded, because both spend one account. It does not compose for an individual: the PI requirement is the wall, and the USD 50,000 is the largest single number that a person without an affiliation cannot touch.",
+  "chaining": "It would compose with the free Cerebras inference tier already recorded, because both spend one account. It does not compose for an individual: the PI requirement is the wall, and the USD 50,000 is the largest single number among evaluated providers that a person without an affiliation cannot touch.",
   "limits": [
     {
       "kind": "write-gated",

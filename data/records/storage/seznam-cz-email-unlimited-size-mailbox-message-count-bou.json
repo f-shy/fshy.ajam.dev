@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://o-seznam.cz/napoveda/email/mohlo-by-se-hodit/limity-schranky/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unmetered by the provider — no transfer meter is published or charged; mail is delivered by SMTP/IMAP, not metered HTTP GET. No egress pricing exists for a mailbox.",
+    "terms": "Unmetered by the provider. No transfer meter is published or charged; mail is delivered by SMTP/IMAP, not metered HTTP GET. No egress pricing exists for a mailbox.",
     "metered": false
   },
   "interface": [
@@ -41,7 +41,7 @@
       "source": "https://o-seznam.cz/napoveda/email/mohlo-by-se-hodit/limity-schranky/"
     }
   ],
-  "limits_note": "per-object-cap 35 MB attach send from web (25 MB from mobile app), 50 MB receive per message — that is the real per-blob size. 120,000 messages/mailbox is the binding constraint (a pull-count-style ceiling on object count, raisable on request). Sending-rate limits exist but are explicitly unpublished: \"Tyto limity nejsou veřejné.\"",
+  "limits_note": "Per-object-cap 35 MB attach send from web (25 MB from mobile app), 50 MB receive per message. That is the real per-blob size. 120,000 messages/mailbox is the binding constraint (a pull-count-style ceiling on object count, raisable on request). Sending-rate limits exist but are explicitly unpublished: \"Tyto limity nejsou veřejné.\".",
   "identity_cost": {
     "kind": "email",
     "detail": null,

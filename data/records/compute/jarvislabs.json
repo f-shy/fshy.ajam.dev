@@ -29,9 +29,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "volume-quota",
@@ -39,7 +39,7 @@
       "source": "https://jarvislabs.ai/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "card",
     "detail": "a paid account: per-minute billing with no free tier or trial on the pricing page",
@@ -47,7 +47,7 @@
   },
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "confidence_note": "the rates and the absence of a free tier are read from the pricing page.",
+  "confidence_note": "the rates and the absence of a free tier are read from the pricing page. earlier derived per-vCPU and per-GB rates reconcile with the bundle price ($0.012x2 + $0.0032x8 = $0.0496 against $0.05).",
   "evidence": [
     {
       "url": "https://jarvislabs.ai/pricing",
@@ -139,7 +139,7 @@
   "verdict": "paid-only",
   "verified_at": "2026-11-03T08:50:28.019Z",
   "price_per_tb_month": null,
-  "notes": "USD 0.05/hr is USD 36.50 a month at 730 hours for 2 vCPU and 8 GB. It is the cheapest paid CPU hour found and still not free.",
+  "notes": "USD 0.05/hr is USD 36.50 a month at 730 hours for 2 vCPU and 8 GB. It is the cheapest paid CPU hour found among evaluated providers and still not free.",
   "extras": {
     "keep_rate": 1.0,
     "keep_rate_basis": null,

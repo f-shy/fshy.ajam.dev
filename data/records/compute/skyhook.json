@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://skyhook.io",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://skyhook.io read 2026-11-04 prints no pricing, egress allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "a CLI, an API and a UI, stated on https://skyhook.io; the page names no endpoint, binary or SDK",
   "tooling": "https://skyhook.io (read 2026-11-04) names a CLI, an API and a UI and names no client binary, library or SDK",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "write-gated",
@@ -44,7 +44,7 @@
       "source": "https://skyhook.io"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

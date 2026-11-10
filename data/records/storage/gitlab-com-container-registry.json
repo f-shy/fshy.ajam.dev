@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.gitlab.com/user/storage_usage_quotas/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://docs.gitlab.com/user/storage_usage_quotas/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free, Cloudflare + Google Cloud CDN. Blob requests 307-redirect to cdn.registry.gitlab-static.net with a signed URL — directly cacheable by an external Cloudflare zone.",
+    "terms": "Free, Cloudflare + Google Cloud CDN. Blob requests 307-redirect to cdn.registry.gitlab-static.net with a signed URL. Directly cacheable by an external Cloudflare zone.",
     "metered": false
   },
   "interface": [

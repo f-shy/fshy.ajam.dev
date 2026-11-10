@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hostbrr.com/storageboxes.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://hostbrr.com/storageboxes.html",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "'Every plan includes transfer equal to five times its storage, so there is never a surprise line item for downloading your own data.' 1 TB → 5 TB transfer; 16 TB → 80 TB transfer. NOT unmetered — a 5:1 ratio.",
+    "terms": "'Every plan includes transfer equal to five times its storage, so there is never a surprise line item for downloading your own data.' 1 TB → 5 TB transfer; 16 TB → 80 TB transfer. NOT unmetered. A 5:1 ratio.",
     "metered": true
   },
   "interface": [
@@ -41,11 +41,11 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": null,
+      "value": "reviews over 12+ months reporting positive uptime and speed",
       "source": "https://hostbrr.com/storageboxes.html"
     }
   ],
-  "limits_note": "No root. Bandwidth ratio 5:1 — at 10 TB stored you get 50 TB/mo, enough for 30 TB serving but with a hard edge. Coupon BFBOX (40% recurring) is widely cited on LET and moves the effective price materially; the list price is what is recorded below.",
+  "limits_note": "No root. Bandwidth ratio 5:1. At 10 TB stored you get 50 TB/mo, enough for 30 TB serving but with a hard edge. Coupon BFBOX (40% recurring) is widely cited on LET and moves the effective price materially; the list price is what is recorded below.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

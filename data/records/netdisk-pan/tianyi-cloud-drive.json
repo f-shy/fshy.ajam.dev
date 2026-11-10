@@ -159,7 +159,7 @@
   "verdict": "fails-identity",
   "verified_at": "2026-11-04T00:20:53.783Z",
   "binding": "per-ip-shaping",
-  "binding_note": "The identity gate sits in front of that, and the shaping would still bind behind it.",
+  "binding_note": "Promotional allocations provide substantial nominal capacity but are restricted by a 2 GB daily upload limit, requiring approximately 5.5 years to transfer 4 TB. Registration requires domestic mobile identity verification.",
   "notes": "One record for the three deferred spellings: Tianyi Cloud Drive, the TV-edition variant, and the 天翼云盘 (China Telecom / 189邮箱) form. The TV client is the part worth knowing: it is the only interface that has survived, it takes an access token alone, and TV playback is unthrottled, which is why the community routes through it.",
   "extras": {
     "access_mode": "registration-gated",

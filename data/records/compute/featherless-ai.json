@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "USD 25 a month for unlimited interactive chat tokens is the cheapest per-token cost if the workload is a single interactive chat; it buys nothing for an agent, because the Chat plan excludes API traffic and automation.",
+  "chaining": "USD 25 a month for unlimited interactive chat tokens is the cheapest per-token cost in evaluated offerings if the workload is a single interactive chat; it buys nothing for an agent, because the Chat plan excludes API traffic and automation.",
   "limits": [
     {
       "kind": "request-rate",

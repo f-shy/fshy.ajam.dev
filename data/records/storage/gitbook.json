@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Access token in the download URL is NOT enforced — a deliberately bogus `token=0000` returned the identical 838-byte file (same sha256), so file URLs are effectively public and permanent",
+    "stated": "Access token in the download URL is NOT enforced. A deliberately bogus `token=0000` returned the identical 838-byte file (same sha256), so file URLs are effectively public and permanent.",
     "source_url": "https://gitbook.com/docs/create-content/blocks/insert-files",
     "notes": "not stated"
   },
@@ -42,13 +42,13 @@
       "source": "https://gitbook.com/docs/create-content/blocks/insert-files"
     }
   ],
-  "limits_note": "per-object-cap: 100 MB per file — the only hard published number. Total org storage: undocumented (searched the docs ask-API, no figure). Retention: files persist while the org exists; no TTL clause.",
+  "limits_note": "Per-object-cap: 100 MB per file. The only hard published number. Total org storage: undocumented (searched the docs ask-API, no figure). Retention: files persist while the org exists; no TTL clause.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,
     "country": null
   },
-  "reliability_note": "Access token in the download URL is NOT enforced — a deliberately bogus `token=0000` returned the identical 838-byte file (same sha256), so file URLs are effectively public and permanent. That cuts both ways: stable hotlinks, but no way to keep a file private.",
+  "reliability_note": "Access token in the download URL is NOT enforced. A deliberately bogus `token=0000` returned the identical 838-byte file (same sha256), so file URLs are effectively public and permanent. That cuts both ways: stable hotlinks, but no way to keep a file private.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

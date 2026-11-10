@@ -15,7 +15,7 @@
     "stated": "not applicable: the service does not answer"
   },
   "retention": {
-    "stated": null
+    "stated": "the free Starter plan ended on 2024-09-23 and all apps were paused on 2025-02-15"
   },
   "egress": {
     "terms": "not applicable",
@@ -28,7 +28,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "none: Service is inactive.",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -70,7 +70,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-24T01:55:00.000Z",
-  "notes": null,
+  "notes": "One route tried today: HTTP request to https://adaptable.io/, which returned 530. The earlier routes tried on this record (direct fetch, /docs/free-app-hosting, search) are not repeated here.",
   "extras": {
     "facets": {
       "class": "refutation",
@@ -103,5 +103,5 @@
     }
   },
   "tier": "none",
-  "confidence_note": "the 530 was observed today on the root path"
+  "confidence_note": "the 530 was observed today on the root path; the shutdown history is carried from earlier readings and remains unverified against live endpoints."
 }

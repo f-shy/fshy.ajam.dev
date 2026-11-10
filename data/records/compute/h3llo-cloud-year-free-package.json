@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "Had it survived it would have been the strongest chain: 4 vCPU and 8 GiB running continuously for a year with a managed database and a white IP, for money that stayed on the balance as credit. What remains is the trial credit, which covers the same stack for 18 days.",
+  "chaining": "Had it survived it would have been the strongest chain among evaluated providers: 4 vCPU and 8 GiB running continuously for a year with a managed database and a white IP, for money that stayed on the balance as credit. What remains is the trial credit, which covers the same stack for 18 days.",
   "limits": [],
   "limits_note": "Withdrawn: the rules page states the campaign ended and that joining closed on 8 March 2026, so nothing binds now except the absence of the offer; for anyone who joined, a RUB 5,000 top-up was the gate and the package ran 12 months from the top-up date.",
   "binding": "none",
@@ -92,7 +92,7 @@
   ],
   "verdict": "dead",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Two contradictions a reader should know: the launch article says the activation money is not refundable while rule 3.3 provides a refund minus consumption, and the article says the managed database is 2 vCPU / 4 GiB while the rules and the landing page say 2 vCPU / 2 GiB. The phone gate is described by the provider as a Russian ministry requirement, which is a constraint on who may register rather than on what is provided.",
+  "notes": "Classified as dead rather than dropped, because the landing page still advertises the package and the deadline is visible only on the rules page. Two contradictions a reader should know: the launch article says the activation money is not refundable while rule 3.3 provides a refund minus consumption, and the article says the managed database is 2 vCPU / 4 GiB while the rules and the landing page say 2 vCPU / 2 GiB. The phone gate is described by the provider as a Russian ministry requirement, which is a constraint on who may register rather than on what is provided.",
   "extras": {
     "facets": {
       "class": "withdrawn-free-year",

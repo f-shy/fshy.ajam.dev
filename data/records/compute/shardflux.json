@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://shardflux.dev/#pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Outbound transfer is a monthly allowance by plan: 100 GB Developer (USD 9), 250 GB Pro (USD 29), 1 TB Startup, 5 TB Scale, and 250 GB during the 7-day signup trial. There is no overage price: at 100 % of the allowance outbound internet traffic is blocked until the next period or an upgrade",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "HTTP API, the `shard` CLI, and TypeScript and Python SDKs (`npm i @shardflux/sdk`); an E2B SDK compatibility mode; no SSH access found in the docs read",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -49,7 +49,7 @@
       "source": "https://shardflux.dev/#pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

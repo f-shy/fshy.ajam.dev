@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://blossom.ditto.pub/",
     "notes": "not stated"
   },
@@ -43,7 +43,7 @@
   "limits_note": "2 GB/upload, 1 GB for /media; images re-encoded to webp @192 by the server's media optimisation (so /media is lossy, but /upload of a raw blob is not)",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": "anonymous — Nostr keypair (BUD-11 auth token). No email.",
+    "detail": "Anonymous. Nostr keypair (BUD-11 auth token). No email.",
     "country": null
   },
   "reliability_note": "Operator-run hobby infrastructure with ~782 GB on disk; a 500 GB deposit would double the server. No published retention, unlike 24242.io.",

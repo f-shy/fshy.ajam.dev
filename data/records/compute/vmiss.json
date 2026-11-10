@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "WHMCS cart at app.vmiss.com; no API documented",
-  "chaining": "CAD 24 a year for 1 TB a month in Hong Kong is the lowest annual commitment, which suits a box that must exist for a year but is idle most of it",
+  "chaining": "CAD 24 a year for 1 TB a month in Hong Kong is the lowest annual commitment among documented hosts, which suits a box that must exist for a year but is idle most of it",
   "limits": [
     {
       "kind": "volume-quota",

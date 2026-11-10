@@ -5,7 +5,7 @@
   "url": "https://docs.openveda.cloud/user-guide/data-services/data-store.html",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "the process needs a veda-data pull…",
+    "stated": "none reachable: Ingestion is restricted to novel datasets produced by NASA Earth researchers and non-authoritative cloud-optimized versions of datasets from a DAAC. Publication requires a veda-data pull request. General storage is not offered.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.openveda.cloud/user-guide/data-services/data-store.html",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.openveda.cloud/user-guide/data-services/data-store.html",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,9 +41,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "The process needs a veda-data pull…",
+  "reliability_note": "Ingestion is restricted to novel datasets produced by NASA Earth researchers and non-authoritative cloud-optimized versions of datasets from a DAAC. Publication requires a veda-data pull request. General storage is not offered.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://docs.openveda.cloud/user-guide/data-services/data-store.html",
@@ -58,7 +58,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "The process needs a veda-data pull…",
+  "notes": "Ingestion is restricted to novel datasets produced by NASA Earth researchers and non-authoritative cloud-optimized versions of datasets from a DAAC. Publication requires a veda-data pull request. General storage is not offered.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

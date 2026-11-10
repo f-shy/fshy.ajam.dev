@@ -89,7 +89,7 @@
     }
   ],
   "verdict": "fails-identity",
-  "notes": "The cleanest rejection: a mobile number and two human vouches, for 100 MB. A supporter account at EUR 3 a month skips the queue but still requires the SMS step, per the same page.",
+  "notes": "The cleanest rejection in evaluated offerings: a mobile number and two human vouches, for 100 MB. A supporter account at EUR 3 a month skips the queue but still requires the SMS step, per the same page.",
   "extras": {
     "shape": {
       "vcpu": null,

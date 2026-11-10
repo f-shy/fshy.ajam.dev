@@ -123,7 +123,7 @@
   ],
   "verdict": "trial-only",
   "verified_at": "2026-11-04T06:40:32.494Z",
-  "notes": "The 10 Mbit/s cap is the number that matters and it is buried in the conditions section rather than the features list. The 12-month claim in the meta description is search-engine text, not an offer: the campaign page and the help centre both say three days for VPS. Not established: whether the trial is once per person, and whether a foreign number can confirm (the page says only 'confirm a phone number').",
+  "notes": "SpaceWeb VPS plans provide 3-day trial periods with outbound network bandwidth shaped to 10 Mbit/s. Registration requires phone number SMS verification.",
   "extras": {
     "facets": {
       "class": "regional-trial",

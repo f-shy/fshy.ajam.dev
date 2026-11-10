@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.perforce.com/products/p4/free-version-control",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "Hosted option: P4 Cloud, managed and hosted by Perforce, at $39 per user per month with 64GiB storage included. Free edition: the user installs and runs the P4 server on a rented or free machine (in the cloud or on-premises); no storage limit is imposed by the vendor.",
   "chaining": "not recorded",
   "limits": [],

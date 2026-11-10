@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.gov.ua/pages/pro-portal",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://data.gov.ua/pages/pro-portal",
     "notes": "not stated"
   },
@@ -31,9 +31,9 @@
   ],
   "interface_detail": "CKAN 2.x action API (200 OK).",
   "tooling": "curl + CKAN key; UI at /dataset/new.",
-  "chaining": "n/a — no individual write path.",
+  "chaining": "N/a. No individual write path.",
   "limits": [],
-  "limits_note": "write-gated: registration is open (email + password form renders 200) but unauth organization_create returns 'У доступі відмовлено'. A 300-dataset sample contained ZERO datasets with an empty owner_org — every record belongs to a ministry, state enterprise or register authority. That is the structural proof that this is a publishers-only catalog.",
+  "limits_note": "Write-gated: registration is open (email + password form renders 200) but unauth organization_create returns 'У доступі відмовлено'. A 300-dataset sample contained ZERO datasets with an empty owner_org. Every record belongs to a ministry, state enterprise or register authority. That is the structural proof that this is a publishers-only catalog.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://boxes.dev/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the pricing page, the plans-and-box-hours help page and the billing-and-usage help page state no egress allowance and no overage price; only extra box-hours are priced",
@@ -38,7 +38,7 @@
   ],
   "interface_detail": "SSH and IDE-over-SSH; an HTTP POST API trigger for automations (Bearer secret); the dvb command-line client; the desktop, mobile and web apps",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "retention-clamped",
@@ -51,7 +51,7 @@
       "source": "https://boxes.dev/help/plans-and-box-hours"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "Sign in with Google OAuth or Sign in with Apple; a Google account whose email address Google does not manage may be asked for a six-digit email code to verify that address; some teams need to add a payment method before starting the trial, and a trial started without a card is not interrupted by a later payment-method requirement",

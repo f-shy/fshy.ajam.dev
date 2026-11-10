@@ -25,7 +25,7 @@
     "notes": "not stated"
   },
   "egress": {
-    "terms": "downloads 'unlimited and unthrottled' — this is the most generous free egress found in the niche, it just cannot hold data",
+    "terms": "Downloads 'unlimited and unthrottled'. This is the most generous free egress found in the niche, it just cannot hold data.",
     "metered": false
   },
   "interface": [
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "documented 33-endpoint REST API (init -> presigned PUT -> confirm), presigned URLs point at r2.cloudflarestorage.com; CLI + desktop app + ShareX; no rclone",
-  "chaining": "the upload quota is per visitor token AND per IP, so 100 GB/24h x N tokens (up to the 500 GB/IP ceiling) x N IPs — a throughput engine rather than a store; pairs well as the write side in front of a permanent store",
+  "chaining": "The upload quota is per visitor token AND per IP, so 100 GB/24h x N tokens (up to the 500 GB/IP ceiling) x N IPs. A throughput engine rather than a store; pairs well as the write side in front of a permanent store.",
   "limits": [
     {
       "kind": "per-ip-shaping",

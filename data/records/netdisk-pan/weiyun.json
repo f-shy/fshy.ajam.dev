@@ -115,7 +115,7 @@
   "verified_at": "2026-11-04T00:21:07.067Z",
   "binding": "per-object-cap",
   "binding_note": "The free account is 5 GB, and the share path is closed to an unauthenticated caller even for metadata. Either number closes it; the quota is the one a reader can check without an account.",
-  "notes": null,
+  "notes": "Demonstrates metadata embedded directly within page HTML markup while programmatic API access is restricted. The file directory hierarchy is visible publicly while download payloads require authenticated client sessions.",
   "extras": {
     "access_mode": "registration-gated",
     "anonymous_read": "metadata embedded in the page, API refused"

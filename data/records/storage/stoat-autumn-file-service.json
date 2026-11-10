@@ -19,12 +19,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://stoat.chat/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free and — importantly — UNSIGNED. Autumn 301s to cdn.stoatusercontent.com and the object URL is a bare path with no expiry parameters, unlike Discord. So a stored URL stays valid and is trivially Cloudflare-cacheable.",
+    "terms": "Free and. Importantly. UNSIGNED. Autumn 301s to cdn.stoatusercontent.com and the object URL is a bare path with no expiry parameters, unlike Discord. So a stored URL stays valid and is trivially Cloudflare-cacheable.",
     "metered": false
   },
   "interface": [

@@ -5,7 +5,7 @@
   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: 1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB — not viable at 10 TiB.",
+    "stated": "None reachable: 1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB. Not viable at 10 TiB.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB — not viable at 10 TiB.",
+  "reliability_note": "1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB. Not viable at 10 TiB.",
   "confidence": "reported",
   "confidence_note": "the 2026-11-03 read covered https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits for the 100 GB per month soft bandwidth limit; the 1 GB published-site limit and the one-site-per-account rule were not quoted from a capture",
   "evidence": [
@@ -60,7 +60,7 @@
   ],
   "verdict": "fails-egress",
   "verified_at": "2026-11-03T15:04:26.603Z",
-  "notes": "1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB — not viable at 10 TiB.",
+  "notes": "1 GB published site and one user/org site per account; 100 GB/month soft bandwidth. Deduplicating into accounts gives ~hundreds of accounts per TB. Not viable at 10 TiB.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

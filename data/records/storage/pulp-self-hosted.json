@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulpproject.org/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://pulpproject.org/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Free by construction — self-hosted; you pay (or don't) for your own bandwidth.",
+    "terms": "Free by construction. Self-hosted; you pay (or don't) for your own bandwidth.",
     "metered": false
   },
   "interface": [

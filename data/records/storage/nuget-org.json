@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://learn.microsoft.com/en-us/nuget/nuget-org/publish-a-package",
     "notes": "not stated"
   },
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "No deletion path means data does not vanish — good for archive. No total quota documented means no hard ceiling appears anywhere, but also no documented guarantee; a bulk workload has no stated allowance to point at. 429s on sustained pushes.",
+  "reliability_note": "No deletion path means data does not vanish. Good for archive. No total quota documented means no hard ceiling appears anywhere, but also no documented guarantee; a bulk workload has no stated allowance to point at. 429s on sustained pushes.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

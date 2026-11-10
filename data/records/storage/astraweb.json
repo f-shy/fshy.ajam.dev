@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://www.astraweb.com/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "Usenet article retention of more than 5500 days, growing daily (age of retrievable articles, not storage of user data).",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [
     {
@@ -47,9 +47,9 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "No free trial on the live site any more — the homepage goes straight to $15/month, 5,500 days retention, 50 connections.",
+  "reliability_note": "No free trial on the live site. The homepage lists plans starting at $15 per month, with 5,500 days retention and 50 connections.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
     {
       "url": "https://www.astraweb.com/",
@@ -115,7 +115,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-11-04T10:28:56.593Z",
-  "notes": "No free trial on the live site any more — the homepage goes straight to $15/month, 5,500 days retention, 50 connections.",
+  "notes": "No free trial on the live site. The homepage lists plans starting at $15 per month, with 5,500 days retention and 50 connections.",
   "extras": {
     "dead_end": {
       "failure_class": "retention",

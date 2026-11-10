@@ -16,7 +16,7 @@
     "stated": "Gameplay videos under 3 minutes long that are non-4K; no byte cap stated on the page",
     "bytes": null,
     "source_url": "https://www.playstation.com/en-us/support/games/ps5-game-captures-ps-app/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "14 days after the capture is created on the PS5 console",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "unverified: whether a developer API exists; the documented path is the PlayStation App on iOS and Android with a linked PS5 console",
   "chaining": "not recorded",
   "limits": [

@@ -33,7 +33,7 @@
   "confidence": "reported",
   "verified_at": "2026-10-22T04:24:38.000Z",
   "price_per_tb_month": null,
-  "notes": "It is kept because Edge Functions give a real always-on process with a public URL, which is a compute capability on a database product.",
+  "notes": "Supabase provides PostgreSQL databases with Edge Functions supporting serverless compute execution under free monthly invocation limits.",
   "slug": "supabase",
   "provider": "Supabase",
   "url": "https://supabase.com/pricing",

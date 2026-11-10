@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.netdynamics24.com/client/order.php?step=1&productGroup=13",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.netdynamics24.com/client/order.php?step=1&productGroup=13",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "\"Unmetered Traffic\" with \"1 GBit/s\" port, on both the DE and FI product pages. This is the cleanest egress term among the records read — a port speed with no counter and no published fair-use threshold.",
+    "terms": "\"Unmetered Traffic\" with \"1 GBit/s\" port, on both the DE and FI product pages. This is the cleanest egress term among the records read. A port speed with no counter and no published fair-use threshold.",
     "metered": false
   },
   "interface": [
@@ -43,13 +43,13 @@
       "source": "https://www.netdynamics24.com/client/order.php?step=1&productGroup=13"
     }
   ],
-  "limits_note": "No WebDAV, no S3. Capacity ladder stops at 2 TB per box on the page — for 20 TB you would need ten boxes, which is operationally ugly even if the per-TB price holds.",
+  "limits_note": "WebDAV and S3 protocols are not supported. Storage plans cap at 2 TB per server instance.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
     "country": null
   },
-  "reliability_note": "Small host (NetDynamics LLC), advertises 256 GB RAM Xeon E5-1650v3 storage nodes with RAID-6 and unmetered 1 Gbit/s.",
+  "reliability_note": "Hosting provider advertises 256 GB RAM Xeon E5-1650v3 storage nodes with RAID-6 arrays and unmetered 1 Gbit/s network links. Promotional discounts are reported on hosting forums but unverified at checkout without placing an order.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [
@@ -77,5 +77,5 @@
     "price_verbatim": "List: $6.00/TB/mo at 1 TB, $5.50/TB/mo at 2 TB. With LET50% on annual: 1 TB = $30/yr = $2.50/TB/mo; 2 TB = $55/yr = $2.29/TB/mo. at 5 TB: three 2 TB boxes = $2.29/TB/mo. at 20 TB: same $2.29/TB/mo but requires ten boxes. Unmetered 1 Gbit/s is the reason to care."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

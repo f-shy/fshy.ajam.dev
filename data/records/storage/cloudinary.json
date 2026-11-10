@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://cloudinary.com/pricing/compare-plans",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "Excellent: REST plus SDKs for every language, signed/unsigned upload presets, remote fetch, auto-backup to S3/GCS.",
-  "chaining": "Unlimited free accounts (3 users / 1 account per free plan) x 25 credits — but credits reset monthly, so stored data does not survive if you stop paying attention. One cloud_name per account.",
+  "chaining": "Unlimited free accounts (3 users / 1 account per free plan) x 25 credits. But credits reset monthly, so stored data does not survive if you stop paying attention. One cloud_name per account.",
   "limits": [
     {
       "kind": "per-object-cap",

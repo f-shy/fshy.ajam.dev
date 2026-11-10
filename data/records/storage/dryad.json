@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datadryad.org/help/requirements/costs",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://datadryad.org/help/requirements/costs",
     "notes": "not stated"
   },
@@ -31,7 +31,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "REST API + OAI-PMH; DOI minting; integration with manuscript submission systems.",
-  "chaining": "None. The fee scales linearly per dataset, so there is no multiplication play — cost per TB is roughly $6,000 and does not fall with volume ($6.08/GB flat from 500 GB to 2 TB).",
+  "chaining": "None. The fee scales linearly per dataset, so there is no multiplication play. Cost per TB is roughly $6,000 and does not fall with volume ($6.08/GB flat from 500 GB to 2 TB).",
   "limits": [],
   "limits_note": "10 GB per individual file; 300 GB per publication through the web UI; above that it is a negotiated large-data order. Partner institutions sponsor only the first 10 GB, with a Large Data Fee above.",
   "identity_cost": {
@@ -39,7 +39,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Highly reliable, curated, POSI-signatory, but gated behind a credit-card payment at submission — useless as free bulk storage.",
+  "reliability_note": "Highly reliable, curated, POSI-signatory, but gated behind a credit-card payment at submission. Useless as free bulk storage.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

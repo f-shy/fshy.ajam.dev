@@ -5,7 +5,7 @@
   "url": "https://archive.org/developers/ias3.html",
   "category": "academic",
   "free_tier": {
-    "stated": "No quota of its own — it multiplies the 1TB item limit by however many versions you PUT.",
+    "stated": "No quota of its own. It multiplies the 1TB item limit by however many versions you PUT.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://archive.org/developers/ias3.html",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/ias3.html",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://archive.org/developers/ias3.html",
     "notes": "not stated"
   },
@@ -57,7 +57,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No quota of its own — it multiplies the 1TB item limit by however many versions you PUT.",
+  "notes": "No quota of its own. It multiplies the 1TB item limit by however many versions you PUT.",
   "extras": {},
   "binding": "none",
   "binding_note": null

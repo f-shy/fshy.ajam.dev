@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://vps.sakura.ad.jp/functions/nfs/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -81,7 +81,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-03T15:04:38.759Z",
-  "notes": "¥26,400/mo for 3,200 GB = ¥8.25/GB = $52.25/TB. The most expensive per-TB option checked. Japanese-only signup and billing.",
+  "notes": "Pricing is 26,400 JPY monthly for 3,200 GB, equivalent to 8.25 JPY per gigabyte (~$52.25 per terabyte). Account registration and billing require Japanese local verification.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",

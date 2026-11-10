@@ -34,7 +34,7 @@
   ],
   "interface_detail": "web-only (no published API/S3/WebDAV)",
   "tooling": "none found",
-  "chaining": "20 GiB x unlimited anonymous transfers, but retention 3 days (2 days if >2 GB) makes it a shipping lane, not storage.",
+  "chaining": "Free transfers allow up to 20 GiB per transfer with temporary retention of 3 days (2 days for files over 2 GB).",
   "limits": [
     {
       "kind": "retention-clamped",

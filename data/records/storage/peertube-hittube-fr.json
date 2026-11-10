@@ -19,7 +19,7 @@
     "notes": "this is the constraint that decides whether the quota is usable: a storage tier that re-encodes at ingest does not return originals"
   },
   "retention": {
-    "stated": "No stated expiry while the instance runs.",
+    "stated": "No stated expiry while the instance runs. The instance is a volunteer-run server with a single administrator and a 2026-10-14 asset date. Retention depends on ongoing server operation.",
     "days": null,
     "source_url": "https://hittube.fr/api/v1/config"
   },
@@ -47,7 +47,7 @@
     }
   ],
   "binding": "per-object-cap",
-  "binding_note": null,
+  "binding_note": "Storage allowance is 50 GiB per account with no daily cap. What binds is video transcoding. Ingested files are re-encoded and return modified bytes, functioning as video hosting rather than exact byte storage.",
   "limits_note": "The instance reports 201 local videos totalling 21,058,245,956 bytes with 2 registered users, so the operator's disk holds about 21 GB of other people's content. Two users and 21 GB is the scale of the goodwill a 50 GiB quota is drawn on",
   "identity_cost": {
     "kind": "email",
@@ -87,7 +87,7 @@
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-22T04:30:16.000Z",
   "price_per_tb_month": null,
-  "notes": "The instance is live and measurable: 50 GiB per user, no daily cap, open registration with no email verification. The caveat that the audit did not name is the one that matters more than the quota: the instance transcodes every upload, so it returns transcoded renditions and not originals",
+  "notes": "Active instance provides 50 GiB per user with no daily cap and open registration without email verification. Uploaded media is transcoded on ingest, returning re-encoded renditions rather than original files.",
   "extras": {
     "audit_status": "the completeness review listed this name as unsupported and said the measured instance was gone; the instance answered live on 2026-10-22",
     "instance_software": "PeerTube 8.3.1",

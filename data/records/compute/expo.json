@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://expo.dev",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "EAS Update global edge bandwidth: 100 GiB on Free and Starter, then $0.10 per GiB on Starter; the Hosting table lists no bandwidth row",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://expo.dev"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

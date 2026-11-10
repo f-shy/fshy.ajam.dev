@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://aws.amazon.com/codebuild/pricing/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://aws.amazon.com/codebuild/pricing/ lists build-duration prices only and states no data-transfer allowance or overage price",
@@ -36,7 +36,7 @@
   ],
   "interface_detail": "console, AWS CLI and AWS SDKs",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -44,7 +44,7 @@
       "source": "https://aws.amazon.com/codebuild/pricing/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": null,

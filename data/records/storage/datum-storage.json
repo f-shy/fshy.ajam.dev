@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://storage.datum.org/getstarted",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://storage.datum.org/getstarted",
     "notes": "not stated"
   },
@@ -33,7 +33,7 @@
   "tooling": "S3 API only ('designed to be compatible with the Amazon S3 API format'); tested clients Arq Backup, Duplicati/Duplicity/Duplicacy untested",
   "chaining": "1 TB x N identities, but each identity needs a phone-verified Datum ID, so identity cost is the multiplier",
   "limits": [],
-  "limits_note": "1 TB/account; requires the Datum ID mobile app on iOS/Android as the identity provider — there is no web-only path",
+  "limits_note": "1 TB/account; requires the Datum ID mobile app on iOS/Android as the identity provider. There is no web-only path.",
   "identity_cost": {
     "kind": "any-phone",
     "detail": null,

@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://cloudcruise.com/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the page read states no egress allowance and no overage price per TB",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "HTTP API at api.cloudcruise.com with TypeScript and Python SDKs",
   "tooling": "HTTP API with TypeScript and Python SDKs",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -48,7 +48,7 @@
       "source": "https://cloudcruise.com/pricing"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "email: the sign-in page offers an email address and a password ('EmailPassword') with a Sign Up tab, beside Google and SSO ('Sign in with Google'; 'Sign in with SSO'). A card is not required for the free allowance: the terms state 'Some Services are free; others require payment (“Paid Services”).' and charge a payment method only when Paid Services are bought ('You authorize us (via our payment processor – currently Stripe) to charge your chosen payment method.'). A phone is not required: the sign-in form at https://app.cloudcruise.com/login carries an email address and a password and no phone field. Country: not published at https://cloudcruise.com/terms.",

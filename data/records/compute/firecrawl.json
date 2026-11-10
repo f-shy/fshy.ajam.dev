@@ -22,7 +22,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://www.firecrawl.dev/pricing",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: https://www.firecrawl.dev/pricing and https://docs.firecrawl.dev/billing price credits per call and list no data-transfer allowance or price; static egress IPs are Enterprise only",
@@ -37,7 +37,7 @@
   ],
   "interface_detail": "a REST API, Python and Node SDKs, a CLI (npm firecrawl-cli) and an MCP server",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",

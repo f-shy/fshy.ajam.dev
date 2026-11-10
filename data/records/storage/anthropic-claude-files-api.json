@@ -33,7 +33,7 @@
   ],
   "interface_detail": "REST POST/GET/DELETE /v1/files; GET /v1/files/{file_id}/content; `ant files` CLI; Python/TS/Go/Java/C# SDKs",
   "tooling": "anthropic SDK; curl with x-api-key + anthropic-version headers",
-  "chaining": "1 TB per org, and 'Each organization can have up to 100 workspaces' with files scoped to the workspace. Nominally 100 TB if workspaces were a cheap axis — but see the read gate.",
+  "chaining": "1 TB per org, and 'Each organization can have up to 100 workspaces' with files scoped to the workspace. Nominally 100 TB if workspaces were a cheap axis. But see the read gate.",
   "limits": [
     {
       "kind": "per-object-cap",

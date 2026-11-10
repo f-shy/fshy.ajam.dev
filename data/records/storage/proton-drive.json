@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://proton.me/drive/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://proton.me/drive/pricing",
     "notes": "not stated"
   },
@@ -40,7 +40,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "rclone backend is Beta and stated to have accounts it does not work with — treat as best-effort, not infrastructure.",
+  "reliability_note": "Rclone backend is Beta and stated to have accounts it does not work with. Treat as best-effort, not infrastructure.",
   "confidence": "reported",
   "confidence_note": null,
   "evidence": [

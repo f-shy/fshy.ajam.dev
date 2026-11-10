@@ -81,7 +81,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T06:08:33.035Z",
-  "notes": "The tracker's USD 17.99 a year for the 512 MB Ryzen shape was not found at that price on any vendor page read; the vendor prices the same shape at USD 24 a year, and the separate stock-clearance store that did sell cheaper tiers is out of stock on every line.",
+  "notes": "The tracker's USD 17.99 a year for the 512 MB Ryzen shape was not found at that price on any vendor page read; the vendor prices the same shape at USD 24 a year, and the separate stock-clearance store that did sell cheaper tiers is out of stock on every line. The headline figure here is the vendor's cheapest orderable plan, which is a different plan from the one the tracker priced. verification criteria: whether the USD 17.99 promo returns, and what the overage charge is above 1 TB.",
   "extras": {
     "facets": {
       "class": "price-floor",

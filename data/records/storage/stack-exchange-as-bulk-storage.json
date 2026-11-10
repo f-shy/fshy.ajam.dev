@@ -16,7 +16,7 @@
     "stated": "10 MiB per uploaded image (raised from 2 MiB)",
     "bytes": 10485760,
     "source_url": "https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,7 +31,7 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "not documented",
   "tooling": "unverified: whether a public image-upload API exists; a 2021 comment says images uploaded via the API went to the same image host",
   "chaining": "not recorded",
   "limits": [

@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "This is the one award in the class that can be spent anywhere, because the use-of-funds list includes 'Living Expenses' and 'Equipment/Hardware' beside compute: cash from it buys whichever vendor prices the workload cheapest, so it composes with every other record in documented records rather than locking the award to one vendor's credit.",
   "limits": [
     {
       "kind": "write-gated",

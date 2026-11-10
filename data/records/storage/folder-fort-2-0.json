@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.folderfort.com/pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.folderfort.com/pricing",
     "notes": "not stated"
   },
@@ -34,7 +34,7 @@
     "rclone"
   ],
   "interface_detail": "sftp / webdav / rest (rclone) / s3-style via FF Connect",
-  "tooling": "rclone backend (documented), SFTP, WebDAV — folderfort.com/sftp-webdav-rclone",
+  "tooling": "Rclone backend (documented), SFTP, WebDAV. Folderfort.com/sftp-webdav-rclone.",
   "chaining": "If the free storage number were large this would be a genuine finding because rclone/SFTP/WebDAV are all supported and 'all users, regardless of plan, receive free SFTP access'. But free bandwidth is 10 GB/month, so even a 500 GB free bucket could not be read out. Multiplication by accounts multiplies 10 GB/month each.",
   "limits": [],
   "limits_note": "per-ip-shaping/request-rate: 10 GB/month bandwidth on free (covers upload, download, streaming, embedding, share links and API use); API credits on Classic accounts are annual ('1 GB = up to 2 credits free annually'); free plan storage not stated; Classic access ends 2026-11-16.",

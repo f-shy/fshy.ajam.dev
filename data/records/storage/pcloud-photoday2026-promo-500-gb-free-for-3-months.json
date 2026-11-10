@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pcloud.com/promo?code=3MONTHS500GB",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.pcloud.com/promo?code=3MONTHS500GB",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Same as pCloud paid — unrestricted transfer speeds, no per-GB meter.",
+    "terms": "Same as pCloud paid. Unrestricted transfer speeds, no per-GB meter.",
     "metered": false
   },
   "interface": [
@@ -31,10 +31,10 @@
     "rclone"
   ],
   "interface_detail": "rest",
-  "tooling": "rclone backend `pcloud` — the trial grant is a normal quota bump, so rclone works unchanged against it.",
+  "tooling": "Rclone backend `pcloud`. The trial grant is a normal quota bump, so rclone works unchanged against it.",
   "chaining": "The grant repeats: a new email address creates a new account that holds a new 500 GB for 3 months. 4 grant cycles a year x N email addresses. 10 email addresses = 5 TB of rolling free capacity. The friction is re-uploading data each cycle and that rclone remotes must be re-authed per account.",
   "limits": [],
-  "limits_note": "3-month expiry hard-stop; capacity reverts to 10 GB (data above the free cap becomes read-only or is reclaimed). No card, so no auto-charge risk. Promo codes rotate seasonally — this one is a 'Photography Day' code live since at least 2026-08-13.",
+  "limits_note": "3-month expiry hard-stop; capacity reverts to 10 GB (data above the free cap becomes read-only or is reclaimed). No card, so no auto-charge risk. Promo codes rotate seasonally. This one is a 'Photography Day' code live since at least 2026-08-13.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

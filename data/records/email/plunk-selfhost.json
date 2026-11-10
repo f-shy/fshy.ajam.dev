@@ -41,7 +41,7 @@
     "detail": "the software needs no account",
     "country": null
   },
-  "reliability_note": null,
+  "reliability_note": "the relay bill and the deliverability belong to whoever runs the instance, not to the software",
   "confidence": "documented",
   "evidence": [
     {

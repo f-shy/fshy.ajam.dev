@@ -29,7 +29,7 @@
   ],
   "interface_detail": "root SSH on a KVM guest; Virtualizor control panel named on the page",
   "tooling": "any SSH client; Virtualizor panel",
-  "chaining": "A USD 0.74 a month 1 GiB VPS would be the cheapest thing; all nine carts are out of stock.",
+  "chaining": "A USD 0.74 a month 1 GiB VPS would be the cheapest thing among evaluated providers; all nine carts are out of stock.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -72,7 +72,7 @@
   "verdict": "dead",
   "verified_at": "2026-10-24T06:20:13.000Z",
   "price_per_tb_month": null,
-  "notes": "The Cyber Monday twin of the Black Friday page, one dollar cheaper per tier, and in worse condition: all six VPS carts and all three storage carts return Out of Stock, with none repointing. The page also carries the line 'All Prices are Yearly Plans' and a countdown-style layout, so it presents as a current sale. It is the cleanest example of a page that looks live, quotes a price, and sells nothing. Not verified: the year, which the page does not state.",
+  "notes": "The Cyber Monday twin of the Black Friday page, one dollar cheaper per tier, and in worse condition: all six VPS carts and all three storage carts return Out of Stock, with none repointing. The page also carries the line 'All Prices are Yearly Plans' and a countdown-style layout, so it presents as a current sale. It is the cleanest example among evaluated providers of a page that looks live, quotes a price, and sells nothing. Not verified: the year, which the page does not state.",
   "extras": {
     "shape": {
       "vcpu": 1,

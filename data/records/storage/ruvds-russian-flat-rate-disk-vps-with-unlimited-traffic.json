@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ruvds.com/ru/huge-disk/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://ruvds.com/ru/huge-disk/",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Unlimited — every СХД configuration lists its channel (up to 100 Mbit/s on the entry tiers) with no traffic meter, and the service is sold as a VPS so the rail is the VPS's own port. No per-GB charge exists.",
+    "terms": "Unlimited. Every СХД configuration lists its channel (up to 100 Mbit/s on the entry tiers) with no traffic meter, and the service is sold as a VPS so the rail is the VPS's own port. No per-GB charge exists.",
     "metered": false
   },
   "interface": [
@@ -36,7 +36,7 @@
     "rclone"
   ],
   "interface_detail": "ssh + sftp",
-  "tooling": "Full KVM VPS: SSH, SFTP, rsync, rclone, MinIO/Nextcloud self-hosted, NFS/Samba.",
+  "tooling": "Full KVM virtual private server supporting SSH, SFTP, rsync, rclone, NFS, Samba, and self-hosted services like MinIO or Nextcloud. Users manage the complete software stack.",
   "chaining": "Config-doubling ladder up to 18 TB; 20 TB requires two units or a different product. Each 1 TB step costs the same per TB from 2 TB upward.",
   "limits": [
     {
@@ -50,7 +50,7 @@
       "source": "https://ruvds.com/ru/huge-disk/"
     }
   ],
-  "limits_note": "The «500 ₽ per 1 TB/mo» headline is NOT the price of the СХД plans — the cheapest actual 1 TB plan is 1,023 ₽. The 500 ₽ figure refers to a base VPS plus a per-TB disk add-on in the order configurator, and reproducing it requires assembling that configuration.",
+  "limits_note": "The 500 RUB per 1 TB monthly headline is not the direct price of storage plans. The lowest standalone 1 TB plan costs 1,023 RUB. The 500 RUB rate refers to a base VPS plus an add-on disk in the configurator. Network port is 100 Mbit/s on the entry tier, providing approximately 1 TB per day theoretical bandwidth (~32 TB per month).",
   "identity_cost": {
     "kind": "card",
     "detail": "card",
@@ -84,5 +84,5 @@
     "price_verbatim": "$11.50/TB/mo at 2 TB ($23.00/mo) and 4 TB ($46.00/mo); $12.39/TB/mo at 1 TB ($12.39/mo). At 20 TB: ~$11.50/TB/mo if two 10 TB-class configs are assembled ($230/mo), derived not quoted. Unlimited traffic, $0 egress."
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

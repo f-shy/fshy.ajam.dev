@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://gologin.com/cloud-browser/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Traffic is metered: each plan has a proxy traffic allowance and traffic past it is billed at USD 1 per GB; the allowance size per plan is not on the page read.",
@@ -33,9 +33,9 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
+  "interface_detail": "Access interface not documented in published terms.",
   "tooling": "not stated",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -48,7 +48,7 @@
       "source": "https://gologin.com/cloud-browser/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "'Sign up with Google and copy your key from the dashboard. Free, no card.', quoted from gologin.com read 2026-10-22",

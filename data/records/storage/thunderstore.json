@@ -5,7 +5,7 @@
   "url": "https://thunderstore.io",
   "category": "registry",
   "free_tier": {
-    "stated": "5,242,880,000 bytes (~5 GB) per package zip — documented as a soft limit that staff will raise on request; server default in source is REPOSITORY_MAX_PACKAGE_SIZE_MB=500. No per-team total quota; the only total cap is a global server-wide REPOSITORY_MAX_PACKAGE_TOTAL_SIZE_GB=1000.",
+    "stated": "5,242,880,000 bytes (~5 GB) per package zip. Documented as a soft limit that staff will raise on request; server default in source is REPOSITORY_MAX_PACKAGE_SIZE_MB=500. No per-team total quota; the only total cap is a global server-wide REPOSITORY_MAX_PACKAGE_TOTAL_SIZE_GB=1000.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://wiki.thunderstore.io/mods/creating-a-package",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.thunderstore.io/mods/creating-a-package",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://wiki.thunderstore.io/mods/creating-a-package",
     "notes": "not stated"
   },
@@ -78,7 +78,7 @@
   ],
   "verdict": "qualifies-with-caveat",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "5,242,880,000 bytes (~5 GB) per package zip — documented as a soft limit that staff will raise on request; server default in source is REPOSITORY_MAX_PACKAGE_SIZE_MB=500. No per-team total quota; the only total cap is a global server-wide REPOSITORY_MAX_PACKAGE_TOTAL_SIZE_GB=1000.",
+  "notes": "5,242,880,000 bytes (~5 GB) per package zip. Documented as a soft limit that staff will raise on request; server default in source is REPOSITORY_MAX_PACKAGE_SIZE_MB=500. No per-team total quota; the only total cap is a global server-wide REPOSITORY_MAX_PACKAGE_TOTAL_SIZE_GB=1000.",
   "extras": {},
   "binding": "none",
   "binding_note": null

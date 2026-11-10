@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": "USD 300,000 of compute is the largest compute-denominated award found, and it must be spent in a partner account rather than on a card: at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) the grand prize is about 75,000 H100-hours, which is 300,000 divided by 3.99.",
+  "chaining": "USD 300,000 of compute is the largest compute-denominated award documented, and it must be spent in a partner account rather than on a card: at Lambda's documented on-demand rate of USD 3.99 per H100 GPU-hour (compute/lambda) the grand prize is about 75,000 H100-hours, which is 300,000 divided by 3.99.",
   "limits": [
     {
       "kind": "write-gated",

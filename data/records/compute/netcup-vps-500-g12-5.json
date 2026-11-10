@@ -30,7 +30,7 @@
   ],
   "interface_detail": "root SSH, snapshots and a remote console",
   "tooling": "any SSH client; netcup SCP panel",
-  "chaining": "a European 4 GiB box with a traffic flat rate, but the entry price is now nearly double ceiling",
+  "chaining": "a European 4 GiB box with a traffic flat rate, but the entry price is now nearly double this category ceiling",
   "limits": [
     {
       "kind": "volume-quota",
@@ -39,7 +39,7 @@
     }
   ],
   "binding": "volume-quota",
-  "binding_note": "the binding constraint is the 12-month contract at EUR 8.26 a month, not any technical quota; the price alone puts it out.",
+  "binding_note": "the binding constraint is the 12-month contract at EUR 8.26 a month, not any technical quota; the price alone puts it out of this category.",
   "identity_cost": {
     "kind": "card",
     "detail": "an account and a payment method at order.",

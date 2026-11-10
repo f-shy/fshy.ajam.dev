@@ -5,7 +5,7 @@
   "url": "https://matrix.org/homeserver/pricing/",
   "category": "messaging",
   "free_tier": {
-    "stated": "Free plan: 10 MB maximum per attachment, 100 MB of attachments per 24 hours, up to 500 MB per 28 days. Premium: 100 MB per attachment, 1 GB/24h, 5 GB/28d. Accounts not on any plan get 500 MB/24h up to 2 GB/28d. So the total is a few GB per month — not a storage provider at all.",
+    "stated": "Free plan: 10 MB maximum per attachment, 100 MB of attachments per 24 hours, up to 500 MB per 28 days. Premium: 100 MB per attachment, 1 GB/24h, 5 GB/28d. Accounts not on any plan get 500 MB/24h up to 2 GB/28d. So the total is a few GB per month. Not a storage provider at all.",
     "unit": "MB",
     "metered_on": "stored-bytes",
     "source_url": "https://matrix.org/homeserver/pricing/",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://matrix.org/homeserver/pricing/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://matrix.org/homeserver/pricing/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "Excellent — the Content Repository API is a real spec, mxc:// URIs, every Matrix client library implements it. Self-hosted Synapse has no such caps (only max_upload_size, default 10M historically).",
+  "tooling": "Excellent. The Content Repository API is a real spec, mxc:// URIs, every Matrix client library implements it. Self-hosted Synapse has no such caps (only max_upload_size, default 10M historically).",
   "chaining": "Any federation of homeservers multiplies it, but you are then running the homeservers yourself, which is just 'buy a server'. On the public homeserver there is no chaining path: limits are per-account and the 28-day cap is the binding one.",
   "limits": [
     {
@@ -67,7 +67,7 @@
   ],
   "verdict": "fails-quota",
   "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "Free plan: 10 MB maximum per attachment, 100 MB of attachments per 24 hours, up to 500 MB per 28 days. Premium: 100 MB per attachment, 1 GB/24h, 5 GB/28d. Accounts not on any plan get 500 MB/24h up to 2 GB/28d. So the total is a few GB per month — not a storage provider at all.",
+  "notes": "Free plan: 10 MB maximum per attachment, 100 MB of attachments per 24 hours, up to 500 MB per 28 days. Premium: 100 MB per attachment, 1 GB/24h, 5 GB/28d. Accounts not on any plan get 500 MB/24h up to 2 GB/28d. So the total is a few GB per month. Not a storage provider at all.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
@@ -77,5 +77,5 @@
     }
   },
   "binding": "per-ip-shaping",
-  "binding_note": null
+  "binding_note": "one stream is shaped, and aggregate throughput is the shaped rate times the number of streams"
 }

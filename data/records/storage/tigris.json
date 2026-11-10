@@ -18,7 +18,7 @@
     "notes": "the page does not say whether 5 TB is decimal or binary"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.tigrisdata.com/pricing/",
     "notes": "not stated"
   },

@@ -13,17 +13,17 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://spacebyte.in/cloud-storage-pricing",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://spacebyte.in/cloud-storage-pricing",
     "notes": "not stated"
   },
   "egress": {
-    "terms": "Claimed free. The business page is titled «Eliminate Egress Fees» and argues against providers «that charge hidden egress fees», and the pricing JSON-LD implies flat-rate. But no numbered egress allowance, no fair-use clause and no overage rate is published anywhere on the site — so the claim cannot be falsified from outside.",
+    "terms": "Claimed free. The business page is titled «Eliminate Egress Fees» and argues against providers «that charge hidden egress fees», and the pricing JSON-LD implies flat-rate. But no numbered egress allowance, no fair-use clause and no overage rate is published anywhere on the site. So the claim cannot be falsified from outside.",
     "metered": true
   },
   "interface": [
@@ -37,7 +37,7 @@
   "tooling": "None documented. No public API, no WebDAV, no S3 endpoint, no rclone backend, no CLI. The product page describes «Zero-Knowledge Personal Vault», AES-256-GCM client-side encryption, mobile sync and a web UI. This is the disqualifying gap.",
   "chaining": "Per-account consumer plans; no documented route that uses several accounts and no API to automate one.",
   "limits": [],
-  "limits_note": "Zero programmatic access. The entire site is SEO-shaped: multiple near-identical 2026 comparison articles on its own domain ranking itself #1, with an «Independent Industry Audit» framing. The 1 TB price is also contradicted by its own pricing page rendering an empty shell to every reader that reached it — /pricing, /pricing.html and /cloud-storage-pricing all resolved to the same 37-word stub with `confidence: low`.",
+  "limits_note": "Zero programmatic API access. Client-side zero-knowledge encryption ensures that stored data is encrypted prior to transmission. Marketing comparison pages advertise promotional pricing while direct pricing endpoints returned incomplete placeholder pages on 2026-10-21.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",

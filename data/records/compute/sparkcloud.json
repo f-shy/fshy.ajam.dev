@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "not stated",
-  "chaining": null,
+  "chaining": "Supplies database, object store, static hosting, AI endpoints, and virtual machine capacity under a single identity with no credit card required. Eligibility requires youth age verification.",
   "limits": [
     {
       "kind": "write-gated",

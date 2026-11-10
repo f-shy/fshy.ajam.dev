@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "store at my.zorocloud.com/store/... with per-line product pages; no API documented",
-  "chaining": "CNY 39 for a three-network-optimised US box with 500 GB is the cheapest entry to a route that splits across CN2, 9929 and CMIN2, which is what changes latency from the mainland",
+  "chaining": "CNY 39 for a three-network-optimised US box with 500 GB is the cheapest entry among documented hosts to a route that splits across CN2, 9929 and CMIN2, which is what changes latency from the mainland",
   "limits": [
     {
       "kind": "volume-quota",
@@ -68,7 +68,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-10-22T00:00:00.000Z",
-  "notes": "Source: zhujiceping offer listing and article, then the vendor homepage, which prints no price. The record is reported. The article quotes a CNY 39 figure without a billing period on the row; Rendering and provenance: currency written as CNY.",
+  "notes": "Source: zhujiceping offer listing and article, then the vendor homepage, which prints no price. The record is reported. The article quotes a CNY 39 figure without a billing period on the row; every other row in the same table is a monthly price, and the row is recorded as monthly on that basis. Unverified: the store page's billing period. Rendering and provenance: currency written as CNY.",
   "extras": {
     "facets": {
       "class": null,

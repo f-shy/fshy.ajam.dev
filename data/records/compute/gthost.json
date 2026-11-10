@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM with full root and a control panel; the vendor also sells bare metal and hybrid dedicated. The VPS table is rendered client-side, so a text-only fetch of the page returns placeholder rows and no prices",
-  "chaining": "the VPS-12T, VPS-22T and VPS-30T rows are cheapest per terabyte: 24 TB for USD 12 and 48 TB for USD 30 with only 1 vCPU and 2 GB, which is exactly the shape of an egress relay that streams bytes and stores almost nothing",
+  "chaining": "the VPS-12T, VPS-22T and VPS-30T rows are evaluated providers's cheapest per terabyte: 24 TB for USD 12 and 48 TB for USD 30 with only 1 vCPU and 2 GB, which is exactly the shape of an egress relay that streams bytes and stores almost nothing.",
   "limits": [
     {
       "kind": "volume-quota",
@@ -87,7 +87,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-07T14:17:07.272Z",
-  "notes": "The table above was read from the rendered DOM in a browser, so the numbers are observed rather than extracted from markup.",
+  "notes": "This is the one vendor page in evaluated offerings that could not be read by a fetch: automated retrieval returned 200 with 184 KB of HTML whose table rows are all 'Loading..', and the same is true of the regional pages. The table above was read from the rendered DOM in a browser, so the numbers are observed rather than extracted from markup. The 19-location line and the filter ranges are the page's own. verification criteria: which location the USD 4 row actually provisions and what the port speed is, both of which need the order form.",
   "extras": {
     "facets": {
       "class": "price-floor",

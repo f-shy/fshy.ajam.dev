@@ -21,7 +21,7 @@
     "stated": "not stated",
     "days": null,
     "source_url": "https://hyperbeam.com/",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "not published: the page read states no egress allowance and no overage price per TB",
@@ -35,7 +35,7 @@
   ],
   "interface_detail": "REST API for server-side session management; client SDKs for JavaScript and Unity (WebGL and Desktop)",
   "tooling": "REST API; JavaScript and Unity client SDKs",
-  "chaining": "not stated",
+  "chaining": "not established",
   "limits": [
     {
       "kind": "request-rate",
@@ -43,7 +43,7 @@
       "source": "https://hyperbeam.com/"
     }
   ],
-  "limits_note": "not stated",
+  "limits_note": null,
   "identity_cost": {
     "kind": "email",
     "detail": "an email address, or a GitHub or Google account: the dashboard sign-up offers 'Continue with Github', 'Continue with Google' or an email address. The API key is issued on request: 'Please contact us via Discord or email for an API key.' No credit card is required: 'No credit card required.' The phone requirement is not published on https://hyperbeam.com/dashboard/. Country: not published on https://hyperbeam.com/dashboard/.",

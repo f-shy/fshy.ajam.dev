@@ -5,7 +5,7 @@
   "url": "https://docs.pixeldrain.com/filesystem/",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem — 'Downloads from the filesystem are charged at €1 / TB for prepaid.'…",
+    "stated": "None reachable: Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem. 'Downloads from the filesystem are charged at €1 / TB for prepaid.' A.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://docs.pixeldrain.com/filesystem/",
@@ -16,7 +16,7 @@
     "stated": "not recorded",
     "bytes": null,
     "source_url": "https://docs.pixeldrain.com/filesystem/",
-    "notes": "not recorded"
+    "notes": "not applicable"
   },
   "retention": {
     "stated": "not recorded",
@@ -31,8 +31,8 @@
   "interface": [
     "unknown"
   ],
-  "interface_detail": null,
-  "tooling": "not recorded",
+  "interface_detail": "not documented",
+  "tooling": "not documented",
   "chaining": "not recorded",
   "limits": [],
   "limits_note": null,
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem — 'Downloads from the filesystem are charged at €1 / TB for prepaid.'…",
+  "reliability_note": "Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem. 'Downloads from the filesystem are charged at €1 / TB for prepaid.' A.",
   "confidence": "reported",
   "confidence_note": "reported: the page read on 2026-11-03 is https://docs.pixeldrain.com/filesystem/, which states that the filesystem is open to accounts with a paid subscription (Patreon or Prepaid), that prepaid storage is charged at €4 per TB per month, that prepaid filesystem downloads are charged at €1 / TB (Patreon plans have a monthly limit), and that the filesystem allows up to 6 GB of downloads per day against 5 GB per day for regular files, with speed limited to 1 MiB/s beyond it. The page therefore states a daily download allowance, which free_tier.stated and reliability_note deny, so the rung stays reported.",
   "evidence": [
@@ -86,7 +86,7 @@
   ],
   "verdict": "paid-only",
   "verified_at": "2026-11-04T02:22:32.525Z",
-  "notes": "Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem — 'Downloads from the filesystem are charged at €1 / TB for prepaid.'…",
+  "notes": "Prepaid storage is genuinely €4/TB/mo but egress is metered at €1/TB with NO free download allowance on the filesystem. 'Downloads from the filesystem are charged at €1 / TB for prepaid.' A.",
   "extras": {
     "dead_end": {
       "failure_class": "egress",

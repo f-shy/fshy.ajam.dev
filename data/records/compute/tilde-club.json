@@ -9,7 +9,7 @@
   ],
   "interface_detail": "SSH on port 22",
   "tooling": "SSH, screen or tmux, cron",
-  "chaining": null,
+  "chaining": "3 GB of hard disk on a shared host is the largest pubnix quota verification found",
   "limits_note": "signup rejects gmail.com addresses, which is an identity gate rather than a quota",
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
@@ -79,7 +79,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "notes": "No RAM, no CPU and no port allowance are published, so this is a place to keep files and run small jobs, not a machine to plan around. Approval is manual.",
+  "notes": "No RAM, no CPU and no port allowance are published, so this is a place to keep files and run small jobs, not a machine to plan around. Approval is manual. Unverified: a probe on an account reading `ulimit -a` and `free -m`.",
   "extras": {
     "shape": {
       "vcpu": null,

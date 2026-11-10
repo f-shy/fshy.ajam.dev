@@ -34,7 +34,7 @@
   ],
   "interface_detail": "rest",
   "tooling": "no rclone backend; plain multipart POST to https://<nn>.gigafile.nu/upload_chunk.php (id, name, chunk, chunks, lifetime, file); chunk_size=100mb, max_size=300gb are published as JS vars in the page source; own client is ~40 lines of python/curl",
-  "chaining": "quota is per record, not per account — 10 TiB = 35 uploads of 300 GB, 20 TiB = ~70; no account, no identity, so nothing to register and nothing to shard around. Only the 100-day retention forces a re-upload cycle.",
+  "chaining": "Quota is per record, not per account. 10 TiB = 35 uploads of 300 GB, 20 TiB = ~70; no account, no identity, so nothing to register and nothing to shard around. Only the 100-day retention forces a re-upload cycle.",
   "limits": [
     {
       "kind": "per-ip-shaping",
@@ -65,7 +65,7 @@
   },
   "reliability_note": "Download endpoint only serves when called with the referer/cookie chain from the file page (a bare GET returns an 'open the proper download screen' interstitial); datacenter IPs are ad-walled but the byte path itself worked",
   "confidence": "documented",
-  "confidence_note": "The per-object cap and the retention band are stated on the page as re-read. Was reported; now documented.",
+  "confidence_note": "The per-object cap and the retention band are stated on the page as read on 2026-10-21. Was reported, now documented.",
   "evidence": [
     {
       "url": "https://gigafile.nu/",

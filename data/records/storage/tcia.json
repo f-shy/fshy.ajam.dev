@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not stated",
+    "stated": null,
     "source_url": "https://www.cancerimagingarchive.net/primary-data/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": "per-object-cap: one zip per DICOM series (tens of MB each) — the archive is sharded by series, not by dataset. Retention: permanent, DOI per collection",
+    "stated": "Per-object-cap: one zip per DICOM series (tens of MB each). The archive is sharded by series, not by dataset. Retention: permanent, DOI per collection.",
     "source_url": "https://www.cancerimagingarchive.net/primary-data/",
     "notes": "not stated"
   },
@@ -30,7 +30,7 @@
     "rest"
   ],
   "interface_detail": "rest",
-  "tooling": "NBIA Data Retriever + documented REST API (`services.cancerimagingarchive.net/nbia-api/services/v1/`), plus the `tcia-utils` Python package. Deposit side has no API — it is a quarterly-reviewed proposal form.",
+  "tooling": "NBIA Data Retriever + documented REST API (`services.cancerimagingarchive.net/nbia-api/services/v1/`), plus the `tcia-utils` Python package. Deposit side has no API. It is a quarterly-reviewed proposal form.",
   "chaining": "Read side is effectively unlimited and needs no account, so the fetch workload scales independently of any deposit relationship. Deposits: one collection per approval, unlimited collections per institution in principle.",
   "limits": [
     {
@@ -39,7 +39,7 @@
       "source": "https://www.cancerimagingarchive.net/primary-data/"
     }
   ],
-  "limits_note": "per-object-cap: one zip per DICOM series (tens of MB each) — the archive is sharded by series, not by dataset. Retention: permanent, DOI per collection. Deposit is NOT self-serve: quarterly Advisory Group review, signed non-negotiable Data Submission Agreement, 'a few months' to complete.",
+  "limits_note": "Per-object-cap: one zip per DICOM series (tens of MB each). The archive is sharded by series, not by dataset. Retention: permanent, DOI per collection. Deposit is NOT self-serve: quarterly Advisory Group review, signed non-negotiable Data Submission Agreement, 'a few months' to complete.",
   "identity_cost": {
     "kind": "institution",
     "detail": null,

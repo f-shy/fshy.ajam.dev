@@ -36,7 +36,7 @@
   ],
   "interface_detail": "inferred from the tooling the provider documents; not probed",
   "tooling": "KVM guest with root, custom ISO mounting and a client-area reinstall; ssh and rsync reach it",
-  "chaining": "nothing: the largest disk is 320 GB, and at USD 68.59/TB-month it is the most expensive terabyte in the file",
+  "chaining": "nothing for evaluated providers: the largest disk is 320 GB, and at USD 68.59/TB-month it is the most expensive terabyte in the file.",
   "limits": [
     {
       "kind": "volume-quota",
