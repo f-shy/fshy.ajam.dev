@@ -75,8 +75,11 @@ not a research run. Review it as code (section 5).
 scripts/rq review RUN
 ```
 
-Read all of it. A pull request that carries several runs, or a branch not named `rq/RUN`, needs the extra steps in
-section 4, "A pull request that carries more than one run". Then check these, in this order:
+Read all of it. ⭐ A pull request from a fork, a pull request that carries several runs, or a branch not named
+`rq/RUN` is read and merged with its number: `scripts/rq review RUN --pr NUMBER` and `scripts/rq merge RUN --pr
+NUMBER`. A fork's run needs `--pr` even when its branch is named `rq/RUN`, because its manifest is only on the fork.
+`--pr` refuses a pull request that does not carry the run. See section 4, "A pull request that carries more than one
+run". Then check these, in this order:
 
 1. **The gate and CI.** `scripts/rq ci RUN` must be green: the run of the workflow `gate` of `f-shy/raw` on the run's
    head, which a push of the run branch starts. Its log prints only check names and PASS or FAIL, and `scripts/rq
@@ -164,9 +167,13 @@ that workflow and nowhere else, so a red,
 cancelled or missing run stops the merge, and so does one that skips a required job or does not finish within 60
 minutes. `scripts/rq merge RUN --no-ci` skips the remote run (the light checks still run), and only on purpose.
 
-If the branch of the pull request is on a fork, a push of the fork starts no run in `f-shy/raw`. In that case
-`merge` pushes the gated head to the fork's branch. This needs "Allow edits by maintainers" on the pull request.
-If it is off, ask the author to turn it on.
+If the branch of the pull request is on a fork, a push of the fork starts no run in `f-shy/raw`. Merge it with
+`scripts/rq merge RUN --pr NUMBER`: `merge` pushes the gated head to `rq/RUN` in `f-shy/raw`, where the gate runs,
+and then, fast-forward only, to the fork's branch, so the head that is merged is the head the gate checked. This
+needs "Allow edits by maintainers" on the pull request; without it, `merge` stops before the gate. Ask the author
+to turn it on, or to merge `main` into the branch, and run the same command again: it builds on the fork's new head.
+`scripts/rq ci --pr NUMBER` reads a fork's head before `merge` has pushed it; `scripts/rq ci RUN` reads only
+`rq/RUN` in `f-shy/raw`.
 
 `merge` then files the follow-up issue for open items, judges the claimed issue, deletes the branch, releases the
 leases of the run, and comments `rq merged:` on the pull request. If it stops after the merge, run it again: it
@@ -181,9 +188,11 @@ finishes the steps after the merge. It deletes no folder. `.tmp/` is deleted onc
 ### A pull request that carries more than one run
 
 Some pull requests are not one run. One pull request can combine several runs, or its branch can have a name
-other than `rq/RUN`. Merge each run that such a pull request carries with the number of the pull request:
+other than `rq/RUN`. Review and merge each run that such a pull request carries with the number of the pull request.
+`--pr` reads the run's manifest from the pull request's head and refuses a pull request that does not carry it:
 
 ```bash
+scripts/rq review RUN --pr NUMBER
 scripts/rq merge RUN --pr NUMBER
 ```
 
