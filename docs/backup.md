@@ -26,7 +26,7 @@ same, byte for byte. Each workflow also runs by hand on `main`.
 | lock | a file under `fshy.ajam.dev/` or `f-research/` cannot be deleted or replaced for 28 days |
 | budget | 5 GiB. The script fails the job when the bucket holds more than 4.5 GiB |
 | keys | one token, for this bucket only, in `R2_ACCESS_KEY_ID` and `R2_SECRET_ACCESS_KEY` of the environment `backup`. Both bundles are written from this repository. The job reads the research repository `f-shy/raw` over HTTPS with no credential, because the source is public |
-| settings | `CLOUDFLARE_ACCOUNT_ID` and `R2_BUCKET`. In `fshy.ajam.dev` all four are secrets of the environment `backup`, which only `main` can use, so the public log does not show them. `f-research` still holds its own token (repository secrets) and the two settings (repository variables), which only a manual run of its own `.github/workflows/backup.yml` uses; the weekly run is the job here |
+| settings | `CLOUDFLARE_ACCOUNT_ID` and `R2_BUCKET`. In `fshy.ajam.dev` all four are secrets of the environment `backup`, which only `main` can use, so the public log does not show them. `f-shy/raw` still holds its own token and the two settings, all four as repository secrets, which only a manual run of its own `.github/workflows/backup.yml` uses; the weekly run is the job here |
 
 The script fails the job when a setting is missing or empty, so a backup does not stop without a red run.
 ⚠ GitHub stops the scheduled workflows of a public repository after 60 days with no activity, and such a stop

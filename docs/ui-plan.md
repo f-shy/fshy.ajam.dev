@@ -14,7 +14,7 @@ deployed yet, so no figure comes from a live fshy URL.
 1. Read [`../AGENTS.md`](../AGENTS.md) and [`conventions.md`](conventions.md) first. They bind this plan.
 2. Read section 4, the list of recommendations. Each one stands alone.
 3. Do the recommendations in the order of section 10. Do not start a P2 item before the P1 items pass.
-4. After each recommendation, run the three checks in `AGENTS.md` section 4. Then run its own acceptance check.
+4. After each recommendation, run the checks in `AGENTS.md` section 4. Then run its own acceptance check.
 5. Write the measured byte cost in the pull request. Compare it with the cost stated here.
 
 Three limits hold for every recommendation.
@@ -376,7 +376,7 @@ this page" on every page and a feedback page in the menu. The cheapest report is
 named.
 
 GitHub issue forms accept a query string whose keys are field ids. The Correction form has a field with the id
-`record`. So the URL `https://github.com/Azathothas/fshy.ajam.dev/issues/new?template=correction.yml&record=compute/groq-cloud`
+`record`. So the URL `https://github.com/f-shy/fshy.ajam.dev/issues/new?template=correction.yml&record=compute/groq-cloud`
 fills it. The URL holds a record id and no personal data.
 
 **Files.**
@@ -1170,7 +1170,7 @@ R3, report link:
 $$('section.rec .meta').forEach(function (m) {
   var c = $('code', m), a = document.createElement('a');
   if (!c) { return; }
-  a.href = 'https://github.com/Azathothas/fshy.ajam.dev/issues/new?template=correction.yml&record=' + encodeURIComponent(c.textContent);
+  a.href = 'https://github.com/f-shy/fshy.ajam.dev/issues/new?template=correction.yml&record=' + encodeURIComponent(c.textContent);
   a.textContent = 'report'; a.rel = 'nofollow noopener'; m.appendChild(a);
 });
 ```
