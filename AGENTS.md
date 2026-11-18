@@ -85,6 +85,7 @@ pin check and the weekly backup.
 | What do the publish tools do, and in which order? | [`publish/README.md`](publish/README.md) |
 | How do I build, preview or serve the site? | [`site/README.md`](site/README.md) |
 | How does the site go live, and how do I stop a deploy? | [`site/README.md`](site/README.md), section Deploy |
+| How did a CI run, a job or a deploy end? | [`scripts/ci.py`](scripts/ci.py), section 4 below |
 | What is backed up, and how do I restore it? | [`docs/backup.md`](docs/backup.md) |
 | How is a document, a commit or a comment written here? | [`docs/conventions.md`](docs/conventions.md) |
 | How does the public report an error or a missing offer? | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
@@ -111,3 +112,19 @@ the leak rules and the lists that are copied by hand.
 
 ⚠ When `data/` is empty, the first five commands have nothing to read. To test a change with data, export
 first, as the merge protocol says. ⛔ Never commit `data/` outside a publish pull request.
+
+⛔ **Read the result of CI and of a deploy with `scripts/ci.py`.** A notification, a webhook event or an MCP tool
+can arrive late, arrive with old data, or not arrive. Never use one of them as the only source of the result of a
+run that takes a long time. `scripts/ci.py` reads the GitHub REST API through `forge.web.pkgforge.dev`, with no
+token and no `gh` (the guide of the service is <https://forge.web.pkgforge.dev/llms.txt>):
+
+```bash
+python scripts/ci.py pr NUMBER                         # the newest run of each workflow on the head of a pull request
+python scripts/ci.py runs --sha SHA                    # every run of a commit, with its jobs and failed steps
+python scripts/ci.py run RUN_ID                        # one run
+python scripts/ci.py wait --sha SHA --event push       # poll until done; exit 0 success, 1 failure, 3 timeout
+```
+
+The service keeps a GitHub answer for 60 seconds, so `wait` polls once each 60 seconds. A run of a pull request
+reads the title and the body of the event that started it. A re-run reads that old text again, so an edit of the
+text does not change the result of a re-run.

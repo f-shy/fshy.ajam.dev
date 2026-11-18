@@ -194,6 +194,15 @@ a push to `main` deploys once, from this workflow, and no other build competes w
 
 `FSHY_DEPLOY=off` is the switch that stops the job `deploy`; do not stop a deploy in the dashboard instead.
 
+To read the result of the job `deploy` after a push to `main`, poll the run of the push until it ends:
+
+```bash
+python scripts/ci.py wait --sha SHA --workflow build.yml --event push
+```
+
+The exit code is 0 when each job ended with success or was skipped. Read the line of the job `deploy`: `skipped`
+means that `FSHY_DEPLOY` is not `on`, so nothing went live.
+
 ## What the Worker serves
 
 Static files are served without running the Worker. The Worker runs for every path of `/api/v1/`, except the
