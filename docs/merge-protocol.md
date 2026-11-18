@@ -255,7 +255,7 @@ pass the noreply address as the author (section 4, "The author of a merge commit
 scripts/rq ci --pr NUMBER --wait
 gh pr merge NUMBER --merge --match-head-commit SHA --author-email "$(gh api user --jq '"\(.id)+\(.login)@users.noreply.github.com"')"
 # fshy.ajam.dev
-gh pr checks NUMBER
+python scripts/ci.py pr NUMBER     # or gh pr checks NUMBER; see AGENTS.md, section 4
 gh pr merge NUMBER --merge --author-email "$(gh api user --jq '"\(.id)+\(.login)@users.noreply.github.com"')"
 ```
 

@@ -9,7 +9,9 @@ name: build
 # only when the repository variable FSHY_DEPLOY is "on". site/README.md, section Deploy, has the details.
 
 on:
+  # edited: a change of the title or the body starts a new run, so a fixed text does not need a new commit
   pull_request:
+    types: [opened, synchronize, reopened, edited]
   push:
     branches: [main]
   schedule:
@@ -29,6 +31,9 @@ jobs:
   build:
     runs-on: ubuntu-26.04
     timeout-minutes: 25
+    permissions:
+      contents: read
+      pull-requests: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -67,11 +72,12 @@ jobs:
       # a Dependabot body quotes the release notes and the commits of another project
       - name: the pull request credits no tool, and matches no leak rule
         if: github.event_name == 'pull_request' && github.event.pull_request.user.login != 'dependabot[bot]'
+        # the text is read now, not from the event: a re-run then checks the current title and body
         env:
-          TITLE: ${{ github.event.pull_request.title }}
-          BODY: ${{ github.event.pull_request.body }}
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
         run: |
-          printf '%s\n\n%s\n' "$TITLE" "$BODY" > "$RUNNER_TEMP/pr"
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR" --jq '.title + "\n\n" + (.body // "")' > "$RUNNER_TEMP/pr"
           sh .githooks/commit-msg "$RUNNER_TEMP/pr"
           python3 publish/build.py --scan "$RUNNER_TEMP/pr"
 
