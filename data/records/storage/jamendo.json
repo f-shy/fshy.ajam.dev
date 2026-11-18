@@ -5,7 +5,7 @@
   "url": "https://www.jamendo.com",
   "category": "media",
   "free_tier": {
-    "stated": "No published per-account total; 480 MB per file, lossless only (WAV/FLAC/AIFF, 16 or 24-bit, 44.1 or 48 kHz, 1-2 channels).",
+    "stated": "The maximum size of a single file is 480 MB.",
     "unit": "MB",
     "metered_on": "unstated",
     "source_url": "https://support-artist.jamendo.com/upload-manage-media",
@@ -58,16 +58,23 @@
   },
   "reliability_note": "Lossless in, transcoded for streaming; Jamendo's model is sync licensing so the catalogue is public. No retention risk stated, but the review step means an upload can be refused.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the 480 MB per-file ceiling is stated on the Jamendo Artist upload page",
   "evidence": [
     {
       "url": "https://support-artist.jamendo.com/upload-manage-media",
       "date": "2026-10-21",
       "proved": "'WAV, FLAC, or AIFF'; 'Bit depth: 16 or 24'; 'The maximum size of a single file is 480 MB'"
+    },
+    {
+      "url": "https://support-artist.jamendo.com/upload-manage-media",
+      "date": "2026-11-09",
+      "proved": "a single upload is capped at 480 MB",
+      "capture": "sha256:adfb0c7cd28c6ea437ffa0469f41c42ffdb54eb5671d9a230eeeb35f8e240404",
+      "quote": "The maximum size of a single file is 480 MB."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:22.252Z",
   "notes": "No published per-account total; 480 MB per file, lossless only (WAV/FLAC/AIFF, 16 or 24-bit, 44.1 or 48 kHz, 1-2 channels).",
   "extras": {},
   "binding": "per-object-cap",

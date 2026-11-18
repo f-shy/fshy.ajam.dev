@@ -85,10 +85,17 @@
       "proved": "the provider documents an HTTP API",
       "capture": "sha256:060a3b8101548211447639f5e734d0828b5dacc8e8de2f042d911500b02ebb30",
       "quote": "The Nomic HTTP API connects your systems to the same platform capabilities you use in the product"
+    },
+    {
+      "url": "https://www.nomic.ai/pricing",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:feb6a93450bf92d5086436e7aa60c63ff10090d0064613868fffe634b229abd3",
+      "quote": "# Pricing ### Free"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T06:40:26.615Z",
+  "verified_at": "2026-11-18T04:58:14.740Z",
   "notes": "Nomic has moved from an embedding and atlas company to document parsing for architecture, engineering and construction data, so the free tier buys that product rather than a general inference quota. The record is kept because the free tier is real and card-free, and the missing number is the whole question: without a published request count it cannot be compared with the other lanes. Unverified: one account and a rate-limit response header.",
   "extras": {
     "facets": {

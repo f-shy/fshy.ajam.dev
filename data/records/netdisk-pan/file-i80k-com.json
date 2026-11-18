@@ -61,10 +61,45 @@
       "url": "probe:https://file.i80k.com/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://file.i80k.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8db3660ecfec0f3d869148ed26fcff90b031e8f3f6de4ea06874d2ca9343fef5",
+      "quote": null
+    },
+    {
+      "url": "probe:https://file.i80k.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8db3660ecfec0f3d869148ed26fcff90b031e8f3f6de4ea06874d2ca9343fef5",
+      "quote": null
+    },
+    {
+      "url": "probe:https://file.i80k.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8db3660ecfec0f3d869148ed26fcff90b031e8f3f6de4ea06874d2ca9343fef5",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://file.i80k.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8db3660ecfec0f3d869148ed26fcff90b031e8f3f6de4ea06874d2ca9343fef5",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:03.950Z\""
+    },
+    {
+      "url": "probe:https://file.i80k.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8db3660ecfec0f3d869148ed26fcff90b031e8f3f6de4ea06874d2ca9343fef5",
+      "quote": "\"listing_sha256\": \"ea1383ee\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:24.124Z",
   "binding": "write-gated",
   "notes": "7 root entries, provider Local, AList version 'dev'. The one instance in the population whose upstream is a disk of its own and not a pooled cloud tenant.",
   "extras": {
@@ -77,13 +112,14 @@
     "write_content_bypass": null,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "faf2c1f7",
+    "listing_sha256": "ea1383ee",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:03.950Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "aliases": [
       "云顶天宫 (file.i80k.com) — public AList, Local backend"
-    ]
+    ],
+    "listing_hash_method": null
   }
 }

@@ -5,7 +5,7 @@
   "url": "https://github.com/n0-computer/iroh-content-discovery",
   "category": "discovery layer over the public Mainline DHT, published from an iroh node the user runs",
   "free_tier": {
-    "stated": "No quota, no storage. Pure discovery: publishes BLAKE3->provider mappings onto the public BitTorrent Mainline DHT.",
+    "stated": "You publish a blob, and anyone who knows its BLAKE3 hash can find you and download it, without a tracker, a server you run, or anyone's permission.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
@@ -13,12 +13,12 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
+    "stated": "The service stores up to 1 KiB of arbitrary metadata.",
     "source_url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "Mappings expire after some time, so a content provider has to update the mapping at regular intervals as well as when its public UDP `host:port` pair changes.",
     "source_url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
   },
   "reliability_note": "Experimental repo (12 stars, last push 2026-10-16). SHA-1 is used only as a keyspace key, so a malicious DHT answer can waste time but cannot corrupt data. Verification is against the BLAKE3 root.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the address-index mapping expiry is stated on the n0 blog post",
   "evidence": [
     {
       "url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
@@ -62,10 +62,31 @@
       "url": "https://github.com/n0-computer/n0-mainline",
       "date": "2026-10-21",
       "proved": "iroh-flavoured fork of a Mainline DHT implementation"
+    },
+    {
+      "url": "https://github.com/n0-computer/iroh-content-discovery",
+      "date": "2026-11-09",
+      "proved": "a published blob is found by its BLAKE3 hash without a tracker, a server or anyone's permission",
+      "capture": "sha256:e9f439c8e2cdb7b0bdeb57e890b76fa6068e9b9010ad5c0cf654930832d2ae5a",
+      "quote": "You publish a blob, and anyone who knows its BLAKE3 hash can find you and download it, without a tracker, a server you run, or anyone's permission."
+    },
+    {
+      "url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
+      "date": "2026-11-09",
+      "proved": "address-index mappings expire and a provider must refresh them at regular intervals",
+      "capture": "sha256:3a5cc6e430f0c5303387a8f85464f7051db06761cd74c10ae7362cbebafbdd81",
+      "quote": "Mappings expire after some time, so a content provider has to update the mapping at regular intervals as well as when its public UDP `host:port` pair changes."
+    },
+    {
+      "url": "https://www.iroh.computer/blog/iroh-global-content-discovery",
+      "date": "2026-11-09",
+      "proved": "the address-index service caps a stored mapping at 1 KiB",
+      "capture": "sha256:3a5cc6e430f0c5303387a8f85464f7051db06761cd74c10ae7362cbebafbdd81",
+      "quote": "The service stores up to 1 KiB of arbitrary metadata."
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:22.251Z",
   "notes": "No quota, no storage. Pure discovery: publishes BLAKE3->provider mappings onto the public BitTorrent Mainline DHT.",
   "extras": {},
   "binding": "none",

@@ -61,10 +61,45 @@
       "url": "probe:https://pan.jinnan.top/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://pan.jinnan.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:08.962Z\""
+    },
+    {
+      "url": "probe:https://pan.jinnan.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760",
+      "quote": "\"listing_sha256\": \"5b758cf9\""
+    },
+    {
+      "url": "probe:https://pan.jinnan.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760",
+      "quote": null
+    },
+    {
+      "url": "probe:https://pan.jinnan.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760",
+      "quote": null
+    },
+    {
+      "url": "probe:https://pan.jinnan.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760",
+      "quote": "\"alive\": true"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T01:37:29.113Z",
   "binding": "write-gated",
   "notes": "The cleanest illustration of the write-flag lie: its root listing contains a directory named 05 游客上传, every mount advertises write:true, and every PUT returns permission denied inside an HTTP 200. The operator intended guest upload and the permission never reached the guest role.",
   "extras": {
@@ -77,13 +112,14 @@
     "write_content_bypass": false,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "dd9a52fe",
+    "listing_sha256": "5b758cf9",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:08.962Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "aliases": [
       "槿南盘 (pan.jinnan.top) — public OpenList with a literal '05 游客上传' guest-upload directory"
-    ]
+    ],
+    "listing_hash_method": null
   }
 }

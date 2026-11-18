@@ -5,12 +5,12 @@
   "url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
   "category": "registry",
   "free_tier": {
-    "stated": "N/A. DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
+    "stated": "DVC does not provide or recommend a specific storage service (unlike code repos). You can bring your own platform from a wide variety of supported storage types.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
-    "read_on": "2026-10-21",
-    "notes": null
+    "read_on": "2026-11-09",
+    "notes": "You can bring your own platform from a wide variety of supported storage types."
   },
   "per_object_cap": {
     "stated": null,
@@ -42,8 +42,8 @@
     "country": null
   },
   "reliability_note": "DVC is an ML-tooling project (treeverse); remote support quality varies by backend. S3-compatible endpoints need `endpointurl` + often `use_ssl`/path-style tweaks. Reliability is effectively the backend's.",
-  "confidence": "reported",
-  "confidence_note": null,
+  "confidence": "documented",
+  "confidence_note": "the remote-storage guide states that DVC provides no storage service",
   "evidence": [
     {
       "url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
@@ -59,10 +59,17 @@
       "url": "https://doc.dvc.org/user-guide/integrations/huggingface",
       "date": "2026-10-21",
       "proved": "native HF/Git-LFS import without git-lfs installed"
+    },
+    {
+      "url": "https://doc.dvc.org/user-guide/data-management/remote-storage",
+      "date": "2026-11-09",
+      "proved": "the remote-storage guide states DVC provides no storage service and supports many external backends",
+      "capture": "sha256:eff8dc2213f437666316411f907c589f71b15cb0adffabc3c50be621c0567637",
+      "quote": "DVC does not provide or recommend a specific storage service (unlike code repos). You can bring your own platform from a wide variety of supported storage types."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:14.096Z",
   "notes": "N/A. DVC ships no storage; the remote is whatever free store you configure. Free-tier bytes = the backing store's bytes. Supports Amazon S3 + S3-compatible (MinIO etc. via `endpointurl`), Azure Blob, GCS, Google Drive, Aliyun OSS, SSH/SFTP, HDFS/WebHDFS, HTTP, WebDAV.",
   "extras": {},
   "binding": "none",

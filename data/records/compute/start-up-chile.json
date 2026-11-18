@@ -74,10 +74,17 @@
       "url": "https://www.corfo.gob.cl/sites/cpp/programa/startup-chile/",
       "date": "2026-10-22",
       "proved": "the generation table shows Build 12, Ignite 12 and Growth 12 all opened 04/05/2026 and closed 25/05/2026 with results 10/07/2026, read from the published schedule"
+    },
+    {
+      "url": "https://startupchile.org/content/uploads/brochure-big-13-eng-2026-1.pdf",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:9f2325664c1b15e56d6fb5dbf4e4287fafec55542c50ae2e9c9db830679e9efa",
+      "quote": "## ST>RT-UPCHILE by CORFO"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-18T04:58:09.431Z",
   "notes": "Two published documents disagree on the IGNITE ceiling: the BIG 13 brochure states CLP 30M (about USD 33K) while the CORFO Ignite 12 call page states a cap of CLP 50.000.000 for line 2. The next opening is expected around November 2026 because two generations run per year.",
   "extras": {
     "facets": {

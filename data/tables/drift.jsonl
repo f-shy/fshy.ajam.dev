@@ -1,9 +1,9 @@
 {"a":"anonymous","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"coding-subs/zed-pro","subject":"coding-subs/zed-personal"}
 {"a":"anonymous","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"ip-proxy/nymvpn-exits","subject":"ip-proxy/nymvpn"}
 {"a":"anonymous","b":"country-phone","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/moddb-indiedb-file-downloads","subject":"storage/moddb"}
-{"a":"anonymous","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/materials-cloud-archive-2","subject":"storage/materials-cloud-archive"}
 {"a":"anonymous","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/steam-workshop-2","subject":"storage/steam-workshop"}
 {"a":"anonymous","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/temp-sh-uguu-se-litterbox-tmpfiles-org","subject":"storage/temp-sh"}
+{"a":"anonymous","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/transfer-it-as-a-paid-capacity-route","subject":"storage/transfer-it"}
 {"a":"any-phone","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/mail-ru-cloud-mail-1-tb-with-free-public-link-download","subject":"storage/mail-ru-cloud"}
 {"a":"any-phone","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/mail-ru-cloud-mail-space","subject":"storage/mail-ru-cloud"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"coding-subs/warp-free","subject":"coding-subs/warp-build"}
@@ -26,14 +26,10 @@
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"debrid/xsusenet","subject":"debrid/xs-usenet"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-artifacts-2","subject":"storage/azure-artifacts"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-devops-artifacts-2","subject":"storage/azure-devops-artifacts"}
-{"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-2","subject":"storage/azure-for-students"}
-{"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-3","subject":"storage/azure-for-students"}
-{"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-4","subject":"storage/azure-for-students"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/contabo-object-storage-2","subject":"storage/contabo-object-storage"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/fil-one-storacha-s3-tier","subject":"storage/fil-one"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/huawei-cloud-obs-free-tier","subject":"storage/huawei-cloud-obs-free-packages"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/mail-ru-cloud-mail-space","subject":"storage/mail-ru-cloud-mail-1-tb-with-free-public-link-download"}
-{"a":"card","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t","subject":"storage/aws-open-data-sponsorship-program"}
 {"a":"dead","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/azure-open-datasets-2","subject":"storage/azure-open-datasets"}
 {"a":"dead","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/file-io-3","subject":"storage/file-io-2"}
 {"a":"dead","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/gakunin-rdm-standard-storage","subject":"storage/gakunin-rdm"}
@@ -113,7 +109,6 @@
 {"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/microsoft-teams-gallery-media-uploads","subject":"storage/microsoft-teams"}
 {"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/microsoft-teams-gallery-media-uploads","subject":"storage/microsoft-teams-free"}
 {"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/nird-data-lake-s3-object-storage-10-tb-single-object-sup","subject":"storage/nird-data-lake-data-peak-as-a-free-tier"}
-{"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/notion-file-blocks-files-property","subject":"storage/notion"}
 {"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/ringcentral-team-messaging-posts-files","subject":"storage/ringcentral-team-messaging"}
 {"a":"email","b":"institution","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/wellcome-trust-storage-as-a-claimable-grant-cost","subject":"storage/wellcome-trust-alfred-p-sloan-gordon-and-betty-moore-nsf"}
 {"a":"fails-egress","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"egress/aws-free-tier","subject":"egress/amazon-web-services-free-tier"}
@@ -172,6 +167,9 @@
 {"a":"institution","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/cloudcone-windows","subject":"compute/cloudcone"}
 {"a":"institution","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/digitalocean-droplet-1gb","subject":"compute/digitalocean-2"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"dev-services/sentry-open-source","subject":"dev-services/sentry-education"}
+{"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-2","subject":"storage/azure-for-students"}
+{"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-3","subject":"storage/azure-for-students"}
+{"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-for-students-4","subject":"storage/azure-for-students"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/chocolatey-community-repository-2","subject":"storage/chocolatey-community-repository"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/ctan-2","subject":"storage/ctan"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/darus-2","subject":"storage/darus"}
@@ -184,7 +182,6 @@
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/file-io-2","subject":"storage/file-io"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/file-io-3","subject":"storage/file-io"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/gitbook-2","subject":"storage/gitbook"}
-{"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/hackage-2","subject":"storage/hackage"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/irys-2","subject":"storage/irys"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/nlnet-restack-fund-the-grant-an-unaffiliated-individual","subject":"storage/nlnet-restack-fund"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/pixeldrain-2","subject":"storage/pixeldrain"}
@@ -192,7 +189,6 @@
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/recherche-data-gouv-2","subject":"storage/recherche-data-gouv"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/replicate-2","subject":"storage/replicate"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/terabox-2","subject":"storage/terabox"}
-{"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/transfer-it-as-a-paid-capacity-route","subject":"storage/transfer-it"}
 {"a":"institution","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/uploadcare-2","subject":"storage/uploadcare"}
 {"a":"national-id","b":"card","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/tencent-lighthouse-intl","subject":"compute/tencent-cloud-international"}
 {"a":"paid-only","b":"dead","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/bero-host-ipv6-anniversary-xs","subject":"compute/bero-host"}
@@ -246,7 +242,6 @@
 {"a":"paid-only","b":"trial-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"ip-proxy/trust-zone-exits","subject":"ip-proxy/trust-zone"}
 {"a":"qualifies","b":"dead","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/racknerd-black-friday-2025","subject":"compute/racknerd-1gb-special"}
 {"a":"qualifies","b":"dead","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"debrid/xsusenet","subject":"debrid/xs-usenet"}
-{"a":"qualifies","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t","subject":"storage/aws-open-data-sponsorship-program"}
 {"a":"qualifies","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/terabox-2","subject":"storage/terabox"}
 {"a":"qualifies","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/hostbrr-windows","subject":"compute/hostbrr-value-2gb"}
 {"a":"qualifies","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/hostbrr-windows","subject":"compute/hostbrr-value-4gb"}
@@ -269,6 +264,7 @@
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/aws-activate-portfolio","subject":"compute/aws-activate-founders"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"dev-services/datadog-open-source","subject":"dev-services/datadog"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"dev-services/sentry-education","subject":"dev-services/sentry"}
+{"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t","subject":"storage/aws-open-data-sponsorship-program"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/nakala-no-formal-size-limit-but-a-humanid-gate-and-a-con","subject":"storage/nakala"}
 {"a":"qualifies-with-caveat","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/google-colab-paid","subject":"compute/google-colab"}
 {"a":"qualifies-with-caveat","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/hostbrr-windows","subject":"compute/hostbrr"}

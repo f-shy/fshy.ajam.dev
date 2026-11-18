@@ -5,7 +5,7 @@
   "url": "https://dataverse.bsc.es",
   "category": "academic repository / Dataverse 6.10.1",
   "free_tier": {
-    "stated": "No quota defined at root.",
+    "stated": "No quota defined for this collection",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
@@ -13,9 +13,8 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
-    "source_url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
-    "notes": "not stated"
+    "stated": "2.5 GB per file",
+    "source_url": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size"
   },
   "retention": {
     "stated": null,
@@ -31,9 +30,20 @@
   ],
   "interface_detail": "REST (native Dataverse API v1)",
   "tooling": "curl / DVUploader",
-  "chaining": "Open local signup at a supercomputing centre. The operator demographic most likely to have real disk behind the instance.",
-  "limits": [],
-  "limits_note": "No published cap; no quota number returned.",
+  "chaining": "Open local signup at a supercomputing centre — the operator demographic most likely to have real disk behind the instance.",
+  "limits": [
+    {
+      "kind": "per-object-cap",
+      "value": "2.5 GB per file",
+      "source": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size"
+    },
+    {
+      "kind": "per-object-cap",
+      "value": "1000 files per upload",
+      "source": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size"
+    }
+  ],
+  "limits_note": "No quota defined for this collection",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
@@ -57,12 +67,40 @@
       "url": "https://dataverse.bsc.es/dataverseuser.xhtml?editMode=CREATE",
       "date": "2026-10-21",
       "proved": "HTTP 200; loginpage also advertises ORCID"
+    },
+    {
+      "url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
+      "date": "2026-11-09",
+      "proved": "the quota endpoint states no quota is defined, so no total quota is published",
+      "capture": "sha256:22affb5fc8da9e9012666b9b18d2d9d0137210c9fed16c06e8fb34e0e1e07c7c",
+      "quote": "{\"status\":\"OK\",\"data\":{\"message\":\"No quota defined for this collection\"}}"
+    },
+    {
+      "url": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size",
+      "date": "2026-11-09",
+      "proved": "the user guide still states a maximum file size of 2.5 GB per file",
+      "capture": "sha256:3fdf8fa2b6d9ae893ad5f60d441c359f3c26cd52f1fe558a8860f4e7b7340d36",
+      "quote": "Maximum file size: 2.5 GB per file."
+    },
+    {
+      "url": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size",
+      "date": "2026-11-09",
+      "proved": "the BSC user guide states a maximum of 1000 files per upload",
+      "capture": "sha256:3fdf8fa2b6d9ae893ad5f60d441c359f3c26cd52f1fe558a8860f4e7b7340d36",
+      "quote": "Maximum number of files per upload: 1000 files."
+    },
+    {
+      "url": "https://dataverse.bsc.es/api/dataverses/:root/storage/quota?showInherited=true",
+      "date": "2026-11-09",
+      "proved": "the repository's quota endpoint states that no quota is defined for the collection",
+      "capture": "sha256:4b1b0cd4de8b7a8e5b25cf3b91bad279cc8d6022cea673ad64ceda6db2a37289",
+      "quote": "{\"status\":\"OK\",\"data\":{\"message\":\"No quota defined for this collection\"}}"
     }
   ],
-  "verdict": "qualifies",
-  "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No quota defined at root.",
+  "verdict": "qualifies-with-caveat",
+  "verified_at": "2026-11-09T17:01:44.142Z",
+  "notes": "The quota endpoint states \"No quota defined for this collection\".",
   "extras": {},
-  "binding": "none",
-  "binding_note": null
+  "binding": "per-object-cap",
+  "binding_note": "Maximum file size: 2.5 GB per file."
 }

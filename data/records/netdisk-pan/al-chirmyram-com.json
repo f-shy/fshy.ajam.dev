@@ -66,10 +66,45 @@
       "url": "probe:https://al.chirmyram.com/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://al.chirmyram.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:05b13f5d8a1e09768467258892fbb58c5a5ffb46627813e1763eebeb3dc405ff",
+      "quote": null
+    },
+    {
+      "url": "probe:https://al.chirmyram.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:05b13f5d8a1e09768467258892fbb58c5a5ffb46627813e1763eebeb3dc405ff",
+      "quote": null
+    },
+    {
+      "url": "probe:https://al.chirmyram.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:05b13f5d8a1e09768467258892fbb58c5a5ffb46627813e1763eebeb3dc405ff",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://al.chirmyram.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:05b13f5d8a1e09768467258892fbb58c5a5ffb46627813e1763eebeb3dc405ff",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:01.880Z\""
+    },
+    {
+      "url": "probe:https://al.chirmyram.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:05b13f5d8a1e09768467258892fbb58c5a5ffb46627813e1763eebeb3dc405ff",
+      "quote": "\"listing_sha256\": \"0f64ec2f\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:23.905Z",
   "binding": "per-ip-shaping",
   "notes": "The reference reader. A 7.43 TiB book and comic corpus, Cloudflare-fronted, and a 36,747,196-byte PDF read back at 206 with cf-cache-status HIT. The upstream is a SharePoint tenant, which is why single files reach tens of GiB.",
   "extras": {
@@ -82,9 +117,9 @@
     "write_content_bypass": false,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "aa7d8309",
+    "listing_sha256": "0f64ec2f",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:01.880Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "aliases": [
@@ -94,6 +129,7 @@
     "cf_cache_hit": true,
     "guest_credentials": [
       "alist:alist"
-    ]
+    ],
+    "listing_hash_method": null
   }
 }

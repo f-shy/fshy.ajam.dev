@@ -124,10 +124,17 @@
       "url": "https://crscreditapi.com/open-intelligence-foundation-first-grantee-prince-canuma",
       "date": "2026-10-22",
       "proved": null
+    },
+    {
+      "url": "https://openintelligencefoundation.ai/request-funding.html",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:af532144ea9974fa289eaf7a718c3dbf4ceac08de61d73d9f6ff84516ab1a7ed",
+      "quote": "## Request Funding"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-18T04:58:08.081Z",
   "notes": "The form's own use-of-funds list and both published awards show this is not compute credit, and the money is not necessarily compute at all. The site's own footer says 'Independently operated, not yet 501(c)(3)', so it is not a registered US charity and no 990 filing exists to check its finances against.",
   "extras": {
     "facets": {

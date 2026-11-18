@@ -105,10 +105,17 @@
       "proved": "the documented client is the browser terminal, no installed client named",
       "capture": "sha256:5640d8a5075ffcc8d3014d7c468d455c95ecc460eea44f4690736f56f21c4406",
       "quote": "浏览器内 SSH 终端，无需额外工具"
+    },
+    {
+      "url": "https://hostslate.com/legal/tos",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:727d1b3440155b256e5dbea3d6fe3e43d140304ea2403f9b7d90ee58148bd052",
+      "quote": "# 服务条款 欢迎使用 HostSlate。"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-04T05:24:45.576Z",
+  "verified_at": "2026-11-18T04:58:05.487Z",
   "notes": "HostSlate provides VPS hosting services.",
   "extras": {
     "facets": {

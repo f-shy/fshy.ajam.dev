@@ -56,10 +56,45 @@
       "url": "probe:https://alist.tianmoy.cn/api/fs/list",
       "date": "2026-10-22",
       "proved": "anonymous POST /api/fs/list on / returned code 200 with 3 root entries; write:true, write_content_bypass:False, provider:unknown"
+    },
+    {
+      "url": "probe:https://alist.tianmoy.cn/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:54b1bf23cb5b3202dc1117ebb53f24c7e4c16cfd830a4ab2fe6fd3d04fcb7177",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.tianmoy.cn/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:54b1bf23cb5b3202dc1117ebb53f24c7e4c16cfd830a4ab2fe6fd3d04fcb7177",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.tianmoy.cn/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:54b1bf23cb5b3202dc1117ebb53f24c7e4c16cfd830a4ab2fe6fd3d04fcb7177",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://alist.tianmoy.cn/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:54b1bf23cb5b3202dc1117ebb53f24c7e4c16cfd830a4ab2fe6fd3d04fcb7177",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:01.878Z\""
+    },
+    {
+      "url": "probe:https://alist.tianmoy.cn/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:54b1bf23cb5b3202dc1117ebb53f24c7e4c16cfd830a4ab2fe6fd3d04fcb7177",
+      "quote": "\"listing_sha256\": \"fcd1bca6\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:23.906Z",
   "binding": "write-gated",
   "notes": "3 root entries on AList v4.2.6. It flaps between answering as an AList API and answering 200 with no API at all, and between listing and not listing, across runs minutes apart.",
   "extras": {
@@ -72,10 +107,11 @@
     "write_content_bypass": false,
     "permission_bitmask": "",
     "base_path": "/",
-    "listing_sha256": "78ea8a65",
+    "listing_sha256": "fcd1bca6",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:01.878Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }
