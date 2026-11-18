@@ -1,0 +1,43 @@
+name: raw issues
+
+# Keeps one issue "[raw] <topic>" open for each topic whose records research changed with no row of the change ledger,
+# and closes it when the gap closes (publish/raw_issues.py, publish/publog.py). It runs after each push to main and
+# once a day, so an issue does not go stale. The token can write issues only.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/meta.json
+      - publish/publog.py
+      - publish/raw_issues.py
+      - .github/workflows/raw-issues.yml
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: raw-issues
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+
+      - name: open, update and close the issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 publish/raw_issues.py --sync

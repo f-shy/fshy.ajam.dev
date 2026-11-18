@@ -495,7 +495,7 @@ def main(argv=None):
         selfhosted.start(r for (r,) in db.execute("SELECT rid FROM record WHERE self_hosted = 1"))
         db.close()
         import site_gen  # noqa: E402
-        report["files"] = site_gen.generate(ROOT, a.db, os.path.abspath(a.site), TIMES, lap)
+        report["files"] = site_gen.generate(ROOT, a.db, os.path.abspath(a.site), TIMES, lap, data=a.data)
         import llms  # noqa: E402
         llms.generate(a.db, os.path.abspath(a.site))
         order = selfhosted.problems()

@@ -17,6 +17,7 @@ import re
 from urllib.parse import quote
 
 import llms
+import publog
 import selfhosted
 from selfhosted import is_sh
 
@@ -131,6 +132,29 @@ def prose_once(said, label, value):
 
 EPOCH = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
 LEDGER_FEED = 30  # the newest ledger rows that the feed carries, next to the history entries
+LEDGER_PAGE = 500  # the ledger rows that the Changes page lists
+# at most this many rows of one date and topic, so one large run cannot fill the list alone
+LEDGER_GROUP_PAGE, LEDGER_GROUP_FEED = 40, 6
+LEDGER_DAYS = 14  # the dates of the ledger that the table of groups counts
+PUBLISH_NAMES = 60  # the new records that one publish names on the Changes page
+HOME_NEW = 8  # the new records that the home page names
+
+
+def balanced(rows, key, per_group, total):
+    """The rows in their order, with at most per_group rows of each key and at most total rows."""
+    out, n = [], collections.Counter()
+    for r in rows:
+        k = key(r)
+        if n[k] < per_group:
+            n[k] += 1
+            out.append(r)
+            if len(out) >= total:
+                break
+    return out
+
+
+def topic_of(rid):
+    return str(rid).split("/", 1)[0]
 
 
 def rfc822(when):
@@ -554,6 +578,12 @@ class Site:
         linked = {h for (h,) in self.ctx["db"].execute("SELECT DISTINCT hid FROM history_link")}
         ch = "".join('<li><span class="d">%s</span><a href="/changes/#%s">%s</a></li>' % (e((w or "")[:10]), hist_anchor(h), e(t))
                      for h, w, t in [x for x in self.history_items() if x[0] in linked][:8])
+        added = [(p["when"], rid) for p in self.ctx.get("publog") or [] for rid in p["added"] if rid in self.ctx["cards"]]
+        new = "".join('<li><span class="d">%s</span><a href="%s">%s</a> <small>%s</small></li>' % (
+            e(w[:10]), self.href(self.ctx["cards"][r]), e(self.label(self.ctx["cards"][r])), e(TOPIC_NAME.get(topic_of(r), topic_of(r))))
+            for w, r in added[:HOME_NEW])
+        new = ('<section><h2>Recent additions</h2><ul class="plain">%s</ul><p><a href="/changes/#publishes">All publishes</a></p>'
+               '</section>' % new) if new else ""
         legend = "".join('<dt><span class="v v-%s">%s</span></dt><dd>%s</dd>' % (e(v), e(VERDICT_LABEL.get(v, v)), e(m))
                          for v, m in self.ctx["vocab"].get("verdict", []))
         legend += '<dt>%s</dt><dd>%s. %s</dd>' % (selfhosted.PILL, e(selfhosted.MEANING), e(selfhosted.NOTE))
@@ -568,9 +598,10 @@ class Site:
             '<li class="st"><b>%s</b>providers</li><li class="st"><b>%d</b>topics</li></ul></section>'
             '<section><h2>Best per need</h2><ul class="plain two">%s</ul></section>'
             '<h2>Topics</h2><nav class="tiles compact" aria-label="Topics overview">%s</nav>'
-            '<div class="cols"><section><h2>Recent corrections</h2><ul class="plain">%s</ul><p><a href="/changes/">All changes</a></p></section>'
+            '<div class="cols">%s<section><h2>Recent corrections</h2><ul class="plain">%s</ul><p><a href="/changes/">All changes</a></p></section>'
             '<section><h2>Reading a verdict</h2><dl class="legend">%s</dl><p><a href="/about/#read">How to read a record</a></p></section></div>'
-        ) % (e(self.meta.get("as_of")), num(total), num(usable), num(len(self.ctx["ents"])), len(tiles), needs, "".join(tiles), ch, legend)
+        ) % (e(self.meta.get("as_of")), num(total), num(usable), num(len(self.ctx["ents"])), len(tiles), needs, "".join(tiles), new, ch,
+             legend)
         self.page("index.html", "fshy", body, "A searchable catalogue of free and cheap cloud capacity with evidence.")
 
     def stats(self, cs, groups, href):
@@ -957,10 +988,61 @@ class Site:
             out.append((hid, when, title))
         return out
 
+    def publish_items(self):
+        """(anchor, when, title, html, description) of each publish of the log, newest first. The log comes from git
+        (publog.py): each export of data/ is one commit, so this list needs no table of its own."""
+        cards, log = self.ctx["cards"], self.ctx.get("publog") or []
+        open_gaps = collections.Counter(g["source"] for gs in publog.gaps(log).values() for g in gs)
+        out = []
+        for p in log:
+            changed = sorted(set(p["rechecked"]) | set(p.get("amended", [])))
+            na, nr, nd = len(p["added"]), len(changed), len(p["removed"])
+            if not (na or nr or nd):
+                continue  # a publish that changed no record (a new pin, a new render) says nothing here
+            parts = ["%s new record%s" % (num(na), "" if na == 1 else "s")] if na else []
+            parts += ["%s changed" % num(nr)] if nr else []
+            parts += ["%s removed" % num(nd)] if nd else []
+            title = "%s: %s" % ((p["when"] or "")[:10], ", ".join(parts))
+            anchor = hist_anchor("publish|%s|%s" % (p["source"], p["when"]))
+
+            def link(r):
+                c = cards.get(r)
+                return ('<a href="%s">%s</a> <small>%s</small>' % (self.href(c), e(self.label(c)), e(TOPIC_NAME.get(c["topic"], c["topic"])))
+                        if c else e(r))
+            meta = ["<span>%s</span>" % e((p["when"] or "")[:10])]
+            meta += ["<span>source commit %s</span>" % e(p["source"][:7])] if p["source"] else []
+            gap = open_gaps.get(p["source"], 0)
+            if gap:
+                meta.append('<span>%s with no ledger row yet: <a href="%s/issues?q=is%%3Aissue+label%%3Araw">open issues</a></span>'
+                            % (num(gap), e(llms.REPO)))
+            body = ['<p class="meta">%s</p>' % "".join(meta)]
+            if na:
+                more = (" and %s more" % num(na - PUBLISH_NAMES)) if na > PUBLISH_NAMES else ""
+                body.append("<p>New: %s%s</p>" % (", ".join(link(r) for r in p["added"][:PUBLISH_NAMES]), more))
+            if nr:
+                by = collections.Counter(topic_of(r) for r in changed)
+                body.append("<p>Changed: %s</p>" % ", ".join(
+                    ('<a href="/t/%s/">%s</a> %s' % (e(k), e(TOPIC_NAME[k]), num(n))) if k in TOPIC_NAME else "%s %s" % (e(k), num(n))
+                    for k, n in sorted(by.items(), key=lambda x: (-x[1], x[0]))))
+            if nd:
+                body.append("<p>Removed: %s</p>" % ", ".join(e(r) for r in p["removed"][:PUBLISH_NAMES]))
+            desc = "; ".join(parts)
+            if na:
+                desc += ". New: " + ", ".join(self.label(cards[r]) if r in cards else r for r in p["added"][:20])
+            out.append((anchor, p["when"], title, '<article class="chg" id="%s"><h3>%s</h3>%s</article>' % (
+                anchor, e(title), "".join(body)), desc))
+        return out
+
     def changes(self):
         db = self.ctx["db"]
         status = dict(db.execute("SELECT hid, status FROM history"))
         corr, other, rss = [], [], []
+        pubs = self.publish_items()
+        for anchor, when, title, _, desc in pubs:
+            t = rfc822(when)
+            rss.append((t[0] if t else EPOCH, '<item><title>%s</title><link>%s/changes/#%s</link><guid isPermaLink="false">%s</guid>'
+                        '<description>%s</description>%s</item>' % (
+                            e("Publish " + title), e(llms.BASE), anchor, anchor, e(desc), ("<pubDate>%s</pubDate>" % t[1]) if t else "")))
         for hid, when, title in self.history_items():
             st = status.get(hid)
             links = [r for (r,) in db.execute("SELECT rid FROM history_link WHERE hid=? ORDER BY rid", (hid,))]
@@ -975,36 +1057,61 @@ class Site:
                         '<description>%s</description>%s</item>' % (
                             e(title), e(llms.BASE), hist_anchor(hid), hist_anchor(hid), e(desc), ("<pubDate>%s</pubDate>" % t[1]) if t else "")))
         # the published ledger says when, which record, what the row did, the field, the evidence and the source. It holds
-        # no old or new value, so the page says so and sends the reader to the record, where the current value is
+        # no old or new value, so the page says so and sends the reader to the record, where the current value is. One run
+        # can write a thousand rows with one date, so the page and the feed take at most a few rows of each date and topic
         n_led = db.execute("SELECT count(*) FROM ledger").fetchone()[0]
-        led = db.execute("SELECT at, rid, path, rung, url, op FROM ledger ORDER BY at DESC LIMIT 500").fetchall()
+        newest = db.execute("SELECT at, rid, path, rung, url, op FROM ledger ORDER BY at DESC, rid, path").fetchall()
+        group = lambda r: ((r[0] or "")[:10], topic_of(r[1]))  # noqa: E731
+        led = balanced(newest, group, LEDGER_GROUP_PAGE, LEDGER_PAGE)
         lh = "".join('<tr><td>%s</td><td><a href="/r/%s">%s</a></td><td>%s</td><td><code>%s</code></td><td>%s</td><td>%s</td></tr>' % (
             e((a or "")[:10]), e(r), e(r), e(ledger_title(o, p, u)), e(ledger_field(p)), e(g or ""), prose(u))
             for a, r, p, g, u, o in led)
-        for a, r, p, g, u, o in led[:LEDGER_FEED]:
+        for a, r, p, g, u, o in balanced(newest, group, LEDGER_GROUP_FEED, LEDGER_FEED):
             t = rfc822(a)
             if t:
                 title, desc = ledger_feed(a, r, p, u, o)
                 rss.append((t[0], '<item><title>%s</title><link>%s/r/%s</link><guid isPermaLink="false">%s</guid>'
                             '<description>%s</description><pubDate>%s</pubDate></item>' % (
                                 e(title), e(llms.BASE), e(r), hist_anchor("ledger|%s|%s|%s" % (a, r, p)), e(desc), t[1])))
-        body = ('<h1>Changes</h1><p class="lede">Dated entries, newest first: the corrections of earlier claims, the other '
-                'changes of state, and the newest rows of the change ledger. A ledger row says what changed in which record, '
-                'on which date and on which source: a field that was amended, an evidence row that was added or removed, a '
-                'relation or a new record. It holds no old or new value, so open the record to read the current one. RSS: '
-                '<a href="/changes.xml">/changes.xml</a>.</p>'
-                '<ul class="stats"><li><a class="st" href="#corrections"><b>%s</b>corrections</a></li>%s%s</ul>'
-                '<h2 id="corrections">Corrections <small>%s</small></h2>%s%s%s') % (
+        counts, dates = collections.OrderedDict(), set()
+        for a, r, *_ in newest:
+            d = (a or "")[:10]
+            if d not in dates and len(dates) >= LEDGER_DAYS:
+                break
+            dates.add(d)
+            k = (d, topic_of(r))
+            rows, rids = counts.get(k, (0, set()))
+            counts[k] = (rows + 1, rids | {r})
+        gh = "".join('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
+            e(d), ('<a href="/t/%s/">%s</a>' % (e(tp), e(TOPIC_NAME[tp]))) if tp in TOPIC_NAME else e(tp), num(n), num(len(rs)))
+            for (d, tp), (n, rs) in sorted(counts.items(), key=lambda x: (x[0][0], x[1][0]), reverse=True))
+        body = ('<h1>Changes</h1><p class="lede">Dated entries, newest first: what each publish added, re-checked and '
+                'removed, the corrections of earlier claims, the other changes of state, and the change ledger. A ledger row '
+                'says what changed in which record, on which date and on which source: a field that was amended, an evidence '
+                'row that was added or removed, a relation or a new record. It holds no old or new value, so open the record '
+                'to read the current one. RSS: <a href="/changes.xml">/changes.xml</a>.</p>'
+                '<ul class="stats">%s<li><a class="st" href="#corrections"><b>%s</b>corrections</a></li>%s%s</ul>'
+                '%s<h2 id="corrections">Corrections <small>%s</small></h2>%s%s%s') % (
+            ('<li><a class="st" href="#publishes"><b>%s</b>publishes</a></li>' % num(len(pubs))) if pubs else "",
             num(len(corr)), ('<li><a class="st" href="#other"><b>%s</b>other entries</a></li>' % num(len(other))) if other else "",
             ('<li><a class="st" href="#ledger"><b>%s</b>ledger rows</a></li>' % num(n_led)) if lh else "",
+            ('<h2 id="publishes">Publishes <small>%s</small></h2><p>Each publish of the data, from the history of this '
+             'repository: the new records, the records that research changed (a new check date, new evidence, or a value '
+             'that the ledger records), and the removed records. A change of the text alone is not listed.</p>%s' % (
+                 num(len(pubs)), "".join(x[3] for x in pubs)))
+            if pubs else "",
             num(len(corr)), "".join(corr),
             ('<h2 id="other">Other entries <small>%s</small></h2>%s' % (num(len(other)), "".join(other))) if other else "",
-            ('<h2 id="ledger">Ledger <small>%s of %s</small></h2><p>The newest %s rows. The API gives every row: '
+            ('<h2 id="ledger">Ledger <small>%s of %s</small></h2>'
+             '<p>The ledger rows of the last %s dates, by topic:</p><div class="tw"><table class="ev"><thead><tr><th>date</th>'
+             '<th>topic</th><th>rows</th><th>records</th></tr></thead><tbody>%s</tbody></table></div>'
+             '<p>The newest rows, at most %s of each date and topic. The API gives every row: '
              '<a href="/api/v1/worklist/changes">/api/v1/worklist/changes</a>.</p><div class="tw"><table class="ev led"><thead><tr><th>date</th><th>record</th><th>change</th><th>field</th>'
-             '<th>evidence</th><th>source</th></tr></thead><tbody>%s</tbody></table></div>' % (num(len(led)), num(n_led), num(len(led)), lh)) if lh else "")
-        self.page("changes/index.html", "Changes", body, "Corrections and other dated changes of the fshy catalogue, newest first.")
+             '<th>evidence</th><th>source</th></tr></thead><tbody>%s</tbody></table></div>' % (
+                 num(len(led)), num(n_led), num(len(dates)), gh, num(LEDGER_GROUP_PAGE), lh)) if lh else "")
+        self.page("changes/index.html", "Changes", body, "New records, corrections and other dated changes of the fshy catalogue, newest first.")
         self.write("changes.xml", '<?xml version="1.0" encoding="utf-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">'
-                   '<channel><title>fshy changes</title><link>%s/changes/</link><description>Corrections to the fshy records</description>'
+                   '<channel><title>fshy changes</title><link>%s/changes/</link><description>New records and corrections of the fshy records</description>'
                    '<atom:link href="%s/changes.xml" rel="self" type="application/rss+xml"/>%s</channel></rss>' % (
                        e(llms.BASE), e(llms.BASE), "".join(x for _, x in sorted(rss, key=lambda y: y[0], reverse=True)[:100])))
 

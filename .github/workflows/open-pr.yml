@@ -1,0 +1,66 @@
+name: open pr
+
+# Opens a pull request for a pushed branch that has none, from its commits, and starts the workflow build on it. A
+# session pushes a branch and needs no tool that writes to GitHub, so no tool can add a credit line (AGENTS.md rule 2).
+# A pull request that the repository token opens starts no pull_request run, so this workflow starts build on the
+# branch; its job build is the check that the rules of main require. The title and the body pass the commit-msg hook
+# and the leak rules before the pull request is opened, as each commit message does.
+
+on:
+  push:
+    branches-ignore: [main, gh-pages, "dependabot/**"]
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: open-pr-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  open:
+    if: github.repository == 'f-shy/fshy.ajam.dev'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+
+      - name: open the pull request, and start build when this workflow opened it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          base=$(git merge-base origin/main HEAD)
+          if [ "$(git rev-list --count "$base..HEAD")" = 0 ]; then
+            echo "the branch has no commit that main does not have"
+            exit 0
+          fi
+          pr=$(gh pr list --head "$BRANCH" --state open --json number,author --jq '.[0]')
+          if [ -z "$pr" ]; then
+            # the title is the subject of the first commit; the body is every commit of the branch
+            git log --reverse --format=%s "$base..HEAD" | head -1 > "$RUNNER_TEMP/title"
+            {
+              printf '## What this changes\n\n'
+              git log --reverse --no-merges --format='### %s%n%n%b' "$base..HEAD"
+              printf '## Checks\n\nThe workflow build runs on the head of this branch. Its job build is the check of this pull request.\n'
+            } > "$RUNNER_TEMP/body"
+            { cat "$RUNNER_TEMP/title"; echo; cat "$RUNNER_TEMP/body"; } > "$RUNNER_TEMP/pr"
+            sh .githooks/commit-msg "$RUNNER_TEMP/pr"
+            python3 publish/build.py --scan "$RUNNER_TEMP/pr"
+            gh pr create --base main --head "$BRANCH" --title "$(cat "$RUNNER_TEMP/title")" --body-file "$RUNNER_TEMP/body"
+            bot=true
+          else
+            bot=$(echo "$pr" | jq -r '.author.is_bot')
+          fi
+          # a pull request that a person opened starts its own pull_request run; one that this workflow opened does not
+          if [ "$bot" = true ]; then
+            gh workflow run build.yml --ref "$BRANCH"
+          fi
