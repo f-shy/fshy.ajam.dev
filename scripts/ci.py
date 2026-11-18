@@ -18,7 +18,9 @@ Standard library only, Python 3.9 or later.
 """
 
 import argparse
+import http.client
 import json
+import subprocess
 import sys
 import time
 import urllib.error
@@ -65,7 +67,8 @@ def get(path, query=None, tries=6):
                 raise Refused(f"{e.code} {reason or e.reason}: {url}")
             print(f"# {e.code} {reason}: retry in {wait} s", file=sys.stderr)
             time.sleep(wait)
-        except (urllib.error.URLError, TimeoutError) as e:
+        # a dropped connection is a network fault, as a refused one is: wait and ask again
+        except (urllib.error.URLError, http.client.HTTPException, ConnectionError, TimeoutError) as e:
             print(f"# {e}: retry in {delay} s", file=sys.stderr)
             time.sleep(delay)
             delay = min(delay * 2, 120)
@@ -111,6 +114,16 @@ def show(repo, run, with_jobs=True):
                     print(f"    step {s['number']} {s['name']}: {s['conclusion']}")
 
 
+def full_sha(sha):
+    """GitHub filters runs by the full commit id only, so a short one is read from the local clone."""
+    if not sha or len(sha) == 40:
+        return sha
+    r = subprocess.run(["git", "rev-parse", "--verify", "-q", sha + "^{commit}"], capture_output=True, text=True)
+    if r.returncode or len(r.stdout.strip()) != 40:
+        raise Refused("%s is not a full commit id, and this clone does not know it" % sha)
+    return r.stdout.strip()
+
+
 def verdict(runs):
     if not runs:
         return 3
@@ -141,6 +154,8 @@ def main():
     a = ap.parse_args()
 
     try:
+        if getattr(a, "sha", None):
+            a.sha = full_sha(a.sha)
         if a.cmd == "runs":
             if not (a.sha or a.branch):
                 ap.error("runs needs --sha or --branch")
