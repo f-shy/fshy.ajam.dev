@@ -32956,6 +32956,7 @@
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"not stated","rid":"compute/tilde-horse-free","url":"https://tilde.horse/manual.html","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"not stated","rid":"compute/webcontainers","url":"https://stackblitz.com/pricing","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"not stated","rid":"compute/yepcode","url":"https://yepcode.io/pricing/","url_kind":"http"}
+{"capture":null,"date":"2026-11-18","ord":4,"proved":"on the Spark plan an exceeded no-cost quota shuts the product off for the rest of the month (a block, not a deletion)","rid":"databases-kv/firestore","url":"https://firebase.google.com/docs/projects/billing/firebase-pricing-plans","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"the page could not be read on 2026-11-18, so no egress term is recorded","rid":"compute/opensteer","url":"https://opensteer.com/pricing","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"the page could not be read on 2026-11-18, so no egress term is recorded","rid":"compute/vip-cloud","url":"https://www.vipserver.cloud/","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":4,"proved":"the vendor states 10 requests per second and 200 requests per minute for Jamba Large and Jamba Mini","rid":"inference/ai21-studio","url":"https://docs.ai21.com/reference/api-rate-limits","url_kind":"http"}
@@ -33026,6 +33027,7 @@
 {"capture":null,"date":"2026-11-18","ord":5,"proved":"not stated","rid":"compute/zoho-catalyst","url":"https://catalyst.zoho.com/free-tier/","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":5,"proved":"the Weaviate Embeddings service endpoint is https://api.embedding.weaviate.io with path /v1/embeddings/embed","rid":"inference/weaviate-embeddings","url":"https://raw.githubusercontent.com/weaviate/weaviate/main/usecases/modulecomponents/clients/weaviateembed/weaviate_embed.go","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":5,"proved":"the first-party chat reference pairs the route with a Bearer token header","rid":"inference/ai21-studio","url":"https://docs.ai21.com/reference/jamba-1-6-api-ref","url_kind":"http"}
+{"capture":null,"date":"2026-11-18","ord":5,"proved":"the plan page describes the over-quota block and no deletion clock","rid":"databases-kv/firestore","url":"https://firebase.google.com/docs/projects/billing/firebase-pricing-plans","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":5,"proved":null,"rid":"compute/bunny-sandbox","url":"https://bunny.net/blog/introducing-bunny-sandbox-a-disposable-room-where-ai-can-build/","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":5,"proved":null,"rid":"compute/dexto","url":"https://www.dexto.ai/docs/models/","url_kind":"http"}
 {"capture":null,"date":"2026-11-18","ord":5,"proved":null,"rid":"compute/freestyle","url":"https://www.freestyle.sh/pricing","url_kind":"http"}
