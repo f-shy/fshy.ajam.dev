@@ -25,7 +25,8 @@ pin check and the weekly backup.
    [`.claude/hooks/refuse-footer-tools.sh`](.claude/hooks/refuse-footer-tools.sh), set in
    [`.claude/settings.json`](.claude/settings.json), stops those tools before they send. An agent that has no such
    hook does not use them. It pushes the branch, and the workflow `open-pr` opens the pull request from the commits
-   with the repository token, checks its text the same way, and starts the workflow `build` on it.
+   with the repository token, checks its text the same way, and re-runs the `pull_request` run of `build` that GitHub
+   holds for a pull request of the token. When GitHub refuses that re-run, the session re-runs the held run.
 3. ⛔ **Every document is written in ASD-STE100 Simplified Technical English.** The working rules are in
    [`docs/conventions.md`](docs/conventions.md). They bind commit messages, issue comments and pull requests too.
 4. ⛔ **No personal or operator detail.** No name of a person, email address, home address, IP address, device name,
