@@ -249,8 +249,9 @@ When every line is ticked, close the issue by hand, with a link to the pull requ
 A pull request that is not a run (code, documents, rules) gets a code review: read the diff, run the checks it
 names, and confirm CI is green. A pull request that carries runs is in section 4. ⛔ Do not merge your own, unless the
 operator asked you to make it or to merge it (rule 7 of [`../AGENTS.md`](../AGENTS.md)). The workflow `open-pr` opens
-the pull request of a pushed branch from its commits and starts the workflow `build` on it, so a session needs no tool
-that writes to GitHub to open one. The merge commands pass the noreply address as the author (section 4, "The author
+the pull request of a pushed branch from its commits and re-runs the held `pull_request` run of `build` on it, so a
+session needs no tool that writes to GitHub to open one. Only that run gives the check `build` that the rules of
+`main` require: a run of `build` that a person starts by hand does not. The merge commands pass the noreply address as the author (section 4, "The author
 of a merge commit"):
 
 ```bash
