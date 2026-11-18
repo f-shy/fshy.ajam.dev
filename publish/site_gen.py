@@ -193,11 +193,18 @@ def emit_data(repo, pub_db, dist):
             "manifest": manifest, "hist": hist, "drift": drift, "unknown": unknown, "claims": claims, "docs": docs}
 
 
-def generate(repo, pub_db, dist, times=None, lap=None):
+PUBLOG_PAGE = 12  # the publishes that the Changes page and the feed list
+
+
+def generate(repo, pub_db, dist, times=None, lap=None, data=None):
     if os.path.isdir(dist):
         shutil.rmtree(dist)
     os.makedirs(dist)
     ctx = emit_data(repo, pub_db, dist)
+    # the newest publishes of data/, from git: the Changes page and the feed list what each one added and re-checked.
+    # A build of another directory (the self-hosted fixture) or outside git gets an empty log
+    import publog  # noqa: E402
+    ctx["publog"] = publog.entries(repo, data, limit=PUBLOG_PAGE)
     if lap:
         lap("site-data")
     try:

@@ -91,6 +91,7 @@ pin check and the weekly backup.
 | How do I build, preview or serve the site? | [`site/README.md`](site/README.md) |
 | How does the site go live, and how do I stop a deploy? | [`site/README.md`](site/README.md), section Deploy |
 | How did a CI run, a job or a deploy end? | [`scripts/ci.py`](scripts/ci.py), section 4 below |
+| Which research changes have no ledger row, and who fixes them? | [`publish/README.md`](publish/README.md), "Changes with no ledger row" |
 | What is backed up, and how do I restore it? | [`docs/backup.md`](docs/backup.md) |
 | How is a document, a commit or a comment written here? | [`docs/conventions.md`](docs/conventions.md) |
 | How does the public report an error or a missing offer? | [`CONTRIBUTING.md`](CONTRIBUTING.md) |

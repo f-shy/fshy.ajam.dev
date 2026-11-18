@@ -78,7 +78,23 @@ processes when its files hold more than 16 MiB.
 
 The store and the site do not name the commit of this repository: the same `data/` gives the same bytes, so a
 merge that changes only code changes no page and no store. Only `data/manifest.json` names the commit of the
-build, for the live check of the deploy and the header `x-fshy-commit` of the Worker.
+build, for the live check of the deploy and the header `x-fshy-commit` of the Worker. The one input that is not in
+`data/` is the publish log ([`publog.py`](publog.py)): the commits that changed `data/meta.json`, each one an export.
+The page `/changes/`, the feed `changes.xml` and the home page list what each publish added, changed and removed. A
+merge that changes only code adds no publish, so it changes no page. A build of another directory than `data/`, or
+outside git, has no log, and those pages leave the list out.
+
+**Changes with no ledger row.** A record that research added or checked again (a new `verified_at` or new evidence)
+needs a row of the change ledger, because the change pages show only what the ledger records. A publish that does not
+give it one leaves a gap. The workflow `raw-issues` runs [`raw_issues.py`](raw_issues.py) after each push to `main`
+and once a day. It keeps one issue `[raw] <topic>` open for each topic with gaps, writes its list again when the list
+changes, and closes it when a later publish gives each record a ledger row or removes it. The research repository
+reads these issues and makes them its own work. Do not edit or close them by hand: the next run writes them again.
+
+```bash
+python publish/publog.py --gaps            # the open gaps, by topic
+python publish/raw_issues.py --dry-run     # what the workflow would do, with each body
+```
 
 ## The leak rules
 
@@ -171,9 +187,11 @@ The first publish after that pull request merges gives `data/` of the new versio
 | `site_gen.py` | the store to the data files of the site: the Worker copy in chunks, the public store in parts, the name index of the Worker, record and entity JSON, names, needs, vocabularies |
 | `pages.py` | the HTML pages, the sitemap and `robots.txt` |
 | `selfhosted.py` | the self-hosted rule of every list: the label, the stable split, and the order check of the build |
+| `publog.py` | the publish log, from git: what each publish of `data/` added, changed and removed, and the gaps of records changed with no ledger row |
+| `raw_issues.py` | the issues `[raw] <topic>`, one for each topic with gaps: the workflow `raw-issues` opens, updates and closes them |
 | `llms.py` | `llms.txt`, `llms-full.txt` and the Markdown versions of the pages, for agents ([`../site/README.md`](../site/README.md)) |
 | `test_llms.py` | the selftest of `llms.py`, over the store that `build.py` writes |
-| `test_publish.py` | the selftest of the contract and of `files_sha256`, of the export's refusals, of the leak rules and `--scan`, of the lists that are copied by hand, of the helpers that the pages share, of the self-hosted rule and its check, and of the worked queries of the primer |
+| `test_publish.py` | the selftest of the contract and of `files_sha256`, of the export's refusals, of the leak rules and `--scan`, of the lists that are copied by hand, of the helpers that the pages share, of the self-hosted rule and its check, of the worked queries of the primer, and of the publish log and the plan of the issues `[raw] <topic>` |
 | `test_weight.py` | the weight budget of the built site: the shared files, the page shell, and each kind of page |
 | `fixture_selfhosted.py` | for CI: a copy of `data/` at the version of `build.py` in which some records are self-hosted, while `data/` has none, so that the build, `run.mjs` and `test_llms.py` test the self-hosted order on every pull request |
 | `primer.py` | the text primer of the store: schema, vocabularies, worked queries |

@@ -27,7 +27,12 @@
    finds a hosted row below a self-hosted one, a starred self-hosted row, and a Markdown line whose verdict comes
    before the label, and passes a list in the right order; and the rule of entity.best_vorder against rank.js.
 
-Parts 1 to 4, 6 and 7 need no data and run on a fresh clone. The store parts read .tmp/fshy/public.db, which
+8. The publish log (publog.py) on a git repository of three publishes: what each one added, changed and removed,
+   its time in UTC, the gaps of records changed with no ledger row, and the close of a gap by a later ledger row or a
+   removal; and the plan of raw_issues.py, which opens, updates, reopens and closes the issues "[raw] <topic>", with a
+   body that the commit-msg hook and the leak rules pass.
+
+Parts 1 to 4 and 6 to 8 need no data and run on a fresh clone. The store parts read .tmp/fshy/public.db, which
 `python publish/build.py --check` or `--site` writes; without it, they are skipped with a line that says so.
 
 usage:
@@ -55,6 +60,8 @@ import export  # noqa: E402
 import llms  # noqa: E402
 import pages  # noqa: E402
 import primer  # noqa: E402
+import publog  # noqa: E402
+import raw_issues  # noqa: E402
 import selfhosted  # noqa: E402
 import site_gen  # noqa: E402
 
@@ -733,6 +740,71 @@ def keystat_checks(db_path):
         db.close()
 
 
+def publog_checks(tmp):
+    repo = os.path.join(tmp, "publog")
+    os.makedirs(os.path.join(repo, "data", "records", "t"))
+    os.makedirs(os.path.join(repo, "data", "tables"))
+
+    def git(*a, when=None):
+        env = dict(os.environ, GIT_COMMITTER_DATE=when or "2026-01-01T00:00:00+05:45", GIT_AUTHOR_DATE=when or "2026-01-01T00:00:00+05:45")
+        subprocess.run(["git", "-C", repo, "-c", "user.name=test", "-c", "user.email=test@example.invalid",
+                        "-c", "core.hooksPath=/dev/null"] + list(a), check=True, capture_output=True, env=env)
+
+    def put(rid, verified, evidence, note="n"):
+        with open(os.path.join(repo, "data", "records", rid + ".json"), "w") as f:
+            json.dump({"verified_at": verified, "evidence": evidence, "notes": note}, f)
+
+    def publish(source, ledger, when):
+        with open(os.path.join(repo, "data", "meta.json"), "w") as f:
+            json.dump({"source_commit": source, "as_of": when[:10]}, f)
+        with open(os.path.join(repo, "data", "tables", "ledger.jsonl"), "a") as f:
+            for rid in ledger:
+                f.write(json.dumps({"at": when, "rid": rid, "path": "x"}) + "\n")
+        git("add", "-A", "data")
+        git("commit", "-q", "-m", "publish " + source, when=when)
+    git("init", "-q")
+    put("t/a", "1", [1])
+    put("t/b", "1", [1])
+    publish("s0", ["t/a", "t/b"], "2026-01-01T00:00:00+05:45")  # the first export: not in the log
+    put("t/a", "2", [1])  # re-checked, no ledger row: a gap
+    put("t/b", "1", [1], note="a new text")  # text alone: not a change
+    put("t/c", "1", [1])  # added with a ledger row: no gap
+    publish("s1", ["t/c"], "2026-01-02T05:45:00+05:45")
+    put("t/d", "1", [1])  # added with no ledger row: a gap
+    os.remove(os.path.join(repo, "data", "records", "t", "b.json"))
+    publish("s2", ["t/x"], "2026-01-03T00:00:00+00:00")
+    log = publog.entries(repo)
+    check("publog lists each publish after the first export, newest first, with its time in UTC",
+          [(p["source"], p["when"]) for p in log] == [("s2", "2026-01-03T00:00:00Z"), ("s1", "2026-01-02T00:00:00Z")], log)
+    s1, s2 = log[1], log[0]
+    check("publog says what a publish added, re-checked and removed, and leaves a change of the text alone out",
+          s1["added"] == ["t/c"] and s1["rechecked"] == ["t/a"] and s2["added"] == ["t/d"] and s2["removed"] == ["t/b"]
+          and not s1["amended"], (s1, s2))
+    gaps = publog.gaps(log)
+    check("a record added or re-checked with no ledger row is a gap until a later ledger row or removal",
+          [g["rid"] for g in gaps.get("t", [])] == ["t/a", "t/d"], gaps)
+    publish("s3", ["t/a"], "2026-01-04T00:00:00+00:00")
+    check("a later ledger row closes the gap of its record", [g["rid"] for g in publog.gaps(publog.entries(repo)).get("t", [])] == ["t/d"])
+    put("t/e", "1", [1])
+    check("the export in the working tree is the first entry, with no commit",
+          publog.entries(repo)[0]["commit"] == "" and publog.entries(repo)[0]["added"] == ["t/e"])
+    check("publog gives no log for a data directory that is not data/ of the checkout",
+          publog.entries(repo, os.path.join(tmp, "elsewhere")) == [])
+    g = {"storage": [{"rid": "storage/a", "kind": "rechecked", "when": "2026-01-03T00:00:00Z", "source": "abcdef0"}],
+         "debrid": [{"rid": "debrid/b", "kind": "added", "when": "2026-01-03T00:00:00Z", "source": "abcdef0"}]}
+    issues = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": "old"},
+              {"number": 2, "title": "[raw] storage", "state": "OPEN", "body": "old"},
+              {"number": 3, "title": "[raw] compute", "state": "OPEN", "body": "x"},
+              {"number": 4, "title": "[raw] debrid", "state": "CLOSED", "body": "x"}]
+    acts = [(a, tp, n) for a, tp, n, _ in raw_issues.plan(g, issues)]
+    check("raw_issues closes an issue whose topic has no gap, reopens a closed one, updates a changed body and closes a duplicate",
+          acts == [("close", "compute", 3), ("reopen", "debrid", 4), ("edit", "storage", 1), ("close-duplicate", "storage", 2)], acts)
+    same = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": raw_issues.body("storage", g["storage"])}]
+    check("raw_issues does nothing when the open issue says what the data says", raw_issues.plan({"storage": g["storage"]}, same) == [])
+    check("the title and the body of an issue pass the commit-msg hook and the leak rules",
+          raw_issues.refused(raw_issues.title("storage") + "\n\n" + raw_issues.body("storage", g["storage"])) is None)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--db", default=os.path.join(ROOT, ".tmp", "fshy", "public.db"))
@@ -748,6 +820,7 @@ def main(argv=None):
         helper_checks(tmp)
         selfhosted_checks()
         primer_order_checks()
+        publog_checks(tmp)
     finally:
         export.cleanup(tmp)
     db = a.db if os.path.exists(a.db) else None
