@@ -29,8 +29,9 @@
 
 8. The publish log (publog.py) on a git repository of three publishes: what each one added, changed and removed,
    its time in UTC, the gaps of records changed with no ledger row, and the close of a gap by a later ledger row or a
-   removal; and the plan of raw_issues.py, which opens, updates, reopens and closes the issues "[raw] <topic>", with a
-   body that the commit-msg hook and the leak rules pass.
+   removal; and raw_issues.py: its plan, which opens, updates, reopens and closes the issues "[raw] ..." that it wrote
+   and leaves the others, its coverage checks on a small store, and bodies that the commit-msg hook and the leak rules
+   pass.
 
 Parts 1 to 4 and 6 to 8 need no data and run on a fresh clone. The store parts read .tmp/fshy/public.db, which
 `python publish/build.py --check` or `--site` writes; without it, they are skipped with a line that says so.
@@ -792,17 +793,45 @@ def publog_checks(tmp):
           publog.entries(repo, os.path.join(tmp, "elsewhere")) == [])
     g = {"storage": [{"rid": "storage/a", "kind": "rechecked", "when": "2026-01-03T00:00:00Z", "source": "abcdef0"}],
          "debrid": [{"rid": "debrid/b", "kind": "added", "when": "2026-01-03T00:00:00Z", "source": "abcdef0"}]}
-    issues = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": "old"},
-              {"number": 2, "title": "[raw] storage", "state": "OPEN", "body": "old"},
-              {"number": 3, "title": "[raw] compute", "state": "OPEN", "body": "x"},
-              {"number": 4, "title": "[raw] debrid", "state": "CLOSED", "body": "x"}]
-    acts = [(a, tp, n) for a, tp, n, _ in raw_issues.plan(g, issues)]
-    check("raw_issues closes an issue whose topic has no gap, reopens a closed one, updates a changed body and closes a duplicate",
-          acts == [("close", "compute", 3), ("reopen", "debrid", 4), ("edit", "storage", 1), ("close-duplicate", "storage", 2)], acts)
-    same = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": raw_issues.body("storage", g["storage"])}]
-    check("raw_issues does nothing when the open issue says what the data says", raw_issues.plan({"storage": g["storage"]}, same) == [])
-    check("the title and the body of an issue pass the commit-msg hook and the leak rules",
-          raw_issues.refused(raw_issues.title("storage") + "\n\n" + raw_issues.body("storage", g["storage"])) is None)
+    w = raw_issues.gap_issues(g)
+    ours = raw_issues.OURS + "x -->"
+    issues = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": ours},
+              {"number": 2, "title": "[raw] storage", "state": "OPEN", "body": ours},
+              {"number": 3, "title": "[raw] compute: stale records", "state": "OPEN", "body": ours},
+              {"number": 4, "title": "[raw] debrid", "state": "CLOSED", "body": ours},
+              {"number": 5, "title": "[raw] email: a request of a person", "state": "OPEN", "body": "a person wrote this"}]
+    acts = [(a, tp, n) for a, tp, n, _ in raw_issues.plan(w, issues)]
+    check("raw_issues closes an issue whose check no longer holds, reopens a closed one, updates a changed body, closes a "
+          "duplicate, and leaves an issue that it did not write",
+          acts == [("close", "[raw] compute: stale records", 3), ("reopen", "[raw] debrid", 4), ("edit", "[raw] storage", 1),
+                   ("close-duplicate", "[raw] storage", 2)], acts)
+    same = [{"number": 1, "title": "[raw] storage", "state": "OPEN", "body": w["[raw] storage"]}]
+    check("raw_issues does nothing when the open issue says what the data says",
+          raw_issues.plan({"[raw] storage": w["[raw] storage"]}, same) == [])
+    check("the title and the body of a gap issue pass the commit-msg hook and the leak rules",
+          raw_issues.refused("[raw] storage\n\n" + w["[raw] storage"]) is None)
+    # the coverage checks, on a small store
+    db = sqlite3.connect(":memory:")
+    db.executescript("CREATE TABLE record (rid, topic, self_hosted, stale_on, grp, category);"
+                     "CREATE TABLE unknown (rid, path, class);")
+    topics = raw_issues.TOPICS
+    for i in range(10):
+        db.execute("INSERT INTO record VALUES (?, ?, 0, ?, 'usable', 'cat')", ("%s/r%d" % (topics[0], i), topics[0], "2026-01-0%d" % (1 + i % 3)))
+        db.execute("INSERT INTO unknown VALUES (?, '$.x', 'not-recorded')", ("%s/r%d" % (topics[0], i),))
+    db.execute("INSERT INTO record VALUES (?, ?, 0, '2027-01-01', 'usable', 'push notification API')", (topics[1] + "/p", topics[1]))
+    rules = {"stale_share": 0.2, "min_hosted": 5, "gap_classes": ["not-recorded"], "gap_mean": 1.0,
+             "kinds": [{"kind": "push notifications", "topic": topics[1], "min": 2, "category": "push notification", "examples": "A, B"},
+                       {"kind": "SMS and voice", "topic": topics[1], "min": 1, "category": "sms", "examples": "C"}]}
+    got = raw_issues.coverage_issues(db, "2026-01-03", rules)
+    want = {raw_issues.title(topics[0], "stale records"), raw_issues.title(topics[0], "unknown values"),
+            raw_issues.title(topics[1], "few records"), raw_issues.title(topics[1], "no push notifications"),
+            raw_issues.title(topics[1], "no SMS and voice")} | {raw_issues.title(t, "no records") for t in topics[2:]}
+    check("the coverage checks find stale records, few records, unknown values, an absent kind and a topic with no record",
+          set(got) == want, sorted(set(got) ^ want))
+    check("a record past its stale date counts from the day after its stale date",
+          "7 of the 10 hosted records" in got[raw_issues.title(topics[0], "stale records")])
+    check("the coverage bodies pass the commit-msg hook and the leak rules",
+          all(raw_issues.refused(k + "\n\n" + v) is None for k, v in got.items() if "no records" not in k))
 
 
 def main(argv=None):
