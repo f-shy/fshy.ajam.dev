@@ -5,7 +5,7 @@
   "url": "https://gitlab.com",
   "category": "paas",
   "free_tier": {
-    "stated": "10 GiB free storage per project on GitLab.com Free tier (repo + LFS); snippet files up to 50 MB each (50,000,000-byte default admin limit); projects per account and accounts are free.",
+    "stated": "Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage.",
     "unit": "GiB",
     "metered_on": "stored-bytes",
     "source_url": "https://docs.gitlab.com/user/storage_usage_quotas/",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
+    "stated": "The default limit is 52428800 bytes (50 MB).",
     "source_url": "https://docs.gitlab.com/user/storage_usage_quotas/",
     "notes": "not stated"
   },
@@ -44,7 +44,7 @@
   },
   "reliability_note": "Read-only lockout is automatic and immediate on exceeding 10 GiB, and it blocks pushes rather than deletes data. Snippets are counted in namespace storage, so they are not a separate free pool.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the administration snippets page states the default snippet size limit is 52428800 bytes (50 MB)",
   "evidence": [
     {
       "url": "https://docs.gitlab.com/user/storage_usage_quotas/",
@@ -65,10 +65,24 @@
       "url": "https://gitlab.com/api/v4/snippets/public?per_page=2",
       "date": "2026-10-21",
       "proved": "probe: GET -> {\"message\":\"401 Unauthorized\"} (authenticated endpoints only; public snippet read via web returned 200)"
+    },
+    {
+      "url": "https://docs.gitlab.com/user/storage_usage_quotas/",
+      "date": "2026-11-09",
+      "proved": "a Free-tier project on GitLab.com has 10 GiB of free storage",
+      "capture": "sha256:32cb9b13bd82d6395449b56d639b10c9214fbcf89a1a5fa1493dad8fe2e46c49",
+      "quote": "Each project in a Free tier namespace on GitLab.com has 10 GiB of free storage."
+    },
+    {
+      "url": "https://docs.gitlab.com/administration/snippets/",
+      "date": "2026-11-09",
+      "proved": "the default snippet size limit is 52428800 bytes",
+      "capture": "sha256:d6cf6e2f6f39ab4a829a31b9c80f3a9fb93c9264593459ea69c1bb308a6d8594",
+      "quote": "The default limit is 52428800 bytes (50 MB)."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:17.323Z",
   "notes": "10 GiB free storage per project on GitLab.com Free tier (repo + LFS); snippet files up to 50 MB each (50,000,000-byte default admin limit); projects per account and accounts are free.",
   "extras": {},
   "binding": "none",

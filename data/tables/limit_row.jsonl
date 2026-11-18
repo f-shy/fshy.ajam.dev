@@ -92,7 +92,7 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/infosec-exchange-mastodon-with-a-1-35-gib-per-file-uploa","source":"https://infosec.exchange/api/v2/instance","value":"1.9 TB/day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/krakenfiles","source":"https://krakenfiles.com/","value":"Speed-limited downloads"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/mcp-gd-mcp-native-object-storage-for-agents","source":"https://mcp.gd/","value":"1 TB/day"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/mega","source":"https://mega.io/storage","value":"1 TiB/day"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/mega","source":"https://mega.io/storage","value":"The limit is based on the amount of data downloaded from your IP address over the past six hours."}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/nexus-mods","source":"https://help.nexusmods.com/article/42-what-are-the-benefits-of-creating-a-nexus-mods-account","value":"1 MB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/nitroflare","source":"https://nitroflare.com/","value":"10 GB/day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/notion-file-blocks-files-property","source":"https://developers.notion.com/guides/data-apis/working-with-files-and-media","value":"1 TB/day"}
@@ -105,11 +105,11 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/raw-githack-com","source":"https://raw.githack.com/","value":"1 TiB/day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/sendgb","source":"https://www.sendgb.com/llms.txt","value":"transfer, no account, unlimited number of transfers (no monthly 10-transfer cap)"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/storage-to","source":"https://storage.to/docs/api","value":"500 GB / 24h"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/surge-sh","source":"https://surge.sh/docs/cli/publishing","value":"1 TiB/day"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/telegram-mtproto-user-account-unlimited-channels-as-the","source":"https://telegram.org/faq","value":"speed is throttled for non-Premium by an explicit server error, FLOOD_PREMIUM_"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/surge-sh","source":"https://surge.sh/docs/cli/publishing","value":"240 per 15 minutes per IP address"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/telegram-mtproto-user-account-unlimited-channels-as-the","source":"https://telegram.org/faq","value":"FLOOD_PREMIUM_WAIT_X"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/transfer-it","source":"https://transfer.it/","value":"0.29 MB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/transferxl","source":"https://www.transferxl.com/","value":"10 GB/day"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"5 GB/day"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"about 5 Gb a day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":0,"rid":"storage/zenodo-anonymous-download-throughput","source":"https://help.zenodo.org/docs/deposit/manage-quota/","value":"1TiB/day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"coding-subs/warp-free","source":"https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/","value":"BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees; a larger organization needs Business or Enterprise"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"compute/accuweb-windows","source":"https://www.accuwebhosting.com/windows-vps-hosting.html","value":"the plan does not state a port speed"}
@@ -279,7 +279,6 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"netdisk-pan/quark-tv-uc-tv","source":"https://zh.wikipedia.org/zh-cn/中国大陆网盘列表","value":"free egress shaped to about 1.7 MB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"netdisk-pan/uc-drive","source":"https://linux.do/t/topic/623279","value":"free downloads reported at 300 to 400 KB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/copernicus-data-space-ecosystem-12-tb-month-of-free-read","source":"https://documentation.dataspace.copernicus.eu/Quotas.html","value":"20 MB/s"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/crates-io","source":"https://doc.rust-lang.org/cargo/reference/publishing.html","value":"1.4 GB/day"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/ena-webin","source":"https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html","value":"430 KB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/hetzner-storage-box","source":"https://www.hetzner.com/storage/storage-box/","value":"30 Mbit/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/hop-js-cdn-bunny-net-s-free-oss-mirror-of-npm-cdnjs","source":"https://hopjs.bunny.net/about/","value":"11.3 MB/s"}
@@ -293,7 +292,7 @@
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/storage-to","source":"https://storage.to/docs/api","value":"100 GB/24h"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/telegram-mtproto-user-account-unlimited-channels-as-the","source":"https://telegram.org/faq","value":"speed is limited because the current account does not have a Premium subscri"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/transfer-it","source":"https://transfer.it/","value":"2.73 MB/s"}
-{"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"60 KB/s"}
+{"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"approximately 55-60 Kbytes/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":1,"rid":"storage/zenodo-anonymous-download-throughput","source":"https://help.zenodo.org/docs/deposit/manage-quota/","value":"215 KB/s"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":12,"rid":"debrid/high-way","source":"https://high-way.me/help/terms","value":"per-host 24-hour traffic factor, published on the Status page"}
 {"is_binding":0,"kind":"per-ip-shaping","ord":12,"rid":"debrid/torbox-free","source":"https://notes.debridmediamanager.com/providers/torbox/","value":"the 21st concurrent connection to one CDN host gets a 429 (third-party measurement 2026-08-23); the limit is per host, not per key"}
@@ -642,6 +641,7 @@
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/cloudflare-stream","source":"https://developers.cloudflare.com/stream/faq/","value":"30 GB per video upload by default"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/cloudlab-persistent-remote-dataset","source":"https://docs.cloudlab.us/hardware.html","value":"10 TB hard ceiling per"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/cubbit-ds3-cloud","source":"https://docs.cubbit.io/guides/multipart-upload","value":"5 TiB per object"}
+{"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/dataverseno","source":"https://info.dataverse.no/deposit/prepare-your-data/","value":"Individual files should preferably not exceed 100 GB"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/helix","source":"https://helix.imperial.ac.uk/api/records?size=50","value":"single object and four objects over 6 GB"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/mediafire-pro-1-tb","source":"https://www.mediafire.com/upgrade/","value":"50 GB per file"}
 {"is_binding":0,"kind":"per-object-cap","ord":1,"rid":"storage/scramble-cloud-premium-6-tb-lifetime","source":"https://www.stacksocial.com/sales/scramble-cloud-cloud-storage-lifetime-subscription-6tb","value":"5GB per file"}
@@ -1059,7 +1059,6 @@
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/aws-codeartifact","source":"https://aws.amazon.com/codeartifact/pricing/","value":"100,000 requests per month"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/azure-blob-storage-always-free-tier","source":"https://azure.microsoft.com/en-gb/pricing/free-services","value":"10,000 write operations per month"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/chatgpt-consumer-file-storage-library-projects","source":"https://help.openai.com/en/articles/8555545-file-uploads-faq","value":"3 uploads/day"}
-{"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/crates-io","source":"https://doc.rust-lang.org/cargo/reference/publishing.html","value":"1000 downloads/month"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/google-drive-shared-drives-written-by-service-accounts","source":"https://developers.google.com/workspace/drive/api/guides/about-shareddrives","value":"400,000,000 quota units/day"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/hubspot","source":"https://knowledge.hubspot.com/files/supported-file-types","value":"5 calls/day"}
 {"is_binding":0,"kind":"request-rate","ord":0,"rid":"storage/mozilla-data-collective","source":"https://mozilla-data-collective.github.io/datacollective-python/upload/","value":"30 downloads/day"}
@@ -1508,9 +1507,9 @@
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/schovna","source":"https://www.uschovna.cz/cenik","value":"Retention 14 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/smash-free-web-tier","source":"https://fromsmash.com/pricing","value":"retention 7 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/swisstransfer","source":"https://www.infomaniak.com/en/support/faq/2929/understanding-swisstransfer-data-limits","value":"Retention: 15 days"}
-{"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/timvisee-send-instances","source":"https://github.com/timvisee/send-instances/blob/master/README.md","value":"Retention: the Time limit column (3 to 30 days"}
+{"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/timvisee-send-instances","source":"https://github.com/timvisee/send-instances/blob/master/README.md","value":"30 days on send.cyberjake.xyz"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/uploadcare","source":"https://uploadcare.com/pricing/","value":"deleted after 24 hours"}
-{"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/walrus-testnet-public-publishers","source":"https://docs.wal.app/docs/network-reference","value":"retention: 53 epochs max, 1 day"}
+{"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/walrus-testnet-public-publishers","source":"https://docs.wal.app/docs/network-reference","value":"retention: 53 epochs max"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/wetransfer","source":"https://wetransfer.com/help-center/subscriptions/plan-limits","value":"Retention: 3 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/whatsapp-cloud-api-media","source":"https://developers.facebook.com/docs/whatsapp/cloud-api/reference/media","value":"expire at 30 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":0,"rid":"storage/wormhole","source":"https://wormhole.app/faq","value":"Retention: 24 hours"}
@@ -1670,7 +1669,7 @@
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/streamable","source":"https://streamable-support.zendesk.com/hc/en-us/articles/35415717293204-Free-Plan-Limits","value":"deleted after 90 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/swisstransfer","source":"https://www.infomaniak.com/en/support/faq/2929/understanding-swisstransfer-data-limits","value":"deletes at 15 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/transfernow","source":"https://www.transfernow.net/en/prices","value":"Retention: 7 days"}
-{"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/u-ua","source":"https://u.ua/ru/","value":"retention 7 days"}
+{"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/u-ua","source":"https://u.ua/ru/","value":"в течение 7 дней"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/uguu","source":"https://uguu.se/","value":"expires after 3 hours"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/upzur","source":"https://upzur.com/premium","value":"deleted 120 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":1,"rid":"storage/wormhole","source":"https://wormhole.app/faq","value":"deleted from the server after 24 hours"}
@@ -1761,6 +1760,7 @@
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/4shared","source":"https://www.4s.io/faq.jsp","value":"deletes the account and all files after 180 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/acdata","source":"https://ac-data.info/","value":"deleted after 14 days"}
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/blossom-server-fleet","source":"https://24242.io/","value":"deleted if not accessed for 60 days"}
+{"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/crates-io","source":"https://crates.io/policies","value":"deletion only if published under 72 hours or single owner and fewer than 1000 downloads per month since publication, and no other crate depends on it"}
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/cubbit-ds3-cloud","source":"https://cubbit.io/legal/ds3-terms-of-service","value":"data uploaded during the trial is deleted when the trial expires"}
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/gemfury-public-plan","source":"https://fury.co/pricing/","value":"deleted after ~1 month"}
 {"is_binding":0,"kind":"retention-clamped","ord":2,"rid":"storage/krakenfiles","source":"https://krakenfiles.com/","value":"Retention: 1 month"}
@@ -1982,12 +1982,14 @@
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/astraweb","source":"https://datahoarder.io/astraweb-review/","value":"Block accounts (download volume, not storage): 25 GB $10, 180 GB $25, 1,000 GB $50; up to 50 connections; data does not expire. Subscriptions: $15/month rolling, $8/month billed annually."}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/claude-files-api-as-an-archive","source":"https://platform.claude.com/docs/en/build-with-claude/files","value":"1 TB total storage for each organization"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/cubbit-ds3-composer","source":"https://www.cubbit.io/pricing","value":"up to 3 TB on the free tier; EUR 4.99 per TB per month from 3 to 10 TB"}
+{"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/dataverseno","source":"https://info.dataverse.no/about/who-can-use-dataverseno/","value":"up to 10 GB storage space free of charge for researchers at a Norwegian non-partner institution"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/ddownload","source":"https://ddownload.com/pricing","value":"195 GB/day per account (Ultimate)"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/no-s3-s3-compatible-endpoint-at-any-of-the-three-best-va","source":"https://uloz.to/koupit-disk","value":"1 GB (FREE) and 25 GB (FREE25) on the Ulož.to free plans, 150 GB for data transfer/month"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/nsf-access-open-storage-network","source":"https://support.access-ci.org/documentation/resources/osn","value":"50 TB per-project quota, shared across all buckets in the project"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/seeweb-cloud-object-storage","source":"https://www.seeweb.it/en/products/cloud-object-storage","value":"billed in whole 1000 GB volumes, minimum 1000 GB, EUR 27.00 per volume per month; includes 1000 GB outbound traffic and 100.000 read and write accesses"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/sharefile","source":"https://www.sharefile.com/pricing","value":"3TB of account storage on plans (1TB per license aggregated); 3TB storage packs can be added"}
 {"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/storj-object-storage-standard","source":"https://storj.dev/learn/concepts/limits","value":"Pro account: 25 TB storage per project and 100 TB egress bandwidth per project, 3 projects; increases on request"}
+{"is_binding":0,"kind":"volume-quota","ord":0,"rid":"storage/uclouvain-dataverse","source":"https://uclouvain.be/en/university-libraries/uclouvain-dataverse","value":"1 Tb free of charge per research institute that requests it"}
 {"is_binding":0,"kind":"volume-quota","ord":1,"rid":"ci-cd-runners/cloudflare-artifacts","source":"https://developers.cloudflare.com/artifacts/platform/limits/","value":"1 GB per repository for repos created on or after 2026-09-29, 10 GB for earlier repos; 1 TB per account, raisable on request; repositories and namespaces unlimited"}
 {"is_binding":0,"kind":"volume-quota","ord":1,"rid":"coding-subs/tabnine-enterprise","source":"https://docs.tabnine.com/main/administering-tabnine/managing-your-team/user-management/service-accounts-and-token-limits.md","value":"1 billion tokens a month fair-use limit for each regular user"}
 {"is_binding":0,"kind":"volume-quota","ord":1,"rid":"compute/agent37","source":"https://www.agent37.com/docs/agents-api/instance-sizing.md","value":"disk is 2-12 GB on the 2 vCPU shape and bills USD 0.09/GB/month"}
@@ -2250,7 +2252,7 @@
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/google-play-books-partner-center","source":"https://support.google.com/books/partner/answer/3424254?hl=en","value":"review"}
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/harvard-dataverse-repository-per-collection-quota","source":"https://support.dataverse.harvard.edu/researchers","value":"Review' spam screen before publication"}
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/incite","source":"https://doeleadershipcomputing.org/incite-faqs/","value":"reviewed annual renewal request"}
-{"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/materials-cloud-archive","source":"https://archive.materialscloud.org/information","value":"reviewed by the Materials Cloud moderators'), scope-gated to computational materials sci"}
+{"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/materials-cloud-archive","source":"https://archive.materialscloud.org/information","value":"reviewed by the Materials Cloud moderators"}
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/nasa-earthdata-aws-allocation","source":"https://www.earthdata.nasa.gov/engage/partnerships/aws-storage-cloud-compute-request","value":"reviewed monthly (1st) with responses by the 7th"}
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/printables","source":"https://api.printables.com/graphql/","value":"curator"}
 {"is_binding":0,"kind":"write-gated","ord":0,"rid":"storage/snap-store","source":"https://forum.snapcraft.io/t/snap-package-file-size-limit-on-the-store/37450","value":"application/octet-stream` verified)"}
@@ -2420,7 +2422,7 @@
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/dingtalk-drive","source":"https://help.dingtalk.io/docs/admin-guide/storage-quota","value":"review - other binaries upload fine but get no preview"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/harvard-dataverse","source":"https://support.dataverse.harvard.edu/researchers","value":"curator rejecting a deposit at the review gate, and the storage-quota feature is flagge"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/jamendo","source":"https://support-artist.jamendo.com/upload-manage-media","value":"review step means an upload can be refused"}
-{"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/mega","source":"https://mega.io/storage","value":"invite, VPN trial, Pass trial) valid 365 days Transfer quota is per-IP over 6 h on fre"}
+{"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/mega","source":"https://mega.io/storage","value":"Complete one of the following actions to earn more free storage."}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/ncar-glade","source":"https://ncar-hpc-docs.readthedocs.io/en/latest/storage-systems/glade/","value":"Campaign Storage only by project allocation request"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/vercel-deployment-storage-artifact-store","source":"https://vercel.com/changelog/hobby-projects-now-retain-fewer-deployments-to-free-up-storage","value":"review deployments no longer get their own protection"}
 {"is_binding":0,"kind":"write-gated","ord":2,"rid":"storage/vip","source":"https://web.u-p.vip/about","value":"invited user, '扩容无上限' (unlimited expansion)"}
@@ -2446,6 +2448,7 @@
 {"is_binding":0,"kind":"write-gated","ord":5,"rid":"compute/github-actions","source":"https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses","value":"No inbound reachability and no persistent disk. Quoted: 'When the job has finished, the VM is automatically decommissioned.' IPs are dynamic: 'GitHub-hosted runners use dynamically assigned IP addresses from shared infrastructure.'"}
 {"is_binding":0,"kind":"write-gated","ord":5,"rid":"compute/github-codespaces","source":"https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features","value":"The terms scope the machine away from serving. Quoted: 'Any activity that places a burden on our servers, where that burden is disproportionate to the benefits provided to users (for example, don't use Codespaces as a content delivery network, as part of a serverless application, or to host any kind of production-facing application)'."}
 {"is_binding":0,"kind":"write-gated","ord":5,"rid":"crawler-scraper/parsehub","source":"https://www.parsehub.com/pricing","value":"5 projects on Free, all public: project designs and the data from their runs may be shared with other users"}
+{"is_binding":0,"kind":"write-gated","ord":5,"rid":"databases-kv/pinecone","source":"https://docs.pinecone.io/admin/billing/downgrade-billing-plan","value":"exceeding Starter limits after downgrading may block new requests until usage is within limits"}
 {"is_binding":0,"kind":"write-gated","ord":5,"rid":"debrid/deepbrid-free","source":"https://www.deepbrid.com/service","value":"free accounts reach the 39 'Free Hosters' only; 80+ hosts exist in total"}
 {"is_binding":0,"kind":"write-gated","ord":5,"rid":"dev-services/auth0","source":"https://auth0.com/pricing","value":"the custom domain needs credit card verification"}
 {"is_binding":0,"kind":"write-gated","ord":6,"rid":"compute/github-actions","source":"https://docs.github.com/en/site-policy/github-terms/github-terms-for-additional-products-and-features","value":"Reliability note: no meter caps the free runner, but use unrelated to building, testing, deploying or publishing the repository's own project, or load disproportionate to its benefit, can end in job termination, Actions restriction, repository disabling or account suspension; no threshold is published."}
@@ -2677,7 +2680,7 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/cloud-storage-for-firebase","source":"https://firebase.google.com/pricing","value":"1 GB/day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/contabo-object-storage-2","source":"https://help.contabo.com/en/support/solutions/articles/103000411100-object-storage-limits-and-how-to-expand-your-capacity","value":"default bandwidth 10 MB/s (80 Mbit/s), about 864 GB per day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/contabo-storage-vps-unlimited-traffic-300-gb-1-4-tb","source":"https://contabo.com/en/storage-vps/","value":"200 Mbit/s"}
-{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/docker-hub","source":"https://docs.docker.com/docker-hub/usage/","value":"1TiB/day"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/docker-hub","source":"https://docs.docker.com/docker-hub/usage/","value":"200 pulls per 6 hours for Docker Personal users"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/dropmefiles","source":"https://dropmefiles.com/","value":"transfer 'is limited up to 50 Gb', 'period of storage is up to 14 days', selecta"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/file-io","source":"https://www.file.io/about","value":"transfer ('file transfers are limited to a total of 4 GB') 4 GB/transfer"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/filecoin-onchain-cloud","source":"https://docs.filecoin.cloud/cookbooks/payments-and-storage/","value":"1 TiB/day"}
@@ -2691,7 +2694,7 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/gmail-15-gb-shared-and-the-honest-ceiling-of-gmail-as-in","source":"https://support.google.com/accounts/answer/9312312","value":"0.5 GB/day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/google-cloud-free-tier-cloud-storage","source":"https://cloud.google.com/free/docs/free-cloud-features","value":"500 GB/day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/google-cloud-storage-always-free-tier","source":"https://cloud.google.com/free/docs/free-cloud-features","value":"500 GB/day"}
-{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/greencloudvps-storage-kvm","source":"https://green.cloud/storage-kvm-vps.php","value":"10 Gbps"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/greencloudvps-storage-kvm","source":"https://green.cloud/storage-kvm-vps.php","value":"10Gbps Port"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/hetzner-storage-box-bx11-bx21-bx31","source":"https://www.hetzner.com/storage/storage-box/","value":"10 concurrent connections"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/hetzner-storage-box-bx21","source":"https://www.hetzner.com/storage/storage-box/","value":"10 concurrent connections"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/hetzner-storage-box-bx41","source":"https://www.hetzner.com/storage/storage-box/","value":"10 concurrent connections"}
@@ -2702,13 +2705,13 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/ibm-cloud-container-registry","source":"https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview","value":"traffic | 5 GB per month | Unlimited' (Free vs Standard)"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/interserver-storage-vps","source":"https://www.interserver.net/vps/storage.html","value":"10 Gbps"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/iroh-public-relays","source":"https://www.iroh.computer/pricing","value":"5 MB/s"}
-{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/jottacloud","source":"https://jottacloud.com/en/pricing","value":"speed throttled above 5 TB, described by HN as a 'harsh inflection' around"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/jottacloud","source":"https://jottacloud.com/en/pricing","value":"upload speed gradually reduced after 5 TB"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/jottacloud-unlimited","source":"https://jottacloud.com/en/pricing/","value":"1.85 MB/s"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/keep2share-tezfiles","source":"https://tezfiles.com/premium","value":"10 GB/day"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/kimsufi-ks-5","source":"https://www.kimsufi.com/en/ks/ks-5/","value":"300 Mbps"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/kub-ua-file-cloud-nextcloud-backed-flat-per-tb-with-unli","source":"https://kub.ua/file-cloud/","value":"50 concurrent connections"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/launchpad-ppa","source":"https://launchpad-help.readthedocs.io/en/latest/how-to/distribute-ubuntu-software.html","value":"70 KB/s"}
-{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/linkbox-telebox","source":"https://en.anonyviet.com/instructions-for-getting-10tb-of-storage-on-linkbox-to/","value":"1 MB/s"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/linkbox-telebox","source":"https://en.anonyviet.com/instructions-for-getting-10tb-of-storage-on-linkbox-to/","value":"700 Kb/s"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/matrix-media-repository","source":"https://matrix.org/homeserver/pricing/","value":"1 GB/24h"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/netdynamics24-germany-backup-sftp","source":"https://www.netdynamics24.com/client/order.php?step=1&productGroup=13","value":"1 Gbit/s"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/packagecloud-io-free-plan","source":"https://packagecloud.io/pricing/","value":"bandwidth per month, unlimited repositories and unlimited CI/CD minutes"}
@@ -2733,7 +2736,7 @@
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/thehost-ua-keepdata-10-tb-flat-with-traffic-included-web","source":"https://www.thehost.ua/en/hosting/cloud-storage","value":"10 Gbit/s"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/time4vps-storage-vps","source":"https://www.time4vps.com/storage-vps/","value":"100 Mbps"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/ttl-sh","source":"https://ttl.sh/","value":"11 MB/s"}
-{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/whatbox-h3-22","source":"https://whatbox.ca/plans","value":"100 Mbps"}
+{"is_binding":1,"kind":"per-ip-shaping","ord":0,"rid":"storage/whatbox-h3-22","source":"https://whatbox.ca/faq","value":"100 Mbps"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"compute/56idc-toy-nl-nat2","source":"https://56idc.net/store/toy-vps","value":"20 forwarded ports on the shared IPv4, printed 'IPv4 NAT(20端口)'"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"compute/56idc-toy-vps-nat-384","source":"https://56idc.net/store/toy-vps","value":"IPv4 NAT with 20 ports on a shared address; one IPv6 /128"}
 {"is_binding":1,"kind":"per-ip-shaping","ord":1,"rid":"compute/alibaba-swas-intl","source":"https://www.alibabacloud.com/en/product/swas/pricing","value":"limited peak bandwidth 4 Mbit/s"}
@@ -2959,7 +2962,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/serverdiscounter-next-share","source":"https://serverdiscounter.com/en/nextcloud","value":"10 GB per file on every tier, including 25 TB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/shadow-drive","source":"https://shadow.tech/eu/drive/offers/","value":"20 GB per upload on every tier including 2 TB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/telnyx-cloud-storage-egress-view","source":"https://linux.do/t/topic/1037092","value":"10 GB is the free tier total, which is the cap in practice"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/terabox","source":"https://play.google.com/store/apps/details?hl=en_US&id=com.dubox.drive","value":"128 GB per shared file as stated in the app listing"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/terabox","source":"https://s5.teraboxcdn.com/fe-opera-static/node-static-v4/fe-webv4-main/js/main.ebd09b45.js","value":"4 GB per file for non-Premium users; 128 GB for Premium from the app"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/trekmail-drive","source":"https://trekmail.net/cloud-drive","value":"10 TB per file, with resumable transfers"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/uc-drive","source":"https://linux.do/t/topic/1426604","value":"1 GB per file on a free account"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"netdisk-pan/vyuyun","source":"https://www.vyuyun.com/","value":"50 GB is the free tier total; a registered member uploads at most 500 MB per file"}
@@ -2980,12 +2983,12 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/archive-org-forum-10gb-per-item-guidance","source":"https://help.archive.org/help/uploading-tips/","value":"1 TB per item page"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/arweave-via-ar-io-turbo","source":"https://docs.ar.io/sdks/ario-deploy/free-tier/","value":"105 KiB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/arweave-via-turbo-ar-io-free-tier","source":"https://docs.ar.io/sdks/ario-deploy/free-tier/","value":"105 KiB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/atlassian-confluence-cloud-free","source":"https://support.atlassian.com/organization-administration/docs/how-many-instances-of-a-product-does-my-organization-need/","value":"per-object-cap: attachment default 100 MB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/atlassian-confluence-premium-via-social-impact-license-u","source":"https://support.atlassian.com/confluence-cloud/docs/manage-your-storage-usage/","value":"per-object-cap is the binding constraint: 'The default size limit is 100 MB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/atlassian-confluence-cloud-free","source":"https://support.atlassian.com/organization-administration/docs/how-many-instances-of-a-product-does-my-organization-need/","value":"The default is 100 megabytes, expressed as 104857600 bytes."}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/atlassian-confluence-premium-via-social-impact-license-u","source":"https://support.atlassian.com/confluence-cloud/docs/manage-your-storage-usage/","value":"The default is 100 megabytes, expressed as 104857600 bytes."}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/audiomack","source":"https://creators.audiomack.com/about","value":"250 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/audius-original-file-is-served-byte-for-byte","source":"https://help.audius.co/faq/is-there-a-limit-to-how-much-i-can-upload-to-my-audius-profile","value":"file size cap is 2 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/aur","source":"https://bugs.archlinux.org/task/68997","value":"per-object-cap: 250 KiB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/axfc-uploader","source":"https://www.axfc.net/upload","value":"128 GiB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/axfc-uploader","source":"https://www.axfc.net/upload","value":"1ファイル最大128 GiB。最大3ファイルを同時にアップロードできます。"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ayaya-beauty","source":"https://ayaya.beauty/","value":"1 GiB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/azure-devops-artifacts","source":"https://learn.microsoft.com/en-us/azure/devops/artifacts/reference/limits","value":"4 TiB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/b2share","source":"https://docs.eudat.eu/b2share/faq/","value":"10 GB per file"}
@@ -3004,6 +3007,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/boosty","source":"https://boosty.to/boosty/posts/de1e6f32-3a80-4824-95bd-a264ff1b00aa","value":"per-object-cap 20 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/booth","source":"https://booth.pixiv.help/hc/ja/articles/230690327","value":"1.2 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/box-for-nonprofits-donated-starter","source":"https://www.box.org/use-box/nonprofit","value":"2 GB per upload"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/bsc-dataverse","source":"https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size","value":"2.5 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/bunkr","source":"https://bunkr.cr/","value":"2 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/buyvm-block-storage-slabs","source":"https://buyvm.net/block-storage-slabs/","value":"10 TB hard cap per"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/buzzheavier","source":"https://buzzheavier.com/pricing","value":"no per-file cap"}
@@ -3018,9 +3022,9 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cloudflare-workers-static-assets","source":"https://developers.cloudflare.com/workers/platform/limits/","value":"25 MiB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cloudinary","source":"https://cloudinary.com/pricing/compare-plans","value":"100 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cloudsmith-open-source-repositories","source":"https://docs.cloudsmith.com/open-source-hosting-policy","value":"5 GB maximum per file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cnb","source":"https://docs.cnb.cool/zh/pricing.html","value":"256 MB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cnb","source":"https://cnb.cool/wmde/attachments","value":"64 GB per attachment upload"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/confluence-cloud-free","source":"https://support.atlassian.com/confluence-cloud/docs/manage-your-storage-usage/","value":"100 MB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/contabo-object-storage","source":"https://docs.contabo.com/docs/storage/object-storage/","value":"5 TB per object, with no object size minimum"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/contabo-object-storage","source":"https://contabo.com/en/object-storage/","value":"5 TB per object"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/cpan-pause","source":"https://www.cpan.org/modules/04pause.html","value":"2 MB cap"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/dailymotion","source":"https://faq.dailymotion.com/hc/en-us/articles/115009030568-Upload-policies-technical-specifications","value":"4 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ddrive","source":"https://github.com/forscht/ddrive","value":"file size and unlimited total: 'Tested with storing 4000 GB"}
@@ -3029,7 +3033,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/degoo-ultimate-5-tb","source":"https://degoo.com/","value":"5 TB cap"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/dingtalk-drive","source":"https://help.dingtalk.io/docs/admin-guide/storage-quota","value":"8 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/discord-cloud-uploads","source":"https://docs.discord.food/topics/cloud-uploads","value":"500 MiB per file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/discord-ddrive","source":"https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ","value":"10 MB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/discord-ddrive","source":"https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ","value":"20 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/discord-free-account","source":"https://docs.discord.com/developers/change-log","value":"20 MiB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/doubao-drive","source":"https://www.doubao.com/legal/ai_space","value":"per-object-cap: '上传限制300MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/edge-network-storage","source":"https://edge.network/storage/pricing","value":"5 GB cap"}
@@ -3066,7 +3070,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/google-for-startups-cloud-program","source":"https://cloud.google.com/startup","value":"per-object-cap: GCS single-object max 5 TiB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/google-gemini-files-api","source":"https://ai.google.dev/gemini-api/docs/files","value":"2 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/google-play-books","source":"https://support.google.com/books/partner/answer/9261355?hl=en","value":"2 GB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/google-workspace-for-education-fundamentals","source":"https://knowledge.workspace.google.com/admin/getting-started/editions/overview-of-google-workspace-for-education-storage","value":"5 TB per single upload"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/google-workspace-for-education-fundamentals","source":"https://support.google.com/a/answer/172541","value":"You can upload and synchronize files up to 5 TB in size."}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/gumroad","source":"https://gumroad.com/help/article/289-file-size-limits-on-gumroad","value":"largest single file that you can upload to a product is 20 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/harvard-dataverse","source":"https://support.dataverse.harvard.edu/researchers","value":"2.5 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/hetzner-object-storage","source":"https://www.hetzner.com/storage/object-storage/","value":"5 TB max per object"}
@@ -3083,9 +3087,9 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/itch-io","source":"https://itch.io/docs/butler/pushing.html","value":"per-object-cap: 30 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/jamendo","source":"https://support-artist.jamendo.com/upload-manage-media","value":"480 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/jitpack-build-on-demand-maven-from-git","source":"https://github.com/jitpack/jitpack.io/issues/4898","value":"per-object-cap: 250 MB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/jsdelivr","source":"https://www.jsdelivr.com/about","value":"single files >20 MB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/jsdelivr","source":"https://github.com/jsdelivr/jsdelivr","value":"single files larger than 20 MB (in the case of GitHub), default limit"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/jsdelivr-as-the-free-cdn-layer-over-github-repos","source":"https://github.com/jsdelivr/jsdelivr/issues/18550","value":"per file | 20 MB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/kaggle-models","source":"https://www.kaggle.com/product-announcements/512322","value":"File Size Limit': 'Users now have a limit of 200GB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/kaggle-models","source":"https://www.kaggle.com/product-announcements/512322","value":"maximum upload size of public models and datasets is 200GB; private models have a limit of 200GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/knowledge-network-for-biocomplexity","source":"https://knb.ecoinformatics.org","value":"5 GB account cap"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ko-fi-shop","source":"https://help.ko-fi.com/hc/en-us/articles/360009712917-Ko-fi-Shop-Sell-digital-physical-products","value":"5 GB per item"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/kth-data-repository","source":"https://docs.datarepository.kth.se/deposit/manage_files/","value":"10 GB per file"}
@@ -3096,7 +3100,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/lemmy-pict-rs-per-instance-image-store-no-per-user-quota","source":"https://join-lemmy.org/docs/administration/configuration.html","value":"per-object-cap set by pict-rs (`max_file_size`, commonly 40 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/macaulay-library-ebird","source":"https://support.ebird.org/en/support/solutions/articles/48001064551-using-and-requesting-media","value":"20 MB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mage-space-uploads","source":"https://docs.mage.space/api/limits","value":"100 MB per upload"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mail-bg-50-gb-free-mailbox-with-free-imap-pop-bulgarian","source":"https://mail.bg/signup","value":"per-object-cap 20 MB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mail-bg-50-gb-free-mailbox-with-free-imap-pop-bulgarian","source":"https://mail.bg/signup","value":"20 MB per attachment"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mastodonapp-uk-mstdn-social-mastodon-social-and-the-stoc","source":"https://mastodonapp.uk/api/v2/instance","value":"Per-file: 103809024 bytes = 99 MiB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mattermost-team-edition-entry","source":"https://docs.mattermost.com/configure/environment-configuration-settings.html","value":"per-file ceiling is configurable: default 100 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/maven-central","source":"https://central.sonatype.org/publish/maven-central-publishing-limits/","value":"1 GB per upload"}
@@ -3104,9 +3108,9 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mediatrack","source":"https://www.mediatrack.cn/pricing","value":"1 GB per single file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mega4up","source":"https://mega4upload.net/premium.html","value":"3,000 Mb per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/mendeley-data","source":"https://www.elsevier.support/mendeley/answer/what-can-i-do-when-my-dataset-exceeds-the-10gb-per-dataset-limit","value":"per-object-cap: 10 GB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/microsoft-365-business-basic-nonprofit-grant","source":"https://www.microsoft.com/en-us/microsoft-365/business/nonprofit-plans-and-pricing","value":"250 GB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/microsoft-365-business-basic-nonprofit-grant","source":"https://learn.microsoft.com/en-us/office365/servicedescriptions/sharepoint-online-service-description/sharepoint-online-limits","value":"250 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/microsoft-azure-grant-for-nonprofits","source":"https://learn.microsoft.com/en-us/industry/nonprofit/microsoft-for-nonprofits/renew-azure-grant","value":"per-object-cap: Blob block blob max ~190.7 TiB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/microsoft-teams-gallery-media-uploads","source":"https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored","value":"100 MB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/microsoft-teams-gallery-media-uploads","source":"https://support.microsoft.com/en-us/teams/free/troubleshoot/where-is-my-microsoft-teams-free-data-stored","value":"250 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/misskey-art-5-gib-per-user-250-mib-per-object","source":"https://misskey.art/api/meta","value":"per-object-cap 250 MiB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/misskey-flowers-misskey-12-gb-per-user","source":"https://misskey.flowers/api/meta","value":"per-object-cap 250 MiB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/misskey-gg-misskey-2026-10-1-tb-drive-per-user","source":"https://misskey.gg/api/meta","value":"250 MiB per object (top-level maxFileSize 262,144,000 bytes); policies.maxFileSizeMb claims 1 GiB and is not enforced"}
@@ -3129,7 +3133,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nostr-download","source":"https://nostr.download/tos","value":"10.00 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nostr-relays-as-blob-transport","source":"https://relay.damus.io/","value":"per-object-cap ~1 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nostr-relays-nip-94-nip-96-file-metadata-index-only-not","source":"https://raw.githubusercontent.com/nostr-protocol/nips/master/94.md","value":"per-object-cap = relay event size limit (~64 KB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nostrmedia-com","source":"https://nostrmedia.com/.well-known/nostr/nip96.json","value":"per-object-cap 25 MiB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nostrmedia-com","source":"https://nostrmedia.com/docs/api.md","value":"5 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nuclino","source":"https://www.nuclino.com/pricing","value":"10 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/nutstore","source":"https://help.jianguoyun.com/?p=3766","value":"No per-file cap number read"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/odysee-lbry","source":"https://help.odysee.tv/category-uploading/category-fileuploads/fileselection/","value":"16 GB per file"}
@@ -3145,7 +3149,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/origrid","source":"https://origrid.io/pricing","value":"25 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/osf-per-component-quotas","source":"https://help.osf.io/article/555-add-ons-storage-api-integration-faq-s","value":"5 GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/outlook-com-15-gb-mail-quota-150-mib-smtp-size","source":"https://support.microsoft.com/en-us/outlook/storage-limits-in-outlook-com","value":"per-object-cap governed by `250-SIZE 157286400` = 150 MiB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/pangaea","source":"https://wiki.pangaea.de/wiki/Binary_objects","value":"per-object-cap: 'Individual files must be less than 15 GB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/pangaea","source":"https://wiki.pangaea.de/wiki/Binary_objects","value":"Individual files must be less than 15 GB in size."}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/paste-gg","source":"https://paste.gg/","value":"5 MiB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/patrins","source":"https://patrins.com/docs","value":"1 TB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/payhip","source":"https://payhip.com/features/sell-digital-downloads","value":"5GB per file"}
@@ -3176,7 +3180,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/sourceforge-file-release-system-project-web-space","source":"https://sourceforge.net/p/forge/documentation/Disk%20Quotas/","value":"per-object-cap: 'Individual files larger than 10 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/stack-exchange-as-bulk-storage","source":"https://meta.stackexchange.com/questions/395024/stack-exchange-s-image-hosting-arrangement-with-imgur-has-ended-migration-complete","value":"10 MiB per uploaded image"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/stack-exchange-image-host","source":"https://meta.stackexchange.com/questions/308507/image-size-limit-why-it-is-set-to-2-mib","value":"10 MiB hard cap per upload (file or URL); animated GIFs 2 MiB"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/steam-cloud","source":"https://partner.steamgames.com/doc/features/cloud","value":"100 MB per File"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/steam-cloud","source":"https://partner.steamgames.com/doc/features/cloud","value":"100MB maximum size for a call to ISteamRemoteStorage::FileWrite or ISteamRemoteStorage::FileWriteStreamWriteChunk"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/stoat-autumn-file-service","source":"https://stoat.chat/","value":"20 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/stoat-official-instance","source":"https://api.stoat.chat/","value":"20 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/strato-hidrive-1-tb-for-12-months-at-0","source":"https://web.archive.org/web/20260214235234id_/https://www.strato.de/cloud-speicher/valentinsaktion/","value":"No per-file cap published on the plan page"}
@@ -3192,9 +3196,9 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/tresorit-basic","source":"https://tresorit.com/pricing/basic","value":"500 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/twilio-programmable-messaging-media-subresource","source":"https://www.twilio.com/docs/messaging/api/media-resource","value":"5 MB total media per message, up to 10 media files"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/twist-free-plan","source":"https://get.twist.help/hc/en-us/articles/360004758880-Add-files-to-Twist","value":"5 GB cap"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/u-ua","source":"https://u.ua/ru/","value":"50 GB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/u-ua","source":"https://u.ua/ru/","value":"файлы объемом до 50 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/uguu","source":"https://uguu.se/","value":"128 MiB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ukr-net-mail-100-gb-per-single-message-1024-attachments","source":"https://wiki.ukr.net/WorkWithMessages","value":"per-object-cap claimed 100 GB"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ukr-net-mail-100-gb-per-single-message-1024-attachments","source":"https://wiki.ukr.net/WorkWithMessages","value":"загальний розмір листа разом з усіма вкладеннями не повинен перевищувати 100 Гб"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/ultralytics-hub-ultralytics-platform","source":"https://www.ultralytics.com/plans","value":"20 GB per upload"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/unpkg","source":"https://unpkg.com/","value":"per-object-cap: npm publish-side (~100 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/uploader-jp-getuploader-com","source":"https://uploader.jp/","value":"100 MB per file"}
@@ -3208,7 +3212,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/wechat-official-account-uploadimg","source":"https://developers.weixin.qq.com/doc/service/api/material/permanent/api_uploadimage","value":"Per-file cap 1 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/wenshushu","source":"https://www.wenshushu.cn/","value":"Per-file: 5 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/wikimedia-commons","source":"https://commons.wikimedia.org/wiki/Commons:Maximum_file_size","value":"5 GiB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/xai-files-api-public-cdn-urls","source":"https://docs.x.ai/developers/files","value":"100 MB/file"}
+{"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/xai-files-api-public-cdn-urls","source":"https://docs.x.ai/developers/files","value":"512 MB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/xbox-services-title-storage","source":"https://devdocs.xbox.com/services/xbox-services/storage/title-storage/live-title-storage-overview","value":"per-object-cap: 64 MB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/yahoo-mail-20-gb-down-from-1-tb","source":"https://es-us.ayuda.yahoo.com/kb/new-yahoo-mail/SLN37064.html","value":"per-object-cap **41,697,280 bytes (39.77 MiB"}
 {"is_binding":1,"kind":"per-object-cap","ord":0,"rid":"storage/yandex-360-3-tb-the-regional-price-floor-with-unlimited","source":"https://360.yandex.ru/premium-plans/","value":"per file: 100 GB"}
@@ -3254,13 +3258,14 @@
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/blomp","source":"https://www.blomp.com/","value":"per-object: 5 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/blossom-server-fleet","source":"https://24242.io/","value":"100 MB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/box","source":"https://developer.box.com/guides/getting-started/free-developer-plan","value":"250 MB per file"}
+{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/bsc-dataverse","source":"https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size","value":"1000 files per upload"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/catbox","source":"https://catbox.moe/nojs/","value":"200 MB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/chatgpt-consumer-file-storage-library-projects","source":"https://help.openai.com/en/articles/8555545-file-uploads-faq","value":"512 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/dailymotion","source":"https://faq.dailymotion.com/hc/en-us/articles/115009030568-Upload-policies-technical-specifications","value":"64 GB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/datadeliver","source":"https://dd.datadeliver.net/plan/","value":"per-object-cap 5 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/dingtalk-drive","source":"https://help.dingtalk.io/docs/admin-guide/storage-quota","value":"20 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/discord-ddrive","source":"https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ","value":"500 MiB per file"}
-{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/dlsite","source":"https://www.dlsite.com/circle/circle/webup","value":"per-object-cap 10 GB"}
+{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/dlsite","source":"https://www.dlsite.com/circle/circle/webup","value":"10GBまで"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/fileaxa","source":"https://fileaxa.com/premium.html","value":"10 GB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/filelu","source":"https://filelu.com/pricing/","value":"10 GB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/filemail-basic","source":"https://www.filemail.com/plans/basic","value":"per-object-cap 5 GB"}
@@ -3277,7 +3282,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/internet-archive","source":"https://help.archive.org/help/uploading-tips/","value":"500 GB of data or 1,000 files per item recommended; bulk-upload guidance says 500 files or 500 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/krakenfiles","source":"https://krakenfiles.com/","value":"500 MB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/macaulay-library-ebird","source":"https://support.ebird.org/en/support/solutions/articles/48001064551-using-and-requesting-media","value":"500 MB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/materials-cloud-archive","source":"https://archive.materialscloud.org/information","value":"Per-object-cap 5 GB"}
+{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/materials-cloud-archive","source":"https://archive.materialscloud.org/information","value":"5 GB for general materials science research data"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/mcp-gd-mcp-native-object-storage-for-agents","source":"https://mcp.gd/","value":"100GB per file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/mediafire","source":"https://www.mediafire.com/","value":"4 GB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/moddb","source":"https://www.moddb.com/forum/thread/how-to-upload-a-bigger-file-to-moddbcom","value":"4,000 MB per file"}
@@ -3302,7 +3307,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/skool-native-video-hosting","source":"https://www.skool.com/educate/native-video-hosting-is-here","value":"30 GB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/snap-store","source":"https://forum.snapcraft.io/t/snap-package-file-size-limit-on-the-store/37450","value":"per-object-cap: not documented, empirically ~1.7 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/temp-sh","source":"https://temp.sh/","value":"4 GB/file"}
-{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/timvisee-send-instances","source":"https://github.com/timvisee/send-instances/blob/master/README.md","value":"per-object-cap: the table's Size limit column (2.5 GiB"}
+{"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/timvisee-send-instances","source":"https://github.com/timvisee/send-instances/blob/master/README.md","value":"250GiB on send.skylerszijjarto.com"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/tmpfiles-org","source":"https://tmpfiles.org/","value":"100 MB/file"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/transferxl","source":"https://www.transferxl.com/","value":"per-object-cap 5 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":1,"rid":"storage/ultralytics-hub-ultralytics-platform","source":"https://www.ultralytics.com/plans","value":"50 GB per upload"}
@@ -3337,7 +3342,7 @@
 {"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/surge-sh","source":"https://surge.sh/docs/cli/publishing","value":"no per-file cap documented but it inherits the project cap"}
 {"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/swisstransfer","source":"https://www.infomaniak.com/en/support/faq/2929/understanding-swisstransfer-data-limits","value":"per-object-cap: 50 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/telegram-mtproto-user-account-unlimited-channels-as-the","source":"https://telegram.org/faq","value":"Per-file 2 GB"}
-{"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"file size ceiling well above 200 MB"}
+{"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/turbobit","source":"https://turbobit.net/?site_version=normal","value":"unverified: no per-file size cap stated on https://turbobit.net/?site_version=normal"}
 {"is_binding":1,"kind":"per-object-cap","ord":2,"rid":"storage/wormhole","source":"https://wormhole.app/faq","value":"per-object-cap: 5 GB"}
 {"is_binding":1,"kind":"per-object-cap","ord":3,"rid":"storage/aws-codeartifact","source":"https://aws.amazon.com/codeartifact/pricing/","value":"5 GB max per asset"}
 {"is_binding":1,"kind":"per-object-cap","ord":3,"rid":"storage/sendgb","source":"https://www.sendgb.com/llms.txt","value":"per-object-cap: 5 GB"}
@@ -3362,7 +3367,6 @@
 {"is_binding":1,"kind":"pull-count","ord":1,"rid":"debrid/hotdebrid","source":"https://www.hotdebrid.com/","value":"up to 8 premium links per day per user ('At the moment')"}
 {"is_binding":1,"kind":"pull-count","ord":1,"rid":"debrid/puffbin-com","source":"https://puffbin.com/","value":"1 when burn-after-reading is set"}
 {"is_binding":1,"kind":"pull-count","ord":1,"rid":"debrid/sto-care","source":"https://sto.care/blog/file-io-alternative/","value":"10 downloads per link (vendor claim)"}
-{"is_binding":1,"kind":"pull-count","ord":2,"rid":"storage/crates-io","source":"https://doc.rust-lang.org/cargo/reference/publishing.html","value":"1000 downloads/month"}
 {"is_binding":1,"kind":"pull-count","ord":4,"rid":"debrid/simply-debrid","source":"https://simply-debrid.com/faq","value":"three source links a day on sites marked Free"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/appcircle-starter","source":"https://appcircle.io/pricing","value":"20 builds per month on Starter"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ci-cd-runners/circleci-free","source":"https://circleci.com/pricing/","value":"30,000 credits a month on Free; every credit expires at the end of the month"}
@@ -3869,9 +3873,10 @@
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"ip-proxy/proxyscrape-free-list","source":"https://api.proxyscrape.com/v4/free-proxy-list/get","value":"2,000 rows per response on format=text, against the page's claim of 20,000+ live proxies: the body was exactly 2,000 lines"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"netdisk-pan/crt-sh-alist-openlist-ct-channel","source":"https://crt.sh/?q=alist.%25&output=json","value":"a single wildcard query alist.%25 returned a truncated result set (the four known hosts alist.qsesvick.top, alist.tianmoy.cn, alist.shenzjd.com and alist.jiejingfan.vip were all missing from it) and crt.sh answered 502, 404 or no reply on many attempts; one query per next character, retried, was needed"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"netdisk-pan/danubedata-storage-share","source":"https://docs.danubedata.ro/storage-share","value":"50, 100 or 200 concurrent connections depending on the profile"}
-{"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/airtable-attachment-fields","source":"https://support.airtable.com/docs/airtable-plans","value":"33 uploads/day"}
+{"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/airtable-attachment-fields","source":"https://support.airtable.com/docs/airtable-plans","value":"1000 API calls per workspace per month"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/cloud-firestore","source":"https://firebase.google.com/docs/firestore/quotas","value":"20,000 writes/day"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/common-crawl","source":"https://commoncrawl.org/faq","value":"the CDXJ API on index.commoncrawl.org is heavily rate limited; an IP address that sends too many requests may be blocked, and a blocked IP address should wait 24 hours"}
+{"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/crates-io","source":"https://crates.io/docs/rate-limits","value":"1 new crate every 10 minutes after a burst of 5 new crates"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/hostens-storage-vps","source":"https://help.hostens.com/en/articles/312057-","value":"disk I/O capped at 50 MB/s and 200 IOPS on storage servers since 4 May 2026"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/item-metadata-api-as-free-key-value-json-store","source":"https://archive.org/developers/md-write.html","value":"unverified: writes are tasks limited per user over a period, HTTP 429 Too Many Requests at the threshold; the threshold is not published"}
 {"is_binding":1,"kind":"request-rate","ord":0,"rid":"storage/mapillary","source":"https://blog.mapillary.com/update/2024/07/08/expanding-public-street-level-imagery-access.html","value":"50,000 requests/minute"}
@@ -4019,6 +4024,7 @@
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"inference/ovh-ai-endpoints","source":"https://docs.ovhcloud.com/en/guides/public-cloud/ai-machine-learning/ai-endpoints-capabilities","value":"anonymous: 2 requests per minute, per IP and per model; with an API access key: 400 requests per minute, per Public Cloud project and per model; 429 above the limit"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"netdisk-pan/115-team-drive-rental","source":"https://www.nodeseek.com/post-963458-1","value":"750 GB per day upload per drive; 2.5 TB per day for a whole rented domain"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"storage/common-crawl","source":"https://status.commoncrawl.org/","value":"under load the bucket answers 503 Slow Down to every caller; whole-file downloads recover when retried no more than once per second, index lookups and byte-range reads of single captures do not"}
+{"is_binding":1,"kind":"request-rate","ord":1,"rid":"storage/crates-io","source":"https://crates.io/docs/rate-limits","value":"1 new version per minute after a burst of 30 new versions"}
 {"is_binding":1,"kind":"request-rate","ord":1,"rid":"storage/mapillary","source":"https://blog.mapillary.com/update/2024/07/08/expanding-public-street-level-imagery-access.html","value":"50,000 requests/DAY"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/github-actions-private","source":"https://docs.github.com/en/actions/reference/limits","value":"20 concurrent jobs on Free"}
 {"is_binding":1,"kind":"request-rate","ord":2,"rid":"ci-cd-runners/harness-ci-free","source":"https://developer.harness.io/continuous-integration/troubleshooting-and-resources/ci-subscription-mgmt","value":"Harness Cloud concurrent stages on Free: Linux 20, Windows 1, macOS 1"}
@@ -4233,18 +4239,18 @@
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"netdisk-pan/samsung-cloud-storage","source":"https://www.androidcentral.com/samsung-cloud-users-have-until-september-30-migrate-data-onedrive","value":"the storage product was discontinued and migrated to OneDrive by 2021-09-30"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"netdisk-pan/seven-so-cloud","source":"https://cloud.7so.top/api/v3/site/config","value":"the service is shutting down and registration is disabled"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/aws-free-tier-s3","source":"https://aws.amazon.com/free/","value":"expire at 6 months"}
-{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/bitrix24-free","source":"https://www.bitrix24.com/prices/","value":"Retention: 'inactive Free accounts may be deleted after 40 days"}
+{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/bitrix24-free","source":"https://www.bitrix24.com/about/blogs/bitrix24-free-plan-everything-you-need-to-start-and-scale.php","value":"inactive Free accounts may be deleted after 40 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/blossom-blob-servers","source":"https://blossom.nostr.build/","value":"deleted after 60 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/circleci-artifacts","source":"https://circleci.com/docs/guides/optimize/artifacts/","value":"retention default AND maximum is 30 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/comet-ml-artifact-dataset-management","source":"https://www.comet.com/site/pricing/","value":"Retention is the killer: 60 days"}
-{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/disposable-mail-providers-as-storage","source":"https://mail.tm/en/faq/","value":"mail.tm stores incoming messages for 7 days"}
+{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/disposable-mail-providers-as-storage","source":"https://mail.tm/en/faq/","value":"We store messages for 7 days only. Sorry, we can't keep them indefinitely."}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/docdroid","source":"https://www.docdroid.com/apidocs","value":"deleted after 60 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/doodstream","source":"https://doodstream.com/","value":"inactive videos of free users are removed after 60 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/fedora-copr","source":"https://docs.copr.fedorainfracloud.org/user_documentation/","value":"deleted after 14 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/fil-one","source":"https://www.fil.one/pricing/","value":"retention: 30 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/filebin","source":"https://filebin.net/","value":"expire 6 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/github-actions-artifacts","source":"https://docs.github.com/en/billing/concepts/product-billing/github-actions","value":"Retention: default 90 days"}
-{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/gofile","source":"https://gofile.io/premium","value":"deleted after 10 days"}
+{"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/gofile","source":"https://gofile.io/premium","value":"Content is kept for 10 days of inactivity, and stays longer as long as it keeps being downloaded."}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/google-cloud-shell","source":"https://docs.cloud.google.com/shell/docs/quotas-limits","value":"deleted after 120 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/ibm-cloud-object-storage-standard-plan-free-tier","source":"https://cloud.ibm.com/objectstorage/create","value":"deleted after 30 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":0,"rid":"storage/icedrive-lifetime-personal-2-tb","source":"https://icedrive.net/lifetime-plans","value":"lifetime page (30 days"}
@@ -4320,14 +4326,13 @@
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"inference/cerebras","source":"https://inference-docs.cerebras.ai/support/rate-limits","value":"the USD 5 of trial credits expire 30 days after they are granted, and API access stops when they run out or expire"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"ip-proxy/monosans-proxy-list","source":"probe:kept-privately","value":"measured churn: 35 of 100 sampled addresses carried a payload at the first check and 21 of 100 22 minutes later, but only 10 of the first 35 worked again, so 29% of a verified working set survived 22 minutes while 25 addresses stopped and 11 started"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"netdisk-pan/nikon-image-space-nikon-imaging-cloud","source":"https://nij.nikon.com/news/products/2026/0825.html","value":"the service was terminated on 2026-10-15 and all stored data is deleted on 2027-04-15 13:00 JST"}
-{"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/bitrix24-free","source":"https://www.bitrix24.com/prices/","value":"deleted after 40 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/circleci-artifacts","source":"https://circleci.com/docs/guides/optimize/artifacts/","value":"retention 30 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/fedora-copr","source":"https://docs.copr.fedorainfracloud.org/user_documentation/","value":"retention: 14 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/filebin","source":"https://filebin.net/","value":"retention from bin creation ('deleted automatically 6 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/icedrive-lifetime-plans","source":"https://icedrive.net/lifetime-plans","value":"lifetime page but 14 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/infinicloud","source":"https://infini-cloud.net/en/pricing.html","value":"expire after 2 years"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/irys","source":"https://docs.irys.xyz/onchain-storage/mainnet-devnet","value":"retention: ~60 days"}
-{"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/mega","source":"https://mega.io/storage","value":"expire after 365 days"}
+{"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/mega","source":"https://mega.io/storage","value":"Achievements are valid for 365 days."}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/mintfile","source":"https://mintfile.com/","value":"Retention max 100 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/sendgb-unlimited-transfers","source":"https://www.sendgb.com/llms.txt","value":"up to 90 days, depending on file size"}
 {"is_binding":1,"kind":"retention-clamped","ord":1,"rid":"storage/upstash","source":"https://upstash.com/pricing/redis","value":"delete at 3 days"}
@@ -4344,7 +4349,7 @@
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"debrid/savefiles","source":"https://savefiles.com/premium","value":"files expire after 12 days with no downloads on Free, 28 days on Premium"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"dev-services/better-stack","source":"https://betterstack.com/pricing","value":"logs, traces and web events retained for 3 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/ddownload","source":"https://ddownload.com/pricing","value":"delete after 7 days without access (app guest account without an email address); 60 days registered; 120 days Ultimate"}
-{"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/ena-webin","source":"https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html","value":"Retention: transit area purged after 2 months"}
+{"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/ena-webin","source":"https://ena-docs.readthedocs.io/en/latest/submit/fileprep/upload.html","value":"While we attempt to remind users of this policy at the 2 months time point we reserve the right to routinely delete any data files that persist in them for more than 2 months."}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/opencsg","source":"https://www.opencsg.com/docs/model/upload_models","value":"Expires=259200. 72 hours."}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/pixeldrain","source":"https://pixeldrain.com/","value":"expire 60 days"}
 {"is_binding":1,"kind":"retention-clamped","ord":2,"rid":"storage/transfer-it","source":"https://transfer.it/","value":"Retention: SERVER CLAMPS EXPIRY TO 90 DAYS"}
@@ -5172,7 +5177,7 @@
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/crawl-scale-free-host-ftp-hosts-storage-share-cloudtb-fb","source":"https://ftpgrid.com/tutorials/ftpgrid-free-tier-overview/","value":"100 MB free storage on the ftpGrid free account; plans that reach the need are priced"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/cubbit-ds3-cloud","source":"https://www.cubbit.io/pricing","value":"1 TB for 30 days on the trial"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/datalix-s3-compatible-object-storage","source":"https://datalix.eu/rent-s3-compatible-objectstorage","value":"100 TB per account"}
-{"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/datalix-s3-object-storage","source":"https://datalix.de/s3-kompatibler-objectstorage-mieten","value":"100 TB per account"}
+{"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/datalix-s3-object-storage","source":"https://datalix.de/s3-kompatibler-objectstorage-mieten","value":"Bis zu 100 TB pro Account"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/dataone-hosted-repository-the-price-anchor-for-managed-1","source":"https://www.dataone.org/services/","value":"1 TB repository capacity, expandable in 1 TB increments"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/deepstorage","source":"https://deepstorage.dev/pricing","value":"new uploads: 50 GB a month on Free and 200 GB a month on Community; Community storage is unlimited only while the account is in the Telegram channel, otherwise the cap is 2 TB"}
 {"is_binding":1,"kind":"volume-quota","ord":0,"rid":"storage/degoo","source":"https://degoo.com/","value":"20 GB of cloud space on the free plan"}
@@ -5822,29 +5827,30 @@
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/cloudflare-for-startups-nonprofit-civil-society-track","source":"https://blog.cloudflare.com/expanding-startups-for-nonprofits/","value":"application is declined"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/codeberg-git-lfs","source":"https://blog.codeberg.org/new-storage-limits-on-codeberg-what-you-need-to-know.html","value":"reviewed via a request form that Codeberg itself calls 'hardly scalable'"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/codeberg-pages","source":"https://docs.codeberg.org/getting-started/faq/","value":"review threshold at 750 MiB Git storage and 1"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/csc-fairdata-ida-quota-granted-per-csc-project-funded-fr","source":"https://www.fairdata.fi/en/ida-quotas-by-organisation/","value":"Approval. Two gates, one of them human."}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/csc-fairdata-ida-quota-granted-per-csc-project-funded-fr","source":"https://www.fairdata.fi/en/ida-quotas-by-organisation/","value":"approval by the organisation’s IDA contact person, usually within a few working days"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/ctan","source":"https://www.ctan.org/upload","value":"reviewed by the CTAN team, with extensive packaging rules (TDS layout, no"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/ctan-2","source":"https://www.ctan.org/file/help/ctan/CTAN-upload-addendum","value":"every upload is unpacked and checked by an upload manager (volunteers); TeX packages as a .zip, .tgz or .tar.gz archive"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/curseforge-author-file-hosting","source":"https://support.curseforge.com/en/support/solutions/articles/9000197241-file-size-limits","value":"approved files"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/cyverse-data-store","source":"https://cyverse.org/policies/data","value":"Application, and published data in the Data Commons can be larger. But the free self-serve."}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/dare-dare-uol-de","source":"https://dare.uol.de","value":"uploads are not possible with a default account"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/designsafe-ci-data-depot-no-published-cap-on-published-d","source":"https://designsafe-ci.org/user-guide/curating/faq/","value":"approval"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/designsafe-ci-nheri-data-depot","source":"https://www.designsafe-ci.org/user-guide/curating/policies/","value":"publication accepts natural-hazards research datasets only, and each dataset is curated before it receives a DOI"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/digital-research-alliance-of-canada-1-tb-default-object","source":"https://docs.alliancecan.ca/wiki/Arbutus_object_storage","value":"application, up to a maximum of 40 TB of project storage and 100 TB of nearline storage', w"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/drime","source":"https://www.stacksocial.com/sales/drime-secure-cloud-storage-lifetime-subscription-advanced-plan-10tb","value":"Review. Shortest track record of any vendor here."}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/emergent-ventures-13-worldwide-no-institution-fastest-in","source":"https://mercatus.tfaforms.net/5099527","value":"applications, one 1,500-word proposal, occasional 10-15 minute interview"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/evolution-host-0-00-lifetime-vds-1-tb-nvme-in-exchange-f","source":"https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required","value":"Application reviewed for SEO value"}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/emergent-ventures-13-worldwide-no-institution-fastest-in","source":"https://mercatus.tfaforms.net/5099527","value":"The proposal should be no longer than 1500 words."}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/evolution-host-0-00-lifetime-vds-1-tb-nvme-in-exchange-f","source":"https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required","value":"good SEO value"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/fastly-fast-forward","source":"https://www.fastly.com/fast-forward","value":"review"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/fastly-free-account-fast-forward-oss-programme","source":"https://www.fastly.com/pricing","value":"review of a Google Form application"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/flathub","source":"https://docs.flathub.org/docs/for-app-authors/submission","value":"applications"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/folderfort-free-tier-2-0-pricing","source":"https://folderfort.com/pricing","value":"review"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/gcp-research-credits-programme","source":"https://support.google.com/google-cloud-higher-ed/answer/10724468?hl=en","value":"review"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/hdx-humanitarian-data-exchange","source":"https://docs.humdata.org/publish/publish-data/preparing-and-publishing-data","value":"reviewed by OCHA"}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/hdx-humanitarian-data-exchange","source":"https://docs.humdata.org/publish/publish-data/organizations-on-hdx","value":"All organizations are vetted by the HDX team to ensure they are trusted sources of relevant data."}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/hostbrr-storagebox","source":"https://hostbrr.com/storageboxes.html","value":"reviews over 12+ months reporting positive uptime and speed"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/hpci-shared-storage","source":"https://www.hpci-office.jp/en/using_hpci/hardware_software_resource/2026/hpci_2026_st-1","value":"approval at submission"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/hydroshare","source":"https://help.hydroshare.org/about-hydroshare/policies/quota/","value":"approved subject to system capacity limitations'"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/internxt-lifetime","source":"https://internxt.com/pricing","value":"reviewers report 'Files disappear from time to time' and 'stored files are [gone]'"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/kaggle-dataset-quota-request-program","source":"https://www.kaggle.com/discussions/product-feedback/346049","value":"review, prioritised for datasets of 'general interest to our community and the ML rese"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/lindat-clariah-cz-dspace-language-data-repository","source":"https://lindat.cz/faq-repository","value":"review and the >2 GB manual step make it a scripted-assisted path rather than a fire-a"}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/kaggle-dataset-quota-request-program","source":"https://www.kaggle.com/discussions/product-feedback/346049","value":"prioritised for datasets likely to be of general interest to our community and the ML research community"}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/lindat-clariah-cz-dspace-language-data-repository","source":"https://lindat.cz/faq-repository","value":"Only authenticated users can deposit items."}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/morphosource","source":"https://duke.atlassian.net/wiki/spaces/MD/pages/274268722/Data+Deposit+Costs","value":"application-gated"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/ncbi-geo","source":"https://www.ncbi.nlm.nih.gov/geo/info/faq.html","value":"approval step (~5 business days for accession)"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/nci-gadi-g-data-110-pb-persistent-parallel-filesystem-al","source":"https://nci.org.au/users/how-access-nci/adapter-scheme","value":"review"}
@@ -5860,7 +5866,7 @@
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/sciencedb-re-verified-write-path","source":"http://agbigdata.aiijournal.com/EN/Y2025/V7/I2/193","value":"reviewed comparison of Zenodo and ScienceDB in Journal of Agricultural Big Data states i"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/shuttleworth-foundation-fellowship-individual-no-organis","source":"https://www.shuttleworthfoundation.org/fellows/","value":"Application needs a 5-minute video and a CV"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/steam-workshop","source":"https://arma3.com/workshop101","value":"review images go through a separate Steam Cloud quota"}
-{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/tcia","source":"https://www.cancerimagingarchive.net/primary-data/","value":"review, signed non-negotiable Data Submission Agreement, 'a few months' to complete"}
+{"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/tcia","source":"https://www.cancerimagingarchive.net/primary-data/","value":"Applications are reviewed quarterly by the TCIA Advisory Group to assess their utility to the TCIA user community."}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/telegram-public-channel-web-cdn-anonymous-reads","source":"https://t.me/s/telegram","value":"review of a channel yields directly-fetchable media URLs for every photo and video pos"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/veilid","source":"https://veilid.com/how-it-works/networking/","value":"applications running veilid-core are nodes, and they are all equal in the eyes of the netwo"}
 {"is_binding":1,"kind":"write-gated","ord":0,"rid":"storage/zooniverse","source":"https://help.zooniverse.org/getting-started/lab-policies/","value":"review and a one-week beta before launch"}

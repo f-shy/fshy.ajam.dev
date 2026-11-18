@@ -5,12 +5,12 @@
   "url": "https://www.microsoft.com/en-us/nonprofits/azure",
   "category": "iaas",
   "free_tier": {
-    "stated": "$2,000 (USD) in donated Azure services credits per year, renewable. Not a byte quota. A credit grant usable against 'the complete portfolio of Azure products and cloud services', which includes Blob Storage / Data Lake Storage Gen2 / Azure Files.",
+    "stated": "Leverage $2,000 (USD) donated Azure services credits per year and access the complete portfolio of Azure products and cloud services.",
     "unit": "mixed",
     "metered_on": "stored-bytes",
     "source_url": "https://learn.microsoft.com/en-us/industry/nonprofit/microsoft-for-nonprofits/renew-azure-grant",
-    "read_on": "2026-10-21",
-    "notes": null
+    "read_on": "2026-11-09",
+    "notes": "All Azure Sponsorships renew at $2,000 USD per year."
   },
   "per_object_cap": {
     "stated": "per-object-cap: Blob block blob max ~190.7 TiB",
@@ -45,12 +45,12 @@
   "limits_note": "Per-object-cap: Blob block blob max ~190.7 TiB, single PUT 5,000 MiB. Not the constraint. The constraint is budget: the grant is a spend cap, and any per-GB/month rate times 10 TiB must fit inside $2,000/yr. request-rate: standard storage account limits (20,000 IOPS-class). retention: balance expires at the annual renewal date; 'Early consumption of the $2,000 balance does not trigger or permit early renewal'.",
   "identity_cost": {
     "kind": "card",
-    "detail": null,
+    "detail": "Add a valid payment method (a credit card is required for verification and to cover any overages).",
     "country": null
   },
   "reliability_note": "Missing the renewal window silently converts the subscription to pay-as-you-go and starts charging the payment instrument on file. A real cost hazard, not a data-loss hazard.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Leverage $2,000 (USD) donated Azure services credits per year and access the complete portfolio of Azure products and cloud services.",
   "evidence": [
     {
       "url": "https://www.microsoft.com/en-us/nonprofits/azure",
@@ -66,10 +66,31 @@
       "url": null,
       "date": "2026-10-21",
       "proved": "Do not treat any TB conversion as verified."
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/nonprofits/azure",
+      "date": "2026-11-09",
+      "proved": "the nonprofit page states $2,000 USD in donated Azure credits per year",
+      "capture": "sha256:56ffd019358baf8f02dfbb3d0920b4debaaa78920525de2dc4c91a3cabb3b336",
+      "quote": "Leverage $2,000 (USD) donated Azure services credits per year and access the complete portfolio of Azure products and cloud services."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/industry/nonprofit/microsoft-for-nonprofits/renew-azure-grant",
+      "date": "2026-11-09",
+      "proved": "the renewal page states every Azure Sponsorship renews at $2,000 USD per year",
+      "capture": "sha256:7e935a93c7549f74985873aae935a590f31cbe98fb419897383f0ebd402f9159",
+      "quote": "All Azure Sponsorships renew at $2,000 USD per year."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/industry/nonprofit/microsoft-for-nonprofits/renew-azure-grant",
+      "date": "2026-11-09",
+      "proved": "a credit card is required as the payment method and for verification",
+      "capture": "sha256:7e935a93c7549f74985873aae935a590f31cbe98fb419897383f0ebd402f9159",
+      "quote": "Add a valid payment method (a credit card is required for verification and to cover any overages)."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:25.164Z",
   "notes": "$2,000 (USD) in donated Azure services credits per year, renewable. Not a byte quota. A credit grant usable against 'the complete portfolio of Azure products and cloud services', which includes Blob Storage / Data Lake Storage Gen2 / Azure Files.",
   "extras": {},
   "binding": "per-object-cap",

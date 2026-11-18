@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
+    "stated": "291 MB per track",
     "source_url": "https://get.bandcamp.help/en/articles/15263336-what-s-the-maximum-upload-size",
     "notes": "not stated"
   },
@@ -57,10 +57,17 @@
       "url": "https://get.bandcamp.help/en/articles/15263341-what-is-the-maximum-video-upload-size",
       "date": "2026-10-21",
       "proved": "'The max upload size for videos is 500MB' (paid tier)"
+    },
+    {
+      "url": "https://get.bandcamp.help/en/articles/15263336-what-s-the-maximum-upload-size",
+      "date": "2026-11-09",
+      "proved": "the help article states a 291 MB per-track upload limit to start",
+      "capture": "sha256:35003fe92ef15eacc051d0ec03c85bc9c01091c4f6541ac1ae9074f25c9ef987",
+      "quote": "It starts out at 291MB per track, which is of course the exact size of “Inamorata and Narration by Conrad Roberts” from side 4 of Miles Davis’ Live-Evil (assuming we’re talking 16/44.1, which we always are)."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:10.189Z",
   "notes": "291 MB per track to start ('It starts out at 291MB per track .. Once you've made a few sales through Bandcamp (totaling $20 USD or more), we increase the max per-track upload size to 600 megs'), and crucially 'There is no limit on the size of albums'. So total capacity is unbounded at 291 MB x unlimited tracks.",
   "extras": {},
   "binding": "none",

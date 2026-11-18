@@ -66,12 +66,75 @@
       "url": "probe:https://pp.591meta.com/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": "the fs/list response carries this error text",
+      "capture": "sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c",
+      "quote": "\"list_failure\": \"HTTP 520 on /api/fs/list with an empty body\""
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": "this run's probe found no listing, so the count is one",
+      "capture": "sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c",
+      "quote": "\"consecutive_failures\": 1"
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": "the settings endpoint answered HTTP 200 while the listing did not",
+      "capture": "sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c",
+      "quote": "\"status\": 200"
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": "\"checked_at\": \"2026-11-11T01:56:23.251Z\""
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": "\"listing_sha256\": \"e715d3d0\""
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": null
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": "the root listing answered with this entry count and hash",
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": "\"listing_note\": \"anonymous POST /api/fs/list on / returned code 200 with 26 root entries (listing sha256 e715d3d0)\""
+    },
+    {
+      "url": "probe:https://pp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075",
+      "quote": null
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T02:04:47.986Z",
   "binding": "per-ip-shaping",
-  "notes": "Maintained under the same infrastructure as p.591meta.com. Directory listings vary by one dynamic entry across requests, reflecting a shared active package catalogue.",
+  "notes": "anonymous POST /api/fs/list on / returned code 200 with 26 root entries (listing sha256 e715d3d0)",
   "extras": {
     "access_mode": "public-instance",
     "read_capability": "full",
@@ -82,10 +145,11 @@
     "write_content_bypass": null,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "6fb4c929",
+    "listing_sha256": "e715d3d0",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T01:56:23.251Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

@@ -61,10 +61,45 @@
       "url": "probe:https://ppp.591meta.com/api/fs/list",
       "date": "2026-10-22",
       "proved": "anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown"
+    },
+    {
+      "url": "probe:https://ppp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:12.298Z\""
+    },
+    {
+      "url": "probe:https://ppp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e",
+      "quote": "\"listing_sha256\": \"e715d3d0\""
+    },
+    {
+      "url": "probe:https://ppp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e",
+      "quote": null
+    },
+    {
+      "url": "probe:https://ppp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e",
+      "quote": null
+    },
+    {
+      "url": "probe:https://ppp.591meta.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e",
+      "quote": "\"alive\": true"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T01:37:29.309Z",
   "binding": "per-ip-shaping",
   "notes": "Additional hostname on the 591meta infrastructure. Responded to API calls and returned the same 26 package entries.",
   "extras": {
@@ -77,10 +112,11 @@
     "write_content_bypass": null,
     "permission_bitmask": null,
     "base_path": "/",
-    "listing_sha256": "53eb1f51",
+    "listing_sha256": "e715d3d0",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:12.298Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

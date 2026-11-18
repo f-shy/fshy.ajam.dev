@@ -8,11 +8,9 @@
 {"best_vorder":0,"domain":"allratestoday.com","eid":"allratestoday","n_records":2,"name":"AllRatesToday","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"allsync.com","eid":"allsync","n_records":1,"name":"Allsync","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":0,"domain":"alphavps.com","eid":"alphavps","n_records":5,"name":"AlphaVPS","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
-{"best_vorder":0,"domain":"amazon.com","eid":"amazon","n_records":52,"name":"AWS","resolved_by":"domain","review":null,"topics":"compute,databases-kv,egress,email,netdisk-pan,storage"}
 {"best_vorder":0,"domain":"apibay.org","eid":"apibay","n_records":1,"name":"APIBay","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"arena.ne.jp","eid":"arena","n_records":2,"name":"WebARENA Indigo","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":0,"domain":"audius.co","eid":"audius","n_records":1,"name":"Audius","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":0,"domain":"aussda.at","eid":"aussda","n_records":2,"name":"AUSSDA Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"avxhm.se","eid":"avxhm","n_records":1,"name":"AvaxHome","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"azure.com","eid":"azure","n_records":2,"name":"Microsoft Azure","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":0,"domain":"azvps.vn","eid":"azvps","n_records":1,"name":"AZVPS","resolved_by":"domain","review":null,"topics":"compute"}
@@ -24,7 +22,6 @@
 {"best_vorder":0,"domain":"bls.gov","eid":"bls-gov","n_records":1,"name":"BLS Public Data API","resolved_by":"host","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"bolt.new","eid":"bolt","n_records":3,"name":"Bolt","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":0,"domain":"branchable.com","eid":"branchable","n_records":4,"name":"git-annex","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":0,"domain":"bsc.es","eid":"bsc","n_records":1,"name":"BSC Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"c-servers.co.uk","eid":"c-servers","n_records":6,"name":"C-Servers","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":0,"domain":"cline.bot","eid":"cline","n_records":1,"name":"Cline","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":0,"domain":"cloudcone.com","eid":"cloudcone","n_records":5,"name":"CloudCone","resolved_by":"domain","review":null,"topics":"compute"}
@@ -38,13 +35,11 @@
 {"best_vorder":0,"domain":"context.dev","eid":"context","n_records":1,"name":"Context.dev","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
 {"best_vorder":0,"domain":"country.is","eid":"country","n_records":1,"name":"Country","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"cron-job.org","eid":"cron-job","n_records":1,"name":"cron-job.org","resolved_by":"domain","review":null,"topics":"dev-services"}
-{"best_vorder":0,"domain":"crossda.hr","eid":"crossda","n_records":1,"name":"CROSSDA","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"crossref.org","eid":"crossref","n_records":2,"name":"Crossref REST","resolved_by":"domain","review":null,"topics":"data-apis,debrid"}
 {"best_vorder":0,"domain":"danubedata.ro","eid":"danubedata","n_records":1,"name":"DanubeData Storage Share","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":0,"domain":"datalix.de","eid":"datalix","n_records":4,"name":"Datalix","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":0,"domain":"datalix.eu","eid":"datalix-2","n_records":1,"name":"Datalix S3-compatible Object Storage","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"dataverse.harvard.edu","eid":"dataverse-harvard-edu","n_records":2,"name":"Harvard Dataverse","resolved_by":"host","review":null,"topics":"storage"}
-{"best_vorder":0,"domain":"dataverse.lv","eid":"dataverse-2","n_records":1,"name":"DataverseLV","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"db-ip.com","eid":"db-ip","n_records":1,"name":"DB-IP","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"debridmediamanager.com","eid":"debridmediamanager","n_records":2,"name":"Debrid Media","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"dedirock.com","eid":"dedirock","n_records":9,"name":"DediRock","resolved_by":"domain","review":null,"topics":"compute,egress"}
@@ -206,7 +201,6 @@
 {"best_vorder":0,"domain":"unblockmaster.com","eid":"unblockmaster","n_records":1,"name":"Unblock Master IP","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"unpaywall.org","eid":"unpaywall","n_records":1,"name":"Unpaywall","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"unpkg.com","eid":"unpkg","n_records":1,"name":"unpkg","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":0,"domain":"uol.de","eid":"uol","n_records":1,"name":"DARE","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"uploady.io","eid":"uploady","n_records":1,"name":"Uploady.io","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"upstash.com","eid":"upstash","n_records":6,"name":"Upstash","resolved_by":"domain","review":null,"topics":"compute,databases-kv,storage"}
 {"best_vorder":0,"domain":"upzur.com","eid":"upzur","n_records":2,"name":"UpZur Premium","resolved_by":"domain","review":null,"topics":"storage"}
@@ -227,7 +221,6 @@
 {"best_vorder":0,"domain":null,"eid":"internet-archive","n_records":1,"name":"Internet Archive","resolved_by":"name","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":null,"eid":"internet-archive-wayback-machine","n_records":1,"name":"Internet Archive Wayback Machine","resolved_by":"name","review":null,"topics":"crawler-scraper"}
 {"best_vorder":1,"domain":"110014.xyz","eid":"110014","n_records":1,"name":"电喵科技","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
-{"best_vorder":1,"domain":"123pan.com","eid":"123pan","n_records":1,"name":"123pan","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"1cloudfile.com","eid":"1cloudfile","n_records":1,"name":"1Cloud File","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"1yunpan.com","eid":"1yunpan","n_records":1,"name":"1yunpan","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"20237737.xyz","eid":"20237737","n_records":2,"name":"七十二时","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -267,6 +260,7 @@
 {"best_vorder":1,"domain":"alphai.io","eid":"alphai","n_records":1,"name":"AlphAI","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"alphavantage.co","eid":"alphavantage","n_records":1,"name":"Alpha Vantage","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"althub.co.za","eid":"althub","n_records":1,"name":"altHUB","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"amazon.com","eid":"amazon","n_records":52,"name":"AWS","resolved_by":"domain","review":null,"topics":"compute,databases-kv,egress,email,netdisk-pan,storage"}
 {"best_vorder":1,"domain":"amd.com.cn","eid":"amd-2","n_records":1,"name":"AMD Radeon Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"amika.dev","eid":"amika","n_records":1,"name":"Amika","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"amplitude.com","eid":"amplitude","n_records":1,"name":"Amplitude","resolved_by":"domain","review":null,"topics":"dev-services"}
@@ -303,6 +297,7 @@
 {"best_vorder":1,"domain":"atlascloud.ai","eid":"atlascloud","n_records":1,"name":"Atlas Cloud open","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"atlassian.com","eid":"atlassian","n_records":8,"name":"Jira Cloud Free","resolved_by":"domain","review":"mixed-names","topics":"compute,storage"}
 {"best_vorder":1,"domain":"audiomack.com","eid":"audiomack","n_records":1,"name":"Audiomack","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"aussda.at","eid":"aussda","n_records":2,"name":"AUSSDA Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"auth0.com","eid":"auth0","n_records":1,"name":"Auth0","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"awardspace.com","eid":"awardspace","n_records":1,"name":"AwardSpace","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"axelera.ai","eid":"axelera","n_records":1,"name":"Axelera AI Voyager","resolved_by":"domain","review":null,"topics":"compute"}
@@ -342,6 +337,7 @@
 {"best_vorder":1,"domain":"browseract.com","eid":"browseract","n_records":1,"name":"BrowserAct","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"browsercloud.io","eid":"browsercloud","n_records":1,"name":"BrowserCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"browserless.io","eid":"browserless","n_records":2,"name":"Browserless","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
+{"best_vorder":1,"domain":"bsc.es","eid":"bsc","n_records":1,"name":"BSC Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"buddy.works","eid":"buddy","n_records":1,"name":"Buddy Sandboxes","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"bugfender.com","eid":"bugfender","n_records":1,"name":"Bugfender","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"buildkite.com","eid":"buildkite","n_records":4,"name":"Buildkite","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,storage"}
@@ -416,6 +412,7 @@
 {"best_vorder":1,"domain":"createos.sh","eid":"createos","n_records":1,"name":"CreateOS Sandbox","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"crocky.host","eid":"crocky","n_records":1,"name":"CrockyHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"cronitor.io","eid":"cronitor","n_records":1,"name":"Cronitor","resolved_by":"domain","review":null,"topics":"dev-services"}
+{"best_vorder":1,"domain":"crossda.hr","eid":"crossda","n_records":1,"name":"CROSSDA","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"crt.sh","eid":"crt","n_records":1,"name":"crt.sh certificate transparency search","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"cruma.io","eid":"cruma","n_records":1,"name":"Cruma","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"csdn.net","eid":"csdn","n_records":1,"name":"CANN points mall","resolved_by":"domain","review":null,"topics":"compute"}
@@ -442,6 +439,7 @@
 {"best_vorder":1,"domain":"datalad.org","eid":"datalad","n_records":1,"name":"DataLad + git-annex workflow","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"datalayer.io","eid":"datalayer","n_records":1,"name":"Datalayer Runtimes","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"datavaults.co","eid":"datavaults","n_records":1,"name":"Data Vaults","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"dataverse.lv","eid":"dataverse-2","n_records":1,"name":"DataverseLV","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"daytona.io","eid":"daytona","n_records":3,"name":"Daytona","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"ddlbase.com","eid":"ddlbase","n_records":1,"name":"DDLBase","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"debian.org","eid":"debian","n_records":3,"name":"Debian","resolved_by":"domain","review":null,"topics":"storage"}
@@ -882,7 +880,6 @@
 {"best_vorder":1,"domain":"nomic.ai","eid":"nomic","n_records":1,"name":"Nomic","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"nopremium.pl","eid":"nopremium","n_records":1,"name":"NoPremium.pl","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"nordvpn.com","eid":"nordvpn","n_records":2,"name":"NordVPN","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
-{"best_vorder":1,"domain":"nostrmedia.com","eid":"nostrmedia","n_records":1,"name":"nostrmedia.com","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"notion.com","eid":"notion","n_records":2,"name":"notion","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"notte.cc","eid":"notte","n_records":2,"name":"Notte","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"nousresearch.com","eid":"nousresearch","n_records":1,"name":"Nous Portal","resolved_by":"domain","review":null,"topics":"inference"}
@@ -1259,6 +1256,7 @@
 {"best_vorder":1,"domain":"uni-lj.si","eid":"uni-lj","n_records":1,"name":"University of Ljubljana ADP Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"unirateapi.com","eid":"unirateapi","n_records":2,"name":"UniRateAPI public","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"unsandbox.com","eid":"unsandbox","n_records":1,"name":"unsandbox","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"uol.de","eid":"uol","n_records":1,"name":"DARE","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"up2sha.re","eid":"up2sha","n_records":1,"name":"Up2Share","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"upload.am","eid":"upload","n_records":1,"name":"upload.am","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"uploadflix.com","eid":"uploadflix","n_records":1,"name":"UploadFlix","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1302,7 +1300,6 @@
 {"best_vorder":1,"domain":"vpngate.net","eid":"vpngate","n_records":1,"name":"VPN Gate","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":1,"domain":"vultr.com","eid":"vultr","n_records":7,"name":"Vultr","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":1,"domain":"vx365.vip","eid":"vx365","n_records":1,"name":"vx365.vip","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
-{"best_vorder":1,"domain":"vyuyun.com","eid":"vyuyun","n_records":1,"name":"微雨云网盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"waifly.com","eid":"waifly","n_records":1,"name":"Waifly","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"wap.ac","eid":"wap","n_records":2,"name":"wap.ac","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"warp.dev","eid":"warp","n_records":4,"name":"Warp","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
@@ -1921,6 +1918,7 @@
 {"best_vorder":3,"domain":"nodemach.com","eid":"nodemach","n_records":1,"name":"NodeMach","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"nodus-compute.ai","eid":"nodus-compute","n_records":1,"name":"Nodus Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"nolimithost.cc","eid":"nolimithost","n_records":1,"name":"NolimitHost","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"nostrmedia.com","eid":"nostrmedia","n_records":1,"name":"nostrmedia.com","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"novanode.eu","eid":"novanode","n_records":1,"name":"NovaNode IP Tunnel","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"nuxoa.de","eid":"nuxoa","n_records":1,"name":"NUXOA","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"nzbwolf.com","eid":"nzbwolf","n_records":1,"name":"nzbwolf","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -2227,6 +2225,7 @@
 {"best_vorder":3,"domain":null,"eid":"spinservers","n_records":1,"name":"SpinServers","resolved_by":"name","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":null,"eid":"webhorizon","n_records":1,"name":"WebHorizon","resolved_by":"name","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":null,"eid":"zade-servers","n_records":1,"name":"Zade_Servers","resolved_by":"name","review":null,"topics":"compute"}
+{"best_vorder":4,"domain":"123pan.com","eid":"123pan","n_records":1,"name":"123pan","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":4,"domain":"139.com","eid":"139","n_records":1,"name":"China Mobile Cloud","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":4,"domain":"1517fund.com","eid":"1517fund","n_records":1,"name":"1517 Medici Project","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"189.cn","eid":"189","n_records":1,"name":"Tianyi Cloud Drive","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -3135,6 +3134,7 @@
 {"best_vorder":6,"domain":"veilid.com","eid":"veilid","n_records":1,"name":"Veilid","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"viber.com","eid":"viber","n_records":2,"name":"viber business","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"vidyard.com","eid":"vidyard","n_records":1,"name":"Vidyard","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":6,"domain":"vyuyun.com","eid":"vyuyun","n_records":1,"name":"微雨云网盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":6,"domain":"waiwang.men","eid":"waiwang","n_records":1,"name":"WaiWang.Men","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":6,"domain":"walrus.xyz","eid":"walrus","n_records":2,"name":"Walrus Console","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"wandb.ai","eid":"wandb","n_records":1,"name":"Weights & Biases","resolved_by":"domain","review":null,"topics":"storage"}

@@ -61,10 +61,45 @@
       "url": "probe:https://alist.shenzjd.com/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://alist.shenzjd.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:4955e230d93a1af81d14f00de819f335157f6a0cdfb8eb730869dee3f8e26479",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.shenzjd.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:4955e230d93a1af81d14f00de819f335157f6a0cdfb8eb730869dee3f8e26479",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.shenzjd.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:4955e230d93a1af81d14f00de819f335157f6a0cdfb8eb730869dee3f8e26479",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://alist.shenzjd.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:4955e230d93a1af81d14f00de819f335157f6a0cdfb8eb730869dee3f8e26479",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:01.882Z\""
+    },
+    {
+      "url": "probe:https://alist.shenzjd.com/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:4955e230d93a1af81d14f00de819f335157f6a0cdfb8eb730869dee3f8e26479",
+      "quote": "\"listing_sha256\": \"773158e3\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:23.906Z",
   "binding": "write-gated",
   "notes": "3 root entries on AList v4.2.6; advertises write:true on one mount and denies the oracle.",
   "extras": {
@@ -77,10 +112,11 @@
     "write_content_bypass": false,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "24c26aa0",
+    "listing_sha256": "773158e3",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:01.882Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

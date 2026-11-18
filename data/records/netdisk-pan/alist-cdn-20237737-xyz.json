@@ -66,10 +66,45 @@
       "url": "probe:https://alist-cdn.20237737.xyz/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://alist-cdn.20237737.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:350c19a7b4f65afb44e0743bb05ac106d6aa8aae95cc676d219e0f17483a18ce",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist-cdn.20237737.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:350c19a7b4f65afb44e0743bb05ac106d6aa8aae95cc676d219e0f17483a18ce",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist-cdn.20237737.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:350c19a7b4f65afb44e0743bb05ac106d6aa8aae95cc676d219e0f17483a18ce",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://alist-cdn.20237737.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:350c19a7b4f65afb44e0743bb05ac106d6aa8aae95cc676d219e0f17483a18ce",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:01.875Z\""
+    },
+    {
+      "url": "probe:https://alist-cdn.20237737.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:350c19a7b4f65afb44e0743bb05ac106d6aa8aae95cc676d219e0f17483a18ce",
+      "quote": "\"listing_sha256\": \"1c50d65f\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:23.905Z",
   "binding": "per-ip-shaping",
   "notes": "Edge-fronted hostname for instance 20237737. It advertised write permission while rejecting zero-byte test uploads, and failed to answer API requests on one of two verification runs on 2026-10-22.",
   "extras": {
@@ -82,13 +117,14 @@
     "write_content_bypass": false,
     "permission_bitmask": "1280",
     "base_path": "/",
-    "listing_sha256": "13295918",
+    "listing_sha256": "1c50d65f",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:01.875Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "aliases": [
       "七十二时.的资源站 (alist-cdn.20237737.xyz) — public AList on Alibaba ESA, CDN mirror of a dead primary"
-    ]
+    ],
+    "listing_hash_method": null
   }
 }

@@ -5,7 +5,7 @@
   "url": "https://pulpproject.org/",
   "category": "registry",
   "free_tier": {
-    "stated": "Free open-source (GPL) self-hosted repository server; no quota because there is no vendor. 'Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud.'",
+    "stated": "Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud.",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://pulpproject.org/",
@@ -43,7 +43,7 @@
   },
   "reliability_note": "Very reliable (Red Hat-backed, used by COPR); the cost is operational complexity, not data loss.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud.",
   "evidence": [
     {
       "url": "https://pulpproject.org/",
@@ -54,10 +54,17 @@
       "url": "https://docs.copr.fedorainfracloud.org/user_documentation.html",
       "date": "2026-10-21",
       "proved": "read live: COPR uses a 'Pulp backend', and Pulp's `retain_package_versions` repository setting controls retention — evidence Pulp runs at Fedora scale"
+    },
+    {
+      "url": "https://pulpproject.org/",
+      "date": "2026-11-11",
+      "proved": "the homepage describes Pulp as an open source project for fetching, uploading, organizing and distributing Software Packages on-prem or in the cloud",
+      "capture": "sha256:2424949cda804fafe69907b1589420a86b17e9a3c87533c986fc87d7d1c5b23a",
+      "quote": "Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-11T07:23:05.681Z",
   "notes": "Free open-source (GPL) self-hosted repository server; no quota because there is no vendor. 'Pulp is an open source project that makes it easy for developers to fetch, upload, organize and distribute Software Packages on-prem or in the cloud.'",
   "extras": {},
   "binding": "none",

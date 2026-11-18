@@ -5,20 +5,20 @@
   "url": "https://ttl.sh",
   "category": "anonymous-dump",
   "free_tier": {
-    "stated": "No account, no quota. \"Free forever. Zero sign-up. Push any OCI artifact with a TTL.\" Storage is bounded only by the TTL, max advertised 24 hours.",
+    "stated": "Free forever. Zero sign-up.",
     "unit": "unlimited",
     "metered_on": "stored-bytes",
     "source_url": "https://ttl.sh/",
-    "read_on": "2026-10-21",
+    "read_on": "2026-11-09",
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
+    "stated": "unverified: https://ttl.sh/ states no per-object size cap",
     "source_url": "https://ttl.sh/",
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "Choose your TTL. Default is 1 hour, max is 24 hours.",
     "source_url": "https://ttl.sh/",
     "notes": "not stated"
   },
@@ -43,12 +43,12 @@
   "limits_note": "TTL max 24h advertised (:5m/:1h/:6h/:24h), default 1h. Upload is slow (~11 MB/s observed: 1.5GB in 2m11s), so throughput is the practical per-connection cap. _catalog is blocked by nginx (401), tags/list is open.",
   "identity_cost": {
     "kind": "anonymous",
-    "detail": null,
+    "detail": "Free forever. Zero sign-up.",
     "country": null
   },
   "reliability_note": "Expiry is best-effort: the deployment repo states 'Tag expiry is handled separately and is not yet wired up in this repo', and open issue #151 reports images not expiring. Data WILL vanish at TTL; do not treat as durable. Intermittent connect timeouts observed from this network.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the ttl.sh page states the service is free forever with zero sign-up",
   "evidence": [
     {
       "url": "https://ttl.sh/",
@@ -79,10 +79,24 @@
       "url": "https://github.com/replicatedhq/ttl.sh",
       "date": "2026-10-21",
       "proved": "read live: 'Tag expiry is handled separately and is not yet wired up in this repo'; zot-config.json.j2 confirms S3 driver, dedupe:false, retention delay 1h with deleteUntagged"
+    },
+    {
+      "url": "https://ttl.sh/",
+      "date": "2026-11-09",
+      "proved": "the page states the service is free with no sign-up",
+      "capture": "sha256:5c788d1bab655380f8460ae3ef6d2ae0e58dbb5f2905341276dba6c8bb030d8d",
+      "quote": "Free forever. Zero sign-up."
+    },
+    {
+      "url": "https://ttl.sh/",
+      "date": "2026-11-09",
+      "proved": "the page states the default 1 hour TTL and 24 hour maximum",
+      "capture": "sha256:5c788d1bab655380f8460ae3ef6d2ae0e58dbb5f2905341276dba6c8bb030d8d",
+      "quote": "Choose your TTL. Default is 1 hour, max is 24 hours."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:34.760Z",
   "notes": "No account, no quota. \"Free forever. Zero sign-up. Push any OCI artifact with a TTL.\" Storage is bounded only by the TTL, max advertised 24 hours.",
   "extras": {},
   "binding": "per-ip-shaping",
