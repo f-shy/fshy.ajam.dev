@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.munito.ai/inference/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "capacity is the scarce link, so a free-tier plan cannot be depended on at a fixed hour",
   "limits": [
     {

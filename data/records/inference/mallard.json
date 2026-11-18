@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.mallardai.co.uk/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "GBP 1 is evaluation money, so the credit cannot carry a workload",
   "limits": [
     {

@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://zro.moonmath.ai/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "the model subset is the scarce link, because the free plan does not reach the rest of the catalogue",
   "limits": [
     {

@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.infersia.com/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "the rate limit is the scarce link, and the page does not publish it",
   "limits": [
     {
