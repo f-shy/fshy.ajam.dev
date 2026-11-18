@@ -7,7 +7,10 @@ __pycache__/
 .dev.vars
 .env
 *.db
-.claude/
+.claude/*
+# the project settings and their hook are shared: they stop the tools that add a credit line
+!.claude/settings.json
+!.claude/hooks/
 .codegraph/
 
 # the cf CLI writes account state here; never publish it
