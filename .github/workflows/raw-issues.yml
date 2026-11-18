@@ -1,8 +1,10 @@
 name: raw issues
 
-# Keeps one issue "[raw] <topic>" open for each topic whose records research changed with no row of the change ledger,
-# and closes it when the gap closes (publish/raw_issues.py, publish/publog.py). It runs after each push to main and
-# once a day, so an issue does not go stale. The token can write issues only.
+# Keeps the issues "[raw] ..." that ask the research repository for work: one for each topic whose records research
+# changed with no row of the change ledger, and one for each coverage check that holds (stale records, few records,
+# unknown values, a kind of resource that no record covers). It closes each one when its condition no longer holds
+# (publish/raw_issues.py, publish/publog.py, publish/rules/coverage.json). It runs after each push to main and once a
+# day, so an issue does not go stale. The token can write issues only.
 
 on:
   push:
@@ -11,6 +13,7 @@ on:
       - data/meta.json
       - publish/publog.py
       - publish/raw_issues.py
+      - publish/rules/coverage.json
       - .github/workflows/raw-issues.yml
   schedule:
     - cron: "41 3 * * *"
@@ -36,6 +39,9 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.13"
+
+      - name: build the store that the coverage checks read
+        run: python3 publish/build.py --check --quiet
 
       - name: open, update and close the issues
         env:

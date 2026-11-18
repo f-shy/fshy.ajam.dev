@@ -84,16 +84,31 @@ The page `/changes/`, the feed `changes.xml` and the home page list what each pu
 merge that changes only code adds no publish, so it changes no page. A build of another directory than `data/`, or
 outside git, has no log, and those pages leave the list out.
 
-**Changes with no ledger row.** A record that research added or checked again (a new `verified_at` or new evidence)
-needs a row of the change ledger, because the change pages show only what the ledger records. A publish that does not
-give it one leaves a gap. The workflow `raw-issues` runs [`raw_issues.py`](raw_issues.py) after each push to `main`
-and once a day. It keeps one issue `[raw] <topic>` open for each topic with gaps, writes its list again when the list
-changes, and closes it when a later publish gives each record a ledger row or removes it. The research repository
-reads these issues and makes them its own work. Do not edit or close them by hand: the next run writes them again.
+**Changes with no ledger row, and coverage.** A record that research added or checked again (a new `verified_at` or
+new evidence) needs a row of the change ledger, because the change pages show only what the ledger records. A publish
+that does not give it one leaves a gap. The workflow `raw-issues` builds the store and runs
+[`raw_issues.py`](raw_issues.py) after each push to `main` and once a day. It keeps these issues, each with the label
+`raw`:
+
+| title | it holds while | the rule |
+| --- | --- | --- |
+| `[raw] <topic>` | a record of the topic has a gap | a later publish gives each record a ledger row, or removes it |
+| `[raw] <topic>: stale records` | a share of the hosted records of the topic is past its stale date | `stale_share` |
+| `[raw] <topic>: few records` | the topic has fewer hosted records than the minimum | `min_hosted` |
+| `[raw] <topic>: unknown values` | the mean of the values that research did not establish, for each hosted record, is too high | `gap_classes`, `gap_mean` |
+| `[raw] <topic>: no <kind>` | a kind of resource has fewer hosted records than its minimum | `kinds` |
+| `[raw] <topic>: no records` | a topic of the topic list has no hosted record | none |
+
+The rules are in [`rules/coverage.json`](rules/coverage.json); a change of a rule is a change of what the research
+repository is asked to do, so it goes through review. The script writes each body again when its text changes, and
+closes the issue when its condition no longer holds. It changes only an issue whose body opens with
+`<!-- fshy:raw-`, so an issue `[raw] ...` that a person wrote stays as it is. The research repository reads these
+issues and makes them its own work. Do not edit or close them by hand: the next run writes them again.
 
 ```bash
 python publish/publog.py --gaps            # the open gaps, by topic
-python publish/raw_issues.py --dry-run     # what the workflow would do, with each body
+python publish/build.py --check            # the store that the coverage checks read
+python publish/raw_issues.py --dry-run     # what the workflow would do, with each body (unset GH_TOKEN to skip GitHub)
 ```
 
 ## The leak rules
@@ -188,7 +203,8 @@ The first publish after that pull request merges gives `data/` of the new versio
 | `pages.py` | the HTML pages, the sitemap and `robots.txt` |
 | `selfhosted.py` | the self-hosted rule of every list: the label, the stable split, and the order check of the build |
 | `publog.py` | the publish log, from git: what each publish of `data/` added, changed and removed, and the gaps of records changed with no ledger row |
-| `raw_issues.py` | the issues `[raw] <topic>`, one for each topic with gaps: the workflow `raw-issues` opens, updates and closes them |
+| `raw_issues.py` | the issues `[raw] ...`: the gaps of each topic, and the coverage checks of `rules/coverage.json`. The workflow `raw-issues` opens, updates and closes them |
+| `rules/coverage.json` | the rules of the coverage checks: the stale share, the minimum of hosted records, the mean of values not established, and the kinds of resource that the catalogue must cover |
 | `llms.py` | `llms.txt`, `llms-full.txt` and the Markdown versions of the pages, for agents ([`../site/README.md`](../site/README.md)) |
 | `test_llms.py` | the selftest of `llms.py`, over the store that `build.py` writes |
 | `test_publish.py` | the selftest of the contract and of `files_sha256`, of the export's refusals, of the leak rules and `--scan`, of the lists that are copied by hand, of the helpers that the pages share, of the self-hosted rule and its check, of the worked queries of the primer, and of the publish log and the plan of the issues `[raw] <topic>` |

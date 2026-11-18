@@ -1,0 +1,18 @@
+{
+  "about": "The coverage checks of publish/raw_issues.py. Each one opens an issue [raw] <topic>: <check> while its condition holds, and closes it when the condition no longer holds. A change of a value here is a change of what the research repository is asked to do.",
+  "stale_share": 0.2,
+  "min_hosted": 40,
+  "gap_classes": ["not-recorded", "not-extracted", "not-stated", "interface-unknown", "egress-unknown"],
+  "gap_mean": 3.0,
+  "kinds": [
+    {"kind": "SMS and voice", "topic": "dev-services", "min": 2,
+     "category": "\\bsms\\b|\\bvoice (api|call)|telephony",
+     "examples": "Twilio, Vonage, Plivo, Sinch, Telnyx"},
+    {"kind": "push notifications", "topic": "dev-services", "min": 2,
+     "category": "push notification|web push",
+     "examples": "OneSignal, Firebase Cloud Messaging, ntfy, Pushover, Gotify"},
+    {"kind": "secrets management", "topic": "dev-services", "min": 2,
+     "category": "secrets? manag|secret store|\\bvault\\b",
+     "examples": "Doppler, Infisical, Bitwarden Secrets Manager, HashiCorp Vault (HCP)"}
+  ]
+}
