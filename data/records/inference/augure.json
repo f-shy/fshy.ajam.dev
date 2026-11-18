@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.augureai.ca/v1",
-  "tooling": "an OpenAI-compatible key plus the vendor's own clients",
+  "tooling": null,
   "chaining": "the daily allowance is the scarce link, and the USD 25 CAD ceiling binds before the USD 100 CAD one",
   "limits": [
     {

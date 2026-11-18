@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.steadyrouter.com/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "USD 0.05 is a single request, so the starting credit cannot carry a sweep",
   "limits": [
     {

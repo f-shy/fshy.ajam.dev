@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://api.neuralwatt.com/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "the card gate is the scarce link before the credit is even usable",
   "limits": [
     {

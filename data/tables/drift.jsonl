@@ -24,6 +24,7 @@
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"compute/vultr-windows","subject":"compute/vultr"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"debrid/torbox-free","subject":"debrid/torbox-essential"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"debrid/xsusenet","subject":"debrid/xs-usenet"}
+{"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"inference/togetherai","subject":"inference/together"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-artifacts-2","subject":"storage/azure-artifacts"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/azure-devops-artifacts-2","subject":"storage/azure-devops-artifacts"}
 {"a":"card","b":"email","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/contabo-object-storage-2","subject":"storage/contabo-object-storage"}
@@ -238,6 +239,8 @@
 {"a":"paid-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/tierhive-micro","subject":"compute/tierhive"}
 {"a":"paid-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/vdsina-cloud-configurator","subject":"compute/vdsina"}
 {"a":"paid-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/vultr-regular-1gb","subject":"compute/vultr-2"}
+{"a":"paid-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"inference/llmgateway-providers","subject":"inference/llm-gateway"}
+{"a":"paid-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"inference/togetherai","subject":"inference/together"}
 {"a":"paid-only","b":"trial-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"ip-proxy/nymvpn-exits","subject":"ip-proxy/nymvpn"}
 {"a":"paid-only","b":"trial-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"ip-proxy/trust-zone-exits","subject":"ip-proxy/trust-zone"}
 {"a":"qualifies","b":"dead","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/racknerd-black-friday-2025","subject":"compute/racknerd-1gb-special"}
@@ -264,6 +267,7 @@
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/aws-activate-portfolio","subject":"compute/aws-activate-founders"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"dev-services/datadog-open-source","subject":"dev-services/datadog"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"dev-services/sentry-education","subject":"dev-services/sentry"}
+{"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"inference/munito-eu","subject":"inference/munito"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/aws-open-data-sponsorship-program-uncapped-2-years-but-t","subject":"storage/aws-open-data-sponsorship-program"}
 {"a":"qualifies-with-caveat","b":"fails-identity","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/nakala-no-formal-size-limit-but-a-humanid-gate-and-a-con","subject":"storage/nakala"}
 {"a":"qualifies-with-caveat","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/google-colab-paid","subject":"compute/google-colab"}

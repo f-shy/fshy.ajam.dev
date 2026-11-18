@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://korouter.ai/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "the discount is the scarce link, and a price below official depends on the vendor's upstream access",
   "limits": [
     {

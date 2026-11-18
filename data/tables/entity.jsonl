@@ -3,7 +3,7 @@
 {"best_vorder":0,"domain":"365premium.com","eid":"365premium","n_records":1,"name":"365Premium","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"888644.xyz","eid":"888644","n_records":1,"name":"luo_cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":0,"domain":"alfafile.net","eid":"alfafile","n_records":1,"name":"Alfafile","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":0,"domain":"alibabacloud.com","eid":"alibabacloud","n_records":13,"name":"Alibaba Cloud","resolved_by":"domain","review":null,"topics":"coding-subs,compute,egress,storage"}
+{"best_vorder":0,"domain":"alibabacloud.com","eid":"alibabacloud","n_records":15,"name":"Alibaba Cloud","resolved_by":"domain","review":null,"topics":"coding-subs,compute,egress,storage"}
 {"best_vorder":0,"domain":"alldebrid.es","eid":"alldebrid-2","n_records":1,"name":"AllDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"allratestoday.com","eid":"allratestoday","n_records":2,"name":"AllRatesToday","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"allsync.com","eid":"allsync","n_records":1,"name":"Allsync","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -24,7 +24,6 @@
 {"best_vorder":0,"domain":"bolt.new","eid":"bolt","n_records":3,"name":"Bolt","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":0,"domain":"branchable.com","eid":"branchable","n_records":4,"name":"git-annex","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"c-servers.co.uk","eid":"c-servers","n_records":6,"name":"C-Servers","resolved_by":"domain","review":null,"topics":"compute,egress"}
-{"best_vorder":0,"domain":"cline.bot","eid":"cline","n_records":1,"name":"Cline","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":0,"domain":"cloudcone.com","eid":"cloudcone","n_records":5,"name":"CloudCone","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":0,"domain":"clouddrive2.com","eid":"clouddrive2","n_records":1,"name":"CloudDrive2","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"cloudfanatic.net","eid":"cloudfanatic","n_records":1,"name":"Cloudfanatic","resolved_by":"domain","review":null,"topics":"compute"}
@@ -53,7 +52,6 @@
 {"best_vorder":0,"domain":"drop.download","eid":"drop","n_records":1,"name":"Drop Download","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"ebi.ac.uk","eid":"ebi-ac-uk","n_records":3,"name":"ena","resolved_by":"host","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"elfhosted.com","eid":"elfhosted","n_records":8,"name":"ElfHosted","resolved_by":"domain","review":"mixed-names","topics":"debrid"}
-{"best_vorder":0,"domain":"empiriolabs.ai","eid":"empiriolabs","n_records":1,"name":"EmpirioLabs AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":0,"domain":"eztv.re","eid":"eztv","n_records":1,"name":"EZTV","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"filen.io","eid":"filen","n_records":2,"name":"Filen Pro","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"firecrawl.dev","eid":"firecrawl","n_records":3,"name":"Firecrawl","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
@@ -71,9 +69,9 @@
 {"best_vorder":0,"domain":"github.com","eid":"github-rogerfar","n_records":1,"name":"RDT-Client","resolved_by":"platform","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"github.com","eid":"github-sapics","n_records":1,"name":"ip-location-db","resolved_by":"platform","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"github.com","eid":"github-sirrobot01","n_records":1,"name":"Decypharr","resolved_by":"platform","review":null,"topics":"debrid"}
-{"best_vorder":0,"domain":"gitlab.com","eid":"gitlab","n_records":14,"name":"GitLab","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,storage"}
+{"best_vorder":0,"domain":"gitlab.com","eid":"gitlab","n_records":15,"name":"GitLab","resolved_by":"domain","review":null,"topics":"ci-cd-runners,coding-subs,compute,storage"}
 {"best_vorder":0,"domain":"glennstack.dev","eid":"glennstack","n_records":1,"name":"CrafterBin","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":0,"domain":"google.com","eid":"google","n_records":65,"name":"Google","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper,databases-kv,domains-dns,egress,inference,ip-proxy,storage"}
+{"best_vorder":0,"domain":"google.com","eid":"google","n_records":67,"name":"Google","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper,databases-kv,domains-dns,egress,inference,ip-proxy,storage"}
 {"best_vorder":0,"domain":"green.cloud","eid":"green","n_records":2,"name":"GreenCloudVPS Storage","resolved_by":"domain","review":null,"topics":"egress,storage"}
 {"best_vorder":0,"domain":"gullo.me","eid":"gullo","n_records":4,"name":"Gullo's Hosting","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":0,"domain":"hackmyip.com","eid":"hackmyip","n_records":1,"name":"HackMyIP","resolved_by":"domain","review":null,"topics":"data-apis"}
@@ -85,8 +83,8 @@
 {"best_vorder":0,"domain":"hosthatch.com","eid":"hosthatch","n_records":4,"name":"HostHatch","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":0,"domain":"hostingby.design","eid":"hostingby","n_records":1,"name":"Hosting by Design","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":0,"domain":"hostingmammoth.com","eid":"hostingmammoth","n_records":1,"name":"Hosting Mammoth Object Storage","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":0,"domain":"huaweicloud.com","eid":"huaweicloud","n_records":8,"name":"Huawei Cloud","resolved_by":"domain","review":null,"topics":"compute,storage"}
-{"best_vorder":0,"domain":"huggingface.co","eid":"huggingface","n_records":16,"name":"Hugging Face","resolved_by":"domain","review":null,"topics":"compute,debrid,inference,storage"}
+{"best_vorder":0,"domain":"huaweicloud.com","eid":"huaweicloud","n_records":9,"name":"Huawei Cloud","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":0,"domain":"huggingface.co","eid":"huggingface","n_records":17,"name":"Hugging Face","resolved_by":"domain","review":null,"topics":"compute,debrid,inference,storage"}
 {"best_vorder":0,"domain":"idreg.net","eid":"idreg","n_records":1,"name":"IDreg Net","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":0,"domain":"ifog.ch","eid":"ifog","n_records":1,"name":"iFog GmbH","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":0,"domain":"imgbb.com","eid":"imgbb","n_records":1,"name":"ImgBB","resolved_by":"domain","review":null,"topics":"storage"}
@@ -125,7 +123,7 @@
 {"best_vorder":0,"domain":"mempool.space","eid":"mempool","n_records":1,"name":"mempool.space API","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"met.no","eid":"met","n_records":2,"name":"MET Norway","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":0,"domain":"meteostat.net","eid":"meteostat","n_records":1,"name":"Meteostat","resolved_by":"domain","review":null,"topics":"data-apis"}
-{"best_vorder":0,"domain":"microsoft.com","eid":"microsoft","n_records":65,"name":"Microsoft","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,crawler-scraper,egress,storage"}
+{"best_vorder":0,"domain":"microsoft.com","eid":"microsoft","n_records":67,"name":"Microsoft","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,crawler-scraper,egress,inference,storage"}
 {"best_vorder":0,"domain":"mirrored.to","eid":"mirrored","n_records":1,"name":"Mirrorcreator","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":0,"domain":"modal.com","eid":"modal","n_records":4,"name":"Modal","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":0,"domain":"mullvad.net","eid":"mullvad","n_records":2,"name":"Mullvad VPN","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
@@ -253,27 +251,31 @@
 {"best_vorder":1,"domain":"aicrowd.com","eid":"aicrowd","n_records":1,"name":"AIcrowd","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"aider.chat","eid":"aider","n_records":1,"name":"Aider","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":1,"domain":"aihorde.net","eid":"aihorde","n_records":2,"name":"AI Horde","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":1,"domain":"aihubmix.com","eid":"aihubmix","n_records":1,"name":"AIHubMix","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"aimoprize.com","eid":"aimoprize","n_records":1,"name":"AIMO Prize","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"aionlabs.ai","eid":"aionlabs","n_records":1,"name":"Aion Labs","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"airtable.com","eid":"airtable","n_records":2,"name":"Airtable","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"airtel.lv","eid":"airtel","n_records":1,"name":"Airtel IP","resolved_by":"domain","review":null,"topics":"data-apis"}
+{"best_vorder":1,"domain":"aistupidlevel.info","eid":"aistupidlevel","n_records":1,"name":"AI Stupid Level","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"aiven.io","eid":"aiven","n_records":3,"name":"Aiven","resolved_by":"domain","review":null,"topics":"compute,databases-kv,storage"}
-{"best_vorder":1,"domain":"aliyun.com","eid":"aliyun","n_records":4,"name":"Alibaba Cloud","resolved_by":"domain","review":null,"topics":"coding-subs,compute,storage"}
+{"best_vorder":1,"domain":"aliyun.com","eid":"aliyun","n_records":8,"name":"Alibaba","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference,storage"}
 {"best_vorder":1,"domain":"alldebrid.com","eid":"alldebrid","n_records":2,"name":"AllDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"allfiles.org","eid":"allfiles","n_records":1,"name":"AllFiles.org","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"alliancecan.ca","eid":"alliancecan","n_records":2,"name":"Digital Research","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"alphai.io","eid":"alphai","n_records":1,"name":"AlphAI","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"alphavantage.co","eid":"alphavantage","n_records":1,"name":"Alpha Vantage","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"althub.co.za","eid":"althub","n_records":1,"name":"altHUB","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"amazon.com","eid":"amazon","n_records":52,"name":"AWS","resolved_by":"domain","review":null,"topics":"compute,databases-kv,egress,email,netdisk-pan,storage"}
-{"best_vorder":1,"domain":"amd.com.cn","eid":"amd-2","n_records":1,"name":"AMD Radeon Cloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"amazon.com","eid":"amazon","n_records":54,"name":"AWS","resolved_by":"domain","review":null,"topics":"compute,databases-kv,egress,email,inference,netdisk-pan,storage"}
+{"best_vorder":1,"domain":"amd.com.cn","eid":"amd-2","n_records":2,"name":"AMD Radeon","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"amika.dev","eid":"amika","n_records":1,"name":"Amika","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"amplitude.com","eid":"amplitude","n_records":1,"name":"Amplitude","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"anchorbrowser.io","eid":"anchorbrowser","n_records":2,"name":"Anchor Browser","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"anchoredip.com","eid":"anchoredip","n_records":2,"name":"AnchoredIP","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":1,"domain":"animefn.com","eid":"animefn","n_records":1,"name":"animefn servers","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"anonrouter.ai","eid":"anonrouter","n_records":1,"name":"AnonRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"anthropic.com","eid":"anthropic","n_records":2,"name":"Anthropic API","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":1,"domain":"antigravity.google","eid":"antigravity","n_records":1,"name":"Google Antigravity","resolved_by":"domain","review":null,"topics":"coding-subs"}
+{"best_vorder":1,"domain":"anyapi.ai","eid":"anyapi","n_records":1,"name":"AnyAPI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"anydebrid.com","eid":"anydebrid","n_records":1,"name":"AnyDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"anyflip.com","eid":"anyflip","n_records":1,"name":"AnyFlip","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"anyscale.com","eid":"anyscale","n_records":1,"name":"Anyscale","resolved_by":"domain","review":null,"topics":"compute"}
@@ -301,7 +303,9 @@
 {"best_vorder":1,"domain":"assemblyai.com","eid":"assemblyai","n_records":2,"name":"AssemblyAI","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"atlascloud.ai","eid":"atlascloud","n_records":1,"name":"Atlas Cloud open","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"atlassian.com","eid":"atlassian","n_records":8,"name":"Jira Cloud Free","resolved_by":"domain","review":"mixed-names","topics":"compute,storage"}
+{"best_vorder":1,"domain":"atomic.chat","eid":"atomic","n_records":1,"name":"Atomic Chat","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"audiomack.com","eid":"audiomack","n_records":1,"name":"Audiomack","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"auriko.ai","eid":"auriko","n_records":1,"name":"Auriko","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"aussda.at","eid":"aussda","n_records":2,"name":"AUSSDA Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"auth0.com","eid":"auth0","n_records":1,"name":"Auth0","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"awardspace.com","eid":"awardspace","n_records":1,"name":"AwardSpace","resolved_by":"domain","review":null,"topics":"compute"}
@@ -323,7 +327,7 @@
 {"best_vorder":1,"domain":"bestdebrid.com","eid":"bestdebrid","n_records":1,"name":"BestDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"bestfile.io","eid":"bestfile","n_records":1,"name":"Bestfile","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"betterstack.com","eid":"betterstack","n_records":1,"name":"Better Stack","resolved_by":"domain","review":null,"topics":"dev-services"}
-{"best_vorder":1,"domain":"bigmodel.cn","eid":"bigmodel","n_records":2,"name":"Zhipu Z","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":1,"domain":"bigmodel.cn","eid":"bigmodel","n_records":4,"name":"Zhipu AI","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
 {"best_vorder":1,"domain":"binnews.ninja","eid":"binnews","n_records":1,"name":"BinnewZ","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"bitrise.io","eid":"bitrise","n_records":2,"name":"bitrise artifacts","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"bitrix24.com","eid":"bitrix24","n_records":1,"name":"Bitrix24 Free","resolved_by":"domain","review":null,"topics":"storage"}
@@ -351,6 +355,7 @@
 {"best_vorder":1,"domain":"buzzheavier.com","eid":"buzzheavier","n_records":2,"name":"buzzheavier paid","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"by-hoster.net","eid":"by-hoster","n_records":1,"name":"By-Hoster","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"bytebot.ai","eid":"bytebot","n_records":1,"name":"Bytebot","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"byteplus.com","eid":"byteplus","n_records":3,"name":"BytePlus ModelArk","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"bytevirt.com","eid":"bytevirt","n_records":2,"name":"ByteVirt","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":1,"domain":"cachefly.com","eid":"cachefly","n_records":1,"name":"CacheFly Object Storage","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"cancerimagingarchive.net","eid":"cancerimagingarchive","n_records":1,"name":"TCIA","resolved_by":"domain","review":null,"topics":"storage"}
@@ -364,6 +369,7 @@
 {"best_vorder":1,"domain":"chanzuckerberg.com","eid":"chanzuckerberg","n_records":1,"name":"Chan Zuckerberg Initiative","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"chatgpt.com","eid":"chatgpt","n_records":1,"name":"OpenAI ChatGPT","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":1,"domain":"cheap-host.onl","eid":"cheap-host","n_records":2,"name":"Cheap-Host","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"cheapllm.shop","eid":"cheapllm","n_records":1,"name":"cheapllm.shop","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"checklyhq.com","eid":"checklyhq","n_records":1,"name":"Checkly","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"chirmyram.com","eid":"chirmyram","n_records":1,"name":"OpenList","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"cif.su","eid":"cif","n_records":1,"name":"PeerTube","resolved_by":"domain","review":null,"topics":"storage"}
@@ -393,7 +399,7 @@
 {"best_vorder":1,"domain":"codemagic.io","eid":"codemagic","n_records":2,"name":"Codemagic artifacts","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"coder.com","eid":"coder","n_records":1,"name":"Coder","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"codesandbox.io","eid":"codesandbox","n_records":1,"name":"CodeSandbox","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"cohere.com","eid":"cohere","n_records":1,"name":"Cohere trial keys","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"cohere.com","eid":"cohere","n_records":2,"name":"Cohere trial","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"cohesivity.ai","eid":"cohesivity","n_records":1,"name":"Cohesivity","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"coincap.io","eid":"coincap","n_records":1,"name":"CoinCap","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"coingecko.com","eid":"coingecko","n_records":1,"name":"CoinGecko","resolved_by":"domain","review":null,"topics":"data-apis"}
@@ -514,6 +520,7 @@
 {"best_vorder":1,"domain":"elevenlabs.io","eid":"elevenlabs","n_records":3,"name":"ElevenLabs","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"ellipsis.dev","eid":"ellipsis","n_records":1,"name":"Ellipsis","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"emload.com","eid":"emload","n_records":1,"name":"Emload","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"empiriolabs.ai","eid":"empiriolabs","n_records":1,"name":"EmpirioLabs AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"encore.dev","eid":"encore","n_records":1,"name":"Encore Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"envs.net","eid":"envs-2","n_records":1,"name":"envs.net","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"eodhd.com","eid":"eodhd","n_records":1,"name":"EOD Historical Data","resolved_by":"domain","review":null,"topics":"data-apis"}
@@ -538,6 +545,7 @@
 {"best_vorder":1,"domain":"fal.ai","eid":"fal","n_records":4,"name":"fal","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"fandom.com","eid":"fandom","n_records":1,"name":"Fandom","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"fastly.com","eid":"fastly","n_records":4,"name":"Fastly","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
+{"best_vorder":1,"domain":"fastrouter.ai","eid":"fastrouter","n_records":1,"name":"FastRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"feralhosting.com","eid":"feralhosting","n_records":1,"name":"Feral Hosting","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"ferr.dev","eid":"ferr","n_records":1,"name":"Ferr","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"fex.net","eid":"fex","n_records":1,"name":"FEX.NET","resolved_by":"domain","review":null,"topics":"storage"}
@@ -581,6 +589,7 @@
 {"best_vorder":1,"domain":"freemyip.com","eid":"freemyip","n_records":1,"name":"freemyip.com","resolved_by":"domain","review":null,"topics":"domains-dns"}
 {"best_vorder":1,"domain":"freeshell.de","eid":"freeshell","n_records":1,"name":"freeshell.de","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"freesound.org","eid":"freesound","n_records":1,"name":"Freesound","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"freesrv.com","eid":"freesrv","n_records":1,"name":"Jad AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"freestyle.sh","eid":"freestyle","n_records":1,"name":"Freestyle","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"freevps.org","eid":"freevps","n_records":3,"name":"FreeVPS.org","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":1,"domain":"fshare.vn","eid":"fshare","n_records":3,"name":"Fshare","resolved_by":"domain","review":null,"topics":"debrid,storage"}
@@ -613,6 +622,7 @@
 {"best_vorder":1,"domain":"github.com","eid":"github-dmotz","n_records":1,"name":"Trystero","resolved_by":"platform","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"github.com","eid":"github-ekzhang","n_records":1,"name":"bore","resolved_by":"platform","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"github.com","eid":"github-everythingsuckz","n_records":1,"name":"TG-FileStreamBot","resolved_by":"platform","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"github.com","eid":"github-fast-editor","n_records":1,"name":"Lynkr","resolved_by":"platform","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"github.com","eid":"github-filecoin-project","n_records":1,"name":"Filecoin Foundation Next","resolved_by":"platform","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"github.com","eid":"github-forscht","n_records":1,"name":"ddrive","resolved_by":"platform","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"github.com","eid":"github-monosans","n_records":1,"name":"monosans/proxy-list","resolved_by":"platform","review":null,"topics":"ip-proxy"}
@@ -634,7 +644,7 @@
 {"best_vorder":1,"domain":"goatcounter.com","eid":"goatcounter","n_records":1,"name":"GoatCounter","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"gofile.io","eid":"gofile","n_records":1,"name":"Gofile","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"gologin.com","eid":"gologin","n_records":1,"name":"Gologin Cloud Browser","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"google.dev","eid":"google-2","n_records":7,"name":"Google","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":1,"domain":"google.dev","eid":"google-2","n_records":8,"name":"Google","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"goose-docs.ai","eid":"goose-docs","n_records":1,"name":"Goose","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"gopro.com","eid":"gopro","n_records":1,"name":"GoPro Cloud","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"grafana.com","eid":"grafana","n_records":2,"name":"Grafana Cloud","resolved_by":"domain","review":null,"topics":"compute,dev-services"}
@@ -657,6 +667,8 @@
 {"best_vorder":1,"domain":"healthchecks.io","eid":"healthchecks","n_records":1,"name":"Healthchecks.io","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"heap.io","eid":"heap","n_records":1,"name":"Heap","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"hearthis.at","eid":"hearthis","n_records":1,"name":"hearthis.at","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"helicone.ai","eid":"helicone","n_records":1,"name":"Helicone","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":1,"domain":"heossi.com","eid":"heossi","n_records":1,"name":"Bee by HEOSSI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"here.com","eid":"here","n_records":1,"name":"HERE","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"heroku.com","eid":"heroku","n_records":3,"name":"Heroku","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":1,"domain":"hex.tech","eid":"hex","n_records":2,"name":"Hex","resolved_by":"domain","review":null,"topics":"compute,storage"}
@@ -681,6 +693,7 @@
 {"best_vorder":1,"domain":"hpci-office.jp","eid":"hpci-office","n_records":2,"name":"Fugaku Trial","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"hubcloud.ist","eid":"hubcloud","n_records":1,"name":"HubCloud","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"hubdrive.bar","eid":"hubdrive","n_records":1,"name":"HubDrive","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"hubris.pw","eid":"hubris","n_records":1,"name":"Hubris","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"hubspot.com","eid":"hubspot","n_records":1,"name":"HubSpot","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"hud.ai","eid":"hud","n_records":1,"name":"HUD","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"humanlayer.com","eid":"humanlayer","n_records":1,"name":"HumanLayer","resolved_by":"domain","review":null,"topics":"compute"}
@@ -689,14 +702,14 @@
 {"best_vorder":1,"domain":"hyperbeam.com","eid":"hyperbeam","n_records":1,"name":"Hyperbeam","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"hyperbrowser.ai","eid":"hyperbrowser","n_records":2,"name":"Hyperbrowser","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"i80k.com","eid":"i80k","n_records":1,"name":"云顶天宫","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
-{"best_vorder":1,"domain":"ibm.com","eid":"ibm","n_records":9,"name":"IBM Cloud","resolved_by":"domain","review":null,"topics":"compute,egress,inference,storage"}
+{"best_vorder":1,"domain":"ibm.com","eid":"ibm","n_records":10,"name":"IBM Cloud","resolved_by":"domain","review":null,"topics":"compute,egress,inference,storage"}
 {"best_vorder":1,"domain":"icedrive.net","eid":"icedrive","n_records":4,"name":"Icedrive","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"icpsr.umich.edu","eid":"icpsr-umich-edu","n_records":1,"name":"ICPSR Consortium Archive","resolved_by":"host","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"ilanzou.com","eid":"ilanzou","n_records":2,"name":"Lanzou Premium","resolved_by":"domain","review":null,"topics":"netdisk-pan,storage"}
 {"best_vorder":1,"domain":"imagifly.net","eid":"imagifly","n_records":1,"name":"Dreamify AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"improvmx.com","eid":"improvmx","n_records":1,"name":"ImprovMX","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":1,"domain":"indoleech.com","eid":"indoleech","n_records":1,"name":"IndoLeech","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"inference.net","eid":"inference","n_records":1,"name":"Inference.net","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"inference.net","eid":"inference","n_records":2,"name":"Inference.net","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"infersia.com","eid":"infersia","n_records":1,"name":"Infersia","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"influxdata.com","eid":"influxdata","n_records":1,"name":"InfluxDB Cloud Serverless","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"inngest.com","eid":"inngest","n_records":2,"name":"Inngest server","resolved_by":"domain","review":null,"topics":"dev-services"}
@@ -737,6 +750,7 @@
 {"best_vorder":1,"domain":"kasm.com","eid":"kasm","n_records":1,"name":"Kasm Workspaces","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"kedge.dev","eid":"kedge","n_records":1,"name":"Kedge","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"keenable.ai","eid":"keenable","n_records":1,"name":"Keenable","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
+{"best_vorder":1,"domain":"kenari.id","eid":"kenari","n_records":1,"name":"Kenari","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"kernel.sh","eid":"kernel-2","n_records":1,"name":"Kernel","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"kevsrv.me","eid":"kevsrv","n_records":1,"name":"Kevin Service Registry","resolved_by":"domain","review":null,"topics":"domains-dns"}
 {"best_vorder":1,"domain":"khanwebhost.com","eid":"khanwebhost","n_records":5,"name":"KhanWebHost","resolved_by":"domain","review":null,"topics":"compute,egress"}
@@ -778,10 +792,14 @@
 {"best_vorder":1,"domain":"linode.com","eid":"linode","n_records":2,"name":"Akamai Cloud","resolved_by":"domain","review":null,"topics":"egress,storage"}
 {"best_vorder":1,"domain":"linuxfoundation.org","eid":"linuxfoundation","n_records":1,"name":"LFX Mentorship","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"linveo.com","eid":"linveo","n_records":2,"name":"Linveo","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"liquidinference.ai","eid":"liquidinference","n_records":1,"name":"Liquid Inference","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"liveapps.dev","eid":"liveapps","n_records":1,"name":"liveapps.dev","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"livepeer.studio","eid":"livepeer","n_records":1,"name":"Livepeer Studio","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"llamaindex.ai","eid":"llamaindex","n_records":1,"name":"LlamaParse","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"llm7.io","eid":"llm7","n_records":1,"name":"LLM7","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":1,"domain":"llmgateway.io","eid":"llmgateway","n_records":3,"name":"LLM Gateway","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":1,"domain":"llmtech.eu","eid":"llmtech","n_records":1,"name":"LLM Tech","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":1,"domain":"lmstudio.ai","eid":"lmstudio","n_records":1,"name":"LMStudio","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"loc.gov","eid":"loc-gov","n_records":2,"name":"Chronicling America","resolved_by":"host","review":null,"topics":"data-apis,storage"}
 {"best_vorder":1,"domain":"localtunnel.github.io","eid":"localtunnel-github-io","n_records":1,"name":"localtunnel","resolved_by":"host","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"localxpose.io","eid":"localxpose","n_records":1,"name":"LocalXpose","resolved_by":"domain","review":null,"topics":"egress"}
@@ -816,12 +834,15 @@
 {"best_vorder":1,"domain":"mediy.cn","eid":"mediy","n_records":1,"name":"趣盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"mefrp.com","eid":"mefrp","n_records":1,"name":"ME Frp","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"megadownloader.net","eid":"megadownloader","n_records":1,"name":"MegaDownloader","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"meganova.ai","eid":"meganova","n_records":1,"name":"Meganova","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"megaseed.kz","eid":"megaseed","n_records":1,"name":"Megaseed.kz","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"megous.com","eid":"megous","n_records":1,"name":"megatools","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"mercadocontas.com.br","eid":"mercadocontas","n_records":1,"name":"Mercado Contas","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"mercatus.org","eid":"mercatus","n_records":2,"name":"Emergent Ventures","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":1,"domain":"merge.dev","eid":"merge","n_records":1,"name":"Merge Gateway","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"metorial.com","eid":"metorial","n_records":1,"name":"Metorial","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"mg-rast.org","eid":"mg-rast","n_records":1,"name":"MG-RAST","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"mi.com","eid":"mi","n_records":5,"name":"Xiaomi Token","resolved_by":"domain","review":null,"topics":"coding-subs,inference,netdisk-pan"}
 {"best_vorder":1,"domain":"miaomiao.moe","eid":"miaomiao","n_records":1,"name":"喵云","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"miatrix.com","eid":"miatrix","n_records":1,"name":"Miatrix","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"microlxc.net","eid":"microlxc","n_records":2,"name":"microLXC","resolved_by":"domain","review":null,"topics":"compute,egress"}
@@ -832,9 +853,10 @@
 {"best_vorder":1,"domain":"miosa.ai","eid":"miosa","n_records":1,"name":"MIOSA","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"miracleplus.com","eid":"miracleplus","n_records":1,"name":"MiraclePlus Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"misskey.gg","eid":"misskey-4","n_records":1,"name":"misskey.gg","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":1,"domain":"mistral.ai","eid":"mistral","n_records":4,"name":"Mistral La","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
+{"best_vorder":1,"domain":"mistral.ai","eid":"mistral","n_records":5,"name":"Mistral","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
 {"best_vorder":1,"domain":"mixcloud.com","eid":"mixcloud","n_records":1,"name":"Mixcloud","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"mixdebrid.com","eid":"mixdebrid","n_records":1,"name":"MixDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"mixlayer.ai","eid":"mixlayer","n_records":1,"name":"Mixlayer","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"mixpanel.com","eid":"mixpanel","n_records":1,"name":"Mixpanel","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"moddb.com","eid":"moddb","n_records":2,"name":"ModDB","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"modelence.com","eid":"modelence","n_records":1,"name":"Modelence","resolved_by":"domain","review":null,"topics":"compute"}
@@ -844,6 +866,7 @@
 {"best_vorder":1,"domain":"mofrp.com","eid":"mofrp","n_records":1,"name":"MoFrp","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"mongodb.com","eid":"mongodb","n_records":4,"name":"MongoDB Atlas","resolved_by":"domain","review":null,"topics":"compute,databases-kv,storage"}
 {"best_vorder":1,"domain":"moonmath.ai","eid":"moonmath","n_records":1,"name":"Zro","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":1,"domain":"morphllm.com","eid":"morphllm","n_records":1,"name":"Morph","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"motherduck.com","eid":"motherduck","n_records":1,"name":"MotherDuck","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"mozilla.org","eid":"mozilla","n_records":2,"name":"Mozilla Builders","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"mozilladatacollective.com","eid":"mozilladatacollective","n_records":1,"name":"Mozilla Data Collective","resolved_by":"domain","review":null,"topics":"storage"}
@@ -852,11 +875,12 @@
 {"best_vorder":1,"domain":"multcloud.com","eid":"multcloud","n_records":1,"name":"MultCloud","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"multidebrid.com","eid":"multidebrid","n_records":1,"name":"MultiDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"multiup.io","eid":"multiup","n_records":1,"name":"MultiUp.io","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"munito.ai","eid":"munito","n_records":1,"name":"Munito AI","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":1,"domain":"munito.ai","eid":"munito","n_records":2,"name":"Munito AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"myiprightnow.com","eid":"myiprightnow","n_records":1,"name":"MyIPRightNow","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"mypikpak.com","eid":"mypikpak","n_records":4,"name":"PikPak","resolved_by":"domain","review":null,"topics":"debrid,netdisk-pan,storage"}
 {"best_vorder":1,"domain":"naiss.se","eid":"naiss","n_records":1,"name":"NAISS Arrhenius Disk","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"nakala.fr","eid":"nakala","n_records":2,"name":"NAKALA","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"nan.builders","eid":"nan","n_records":1,"name":"NaN","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"nanohub.org","eid":"nanohub","n_records":1,"name":"nanoHUB","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"natp2p.cn","eid":"natp2p","n_records":1,"name":"NatP2P","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"natvps.net","eid":"natvps","n_records":3,"name":"NATVPS","resolved_by":"domain","review":null,"topics":"compute"}
@@ -866,7 +890,7 @@
 {"best_vorder":1,"domain":"neo4j.com","eid":"neo4j","n_records":1,"name":"Neo4j AuraDB","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"neocities.org","eid":"neocities","n_records":2,"name":"Neocities","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"neodebrid.com","eid":"neodebrid","n_records":1,"name":"NeoDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"neon.com","eid":"neon","n_records":3,"name":"Neon","resolved_by":"domain","review":null,"topics":"compute,databases-kv,storage"}
+{"best_vorder":1,"domain":"neon.com","eid":"neon","n_records":4,"name":"Neon","resolved_by":"domain","review":null,"topics":"compute,databases-kv,inference,storage"}
 {"best_vorder":1,"domain":"neoneko.org","eid":"neoneko","n_records":1,"name":"NeoNeko Git","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"neopan.cn","eid":"neopan","n_records":1,"name":"NeoPan","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"netassist.ua","eid":"netassist","n_records":2,"name":"NetAssist IPv6","resolved_by":"domain","review":null,"topics":"egress"}
@@ -884,6 +908,7 @@
 {"best_vorder":1,"domain":"nightly.link","eid":"nightly","n_records":1,"name":"nightly.link","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"nineteen.ai","eid":"nineteen","n_records":1,"name":"Nineteen AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"nlnet.nl","eid":"nlnet","n_records":2,"name":"NLnet","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"nodecode.ai","eid":"nodecode","n_records":1,"name":"Nodecode","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"nodeloc.com","eid":"nodeloc","n_records":1,"name":"UlziX Hong Kong free NAT","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"nodemesh.app","eid":"nodemesh","n_records":1,"name":"NodeMesh","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"noip.com","eid":"noip","n_records":1,"name":"No-IP","resolved_by":"domain","review":null,"topics":"domains-dns"}
@@ -894,12 +919,14 @@
 {"best_vorder":1,"domain":"notte.cc","eid":"notte","n_records":2,"name":"Notte","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"nousresearch.com","eid":"nousresearch","n_records":1,"name":"Nous Portal","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"novacloud-hosting.com","eid":"novacloud-hosting","n_records":1,"name":"NovaCloud-Hosting Storage VPS","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":1,"domain":"novita.ai","eid":"novita","n_records":2,"name":"Novita AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":1,"domain":"novita.ai","eid":"novita","n_records":3,"name":"Novita AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"novixlink.com","eid":"novixlink","n_records":1,"name":"NovixLink","resolved_by":"domain","review":null,"topics":"ip-proxy"}
+{"best_vorder":1,"domain":"npmjs.com","eid":"npmjs-package","n_records":1,"name":"QVAC","resolved_by":"platform","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"nport.link","eid":"nport","n_records":1,"name":"nport.link","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":1,"domain":"nrp.ai","eid":"nrp","n_records":1,"name":"National Research Platform","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"nuclino.com","eid":"nuclino","n_records":1,"name":"Nuclino","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"nuget.org","eid":"nuget","n_records":1,"name":"NuGet.org","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"nvidia.com","eid":"nvidia","n_records":8,"name":"NVIDIA","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"nzb.life","eid":"nzb","n_records":1,"name":"NZB.life","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"nzbfinder.ws","eid":"nzbfinder","n_records":1,"name":"NZBFinder","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"nzbforyou.com","eid":"nzbforyou","n_records":1,"name":"NZBforyou","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -915,10 +942,10 @@
 {"best_vorder":1,"domain":"omnara.com","eid":"omnara","n_records":1,"name":"Omnara","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"onecli.sh","eid":"onecli","n_records":1,"name":"OneCLI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"onlineornot.com","eid":"onlineornot","n_records":1,"name":"OnlineOrNot","resolved_by":"domain","review":null,"topics":"dev-services"}
-{"best_vorder":1,"domain":"openai.com","eid":"openai","n_records":4,"name":"OpenAI","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":1,"domain":"openai.com","eid":"openai","n_records":5,"name":"OpenAI","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"openatom.cn","eid":"openatom","n_records":1,"name":"AtomGit Notebook","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"opencagedata.com","eid":"opencagedata","n_records":1,"name":"OpenCage","resolved_by":"domain","review":null,"topics":"data-apis"}
-{"best_vorder":1,"domain":"opencode.ai","eid":"opencode","n_records":2,"name":"OpenCode Go","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":1,"domain":"opencode.ai","eid":"opencode","n_records":3,"name":"OpenCode","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
 {"best_vorder":1,"domain":"opencsg.com","eid":"opencsg","n_records":1,"name":"OpenCSG 传神社区","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"opendatalab.com","eid":"opendatalab","n_records":1,"name":"OpenDataLab","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"openfrp.net","eid":"openfrp","n_records":1,"name":"OpenFrp","resolved_by":"domain","review":null,"topics":"egress"}
@@ -928,13 +955,15 @@
 {"best_vorder":1,"domain":"openintelligencefoundation.ai","eid":"openintelligencefoundation","n_records":1,"name":"Open Intelligence Foundation","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"openpond.ai","eid":"openpond","n_records":1,"name":"OpenPond Cloud Sandboxes","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"openport.pw","eid":"openport-2","n_records":1,"name":"openport.pw","resolved_by":"domain","review":null,"topics":"egress"}
-{"best_vorder":1,"domain":"openrouter.ai","eid":"openrouter","n_records":3,"name":"OpenRouter","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":1,"domain":"openrouter.ai","eid":"openrouter","n_records":4,"name":"OpenRouter","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"opensteer.com","eid":"opensteer","n_records":1,"name":"Opensteer","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"opentech.fund","eid":"opentech","n_records":1,"name":"Open Technology Fund","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"openworld.eu.org","eid":"openworld","n_records":2,"name":"Openworld Free","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":1,"domain":"openxlab.org.cn","eid":"openxlab","n_records":1,"name":"OpenXLab 浦源","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"opper.ai","eid":"opper","n_records":1,"name":"Opper","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"opus-host.de","eid":"opus-host","n_records":1,"name":"Opus Host","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"oracle.com","eid":"oracle","n_records":10,"name":"Oracle Cloud","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
+{"best_vorder":1,"domain":"oracle.com","eid":"oracle","n_records":11,"name":"Oracle Cloud","resolved_by":"domain","review":null,"topics":"compute,egress,inference,storage"}
+{"best_vorder":1,"domain":"orcarouter.ai","eid":"orcarouter","n_records":1,"name":"OrcaRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"orgo.ai","eid":"orgo","n_records":1,"name":"Orgo","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"origrid.io","eid":"origrid","n_records":2,"name":"Origrid","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"orionoid.com","eid":"orionoid","n_records":1,"name":"Orion","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1031,6 +1060,7 @@
 {"best_vorder":1,"domain":"reddit.com","eid":"reddit","n_records":1,"name":"Reddit native media","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"redhat.com","eid":"redhat","n_records":2,"name":"Red Hat","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"reflex.dev","eid":"reflex","n_records":1,"name":"Reflex","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"refuseless.com","eid":"refuseless","n_records":1,"name":"Refuseless","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"remote-browser.dev","eid":"remote-browser","n_records":1,"name":"Remote Browser","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"render.com","eid":"render","n_records":5,"name":"Render","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":1,"domain":"replicas.dev","eid":"replicas","n_records":1,"name":"Replicas","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1051,7 +1081,7 @@
 {"best_vorder":1,"domain":"rsync.net","eid":"rsync","n_records":2,"name":"rsync.net","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"rubygems.org","eid":"rubygems","n_records":1,"name":"RubyGems.org","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"rumble.com","eid":"rumble","n_records":1,"name":"Rumble","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":1,"domain":"runanywhere.ai","eid":"runanywhere","n_records":1,"name":"RunAnywhere","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"runanywhere.ai","eid":"runanywhere","n_records":2,"name":"RunAnywhere","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"runjob.eu","eid":"runjob","n_records":1,"name":"RunMyJob","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"runnerhut.com","eid":"runnerhut","n_records":1,"name":"RunnerHut","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
 {"best_vorder":1,"domain":"runners.io","eid":"runners","n_records":1,"name":"runners.io","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
@@ -1061,9 +1091,11 @@
 {"best_vorder":1,"domain":"safelinking.net","eid":"safelinking","n_records":1,"name":"Safelinking","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"saganetwork.net","eid":"saganetwork","n_records":1,"name":"Saganetwork","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"sailresearchs.com","eid":"sailresearchs","n_records":1,"name":"Sailboxes","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"sambanova.ai","eid":"sambanova","n_records":2,"name":"SambaNova Cloud","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"sandbox-as-a-service.com","eid":"sandbox-as-a-service","n_records":1,"name":"Sandbox as a Service","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"sandbox0.ai","eid":"sandbox0","n_records":1,"name":"Sandbox0","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"sanity.io","eid":"sanity","n_records":1,"name":"Sanity","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"sarvam.ai","eid":"sarvam","n_records":1,"name":"Sarvam AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"savannaa.com","eid":"savannaa","n_records":1,"name":"Savannaa","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"savefiles.com","eid":"savefiles","n_records":1,"name":"SaveFiles","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"scaleway.com","eid":"scaleway","n_records":11,"name":"Scaleway","resolved_by":"domain","review":null,"topics":"compute,egress,email,inference,storage"}
@@ -1087,6 +1119,7 @@
 {"best_vorder":1,"domain":"sender.net","eid":"sender","n_records":1,"name":"Sender","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":1,"domain":"sendpulse.com","eid":"sendpulse","n_records":1,"name":"SendPulse","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":1,"domain":"sendspace.com","eid":"sendspace","n_records":1,"name":"SendSpace","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"sensenova.cn","eid":"sensenova","n_records":1,"name":"SenseNova","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"sentry.io","eid":"sentry","n_records":4,"name":"Sentry","resolved_by":"domain","review":null,"topics":"compute,dev-services"}
 {"best_vorder":1,"domain":"serpapi.com","eid":"serpapi","n_records":1,"name":"SerpApi","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
 {"best_vorder":1,"domain":"serv00.com","eid":"serv00","n_records":1,"name":"serv00","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1123,6 +1156,7 @@
 {"best_vorder":1,"domain":"sonicseedbox.com","eid":"sonicseedbox","n_records":1,"name":"SonicSeedBox","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"source.coop","eid":"source","n_records":2,"name":"Source Cooperative","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"sovereign.tech","eid":"sovereign","n_records":2,"name":"Sovereign Tech","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":1,"domain":"sparrowcodes.com","eid":"sparrowcodes","n_records":1,"name":"SparrowCodes","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"specific.dev","eid":"specific","n_records":1,"name":"Specific","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"speechmatics.com","eid":"speechmatics","n_records":2,"name":"Speechmatics","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"spider.cloud","eid":"spider","n_records":1,"name":"Spider","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
@@ -1148,10 +1182,12 @@
 {"best_vorder":1,"domain":"streamtape.com","eid":"streamtape","n_records":1,"name":"Streamtape","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"stremio-addons.net","eid":"stremio-addons","n_records":2,"name":"Stremio Addons","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"stytch.com","eid":"stytch","n_records":1,"name":"Stytch","resolved_by":"domain","review":null,"topics":"dev-services"}
+{"best_vorder":1,"domain":"submodel.gitbook.io","eid":"submodel","n_records":1,"name":"submodel","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"substack.com","eid":"substack-com","n_records":1,"name":"Substack file embeds","resolved_by":"host","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"suga.app","eid":"suga","n_records":1,"name":"Suga","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"suno.com","eid":"suno","n_records":1,"name":"Suno","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"supabase.com","eid":"supabase","n_records":3,"name":"Supabase","resolved_by":"domain","review":null,"topics":"compute,databases-kv,storage"}
+{"best_vorder":1,"domain":"superbot.gg","eid":"superbot","n_records":1,"name":"superbot","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"superserve.ai","eid":"superserve","n_records":1,"name":"Superserve","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"surf.nl","eid":"surf","n_records":3,"name":"SURF","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"surfsky.io","eid":"surfsky","n_records":1,"name":"Surfsky","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1203,7 +1239,7 @@
 {"best_vorder":1,"domain":"tempsend.com","eid":"tempsend","n_records":1,"name":"TempSend","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"tempsmail.org","eid":"tempsmail","n_records":1,"name":"TempsMail","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":1,"domain":"tencent.cn","eid":"tencent-2","n_records":1,"name":"Tencent Cloud Studio","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"tencent.com","eid":"tencent","n_records":4,"name":"Tencent Cloud","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":1,"domain":"tencent.com","eid":"tencent","n_records":7,"name":"Tencent","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference,storage"}
 {"best_vorder":1,"domain":"tenki.cloud","eid":"tenki","n_records":1,"name":"Tenki Sandbox","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"tensorlake.ai","eid":"tensorlake","n_records":1,"name":"Tensorlake Sandboxes","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"tenstorrent.com","eid":"tenstorrent","n_records":1,"name":"Tenstorrent TT Console","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1229,6 +1265,7 @@
 {"best_vorder":1,"domain":"timero.xyz","eid":"timero","n_records":1,"name":"ximu's alist","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"tinyfish.ai","eid":"tinyfish","n_records":2,"name":"TinyFish","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"tmpsend.com","eid":"tmpsend","n_records":1,"name":"TmpSend","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":1,"domain":"together.ai","eid":"together","n_records":6,"name":"Together AI","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"tokenharbor.ai","eid":"tokenharbor","n_records":1,"name":"Token Harbor","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"tomorrow.io","eid":"tomorrow","n_records":1,"name":"Tomorrow.io","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"tomtom.com","eid":"tomtom","n_records":1,"name":"TomTom","resolved_by":"domain","review":null,"topics":"data-apis"}
@@ -1265,6 +1302,7 @@
 {"best_vorder":1,"domain":"uni-bonn.de","eid":"uni-bonn","n_records":1,"name":"Göttingen Research Online","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"uni-lj.si","eid":"uni-lj","n_records":1,"name":"University of Ljubljana ADP Dataverse","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"unirateapi.com","eid":"unirateapi","n_records":2,"name":"UniRateAPI public","resolved_by":"domain","review":null,"topics":"data-apis"}
+{"best_vorder":1,"domain":"unorouter.com","eid":"unorouter","n_records":1,"name":"UnoRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"unsandbox.com","eid":"unsandbox","n_records":1,"name":"unsandbox","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"uol.de","eid":"uol","n_records":1,"name":"DARE","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"up2sha.re","eid":"up2sha","n_records":1,"name":"Up2Share","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1294,7 +1332,8 @@
 {"best_vorder":1,"domain":"vdsina.com","eid":"vdsina","n_records":3,"name":"VDSina","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"vecwire.com","eid":"vecwire","n_records":1,"name":"Vecwire","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"velixir.net","eid":"velixir","n_records":1,"name":"velixir","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"vercel.com","eid":"vercel","n_records":10,"name":"Vercel","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,egress,inference,storage"}
+{"best_vorder":1,"domain":"venice.ai","eid":"venice","n_records":2,"name":"Venice AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":1,"domain":"vercel.com","eid":"vercel","n_records":11,"name":"Vercel","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,egress,inference,storage"}
 {"best_vorder":1,"domain":"vidhide.com","eid":"vidhide","n_records":1,"name":"VidHide","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"vikingfile.com","eid":"vikingfile","n_records":1,"name":"VikingFile","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"vimeo.com","eid":"vimeo","n_records":2,"name":"vimeo weekly-quota","resolved_by":"domain","review":null,"topics":"storage"}
@@ -1306,7 +1345,7 @@
 {"best_vorder":1,"domain":"vk.com","eid":"vk-2","n_records":1,"name":"VK Video","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"vm.gl","eid":"vm","n_records":1,"name":"Gladiolus","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"voe.sx","eid":"voe","n_records":1,"name":"VOE","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"volcengine.com","eid":"volcengine","n_records":3,"name":"Volcengine","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":1,"domain":"volcengine.com","eid":"volcengine","n_records":5,"name":"Volcengine","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference,storage"}
 {"best_vorder":1,"domain":"vpngate.net","eid":"vpngate","n_records":1,"name":"VPN Gate","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":1,"domain":"vultr.com","eid":"vultr","n_records":7,"name":"Vultr","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":1,"domain":"vx365.vip","eid":"vx365","n_records":1,"name":"vx365.vip","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -1340,7 +1379,7 @@
 {"best_vorder":1,"domain":"world-debrid.com","eid":"world-debrid","n_records":1,"name":"World-Debrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"wtfnzb.pw","eid":"wtfnzb","n_records":1,"name":"WtfNZB","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"wuyoucloud.de","eid":"wuyoucloud","n_records":1,"name":"无忧云","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":1,"domain":"x.ai","eid":"x","n_records":2,"name":"xAI Grok","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":1,"domain":"x.ai","eid":"x","n_records":3,"name":"xAI","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":1,"domain":"xiaole88.com","eid":"xiaole88","n_records":1,"name":"小乐的网盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"xrel.to","eid":"xrel","n_records":1,"name":"xREL.v3","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"yandex.ru","eid":"yandex-3","n_records":2,"name":"Yandex 360","resolved_by":"domain","review":null,"topics":"storage"}
@@ -1353,10 +1392,11 @@
 {"best_vorder":1,"domain":"youdebrid.com","eid":"youdebrid","n_records":1,"name":"YouDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"yourimageshare.com","eid":"yourimageshare","n_records":1,"name":"YourImageShare URL uploader","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"youtube.com","eid":"youtube","n_records":1,"name":"YouTube","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":1,"domain":"z.ai","eid":"z","n_records":2,"name":"Z.ai GLM","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
+{"best_vorder":1,"domain":"z.ai","eid":"z","n_records":4,"name":"Z.ai GLM","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
 {"best_vorder":1,"domain":"zapier.com","eid":"zapier","n_records":1,"name":"Zapier","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":1,"domain":"zeabur.com","eid":"zeabur","n_records":2,"name":"Zeabur","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":1,"domain":"zencastr.com","eid":"zencastr","n_records":1,"name":"Zencastr","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":1,"domain":"zenmux.ai","eid":"zenmux","n_records":1,"name":"ZenMux","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"zenrows.com","eid":"zenrows","n_records":2,"name":"Zenrows Browser","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":1,"domain":"zenserp.com","eid":"zenserp","n_records":1,"name":"Zenserp","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
 {"best_vorder":1,"domain":"zerofs.link","eid":"zerofs","n_records":1,"name":"ZeroFS","resolved_by":"domain","review":null,"topics":"storage"}
@@ -1380,26 +1420,29 @@
 {"best_vorder":1,"domain":null,"eid":"lanmao-cloud","n_records":1,"name":"Lanmao Cloud","resolved_by":"name","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"1dun.com","eid":"1dun","n_records":1,"name":"1DUN dedicated scrubbing address","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"ablenet.jp","eid":"ablenet","n_records":1,"name":"ABLENET VPS","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"abliteratedllm.dev","eid":"abliteratedllm","n_records":1,"name":"AbliteratedLLM","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"acecloud.ai","eid":"acecloud","n_records":1,"name":"AceCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"adminvps.ru","eid":"adminvps","n_records":1,"name":"AdminVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"adtaq.com","eid":"adtaq","n_records":1,"name":"ADTAQ Storage VPS","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":2,"domain":"agentrouter.org","eid":"agentrouter","n_records":1,"name":"AgentRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"ai21.com","eid":"ai21","n_records":2,"name":"AI21 Labs","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"akash.network","eid":"akash","n_records":2,"name":"Akash Network","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":2,"domain":"akashml.com","eid":"akashml","n_records":1,"name":"AkashML","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"amazon.science","eid":"amazon-2","n_records":2,"name":"Amazon Alexa","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"amd.com","eid":"amd","n_records":2,"name":"AMD Developer","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"apexweave.com","eid":"apexweave","n_records":1,"name":"ApexWeave","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"apiko.app","eid":"apiko","n_records":1,"name":"APIKO","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"apogeoapi.com","eid":"apogeoapi","n_records":1,"name":"ApogeoAPI","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":2,"domain":"bizflycloud.vn","eid":"bizflycloud","n_records":1,"name":"Bizfly Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"boxes.dev","eid":"boxes","n_records":1,"name":"boxes.dev","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"browser-use.com","eid":"browser-use","n_records":1,"name":"Browser Use","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"browserbase.com","eid":"browserbase","n_records":2,"name":"Browserbase","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
 {"best_vorder":2,"domain":"bulknews.eu","eid":"bulknews","n_records":1,"name":"Bulknews","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":2,"domain":"byteplus.com","eid":"byteplus","n_records":2,"name":"BytePlus AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":2,"domain":"celesto.ai","eid":"celesto","n_records":1,"name":"Celesto Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"centron.de","eid":"centron","n_records":1,"name":"centron","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"cerebras.ai","eid":"cerebras","n_records":4,"name":"Cerebras Inference","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
 {"best_vorder":2,"domain":"cheapnews.eu","eid":"cheapnews","n_records":1,"name":"Cheapnews","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":2,"domain":"clarifai.com","eid":"clarifai","n_records":1,"name":"Clarifai","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"clickhouse.com","eid":"clickhouse","n_records":1,"name":"ClickHouse Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"cloudbrowser.ai","eid":"cloudbrowser","n_records":1,"name":"CloudBrowser AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"cloudcruise.com","eid":"cloudcruise","n_records":1,"name":"CloudCruise","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1417,20 +1460,21 @@
 {"best_vorder":2,"domain":"cube.computer","eid":"cube","n_records":1,"name":"Cube Computer","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"dahl.global","eid":"dahl","n_records":1,"name":"Dahl Inference","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"damodel.com","eid":"damodel","n_records":1,"name":"DAMODEL","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":2,"domain":"databricks.com","eid":"databricks","n_records":3,"name":"Databricks","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":2,"domain":"databricks.com","eid":"databricks","n_records":4,"name":"Databricks","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":2,"domain":"dataforseo.com","eid":"dataforseo","n_records":1,"name":"DataForSEO","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
 {"best_vorder":2,"domain":"datum.org","eid":"datum","n_records":1,"name":"Datum Storage","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"dedicatedcore.com","eid":"dedicatedcore","n_records":1,"name":"DedicatedCore","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"deepl.com","eid":"deepl","n_records":2,"name":"DeepL API","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"depot.dev","eid":"depot","n_records":1,"name":"Depot","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"devpost.com","eid":"devpost","n_records":4,"name":"Test Flight","resolved_by":"domain","review":"mixed-names","topics":"compute"}
+{"best_vorder":2,"domain":"ebcloud.com","eid":"ebcloud","n_records":1,"name":"EBCloud","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"ecohash.com","eid":"ecohash","n_records":1,"name":"EcoHash","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"egi.eu","eid":"egi","n_records":1,"name":"EGI Cloud Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"emergent.sh","eid":"emergent","n_records":1,"name":"Emergent","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"everstack.ai","eid":"everstack","n_records":1,"name":"Everstack","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"fastusenet.org","eid":"fastusenet","n_records":1,"name":"Fastusenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"fil.one","eid":"fil","n_records":4,"name":"Fil","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":2,"domain":"fireworks.ai","eid":"fireworks","n_records":2,"name":"Fireworks AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":2,"domain":"fireworks.ai","eid":"fireworks","n_records":3,"name":"Fireworks AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":2,"domain":"firstvds.ru","eid":"firstvds","n_records":2,"name":"firstvds vds","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":2,"domain":"fly.io","eid":"fly","n_records":5,"name":"Fly.io","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":2,"domain":"freediscussions.com","eid":"freediscussions","n_records":1,"name":"FreeDiscussions","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1447,7 +1491,6 @@
 {"best_vorder":2,"domain":"graphn.ai","eid":"graphn","n_records":1,"name":"GraphN","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"greenpt.ai","eid":"greenpt","n_records":1,"name":"GreenPT","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"grokified.com","eid":"grokified","n_records":1,"name":"Grokified","resolved_by":"domain","review":null,"topics":"inference"}
-{"best_vorder":2,"domain":"helicone.ai","eid":"helicone","n_records":1,"name":"Helicone","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"hinode.run","eid":"hinode","n_records":1,"name":"Hinode","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"hitnews.com","eid":"hitnews","n_records":1,"name":"HitNews","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"hoster.kz","eid":"hoster","n_records":1,"name":"Hoster.kz","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1457,17 +1500,22 @@
 {"best_vorder":2,"domain":"ihc.ru","eid":"ihc","n_records":1,"name":"IHC","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"iload-usenet.com","eid":"iload-usenet","n_records":1,"name":"iLoad USENET","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"impossiblecloud.com","eid":"impossiblecloud","n_records":1,"name":"Impossible Cloud","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":2,"domain":"inceptionlabs.ai","eid":"inceptionlabs","n_records":1,"name":"Inception Labs","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"inceptionlabs.ai","eid":"inceptionlabs","n_records":2,"name":"Inception Labs","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"inferris.ai","eid":"inferris","n_records":1,"name":"Inferris","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"inis.run","eid":"inis","n_records":1,"name":"inis.run","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"intel.com","eid":"intel","n_records":3,"name":"Intel","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"intercom.com","eid":"intercom","n_records":1,"name":"Intercom","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"ipregistry.co","eid":"ipregistry","n_records":1,"name":"Ipregistry","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":2,"domain":"jagoan.cloud","eid":"jagoan","n_records":1,"name":"Jagoan Cloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"jzstoken.com","eid":"jzstoken","n_records":1,"name":"JZSTOKEN","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"klokintegration.se","eid":"klokintegration","n_records":1,"name":"klokintegration.se","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"kookeey.com","eid":"kookeey","n_records":1,"name":"kookeey","resolved_by":"domain","review":null,"topics":"ip-proxy"}
+{"best_vorder":2,"domain":"koscompute.com","eid":"koscompute","n_records":1,"name":"Kosmik Compute","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"liara.ir","eid":"liara","n_records":1,"name":"Liara","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"linuxone.cloud.marist.edu","eid":"linuxone-cloud-marist-edu","n_records":1,"name":"IBM LinuxONE Community","resolved_by":"host","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"lium.io","eid":"lium","n_records":1,"name":"Lium","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"lizard.build","eid":"lizard","n_records":1,"name":"Lizard","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"lowrouter.ai","eid":"lowrouter","n_records":1,"name":"LowRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"lusovps.com","eid":"lusovps","n_records":1,"name":"LusoVPS IPv6 free","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"lycheeip.com","eid":"lycheeip","n_records":1,"name":"LycheeIP","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":2,"domain":"mailchimp.com","eid":"mailchimp","n_records":1,"name":"Mandrill","resolved_by":"domain","review":null,"topics":"email"}
@@ -1475,8 +1523,9 @@
 {"best_vorder":2,"domain":"meragpt.com","eid":"meragpt","n_records":1,"name":"meraGPT","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"microsoft.github.io","eid":"microsoft-github-io","n_records":1,"name":"Microsoft Agents Academy","resolved_by":"host","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"mixedbread.com","eid":"mixedbread","n_records":1,"name":"Mixedbread","resolved_by":"domain","review":null,"topics":"inference"}
-{"best_vorder":2,"domain":"modelscope.cn","eid":"modelscope","n_records":3,"name":"ModelScope","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":2,"domain":"mthreads.com","eid":"mthreads","n_records":1,"name":"Moore Threads AI","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"modelscope.cn","eid":"modelscope","n_records":4,"name":"ModelScope","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":2,"domain":"moneo.one","eid":"moneo","n_records":1,"name":"Moneo","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"mthreads.com","eid":"mthreads","n_records":2,"name":"KUAE Cloud","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":2,"domain":"n8n.io","eid":"n8n","n_records":2,"name":"n8n Community","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":2,"domain":"namespace.so","eid":"namespace","n_records":1,"name":"Namespace","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"neevcloud.com","eid":"neevcloud","n_records":1,"name":"NeevCloud","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1486,14 +1535,15 @@
 {"best_vorder":2,"domain":"nix-ci.com","eid":"nix-ci","n_records":1,"name":"NixCI","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
 {"best_vorder":2,"domain":"nosana.com","eid":"nosana","n_records":1,"name":"Nosana","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"novproxy.com","eid":"novproxy","n_records":1,"name":"Novproxy","resolved_by":"domain","review":null,"topics":"ip-proxy"}
-{"best_vorder":2,"domain":"nvidia.com","eid":"nvidia","n_records":7,"name":"NVIDIA","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":2,"domain":"nym.com","eid":"nym","n_records":3,"name":"NymVPN","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":2,"domain":"oblako.kz","eid":"oblako","n_records":1,"name":"oblako.kz","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"obscurify.ai","eid":"obscurify","n_records":1,"name":"Obscurify.ai","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"octen.ai","eid":"octen","n_records":1,"name":"Octen","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
 {"best_vorder":2,"domain":"oncompute.ai","eid":"oncompute","n_records":1,"name":"Ocean Network","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"open-telekom-cloud.com","eid":"open-telekom-cloud","n_records":1,"name":"Open Telekom Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"openobserve.ai","eid":"openobserve","n_records":1,"name":"OpenObserve","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":2,"domain":"opentunnel.net","eid":"opentunnel","n_records":1,"name":"OpenTunnel Free WireGuard Singapore","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":2,"domain":"outerlabs.ai","eid":"outerlabs","n_records":1,"name":"Outer Labs","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"ownkube.io","eid":"ownkube","n_records":1,"name":"Ownkube","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"pagekite.net","eid":"pagekite","n_records":1,"name":"PageKite","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"pendc.com","eid":"pendc","n_records":1,"name":"PenDC","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1501,6 +1551,7 @@
 {"best_vorder":2,"domain":"plausible.io","eid":"plausible","n_records":1,"name":"Plausible Analytics","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":2,"domain":"pockethost.io","eid":"pockethost","n_records":1,"name":"PocketHost","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"prembox.com","eid":"prembox","n_records":1,"name":"Prembox","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":2,"domain":"privatemode.ai","eid":"privatemode","n_records":1,"name":"Privatemode AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"proxylink.dev","eid":"proxylink","n_records":1,"name":"ProxyLink","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"pureusenet.nl","eid":"pureusenet","n_records":1,"name":"Pure Usenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"qodo.ai","eid":"qodo","n_records":1,"name":"Qodo","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1519,7 +1570,7 @@
 {"best_vorder":2,"domain":"runwayml.com","eid":"runwayml","n_records":1,"name":"Runway","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"ruweb.net","eid":"ruweb","n_records":1,"name":"RuWeb","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"samsungsds.com","eid":"samsungsds","n_records":2,"name":"Samsung SDS","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":2,"domain":"sap.com","eid":"sap","n_records":1,"name":"SAP Business Technology","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"sap.com","eid":"sap","n_records":2,"name":"SAP Business","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":2,"domain":"scalingo.com","eid":"scalingo","n_records":1,"name":"Scalingo","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"scrapingbee.com","eid":"scrapingbee","n_records":1,"name":"Scraping Bee","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"searchapi.io","eid":"searchapi","n_records":1,"name":"SearchApi","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
@@ -1528,15 +1579,16 @@
 {"best_vorder":2,"domain":"serverspace.by","eid":"serverspace","n_records":1,"name":"Serverspace","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"shardflux.dev","eid":"shardflux","n_records":1,"name":"Shardflux","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"shenzhuohl.com","eid":"shenzhuohl","n_records":1,"name":"Shenzhuo Hulian","resolved_by":"domain","review":null,"topics":"egress"}
-{"best_vorder":2,"domain":"siliconflow.com","eid":"siliconflow","n_records":1,"name":"SiliconFlow","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"siliconflow.com","eid":"siliconflow","n_records":2,"name":"SiliconFlow","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":2,"domain":"skool.com","eid":"skool","n_records":1,"name":"Skool native video hosting","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"snelnl.com","eid":"snelnl","n_records":1,"name":"SnelNL","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":2,"domain":"snowflake.com","eid":"snowflake","n_records":4,"name":"Snowflake","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":2,"domain":"snowflake.com","eid":"snowflake","n_records":5,"name":"Snowflake","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":2,"domain":"stability.ai","eid":"stability","n_records":2,"name":"Stability AI","resolved_by":"domain","review":null,"topics":"compute,inference"}
+{"best_vorder":2,"domain":"standardcompute.com","eid":"standardcompute","n_records":1,"name":"Standard Compute","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"stateset.app","eid":"stateset","n_records":1,"name":"StateSet Sandbox","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"steadyrouter.com","eid":"steadyrouter","n_records":1,"name":"SteadyRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"steel.dev","eid":"steel","n_records":2,"name":"Steel","resolved_by":"domain","review":null,"topics":"compute,crawler-scraper"}
-{"best_vorder":2,"domain":"stepfun.ai","eid":"stepfun","n_records":2,"name":"StepFun Step","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":2,"domain":"stepfun.ai","eid":"stepfun","n_records":4,"name":"StepFun Step","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
 {"best_vorder":2,"domain":"storacha.network","eid":"storacha","n_records":1,"name":"Storacha","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"storj.io","eid":"storj","n_records":5,"name":"Storj","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"strapi.io","eid":"strapi","n_records":2,"name":"Strapi Cloud","resolved_by":"domain","review":null,"topics":"compute,storage"}
@@ -1544,10 +1596,12 @@
 {"best_vorder":2,"domain":"supernews.com","eid":"supernews","n_records":1,"name":"Supernews","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"sweb.ru","eid":"sweb","n_records":1,"name":"SpaceWeb","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"tcz.hu","eid":"tcz","n_records":1,"name":"Zoltan's FLOPs GPU","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"teapotrouter.com","eid":"teapotrouter","n_records":1,"name":"Teapot Router","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"temporal.io","eid":"temporal","n_records":2,"name":"Temporal server","resolved_by":"domain","review":null,"topics":"dev-services"}
 {"best_vorder":2,"domain":"tetrate.io","eid":"tetrate","n_records":1,"name":"Tetrate Agent Router Service","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"tigerdata.com","eid":"tigerdata","n_records":1,"name":"Tiger Cloud","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":2,"domain":"together.ai","eid":"together","n_records":5,"name":"Together AI","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":2,"domain":"tokenify.dev","eid":"tokenify","n_records":1,"name":"Tokenify","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"tokenwatt.io","eid":"tokenwatt","n_records":1,"name":"TokenWatt","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"topseedbox.com","eid":"topseedbox","n_records":1,"name":"TopSeedBox","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":2,"domain":"tothost.vn","eid":"tothost","n_records":1,"name":"Tothost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"trekmail.net","eid":"trekmail","n_records":1,"name":"TrekMail Drive","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -1555,6 +1609,7 @@
 {"best_vorder":2,"domain":"trychroma.com","eid":"trychroma","n_records":1,"name":"Chroma Cloud","resolved_by":"domain","review":null,"topics":"databases-kv"}
 {"best_vorder":2,"domain":"tunnelto.dev","eid":"tunnelto","n_records":1,"name":"tunnelto","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"twilio.com","eid":"twilio","n_records":3,"name":"twilio","resolved_by":"domain","review":null,"topics":"email,storage"}
+{"best_vorder":2,"domain":"unrestricted.sh","eid":"unrestricted","n_records":1,"name":"Unrestricted","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"unstructured.io","eid":"unstructured","n_records":1,"name":"Unstructured Transform","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"upsun.com","eid":"upsun","n_records":1,"name":"Upsun","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"usenetbucket.com","eid":"usenetbucket","n_records":1,"name":"UsenetBucket","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1567,7 +1622,9 @@
 {"best_vorder":2,"domain":"vpspioneer.com","eid":"vpspioneer","n_records":2,"name":"VPSPioneer","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":2,"domain":"vpsserver.com","eid":"vpsserver","n_records":1,"name":"VPS Server","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":2,"domain":"wallabytoken.com","eid":"wallabytoken","n_records":1,"name":"Wallaby","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":2,"domain":"watt-cloud.com","eid":"watt-cloud","n_records":1,"name":"Watt Cloud","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"webhost1.ru","eid":"webhost1","n_records":1,"name":"WebHOST1","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"withhopper.com","eid":"withhopper","n_records":1,"name":"Hopper","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"wo.cn","eid":"wo","n_records":2,"name":"China Unicom","resolved_by":"domain","review":null,"topics":"netdisk-pan,storage"}
 {"best_vorder":2,"domain":"wso2.com","eid":"wso2","n_records":1,"name":"WSO2 Choreo","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"xata.io","eid":"xata","n_records":2,"name":"Xata","resolved_by":"domain","review":null,"topics":"databases-kv,storage"}
@@ -1578,14 +1635,19 @@
 {"best_vorder":2,"domain":null,"eid":"3vpc-nat","n_records":1,"name":"3VPC NAT","resolved_by":"name","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":null,"eid":"cloud-studio","n_records":1,"name":"Cloud Studio","resolved_by":"name","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"0daydown.com","eid":"0daydown","n_records":1,"name":"0DayDown","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"302.ai","eid":"302","n_records":1,"name":"302.AI","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"50x.energy","eid":"50x","n_records":1,"name":"50X","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"62yun.ru","eid":"62yun-2","n_records":1,"name":"62yun","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"666clouds.com","eid":"666clouds","n_records":1,"name":"666clouds","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"711proxy.com","eid":"711proxy","n_records":2,"name":"711Proxy","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"aaitr.com","eid":"aaitr","n_records":1,"name":"AaITR","resolved_by":"domain","review":null,"topics":"ip-proxy"}
-{"best_vorder":3,"domain":"abacus.ai","eid":"abacus","n_records":1,"name":"Abacus.AI ChatLLM Teams","resolved_by":"domain","review":null,"topics":"coding-subs"}
+{"best_vorder":3,"domain":"abacus.ai","eid":"abacus","n_records":2,"name":"Abacus.AI ChatLLM","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":3,"domain":"abliteration.ai","eid":"abliteration","n_records":1,"name":"abliteration.ai","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"accuwebhosting.com","eid":"accuwebhosting","n_records":1,"name":"AccuWeb Hosting","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"acronis.com","eid":"acronis","n_records":1,"name":"acronis cyber protect","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"actuated.com","eid":"actuated","n_records":1,"name":"Actuated","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
+{"best_vorder":3,"domain":"adaptionlabs.ai","eid":"adaptionlabs","n_records":1,"name":"Adaption","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"adzukiai.com","eid":"adzukiai","n_records":1,"name":"Adzuki AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"aeroftp.app","eid":"aeroftp","n_records":1,"name":"hetzner object storage","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"aeza.net","eid":"aeza","n_records":2,"name":"Aeza","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"affordablebytes.com","eid":"affordablebytes","n_records":2,"name":"AffordableBytes","resolved_by":"domain","review":null,"topics":"compute,egress"}
@@ -1593,24 +1655,33 @@
 {"best_vorder":3,"domain":"agentcomputer.ai","eid":"agentcomputer","n_records":1,"name":"AgentComputer","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"agnes-ai.com","eid":"agnes-ai","n_records":1,"name":"Agnes AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ai-galaxy.com","eid":"ai-galaxy","n_records":1,"name":"AI Galaxy","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"ai-router.dev","eid":"ai-router","n_records":1,"name":"AI-ROUTER","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"aiand.com","eid":"aiand","n_records":1,"name":"ai&","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"aieev.com","eid":"aieev","n_records":1,"name":"AirCloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"aigrow.gg","eid":"aigrow","n_records":1,"name":"AIGROW","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"aimlapi.com","eid":"aimlapi","n_records":1,"name":"AI/ML API","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ainclave.com","eid":"ainclave","n_records":1,"name":"ainclave","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"aipowergrid.io","eid":"aipowergrid","n_records":1,"name":"AI Power Grid","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"aircloud.dev","eid":"aircloud","n_records":1,"name":"Aircloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"airvpn.org","eid":"airvpn","n_records":2,"name":"AirVPN","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
+{"best_vorder":3,"domain":"aixy-gateway.com","eid":"aixy-gateway","n_records":1,"name":"Aixy","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"akamai.com","eid":"akamai","n_records":4,"name":"Akamai","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
+{"best_vorder":3,"domain":"aki.io","eid":"aki","n_records":1,"name":"AKI.IO","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"albahost.net","eid":"albahost","n_records":1,"name":"AlbaHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"alexhost.com","eid":"alexhost","n_records":2,"name":"alexhost storage","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"allhost.io","eid":"allhost","n_records":1,"name":"AllHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"aluy.net","eid":"aluy","n_records":1,"name":"Aluy","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"ambient.xyz","eid":"ambient","n_records":1,"name":"Ambient","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ampcode.com","eid":"ampcode","n_records":4,"name":"Amp","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":3,"domain":"anonynews.com","eid":"anonynews","n_records":1,"name":"AnonyNews","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"ant-ling.com","eid":"ant-ling","n_records":1,"name":"Bailing","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"anyip.com","eid":"anyip","n_records":1,"name":"AnyIP.com","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"ap.org","eid":"ap","n_records":1,"name":"Associated Press","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":3,"domain":"appbox.co","eid":"appbox","n_records":1,"name":"Appbox","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"aptible.com","eid":"aptible","n_records":1,"name":"Aptible","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"aquanode.io","eid":"aquanode","n_records":1,"name":"Aquanode","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"aquatis.host","eid":"aquatis","n_records":2,"name":"Aquatis","resolved_by":"domain","review":null,"topics":"compute,egress"}
+{"best_vorder":3,"domain":"arcee.ai","eid":"arcee","n_records":1,"name":"Arcee","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"arct.cloud","eid":"arct","n_records":1,"name":"Arct Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"arker.ai","eid":"arker","n_records":1,"name":"Arker","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"arvancloud.ru","eid":"arvancloud","n_records":1,"name":"Arvan Cloud","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1619,6 +1690,7 @@
 {"best_vorder":3,"domain":"atlantic.net","eid":"atlantic","n_records":1,"name":"Atlantic.net","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"atomicnetworks.co","eid":"atomicnetworks","n_records":1,"name":"Atomic_Net","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"augmentcode.com","eid":"augmentcode","n_records":3,"name":"Augment Code","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
+{"best_vorder":3,"domain":"autarcho.com","eid":"autarcho","n_records":1,"name":"Autarcho","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"autocomputer.ai","eid":"autocomputer","n_records":1,"name":"AutoComputer","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"autodl.com","eid":"autodl","n_records":1,"name":"AutoDL","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ava.hosting","eid":"ava","n_records":1,"name":"AvaHost","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1644,13 +1716,17 @@
 {"best_vorder":3,"domain":"biznetgio.com","eid":"biznetgio","n_records":1,"name":"IDCloudHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"blackbox.ai","eid":"blackbox","n_records":1,"name":"Blackbox AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"blockworks.com","eid":"blockworks","n_records":1,"name":"Messari","resolved_by":"domain","review":null,"topics":"data-apis"}
+{"best_vorder":3,"domain":"blueclaw.network","eid":"blueclaw","n_records":1,"name":"Blue Claw","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"boat.dev","eid":"boat","n_records":1,"name":"boat","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"bonsai.io","eid":"bonsai","n_records":1,"name":"bonsai","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"bothub.ru","eid":"bothub","n_records":1,"name":"Bothub","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"boundless.network","eid":"boundless","n_records":1,"name":"Boundless","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"boxbit.app","eid":"boxbit","n_records":1,"name":"Boxbit","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"boxlite.ai","eid":"boxlite","n_records":1,"name":"BoxLite Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"boxyard.dev","eid":"boxyard","n_records":1,"name":"Isorun","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"bulkvm.com","eid":"bulkvm","n_records":1,"name":"BulkVM","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"bullethost.net","eid":"bullethost","n_records":1,"name":"Bullethost","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"bumo.ai","eid":"bumo","n_records":1,"name":"Bumo Router","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"butter.dev","eid":"butter","n_records":1,"name":"Butter","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"buypremiumkey.com","eid":"buypremiumkey","n_records":1,"name":"BuyPremiumKey","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"buyvm.net","eid":"buyvm","n_records":4,"name":"BuyVM","resolved_by":"domain","review":null,"topics":"compute,storage"}
@@ -1662,15 +1738,20 @@
 {"best_vorder":3,"domain":"capy.ai","eid":"capy","n_records":1,"name":"Capy","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"caution.co","eid":"caution","n_records":1,"name":"Caution","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"cedana.com","eid":"cedana","n_records":1,"name":"Cedana","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"charm.land","eid":"charm","n_records":1,"name":"Charm Hyper","resolved_by":"domain","review":null,"topics":"coding-subs"}
+{"best_vorder":3,"domain":"cedarllm.com","eid":"cedarllm","n_records":1,"name":"CedarLLM","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"charm.land","eid":"charm","n_records":2,"name":"Charm Hyper","resolved_by":"domain","review":null,"topics":"coding-subs"}
+{"best_vorder":3,"domain":"cheapaimodel.ai","eid":"cheapaimodel","n_records":1,"name":"cheapaimodel","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"cheapest-token.com","eid":"cheapest-token","n_records":1,"name":"CheapestToken","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"cherryservers.com","eid":"cherryservers","n_records":1,"name":"Cherry Servers","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"chronicle-labs.com","eid":"chronicle-labs","n_records":1,"name":"Chronicle Labs","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"chunkserve.com","eid":"chunkserve","n_records":2,"name":"Chunkserve","resolved_by":"domain","review":null,"topics":"compute,egress"}
-{"best_vorder":3,"domain":"chutes.ai","eid":"chutes","n_records":1,"name":"Chutes","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"chutes.ai","eid":"chutes","n_records":2,"name":"Chutes","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":3,"domain":"cirun.io","eid":"cirun","n_records":1,"name":"Cirun","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"claude.com","eid":"claude","n_records":4,"name":"Anthropic","resolved_by":"domain","review":null,"topics":"compute,storage"}
+{"best_vorder":3,"domain":"claude.com","eid":"claude","n_records":5,"name":"Anthropic","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":3,"domain":"claudin.io","eid":"claudin","n_records":1,"name":"Claudinio","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"claw2agent.com","eid":"claw2agent","n_records":1,"name":"Claw 2 Agent","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"clever.cloud","eid":"clever","n_records":2,"name":"Clever Cloud","resolved_by":"domain","review":null,"topics":"compute,egress"}
+{"best_vorder":3,"domain":"cline.bot","eid":"cline","n_records":2,"name":"Cline","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":3,"domain":"cliproxy.com","eid":"cliproxy","n_records":1,"name":"Cliproxy","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"clore.ai","eid":"clore","n_records":1,"name":"Clore.ai","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"cloud.mu","eid":"cloud-2","n_records":1,"name":"cloud.mu","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1689,10 +1770,14 @@
 {"best_vorder":3,"domain":"compute.cheap","eid":"compute","n_records":1,"name":"Compute Cheap","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"computeprices.com","eid":"computeprices","n_records":6,"name":"Seeweb","resolved_by":"domain","review":"mixed-names","topics":"compute"}
 {"best_vorder":3,"domain":"computeruse.space","eid":"computeruse-2","n_records":1,"name":"ComputerUse.space","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"confidential.ai","eid":"confidential","n_records":1,"name":"Confidential AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"containarium.dev","eid":"containarium","n_records":1,"name":"Containarium","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"coralbricks.ai","eid":"coralbricks","n_records":1,"name":"CoralBricks","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"coretransit.net","eid":"coretransit","n_records":1,"name":"Core Transit","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"coreweave.com","eid":"coreweave","n_records":1,"name":"CoreWeave","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"cortecs.ai","eid":"cortecs","n_records":1,"name":"Cortecs","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"costbench.com","eid":"costbench","n_records":1,"name":"carbonite safe","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"crossmodel.ai","eid":"crossmodel","n_records":1,"name":"CrossModel","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"crowsnest.network","eid":"crowsnest","n_records":1,"name":"hostens storage vps","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"crusoe.ai","eid":"crusoe","n_records":1,"name":"Crusoe","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"cryptostorm.is","eid":"cryptostorm","n_records":3,"name":"Cryptostorm","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
@@ -1700,8 +1785,10 @@
 {"best_vorder":3,"domain":"cudocompute.com","eid":"cudocompute","n_records":1,"name":"Cudo Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"cwer.name","eid":"cwer","n_records":1,"name":"Cwer.name","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"cyberdesk.io","eid":"cyberdesk","n_records":1,"name":"Cyberdesk","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"d.run","eid":"d","n_records":1,"name":"D.Run","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"d4networks.com","eid":"d4networks","n_records":1,"name":"D4 Networks","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"dailyleech.com","eid":"dailyleech","n_records":1,"name":"DailyLeech","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"daoxe.com","eid":"daoxe","n_records":1,"name":"DaoXE","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"datachain.ai","eid":"datachain","n_records":1,"name":"datachain studio","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"dataone.org","eid":"dataone","n_records":2,"name":"DataONE Hosted","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"datapacket.com","eid":"datapacket","n_records":1,"name":"DataPacket","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1710,20 +1797,26 @@
 {"best_vorder":3,"domain":"dedione.com","eid":"dedione","n_records":1,"name":"DediOne","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"dediseedbox.com","eid":"dediseedbox","n_records":1,"name":"dediseedbox","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"deepinfra.com","eid":"deepinfra","n_records":4,"name":"DeepInfra","resolved_by":"domain","review":null,"topics":"compute,inference"}
-{"best_vorder":3,"domain":"deepseek.com","eid":"deepseek","n_records":3,"name":"DeepSeek API","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
+{"best_vorder":3,"domain":"deepseek.com","eid":"deepseek","n_records":4,"name":"DeepSeek API","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":3,"domain":"digirdp.com","eid":"digirdp","n_records":1,"name":"DigiRDP","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"digitalcloud.pro","eid":"digitalcloud","n_records":1,"name":"DigitalCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"digitkala.net","eid":"digitkala","n_records":1,"name":"Digitkala","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"dinference.com","eid":"dinference","n_records":1,"name":"DInference","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"dogyun.com","eid":"dogyun","n_records":1,"name":"DogYun","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"dothoosh.com","eid":"dothoosh","n_records":1,"name":"DotHoosh","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"doubleword.ai","eid":"doubleword","n_records":1,"name":"Doubleword","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"easydebrid.com","eid":"easydebrid","n_records":1,"name":"EasyDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"easynews.com","eid":"easynews","n_records":1,"name":"Easynews","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"easyusenet.nl","eid":"easyusenet","n_records":1,"name":"EasyUsenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"econdb.com","eid":"econdb","n_records":1,"name":"Econdb","resolved_by":"domain","review":null,"topics":"data-apis"}
+{"best_vorder":3,"domain":"edenai.co","eid":"edenai","n_records":1,"name":"Eden AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"edgeone.ai","eid":"edgeone","n_records":1,"name":"Tencent EdgeOne L4 Proxy","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"egghosting.com","eid":"egghosting","n_records":1,"name":"Egg Hosting","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"egifts24.co.za","eid":"egifts24","n_records":1,"name":"eGifts24","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"elende.ao","eid":"elende","n_records":1,"name":"Elende","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"enderhost.co","eid":"enderhost","n_records":1,"name":"EnderHost","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"engy.ai","eid":"engy","n_records":1,"name":"engy","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"entrim.ai","eid":"entrim","n_records":1,"name":"Entrim","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ethernetservers.com","eid":"ethernetservers","n_records":1,"name":"EthernetServers","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"eurobyte.ru","eid":"eurobyte","n_records":1,"name":"Eurobyte","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"euronodes.com","eid":"euronodes","n_records":1,"name":"Euronodes","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1735,6 +1828,7 @@
 {"best_vorder":3,"domain":"extravm.com","eid":"extravm","n_records":1,"name":"ExtraVM","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"extremeusenet.nl","eid":"extremeusenet","n_records":1,"name":"ExtremeUsenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"ez-homelab.com","eid":"ez-homelab","n_records":1,"name":"EZ-Homelab","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"ezkielyna.store","eid":"ezkielyna","n_records":1,"name":"Ezkielyna","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"factory.com","eid":"factory","n_records":2,"name":"Factory","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":3,"domain":"fakirdebrid.net","eid":"fakirdebrid","n_records":1,"name":"FakirDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"fast-down.com","eid":"fast-down","n_records":1,"name":"Fast Down","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1753,11 +1847,13 @@
 {"best_vorder":3,"domain":"flipperhost.com","eid":"flipperhost","n_records":3,"name":"FlipperHost","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":3,"domain":"floodguard.xyz","eid":"floodguard","n_records":1,"name":"FloodGuard","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"flow.swiss","eid":"flow","n_records":1,"name":"Flow Swiss Mac Bare Metal","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"flow7.org","eid":"flow7","n_records":1,"name":"Infer by Flow7","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"flowvps.com","eid":"flowvps","n_records":1,"name":"FlowVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"fluence.cloud","eid":"fluence","n_records":1,"name":"Fluence Inference","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"fluence.network","eid":"fluence-2","n_records":1,"name":"Fluence","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"fluidstack.io","eid":"fluidstack","n_records":1,"name":"Fluidstack","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"friendli.ai","eid":"friendli","n_records":1,"name":"FriendliAI Model APIs","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"friendli.ai","eid":"friendli","n_records":2,"name":"FriendliAI Model","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"frogbot.ai","eid":"frogbot","n_records":1,"name":"FrogBot","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"fromsmash.com","eid":"fromsmash","n_records":2,"name":"fromsmash free","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"frugalusenet.com","eid":"frugalusenet","n_records":1,"name":"Frugal Usenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"ftpgrid.com","eid":"ftpgrid","n_records":1,"name":"crawl-scale free-host ftp hosts","resolved_by":"domain","review":null,"topics":"storage"}
@@ -1769,6 +1865,7 @@
 {"best_vorder":3,"domain":"getoutline.com","eid":"getoutline","n_records":2,"name":"outline","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"getpublicip.com","eid":"getpublicip","n_records":1,"name":"GetPublicIP","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"ghostnet.de","eid":"ghostnet","n_records":1,"name":"GHOSTnet GmbH","resolved_by":"domain","review":null,"topics":"ip-proxy"}
+{"best_vorder":3,"domain":"gisoo.pro","eid":"gisoo","n_records":1,"name":"Gisoo","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"github.com","eid":"github-arkq","n_records":1,"name":"wg-tcp-tunnel","resolved_by":"platform","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"github.com","eid":"github-bildcraft1","n_records":1,"name":"alldebridbot","resolved_by":"platform","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"github.com","eid":"github-ciamshrek","n_records":1,"name":"wormhole-vpn","resolved_by":"platform","review":null,"topics":"egress"}
@@ -1814,7 +1911,7 @@
 {"best_vorder":3,"domain":"hosteroid.uk","eid":"hosteroid","n_records":1,"name":"Hosteroid","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"hosting-minecraft.pro","eid":"hosting-minecraft","n_records":1,"name":"Hosting-Minecraft.pro","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"hosting.international","eid":"hosting","n_records":1,"name":"Hosting Int","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"hostinger.com","eid":"hostinger","n_records":1,"name":"Hostinger VPS","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"hostinger.com","eid":"hostinger","n_records":2,"name":"Hostinger VPS","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":3,"domain":"hostkey.com","eid":"hostkey-2","n_records":1,"name":"HOSTKEY","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"hostmyapple.com","eid":"hostmyapple","n_records":1,"name":"HostMyApple","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"hostnamaste.com","eid":"hostnamaste","n_records":2,"name":"HostNamaste","resolved_by":"domain","review":null,"topics":"compute,egress"}
@@ -1831,7 +1928,13 @@
 {"best_vorder":3,"domain":"iheart.com","eid":"iheart","n_records":1,"name":"iheartradio podcast hosting","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"ihostart.com","eid":"ihostart","n_records":2,"name":"iHostArt","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"imperva.com","eid":"imperva","n_records":1,"name":"Imperva DDoS Protection","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"impossibl.com","eid":"impossibl","n_records":1,"name":"Impossibl","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"inceptron.io","eid":"inceptron","n_records":1,"name":"Inceptron","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"inco.ai","eid":"inco","n_records":1,"name":"Inco","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"incognet.io","eid":"incognet","n_records":1,"name":"IncogNET","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"inference.coop","eid":"inference-2","n_records":1,"name":"Inference Cooperative","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"inferenceapis.com","eid":"inferenceapis","n_records":1,"name":"Inference APIs","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"inferx.net","eid":"inferx","n_records":1,"name":"InferX","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"infinity-filter.com","eid":"infinity-filter","n_records":1,"name":"Infinity-Filter","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"infomaniak.com","eid":"infomaniak","n_records":4,"name":"Infomaniak","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":3,"domain":"infrawire.net","eid":"infrawire","n_records":1,"name":"Infrawire","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1844,23 +1947,30 @@
 {"best_vorder":3,"domain":"ipv6.rs","eid":"ipv6","n_records":1,"name":"IPv6rs","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"iranget.com","eid":"iranget","n_records":1,"name":"IranGet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"ishosting.com","eid":"ishosting","n_records":1,"name":"is_hosting","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"isoquant.ai","eid":"isoquant","n_records":1,"name":"Isoquant","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"it-garage.pro","eid":"it-garage","n_records":1,"name":"IT-garage","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ivpn.net","eid":"ivpn","n_records":2,"name":"IVPN","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":3,"domain":"iwebfusion.net","eid":"iwebfusion","n_records":1,"name":"iWebFusion","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ix.dev","eid":"ix","n_records":1,"name":"ix","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ixinews.com","eid":"ixinews","n_records":1,"name":"Ixinews","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"jalapeno-cloud.ai","eid":"jalapeno-cloud","n_records":1,"name":"Jalapeno Cloud","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"jarvislabs.ai","eid":"jarvislabs","n_records":1,"name":"Jarvislabs","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"jiekou.ai","eid":"jiekou","n_records":1,"name":"Jiekou.AI","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"joingonka.ai","eid":"joingonka","n_records":1,"name":"JoinGonka","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"just.hosting","eid":"just","n_records":1,"name":"JustHosting","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"kagoya.jp","eid":"kagoya","n_records":2,"name":"KAGOYA CLOUD VPS","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":3,"domain":"kainode.com","eid":"kainode","n_records":1,"name":"Kainode","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"kakaocloud.com","eid":"kakaocloud","n_records":2,"name":"KakaoCloud Virtual","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"keln.ai","eid":"keln","n_records":1,"name":"Keln","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"keyoneclick.com","eid":"keyoneclick","n_records":1,"name":"KeyOneClick","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":3,"domain":"kimi.ai","eid":"kimi-2","n_records":1,"name":"Moonshot Kimi API Platform international","resolved_by":"domain","review":null,"topics":"inference"}
-{"best_vorder":3,"domain":"kimi.com","eid":"kimi","n_records":4,"name":"Moonshot Kimi","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference,storage"}
+{"best_vorder":3,"domain":"kimi.ai","eid":"kimi-2","n_records":3,"name":"Moonshot","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":3,"domain":"kimi.com","eid":"kimi","n_records":6,"name":"Moonshot Kimi","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference,storage"}
 {"best_vorder":3,"domain":"kinx.net","eid":"kinx","n_records":1,"name":"KINX IXcloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"kitani.ai","eid":"kitani","n_records":1,"name":"Kitani","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"klavo.ru","eid":"klavo","n_records":1,"name":"Klavo AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"koara.io","eid":"koara","n_records":1,"name":"Koara Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"korouter.ai","eid":"korouter","n_records":1,"name":"KoRouter","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"kunavo.com","eid":"kunavo","n_records":1,"name":"Kunavo","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"lakefs.io","eid":"lakefs","n_records":2,"name":"Tilde.run","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"landvps.ru","eid":"landvps","n_records":1,"name":"LandVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"latinusenet.com","eid":"latinusenet","n_records":1,"name":"LatinUsenet","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1879,12 +1989,15 @@
 {"best_vorder":3,"domain":"lisahost.com","eid":"lisahost","n_records":1,"name":"lisahost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"lite.host","eid":"lite","n_records":1,"name":"LITE.HOST","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"liteserver.nl","eid":"liteserver","n_records":1,"name":"LiteServer","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"lithosai.com","eid":"lithosai","n_records":1,"name":"LithosAI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"littlecreekhosting.com","eid":"littlecreekhosting","n_records":3,"name":"LittleCreek","resolved_by":"domain","review":null,"topics":"compute,egress"}
-{"best_vorder":3,"domain":"llmgateway.io","eid":"llmgateway","n_records":1,"name":"LLM Gateway","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"llmtr.com","eid":"llmtr","n_records":1,"name":"LLMTR","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"localport.io","eid":"localport","n_records":1,"name":"Localport","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"logits.com","eid":"logits","n_records":1,"name":"Logits","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"lokiproxy.com","eid":"lokiproxy","n_records":2,"name":"LokiProxy","resolved_by":"domain","review":null,"topics":"ip-proxy"}
-{"best_vorder":3,"domain":"longcat.chat","eid":"longcat","n_records":1,"name":"Meituan LongCat API Platform","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"longcat.chat","eid":"longcat","n_records":2,"name":"Meituan LongCat","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"lowhosting.com","eid":"lowhosting","n_records":1,"name":"LowHosting","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"lucidquery.com","eid":"lucidquery","n_records":1,"name":"LucidQuery","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"lumalabs.ai","eid":"lumalabs","n_records":1,"name":"Luma AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"luxvps.net","eid":"luxvps","n_records":1,"name":"Luxvps","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"machine0.io","eid":"machine0","n_records":1,"name":"machine0","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1904,14 +2017,21 @@
 {"best_vorder":3,"domain":"mega-debrid.eu","eid":"mega-debrid","n_records":1,"name":"Mega-Debrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"meggafast.com","eid":"meggafast","n_records":1,"name":"MeggaFast","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"meilisearch.com","eid":"meilisearch","n_records":1,"name":"meilisearch cloud","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"melious.ai","eid":"melious","n_records":1,"name":"Melious","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"meta.ai","eid":"meta","n_records":1,"name":"Meta","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"migadu.com","eid":"migadu","n_records":1,"name":"Migadu","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":3,"domain":"mineguard.pro","eid":"mineguard","n_records":1,"name":"MineGuard","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"minicor.com","eid":"minicor","n_records":1,"name":"Minicor","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"minimax.io","eid":"minimax","n_records":3,"name":"MiniMax","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
+{"best_vorder":3,"domain":"minimax.io","eid":"minimax","n_records":4,"name":"MiniMax","resolved_by":"domain","review":null,"topics":"coding-subs,compute,inference"}
+{"best_vorder":3,"domain":"minimaxi.com","eid":"minimaxi","n_records":2,"name":"MiniMax Token","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":3,"domain":"miraiminds.co","eid":"miraiminds","n_records":1,"name":"Frequency","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"mitos.run","eid":"mitos","n_records":1,"name":"Mitos","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"mivocloud.com","eid":"mivocloud","n_records":1,"name":"mivoCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"mlnl.host","eid":"mlnl","n_records":1,"name":"Millenial","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"mnogoweb.ru","eid":"mnogoweb","n_records":1,"name":"Mnogoweb","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"moark.com","eid":"moark","n_records":2,"name":"Moark","resolved_by":"domain","review":null,"topics":"inference,storage"}
+{"best_vorder":3,"domain":"modeloracle.com","eid":"modeloracle","n_records":1,"name":"Model Oracle AI","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"modular.com","eid":"modular","n_records":1,"name":"Modular","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"mondoze.com","eid":"mondoze","n_records":1,"name":"Mondoze","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"mor.org","eid":"mor","n_records":1,"name":"Morpheus","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"morph.so","eid":"morph","n_records":1,"name":"Morph Cloud","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1926,8 +2046,9 @@
 {"best_vorder":3,"domain":"nano-gpt.com","eid":"nano-gpt","n_records":1,"name":"NanoGPT","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"naranja.tech","eid":"naranja","n_records":2,"name":"Naranja","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"ncloud.com","eid":"ncloud","n_records":3,"name":"NAVER Cloud","resolved_by":"domain","review":null,"topics":"compute,egress"}
-{"best_vorder":3,"domain":"near.ai","eid":"near","n_records":1,"name":"NEAR AI Cloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"near.ai","eid":"near","n_records":2,"name":"NEAR AI Cloud","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":3,"domain":"neoprotect.net","eid":"neoprotect","n_records":1,"name":"NeoProtect","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"neosmith.ai","eid":"neosmith","n_records":1,"name":"NeoSmith","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"neoxis.ai","eid":"neoxis","n_records":1,"name":"NEOXIS Corp.","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"netmind.ai","eid":"netmind","n_records":1,"name":"NetMind","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"newsdemon.com","eid":"newsdemon","n_records":1,"name":"NewsDemon","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1940,16 +2061,19 @@
 {"best_vorder":3,"domain":"nocthost.com","eid":"nocthost","n_records":1,"name":"NoctHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"nodemach.com","eid":"nodemach","n_records":1,"name":"NodeMach","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"nodus-compute.ai","eid":"nodus-compute","n_records":1,"name":"Nodus Compute","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"nokeep.ai","eid":"nokeep","n_records":1,"name":"nokeep","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"nolimithost.cc","eid":"nolimithost","n_records":1,"name":"NolimitHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"nostrmedia.com","eid":"nostrmedia","n_records":1,"name":"nostrmedia.com","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"novanode.eu","eid":"novanode","n_records":1,"name":"NovaNode IP Tunnel","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"nuxoa.de","eid":"nuxoa","n_records":1,"name":"NUXOA","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"nzbwolf.com","eid":"nzbwolf","n_records":1,"name":"nzbwolf","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"oakhost.com","eid":"oakhost","n_records":1,"name":"OakHost","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"oathbreaker.ai","eid":"oathbreaker","n_records":1,"name":"Oathbreaker AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"oblivus.com","eid":"oblivus","n_records":1,"name":"Oblivus","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"obscura.com","eid":"obscura","n_records":2,"name":"Obscura","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":3,"domain":"oeck.com","eid":"oeck","n_records":2,"name":"Oeck","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":3,"domain":"offcloud.com","eid":"offcloud","n_records":1,"name":"Offcloud","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"ofox.ai","eid":"ofox","n_records":1,"name":"Ofox","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ollama.com","eid":"ollama-2","n_records":1,"name":"Ollama Cloud","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"omegagradient.com","eid":"omegagradient","n_records":1,"name":"Omega Gradient","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"omnirun.io","eid":"omnirun","n_records":1,"name":"OmniRun","resolved_by":"domain","review":null,"topics":"compute"}
@@ -1962,6 +2086,7 @@
 {"best_vorder":3,"domain":"onlydebrid.com","eid":"onlydebrid","n_records":1,"name":"OnlyDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"onomeo.com","eid":"onomeo","n_records":1,"name":"onomeo","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"opencomputer.dev","eid":"opencomputer","n_records":1,"name":"OpenComputer","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"openreason.app","eid":"openreason","n_records":1,"name":"OpenReason","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"openrelay.inc","eid":"openrelay","n_records":1,"name":"OpenRelay","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"orangevps.com","eid":"orangevps","n_records":1,"name":"OrangeVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ouiheberg.com","eid":"ouiheberg","n_records":1,"name":"OuiHeberg","resolved_by":"domain","review":null,"topics":"egress"}
@@ -1971,21 +2096,27 @@
 {"best_vorder":3,"domain":"pangolin.net","eid":"pangolin","n_records":1,"name":"Pangolin","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"paraloncloud.com","eid":"paraloncloud","n_records":1,"name":"ParalonCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"parasail.io","eid":"parasail","n_records":1,"name":"Parasail","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"paretoinference.com","eid":"paretoinference","n_records":1,"name":"Pareto Inference","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"parspack.com","eid":"parspack","n_records":1,"name":"ParsPack","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"path.net","eid":"path","n_records":1,"name":"Path.net","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"pendra.ai","eid":"pendra","n_records":1,"name":"Pendra","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"perfect-privacy.com","eid":"perfect-privacy","n_records":1,"name":"Perfect Privacy","resolved_by":"domain","review":null,"topics":"egress"}
-{"best_vorder":3,"domain":"perplexity.ai","eid":"perplexity","n_records":2,"name":"Perplexity Projects","resolved_by":"domain","review":null,"topics":"crawler-scraper,storage"}
+{"best_vorder":3,"domain":"perplexity.ai","eid":"perplexity","n_records":4,"name":"Perplexity","resolved_by":"domain","review":null,"topics":"crawler-scraper,inference,storage"}
 {"best_vorder":3,"domain":"ph24.io","eid":"ph24","n_records":1,"name":"ph24 Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"phala.com","eid":"phala","n_records":1,"name":"Phala Cloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"phase.xyz","eid":"phase","n_records":1,"name":"Phase Router","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"phoenixnap.com","eid":"phoenixnap","n_records":1,"name":"phoenixNAP dedicated outlet","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"photonvps.com","eid":"photonvps","n_records":1,"name":"PhotonVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"pika.art","eid":"pika","n_records":1,"name":"Pika","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"pioneer.ai","eid":"pioneer","n_records":1,"name":"Pioneer","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"pipehost.net","eid":"pipehost","n_records":1,"name":"PipeHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"pipeshift.com","eid":"pipeshift","n_records":1,"name":"Pipeshift","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"playstation.com","eid":"playstation","n_records":3,"name":"playstation","resolved_by":"domain","review":null,"topics":"netdisk-pan,storage"}
 {"best_vorder":3,"domain":"ploomber.io","eid":"ploomber","n_records":1,"name":"Ploomber","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"poe.com","eid":"poe","n_records":1,"name":"Poe","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"poplarml.com","eid":"poplarml","n_records":1,"name":"PoplarML","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"porkbun.com","eid":"porkbun","n_records":1,"name":"Porkbun","resolved_by":"domain","review":null,"topics":"domains-dns"}
+{"best_vorder":3,"domain":"powerspring.eu","eid":"powerspring","n_records":1,"name":"Powerspring","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"ppio.com","eid":"ppio","n_records":2,"name":"PPIO GPU","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"premiervpn.net","eid":"premiervpn","n_records":1,"name":"PremierVPN","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"premium.to","eid":"premium","n_records":1,"name":"premium.to","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -1995,14 +2126,17 @@
 {"best_vorder":3,"domain":"primeintellect.ai","eid":"primeintellect","n_records":2,"name":"Prime Intellect","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"pritunl.com","eid":"pritunl","n_records":1,"name":"Pritunl","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"privatebyte.com","eid":"privatebyte","n_records":1,"name":"PrivateByte","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"privatedeskai.com","eid":"privatedeskai","n_records":1,"name":"SAGG","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"privateinternetaccess.com","eid":"privateinternetaccess","n_records":1,"name":"Private Internet Access","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"privatevpn.com","eid":"privatevpn","n_records":1,"name":"PrivateVPN","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"prohosting24.de","eid":"prohosting24","n_records":1,"name":"ph24","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"proton.me","eid":"proton","n_records":3,"name":"proton","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"proxy001.com","eid":"proxy001","n_records":2,"name":"Proxy001","resolved_by":"domain","review":null,"topics":"ip-proxy"}
+{"best_vorder":3,"domain":"proxystacks.com","eid":"proxystacks","n_records":1,"name":"ProxyStacks Relay","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"purelymail.com","eid":"purelymail","n_records":1,"name":"Purelymail","resolved_by":"domain","review":null,"topics":"email"}
 {"best_vorder":3,"domain":"put.io","eid":"put","n_records":1,"name":"put.io","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"qde.com","eid":"qde","n_records":1,"name":"QDE","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"qhaigc.net","eid":"qhaigc","n_records":1,"name":"QiHang","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"qiniu.com","eid":"qiniu","n_records":4,"name":"Qiniu","resolved_by":"domain","review":null,"topics":"compute,inference,storage"}
 {"best_vorder":3,"domain":"qoddi.com","eid":"qoddi","n_records":1,"name":"Qoddi","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"qovery.com","eid":"qovery","n_records":1,"name":"Qovery","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2014,9 +2148,11 @@
 {"best_vorder":3,"domain":"ransomit.com.au","eid":"ransomit","n_records":1,"name":"ransomIT","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"rapidpars.com","eid":"rapidpars","n_records":1,"name":"RapidPars","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"ravnix.gg","eid":"ravnix","n_records":1,"name":"RAVNIX","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"rayline.ai","eid":"rayline","n_records":1,"name":"Rayline","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"readydedis.com","eid":"readydedis","n_records":1,"name":"ReadyDedis","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"real-debrid.com","eid":"real-debrid","n_records":2,"name":"Real-Debrid Remote","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"redpanda.com","eid":"redpanda","n_records":1,"name":"redpanda cloud","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"reflection.ai","eid":"reflection","n_records":1,"name":"Reflection","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"refresh.dev","eid":"refresh","n_records":1,"name":"Refresh","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"release.com","eid":"release","n_records":1,"name":"Release","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"reliablesite.net","eid":"reliablesite","n_records":1,"name":"ReliableSite","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2027,19 +2163,24 @@
 {"best_vorder":3,"domain":"residentialvps.com","eid":"residentialvps","n_records":1,"name":"ResidentialVPS","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"retzor.com","eid":"retzor","n_records":1,"name":"Retzor","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"rocket.chat","eid":"rocket","n_records":2,"name":"Rocket.Chat self-hosted","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"routing.run","eid":"routing","n_records":1,"name":"routing.run","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"royal-server.ro","eid":"royal-server","n_records":1,"name":"Royal-Server.Ro","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"rpnet.biz","eid":"rpnet","n_records":1,"name":"RPNet","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"ruapi.ai","eid":"ruapi","n_records":1,"name":"RuAPI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"runcrate.ai","eid":"runcrate","n_records":1,"name":"Runcrate","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"runkit.com","eid":"runkit","n_records":1,"name":"RunKit","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"runpod.io","eid":"runpod","n_records":2,"name":"runpod network","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"runsite.app","eid":"runsite","n_records":1,"name":"Runsite","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"sailresearch.com","eid":"sailresearch","n_records":1,"name":"Sail Research","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"sakana.ai","eid":"sakana","n_records":1,"name":"Sakana AI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"salad.com","eid":"salad","n_records":1,"name":"Salad","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"sandbase.ai","eid":"sandbase","n_records":1,"name":"SandBase","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"sandock.ai","eid":"sandock","n_records":1,"name":"Sandock","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"saturncloud.io","eid":"saturncloud","n_records":1,"name":"saturn cloud","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"schnellno.de","eid":"schnellno","n_records":1,"name":"SchnellNode","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"scnet.cn","eid":"scnet","n_records":1,"name":"SCNet Token Plan","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":3,"domain":"scrapeless.com","eid":"scrapeless","n_records":1,"name":"Scrapeless Agent Browser","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"scx.ai","eid":"scx","n_records":1,"name":"SCX.ai","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"seaart.ai","eid":"seaart","n_records":3,"name":"seaart","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"sealos.io","eid":"sealos","n_records":1,"name":"Sealos DevBox","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"seed.st","eid":"seed","n_records":1,"name":"Seed.ST","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -2069,6 +2210,7 @@
 {"best_vorder":3,"domain":"sievedata.com","eid":"sievedata","n_records":1,"name":"Sieve","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"sigma2.no","eid":"sigma2","n_records":2,"name":"nird data","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"signiant.com","eid":"signiant","n_records":1,"name":"signiant media shuttle","resolved_by":"domain","review":null,"topics":"storage"}
+{"best_vorder":3,"domain":"siliconflow.cn","eid":"siliconflow-2","n_records":1,"name":"SiliconFlow","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"siliconkiwi.nz","eid":"siliconkiwi","n_records":2,"name":"SiliconKiwi","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":3,"domain":"simplecloud.ru","eid":"simplecloud","n_records":1,"name":"SIMPLE CLOUD","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"sixtynet.net","eid":"sixtynet","n_records":1,"name":"SixtyNet","resolved_by":"domain","review":null,"topics":"ip-proxy"}
@@ -2077,6 +2219,7 @@
 {"best_vorder":3,"domain":"smarthost.net","eid":"smarthost","n_records":1,"name":"SmartHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"smokyhosts.com","eid":"smokyhosts","n_records":1,"name":"SmokyHosts","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"snthostings.com","eid":"snthostings","n_records":1,"name":"SnTHostings","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"sokkan.ch","eid":"sokkan","n_records":1,"name":"SOKKAN Router","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"soladrive.com","eid":"soladrive","n_records":1,"name":"SolaDrive","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"solidvps.com","eid":"solidvps","n_records":1,"name":"SolidVPS","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"somagu.com","eid":"somagu","n_records":1,"name":"Somagu VPS","resolved_by":"domain","review":null,"topics":"egress"}
@@ -2095,15 +2238,20 @@
 {"best_vorder":3,"domain":"starsling.dev","eid":"starsling","n_records":1,"name":"StarSling","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"stayport.io","eid":"stayport","n_records":1,"name":"Stayport","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"steadip.com","eid":"steadip","n_records":2,"name":"SteadIP Anchor","resolved_by":"domain","review":null,"topics":"egress"}
+{"best_vorder":3,"domain":"stepfun.com","eid":"stepfun-2","n_records":1,"name":"StepFun","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"stepping-stone.ch","eid":"stepping-stone","n_records":1,"name":"stepping stone AG","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"stingyusenet.com","eid":"stingyusenet","n_records":1,"name":"StingyUsenet","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"strike.bz","eid":"strike","n_records":1,"name":"Strike","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"strongcompute.com","eid":"strongcompute","n_records":1,"name":"Strong Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"stw.no","eid":"stw","n_records":1,"name":"ServeTheWorld","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"suanli.ai","eid":"suanli","n_records":1,"name":"XKey","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"subconscious.dev","eid":"subconscious","n_records":1,"name":"Subconscious","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"supercharged-lfs.com","eid":"supercharged-lfs","n_records":1,"name":"supercharged git lfs","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"surfshark.com","eid":"surfshark","n_records":2,"name":"Surfshark","resolved_by":"domain","review":null,"topics":"egress,ip-proxy"}
 {"best_vorder":3,"domain":"swedendedicated.com","eid":"swedendedicated","n_records":1,"name":"SwedenDedi","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"swizzin.net","eid":"swizzin","n_records":1,"name":"swizzin.net","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"synthetic.new","eid":"synthetic","n_records":1,"name":"Synthetic","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"synthorai.io","eid":"synthorai","n_records":1,"name":"Synthorai","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"systemfreaks.com","eid":"systemfreaks","n_records":1,"name":"SystemFreaks S3-Compatible Object Storage","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"tabnine.com","eid":"tabnine","n_records":2,"name":"Tabnine","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
 {"best_vorder":3,"domain":"tacs.cloud","eid":"tacs","n_records":1,"name":"tacs.cloud","resolved_by":"domain","review":null,"topics":"ip-proxy"}
@@ -2113,16 +2261,21 @@
 {"best_vorder":3,"domain":"tapgpu.com","eid":"tapgpu","n_records":1,"name":"TAPGPU","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"targon.com","eid":"targon","n_records":1,"name":"Targon","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"tb7.pl","eid":"tb7","n_records":1,"name":"tb7.pl","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"teamorouter.com","eid":"teamorouter","n_records":1,"name":"TeamoRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"telize.com","eid":"telize","n_records":1,"name":"Telize","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":3,"domain":"tembo.io","eid":"tembo","n_records":2,"name":"Tembo","resolved_by":"domain","review":null,"topics":"compute,databases-kv"}
 {"best_vorder":3,"domain":"tensordock.com","eid":"tensordock","n_records":2,"name":"TensorDock floor","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"tensorpool.dev","eid":"tensorpool","n_records":1,"name":"TensorPool","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"tensorx.ai","eid":"tensorx","n_records":1,"name":"TensorX","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"terabix.net","eid":"terabix","n_records":1,"name":"Terabix","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"texel.ai","eid":"texel","n_records":1,"name":"Texel.ai","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"the.hosting","eid":"the-hosting","n_records":3,"name":"the.hosting","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":3,"domain":"theai.com","eid":"theai","n_records":1,"name":"TheAI Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"thecubenet.com","eid":"thecubenet","n_records":1,"name":"theCubeNet","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"thegrid.ai","eid":"thegrid","n_records":1,"name":"The Grid AI","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"therouter.ai","eid":"therouter","n_records":1,"name":"TheRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"thetaedgecloud.com","eid":"thetaedgecloud","n_records":1,"name":"Theta EdgeCloud","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"thinkingmachines.ai","eid":"thinkingmachines","n_records":1,"name":"Thinking Machines","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"thruinc.com","eid":"thruinc","n_records":1,"name":"thru","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"thundernews.com","eid":"thundernews","n_records":1,"name":"ThunderNews","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"tier.net","eid":"tier","n_records":1,"name":"TierNet","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2130,14 +2283,20 @@
 {"best_vorder":3,"domain":"tilion.com","eid":"tilion","n_records":1,"name":"Tilion","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"time-host.net","eid":"time-host","n_records":1,"name":"Time_Host","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"timeweb.cloud","eid":"timeweb","n_records":3,"name":"timeweb cloud","resolved_by":"domain","review":null,"topics":"compute,storage"}
-{"best_vorder":3,"domain":"tinfoil.sh","eid":"tinfoil","n_records":1,"name":"Tinfoil","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"tinfoil.sh","eid":"tinfoil","n_records":2,"name":"Tinfoil","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":3,"domain":"tmhhost.com","eid":"tmhhost","n_records":1,"name":"tmhhost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"tnahosting.net","eid":"tnahosting","n_records":1,"name":"TNAHosting","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"toapis.com","eid":"toapis","n_records":1,"name":"ToAPIs","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"tokengo.com","eid":"tokengo","n_records":1,"name":"TokenGo","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"tokenlab.sh","eid":"tokenlab","n_records":1,"name":"TokenLab","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"tokenrouter.com","eid":"tokenrouter","n_records":1,"name":"TokenRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"tokyonline.com","eid":"tokyonline","n_records":1,"name":"Tokyonline","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":3,"domain":"torchbyte.com","eid":"torchbyte","n_records":1,"name":"Torchbyte","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"tracerml.ai","eid":"tracerml","n_records":1,"name":"Echo","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"trainy.ai","eid":"trainy","n_records":1,"name":"Trainy","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"travis-ci.com","eid":"travis-ci","n_records":2,"name":"Travis CI","resolved_by":"domain","review":null,"topics":"ci-cd-runners,storage"}
 {"best_vorder":3,"domain":"trumvps.vn","eid":"trumvps","n_records":2,"name":"TrumVPS","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"trustedrouter.com","eid":"trustedrouter","n_records":1,"name":"TrustedRouter","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"tunnel-ip.com","eid":"tunnel-ip","n_records":1,"name":"Tunnel-IP.com","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"tuns.sh","eid":"tuns","n_records":1,"name":"tuns.sh","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"turbobitpremium.org","eid":"turbobitpremium","n_records":1,"name":"Turbobitpremium.org","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -2148,12 +2307,15 @@
 {"best_vorder":3,"domain":"tweaknews.eu","eid":"tweaknews","n_records":1,"name":"Tweaknews","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"ubicloud.com","eid":"ubicloud","n_records":1,"name":"Ubicloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"ultahost.com","eid":"ultahost","n_records":1,"name":"Ultahost","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"umans.ai","eid":"umans","n_records":1,"name":"Umans AI Coding Plan","resolved_by":"domain","review":null,"topics":"coding-subs"}
+{"best_vorder":3,"domain":"umans.ai","eid":"umans","n_records":2,"name":"Umans AI","resolved_by":"domain","review":null,"topics":"coding-subs,inference"}
+{"best_vorder":3,"domain":"unbiased.ai","eid":"unbiased","n_records":1,"name":"Pareto by Unbiased","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"uncensuredai.com","eid":"uncensuredai","n_records":1,"name":"UncensuredAI","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"unihost.com","eid":"unihost","n_records":1,"name":"UniHost","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"unikraft.com","eid":"unikraft","n_records":1,"name":"Unikraft Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"up-network.ch","eid":"up-network","n_records":1,"name":"up_network","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"upcloud.com","eid":"upcloud","n_records":2,"name":"UpCloud","resolved_by":"domain","review":null,"topics":"compute,egress"}
-{"best_vorder":3,"domain":"upstage.ai","eid":"upstage","n_records":1,"name":"Upstage","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"uplinkswitch.ai","eid":"uplinkswitch","n_records":1,"name":"UplinkSwitch","resolved_by":"domain","review":null,"topics":"inference"}
+{"best_vorder":3,"domain":"upstage.ai","eid":"upstage","n_records":2,"name":"Upstage","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":3,"domain":"upvpn.app","eid":"upvpn","n_records":1,"name":"UpVPN","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":3,"domain":"usagepricing.com","eid":"usagepricing","n_records":1,"name":"lancedb cloud","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"use.computer","eid":"use-computer","n_records":1,"name":"use.computer","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2170,11 +2332,11 @@
 {"best_vorder":3,"domain":"usenight.com","eid":"usenight","n_records":1,"name":"UseNight","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"useplaygent.com","eid":"useplaygent","n_records":1,"name":"Playgent","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"valohai.com","eid":"valohai","n_records":1,"name":"Valohai","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"vancine.com","eid":"vancine","n_records":1,"name":"Vancine","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"vast.ai","eid":"vast","n_records":2,"name":"Vast.ai listing","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"veertu.com","eid":"veertu","n_records":1,"name":"Veertu Anka Build Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"velohost.de","eid":"velohost","n_records":2,"name":"Velohost","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":3,"domain":"veloxmedia.co.uk","eid":"veloxmedia","n_records":1,"name":"VeloxMedia","resolved_by":"domain","review":null,"topics":"compute"}
-{"best_vorder":3,"domain":"venice.ai","eid":"venice","n_records":1,"name":"Venice AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"verda.com","eid":"verda","n_records":1,"name":"Verda","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"vessl.ai","eid":"vessl","n_records":1,"name":"VESSL Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"vibrantlabs.com","eid":"vibrantlabs","n_records":1,"name":"Vibrant Labs","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2183,6 +2345,7 @@
 {"best_vorder":3,"domain":"virtbase.com","eid":"virtbase","n_records":2,"name":"Virtbase","resolved_by":"domain","review":null,"topics":"compute,egress"}
 {"best_vorder":3,"domain":"virtono.com","eid":"virtono","n_records":1,"name":"Virtono","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"virtury.com","eid":"virtury","n_records":1,"name":"Virtury","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"vivgrid.com","eid":"vivgrid","n_records":1,"name":"Vivgrid","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"vm6.co.uk","eid":"vm6","n_records":1,"name":"VM6_Networks","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"vmiss.com","eid":"vmiss","n_records":1,"name":"vmiss","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"voltagegpu.com","eid":"voltagegpu","n_records":1,"name":"VoltageGPU","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2194,6 +2357,7 @@
 {"best_vorder":3,"domain":"vpsfree.es","eid":"vpsfree","n_records":1,"name":"VPSFree.es","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"vpsfree.org","eid":"vpsfree-2","n_records":1,"name":"vpsFree.cz","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"vpspanda.com","eid":"vpspanda","n_records":1,"name":"VPS_Panda","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"wafer.ai","eid":"wafer","n_records":1,"name":"Wafer","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"warg.io","eid":"warg","n_records":1,"name":"warg.io","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":3,"domain":"warpbuild.com","eid":"warpbuild","n_records":1,"name":"WarpBuild","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"webdock.io","eid":"webdock","n_records":1,"name":"Webdock","resolved_by":"domain","review":null,"topics":"egress"}
@@ -2211,14 +2375,18 @@
 {"best_vorder":3,"domain":"xhosts.uk","eid":"xhosts","n_records":1,"name":"xHosts","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"xiangongyun.com","eid":"xiangongyun","n_records":1,"name":"Xiangongyun","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"xlned.com","eid":"xlned","n_records":1,"name":"XLned","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"xpersona.co","eid":"xpersona","n_records":1,"name":"Xpersona","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"xserver.ne.jp","eid":"xserver","n_records":3,"name":"XServer VPS","resolved_by":"domain","review":null,"topics":"compute,egress,storage"}
 {"best_vorder":3,"domain":"xsnews.com","eid":"xsnews","n_records":1,"name":"XS News","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"xt7.pl","eid":"xt7","n_records":1,"name":"xt7.pl","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":3,"domain":"xxapi.ai","eid":"xxapi","n_records":1,"name":"xxapi","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"yandex.com","eid":"yandex","n_records":6,"name":"Yandex","resolved_by":"domain","review":null,"topics":"email,netdisk-pan,storage"}
 {"best_vorder":3,"domain":"yin-net.com","eid":"yin-net","n_records":1,"name":"YinNet","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"zappiehost.com","eid":"zappiehost","n_records":1,"name":"Zappie","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"zed.dev","eid":"zed","n_records":3,"name":"Zed","resolved_by":"domain","review":null,"topics":"coding-subs,compute"}
+{"best_vorder":3,"domain":"zenifra.com","eid":"zenifra","n_records":1,"name":"Zenifra","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"zenlayer.com","eid":"zenlayer","n_records":1,"name":"Zenlayer","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"zerogpu.ai","eid":"zerogpu","n_records":1,"name":"ZeroGPU","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"zettabyte.com","eid":"zettabyte","n_records":1,"name":"Zettabyte","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"zevera.com","eid":"zevera","n_records":1,"name":"Zevera","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"zibralabs.ai","eid":"zibralabs","n_records":1,"name":"Zibra Labs","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2342,6 +2510,7 @@
 {"best_vorder":4,"domain":"helix.imperial.ac.uk","eid":"helix-imperial-ac-uk","n_records":1,"name":"Helix","resolved_by":"host","review":null,"topics":"storage"}
 {"best_vorder":4,"domain":"hlrs.de","eid":"hlrs","n_records":1,"name":"HLRS test access","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"hub71.com","eid":"hub71","n_records":1,"name":"Hub71","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":4,"domain":"humain.com","eid":"humain","n_records":1,"name":"HUMAIN","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":4,"domain":"hume.ai","eid":"hume","n_records":1,"name":"Hume AI","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"interlir.com","eid":"interlir","n_records":1,"name":"InterLIR","resolved_by":"domain","review":null,"topics":"ip-proxy"}
 {"best_vorder":4,"domain":"ipxo.com","eid":"ipxo","n_records":1,"name":"IPXO","resolved_by":"domain","review":null,"topics":"ip-proxy"}
@@ -2390,7 +2559,6 @@
 {"best_vorder":4,"domain":"qoder.cn","eid":"qoder","n_records":1,"name":"Qoder CN","resolved_by":"domain","review":null,"topics":"coding-subs"}
 {"best_vorder":4,"domain":"res.es","eid":"res","n_records":1,"name":"RES","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"rowe.sh","eid":"rowe","n_records":2,"name":"FreeMach","resolved_by":"domain","review":null,"topics":"compute,storage"}
-{"best_vorder":4,"domain":"sambanova.ai","eid":"sambanova","n_records":1,"name":"SambaNova Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"sanfengyun.com","eid":"sanfengyun","n_records":1,"name":"Sanfengyun","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"science.osti.gov","eid":"science-osti-gov","n_records":2,"name":"ALCC","resolved_by":"host","review":null,"topics":"compute,storage"}
 {"best_vorder":4,"domain":"seedfund.startupindia.gov.in","eid":"seedfund-startupindia-gov-in","n_records":1,"name":"Startup India Seed","resolved_by":"host","review":null,"topics":"compute"}
@@ -2405,6 +2573,7 @@
 {"best_vorder":4,"domain":"thaipremiumaccount.com","eid":"thaipremiumaccount","n_records":1,"name":"ThaiPremiumAccount","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":4,"domain":"thundercompute.com","eid":"thundercompute","n_records":1,"name":"Thunder Compute","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"tia.org.za","eid":"tia","n_records":1,"name":"Technology Innovation Agency","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":4,"domain":"trustedtokens.eu","eid":"trustedtokens","n_records":1,"name":"TrustedTokens","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":4,"domain":"tunnelbroker.se","eid":"tunnelbroker-3","n_records":1,"name":"Karabro tunnelbroker.se","resolved_by":"domain","review":null,"topics":"egress"}
 {"best_vorder":4,"domain":"turbobit.to","eid":"turbobit-2","n_records":1,"name":"Turbobit.to","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":4,"domain":"tx648.cn","eid":"tx648","n_records":1,"name":"SimpFun","resolved_by":"domain","review":null,"topics":"compute"}
@@ -2414,6 +2583,7 @@
 {"best_vorder":4,"domain":"vk.ru","eid":"vk","n_records":2,"name":"VK Cloud","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":4,"domain":"vngcloud.vn","eid":"vngcloud","n_records":1,"name":"VNG Cloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"yesfile.com","eid":"yesfile","n_records":1,"name":"YesFile","resolved_by":"domain","review":null,"topics":"debrid"}
+{"best_vorder":4,"domain":"zeldoc.ai","eid":"zeldoc","n_records":1,"name":"Zeldoc","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":4,"domain":"zenix.sg","eid":"zenix","n_records":1,"name":"Zenix open-source sponsorship","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":"zyk.bjhd.gov.cn","eid":"zyk-bjhd-gov-cn","n_records":1,"name":"Haidian District Elastic","resolved_by":"host","review":null,"topics":"compute"}
 {"best_vorder":4,"domain":null,"eid":"anonymous-write-to-any-github-surface","n_records":1,"name":"anonymous write to any github surface","resolved_by":"name","review":null,"topics":"storage"}
@@ -2938,7 +3108,6 @@
 {"best_vorder":6,"domain":"mega4upload.net","eid":"mega4upload","n_records":1,"name":"Mega4up","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"mendeley.com","eid":"mendeley","n_records":1,"name":"Mendeley Data","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"mexashare.com","eid":"mexashare","n_records":1,"name":"mexashare","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":6,"domain":"mi.com","eid":"mi","n_records":1,"name":"小米云服务","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":6,"domain":"mickeyzzc.tech","eid":"mickeyzzc","n_records":1,"name":"metered","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"minecraft.wiki","eid":"minecraft","n_records":1,"name":"minecraft realms","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"miro.com","eid":"miro","n_records":1,"name":"miro education","resolved_by":"domain","review":null,"topics":"storage"}
@@ -2946,7 +3115,6 @@
 {"best_vorder":6,"domain":"misskey.flowers","eid":"misskey-3","n_records":1,"name":"misskey.flowers","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"misskey.pm","eid":"misskey-5","n_records":1,"name":"misskey.pm","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"misskey.social","eid":"misskey-6","n_records":1,"name":"misskey.social","resolved_by":"domain","review":null,"topics":"storage"}
-{"best_vorder":6,"domain":"moark.com","eid":"moark","n_records":1,"name":"模力方舟","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"modelzoo.co","eid":"modelzoo","n_records":1,"name":"model zoo","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"morejust.github.io","eid":"morejust-github-io","n_records":1,"name":"morejust store","resolved_by":"host","review":null,"topics":"storage"}
 {"best_vorder":6,"domain":"morphosource.org","eid":"morphosource","n_records":1,"name":"MorphoSource","resolved_by":"domain","review":null,"topics":"storage"}
@@ -3395,6 +3563,7 @@
 {"best_vorder":7,"domain":"planetscale.com","eid":"planetscale","n_records":2,"name":"PlanetScale","resolved_by":"domain","review":null,"topics":"databases-kv,storage"}
 {"best_vorder":7,"domain":"play-with-docker.com","eid":"play-with-docker","n_records":1,"name":"Play with Docker","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":7,"domain":"play.ht","eid":"play","n_records":1,"name":"PlayHT","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":7,"domain":"poolside.ai","eid":"poolside","n_records":1,"name":"Poolside","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":7,"domain":"pq.hosting","eid":"pq","n_records":2,"name":"pq hosting","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":7,"domain":"predibase.com","eid":"predibase","n_records":1,"name":"Predibase","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":7,"domain":"premium-link.net","eid":"premium-link","n_records":1,"name":"Premium-Link.net","resolved_by":"domain","review":null,"topics":"debrid"}

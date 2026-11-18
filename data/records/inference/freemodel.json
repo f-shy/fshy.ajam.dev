@@ -25,7 +25,7 @@
     "rest"
   ],
   "endpoint": "https://cc.freemodel.dev/v1",
-  "tooling": "an OpenAI-compatible base URL",
+  "tooling": null,
   "chaining": "USD 300 is the scarce link; the page prices nothing beyond the credit",
   "limits": [
     {
