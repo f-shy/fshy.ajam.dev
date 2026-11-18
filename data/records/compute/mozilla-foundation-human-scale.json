@@ -64,10 +64,17 @@
       "url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/",
       "date": "2026-10-22",
       "proved": "'It offers seven projects up to $500,000 each over three years. We fund, you build, and you keep ownership.'; 'This cohort is seeded with three teams'; 'Applications for the Human-Scale AI Incubator cohort are open now'; page 200"
+    },
+    {
+      "url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/call-for-proposals/",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:8b626b76fa554da932bcdc0452b183798b846250353ecb5cc4575b330dc51138",
+      "quote": "## About the Mozilla Foundation Incubator"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-18T04:58:06.798Z",
   "notes": "Eligibility terms address builders, while distribution of USD 300,000 grants typically involves a registered entity.",
   "extras": {
     "facets": {

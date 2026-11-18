@@ -18,12 +18,12 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "We reserve the right to delete non-public data sets after 120 days.",
     "source_url": "https://www.mg-rast.org/legal.html",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
-    "terms": "Free. 'Data publicly available in MG-RAST is available without restrictions', with an API site at api.mg-rast.org for programmatic access.",
+    "terms": "Data publicly available in MG-RAST is available without restrictions",
     "metered": false
   },
   "interface": [
@@ -63,11 +63,25 @@
       "url": "https://www.mg-rast.org/",
       "date": "2026-10-21",
       "proved": "'open source, open submission web application server'; API at api.mg-rast.org"
+    },
+    {
+      "url": "https://www.mg-rast.org/legal.html",
+      "date": "2026-11-09",
+      "proved": null,
+      "capture": "sha256:fff22b242347a7a40270699a647e04ea1ddccc0b789ebcba20af49c0d850e3f4",
+      "quote": "Data publicly available in MG-RAST is available without restrictions"
+    },
+    {
+      "url": "https://www.mg-rast.org/legal.html",
+      "date": "2026-11-09",
+      "proved": null,
+      "capture": "sha256:fff22b242347a7a40270699a647e04ea1ddccc0b789ebcba20af49c0d850e3f4",
+      "quote": "We reserve the right to delete non-public data sets after 120 days."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No published per-account byte or sequence-count quota; described as 'an open source, open submission web application server' and 'one of the biggest repositories for metagenomic data'.",
+  "verified_at": "2026-11-10T00:50:25.162Z",
+  "notes": null,
   "extras": {},
   "binding": "retention-clamped",
   "binding_note": "a clock, not a quota: bytes leave whether or not transfer is completed"

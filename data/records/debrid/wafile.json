@@ -33,7 +33,7 @@
     "source_url": "https://wafile.com/"
   },
   "interface": [
-    "unknown"
+    "browser"
   ],
   "interface_detail": "Web search form. No API is published on the page read.",
   "tooling": "Browser only as read.",
@@ -69,6 +69,7 @@
   "notes": "SearchFiles is the general index; this is the single-host one.",
   "extras": {
     "host_indexed": "mega.nz",
-    "refresh": "index 24/7, status 4h"
+    "refresh": "index 24/7, status 4h",
+    "interface_check": "No programmatic path found: Web search form. No API is published on the page read."
   }
 }

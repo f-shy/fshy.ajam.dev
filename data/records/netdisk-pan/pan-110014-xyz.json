@@ -61,10 +61,45 @@
       "url": "probe:https://pan.110014.xyz/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://pan.110014.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:bd444b716001e3deb0b98807a0065366b3b39c2990dee82a15f0c8d10d938bdc",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:06.042Z\""
+    },
+    {
+      "url": "probe:https://pan.110014.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:bd444b716001e3deb0b98807a0065366b3b39c2990dee82a15f0c8d10d938bdc",
+      "quote": "\"listing_sha256\": \"3f9f05bc\""
+    },
+    {
+      "url": "probe:https://pan.110014.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:bd444b716001e3deb0b98807a0065366b3b39c2990dee82a15f0c8d10d938bdc",
+      "quote": null
+    },
+    {
+      "url": "probe:https://pan.110014.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:bd444b716001e3deb0b98807a0065366b3b39c2990dee82a15f0c8d10d938bdc",
+      "quote": null
+    },
+    {
+      "url": "probe:https://pan.110014.xyz/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:bd444b716001e3deb0b98807a0065366b3b39c2990dee82a15f0c8d10d938bdc",
+      "quote": "\"alive\": true"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T01:37:28.903Z",
   "binding": "write-gated",
   "notes": "15 root entries on OpenList v4.2.7, Cloudflare-fronted, write:true advertised and denied.",
   "extras": {
@@ -77,10 +112,11 @@
     "write_content_bypass": false,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "3c353692",
+    "listing_sha256": "3f9f05bc",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:06.042Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

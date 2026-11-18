@@ -33,7 +33,7 @@
     "source_url": "https://uploadhaven.com/"
   },
   "interface": [
-    "unknown"
+    "browser"
   ],
   "interface_detail": "No API documentation found; the site is a single-page uploader with a Pro checkout.",
   "tooling": "browser drag-and-drop; no download-manager documentation found",
@@ -91,6 +91,7 @@
     "api": false,
     "price_30d_usd": 8.99,
     "price_ladder_reported": "USD 8.99 / month, or USD 2.99 / 3 days",
-    "volume_tib_month": 1.0
+    "volume_tib_month": 1.0,
+    "interface_check": "No programmatic path found: No API documentation found; the site is a single-page uploader with a Pro checkout."
   }
 }

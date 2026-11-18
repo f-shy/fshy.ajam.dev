@@ -5,7 +5,7 @@
   "url": "https://nostr.download/",
   "category": "p2p-blob-storage",
   "free_tier": {
-    "stated": "10.00 GB per file (hard cap, read off the server's own the provider). No published per-user total. 'Inactive file deletion: No limit'. 'Delete never-downloaded files: After 1 days'.",
+    "stated": "Per-file upload cap 10737418240 bytes; files with zero egress are deleted after 7 days.",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://nostr.download/tos",
@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": "Retention is download-triggered, not time-based: a file nobody fetches within 24 h is deleted",
+    "stated": "Files with zero egress are deleted after 7 days.",
     "source_url": "https://nostr.download/tos",
     "notes": "not stated"
   },
@@ -53,7 +53,7 @@
   },
   "reliability_note": "single volunteer operator, no SLA, no durability warranty ('Do not use this service as your only backup'). Purges never-downloaded objects after 24 h, so a write-only cold archive decays to zero.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "max_upload_size: 10737418240; delete_zero_egress_days: 7",
   "evidence": [
     {
       "url": "https://nostr.download/",
@@ -69,10 +69,17 @@
       "url": "https://nostr.download/upload",
       "date": "2026-10-21",
       "proved": "PUT with no auth returns HTTP 401 / x-reason 'Auth header not found', i.e. the endpoint is live and the only gate is the signature, not an account"
+    },
+    {
+      "url": "https://nostr.download/props",
+      "date": "2026-11-11",
+      "proved": "the props endpoint still reports the same upload cap and 7-day zero-egress retention",
+      "capture": "sha256:1f149fee9ec9a3e87b025ca4ee074b3188df98e084e763b202224f5d37703cf4",
+      "quote": null
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-11T06:50:28.648Z",
   "notes": "10.00 GB per file (hard cap, read off the server's own the provider). No published per-user total. 'Inactive file deletion: No limit'. 'Delete never-downloaded files: After 1 days'.",
   "extras": {},
   "binding": "per-object-cap",

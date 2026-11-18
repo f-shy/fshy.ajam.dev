@@ -61,10 +61,45 @@
       "url": "probe:https://kho.t0m.top/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://kho.t0m.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:7b0970459ce47dcf17cc44940fd5ff9f74daff4e12f1bf4827046731eba0ba12",
+      "quote": null
+    },
+    {
+      "url": "probe:https://kho.t0m.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:7b0970459ce47dcf17cc44940fd5ff9f74daff4e12f1bf4827046731eba0ba12",
+      "quote": null
+    },
+    {
+      "url": "probe:https://kho.t0m.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:7b0970459ce47dcf17cc44940fd5ff9f74daff4e12f1bf4827046731eba0ba12",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://kho.t0m.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:7b0970459ce47dcf17cc44940fd5ff9f74daff4e12f1bf4827046731eba0ba12",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:04.595Z\""
+    },
+    {
+      "url": "probe:https://kho.t0m.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:7b0970459ce47dcf17cc44940fd5ff9f74daff4e12f1bf4827046731eba0ba12",
+      "quote": "\"listing_sha256\": \"a773ffd4\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:24.125Z",
   "binding": "write-gated",
   "notes": "4 root entries, provider Local, AList v3.42.0, Cloudflare-fronted. A Vietnamese-language instance.",
   "extras": {
@@ -77,10 +112,11 @@
     "write_content_bypass": null,
     "permission_bitmask": "0",
     "base_path": "/",
-    "listing_sha256": "16690055",
+    "listing_sha256": "a773ffd4",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:04.595Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

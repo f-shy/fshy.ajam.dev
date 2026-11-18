@@ -5,12 +5,12 @@
   "url": "https://dare.uol.de",
   "category": "academic repository / Dataverse 6.12.1",
   "free_tier": {
-    "stated": "No quota defined at root.",
+    "stated": "No quota defined for this collection",
     "unit": "unlimited",
     "metered_on": "unstated",
     "source_url": "https://dare.uol.de/api/dataverses/:root/storage/quota?showInherited=true",
-    "read_on": "2026-10-21",
-    "notes": null
+    "read_on": "2026-11-09",
+    "notes": "No quota defined for this collection"
   },
   "per_object_cap": {
     "stated": null,
@@ -32,11 +32,17 @@
   "interface_detail": "REST (native Dataverse API v1), SWORD",
   "tooling": "curl / DVUploader",
   "chaining": "Useful precisely because it is small (78 datasets, 45 collections): an installation this lightly used has had no reason to set a quota, and every one of its collections returns the same 'No quota defined'.",
-  "limits": [],
+  "limits": [
+    {
+      "kind": "write-gated",
+      "value": "uploads are not possible with a default account",
+      "source": "https://dare.uol.de"
+    }
+  ],
   "limits_note": "No published per-file cap; no quota number returned by the API.",
   "identity_cost": {
     "kind": "email",
-    "detail": "email",
+    "detail": "Contact the repository support address by email.",
     "country": null
   },
   "reliability_note": "Very low dataset count. An untested production instance; do not assume operational maturity.",
@@ -62,12 +68,40 @@
       "url": "https://dare.uol.de/api/search?q=*&type=dataset&per_page=1",
       "date": "2026-10-21",
       "proved": "78 datasets; type=dataverse — 45"
+    },
+    {
+      "url": "https://dare.uol.de/api/dataverses/:root/storage/quota?showInherited=true",
+      "date": "2026-11-09",
+      "proved": "the root collection's quota endpoint states that no quota is defined for this collection",
+      "capture": "sha256:5aaf35e6516e74f75fa6d6248f93a923136e6259992b9ab51eb9d5e8e1b0325c",
+      "quote": "No quota defined for this collection"
+    },
+    {
+      "url": "https://dare.uol.de",
+      "date": "2026-11-09",
+      "proved": "the homepage still states that it is not possible to upload data with a default account",
+      "capture": "sha256:9bfce4a809f82ebf7bb28639a1beea1d1157d30db9e76f0d3438e904dcbe4d82",
+      "quote": "Please be advised that it is not possible to upload data with your default account."
+    },
+    {
+      "url": "https://dare.uol.de",
+      "date": "2026-11-09",
+      "proved": "the homepage still directs users to contact the repository by email to learn how to use DARE",
+      "capture": "sha256:9bfce4a809f82ebf7bb28639a1beea1d1157d30db9e76f0d3438e904dcbe4d82",
+      "quote": "Please feel free to contact us via email to [address removed] to learn more about how to use DARE."
+    },
+    {
+      "url": "https://dare.uol.de/dataverseuser.xhtml?editMode=CREATE",
+      "date": "2026-11-09",
+      "proved": null,
+      "capture": "sha256:0954b986135376884880940c49a310692979d27747830a8f78db67fb84527d6b",
+      "quote": null
     }
   ],
-  "verdict": "qualifies",
-  "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "No quota defined at root.",
+  "verdict": "qualifies-with-caveat",
+  "verified_at": "2026-11-09T16:25:53.459Z",
+  "notes": "No quota defined for this collection",
   "extras": {},
-  "binding": "none",
-  "binding_note": null
+  "binding": "write-gated",
+  "binding_note": "uploads are not possible with a default account"
 }

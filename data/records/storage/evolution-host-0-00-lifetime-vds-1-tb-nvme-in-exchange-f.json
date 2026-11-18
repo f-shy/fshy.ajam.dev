@@ -5,11 +5,11 @@
   "url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
   "category": "iaas",
   "free_tier": {
-    "stated": "1 TB NVMe, 128 GB DDR5 RAM, 16 cores @ 5 GHz, DDoS protected. $0.00 'lifetime', conditional on keeping a link to Evolution Host on a website you own.",
+    "stated": "$0.00 High-Spec VDS – 128GB RAM, 16 Cores @ 5GHz, 1TB NVMe (Backlink Required)",
     "unit": "TB",
     "metered_on": "unstated",
     "source_url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
-    "read_on": "2026-10-21",
+    "read_on": "2026-11-09",
     "notes": null
   },
   "per_object_cap": {
@@ -18,7 +18,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "The VDS is absolutely free as long as the backlink remains active.",
     "source_url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
     "notes": "not stated"
   },
@@ -38,11 +38,11 @@
   "limits": [
     {
       "kind": "write-gated",
-      "value": "Application reviewed for SEO value",
+      "value": "good SEO value",
       "source": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required"
     }
   ],
-  "limits_note": "1 TB per VDS; disqualification is losing the backlink. Application reviewed for SEO value.",
+  "limits_note": "We're mainly looking for websites with good SEO value.",
   "identity_cost": {
     "kind": "email",
     "detail": "email",
@@ -50,17 +50,38 @@
   },
   "reliability_note": "12+ year provider with a history of these barter offers. The failure mode is that the server is removed when the link is removed, not a technical fault.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the cited page was read on 2026-11-09",
   "evidence": [
     {
       "url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
       "date": "2026-10-21",
       "proved": "'128GB DDR5 RAM / 1TB NVMe SSD / 16 CPU Cores @ 5GHz'; 'You get this high-spec DDoS Protected VDS at no cost. All we ask in return is a backlink to your website.'"
+    },
+    {
+      "url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
+      "date": "2026-11-09",
+      "proved": "the offer title states the zero price, the specifications and the backlink condition",
+      "capture": "sha256:c90d0cd8f14c82072e20a99c960e8d58baa8816048eaaefb4ca4c9aa9f3eefd4",
+      "quote": "$0.00 High-Spec VDS – 128GB RAM, 16 Cores @ 5GHz, 1TB NVMe (Backlink Required)"
+    },
+    {
+      "url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
+      "date": "2026-11-09",
+      "proved": "the VDS stays free while the backlink is live",
+      "capture": "sha256:c90d0cd8f14c82072e20a99c960e8d58baa8816048eaaefb4ca4c9aa9f3eefd4",
+      "quote": "The VDS is absolutely free as long as the backlink remains active."
+    },
+    {
+      "url": "https://lowendtalk.com/discussion/211463/0-00-high-spec-vds-128gb-ram-16-cores-5ghz-1tb-nvme-backlink-required",
+      "date": "2026-11-09",
+      "proved": "the application is reviewed for the site's SEO value",
+      "capture": "sha256:c90d0cd8f14c82072e20a99c960e8d58baa8816048eaaefb4ca4c9aa9f3eefd4",
+      "quote": "We're mainly looking for websites with good SEO value."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "1 TB NVMe, 128 GB DDR5 RAM, 16 cores @ 5 GHz, DDoS protected. $0.00 'lifetime', conditional on keeping a link to Evolution Host on a website you own.",
+  "verified_at": "2026-11-10T00:50:14.806Z",
+  "notes": "$0.00 High-Spec VDS – 128GB RAM, 16 Cores @ 5GHz, 1TB NVMe (Backlink Required)",
   "extras": {},
   "binding": "write-gated",
   "binding_note": null

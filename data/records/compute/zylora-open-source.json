@@ -64,10 +64,17 @@
       "url": "https://zylora.dev/free-gpu-credits/",
       "date": "2026-10-22",
       "proved": "the page's own price table converts USD 500 into 4.6h of H100 SXM, 6.9h of A100 80GB and 13.9h of L40S, quoted"
+    },
+    {
+      "url": "https://zylora.dev/free-gpu-credits/",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:52a6b53b771a7b73885e4ae06dcb12931c1b8fc765f642053c1b4addb0537129",
+      "quote": "# $500 free GPU credits."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-18T04:58:06.801Z",
   "notes": "Zylora provides cloud compute sponsorships for open-source projects, offering discounted or credited instance allocations for public repositories.",
   "extras": {
     "facets": {

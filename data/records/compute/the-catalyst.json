@@ -79,10 +79,17 @@
       "url": "https://sdaia.gov.sa/en/Investment/Pages/BusinessAccelerators.aspx",
       "date": "2026-10-22",
       "proved": "'The accelerator offers financial grants totaling 150,000 SAR provided by the [National Technology Development Program]', quoted"
+    },
+    {
+      "url": "https://sdaia.gov.sa/en/Investment/Pages/BusinessAccelerators.aspx",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:c999644a7085a93f38ef304094bd4313c70158e10352cf066e4cd3a02e081368",
+      "quote": "## Business Accelerators"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-18T04:58:11.203Z",
   "notes": "The SAR 150,000 attaches to GAIA, and GAIA is the part that is not open: a third-party programme tracker records it as dormant with 'no current intake or cohort dates' as of September 2026, which matches SDAIA's own accelerator page naming no GAIA cycle. So the reachable step is the accelerator with no published cash, and the funded step has no published window.",
   "extras": {
     "facets": {

@@ -5,7 +5,7 @@
   "url": "https://rutube.ru",
   "category": "media",
   "free_tier": {
-    "stated": "25 GB max per video, 5 concurrent uploads; no total per-account cap stated on the FAQ page read",
+    "stated": "Размер: не более 25 Гб",
     "unit": "GB",
     "metered_on": "unstated",
     "source_url": "https://rutube.ru/info/upload/",
@@ -13,7 +13,7 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": null,
+    "stated": "не более 25 Гб",
     "source_url": "https://rutube.ru/info/upload/",
     "notes": "not stated"
   },
@@ -41,7 +41,7 @@
   },
   "reliability_note": "Ingest re-encodes, so this only stores video, not arbitrary bytes; official API client is abandoned, retrieval depends on yt-dlp staying current.",
   "confidence": "reported",
-  "confidence_note": null,
+  "confidence_note": "the upload FAQ states the per-video size limit",
   "evidence": [
     {
       "url": "https://rutube.ru/info/upload/",
@@ -52,10 +52,17 @@
       "url": "https://github.com/rutube/php-api-client",
       "date": "2026-10-21",
       "proved": "'Внимание! Данный репозиторий более не поддерживается.'"
+    },
+    {
+      "url": "https://rutube.ru/info/upload/",
+      "date": "2026-11-09",
+      "proved": "the upload FAQ states a per-video size limit of no more than 25 Gb",
+      "capture": "sha256:529c891356d2afb0897d47ce20a0b6c6d14a2829009f366d9755db5ffc30dd0d",
+      "quote": "Размер: не более 25 Гб"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-10T00:50:30.563Z",
   "notes": "25 GB max per video, 5 concurrent uploads; no total per-account cap stated on the FAQ page read",
   "extras": {},
   "binding": "none",

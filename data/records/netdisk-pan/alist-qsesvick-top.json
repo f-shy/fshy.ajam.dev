@@ -66,10 +66,45 @@
       "url": "probe:https://alist.qsesvick.top/api/fs/put",
       "date": "2026-10-22",
       "proved": "the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written"
+    },
+    {
+      "url": "probe:https://alist.qsesvick.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8843ab27a9e81b12ae7d93cd30c679a2c7056ae913e61134585508df346d43c3",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.qsesvick.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8843ab27a9e81b12ae7d93cd30c679a2c7056ae913e61134585508df346d43c3",
+      "quote": null
+    },
+    {
+      "url": "probe:https://alist.qsesvick.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8843ab27a9e81b12ae7d93cd30c679a2c7056ae913e61134585508df346d43c3",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://alist.qsesvick.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8843ab27a9e81b12ae7d93cd30c679a2c7056ae913e61134585508df346d43c3",
+      "quote": "\"checked_at\": \"2026-11-11T00:20:01.877Z\""
+    },
+    {
+      "url": "probe:https://alist.qsesvick.top/",
+      "date": "2026-11-11",
+      "proved": null,
+      "capture": "sha256:8843ab27a9e81b12ae7d93cd30c679a2c7056ae913e61134585508df346d43c3",
+      "quote": "\"listing_sha256\": \"ec8bc9ba\""
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-22T03:37:00.574Z",
+  "verified_at": "2026-11-11T00:37:23.906Z",
   "binding": "per-ip-shaping",
   "notes": "One of three hostnames on the 20237737 operator's corpus, and the one the community index publishes as its WebDAV endpoint. 5 root entries; the WebDAV endpoint answers PROPFIND with 207 to the published guest credential.",
   "extras": {
@@ -82,10 +117,11 @@
     "write_content_bypass": false,
     "permission_bitmask": "1280",
     "base_path": "/",
-    "listing_sha256": "23f6bf54",
+    "listing_sha256": "ec8bc9ba",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-10-22T03:37:00.574Z",
+    "last_verified_alive": "2026-11-11T00:20:01.877Z",
     "last_verified_dead": null,
-    "consecutive_failures": 0
+    "consecutive_failures": 0,
+    "listing_hash_method": null
   }
 }

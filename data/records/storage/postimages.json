@@ -19,7 +19,7 @@
     "notes": "not stated"
   },
   "retention": {
-    "stated": null,
+    "stated": "You can upload an unlimited number of images per post, and you will never have to worry about your images being removed due to inactivity.",
     "source_url": "https://postimages.org/faq",
     "notes": "not stated"
   },
@@ -64,10 +64,24 @@
       "url": null,
       "date": "2026-10-21",
       "proved": "probe: HEAD api.postimages.org -> 301 nginx (endpoint exists; no human-readable docs page published)"
+    },
+    {
+      "url": "https://postimages.org/faq",
+      "date": "2026-11-11",
+      "proved": "the FAQ states images are never removed for inactivity",
+      "capture": "sha256:c16dd33f1f457db828cd288a161395cc06bbf735cd18c239bbc7558887398644",
+      "quote": "You can upload an unlimited number of images per post, and you will never have to worry about your images being removed due to inactivity."
+    },
+    {
+      "url": "https://postimages.org/faq",
+      "date": "2026-11-11",
+      "proved": "the FAQ still states the free-account file-size cap",
+      "capture": "sha256:c16dd33f1f457db828cd288a161395cc06bbf735cd18c239bbc7558887398644",
+      "quote": "a file size of 32Mb"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-11T07:23:03.223Z",
   "notes": "No storage cap stated: 'we do not impose strict limits on our users... Some users store and share tens of thousands of images'. Explicitly 'you will never have to worry about your images being removed due to inactivity'.",
   "extras": {},
   "binding": "per-object-cap",

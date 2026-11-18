@@ -14,7 +14,7 @@
   "limits_note": null,
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "verified_at": "2026-11-04T05:24:31.813Z",
+  "verified_at": "2026-11-18T04:58:05.490Z",
   "price_per_tb_month": null,
   "slug": "tilde-green",
   "provider": "tilde.green",
@@ -33,7 +33,7 @@
     "days": null
   },
   "egress": {
-    "terms": "not published",
+    "terms": "not stated",
     "metered": false,
     "free_allowance": null,
     "price_per_tb": null,
@@ -80,6 +80,13 @@
       "proved": "idle accounts are welcome",
       "capture": "sha256:cd2807228b519c250a39c06dece34ea717f48cc6eb7f96d5e484f0da4ad9a9bf",
       "quote": "we don't mind if you register and stay idle"
+    },
+    {
+      "url": "https://tilde.green/",
+      "date": "2026-11-18",
+      "proved": "not stated",
+      "capture": "sha256:4564db3687ea149cb3f6e312b3f6317964377cfc1168d467e033ff366db74280",
+      "quote": "We are running Ubuntu 24.04.1 LTS, list of services, we don't mind if you register and stay idle, but we'd appreciate if possible if you could join our little community."
     }
   ],
   "verdict": "qualifies-with-caveat",
