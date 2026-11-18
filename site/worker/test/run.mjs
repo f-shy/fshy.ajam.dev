@@ -1352,11 +1352,14 @@ test('the title of a ledger row in the worklist changes follows its op, and its 
   const w = await call('/api/v1/worklist/changes?limit=100');
   const led = w.json.rows.filter((r) => r[1] === 'ledger');
   if (!led.length) return;
-  const since = led.map((r) => r[0]).sort()[0];
+  // read the rows of these dates and records only: one run can write hundreds of rows with one date, so the rows
+  // since the oldest date of the page need not fit in one answer
+  const list = (xs) => [...new Set(xs)].map((x) => "'" + String(x).replace(/'/g, "''") + "'").join(', ');
   const l = await call('/api/v1/sql?limit=200&q=' + encodeURIComponent(
-    `SELECT at, rid, CASE WHEN path LIKE '$.%' THEN substr(path, 3) ELSE path END, op, path, url FROM ledger WHERE at >= '${since}'`));
+    `SELECT at, rid, CASE WHEN path LIKE '$.%' THEN substr(path, 3) ELSE path END, op, path, url FROM ledger
+     WHERE at IN (${list(led.map((r) => r[0]))}) AND rid IN (${list(led.map((r) => r[5]))})`));
   assert.equal(l.res.status, 200, l.body);
-  assert.ok(!l.json.truncated, 'the ledger rows since ' + since + ' fit in one answer');
+  assert.ok(!l.json.truncated, 'the ledger rows of the dates and records of the page fit in one answer');
   const titles = new Map();
   for (const [at, rid, ref, op, path, url] of l.json.rows) {
     const k = JSON.stringify([at, rid, ref]);
