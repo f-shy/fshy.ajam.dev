@@ -24,7 +24,8 @@ pin check and the weekly backup.
    GitHub keeps that line in the edit history after an edit. The hook of
    [`.claude/hooks/refuse-footer-tools.sh`](.claude/hooks/refuse-footer-tools.sh), set in
    [`.claude/settings.json`](.claude/settings.json), stops those tools before they send. An agent that has no such
-   hook does not use them: it pushes the branch and gives the operator the link to open the pull request.
+   hook does not use them. It pushes the branch, and the workflow `open-pr` opens the pull request from the commits
+   with the repository token, checks its text the same way, and starts the workflow `build` on it.
 3. ⛔ **Every document is written in ASD-STE100 Simplified Technical English.** The working rules are in
    [`docs/conventions.md`](docs/conventions.md). They bind commit messages, issue comments and pull requests too.
 4. ⛔ **No personal or operator detail.** No name of a person, email address, home address, IP address, device name,
@@ -44,7 +45,11 @@ pin check and the weekly backup.
    follow. `scripts/rq intake` in the research repository quotes it into a queued question, and a lane checks
    it against first-party sources.
 7. ⛔ **A session never merges what it wrote**, except the merge session's own publish and intake pull
-   requests. See [`docs/merge-protocol.md`](docs/merge-protocol.md).
+   requests, and a pull request that the operator asked the session to make or to merge. For that one, the request
+   of the operator is the second key: the session merges it when CI is green on its head
+   ([`scripts/ci.py`](scripts/ci.py)), with the merge command of [`docs/merge-protocol.md`](docs/merge-protocol.md),
+   section 4. A session does the steps that it can do itself: it pushes the branch, waits for CI, merges, and
+   follows the deploy. It asks the operator only for a decision or a credential.
 8. ⛔ **A self-hosted record is the last resort, in every list.** The site is for users who have no hardware. A
    self-hosted record has `record.self_hosted = 1`: the user installs, runs and maintains it, on any machine. Every
    list of the wiki, the API, the MCP tools and the files for agents puts it after every hosted record (free, trial
