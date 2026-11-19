@@ -90,6 +90,7 @@
 {"dst":"compute/azure-windows","kind":"same-product","src":"compute/azure-vm"}
 {"dst":"compute/bero-host-ipv6-anniversary-xs","kind":"same-product","src":"compute/bero-host"}
 {"dst":"compute/bolt","kind":"mentions","src":"coding-subs/bolt-free"}
+{"dst":"compute/buddy","kind":"mentions","src":"ci-cd-runners/buddy"}
 {"dst":"compute/buyvm-slice-2048","kind":"same-product","src":"compute/buyvm"}
 {"dst":"compute/buyvm-slice-512","kind":"same-product","src":"compute/buyvm"}
 {"dst":"compute/buyvm-slice-512","kind":"same-product","src":"compute/buyvm-slice-2048"}
@@ -399,6 +400,9 @@
 {"dst":"dev-services/windmill-cloud","kind":"duplicate_of","src":"compute/windmill-cloud"}
 {"dst":"dev-services/windmill-cloud","kind":"mentions","src":"compute/windmill"}
 {"dst":"dev-services/zapier","kind":"mentions","src":"dev-services/n8n-community-edition"}
+{"dst":"domains-dns/ns1-connect-essentials","kind":"same-product","src":"domains-dns/ns1-connect"}
+{"dst":"domains-dns/ns1-connect-standard","kind":"same-product","src":"domains-dns/ns1-connect"}
+{"dst":"domains-dns/ns1-connect-standard","kind":"same-product","src":"domains-dns/ns1-connect-essentials"}
 {"dst":"egress/adguard-vpn","kind":"duplicate_of","src":"ip-proxy/adguard-vpn"}
 {"dst":"egress/adguard-vpn","kind":"mentions","src":"ip-proxy/adguard-vpn"}
 {"dst":"egress/airvpn","kind":"mentions","src":"ip-proxy/torguard-residential"}
