@@ -3720,7 +3720,9 @@
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"debrid/usenetnews-net","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"debrid/usenetstorm","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/cronitor","rule":"S-IDENT"}
+{"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/hypertune","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/onlineornot","rule":"S-IDENT"}
+{"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/stack-auth","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/statuscake","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"dev-services/umami-cloud","rule":"S-IDENT"}
 {"class":"identity-defaulted","path":"$.identity_cost.kind","rid":"domains-dns/digitalplat-freedomain","rule":"S-IDENT"}
@@ -5742,6 +5744,7 @@
 {"class":"interface-unknown","path":"$.interface","rid":"crawler-scraper/12ft","rule":"S-IFACE"}
 {"class":"interface-unknown","path":"$.interface","rid":"crawler-scraper/urlreader","rule":"S-IFACE"}
 {"class":"interface-unknown","path":"$.interface","rid":"data-apis/iptoasn","rule":"S-IFACE"}
+{"class":"interface-unknown","path":"$.interface","rid":"databases-kv/memcachier","rule":"S-IFACE"}
 {"class":"interface-unknown","path":"$.interface","rid":"debrid/anonfiles-info","rule":"S-IFACE"}
 {"class":"interface-unknown","path":"$.interface","rid":"debrid/army-of-strangers","rule":"S-IFACE"}
 {"class":"interface-unknown","path":"$.interface","rid":"debrid/bedrive-ru","rule":"S-IFACE"}
@@ -31337,6 +31340,7 @@
 {"class":"withheld","path":"$.evidence[11].quote","rid":"data-apis/tomtom","rule":"L3"}
 {"class":"withheld","path":"$.evidence[11].quote","rid":"debrid/newshosting","rule":"L1"}
 {"class":"withheld","path":"$.evidence[11].quote","rid":"dev-services/pusher-channels","rule":"L2"}
+{"class":"withheld","path":"$.evidence[11].quote","rid":"domains-dns/dnsmadeeasy","rule":"L2"}
 {"class":"withheld","path":"$.evidence[11].quote","rid":"inference/tencent-hy-text-global","rule":"L1"}
 {"class":"withheld","path":"$.evidence[12].proved","rid":"compute/datalix","rule":"N11"}
 {"class":"withheld","path":"$.evidence[12].proved","rid":"compute/deepinfra-gpu","rule":"N14"}
@@ -31371,6 +31375,7 @@
 {"class":"withheld","path":"$.evidence[13].proved","rid":"data-apis/meteostat-json-api","rule":"L3"}
 {"class":"withheld","path":"$.evidence[13].proved","rid":"data-apis/tomorrow-io","rule":"L3"}
 {"class":"withheld","path":"$.evidence[13].proved","rid":"data-apis/weatherapi","rule":"L3-held"}
+{"class":"withheld","path":"$.evidence[13].proved","rid":"dev-services/telnyx-messaging","rule":"L2"}
 {"class":"withheld","path":"$.evidence[13].proved","rid":"ip-proxy/oxylabs-isp-proxies","rule":"L1"}
 {"class":"withheld","path":"$.evidence[13].proved","rid":"ip-proxy/rarecoud-and-vpckr","rule":"N13-held"}
 {"class":"withheld","path":"$.evidence[13].quote","rid":"data-apis/alpha-vantage","rule":"L3"}
@@ -31379,6 +31384,7 @@
 {"class":"withheld","path":"$.evidence[13].quote","rid":"data-apis/maptiler","rule":"L3"}
 {"class":"withheld","path":"$.evidence[13].quote","rid":"data-apis/meteostat-json-api","rule":"L3"}
 {"class":"withheld","path":"$.evidence[13].quote","rid":"data-apis/stamen-map-tiles","rule":"L3-held"}
+{"class":"withheld","path":"$.evidence[13].quote","rid":"dev-services/telnyx-messaging","rule":"L2"}
 {"class":"withheld","path":"$.evidence[13].quote","rid":"ip-proxy/iproyal-isp-proxies","rule":"L1"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"compute/ibm-linuxone-community","rule":"L2"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"data-apis/currencyapi-net","rule":"L3"}
@@ -31387,6 +31393,7 @@
 {"class":"withheld","path":"$.evidence[14].proved","rid":"data-apis/open-meteo","rule":"L3"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"data-apis/stamen-map-tiles","rule":"L3"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"data-apis/weatherapi","rule":"L3"}
+{"class":"withheld","path":"$.evidence[14].proved","rid":"domains-dns/rage4","rule":"L1"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"ip-proxy/iproyal-isp-proxies","rule":"L1"}
 {"class":"withheld","path":"$.evidence[14].proved","rid":"ip-proxy/soladrive-residential-ip-vps","rule":"N16"}
 {"class":"withheld","path":"$.evidence[14].quote","rid":"data-apis/currencyapi-net","rule":"L2"}
@@ -31405,6 +31412,7 @@
 {"class":"withheld","path":"$.evidence[15].quote","rid":"data-apis/meteostat","rule":"L3"}
 {"class":"withheld","path":"$.evidence[15].quote","rid":"data-apis/wolfram-alpha-api","rule":"L3"}
 {"class":"withheld","path":"$.evidence[15].quote","rid":"dev-services/drumbeats-io","rule":"L1"}
+{"class":"withheld","path":"$.evidence[15].quote","rid":"dev-services/infisical","rule":"L1"}
 {"class":"withheld","path":"$.evidence[15].quote","rid":"ip-proxy/iproyal-isp-proxies","rule":"L1"}
 {"class":"withheld","path":"$.evidence[16].proved","rid":"compute/ibm-linuxone-community","rule":"L2"}
 {"class":"withheld","path":"$.evidence[16].proved","rid":"compute/z-ai-glm-flash","rule":"L1"}
@@ -31518,6 +31526,7 @@
 {"class":"withheld","path":"$.evidence[1].quote","rid":"data-apis/geocodify","rule":"L3-held"}
 {"class":"withheld","path":"$.evidence[1].quote","rid":"data-apis/ip-location-db","rule":"L3"}
 {"class":"withheld","path":"$.evidence[1].quote","rid":"data-apis/ip2location-io","rule":"L3"}
+{"class":"withheld","path":"$.evidence[1].quote","rid":"dev-services/vonage","rule":"L2"}
 {"class":"withheld","path":"$.evidence[20].proved","rid":"compute/aeza","rule":"N11"}
 {"class":"withheld","path":"$.evidence[20].proved","rid":"compute/c-servers-nanovps-384-us","rule":"P6"}
 {"class":"withheld","path":"$.evidence[20].proved","rid":"data-apis/financial-modeling-prep","rule":"L3"}
@@ -31796,6 +31805,7 @@
 {"class":"withheld","path":"$.evidence[6].quote","rid":"data-apis/iplocate","rule":"L3"}
 {"class":"withheld","path":"$.evidence[6].quote","rid":"data-apis/met-norway","rule":"L2"}
 {"class":"withheld","path":"$.evidence[6].quote","rid":"data-apis/openweather","rule":"L3"}
+{"class":"withheld","path":"$.evidence[6].quote","rid":"domains-dns/gandi","rule":"L1"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"compute/aeza","rule":"L1"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"compute/azvps-cheap-2","rule":"L1"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"compute/c-servers","rule":"L1-held"}
@@ -31806,6 +31816,7 @@
 {"class":"withheld","path":"$.evidence[7].proved","rid":"compute/nexusbytes","rule":"N11"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"data-apis/openweather","rule":"L3"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"data-apis/positionstack","rule":"L3-held"}
+{"class":"withheld","path":"$.evidence[7].proved","rid":"email/emaillabs","rule":"L2"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"ip-proxy/anchoredip-registration-corrected","rule":"N4"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"ip-proxy/residential-idc-us-vds","rule":"N16"}
 {"class":"withheld","path":"$.evidence[7].proved","rid":"storage/dare-dare-uol-de","rule":"L1"}
@@ -31814,6 +31825,7 @@
 {"class":"withheld","path":"$.evidence[7].quote","rid":"data-apis/openweather","rule":"L3"}
 {"class":"withheld","path":"$.evidence[7].quote","rid":"data-apis/positionstack","rule":"L3-held"}
 {"class":"withheld","path":"$.evidence[7].quote","rid":"debrid/keyoneclick","rule":"L3"}
+{"class":"withheld","path":"$.evidence[7].quote","rid":"email/mail-tm","rule":"X190"}
 {"class":"withheld","path":"$.evidence[7].quote","rid":"inference/tencent-hy-text-global","rule":"L1"}
 {"class":"withheld","path":"$.evidence[7].quote","rid":"storage/dare-dare-uol-de","rule":"L1"}
 {"class":"withheld","path":"$.evidence[8].proved","rid":"compute/amd-developer-cloud","rule":"N17-held"}
@@ -31829,6 +31841,7 @@
 {"class":"withheld","path":"$.evidence[8].quote","rid":"coding-subs/alibaba-cloud-model-studio-coding-plan-china","rule":"L2"}
 {"class":"withheld","path":"$.evidence[8].quote","rid":"data-apis/currents-api","rule":"L3"}
 {"class":"withheld","path":"$.evidence[8].quote","rid":"data-apis/tiingo","rule":"L3"}
+{"class":"withheld","path":"$.evidence[8].quote","rid":"email/emaillabs","rule":"L1"}
 {"class":"withheld","path":"$.evidence[9].proved","rid":"compute/amd-developer-cloud","rule":"N17-held"}
 {"class":"withheld","path":"$.evidence[9].proved","rid":"compute/anchor-browser","rule":"L1"}
 {"class":"withheld","path":"$.evidence[9].proved","rid":"compute/cloudflare-workers-ai","rule":"N17"}

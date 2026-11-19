@@ -327,5 +327,7 @@
 {"a":"trial-only","b":"fails-quota","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"storage/databricks-free-edition-2","subject":"storage/databricks-free-edition"}
 {"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/kamatera-windows","subject":"compute/kamatera"}
 {"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/vultr-windows","subject":"compute/vultr"}
+{"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"domains-dns/ns1-connect-essentials","subject":"domains-dns/ns1-connect"}
+{"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"domains-dns/ns1-connect-standard","subject":"domains-dns/ns1-connect"}
 {"a":"trial-only","b":"qualifies","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/kamatera-basic","subject":"compute/kamatera"}
 {"a":"trial-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/killercoda-free","subject":"compute/killercoda"}
