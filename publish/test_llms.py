@@ -568,10 +568,14 @@ def html_checks(dist, man, st=None):
           dates and all(RFC822.match(d) and email.utils.parsedate_to_datetime(d) for d in dates)
           and feed.count('<guid isPermaLink="false">') == feed.count("<item>") and 'rel="self"' in feed, dates[:2])
     changes = pages.get("changes/index.html", "")
-    check("the Changes page and the feed say which field of which record was amended, and that no old or new value is published (W-13)",
+    # the feed carries the newest ledger rows only, and a publish of new records can fill it with "record added" rows,
+    # so each amended row that it carries is checked, and a feed with none passes
+    amended = re.findall(r"<item><title>[a-z-]+/[^<]+: [^<]+ amended</title>.*?</item>", feed)
+    check("the Changes page and the feed say which field of which record was amended, and that no old or new value is "
+          "published (W-13; %d amended rows in the feed)" % len(amended),
           "holds no old or new value" in changes and re.search(r"<td><code>[a-z_.\[\]0-9]+</code></td>", changes)
-          and "<code>$." not in changes and re.search(r"<title>[a-z-]+/[^<]+: [^<]+ amended</title>", feed)
-          and "The old and the new value are not published" in feed, changes[:0])
+          and "<code>$." not in changes and all("The old and the new value are not published" in i for i in amended),
+          changes[:0])
     # a ledger row that names no field (an evidence row, a relation, a new record) is never titled amended
     cells = re.findall(r"<tr><td>[^<]*</td><td><a [^>]*>[^<]*</a></td><td>([^<]*)</td><td><code>([^<]*)</code></td>", changes)
     titles = set(pages_mod.LEDGER_TITLE.values()) | set(pages_mod.LEDGER_NO_OP.values())
