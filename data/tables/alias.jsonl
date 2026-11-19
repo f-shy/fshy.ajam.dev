@@ -461,6 +461,7 @@
 {"alias":"Amazon Bedrock AgentCore (Runtime / Code Interpreter / Browser)","eid":"amazon","kind":"provider"}
 {"alias":"Amazon Bedrock","eid":"amazon","kind":"provider"}
 {"alias":"Amazon CloudFront free tier (as the egress layer for any origin)","eid":"amazon","kind":"provider"}
+{"alias":"Amazon CodeCatalyst","eid":"amazon","kind":"provider"}
 {"alias":"Amazon DynamoDB","eid":"amazon","kind":"provider"}
 {"alias":"Amazon EC2 Spot","eid":"amazon","kind":"provider"}
 {"alias":"Amazon ECR Public","eid":"ecr","kind":"name"}
@@ -1462,7 +1463,8 @@
 {"alias":"DVC remotes","eid":"dvc","kind":"name"}
 {"alias":"DaRUS (Universität Stuttgart)","eid":"uni-stuttgart","kind":"provider"}
 {"alias":"DaRUS","eid":"uni-stuttgart","kind":"name"}
-{"alias":"Dagger","eid":"dagger","kind":"name"}
+{"alias":"Dagger Cloud","eid":"dagger","kind":"name"}
+{"alias":"Dagger Cloud","eid":"dagger","kind":"provider"}
 {"alias":"Dagger","eid":"dagger","kind":"provider"}
 {"alias":"DagsHub (DagsHub Storage + DVC remote)","eid":"dagshub","kind":"provider"}
 {"alias":"DagsHub","eid":"dagshub","kind":"name"}
@@ -2453,6 +2455,8 @@
 {"alias":"GraphN","eid":"graphn","kind":"provider"}
 {"alias":"Graphcore IPU Cloud","eid":"graphcore","kind":"name"}
 {"alias":"Graphcore IPU Cloud","eid":"graphcore","kind":"provider"}
+{"alias":"Graphide","eid":"graphide","kind":"name"}
+{"alias":"Graphide","eid":"graphide","kind":"provider"}
 {"alias":"GratisVPS","eid":"gratisvps","kind":"name"}
 {"alias":"GratisVPS","eid":"gratisvps","kind":"provider"}
 {"alias":"Green Compute","eid":"green-compute","kind":"name"}
@@ -3045,6 +3049,7 @@
 {"alias":"Jenkins","eid":"jenkins","kind":"name"}
 {"alias":"Jenkins","eid":"jenkins","kind":"provider"}
 {"alias":"JetBrains AI","eid":"jetbrains","kind":"provider"}
+{"alias":"JetBrains Qodana","eid":"jetbrains","kind":"provider"}
 {"alias":"JetBrains Student Pack","eid":"jetbrains","kind":"provider"}
 {"alias":"JetBrains","eid":"jetbrains","kind":"name"}
 {"alias":"Jetstream2","eid":"jetstream-cloud","kind":"provider"}
@@ -4162,6 +4167,8 @@
 {"alias":"Octen","eid":"octen","kind":"provider"}
 {"alias":"Octoparse","eid":"octoparse","kind":"name"}
 {"alias":"Octoparse","eid":"octoparse","kind":"provider"}
+{"alias":"Octopus Cloud","eid":"octopus","kind":"name"}
+{"alias":"Octopus Cloud","eid":"octopus","kind":"provider"}
 {"alias":"Odysee / LBRY","eid":"odysee","kind":"provider"}
 {"alias":"Odysee","eid":"odysee","kind":"name"}
 {"alias":"Oeck","eid":"oeck","kind":"name"}
@@ -6894,6 +6901,7 @@
 {"alias":"amazon-alexa-prize","eid":"amazon-2","kind":"slug"}
 {"alias":"amazon-bedrock","eid":"amazon","kind":"slug"}
 {"alias":"amazon-cloudfront-free-tier","eid":"amazon","kind":"slug"}
+{"alias":"amazon-codecatalyst","eid":"amazon","kind":"slug"}
 {"alias":"amazon-dynamodb","eid":"amazon","kind":"slug"}
 {"alias":"amazon-ec2-spot","eid":"amazon","kind":"slug"}
 {"alias":"amazon-ecr-public","eid":"ecr","kind":"slug"}
@@ -8506,6 +8514,7 @@
 {"alias":"d4-networks","eid":"d4networks","kind":"slug"}
 {"alias":"d4networks.com","eid":"d4networks","kind":"domain"}
 {"alias":"dagger","eid":"dagger","kind":"slug"}
+{"alias":"dagger-cloud","eid":"dagger","kind":"slug"}
 {"alias":"dagger.io","eid":"dagger","kind":"domain"}
 {"alias":"dagshub","eid":"dagshub","kind":"slug"}
 {"alias":"dagshub.com","eid":"dagshub","kind":"domain"}
@@ -10475,6 +10484,8 @@
 {"alias":"graphcore.ai","eid":"graphcore","kind":"domain"}
 {"alias":"graphhopper","eid":"graphhopper","kind":"slug"}
 {"alias":"graphhopper.com","eid":"graphhopper","kind":"domain"}
+{"alias":"graphide","eid":"graphide","kind":"slug"}
+{"alias":"graphide.com","eid":"graphide","kind":"domain"}
 {"alias":"graphn","eid":"graphn","kind":"slug"}
 {"alias":"graphn.ai","eid":"graphn","kind":"domain"}
 {"alias":"grass (as a purchasable egress or storage path)","eid":"grass","kind":"provider"}
@@ -11466,6 +11477,7 @@
 {"alias":"jenkins.io","eid":"jenkins","kind":"domain"}
 {"alias":"jetbrains student pack","eid":"jetbrains","kind":"provider"}
 {"alias":"jetbrains-ai","eid":"jetbrains","kind":"slug"}
+{"alias":"jetbrains-qodana","eid":"jetbrains","kind":"slug"}
 {"alias":"jetbrains-student-pack","eid":"jetbrains","kind":"slug"}
 {"alias":"jetbrains.com","eid":"jetbrains","kind":"domain"}
 {"alias":"jetstream-cloud.org","eid":"jetstream-cloud","kind":"domain"}
@@ -13172,6 +13184,8 @@
 {"alias":"octenai","eid":"octen","kind":"slug"}
 {"alias":"octoparse","eid":"octoparse","kind":"slug"}
 {"alias":"octoparse.com","eid":"octoparse","kind":"domain"}
+{"alias":"octopus-cloud","eid":"octopus","kind":"slug"}
+{"alias":"octopus.com","eid":"octopus","kind":"domain"}
 {"alias":"odysee-lbry","eid":"odysee","kind":"slug"}
 {"alias":"odysee.com","eid":"odysee","kind":"domain"}
 {"alias":"oeck-vpn","eid":"oeck","kind":"slug"}

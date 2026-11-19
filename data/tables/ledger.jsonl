@@ -24174,3 +24174,8 @@
 {"at":"2026-11-19T03:34:29.445Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"dev-services/hcp-vault-secrets","rung":null,"url":null}
 {"at":"2026-11-19T03:34:29.533Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"dev-services/akeyless","rung":null,"url":null}
 {"at":"2026-11-19T03:34:29.543Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"dev-services/doppler-team","rung":null,"url":null}
+{"at":"2026-11-19T07:02:25.030Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"ci-cd-runners/amazon-codecatalyst","rung":null,"url":null}
+{"at":"2026-11-19T07:02:25.036Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"ci-cd-runners/graphide","rung":null,"url":null}
+{"at":"2026-11-19T07:02:25.163Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"ci-cd-runners/jetbrains-qodana","rung":null,"url":null}
+{"at":"2026-11-19T07:02:25.172Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"ci-cd-runners/octopus-cloud","rung":null,"url":null}
+{"at":"2026-11-19T07:02:25.219Z","date":null,"new":null,"old":null,"op":"add_record","path":null,"proved":null,"reason":null,"rid":"ci-cd-runners/dagger-cloud","rung":null,"url":null}
