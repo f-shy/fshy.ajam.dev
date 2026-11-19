@@ -129,6 +129,7 @@
 {"dst":"compute/contabo-windows","kind":"same-product","src":"compute/contabo-black-friday"}
 {"dst":"compute/contabo-windows","kind":"same-product","src":"compute/contabo-cloud-vps-4"}
 {"dst":"compute/cua-windows","kind":"same-product","src":"compute/cua"}
+{"dst":"compute/dagger","kind":"mentions","src":"ci-cd-runners/dagger-cloud"}
 {"dst":"compute/datadog","kind":"mentions","src":"dev-services/datadog"}
 {"dst":"compute/datadog","kind":"mentions","src":"dev-services/datadog-open-source"}
 {"dst":"compute/datalix","kind":"mentions","src":"ip-proxy/host-asn-field-absent"}

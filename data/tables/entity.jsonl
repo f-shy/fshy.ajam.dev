@@ -267,7 +267,7 @@
 {"best_vorder":1,"domain":"alphai.io","eid":"alphai","n_records":1,"name":"AlphAI","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"alphavantage.co","eid":"alphavantage","n_records":1,"name":"Alpha Vantage","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"althub.co.za","eid":"althub","n_records":1,"name":"altHUB","resolved_by":"domain","review":null,"topics":"debrid"}
-{"best_vorder":1,"domain":"amazon.com","eid":"amazon","n_records":55,"name":"AWS","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,databases-kv,egress,email,inference,netdisk-pan,storage"}
+{"best_vorder":1,"domain":"amazon.com","eid":"amazon","n_records":56,"name":"AWS","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute,databases-kv,egress,email,inference,netdisk-pan,storage"}
 {"best_vorder":1,"domain":"amd.com.cn","eid":"amd-2","n_records":2,"name":"AMD Radeon","resolved_by":"domain","review":null,"topics":"compute,inference"}
 {"best_vorder":1,"domain":"amika.dev","eid":"amika","n_records":1,"name":"Amika","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"amplitude.com","eid":"amplitude","n_records":1,"name":"Amplitude","resolved_by":"domain","review":null,"topics":"dev-services"}
@@ -446,7 +446,6 @@
 {"best_vorder":1,"domain":"cyberdrop.cr","eid":"cyberdrop","n_records":1,"name":"CyberDrop","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"cyberfile.me","eid":"cyberfile","n_records":1,"name":"CyberFile","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"cyverse.org","eid":"cyverse","n_records":2,"name":"CyVerse Data","resolved_by":"domain","review":null,"topics":"compute,storage"}
-{"best_vorder":1,"domain":"dagger.io","eid":"dagger","n_records":1,"name":"Dagger","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":1,"domain":"dagshub.com","eid":"dagshub","n_records":1,"name":"DagsHub","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"dailymotion.com","eid":"dailymotion","n_records":1,"name":"Dailymotion","resolved_by":"domain","review":null,"topics":"storage"}
 {"best_vorder":1,"domain":"dailyuploads.net","eid":"dailyuploads","n_records":1,"name":"DailyUploads","resolved_by":"domain","review":null,"topics":"debrid"}
@@ -758,7 +757,7 @@
 {"best_vorder":1,"domain":"jarvisclaw.ai","eid":"jarvisclaw","n_records":1,"name":"JarvisClaw free route","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":1,"domain":"jdownloader.org","eid":"jdownloader","n_records":2,"name":"JDownloader 2","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"jenkins.io","eid":"jenkins","n_records":1,"name":"Jenkins","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
-{"best_vorder":1,"domain":"jetbrains.com","eid":"jetbrains","n_records":5,"name":"JetBrains","resolved_by":"domain","review":null,"topics":"ci-cd-runners,coding-subs,compute,storage"}
+{"best_vorder":1,"domain":"jetbrains.com","eid":"jetbrains","n_records":6,"name":"JetBrains","resolved_by":"domain","review":null,"topics":"ci-cd-runners,coding-subs,compute,storage"}
 {"best_vorder":1,"domain":"jetstream-cloud.org","eid":"jetstream-cloud","n_records":2,"name":"NSF ACCESS","resolved_by":"domain","review":null,"topics":"compute,storage"}
 {"best_vorder":1,"domain":"jiejingfan.vip","eid":"jiejingfan","n_records":1,"name":"晴天网盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
 {"best_vorder":1,"domain":"jinnan.top","eid":"jinnan","n_records":1,"name":"槿南盘","resolved_by":"domain","review":null,"topics":"netdisk-pan"}
@@ -963,6 +962,7 @@
 {"best_vorder":1,"domain":"nzbscout.com","eid":"nzbscout","n_records":1,"name":"NZBScout","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"nzbstars.com","eid":"nzbstars","n_records":1,"name":"NZBStars","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"octoparse.com","eid":"octoparse","n_records":1,"name":"Octoparse","resolved_by":"domain","review":null,"topics":"crawler-scraper"}
+{"best_vorder":1,"domain":"octopus.com","eid":"octopus","n_records":1,"name":"Octopus Cloud","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
 {"best_vorder":1,"domain":"oikolab.com","eid":"oikolab","n_records":1,"name":"Oikolab","resolved_by":"domain","review":null,"topics":"data-apis"}
 {"best_vorder":1,"domain":"okdebrid.com","eid":"okdebrid","n_records":1,"name":"OkDebrid","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":1,"domain":"okta.com","eid":"okta","n_records":1,"name":"Okta","resolved_by":"domain","review":null,"topics":"dev-services"}
@@ -1535,6 +1535,7 @@
 {"best_vorder":2,"domain":"github.com","eid":"github-erebe","n_records":2,"name":"wstunnel demo","resolved_by":"platform","review":null,"topics":"egress"}
 {"best_vorder":2,"domain":"gocloud.africa","eid":"gocloud","n_records":1,"name":"GoCloud","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":2,"domain":"gpucloudproviders.com","eid":"gpucloudproviders","n_records":1,"name":"Akash Network GPU","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":2,"domain":"graphide.com","eid":"graphide","n_records":1,"name":"Graphide","resolved_by":"domain","review":null,"topics":"ci-cd-runners"}
 {"best_vorder":2,"domain":"graphn.ai","eid":"graphn","n_records":1,"name":"GraphN","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"greenpt.ai","eid":"greenpt","n_records":1,"name":"GreenPT","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":2,"domain":"grokified.com","eid":"grokified","n_records":1,"name":"Grokified","resolved_by":"domain","review":null,"topics":"inference"}
@@ -1845,6 +1846,7 @@
 {"best_vorder":3,"domain":"cyberdesk.io","eid":"cyberdesk","n_records":1,"name":"Cyberdesk","resolved_by":"domain","review":null,"topics":"compute"}
 {"best_vorder":3,"domain":"d.run","eid":"d","n_records":1,"name":"D.Run","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"d4networks.com","eid":"d4networks","n_records":1,"name":"D4 Networks","resolved_by":"domain","review":null,"topics":"compute"}
+{"best_vorder":3,"domain":"dagger.io","eid":"dagger","n_records":2,"name":"Dagger Cloud","resolved_by":"domain","review":null,"topics":"ci-cd-runners,compute"}
 {"best_vorder":3,"domain":"dailyleech.com","eid":"dailyleech","n_records":1,"name":"DailyLeech","resolved_by":"domain","review":null,"topics":"debrid"}
 {"best_vorder":3,"domain":"daoxe.com","eid":"daoxe","n_records":1,"name":"DaoXE","resolved_by":"domain","review":null,"topics":"inference"}
 {"best_vorder":3,"domain":"datachain.ai","eid":"datachain","n_records":1,"name":"datachain studio","resolved_by":"domain","review":null,"topics":"storage"}

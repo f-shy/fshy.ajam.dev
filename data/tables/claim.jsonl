@@ -1655,6 +1655,7 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":"month","rid":"storage/vercel-blob-2","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/buddy","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/cloudflare-artifacts","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/octopus-cloud","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"compute/666clouds","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"compute/abeiyun","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":1.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"compute/allhost","unit":"GB","usd":null}
@@ -4010,6 +4011,7 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":96.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"compute/ecohash","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":99.0,"parse":"ok","path":"$.free_tier.stated","per":null,"rid":"storage/mastodonapp-uk-mstdn-social-mastodon-social-and-the-stoc","unit":"MiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/actuated","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/amazon-codecatalyst","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/appflow","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/appveyor","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/azure-pipelines-public","unit":null,"usd":null}
@@ -4018,12 +4020,15 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/codeberg-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/codeship","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/compiler-dev","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/dagger-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/dev-ramps-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/drone-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/forgejo-gitea-actions","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/ghcr","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/gocd","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/graphide","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/jenkins-cloud","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/jetbrains-qodana","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
@@ -6846,11 +6851,13 @@
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"storage/zooniverse","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"free-quota","num":null,"parse":"unparsed","path":"$.free_tier.stated","per":null,"rid":"storage/zulip-self-hosted-free-community","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/actuated","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/amazon-codecatalyst","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/azure-pipelines-public","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/cirrus-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/cloudflare-artifacts","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/codefresh-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/codeship","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/dagger-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/garnix","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":0.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/shippable","unit":null,"usd":null}
@@ -8624,6 +8631,8 @@
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/gitlab-container-registry","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/google-cloud-build","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/harness-ci-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/jetbrains-qodana","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/octopus-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/runnerhut","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/runners-io","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"has-free-tier","num":1.0,"parse":"ok","path":"$.free_tier","per":null,"rid":"ci-cd-runners/semaphore-cloud","unit":null,"usd":null}
@@ -11846,6 +11855,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/upstash-vector","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/wechat-official-account-uploadimg","unit":"MB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/yandex-mail-5-gb-pooled-with-disk-1-gb-attachment","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/octopus-cloud","unit":"TB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/sourcehut-builds","unit":"GiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/azure-foundry-agents","unit":"GB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:per-object-cap","num":1.0,"parse":"ok","path":"$.limits[1].value","per":null,"rid":"compute/civo","unit":"GB","usd":null}
@@ -15930,8 +15940,12 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/buddy","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/buildkite-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/cloudflare-pages-builds","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/dagger-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/google-cloud-build","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/graphide","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/jetbrains-qodana","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/octopus-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/teamcity-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/vercel-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/wercker","unit":null,"usd":null}
@@ -16504,6 +16518,9 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[13].value","per":null,"rid":"debrid/real-debrid","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[16].value","per":null,"rid":"debrid/high-way","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[16].value","per":null,"rid":"debrid/real-debrid","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/amazon-codecatalyst","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/dagger-cloud","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/jetbrains-qodana","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/nixci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/bolt-free","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/charm-hyper","unit":null,"usd":null}
@@ -16663,6 +16680,8 @@
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/loom-vidyard-free-tiers","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/playstation-plus-cloud-storage","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/sendbird-chat","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/dagger-cloud","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/graphide","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"coding-subs/qwencloud-token-plan-team-edition","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"coding-subs/tabnine-enterprise","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:volume-quota","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/boat","unit":null,"usd":null}
@@ -16775,6 +16794,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":730.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"compute/leadergpu","unit":"hours","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":750.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"storage/codeberg-pages","unit":"MiB","usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":8.0,"parse":"ok","path":"$.limits[0].value","per":null,"rid":"netdisk-pan/tab-digital-nextcloud","unit":"GB","usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/amazon-codecatalyst","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/cloudflare-artifacts","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/codeberg-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[0].value","per":null,"rid":"ci-cd-runners/codeship","unit":null,"usd":null}
@@ -17316,6 +17336,7 @@
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[15].value","per":null,"rid":"debrid/high-way","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/appflow","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/dev-ramps-free","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"ci-cd-runners/graphide","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/gitlab","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/lovable","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"coding-subs/tencent-coding-plan","unit":null,"usd":null}
@@ -17513,6 +17534,8 @@
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/wikimedia-commons","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[1].value","per":null,"rid":"storage/zenodo","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/appflow","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/jetbrains-qodana","unit":null,"usd":null}
+{"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/octopus-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"ci-cd-runners/vercel-ci","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/ascs-cloud","unit":null,"usd":null}
 {"currency":null,"fx_date":null,"kind":"limit:write-gated","num":null,"parse":"unparsed","path":"$.limits[2].value","per":null,"rid":"compute/aws-workspaces","unit":null,"usd":null}
