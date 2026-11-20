@@ -785,6 +785,12 @@ def publog_checks(tmp):
     check("a record added or re-checked with no ledger row is a gap until a later ledger row or removal",
           [g["rid"] for g in gaps.get("t", [])] == ["t/a", "t/d"], gaps)
     publish("s3", ["t/a"], "2026-01-04T00:00:00+00:00")
+    put("t/c", "1", [{"url": "u", "capture": None}])  # a new evidence row, with its ledger row
+    publish("s4", ["t/c"], "2026-01-05T00:00:00+00:00")
+    put("t/c", "1", [{"url": "u", "capture": "sha256:0"}])  # only the capture of an evidence row: not a re-check
+    publish("s5", [], "2026-01-06T00:00:00+00:00")
+    check("a change of the capture of an evidence row alone is not a re-check and opens no gap",
+          publog.entries(repo)[0]["rechecked"] == [] and [g["rid"] for g in publog.gaps(publog.entries(repo)).get("t", [])] == ["t/d"])
     check("a later ledger row closes the gap of its record", [g["rid"] for g in publog.gaps(publog.entries(repo)).get("t", [])] == ["t/d"])
     put("t/e", "1", [1])
     check("the export in the working tree is the first entry, with no commit",
