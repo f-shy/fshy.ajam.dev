@@ -43,6 +43,15 @@ ZERO = "0" * 40
 RECHECK = ("verified_at", "evidence")  # a change of one of these keys is a re-check by research
 
 
+def research_view(rec, key):
+    """The value of key that research decides. The capture of an evidence row is a pointer that the projection can
+    keep or withhold with no new read, so a change of the capture alone is not a re-check."""
+    v = rec.get(key)
+    if key == "evidence" and isinstance(v, list):
+        return [{k: x for k, x in e.items() if k != "capture"} if isinstance(e, dict) else e for e in v]
+    return v
+
+
 class GitError(Exception):
     pass
 
@@ -118,7 +127,7 @@ def entry(repo, old, new, when):
                 after = json.load(f)
         else:
             after = json.loads(got[b])
-        if any(before.get(k) != after.get(k) for k in RECHECK):
+        if any(research_view(before, k) != research_view(after, k) for k in RECHECK):
             rechecked.add(rid_of(path))
     ledger = set()
     for line in git(repo, "diff", "-U0", "--no-color", *span, "--", LEDGER).decode("utf-8").splitlines():
