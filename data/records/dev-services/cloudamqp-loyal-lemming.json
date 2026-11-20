@@ -76,112 +76,112 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Little Lemur and Loyal Lemming are free with no time limit and no credit card",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Yes. Our free shared plans, Little Lemur (RabbitMQ) and Loyal Lemming (LavinMQ), are free to use for as long as you like — no credit card required to get started."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Loyal Lemming is a vhost on a shared LavinMQ broker",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "A vhost on a shared LavinMQ broker. For development, prototypes and small hobby projects."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Loyal Lemming gives 2 M messages a month and 40 connections at no cost",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Message quota/month 2 M Connection limit 40 Free"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Loyal Lemming holds at most 200 queues",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 200 queues"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Loyal Lemming holds at most 20 000 queued messages",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 20 000 queued messages"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "a free instance with no traffic in two months is deleted after a warning email",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Free instances that have not published or consumed a single message during the latest two months are deleted, after a warning email."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "the idle-queue limit of 28 days is listed for the shared RabbitMQ plans",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max idle queue time 28 days"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "data transfer is a fair-use allowance of 30% of team spend",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Each plan includes free data transfer equal to 30% of your team's spend each month."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "traffic above the fair-use allowance may be charged after 30 days",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Teams that use more may be subject to additional charges: after an overage you have 30 days to resolve it before traffic charges are added to later invoices."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "LavinMQ supports neither AMQP 1.0 nor STOMP",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "RabbitMQ also supports AMQP 1.0 and STOMP on shared and dedicated plans; LavinMQ supports neither."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "the shared plans include streams",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "| Streams | Included | Included | Included |"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "the shared plans include webhooks (push-queues)",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "| Webhooks (Push-Queues) | Included | Included | Included |"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "the shared LavinMQ plans include the built-in delayed message exchange",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "| Delayed Message Exchange (built-in) | Included (LavinMQ) | Included | – |"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "the paid shared LavinMQ plan Elegant Ermine is USD 19 a month for 20 M messages and 200 connections",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Message quota/month 20 M Connection limit 200 $19/mo"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Elegant Ermine holds at most 2000 queues",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 2000 queues"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Elegant Ermine holds at most 200 000 queued messages",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 200 000 queued messages"
     },
     {
@@ -398,7 +398,7 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-11-01",
       "proved": "the plans page lists Max idle queue time 28 days under Tough Tiger",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "For Hobby Apps - Shared RabbitMQ broker - Max 1000 queues - Max 100 000 queued messages - Max idle queue time 28 days"
     },
     {
@@ -447,7 +447,7 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-11-01",
       "proved": "the plans page lists Loyal Lemming with 2 M messages a month, 40 connections, 200 queues and 20 000 queued messages at no cost, and lists no idle queue time for it",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Loyal Lemming - Shared LavinMQ broker - Max 200 queues - Max 20 000 queued messages Message quota/month 2 M Connection limit 40 Free"
     }
   ]

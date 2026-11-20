@@ -72,56 +72,56 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "Little Lemur and Loyal Lemming are free with no time limit and no credit card",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Yes. Our free shared plans, Little Lemur (RabbitMQ) and Loyal Lemming (LavinMQ), are free to use for as long as you like — no credit card required to get started."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "Little Lemur gives 1 M messages a month and 20 connections at no cost",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Message quota/month 1 M Connection limit 20 Free"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "Little Lemur holds at most 10 000 queued messages",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 10 000 queued messages"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "Little Lemur deletes a queue idle for 28 days",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max idle queue time 28 days"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "a free instance with no traffic in two months is deleted after a warning email",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Free instances that have not published or consumed a single message during the latest two months are deleted, after a warning email."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "data transfer is a fair-use allowance of 30% of team spend",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Each plan includes free data transfer equal to 30% of your team's spend each month."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "shared RabbitMQ supports AMQP 0.9.1, HTTP(S), MQTT and WebSockets",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "All clusters support AMQP 0.9.1, HTTP(S), MQTT, and WebSockets."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "shared RabbitMQ also supports AMQP 1.0 and STOMP",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "RabbitMQ also supports AMQP 1.0 and STOMP on shared and dedicated plans; LavinMQ supports neither."
     },
     {
@@ -219,21 +219,21 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "Little Lemur holds at most 100 queues",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Max 100 queues"
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "traffic above the fair-use allowance may be charged after 30 days",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Teams that use more may be subject to additional charges: after an overage you have 30 days to resolve it before traffic charges are added to later invoices."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-30",
       "proved": "the paid shared RabbitMQ plan Tough Tiger is USD 19 a month for 10 M messages and 100 connections",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Message quota/month 10 M Connection limit 100 $19/mo"
     },
     {
@@ -261,14 +261,14 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Loyal Lemming is CloudAMQP's other free shared plan and runs on LavinMQ, while Little Lemur runs on RabbitMQ",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Yes. Our free shared plans, Little Lemur (RabbitMQ) and Loyal Lemming (LavinMQ), are free to use for as long as you like — no credit card required to get started."
     },
     {
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-10-31",
       "proved": "Little Lemur still gives 1 M messages a month and 20 connections at no cost",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "Message quota/month 1 M Connection limit 20 Free"
     },
     {
@@ -338,7 +338,7 @@
       "url": "https://www.cloudamqp.com/plans.html",
       "date": "2026-11-01",
       "proved": "the plans page lists Little Lemur with 1 M messages a month, 20 connections, 100 queues, 10 000 queued messages and a 28-day idle queue limit at no cost, unchanged",
-      "capture": null,
+      "capture": "sha256:0bd70dfd1b744716e68b94946232ce1b1ada58adf62371c10d067f15857eb779",
       "quote": "For Development - Shared RabbitMQ broker - Max 100 queues - Max 10 000 queued messages - Max idle queue time 28 days Message quota/month 1 M Connection limit 20 Free"
     }
   ],

@@ -93,7 +93,7 @@
     {
       "url": "https://serverdeals.cc/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:74205844fcd10df773b4c9dceb9f0293e9016e911c7fa802feb8a1b72c886965",
       "quote": "###### Donor",
       "proved": "serverdeals lists the Donor plan at USD 0.0 per year with a lower spec than the vendor page"
     },

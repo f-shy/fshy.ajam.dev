@@ -60,14 +60,14 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Generous free tier: 25 NZBs monthly, 10 API calls monthly.",
       "proved": "third-party: free tier of 25 NZBs and 10 API calls monthly"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Supporter $12/year, VIP $25/year",
       "proved": "third-party: paid tiers are Supporter USD 12 per year and VIP USD 25 per year"
     },

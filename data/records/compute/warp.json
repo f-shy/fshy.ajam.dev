@@ -76,14 +76,14 @@
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-10-30",
       "proved": "the Free plan accepts a custom inference endpoint, and the FAQ adds that BYOK is on all plans including Free since May 21, 2026",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise."
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-10-30",
       "proved": "the Free plan still includes no Warp-provided inference; conversations need purchased usage or the user's own inference",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models."
     },
     {
@@ -97,14 +97,14 @@
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-03",
       "proved": "the Free plan has no Warp-provided inference unless usage is bought or the user brings their own inference",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models."
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-03",
       "proved": "bring-your-own-key and custom inference endpoints on Free are limited to organizations of 10 or fewer employees",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features."
     },
     {

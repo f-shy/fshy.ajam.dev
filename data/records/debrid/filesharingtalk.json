@@ -81,7 +81,7 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Donor $2-$30 for 1 month to 5 years",
       "proved": "third-party: paid donor plans run from USD 2 to USD 30 for 1 month to 5 years"
     }

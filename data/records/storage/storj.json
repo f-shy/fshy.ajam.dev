@@ -100,28 +100,28 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "the Standard plan prices storage at $7/TB per month and egress at $7/TB",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Monthly storage$7/TB"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "the trial includes 25GB of storage for 30 days; the page does not state upload and download volumes",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "Standard storage is $7/TB",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Monthly storage$7/TB"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "the pricing page lists the free trial as free for 30 days with 25GB free storage for 30 days",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {

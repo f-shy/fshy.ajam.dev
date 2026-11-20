@@ -68,7 +68,7 @@
     {
       "url": "https://telegram.org/faq",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:b2b47f4d10eef65f2241c8d0b8c905d5c40e0f31bcd2ba1962c5682609fd55b4",
       "quote": "Send and receive files of any type, up to 2 GB in size each (or 4 GB with [Premium](https://telegram.org/faq_premium)), access them instantly on your other devices.",
       "proved": "Telegram's per-file ceiling is 2 GB, 4 GB with Premium"
     },

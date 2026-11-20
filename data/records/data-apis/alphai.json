@@ -72,84 +72,84 @@
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free plan is USD 0 forever",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "### Free\n\n$0\n\nForever"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free REST API is 20 per minute and 100 per day with 1 key",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "- REST API: 20 / min · 100 / day, 1 key"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free MCP server is 20 per minute and 100 per day",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "- MCP server: 20 / min · 100 / day"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the burst cap is 20 per minute on Free, 60 on Basic and 150 on Pro",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| REST API — burst | 20 / min | 60 / min | 150 / min |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the daily volume cap is 100 on Free and 10,000 on Basic",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| REST API — daily volume | 100 / day | 10,000 / day | 100,000 / day |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the maximum page size is 20 on Free and 50 on Pro",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| News API — max page size | 20 | 20 | 50 |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the news archive is 30 days on Free",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| News archive depth (API/MCP) | 30 days | 90 days | 180 days |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "Radar data carries an added 60-minute delay on Free",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| Radar added data delay (site, API + MCP) | 60 min delay | 15 min delay | No added delay |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the next plan up, Basic, is listed at USD 2.99 and USD 7.99 a month in early access",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "$2.99$7.99/month"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "what counts as one API request, and that a 429 spends no quota",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "One HTTP request to any of our /api endpoints: news list, news detail, ticker news, search. On MCP, only tool calls count; the connect handshake and keepalives do not. A request rejected with 429 does not spend quota either."
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the free plan is available on sign-up, with MCP over OAuth and no waitlist",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "Yes. Sign up for any plan (free included), generate an API key from your account, or connect Claude Desktop / Cursor to the MCP server using OAuth. No waitlist."
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the website news feed has no daily cap on Free",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "The full website news feed with no daily cap, plus a starter API and MCP allotment (20/min + 100/day each, 1 API key) so you can wire up an agent before paying."
     },
     {
@@ -331,91 +331,91 @@
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free plan is USD 0 with no expiry",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "### Free\n\n$0\n\nForever"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free plan allows 20 requests a minute and 100 a day on the REST API with 1 key",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "- REST API: 20 / min · 100 / day, 1 key"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free plan allows 20 requests a minute and 100 a day on the MCP server",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "- MCP server: 20 / min · 100 / day"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the REST and MCP allotments are 20 a minute and 100 a day each, with 1 API key",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "plus a starter API and MCP allotment (20/min + 100/day each, 1 API key)"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the Free plan has a 30-day news archive on the API",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "- 30-day news archive on the API"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the maximum page size is 20 on Free and Basic and 50 on Pro",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| News API — max page size | 20 | 20 | 50 |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "archive depth is 30 days on Free, 90 on Basic and 180 on Pro",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| News archive depth (API/MCP) | 30 days | 90 days | 180 days |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "Radar data carries a 60-minute added delay on Free",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| Radar added data delay (site, API + MCP) | 60 min delay | 15 min delay | No added delay |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the burst caps are 20, 60 and 150 a minute by plan",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| REST API — burst | 20 / min | 60 / min | 150 / min |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "the daily volume caps are 100, 10,000 and 100,000 by plan",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "| REST API — daily volume | 100 / day | 10,000 / day | 100,000 / day |"
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "a request rejected with 429 spends no quota",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "A request rejected with 429 does not spend quota either."
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "what counts as an API request, and that only tool calls count on the MCP server",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "One HTTP request to any of our /api endpoints: news list, news detail, ticker news, search. On MCP, only tool calls count; the connect handshake and keepalives do not."
     },
     {
       "url": "https://alphai.io/pricing",
       "date": "2026-11-02",
       "proved": "any plan, free included, gets an API key from the account, or connects to the MCP server with OAuth",
-      "capture": null,
+      "capture": "sha256:2e7b1f326eda13cca7860e7e160cbb84d906015c44b8bcc7efedff8e44170000",
       "quote": "Sign up for any plan (free included), generate an API key from your account, or connect Claude Desktop / Cursor to the MCP server using OAuth. No waitlist."
     },
     {

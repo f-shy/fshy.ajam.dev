@@ -91,42 +91,42 @@
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models.",
       "proved": "Free includes no Warp-provided inference; a conversation needs purchased usage or the user's own inference"
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Custom inference endpoints are available on Free, Build, Max, Business, and Enterprise.",
       "proved": "a custom inference endpoint works on Free, Build and Max"
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Yes. On Free, Build, Max, Business, and Enterprise plans, you can configure your own OpenAI, Anthropic, or Google API key",
       "proved": "BYOK with an OpenAI, Anthropic or Google key works on Free, Build and Max"
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees",
       "proved": "BYOK and custom endpoints are limited to individuals and organizations of 10 or fewer employees"
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Yes. Developers at any company size are welcome to use Warp’s Free plan.",
       "proved": "the Free plan is open to developers at any company size"
     },
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "Free-plan purchases are priced at a premium.",
       "proved": "usage bought on Free costs more than on a paid plan"
     },
@@ -287,7 +287,7 @@
     {
       "url": "https://docs.warp.dev/support-and-community/plans-and-billing/pricing-faqs/",
       "date": "2026-11-02",
-      "capture": null,
+      "capture": "sha256:49e4053ac0dfeb609014f3fb37ec95aad29fabd8a53f0adeb656f6cca9c17186",
       "quote": "as a third-party harness requires a paid plan.",
       "proved": "choosing Claude Code or Codex as a cloud harness needs a paid plan"
     }

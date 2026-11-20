@@ -88,21 +88,21 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Free: 1 NZB/day, limited forum access.",
       "proved": "third-party: the free tier is 1 NZB per day with limited forum access"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Approximately 500 days retention, 50+ newsgroups indexed",
       "proved": "third-party: the listing claims about 500 days of retention and 50+ newsgroups"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "95.5% uptime, 350ms response time",
       "proved": "third-party: the listing reports 95.5% uptime"
     }

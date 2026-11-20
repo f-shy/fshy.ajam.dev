@@ -60,14 +60,14 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Free membership includes 3 NZB grabs/day and forum access.",
       "proved": "third-party: free membership allows 3 NZB grabs per day"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Approximately 300 days of retention, 300 newsgroups indexed",
       "proved": "third-party: about 300 days of retention and 300 newsgroups"
     },

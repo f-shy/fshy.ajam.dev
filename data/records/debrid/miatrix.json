@@ -88,14 +88,14 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Member $10/year, VIP $20/year, Lifetime $50",
       "proved": "third-party: the paid tiers are Member USD 10 per year, VIP USD 20 per year and Lifetime USD 50"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "2 requests/day",
       "proved": "third-party: a second listing gives the free allowance as 2 requests per day"
     },
