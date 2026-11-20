@@ -116,12 +116,26 @@
       "url": "https://raw.githubusercontent.com/proxy-seller/user-api-python/v2/proxy_seller_user_api/__init__.py",
       "date": "2026-10-24",
       "proved": "The vendor's official SDK defines orderCalcIsp(countryId, periodId, quantity, authorization, coupon, customTargetName), referenceList(type='isp') returning country[] and period[], and proxyList(type='isp'), so the ISP ladder and the delivered addresses are both reachable from an account with an API key."
+    },
+    {
+      "url": "https://proxy-seller.com/isp/",
+      "date": "2026-11-19",
+      "proved": "the ISP page offers a dashboard to export the proxy list after purchase but publishes no sample address to look up in RDAP",
+      "capture": "sha256:bfd0272656e76452303bb20e24c4604855441aa01ce4aab67893e2ec974bc5e3",
+      "quote": "- Export your proxy list"
+    },
+    {
+      "url": "https://proxy-seller.com/isp/",
+      "date": "2026-11-19",
+      "proved": "the ISP page publishes no sample address to look up in RDAP",
+      "capture": "sha256:bfd0272656e76452303bb20e24c4604855441aa01ce4aab67893e2ec974bc5e3",
+      "quote": "- Export your proxy list"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-10-24T10:07:11.000Z",
+  "verified_at": "2026-11-19T21:12:15.681Z",
   "price_per_tb_month": "not a per-byte product: priced per IP per term. $0.98/IP in the page title and in the /price/ JSON-LD offer, $3/IP as the ISP page's structured-data minimum price, $0 in the served form. The whole 45 GB a month fits inside one IP's 100 GB default allowance, so one IP is the unit of purchase.",
-  "notes": "Reading the ladder from https://proxy-seller.com/price/ was tried and ruled out: that page's ISP tab is drawn client-side and the table in the served HTML is the Residential per-GB ladder. The SDK makes this a scripted read rather than a browser session. The provider contradicts the marketing card and both are quoted rather than reconciled: 'Traffic is uncapped at any volume' against '100 GB of traffic by default' per IP, with no period stated and no way to buy traffic without buying an IP, which is why egress.metered is true while binding stays none at 45 GB a month. The schema's interface enum carries no proxy token, so interface holds 'rest' for the documented JSON API and the proxy protocols are in interface_detail, the shape storage/proxyrack-unlimited-residential already uses for a SOCKS5 product.",
+  "notes": "The ISP page publishes no sample address: unverified, no address is published there to look up in RDAP on 2026-11-19; addresses appear only after purchase in the dashboard.",
   "extras": {
     "rung": 5,
     "rung_note": "The product is an address in an ISP-registered network, which is the rung-5 defence exactly; the vendor's 200+ Class B and 600+ Class C subnet claim would also reach rung 3, but it is unverified and no sample address is published, so only rung 5 is claimed.",

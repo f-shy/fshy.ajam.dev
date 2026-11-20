@@ -13,27 +13,28 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": "A server-side git hook enforces a maximum blob size of 250.00KiB on push.",
     "bytes": null,
     "source_url": "https://bugs.archlinux.org/task/68997",
     "notes": "not applicable"
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": "not stated on https://bugs.archlinux.org/task/68997",
     "days": null,
     "source_url": "https://bugs.archlinux.org/task/68997",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": "not stated on https://bugs.archlinux.org/task/68997",
     "metered": false
   },
   "interface": [
-    "unknown"
+    "git",
+    "ssh"
   ],
-  "interface_detail": "not documented",
+  "interface_detail": "The AUR accepts pushes to an ssh git endpoint; a server-side git hook checks each incoming commit.",
   "tooling": "not documented",
-  "chaining": "not recorded",
+  "chaining": "not stated on https://bugs.archlinux.org/task/68997",
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -49,10 +50,31 @@
       "url": "https://bugs.archlinux.org/task/68997",
       "date": "2026-10-21",
       "proved": "250 KiB hard blob cap enforced by a server-side git hook. Off by three orders of magnitude."
+    },
+    {
+      "url": "https://bugs.archlinux.org/task/68997",
+      "date": "2026-11-19",
+      "proved": "the AUR blob cap that rejected this offer is still in force",
+      "capture": "sha256:d0ec1ddc06e843658c0a632d024b59b74b1f6bccdba37ad7a8bce53214819699",
+      "quote": "remote: error: maximum blob size (250.00KiB) exceeded"
+    },
+    {
+      "url": "https://bugs.archlinux.org/task/68997",
+      "date": "2026-11-19",
+      "proved": "AUR pushes go to an ssh git endpoint",
+      "capture": "sha256:d0ec1ddc06e843658c0a632d024b59b74b1f6bccdba37ad7a8bce53214819699",
+      "quote": "To[ssh://aur.archlinux.org/linux-pds.git](ssh://aur.archlinux.org/linux-pds.git)"
+    },
+    {
+      "url": "https://bugs.archlinux.org/task/68997",
+      "date": "2026-11-19",
+      "proved": "a server-side git hook declines the push",
+      "capture": "sha256:d0ec1ddc06e843658c0a632d024b59b74b1f6bccdba37ad7a8bce53214819699",
+      "quote": "remote: error: hook declined to update refs/heads/master"
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:56.064Z",
   "notes": "250 KiB hard blob cap enforced by a server-side git hook. Off by three orders of magnitude.",
   "extras": {
     "dead_end": {

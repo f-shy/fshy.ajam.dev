@@ -49,6 +49,13 @@
       "url": "https://transfer.sh/",
       "date": "2026-10-21",
       "proved": "The brand is dead; only community m"
+    },
+    {
+      "url": "probe:https://transfer.sh/",
+      "date": "2026-11-19",
+      "proved": "a direct GET of transfer.sh returned no HTTP status: the proxy tunnel failed with 502 upstream unreachable on 2026-11-19",
+      "capture": "sha256:e19a4d0ef0a5a2b8f700b46ef8385e959644ef5ce08e23da7caf0be8decbd8cb",
+      "quote": "\"status\": null"
     }
   ],
   "verdict": "dead",
@@ -60,6 +67,10 @@
       "why": "The brand is dead; only community…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

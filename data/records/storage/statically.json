@@ -59,10 +59,17 @@
       "url": "https://cdn.statically.io/gh/MetaCubeX/meta-rules-dat@release/geoip.dat",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: Silently truncates every response. HTTP 200 with a correct Content-Length header for the full object but a body cut at 16,384 / 31,232 / 65,536 bytes depending on the path, and for some pa"
+    },
+    {
+      "url": "probe:cdn.statically.io",
+      "date": "2026-11-19",
+      "proved": "probe of the CDN object answered status 200 with a 0-byte body despite a declared content-length of 87533 bytes",
+      "capture": "sha256:89765c85859490254158c8cfcd5193e4571c466a5c439b5afe37d157764435ec",
+      "quote": "\"signature\": \"status 200 with a 0-byte body\""
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:27.947Z",
   "notes": "Silently truncates every response. HTTP 200 with a correct Content-Length header for the full object but a body cut at 16,384 / 31,232 / 65,536 bytes depending on the path, and for some…",
   "extras": {
     "dead_end": {

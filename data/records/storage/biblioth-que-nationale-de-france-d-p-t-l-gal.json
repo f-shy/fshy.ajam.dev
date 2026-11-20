@@ -13,27 +13,27 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": null,
     "bytes": null,
     "source_url": "https://www.bnf.fr/fr/le-depot-legal",
-    "notes": "not applicable"
+    "notes": null
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": null,
     "days": null,
     "source_url": "https://www.bnf.fr/fr/le-depot-legal",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": null,
     "metered": false
   },
   "interface": [
     "unknown"
   ],
-  "interface_detail": "not documented",
-  "tooling": "not documented",
-  "chaining": "not recorded",
+  "interface_detail": null,
+  "tooling": null,
+  "chaining": null,
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -49,10 +49,24 @@
       "url": "https://www.bnf.fr/fr/le-depot-legal",
       "date": "2026-10-21",
       "proved": "You must be th"
+    },
+    {
+      "url": "https://www.bnf.fr/fr/centre-d-aide/depot-legal",
+      "date": "2026-11-19",
+      "proved": "the rejection stands",
+      "capture": "sha256:a7c8a4dc59a5d8ee9e1c7d9ccdbe1755c530edd5d242cf90115d0a9c8a5377f5",
+      "quote": "Le dépôt légal est obligatoire  pour tout document diffusé en nombre à un public, au-delà du cercle de famille."
+    },
+    {
+      "url": "https://www.bnf.fr/fr/le-depot-legal",
+      "date": "2026-11-19",
+      "proved": null,
+      "capture": "sha256:a211c864d339aaf5dcf4d567d83a56f623eab355a292fc61186c980ad06e3846",
+      "quote": "Au titre du dépôt légal, la BnF reçoit par dépôt légal des documents de toute nature édités, importés ou diffusés en France."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:57.620Z",
   "notes": "You must be…",
   "extras": {
     "dead_end": {

@@ -66,56 +66,56 @@
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "Datacenter VPN",
       "proved": "The cheapest listed paid VPN plan is 'Datacenter VPN' at $8 per month (the card reads '15 lines min', '$ 8', '/month'); the capture lists no yearly price for any plan."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "Unmetered data usage",
       "proved": "The $8 per month Datacenter VPN card lists 'Unmetered data usage', so the paid VPN plan carries no byte allowance."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "Connect to our cloud access network over SOCKS, HTTP, OpenVPN, Wireguard or Amnezia protocols.",
       "proved": "Protocols named on the vendor page: SOCKS, HTTP, OpenVPN, Wireguard and Amnezia."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "SOCKS5 & HTTP Proxy",
       "proved": "Each paid plan card lists 'SOCKS5 & HTTP Proxy' as an endpoint type alongside the tunnel."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "AmneziaWG obfuscation",
       "proved": "Each VPN plan card lists 'AmneziaWG obfuscation' as the obfuscation option."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "WebRTC & UDP",
       "proved": "The features list names 'WebRTC & UDP' (the line under it reads 'Keep your connection safe and secure from 3rd party API detectors and online gaming'); this is a feature heading, not a statement of which tunnel protocol carries UDP."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "A Residential VPN provides you with a genuine Internet Service Provider (ISP) IP over StarVPN's military grade encryption network.",
       "proved": "The residential claim as the vendor states it: a genuine ISP address delivered over its tunnel. No ASN, prefix, sample address or lookup is published on the page, so the claim is a vendor claim that nothing on the page lets a reader check."
     },
     {
       "url": "https://www.starvpn.com/",
       "date": "2026-11-03",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "Upon completion of your purchase, you will receive a username and login to the member dashboard.",
       "proved": "Sign-up gate for the paid plans: the purchase issues a username and login to a member dashboard; the page names no card, phone or identity-document field."
     },
@@ -193,7 +193,7 @@
       "url": "https://www.starvpn.com/",
       "date": "2026-11-04",
       "proved": "The vendor page lists the VPN plan that both records cite.",
-      "capture": "sha256:8770f10beac23dbaced9236f3cf5cf9241e856d1f7ad6fc41a4da8865a99d90b",
+      "capture": null,
       "quote": "Datacenter VPN"
     }
   ],

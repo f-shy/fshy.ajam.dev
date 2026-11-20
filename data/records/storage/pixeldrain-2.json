@@ -54,10 +54,38 @@
       "url": "https://rclone.org/pixeldrain/",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: Re-checked because rclone has a native `pixeldrain` backend and the free tier says storage 'No limit'. But free egress is 6 GB/day per IP, files expire 60 days after last download, hotlink"
+    },
+    {
+      "url": "https://pixeldrain.com/",
+      "date": "2026-11-19",
+      "proved": "free egress is capped at 6 GB per day",
+      "capture": "sha256:f744b87fae35585f28ae0a96da73fe93a0352b9071ee9b24e91003c953ae6f47",
+      "quote": "6 GB per day"
+    },
+    {
+      "url": "https://pixeldrain.com/",
+      "date": "2026-11-19",
+      "proved": "free storage is stated as no limit",
+      "capture": "sha256:f744b87fae35585f28ae0a96da73fe93a0352b9071ee9b24e91003c953ae6f47",
+      "quote": "No limit"
+    },
+    {
+      "url": "https://pixeldrain.com/",
+      "date": "2026-11-19",
+      "proved": "free files expire 60 days after last download",
+      "capture": "sha256:f744b87fae35585f28ae0a96da73fe93a0352b9071ee9b24e91003c953ae6f47",
+      "quote": "60 days (2 months)"
+    },
+    {
+      "url": "https://pixeldrain.com/",
+      "date": "2026-11-19",
+      "proved": "free file size cap is 10 GB per file",
+      "capture": "sha256:f744b87fae35585f28ae0a96da73fe93a0352b9071ee9b24e91003c953ae6f47",
+      "quote": "10 GB per file"
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:56.981Z",
   "notes": "Re-checked because rclone has a native `pixeldrain` backend and the free tier says storage 'No limit'. But free egress is 6 GB/day per IP, files expire 60 days after last download…",
   "extras": {
     "dead_end": {

@@ -49,10 +49,17 @@
       "url": "https://storadera.com/pricing",
       "date": "2026-10-21",
       "proved": "€7.95/TB/mo with a hard fair-use rule that equals the storage: 'The allowed download amount equals to your stored amount.' That is 1× storage/month, i.e. precisely the 1:1 ratio that fails…"
+    },
+    {
+      "url": "https://storadera.com/pricing",
+      "date": "2026-11-19",
+      "proved": "the fair-use rule caps monthly downloads at the stored amount, a 1:1 download-to-storage ratio",
+      "capture": "sha256:b339275374db891004ea97c942e12e052f4340ef89fe754c2bbc0f4463bcb012",
+      "quote": "The allowed monthly download amount = your stored amount."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:27.948Z",
   "notes": "€7.95/TB/mo with a hard fair-use rule that equals the storage: 'The allowed download amount equals to your stored amount.' That is 1× storage/month, i.e. precisely the 1:1 ratio that fails…",
   "extras": {
     "dead_end": {

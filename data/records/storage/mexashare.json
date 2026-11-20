@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits.",
+  "reliability_note": "Origin unreachable on 2026-11-19: GET https://www.mexashare.com/ returned HTTP 522 with retry-after 120, so no limits can be read.",
   "confidence": "reported",
   "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
@@ -49,9 +49,23 @@
       "url": "https://www.mexashare.com/",
       "date": "2026-10-21",
       "proved": "Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits."
+    },
+    {
+      "url": "probe:https://www.mexashare.com/",
+      "date": "2026-11-19",
+      "proved": "the host did not answer with content; an HTTP 522 was recorded on 2026-11-19",
+      "capture": "sha256:ba770b8bebcfdd4e08367507a42507c740691bc5b1e0c977c59f364596ea1efe",
+      "quote": "\"status\": 522"
+    },
+    {
+      "url": "probe:https://www.mexashare.com/",
+      "date": "2026-11-19",
+      "proved": "the host returned no content (HTTP 522, retry-after 120) on 2026-11-19",
+      "capture": "sha256:ba770b8bebcfdd4e08367507a42507c740691bc5b1e0c977c59f364596ea1efe",
+      "quote": "\"status\": 522"
     }
   ],
-  "verdict": "fails-quota",
+  "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "notes": "Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits.",
   "extras": {
@@ -60,6 +74,10 @@
       "why": "Every provider in the read walk failed with dial-failed / 502; origin unreachable. Cannot verify limits.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

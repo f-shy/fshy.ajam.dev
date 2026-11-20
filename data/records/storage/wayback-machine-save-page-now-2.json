@@ -69,10 +69,24 @@
       "url": "https://archive.org/post/1103865",
       "date": "2026-10-21",
       "proved": "(snapshot 2023-11-06) — 'no more than 15 per minute ... we will block Save Page Now requests from your IP number for one day'"
+    },
+    {
+      "url": "https://gist.github.com/regstuff/82e690db2f1d91ba59f6681c1abad6cf",
+      "date": "2026-11-19",
+      "proved": "the SPN2 API caps a captured resource at 2 GB",
+      "capture": "sha256:34482989b5158e474835ed360c97aa69eb7bab86fd390bdedb4477772b6d690b",
+      "quote": "Max resource size = 2GB"
+    },
+    {
+      "url": "probe:web.archive.org/save",
+      "date": "2026-11-19",
+      "proved": "anonymous Save Page Now requests are rejected with HTTP 401, so the 2022 4k/day anonymous allowance is stale",
+      "capture": "sha256:508c5bf4d8d77aceca3896dbd5f0ab1a470169fbf828774a9b397c8db6b195f3",
+      "quote": "You need to be logged in to use Save Page Now."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:32.288Z",
   "notes": "No storage quota; Retention is effectively permanent.",
   "extras": {
     "dead_end": {

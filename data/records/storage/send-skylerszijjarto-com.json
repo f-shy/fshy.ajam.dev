@@ -54,9 +54,16 @@
       "url": "https://github.com/timvisee/send-instances",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: The single most generous row in the public Send-instance table — 250 GiB per file, 7 days, 10,000 downloads — returned Cloudflare 530 when probed. The biggest quotas in that table are the le"
+    },
+    {
+      "url": "probe:https://send.skylerszijjarto.com/",
+      "date": "2026-11-19",
+      "proved": "the endpoint returned no HTTP status on 2026-11-19 because its name did not resolve",
+      "capture": "sha256:9d37342f0d7a808cd70411bd0dc8f783053b6d76d3a3170290b14df8572a4b1d",
+      "quote": "\"status\": null"
     }
   ],
-  "verdict": "fails-quota",
+  "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "notes": "The single most generous row in the public Send-instance table. 250 GiB per file, 7 days, 10,000 downloads. Returned Cloudflare 530 when probed. The biggest quotas in that table are the le.",
   "extras": {
@@ -65,6 +72,10 @@
       "why": "The single most generous row in the public Send-instance table — 250 GiB per file, 7 days, 10,000 downloads — returned Cloudflare 530 when probed. The biggest quotas in that table are the…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

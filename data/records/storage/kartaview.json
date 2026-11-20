@@ -59,9 +59,16 @@
       "url": "https://www.trekview.org/blog/playing-with-kartaview-api/",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: Read API is closed to unauthenticated clients: `GET /2.0/photo/?itemsPerPage=2` returns HTTP 200 with the body {\"apiCode\":400,\"apiMessage\":\"Restricted access!\"} — a 200 carrying an error, ex"
+    },
+    {
+      "url": "probe:https://api.openstreetcam.org/2.0/photo/?itemsPerPage=2",
+      "date": "2026-11-19",
+      "proved": "the read API path now answers HTTP 404, so the recorded offer is gone",
+      "capture": "sha256:277d0b5f7326353fbe75946838ef84617bde99a5c7f5b9d8fc0c62469c4b4e7c",
+      "quote": "\"status\": 404,"
     }
   ],
-  "verdict": "fails-quota",
+  "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "notes": "Read API is closed to unauthenticated clients: `GET /2.0/photo/?itemsPerPage=2` returns HTTP 200 with the body {\"apiCode\":400,\"apiMessage\":\"Restricted access!\"}. A 200 carrying an error, ex.",
   "extras": {
@@ -70,6 +77,10 @@
       "why": "Read API is closed to unauthenticated clients: `GET /2.0/photo/?itemsPerPage=2` returns HTTP 200 with the body {\"apiCode\":400,\"apiMessage\":\"Restricted access!\"} — a 200 carrying an error…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

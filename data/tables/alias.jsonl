@@ -1,5 +1,5 @@
-{"alias":"'email as filesystem' projects (imapfs, imapfs, gmailfs, gitmail)","eid":"email-as-filesystem-projects","kind":"provider"}
-{"alias":"'email as filesystem' projects","eid":"email-as-filesystem-projects","kind":"name"}
+{"alias":"'email as filesystem' projects (imapfs, imapfs, gmailfs, gitmail)","eid":"github-waweber","kind":"provider"}
+{"alias":"'email as filesystem' projects","eid":"github-waweber","kind":"name"}
 {"alias":"0DayDown","eid":"0daydown","kind":"name"}
 {"alias":"0DayDown","eid":"0daydown","kind":"provider"}
 {"alias":"0daydown","eid":"0daydown","kind":"slug"}
@@ -1029,7 +1029,7 @@
 {"alias":"Chameleon Cloud","eid":"chameleoncloud","kind":"name"}
 {"alias":"Chameleon Cloud","eid":"chameleoncloud","kind":"provider"}
 {"alias":"Chan Zuckerberg Initiative - Essential Open Source Software for Science (EOSS)","eid":"chanzuckerberg","kind":"provider"}
-{"alias":"Chan Zuckerberg Initiative","eid":"chanzuckerberg","kind":"name"}
+{"alias":"Chan Zuckerberg","eid":"chanzuckerberg","kind":"name"}
 {"alias":"Charm Hyper","eid":"charm","kind":"name"}
 {"alias":"Charm Hyper","eid":"charm","kind":"provider"}
 {"alias":"ChatGPT consumer file storage / Library + Projects","eid":"openai","kind":"provider"}
@@ -1490,6 +1490,7 @@
 {"alias":"Dasabo","eid":"dasabo","kind":"provider"}
 {"alias":"Data Vaults","eid":"datavaults","kind":"name"}
 {"alias":"Data Vaults","eid":"datavaults","kind":"provider"}
+{"alias":"Data","eid":"data","kind":"name"}
 {"alias":"DataCamp DataLab","eid":"datacamp","kind":"name"}
 {"alias":"DataCamp DataLab","eid":"datacamp","kind":"provider"}
 {"alias":"DataForSEO","eid":"dataforseo","kind":"name"}
@@ -1518,12 +1519,11 @@
 {"alias":"Datalix","eid":"datalix","kind":"provider"}
 {"alias":"Datarade","eid":"datarade","kind":"name"}
 {"alias":"Datarade","eid":"datarade","kind":"provider"}
-{"alias":"DataverseLV (Latvian national Dataverse)","eid":"dataverse-2","kind":"provider"}
-{"alias":"DataverseLV","eid":"dataverse-2","kind":"name"}
-{"alias":"DataverseNL","eid":"dataverse-3","kind":"name"}
-{"alias":"DataverseNL","eid":"dataverse-3","kind":"provider"}
-{"alias":"DataverseNO (UiT The Arctic University of Norway, national consortium)","eid":"dataverse","kind":"provider"}
-{"alias":"DataverseNO","eid":"dataverse","kind":"name"}
+{"alias":"DataverseLV (Latvian national Dataverse)","eid":"dataverse-4","kind":"provider"}
+{"alias":"DataverseLV","eid":"dataverse-4","kind":"name"}
+{"alias":"DataverseNL","eid":"dataverse-2","kind":"provider"}
+{"alias":"DataverseNO (UiT The Arctic University of Norway, national consortium)","eid":"dataverse-3","kind":"provider"}
+{"alias":"DataverseNO","eid":"dataverse-3","kind":"name"}
 {"alias":"Datum Storage","eid":"datum","kind":"name"}
 {"alias":"Datum Storage","eid":"datum","kind":"provider"}
 {"alias":"Daytona (Windows sandboxes)","eid":"daytona","kind":"provider"}
@@ -1773,7 +1773,6 @@
 {"alias":"EU.org","eid":"nic","kind":"name"}
 {"alias":"EU.org","eid":"nic","kind":"provider"}
 {"alias":"EUserv VS2-free","eid":"euserv","kind":"provider"}
-{"alias":"EUserv","eid":"euserv","kind":"name"}
 {"alias":"EUserv","eid":"euserv","kind":"provider"}
 {"alias":"EVEO Object Storage S3 (Brazil)","eid":"eveo","kind":"provider"}
 {"alias":"EVEO Object Storage S3","eid":"eveo","kind":"name"}
@@ -2672,8 +2671,8 @@
 {"alias":"Hostiko","eid":"hostiko","kind":"provider"}
 {"alias":"Hostim.dev","eid":"hostim","kind":"name"}
 {"alias":"Hostim.dev","eid":"hostim","kind":"provider"}
-{"alias":"Hosting Int","eid":"hosting","kind":"name"}
-{"alias":"Hosting Int","eid":"hosting","kind":"provider"}
+{"alias":"Hosting Int","eid":"hosting-2","kind":"name"}
+{"alias":"Hosting Int","eid":"hosting-2","kind":"provider"}
 {"alias":"Hosting Mammoth Object Storage","eid":"hostingmammoth","kind":"name"}
 {"alias":"Hosting Mammoth Object Storage","eid":"hostingmammoth","kind":"provider"}
 {"alias":"Hosting by Design — App hosting 24 TB (owners of seedbox.io)","eid":"hostingby","kind":"provider"}
@@ -3061,7 +3060,6 @@
 {"alias":"Jina AI embeddings and reranker API","eid":"jina","kind":"provider"}
 {"alias":"Jina Reader","eid":"jina","kind":"name"}
 {"alias":"Jina Reader","eid":"jina","kind":"provider"}
-{"alias":"Jira Cloud Free","eid":"atlassian","kind":"name"}
 {"alias":"Jira Cloud Free","eid":"atlassian","kind":"provider"}
 {"alias":"JitPack (jitpack.io) - build-on-demand Maven from git","eid":"jitpack","kind":"provider"}
 {"alias":"JitPack","eid":"jitpack","kind":"name"}
@@ -3773,7 +3771,6 @@
 {"alias":"Mullvad VPN","eid":"mullvad","kind":"name"}
 {"alias":"Mullvad VPN","eid":"mullvad","kind":"provider"}
 {"alias":"Mullvad","eid":"mullvad","kind":"provider"}
-{"alias":"MultCloud","eid":"multcloud","kind":"name"}
 {"alias":"MultCloud","eid":"multcloud","kind":"provider"}
 {"alias":"MultiDebrid","eid":"multidebrid","kind":"name"}
 {"alias":"MultiDebrid","eid":"multidebrid","kind":"provider"}
@@ -4852,7 +4849,6 @@
 {"alias":"Real-Debrid Remote","eid":"real-debrid","kind":"name"}
 {"alias":"Real-Debrid","eid":"real-debrid","kind":"provider"}
 {"alias":"Recherche Data Gouv (French national Dataverse)","eid":"data","kind":"provider"}
-{"alias":"Recherche Data","eid":"data","kind":"name"}
 {"alias":"ReconV","eid":"reconv","kind":"name"}
 {"alias":"ReconV","eid":"reconv","kind":"provider"}
 {"alias":"Recraft","eid":"recraft","kind":"name"}
@@ -5658,7 +5654,6 @@
 {"alias":"Telegram Drive","eid":"telegram-drive","kind":"name"}
 {"alias":"Telegram Premium","eid":"telegram","kind":"provider"}
 {"alias":"Telegram public-channel web CDN (t.me/s preview -> cdnN.telesco.pe) — anonymous reads","eid":"t-me-s","kind":"provider"}
-{"alias":"Telegram public-channel","eid":"t-me-s","kind":"name"}
 {"alias":"Telegram — MTProto user account + unlimited channels as the volume","eid":"telegram","kind":"provider"}
 {"alias":"Telegram","eid":"telegram","kind":"name"}
 {"alias":"Telegraph (telegra.ph)","eid":"telegra","kind":"provider"}
@@ -6964,13 +6959,11 @@
 {"alias":"anonrouter.ai","eid":"anonrouter","kind":"domain"}
 {"alias":"anonymous spn2 (no account) capture","eid":"anonymous-spn2","kind":"provider"}
 {"alias":"anonymous spn2","eid":"anonymous-spn2","kind":"name"}
-{"alias":"anonymous telegram file links for arbitrary documents","eid":"anonymous-telegram-file-links-for-arbitrary-docu","kind":"name"}
-{"alias":"anonymous telegram file links for arbitrary documents","eid":"anonymous-telegram-file-links-for-arbitrary-docu","kind":"provider"}
-{"alias":"anonymous write to any github surface","eid":"anonymous-write-to-any-github-surface","kind":"name"}
-{"alias":"anonymous write to any github surface","eid":"anonymous-write-to-any-github-surface","kind":"provider"}
+{"alias":"anonymous telegram file links for arbitrary documents","eid":"t-me-s","kind":"provider"}
+{"alias":"anonymous write to any github surface","eid":"github","kind":"provider"}
 {"alias":"anonymous-spn2-capture","eid":"anonymous-spn2","kind":"slug"}
-{"alias":"anonymous-telegram-file-links-for-arbitrary-documents","eid":"anonymous-telegram-file-links-for-arbitrary-docu","kind":"slug"}
-{"alias":"anonymous-write-to-any-github-surface","eid":"anonymous-write-to-any-github-surface","kind":"slug"}
+{"alias":"anonymous-telegram-file-links-for-arbitrary-documents","eid":"t-me-s","kind":"slug"}
+{"alias":"anonymous-write-to-any-github-surface","eid":"github","kind":"slug"}
 {"alias":"anonynews","eid":"anonynews","kind":"slug"}
 {"alias":"anonynews.com","eid":"anonynews","kind":"domain"}
 {"alias":"ant-ling.com","eid":"ant-ling","kind":"domain"}
@@ -6981,9 +6974,9 @@
 {"alias":"anthropic.com","eid":"anthropic","kind":"domain"}
 {"alias":"antigravity","eid":"antigravity","kind":"slug"}
 {"alias":"antigravity.google","eid":"antigravity","kind":"domain"}
-{"alias":"anubis / techaro botstopper walls (dans, dataverse.nl, bonndata, uni-bonn,","eid":"anubis","kind":"provider"}
-{"alias":"anubis","eid":"anubis","kind":"name"}
-{"alias":"anubis-techaro-botstopper-walls-dans-dataverse-nl-bonnda","eid":"anubis","kind":"slug"}
+{"alias":"anubis / techaro botstopper walls (dans, dataverse.nl, bonndata, uni-bonn,","eid":"dataverse-2","kind":"provider"}
+{"alias":"anubis","eid":"dataverse-2","kind":"name"}
+{"alias":"anubis-techaro-botstopper-walls-dans-dataverse-nl-bonnda","eid":"dataverse-2","kind":"slug"}
 {"alias":"anyapi","eid":"anyapi","kind":"slug"}
 {"alias":"anyapi.ai","eid":"anyapi","kind":"domain"}
 {"alias":"anydebrid","eid":"anydebrid","kind":"slug"}
@@ -7176,9 +7169,9 @@
 {"alias":"atlantic.net","eid":"atlantic","kind":"domain"}
 {"alias":"atlas-cloud-open","eid":"atlascloud","kind":"slug"}
 {"alias":"atlascloud.ai","eid":"atlascloud","kind":"domain"}
-{"alias":"atlassian anonymous media-upload token (jira service desk portal)","eid":"atlassian-anonymous-media-upload-token","kind":"provider"}
-{"alias":"atlassian anonymous media-upload token","eid":"atlassian-anonymous-media-upload-token","kind":"name"}
-{"alias":"atlassian-anonymous-media-upload-token","eid":"atlassian-anonymous-media-upload-token","kind":"slug"}
+{"alias":"atlassian anonymous media-upload token (jira service desk portal)","eid":"atlassian","kind":"provider"}
+{"alias":"atlassian","eid":"atlassian","kind":"name"}
+{"alias":"atlassian-anonymous-media-upload-token","eid":"atlassian","kind":"slug"}
 {"alias":"atlassian-confluence-cloud-free","eid":"atlassian","kind":"slug"}
 {"alias":"atlassian-confluence-premium-via-social-impact-license-u","eid":"atlassian","kind":"slug"}
 {"alias":"atlassian.com","eid":"atlassian","kind":"domain"}
@@ -7373,9 +7366,8 @@
 {"alias":"bandcamp.com","eid":"bandcamp","kind":"domain"}
 {"alias":"bandwagonhost","eid":"bandwagonhost","kind":"slug"}
 {"alias":"bandwagonhost.com","eid":"bandwagonhost","kind":"domain"}
-{"alias":"bandwidth alliance / free-to-cloudflare peering as the egress answer","eid":"bandwidth-alliance","kind":"provider"}
-{"alias":"bandwidth alliance","eid":"bandwidth-alliance","kind":"name"}
-{"alias":"bandwidth-alliance-free-to-cloudflare-peering-as-the-egr","eid":"bandwidth-alliance","kind":"slug"}
+{"alias":"bandwidth alliance / free-to-cloudflare peering as the egress answer","eid":"cloudflare","kind":"provider"}
+{"alias":"bandwidth-alliance-free-to-cloudflare-peering-as-the-egr","eid":"cloudflare","kind":"slug"}
 {"alias":"bangnixia","eid":"bangnixia","kind":"slug"}
 {"alias":"bangnixia.com","eid":"bangnixia","kind":"domain"}
 {"alias":"bangumi-alist-index","eid":"bangumi","kind":"slug"}
@@ -7858,9 +7850,10 @@
 {"alias":"chanzuckerberg.com","eid":"chanzuckerberg","kind":"domain"}
 {"alias":"chaoxing-cloud","eid":"chaoxing","kind":"slug"}
 {"alias":"chaoxing.com","eid":"chaoxing","kind":"domain"}
-{"alias":"character-ai","eid":"character-ai","kind":"slug"}
-{"alias":"character.ai","eid":"character-ai","kind":"name"}
-{"alias":"character.ai","eid":"character-ai","kind":"provider"}
+{"alias":"character-ai","eid":"character","kind":"slug"}
+{"alias":"character.ai","eid":"character","kind":"domain"}
+{"alias":"character.ai","eid":"character","kind":"name"}
+{"alias":"character.ai","eid":"character","kind":"provider"}
 {"alias":"charm-hyper","eid":"charm","kind":"slug"}
 {"alias":"charm.land","eid":"charm","kind":"domain"}
 {"alias":"chatgpt-consumer-file-storage-library-projects","eid":"openai","kind":"slug"}
@@ -7947,9 +7940,10 @@
 {"alias":"civitai.com","eid":"civitai","kind":"domain"}
 {"alias":"civo","eid":"civo","kind":"slug"}
 {"alias":"civo.com","eid":"civo","kind":"domain"}
-{"alias":"ckan's own default per-file cap","eid":"ckan-s-own-default-per-file-cap","kind":"name"}
-{"alias":"ckan's own default per-file cap","eid":"ckan-s-own-default-per-file-cap","kind":"provider"}
-{"alias":"ckan-s-own-default-per-file-cap-structural-applies-to-ev","eid":"ckan-s-own-default-per-file-cap","kind":"slug"}
+{"alias":"ckan's own default per-file cap","eid":"ckan","kind":"name"}
+{"alias":"ckan's own default per-file cap","eid":"ckan","kind":"provider"}
+{"alias":"ckan-s-own-default-per-file-cap-structural-applies-to-ev","eid":"ckan","kind":"slug"}
+{"alias":"ckan.org","eid":"ckan","kind":"domain"}
 {"alias":"clarifai","eid":"clarifai","kind":"slug"}
 {"alias":"clarifai.com","eid":"clarifai","kind":"domain"}
 {"alias":"clarin-si-dspace-repository","eid":"clarin","kind":"slug"}
@@ -8507,9 +8501,8 @@
 {"alias":"cyverse","eid":"cyverse","kind":"slug"}
 {"alias":"cyverse-data-store","eid":"cyverse","kind":"slug"}
 {"alias":"cyverse.org","eid":"cyverse","kind":"domain"}
-{"alias":"czi essential open source software for science (eoss) as an individual rout","eid":"czi-essential-open-source-software-for-science","kind":"provider"}
-{"alias":"czi essential open source software for science","eid":"czi-essential-open-source-software-for-science","kind":"name"}
-{"alias":"czi-essential-open-source-software-for-science-as-an-ind","eid":"czi-essential-open-source-software-for-science","kind":"slug"}
+{"alias":"czi essential open source software for science (eoss) as an individual rout","eid":"chanzuckerberg","kind":"provider"}
+{"alias":"czi-essential-open-source-software-for-science-as-an-ind","eid":"chanzuckerberg","kind":"slug"}
 {"alias":"d.run","eid":"d","kind":"domain"}
 {"alias":"d4-networks","eid":"d4networks","kind":"slug"}
 {"alias":"d4networks.com","eid":"d4networks","kind":"domain"}
@@ -8685,28 +8678,26 @@
 {"alias":"datastations.nl","eid":"datastations","kind":"domain"}
 {"alias":"datastax.com","eid":"datastax","kind":"domain"}
 {"alias":"datavaults.co","eid":"datavaults","kind":"domain"}
-{"alias":"dataverse installations on 5.5–6.0 (cuhk, icrisat, cidacs, jpl, fz jülich,","eid":"dataverse-installations-on-5-5-6-0","kind":"provider"}
-{"alias":"dataverse installations on 5.5–6.0","eid":"dataverse-installations-on-5-5-6-0","kind":"name"}
-{"alias":"dataverse upload api (post /api/users, post /api/datasets, post /api/builti","eid":"dataverse-upload-api","kind":"provider"}
-{"alias":"dataverse upload api","eid":"dataverse-upload-api","kind":"name"}
-{"alias":"dataverse's own installations json (services.dataverse.harvard.edu/minivers","eid":"dataverse-s-own-installations-json","kind":"provider"}
-{"alias":"dataverse's own installations json","eid":"dataverse-s-own-installations-json","kind":"name"}
-{"alias":"dataverse-installations-on-5-5-6-0-cuhk-icrisat-cidacs-j","eid":"dataverse-installations-on-5-5-6-0","kind":"slug"}
-{"alias":"dataverse-s-own-installations-json-services-dataverse-ha","eid":"dataverse-s-own-installations-json","kind":"slug"}
-{"alias":"dataverse-upload-api-post-api-users-post-api-datasets-po","eid":"dataverse-upload-api","kind":"slug"}
+{"alias":"dataverse installations on 5.5–6.0 (cuhk, icrisat, cidacs, jpl, fz jülich,","eid":"dataverse","kind":"provider"}
+{"alias":"dataverse upload api (post /api/users, post /api/datasets, post /api/builti","eid":"dataverse","kind":"provider"}
+{"alias":"dataverse","eid":"dataverse","kind":"name"}
+{"alias":"dataverse's own installations json (services.dataverse.harvard.edu/minivers","eid":"dataverse","kind":"provider"}
+{"alias":"dataverse-installations-on-5-5-6-0-cuhk-icrisat-cidacs-j","eid":"dataverse","kind":"slug"}
+{"alias":"dataverse-s-own-installations-json-services-dataverse-ha","eid":"dataverse","kind":"slug"}
+{"alias":"dataverse-upload-api-post-api-users-post-api-datasets-po","eid":"dataverse","kind":"slug"}
 {"alias":"dataverse.asu.edu","eid":"dataverse-asu-edu","kind":"domain"}
 {"alias":"dataverse.harvard.edu","eid":"dataverse-harvard-edu","kind":"domain"}
-{"alias":"dataverse.lv","eid":"dataverse-2","kind":"domain"}
-{"alias":"dataverse.nl","eid":"dataverse-3","kind":"domain"}
-{"alias":"dataverse.no","eid":"dataverse","kind":"domain"}
-{"alias":"dataverselv","eid":"dataverse-2","kind":"slug"}
-{"alias":"dataversenl","eid":"dataverse-3","kind":"slug"}
-{"alias":"dataverseno (norway)","eid":"dataverse","kind":"provider"}
-{"alias":"dataverseno","eid":"dataverse","kind":"slug"}
-{"alias":"dataverseno-2","eid":"dataverse","kind":"slug"}
-{"alias":"dati-gov-it-data-overheid-nl-data-gouv-fr-data-vic-gov-a","eid":"dati-gov-it","kind":"slug"}
-{"alias":"dati.gov.it","eid":"dati-gov-it","kind":"name"}
-{"alias":"dati.gov.it, data.overheid.nl, data.gouv.fr, data.vic.gov.au, data.nsw.gov.","eid":"dati-gov-it","kind":"provider"}
+{"alias":"dataverse.lv","eid":"dataverse-4","kind":"domain"}
+{"alias":"dataverse.nl","eid":"dataverse-2","kind":"domain"}
+{"alias":"dataverse.no","eid":"dataverse-3","kind":"domain"}
+{"alias":"dataverse.org","eid":"dataverse","kind":"domain"}
+{"alias":"dataverselv","eid":"dataverse-4","kind":"slug"}
+{"alias":"dataversenl","eid":"dataverse-2","kind":"slug"}
+{"alias":"dataverseno (norway)","eid":"dataverse-3","kind":"provider"}
+{"alias":"dataverseno","eid":"dataverse-3","kind":"slug"}
+{"alias":"dataverseno-2","eid":"dataverse-3","kind":"slug"}
+{"alias":"dati-gov-it-data-overheid-nl-data-gouv-fr-data-vic-gov-a","eid":"data","kind":"slug"}
+{"alias":"dati.gov.it, data.overheid.nl, data.gouv.fr, data.vic.gov.au, data.nsw.gov.","eid":"data","kind":"provider"}
 {"alias":"datos-gob-es","eid":"datos","kind":"slug"}
 {"alias":"datos.gob.es (Spain)","eid":"datos","kind":"provider"}
 {"alias":"datos.gob.es","eid":"datos","kind":"domain"}
@@ -9216,7 +9207,7 @@
 {"alias":"ellipsis.dev","eid":"ellipsis","kind":"domain"}
 {"alias":"elypsecloud-free","eid":"elypsecloud","kind":"slug"}
 {"alias":"elypsecloud.com","eid":"elypsecloud","kind":"domain"}
-{"alias":"email-as-filesystem-projects","eid":"email-as-filesystem-projects","kind":"slug"}
+{"alias":"email-as-filesystem-projects","eid":"github-waweber","kind":"slug"}
 {"alias":"emaillabs","eid":"emaillabs","kind":"slug"}
 {"alias":"emaillabs.io","eid":"emaillabs","kind":"domain"}
 {"alias":"emergent","eid":"emergent","kind":"slug"}
@@ -9324,12 +9315,12 @@
 {"alias":"europepmc.org","eid":"europepmc","kind":"domain"}
 {"alias":"eurostat-api","eid":"ec-europa-eu","kind":"slug"}
 {"alias":"euserv backuphd 1t (se2021 / se2019 / wme2018)","eid":"euserv","kind":"provider"}
-{"alias":"euserv backuphd 1t se2021 / se2019 / wme2018 — the '1 tb free for a year' o","eid":"euserv-backuphd-1t-se2021","kind":"provider"}
-{"alias":"euserv backuphd 1t se2021","eid":"euserv-backuphd-1t-se2021","kind":"name"}
+{"alias":"euserv backuphd 1t se2021 / se2019 / wme2018 — the '1 tb free for a year' o","eid":"euserv","kind":"provider"}
 {"alias":"euserv backuphd classic free","eid":"euserv","kind":"provider"}
+{"alias":"euserv backuphd","eid":"euserv","kind":"name"}
 {"alias":"euserv","eid":"euserv","kind":"slug"}
 {"alias":"euserv-backuphd-1t","eid":"euserv","kind":"slug"}
-{"alias":"euserv-backuphd-1t-se2021-se2019-wme2018-the-1-tb-free-f","eid":"euserv-backuphd-1t-se2021","kind":"slug"}
+{"alias":"euserv-backuphd-1t-se2021-se2019-wme2018-the-1-tb-free-f","eid":"euserv","kind":"slug"}
 {"alias":"euserv-backuphd-classic-free","eid":"euserv","kind":"slug"}
 {"alias":"euserv-vs2-free","eid":"euserv","kind":"slug"}
 {"alias":"euserv.com","eid":"euserv","kind":"domain"}
@@ -9471,6 +9462,7 @@
 {"alias":"fed4fire+","eid":"fed4fire","kind":"name"}
 {"alias":"fed4fire-slices-ri","eid":"fed4fire","kind":"slug"}
 {"alias":"fed4fire.eu","eid":"fed4fire","kind":"domain"}
+{"alias":"fedidb.org","eid":"fedidb","kind":"domain"}
 {"alias":"fedora-copr","eid":"copr","kind":"slug"}
 {"alias":"feemoo","eid":"feemoo","kind":"slug"}
 {"alias":"feemoo.com","eid":"feemoo","kind":"domain"}
@@ -9784,9 +9776,8 @@
 {"alias":"free music archive","eid":"freemusicarchive","kind":"name"}
 {"alias":"free-ai","eid":"free","kind":"slug"}
 {"alias":"free-music-archive-ccmixter","eid":"freemusicarchive","kind":"slug"}
-{"alias":"free-tier stacking as the host's own upstream (the 'r2 free tier / backblaz","eid":"stacking-as-host-s-own-upstream","kind":"provider"}
-{"alias":"free-tier stacking as the host's own upstream","eid":"stacking-as-host-s-own-upstream","kind":"name"}
-{"alias":"free-tier-stacking-as-the-host-s-own-upstream-the-r2-fre","eid":"stacking-as-host-s-own-upstream","kind":"slug"}
+{"alias":"free-tier stacking as the host's own upstream (the 'r2 free tier / backblaz","eid":"cloudflare","kind":"provider"}
+{"alias":"free-tier-stacking-as-the-host-s-own-upstream-the-r2-fre","eid":"cloudflare","kind":"slug"}
 {"alias":"free.ai","eid":"free","kind":"domain"}
 {"alias":"free.ai","eid":"free","kind":"name"}
 {"alias":"free.ai","eid":"free","kind":"provider"}
@@ -10200,17 +10191,21 @@
 {"alias":"github.com","eid":"github-gsliepen","kind":"domain"}
 {"alias":"github.com","eid":"github-hboisgibault","kind":"domain"}
 {"alias":"github.com","eid":"github-hintjen","kind":"domain"}
+{"alias":"github.com","eid":"github-internetarchive","kind":"domain"}
 {"alias":"github.com","eid":"github-jackett","kind":"domain"}
 {"alias":"github.com","eid":"github-jeffreytse","kind":"domain"}
+{"alias":"github.com","eid":"github-jeremy46231","kind":"domain"}
 {"alias":"github.com","eid":"github-jitpack","kind":"domain"}
 {"alias":"github.com","eid":"github-jkuri","kind":"domain"}
 {"alias":"github.com","eid":"github-jnsgruk","kind":"domain"}
 {"alias":"github.com","eid":"github-josephdove","kind":"domain"}
 {"alias":"github.com","eid":"github-jpetazzo","kind":"domain"}
 {"alias":"github.com","eid":"github-jpillora","kind":"domain"}
+{"alias":"github.com","eid":"github-jsmaskeen","kind":"domain"}
 {"alias":"github.com","eid":"github-juanfont","kind":"domain"}
 {"alias":"github.com","eid":"github-juicedata","kind":"domain"}
 {"alias":"github.com","eid":"github-koding","kind":"domain"}
+{"alias":"github.com","eid":"github-kubernetes","kind":"domain"}
 {"alias":"github.com","eid":"github-libp2p","kind":"domain"}
 {"alias":"github.com","eid":"github-liljebergxyz","kind":"domain"}
 {"alias":"github.com","eid":"github-lupuszr","kind":"domain"}
@@ -10222,6 +10217,7 @@
 {"alias":"github.com","eid":"github-monosans","kind":"domain"}
 {"alias":"github.com","eid":"github-monteslu","kind":"domain"}
 {"alias":"github.com","eid":"github-moparisthebest","kind":"domain"}
+{"alias":"github.com","eid":"github-morb0","kind":"domain"}
 {"alias":"github.com","eid":"github-mudler","kind":"domain"}
 {"alias":"github.com","eid":"github-mullvad","kind":"domain"}
 {"alias":"github.com","eid":"github-multionlabs","kind":"domain"}
@@ -10229,6 +10225,7 @@
 {"alias":"github.com","eid":"github-n0madic","kind":"domain"}
 {"alias":"github.com","eid":"github-narrowlink","kind":"domain"}
 {"alias":"github.com","eid":"github-nextchaptersoftware","kind":"domain"}
+{"alias":"github.com","eid":"github-nodejs","kind":"domain"}
 {"alias":"github.com","eid":"github-nostr-protocol","kind":"domain"}
 {"alias":"github.com","eid":"github-ntnj","kind":"domain"}
 {"alias":"github.com","eid":"github-octelium","kind":"domain"}
@@ -10282,6 +10279,7 @@
 {"alias":"github.com","eid":"github-virb3","kind":"domain"}
 {"alias":"github.com","eid":"github-vitobotta","kind":"domain"}
 {"alias":"github.com","eid":"github-wangyu","kind":"domain"}
+{"alias":"github.com","eid":"github-waweber","kind":"domain"}
 {"alias":"github.com","eid":"github-wireguard","kind":"domain"}
 {"alias":"github.com","eid":"github-yarrick","kind":"domain"}
 {"alias":"github.com","eid":"github-yetidevworks","kind":"domain"}
@@ -10462,6 +10460,7 @@
 {"alias":"gpt4all / jan / lm studio / weights.gg (the 'desktop llm app' hubs)","eid":"gpt4all","kind":"provider"}
 {"alias":"gpt4all","eid":"gpt4all","kind":"name"}
 {"alias":"gpt4all-jan-lm-studio-weights-gg","eid":"gpt4all","kind":"slug"}
+{"alias":"gpt4all.io","eid":"gpt4all","kind":"domain"}
 {"alias":"gpu-ai","eid":"gpu","kind":"slug"}
 {"alias":"gpu-land","eid":"gpu-2","kind":"slug"}
 {"alias":"gpu-mart","eid":"vpsbenchmarks","kind":"slug"}
@@ -10835,12 +10834,13 @@
 {"alias":"hostim-dev","eid":"hostim","kind":"slug"}
 {"alias":"hostim.dev","eid":"hostim","kind":"domain"}
 {"alias":"hosting-by-design-app-hosting-24-tb","eid":"hostingby","kind":"slug"}
-{"alias":"hosting-int","eid":"hosting","kind":"slug"}
+{"alias":"hosting-int","eid":"hosting-2","kind":"slug"}
 {"alias":"hosting-mammoth-object-storage","eid":"hostingmammoth","kind":"slug"}
 {"alias":"hosting-minecraft-pro","eid":"hosting-minecraft","kind":"slug"}
 {"alias":"hosting-minecraft.pro","eid":"hosting-minecraft","kind":"domain"}
 {"alias":"hosting-vds-com","eid":"hosting-vds-com","kind":"slug"}
-{"alias":"hosting.international","eid":"hosting","kind":"domain"}
+{"alias":"hosting.fr","eid":"hosting","kind":"domain"}
+{"alias":"hosting.international","eid":"hosting-2","kind":"domain"}
 {"alias":"hostingby.design","eid":"hostingby","kind":"domain"}
 {"alias":"hostinger-router","eid":"hostinger","kind":"slug"}
 {"alias":"hostinger-vps","eid":"hostinger","kind":"slug"}
@@ -11187,9 +11187,9 @@
 {"alias":"instabox","eid":"instabox","kind":"slug"}
 {"alias":"instabox.sh","eid":"instabox","kind":"domain"}
 {"alias":"instacloud.com","eid":"instacloud","kind":"domain"}
-{"alias":"instances-social-fediverse-observer-fedidb-org-the-three","eid":"instances-social","kind":"slug"}
-{"alias":"instances.social / fediverse.observer / fedidb.org — the three instance-ind","eid":"instances-social","kind":"provider"}
-{"alias":"instances.social","eid":"instances-social","kind":"name"}
+{"alias":"instances-social-fediverse-observer-fedidb-org-the-three","eid":"fedidb","kind":"slug"}
+{"alias":"instances.social / fediverse.observer / fedidb.org — the three instance-ind","eid":"fedidb","kind":"provider"}
+{"alias":"instances.social","eid":"fedidb","kind":"name"}
 {"alias":"instatunnel","eid":"instatunnel","kind":"slug"}
 {"alias":"instatunnel.my","eid":"instatunnel","kind":"domain"}
 {"alias":"instatus","eid":"instatus","kind":"slug"}
@@ -11380,7 +11380,6 @@
 {"alias":"iroh public relays","eid":"iroh","kind":"provider"}
 {"alias":"iroh","eid":"iroh","kind":"name"}
 {"alias":"iroh-dns-server (as a hosted third-party service)","eid":"github-repos","kind":"provider"}
-{"alias":"iroh-dns-server","eid":"github-repos","kind":"name"}
 {"alias":"iroh-dns-server","eid":"github-repos","kind":"slug"}
 {"alias":"iroh-live","eid":"github","kind":"provider"}
 {"alias":"iroh-live","eid":"github","kind":"slug"}
@@ -11536,10 +11535,10 @@
 {"alias":"jsDelivr","eid":"jsdelivr","kind":"name"}
 {"alias":"jsDelivr","eid":"jsdelivr","kind":"provider"}
 {"alias":"jsc-test","eid":"fz-juelich","kind":"slug"}
-{"alias":"jsdelivr as storage for release assets","eid":"jsdelivr-as-storage-for-release-assets","kind":"name"}
-{"alias":"jsdelivr as storage for release assets","eid":"jsdelivr-as-storage-for-release-assets","kind":"provider"}
+{"alias":"jsdelivr as storage for release assets","eid":"github-nodejs","kind":"name"}
+{"alias":"jsdelivr as storage for release assets","eid":"github-nodejs","kind":"provider"}
 {"alias":"jsdelivr","eid":"jsdelivr","kind":"slug"}
-{"alias":"jsdelivr-as-storage-for-release-assets","eid":"jsdelivr-as-storage-for-release-assets","kind":"slug"}
+{"alias":"jsdelivr-as-storage-for-release-assets","eid":"github-nodejs","kind":"slug"}
 {"alias":"jsdelivr-as-the-free-cdn-layer-over-github-repos","eid":"jsdelivr","kind":"slug"}
 {"alias":"jsdelivr.com","eid":"jsdelivr","kind":"domain"}
 {"alias":"jsr (deno/typescript)","eid":"jsr","kind":"provider"}
@@ -11833,9 +11832,10 @@
 {"alias":"leechpremium-link","eid":"leechpremium","kind":"slug"}
 {"alias":"leechpremium.link","eid":"leechpremium","kind":"domain"}
 {"alias":"lemmy-pict-rs-per-instance-image-store-no-per-user-quota","eid":"join-lemmy","kind":"slug"}
-{"alias":"lemmy-world-lemmy-ml-sh-itjust-works-feddit-org-as-open","eid":"lemmy-world","kind":"slug"}
-{"alias":"lemmy.world / lemmy.ml / sh.itjust.works / feddit.org as open upload target","eid":"lemmy-world","kind":"provider"}
-{"alias":"lemmy.world","eid":"lemmy-world","kind":"name"}
+{"alias":"lemmy-world-lemmy-ml-sh-itjust-works-feddit-org-as-open","eid":"lemmy","kind":"slug"}
+{"alias":"lemmy.world / lemmy.ml / sh.itjust.works / feddit.org as open upload target","eid":"lemmy","kind":"provider"}
+{"alias":"lemmy.world","eid":"lemmy","kind":"domain"}
+{"alias":"lemmy.world","eid":"lemmy","kind":"name"}
 {"alias":"lenovo.com","eid":"lenovo","kind":"domain"}
 {"alias":"leonardo-ai","eid":"leonardo","kind":"slug"}
 {"alias":"leonardo.ai","eid":"leonardo","kind":"domain"}
@@ -11965,9 +11965,8 @@
 {"alias":"lithosai.com","eid":"lithosai","kind":"domain"}
 {"alias":"litterbox (catbox temporary)","eid":"catbox","kind":"provider"}
 {"alias":"litterbox","eid":"catbox","kind":"slug"}
-{"alias":"litterbox-catbox-moe","eid":"litterbox-catbox-moe","kind":"slug"}
-{"alias":"litterbox.catbox.moe (temporary)","eid":"litterbox-catbox-moe","kind":"provider"}
-{"alias":"litterbox.catbox.moe","eid":"litterbox-catbox-moe","kind":"name"}
+{"alias":"litterbox-catbox-moe","eid":"catbox","kind":"slug"}
+{"alias":"litterbox.catbox.moe (temporary)","eid":"catbox","kind":"provider"}
 {"alias":"little-creek-hosting","eid":"littlecreekhosting","kind":"slug"}
 {"alias":"littlecreek","eid":"littlecreekhosting","kind":"slug"}
 {"alias":"littlecreek-starter-vps","eid":"littlecreekhosting","kind":"slug"}
@@ -12250,9 +12249,9 @@
 {"alias":"maven-central","eid":"sonatype","kind":"slug"}
 {"alias":"maven-central-as-bulk-storage","eid":"sonatype-2","kind":"slug"}
 {"alias":"maven-central-post-2026-publishing-limits","eid":"sonatype-2","kind":"slug"}
-{"alias":"maverick1983-google-drive-service-account-45-tb-recipe-t","eid":"maverick1983-google-drive-service-45-tb-recipe","kind":"slug"}
-{"alias":"maverick1983/google-drive-service-account 45 tb recipe","eid":"maverick1983-google-drive-service-45-tb-recipe","kind":"name"}
-{"alias":"maverick1983/google-drive-service-account 45 tb recipe","eid":"maverick1983-google-drive-service-45-tb-recipe","kind":"provider"}
+{"alias":"maverick1983-google-drive-service-account-45-tb-recipe-t","eid":"github-jsmaskeen","kind":"slug"}
+{"alias":"maverick1983/google-drive-service-account 45 tb recipe","eid":"github-jsmaskeen","kind":"name"}
+{"alias":"maverick1983/google-drive-service-account 45 tb recipe","eid":"github-jsmaskeen","kind":"provider"}
 {"alias":"maxcloudbox","eid":"maxcloudbox","kind":"slug"}
 {"alias":"maxcloudbox.com","eid":"maxcloudbox","kind":"domain"}
 {"alias":"maxdebrid","eid":"maxdebrid","kind":"slug"}
@@ -12386,8 +12385,8 @@
 {"alias":"microsoft 365 e5 developer subscription (the '25 x 1 tb' myth)","eid":"microsoft","kind":"provider"}
 {"alias":"microsoft fabric trial / onelake","eid":"microsoft","kind":"provider"}
 {"alias":"microsoft mcr / registry.k8s.io (read-only public mirrors)","eid":"microsoft","kind":"provider"}
-{"alias":"microsoft mcr / registry.k8s.io / icr.io / docker.elastic.co / registry.ope","eid":"microsoft-mcr","kind":"provider"}
-{"alias":"microsoft mcr","eid":"microsoft-mcr","kind":"name"}
+{"alias":"microsoft mcr / registry.k8s.io / icr.io / docker.elastic.co / registry.ope","eid":"github-kubernetes","kind":"provider"}
+{"alias":"microsoft mcr","eid":"github-kubernetes","kind":"name"}
 {"alias":"microsoft teams essentials / m365 business paid tiers","eid":"microsoft","kind":"provider"}
 {"alias":"microsoft teams free (5 gb)","eid":"microsoft","kind":"provider"}
 {"alias":"microsoft","eid":"microsoft","kind":"slug"}
@@ -12408,7 +12407,7 @@
 {"alias":"microsoft-fabric-trial-onelake","eid":"microsoft","kind":"slug"}
 {"alias":"microsoft-learn-student","eid":"microsoft","kind":"slug"}
 {"alias":"microsoft-mcr-registry-k8s-io","eid":"microsoft","kind":"slug"}
-{"alias":"microsoft-mcr-registry-k8s-io-icr-io-docker-elastic-co-r","eid":"microsoft-mcr","kind":"slug"}
+{"alias":"microsoft-mcr-registry-k8s-io-icr-io-docker-elastic-co-r","eid":"github-kubernetes","kind":"slug"}
 {"alias":"microsoft-teams","eid":"microsoft","kind":"slug"}
 {"alias":"microsoft-teams-essentials-m365-business-paid-tiers","eid":"microsoft","kind":"slug"}
 {"alias":"microsoft-teams-free","eid":"microsoft","kind":"slug"}
@@ -12602,9 +12601,9 @@
 {"alias":"moore-threads-ai","eid":"mthreads","kind":"slug"}
 {"alias":"mopan","eid":"github-openlistteam","kind":"slug"}
 {"alias":"mor.org","eid":"mor","kind":"domain"}
-{"alias":"morb0-tgbucket-two-telegram-fuse-demidko-telegram-storag","eid":"morb0-tgbucket","kind":"slug"}
-{"alias":"morb0/tgbucket","eid":"morb0-tgbucket","kind":"name"}
-{"alias":"morb0/tgbucket, two/telegram-fuse, demidko/telegram-storage and the long ta","eid":"morb0-tgbucket","kind":"provider"}
+{"alias":"morb0-tgbucket-two-telegram-fuse-demidko-telegram-storag","eid":"github-morb0","kind":"slug"}
+{"alias":"morb0/tgbucket","eid":"github-morb0","kind":"name"}
+{"alias":"morb0/tgbucket, two/telegram-fuse, demidko/telegram-storage and the long ta","eid":"github-morb0","kind":"provider"}
 {"alias":"morejust store (morejust.store)","eid":"morejust-github-io","kind":"provider"}
 {"alias":"morejust store","eid":"morejust-github-io","kind":"name"}
 {"alias":"morejust-store","eid":"morejust-github-io","kind":"slug"}
@@ -12653,9 +12652,9 @@
 {"alias":"multcloud","eid":"multcloud","kind":"slug"}
 {"alias":"multcloud.com","eid":"multcloud","kind":"domain"}
 {"alias":"multi-account-multiplication-of-big-cloud-free-tiers","eid":"oracle","kind":"slug"}
-{"alias":"multi-cloud manager guis (multcloud, and air cluster's own docs) as stripin","eid":"multi-cloud-manager-guis","kind":"provider"}
-{"alias":"multi-cloud manager guis","eid":"multi-cloud-manager-guis","kind":"name"}
-{"alias":"multi-cloud-manager-guis-as-stripin","eid":"multi-cloud-manager-guis","kind":"slug"}
+{"alias":"multi-cloud manager guis (multcloud, and air cluster's own docs) as stripin","eid":"multcloud","kind":"provider"}
+{"alias":"multi-cloud manager","eid":"multcloud","kind":"name"}
+{"alias":"multi-cloud-manager-guis-as-stripin","eid":"multcloud","kind":"slug"}
 {"alias":"multidebrid","eid":"multidebrid","kind":"slug"}
 {"alias":"multidebrid.com","eid":"multidebrid","kind":"domain"}
 {"alias":"multishare-ir","eid":"mul","kind":"slug"}
@@ -14293,13 +14292,13 @@
 {"alias":"raysync.io","eid":"raysync","kind":"domain"}
 {"alias":"rbc.ua","eid":"rbc","kind":"domain"}
 {"alias":"rclone - premiumizeme backend","eid":"rclone","kind":"provider"}
-{"alias":"rclone as a github client","eid":"rclone-as-a-github-client","kind":"name"}
-{"alias":"rclone as a github client","eid":"rclone-as-a-github-client","kind":"provider"}
-{"alias":"rclone imap backend (the missing tooling)","eid":"rclone-imap-backend","kind":"provider"}
-{"alias":"rclone imap backend","eid":"rclone-imap-backend","kind":"name"}
+{"alias":"rclone as a github client","eid":"github-rclone","kind":"provider"}
+{"alias":"rclone imap backend (the missing tooling)","eid":"github-repos","kind":"provider"}
+{"alias":"rclone imap","eid":"github-repos","kind":"name"}
+{"alias":"rclone","eid":"github-rclone","kind":"name"}
 {"alias":"rclone","eid":"rclone","kind":"name"}
-{"alias":"rclone-as-a-github-client","eid":"rclone-as-a-github-client","kind":"slug"}
-{"alias":"rclone-imap-backend","eid":"rclone-imap-backend","kind":"slug"}
+{"alias":"rclone-as-a-github-client","eid":"github-rclone","kind":"slug"}
+{"alias":"rclone-imap-backend","eid":"github-repos","kind":"slug"}
 {"alias":"rclone-premiumizeme","eid":"rclone","kind":"slug"}
 {"alias":"rclone.org","eid":"rclone","kind":"domain"}
 {"alias":"rdpserverss-free-ipv6","eid":"rdpserverss","kind":"slug"}
@@ -14409,6 +14408,7 @@
 {"alias":"rescale","eid":"rescale","kind":"slug"}
 {"alias":"rescale.com","eid":"rescale","kind":"domain"}
 {"alias":"research.google","eid":"research","kind":"domain"}
+{"alias":"researchdata.tuwien.ac.at","eid":"researchdata-tuwien-ac-at","kind":"domain"}
 {"alias":"researchgate full-text upload","eid":"researchgate","kind":"provider"}
 {"alias":"researchgate full-text","eid":"researchgate","kind":"name"}
 {"alias":"researchgate — data upload as storage","eid":"researchgate","kind":"provider"}
@@ -14567,9 +14567,8 @@
 {"alias":"ruweb.net","eid":"ruweb","kind":"domain"}
 {"alias":"s3-776161-xyz","eid":"776161","kind":"slug"}
 {"alias":"s3providers.com","eid":"s3providers","kind":"domain"}
-{"alias":"sa->my-drive-shared-folder 16 gb ceiling (common alternative route that silently c","eid":"sa-my-drive-shared-folder-16-gb-ceiling","kind":"provider"}
-{"alias":"sa->my-drive-shared-folder 16 gb ceiling","eid":"sa-my-drive-shared-folder-16-gb-ceiling","kind":"name"}
-{"alias":"sa-my-drive-shared-folder-16-gb-ceiling-common-workaroun","eid":"sa-my-drive-shared-folder-16-gb-ceiling","kind":"slug"}
+{"alias":"sa->my-drive-shared-folder 16 gb ceiling (common alternative route that silently c","eid":"google","kind":"provider"}
+{"alias":"sa-my-drive-shared-folder-16-gb-ceiling-common-workaroun","eid":"google","kind":"slug"}
 {"alias":"safelinking","eid":"safelinking","kind":"slug"}
 {"alias":"safelinking.net","eid":"safelinking","kind":"domain"}
 {"alias":"saganetwork-windows","eid":"saganetwork","kind":"slug"}
@@ -14998,9 +14997,9 @@
 {"alias":"simonews.com","eid":"simonews","kind":"domain"}
 {"alias":"simpfun","eid":"tx648","kind":"slug"}
 {"alias":"simple-cloud","eid":"simplecloud","kind":"slug"}
-{"alias":"simplecast / transistor / captivate / libsyn — unlimited storage, no free t","eid":"simplecast","kind":"provider"}
-{"alias":"simplecast","eid":"simplecast","kind":"name"}
-{"alias":"simplecast-transistor-captivate-libsyn-unlimited-storage","eid":"simplecast","kind":"slug"}
+{"alias":"simplecast / transistor / captivate / libsyn — unlimited storage, no free t","eid":"transistor","kind":"provider"}
+{"alias":"simplecast","eid":"transistor","kind":"name"}
+{"alias":"simplecast-transistor-captivate-libsyn-unlimited-storage","eid":"transistor","kind":"slug"}
 {"alias":"simplecloud.ru","eid":"simplecloud","kind":"domain"}
 {"alias":"simplesandbox","eid":"simplesandbox","kind":"slug"}
 {"alias":"simplesandbox.dev","eid":"simplesandbox","kind":"domain"}
@@ -15054,10 +15053,10 @@
 {"alias":"slab","eid":"slab","kind":"slug"}
 {"alias":"slab.com","eid":"slab","kind":"domain"}
 {"alias":"slack","eid":"slack","kind":"slug"}
-{"alias":"slack-discord-as-storage-wrapper-ecosystem-slackfs-slack","eid":"slack-discord-as-storage-wrapper-ecosystem","kind":"slug"}
+{"alias":"slack-discord-as-storage-wrapper-ecosystem-slackfs-slack","eid":"github-jeremy46231","kind":"slug"}
 {"alias":"slack.com","eid":"slack","kind":"domain"}
-{"alias":"slack/discord-as-storage wrapper ecosystem (slackfs, slack-parrotbot, file-","eid":"slack-discord-as-storage-wrapper-ecosystem","kind":"provider"}
-{"alias":"slack/discord-as-storage wrapper ecosystem","eid":"slack-discord-as-storage-wrapper-ecosystem","kind":"name"}
+{"alias":"slack/discord-as-storage wrapper ecosystem (slackfs, slack-parrotbot, file-","eid":"github-jeremy46231","kind":"provider"}
+{"alias":"slack/discord-as-storage wrapper ecosystem","eid":"github-jeremy46231","kind":"name"}
 {"alias":"slickdeals as a discovery channel","eid":"slickdeals","kind":"name"}
 {"alias":"slickdeals as a discovery channel","eid":"slickdeals","kind":"provider"}
 {"alias":"slickdeals-as-a-discovery-channel","eid":"slickdeals","kind":"slug"}
@@ -15069,9 +15068,9 @@
 {"alias":"slite","eid":"slite","kind":"slug"}
 {"alias":"slite.com","eid":"slite","kind":"domain"}
 {"alias":"sloan.org","eid":"sloan","kind":"domain"}
-{"alias":"small institutional inveniordm instances (tu wien, kth, taltech, tu graz, b","eid":"small-institutional-inveniordm-instances","kind":"provider"}
-{"alias":"small institutional inveniordm instances","eid":"small-institutional-inveniordm-instances","kind":"name"}
-{"alias":"small-institutional-inveniordm-instances-tu-wien-kth-tal","eid":"small-institutional-inveniordm-instances","kind":"slug"}
+{"alias":"small institutional inveniordm instances (tu wien, kth, taltech, tu graz, b","eid":"researchdata-tuwien-ac-at","kind":"provider"}
+{"alias":"small institutional inveniordm instances","eid":"researchdata-tuwien-ac-at","kind":"name"}
+{"alias":"small-institutional-inveniordm-instances-tu-wien-kth-tal","eid":"researchdata-tuwien-ac-at","kind":"slug"}
 {"alias":"smarthost","eid":"smarthost","kind":"slug"}
 {"alias":"smarthost.net","eid":"smarthost","kind":"domain"}
 {"alias":"smash-free-web-tier","eid":"fromsmash","kind":"slug"}
@@ -15120,6 +15119,7 @@
 {"alias":"softpedia / majorgeeks / filehorse / snapfiles / lo4d / alternativeto (soft","eid":"softpedia","kind":"provider"}
 {"alias":"softpedia","eid":"softpedia","kind":"name"}
 {"alias":"softpedia-majorgeeks-filehorse-snapfiles-lo4d-alternativ","eid":"softpedia","kind":"slug"}
+{"alias":"softpedia.com","eid":"softpedia","kind":"domain"}
 {"alias":"softshellweb","eid":"softshellweb","kind":"slug"}
 {"alias":"softshellweb-lxc-ipv6-only","eid":"softshellweb","kind":"slug"}
 {"alias":"softshellweb-lxc-ipv6-only-la","eid":"softshellweb","kind":"slug"}
@@ -15349,7 +15349,6 @@
 {"alias":"stoat-official-instance","eid":"stoat","kind":"slug"}
 {"alias":"stoat-revolt-self-hosted-instance","eid":"github-stoatchat","kind":"slug"}
 {"alias":"stoat.chat","eid":"stoat","kind":"domain"}
-{"alias":"stock rclone telegram backend","eid":"github-rclone","kind":"name"}
 {"alias":"stock rclone telegram backend","eid":"github-rclone","kind":"provider"}
 {"alias":"stock-rclone-telegram-backend","eid":"github-rclone","kind":"slug"}
 {"alias":"stonech.at","eid":"stonech","kind":"domain"}
@@ -15558,6 +15557,7 @@
 {"alias":"t.me","eid":"t-me-uptotgrobot","kind":"domain"}
 {"alias":"t.me","eid":"t-me-wangpanbot","kind":"domain"}
 {"alias":"t.me/alistshare (the Telegram index channel)","eid":"t-me-s","kind":"provider"}
+{"alias":"t.me/alistshare","eid":"t-me-s","kind":"name"}
 {"alias":"t0m.top","eid":"t0m","kind":"domain"}
 {"alias":"tab-digital-nextcloud","eid":"tab","kind":"slug"}
 {"alias":"tab.digital","eid":"tab","kind":"domain"}
@@ -15795,11 +15795,11 @@
 {"alias":"thc.org","eid":"thc","kind":"domain"}
 {"alias":"the 'self-hosted hf clone' search class itself (github: hangar, arkon, open","eid":"self-hosted-hf-clone-search-class-itself","kind":"provider"}
 {"alias":"the 'self-hosted hf clone' search class itself","eid":"self-hosted-hf-clone-search-class-itself","kind":"name"}
-{"alias":"the good cloud / hosting.de / hosting.fr / arkdisk / webo.cloud / cloudys.j","eid":"good-cloud","kind":"provider"}
-{"alias":"the good cloud","eid":"good-cloud","kind":"name"}
+{"alias":"the good cloud / hosting.de / hosting.fr / arkdisk / webo.cloud / cloudys.j","eid":"hosting","kind":"provider"}
+{"alias":"the good cloud","eid":"hosting","kind":"name"}
 {"alias":"the-catalyst","eid":"sdaia-gov-sa","kind":"slug"}
 {"alias":"the-eigenprize","eid":"eigen","kind":"slug"}
-{"alias":"the-good-cloud-hosting-de-hosting-fr-arkdisk-webo-cloud","eid":"good-cloud","kind":"slug"}
+{"alias":"the-good-cloud-hosting-de-hosting-fr-arkdisk-webo-cloud","eid":"hosting","kind":"slug"}
 {"alias":"the-grid-ai","eid":"thegrid","kind":"slug"}
 {"alias":"the-hive","eid":"the-hive","kind":"slug"}
 {"alias":"the-hive.be","eid":"the-hive","kind":"domain"}
@@ -15943,9 +15943,8 @@
 {"alias":"tmhhost","eid":"tmhhost","kind":"slug"}
 {"alias":"tmhhost.com","eid":"tmhhost","kind":"domain"}
 {"alias":"tmpfiles-org","eid":"tmpfiles","kind":"slug"}
-{"alias":"tmpfiles-org-via-normal-dns","eid":"tmpfiles-org-via-normal-dns","kind":"slug"}
-{"alias":"tmpfiles.org via normal dns","eid":"tmpfiles-org-via-normal-dns","kind":"name"}
-{"alias":"tmpfiles.org via normal dns","eid":"tmpfiles-org-via-normal-dns","kind":"provider"}
+{"alias":"tmpfiles-org-via-normal-dns","eid":"tmpfiles","kind":"slug"}
+{"alias":"tmpfiles.org via normal dns","eid":"tmpfiles","kind":"provider"}
 {"alias":"tmpfiles.org","eid":"tmpfiles","kind":"domain"}
 {"alias":"tmpfiles.org","eid":"tmpfiles","kind":"name"}
 {"alias":"tmpfiles.org","eid":"tmpfiles","kind":"provider"}
@@ -16037,9 +16036,8 @@
 {"alias":"transfer.zip","eid":"transfer-3","kind":"domain"}
 {"alias":"transfercloud","eid":"transfercloud","kind":"slug"}
 {"alias":"transfercloud.io","eid":"transfercloud","kind":"domain"}
-{"alias":"transferit-py's 10-year expiry","eid":"transferit-py-s-10-year-expiry","kind":"name"}
-{"alias":"transferit-py's 10-year expiry","eid":"transferit-py-s-10-year-expiry","kind":"provider"}
-{"alias":"transferit-py-s-10-year-expiry","eid":"transferit-py-s-10-year-expiry","kind":"slug"}
+{"alias":"transferit-py's 10-year expiry","eid":"raw","kind":"provider"}
+{"alias":"transferit-py-s-10-year-expiry","eid":"raw","kind":"slug"}
 {"alias":"transfernow","eid":"transfernow","kind":"slug"}
 {"alias":"transfernow.net","eid":"transfernow","kind":"domain"}
 {"alias":"transferrocket","eid":"transferrocket","kind":"name"}
@@ -16050,6 +16048,7 @@
 {"alias":"transfersize.com","eid":"transfersize","kind":"domain"}
 {"alias":"transferxl","eid":"transferxl","kind":"slug"}
 {"alias":"transferxl.com","eid":"transferxl","kind":"domain"}
+{"alias":"transistor.fm","eid":"transistor","kind":"domain"}
 {"alias":"transload-me","eid":"transload","kind":"slug"}
 {"alias":"transload.me","eid":"transload","kind":"domain"}
 {"alias":"transloadit","eid":"transloadit","kind":"name"}
@@ -16752,12 +16751,12 @@
 {"alias":"watsonx.ai","eid":"ibm","kind":"provider"}
 {"alias":"watt","eid":"watt-cloud","kind":"slug"}
 {"alias":"watt-cloud.com","eid":"watt-cloud","kind":"domain"}
-{"alias":"wayback cdx server as storage","eid":"wayback-cdx-server-as-storage","kind":"name"}
-{"alias":"wayback cdx server as storage","eid":"wayback-cdx-server-as-storage","kind":"provider"}
+{"alias":"wayback cdx server as storage","eid":"github-internetarchive","kind":"name"}
+{"alias":"wayback cdx server as storage","eid":"github-internetarchive","kind":"provider"}
 {"alias":"wayback replay as a general bulk store (upload-by-url)","eid":"wayback-replay-as-a-general-bulk-store","kind":"provider"}
 {"alias":"wayback replay as a general bulk store","eid":"wayback-replay-as-a-general-bulk-store","kind":"name"}
 {"alias":"wayback","eid":"internet-archive-wayback-machine","kind":"slug"}
-{"alias":"wayback-cdx-server-as-storage","eid":"wayback-cdx-server-as-storage","kind":"slug"}
+{"alias":"wayback-cdx-server-as-storage","eid":"github-internetarchive","kind":"slug"}
 {"alias":"wayback-machine-save-page-now-2","eid":"wayback-machine","kind":"slug"}
 {"alias":"wayback-replay-as-a-general-bulk-store","eid":"wayback-replay-as-a-general-bulk-store","kind":"slug"}
 {"alias":"waymorphic","eid":"waymorphic","kind":"slug"}

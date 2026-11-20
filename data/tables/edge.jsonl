@@ -681,7 +681,6 @@
 {"dst":"storage/playstation-plus-cloud-storage","kind":"mentions","src":"netdisk-pan/playstation-plus-cloud-storage"}
 {"dst":"storage/polarbackup-2","kind":"same-product","src":"storage/polarbackup"}
 {"dst":"storage/prism-drive-49-2-tb-lifetime","kind":"same-product","src":"storage/prism-drive"}
-{"dst":"storage/proxyrack-unlimited-residential","kind":"mentions","src":"ip-proxy/proxyseller-isp-proxy"}
 {"dst":"storage/pulsedmedia-m10g-storage-box","kind":"duplicate_of","src":"storage/pulsedmedia-m10g-storage-box-16tb"}
 {"dst":"storage/pulsedmedia-m10g-storage-box-16tb","kind":"same-product","src":"storage/pulsedmedia-eternal-v-in-m-inen-1-99-storage-tiers"}
 {"dst":"storage/pumble-free","kind":"same-product","src":"storage/pumble"}

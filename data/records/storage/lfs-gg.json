@@ -49,10 +49,24 @@
       "url": "https://lfs.gg/",
       "date": "2026-10-21",
       "proved": "Markets 'Unlimited Git LFS bandwidth for GitHub, GitLab, and Bitbucket' but is paid per 100 GB/month with only the first 10 GB free, and is 'currently invite-only'. Not free storage at…"
+    },
+    {
+      "url": "probe:https://lfs.gg/",
+      "date": "2026-11-19",
+      "proved": "probe on 2026-11-19: lfs.gg name did not resolve (transport error, status null), no response body",
+      "capture": "sha256:109cf86616d6df849a6a0bb5cb170c99503fe37e1b72d78a045f4d646a8b5f74",
+      "quote": "\"error_detail\": \"URLError: <urlopen error Tunnel connection failed: 502 the name did not resolve>\""
+    },
+    {
+      "url": "probe:https://lfs.gg/",
+      "date": "2026-11-19",
+      "proved": "probe on 2026-11-19 confirms lfs.gg no longer resolves, so the host is unreachable",
+      "capture": "sha256:109cf86616d6df849a6a0bb5cb170c99503fe37e1b72d78a045f4d646a8b5f74",
+      "quote": "\"error_detail\": \"URLError: <urlopen error Tunnel connection failed: 502 the name did not resolve>\""
     }
   ],
-  "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verdict": "dead",
+  "verified_at": "2026-11-19T21:14:07.998Z",
   "notes": "Markets 'Unlimited Git LFS bandwidth for GitHub, GitLab, and Bitbucket' but is paid per 100 GB/month with only the first 10 GB free, and is 'currently invite-only'. Not free storage at…",
   "extras": {
     "dead_end": {
@@ -60,6 +74,10 @@
       "why": "Markets 'Unlimited Git LFS bandwidth for GitHub, GitLab, and Bitbucket' but is paid per 100 GB/month with only the first 10 GB free, and is 'currently invite-only'. Not free storage at…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

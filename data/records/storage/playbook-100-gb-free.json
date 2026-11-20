@@ -54,10 +54,38 @@
       "url": "https://www.playbook.com/pricing/",
       "date": "2026-10-21",
       "proved": "'Free: The Free plan includes 300 total assets or 100GB of storage, whichever comes first', 'API 1K calls / month', fetched 2026-10-21"
+    },
+    {
+      "url": "https://www.playbook.com/pricing/",
+      "date": "2026-11-19",
+      "proved": "free tier is 100 GB or 300 assets, whichever comes first",
+      "capture": "sha256:1883a26282dc2be573267ecdd71cbbfec321698cf29ca5075be23f7f59c87fe1",
+      "quote": "The Free plan includes 300 total assets or 100GB of storage, whichever comes first."
+    },
+    {
+      "url": "https://www.playbook.com/pricing/",
+      "date": "2026-11-19",
+      "proved": "the free plan needs no credit card",
+      "capture": "sha256:1883a26282dc2be573267ecdd71cbbfec321698cf29ca5075be23f7f59c87fe1",
+      "quote": "No credit card required"
+    },
+    {
+      "url": "https://www.playbook.com/pricing/",
+      "date": "2026-11-19",
+      "proved": "free API allowance is 1000 calls per month",
+      "capture": "sha256:1883a26282dc2be573267ecdd71cbbfec321698cf29ca5075be23f7f59c87fe1",
+      "quote": "API 1K calls / month"
+    },
+    {
+      "url": "https://www.playbook.com/pricing/",
+      "date": "2026-11-19",
+      "proved": "free tier caps uploads at 300 files and 2 GB per video file",
+      "capture": "sha256:1883a26282dc2be573267ecdd71cbbfec321698cf29ca5075be23f7f59c87fe1",
+      "quote": "Up to 300 files can be uploaded. Video uploads are capped at 2GB per file, with a 10GB limit per download session."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:56.982Z",
   "notes": "Free: '100GB included' OR 300 total assets, whichever comes first. API 1K calls/month. Paid Pro $10/mo/member = 2 TB + 1 TB per added member up to 10 TB.",
   "extras": {
     "dead_end": {
