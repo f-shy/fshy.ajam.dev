@@ -1,0 +1,208 @@
+# fshy: CI runners, self-hosted, the last resort
+
+> Hosted CI runners and registries, and what they will run.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ci-cd-runners/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Forgejo and Gitea Actions (self-hosted)
+
+- `ci-cd-runners/forgejo-gitea-actions` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category CI software
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T19:14:28.503Z (live) | stale on 2026-12-07
+- url https://forgejo.org/docs/latest/user/actions/ | page https://fshy.ajam.dev/p/forgejo.md
+- free tier: GPL v3+ for Forgejo v9.0 and later, MIT for Forgejo up to v8.0 | unit: unlimited | metered on: none | read on: 2026-11-06 | source: [1] | note: Gitea, the upstream project, is licensed under the MIT License.
+- per-object cap: a job runs for at most the number of minutes its jobs.<job_id>.timeout-minutes key sets | source: [2] | note: the actual machine provided by the runner entirely depends on how the runner was registered
+- retention: whatever the runner host retains | source: [2]
+- egress: whatever the runner host charges | metered: no | source: [2]
+- identity: anonymous | detail: the software needs no account
+- interface: git, cli
+- limits:
+  - per-object-cap: a job runs for at most the number of minutes its jobs.<job_id>.timeout-minutes key sets [2]
+- interface detail: a .forgejo/workflows or .gitea/workflows YAML; the act runner; a compatible subset of GitHub Actions
+- tooling: the forgejo or act runner binary; docker or a host backend
+- composes with: Actions syntax without GitHub, which lets a workflow move between a free hosted runner and your own machine without a rewrite
+- reliability: compatibility with GitHub Actions is a documented subset, so a workflow that runs on GitHub may need edits
+- notes: The compatibility is the value and the subset is the cost. A workflow that depends on a GitHub-only action does not run.
+- evidence note: the Forgejo Actions user guide was read; Codeberg's hosted instance runs the same software.
+- self hosted: yes
+- evidence:
+  - [2] 2026-10-22: Forgejo Actions is GitHub-Actions-compatible with documented differences; runners are user-provided
+  - [3] 2026-10-22: Codeberg's hosted runners use ghcr.io/catthehacker/ubuntu:act-latest to provide a compatibility level with GitHub Actions, and Docker-in-Docker is not officially supported
+  - [2] 2026-11-04: Forgejo Actions is not identical to GitHub Actions, so a workflow may need edits | capture: sha256:8c8a779c1a4e82b1679b0238872cb7c0a41dee2aa0046ff47932817138faf289 | quote: However, GitHub Actions and Forgejo Actions are not the same and things might not work right away.
+  - [1] 2026-11-06: Forgejo v9.0 and later is GPL v3+ and Forgejo up to v8.0 is MIT | capture: sha256:09c8f6b9e7c660821c31c34a03ecd1c32b6731755ab183f685b753b9af7b5a8f | quote: Forgejo versions v9.0 and later are distributed under the terms of the GPL v3+. ... Forgejo versions up to v8.0 inclusive are distributed under the terms of the MIT license.
+  - [4] 2026-11-06: Gitea is licensed under the MIT License | capture: sha256:f44bcff37456431faa23c5d19b75db142fc191e3e0ef0d70c60bd4ceee5aea3a | quote: This project is licensed under the MIT License.
+  - [2] 2026-11-06: the jobs.<job_id>.timeout-minutes key caps how long a job runs | capture: sha256:8c8a779c1a4e82b1679b0238872cb7c0a41dee2aa0046ff47932817138faf289 | quote: Set the number of minutes this job can be performed before it is canceled.
+  - [2] 2026-11-06: the machine a job gets depends on how the runner was registered | capture: sha256:8c8a779c1a4e82b1679b0238872cb7c0a41dee2aa0046ff47932817138faf289 | quote: The actual machine provided by the runner entirely depends on how the runner was registered
+- sources:
+  - [1] https://forgejo.org/faq/
+  - [2] https://forgejo.org/docs/latest/user/actions/
+  - [3] https://codeberg.org/actions/meta
+  - [4] https://github.com/go-gitea/gitea
+
+## Woodpecker CI (self-hosted)
+
+- `ci-cd-runners/woodpecker-selfhost` | self-hosted, last resort | verdict qualifies | evidence documented | binding none | category CI software
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T19:14:28.504Z (live) | stale on 2026-12-07
+- url https://woodpecker-ci.org/docs/intro | page https://fshy.ajam.dev/p/woodpecker-ci.md
+- free tier: Apache-2.0 software with no licence fee and no metered quota; the agents run on hardware the operator provides, so the cost is the host | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: a pipeline is killed at 60 minutes by default, and the maximum a repo setting can set is 120 minutes by default | source: [2] | note: by default, the maximum workflows that are executed in parallel on an agent is 1
+- retention: whatever the agent host retains | source: [3]
+- egress: whatever the agent host charges | metered: no | source: [3]
+- identity: anonymous | detail: the software needs no account; the forge it authenticates against does
+- interface: git, cli
+- limits:
+  - per-object-cap: a pipeline is killed at 60 minutes by default, and the maximum a repo setting can set is 120 minutes by default [2]
+- limits note: by default, the maximum workflows that are executed in parallel on an agent is 1
+- interface detail: a server plus one or more agents; a .woodpecker.yml pipeline; the woodpecker-cli
+- tooling: docker, podman, or a local backend on the agent host
+- composes with: pair it with a free VM: the pipeline timeout is the wall clock, 60 minutes by default and at most 120 minutes from the repo settings
+- reliability: the host, its bill and its uptime belong to whoever runs the instance, so no reliability event at a provider applies to this record
+- notes: The pipeline timeout is the only wall clock the software imposes, and the repo can raise it to 120 minutes by default; the cost is a machine rather than a minute. Whether that is cheaper depends on the VM, which is the compute topic's question and not this one's.
+- evidence note: the project's own intro page and its repository licence were read, and Codeberg documents that it runs Woodpecker in production. The intro page does not state the licence, which is why the repository is cited separately.
+- self hosted: yes
+- evidence:
+  - [3] 2026-10-22: a server plus one or more agents, self-hosted, and 'lightweight and even runs on a Raspberry Pi'; the page names neither the licence nor a hosted instance
+  - [1] 2026-10-22: the project repository is licensed Apache-2.0, as GitHub's licence field for it reports
+  - [4] 2026-10-22: Codeberg's hosted instance is Woodpecker, and self-hosted agents can be attached to it
+  - [2] 2026-11-06: a pipeline is killed at 60 minutes by default and the repo setting is capped at 120 minutes by default | capture: sha256:e5756a4fdfb6832c692b7bfbc58562fd98196178cee63121f2f042c8c4f5a6d5 | quote: - Default: 60 ... The default time for a repo in minutes before a pipeline gets killed ... - Default: 120 ... The maximum time in minutes you can set in the repo settings before a pipeline gets killed
+  - [5] 2026-11-06: an agent runs one workflow at a time by default | capture: sha256:90cea2f6b72ea0b711a1688a617d5c3c2a1abfe85947659dff967b0552ad60f4 | quote: By default, the maximum workflows that are executed in parallel on an agent is 1.
+- sources:
+  - [1] https://github.com/woodpecker-ci/woodpecker
+  - [2] https://woodpecker-ci.org/docs/administration/configuration/server
+  - [3] https://woodpecker-ci.org/docs/intro
+  - [4] https://docs.codeberg.org/ci/
+  - [5] https://woodpecker-ci.org/docs/administration/configuration/agent
+
+## Drone CI (CI runners)
+
+- `ci-cd-runners/drone-ci` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category CI software
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:32:21.382Z (live) | stale on 2026-12-04
+- url https://www.drone.io/ | page https://fshy.ajam.dev/p/drone.md
+- free tier: free software, no hosted lane: the Open Source Edition is Apache 2.0 with no licence fee and is built from source, and the Enterprise Edition image is free for individuals; cloud.drone.io is not accepting new registrations | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: there is no hosted service to cap
+- retention: not applicable | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: anonymous | detail: the software needs no account
+- interface: git, cli
+- limits:
+  - write-gated (binding): no hosted tier exists, so the path is a self-hosted deployment [2]
+- interface detail: a server and one or more runners that the user installs; a runner is a standalone daemon that polls the server for pipelines, and the server signs users in through a forge such as GitHub, GitLab, Gitea or Bitbucket
+- tooling: the user installs and runs the drone-server (the Enterprise Edition image from Docker Hub, or the Open Source Edition built from source with the oss build tag) and one or more runner daemons on a rented or free machine
+- composes with: for a hosted lane, the vendor's support reply points cloud.drone.io users to its hosted Harness CI (ci-cd-runners/harness-ci-free); the self-hosted last resort is Woodpecker, the maintained fork of the same design
+- reliability: cloud.drone.io is not accepting new registrations, with no target date to reopen (vendor support reply, April 2022); its sign-in still answers and hands off to GitHub. The vendor keeps Drone as a snapshot branch of harness/harness and presents Harness Open Source as its next generation
+- evidence note: the editions and their pricing are quoted from docs.drone.io/enterprise and drone.io/enterprise/opensource; the closed registration of cloud.drone.io is quoted from the vendor's support forum, the newest first-party statement found
+- self hosted: yes
+- evidence:
+  - [2] 2026-10-22: Woodpecker is presented as the community continuation of the Drone CI design, with a server and agents
+  - [3] 2026-10-30: the Open Source Edition is free software under Apache 2.0; the same page says the Enterprise Edition is free for individuals | capture: sha256:4685dd24a188e4cf139d2bb4ef3f6c960cc45f44150ddbe16435deab52bf0adb | quote: The Open Source Edition is Free and Open Source software licensed under the Apache2 License.
+  - [4] 2026-10-30: drone.io lists the open-source edition's pricing as Free, licence Apache 2.0 | capture: sha256:22d790f8a3f91a62c10df4b55dd6a2250456bfcd2ed7fa50d532ebe61d8d8cfc | quote: Pricing [Free](https://docs.drone.io/server/overview/)
+  - [5] 2026-10-30: the vendor's support reply of 14 April 2022: cloud.drone.io takes no new registrations, with no target date | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: Currently, [cloud.drone.io](http://cloud.drone.io) is not accepting new registrations.
+  - [6] 2026-10-30: the cloud.drone.io login redirects to a GitHub OAuth sign-in for the cloud.drone.io app | capture: sha256:c3834026f822ee2084be8e9141bda47b62c3e21b2e7cb3737e91c573577cb5cf | quote: to continue to cloud.drone.io
+  - [7] 2026-10-30: the vendor presents Harness Open Source as the next generation of Drone and keeps Drone on a drone branch | capture: sha256:df8df25a18d6d26c9437046188a53398aa218ade7b2b92f4a9689ea08aae6e89 | quote: Harness Open Source represents a massive investment in the next generation of Drone.
+  - [8] 2026-10-30: Drone is a server plus runner daemons that poll it, installed against a source control provider | capture: sha256:61173b9e8646bc16e77f21b2a8a85c6f3a11aa62c0bbf2c3ee1fdc8ba334d334 | quote: A runner is a standalone daemon that polls the server for pending pipelines to execute.
+  - [3] 2026-10-30: the Open Source Edition is built from source; the Enterprise Edition downloads from Docker Hub | capture: sha256:4685dd24a188e4cf139d2bb4ef3f6c960cc45f44150ddbe16435deab52bf0adb | quote: There is no official distribution of the Open Source Edition.
+  - [3] 2026-10-30: the vendor documents its editions on docs.drone.io/enterprise | capture: sha256:4685dd24a188e4cf139d2bb4ef3f6c960cc45f44150ddbe16435deab52bf0adb | quote: There are two versions of Drone.
+  - [1] 2026-10-30: the software downloads with no account, sales contact or trial licence | capture: sha256:8cb9169fa90cd9756a86bcb38f95ddad600b0e8d69c5fff39d9ee6b473ee2c20 | quote: Download our official Docker image or build from source. No need to talk with a sales person or request a trial license.
+  - [5] 2026-11-03: the same reply points cloud.drone.io users to the vendor's hosted CI on harness.io | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: or check out our hosted CI solution at: [Continuous Integration Platform: Self-Service & On-Demand](https://harness.io/products/continuous-integration)
+  - [5] 2026-11-03: the vendor's support reply of 14 April 2022: cloud.drone.io takes no new registrations | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: Currently, [cloud.drone.io](http://cloud.drone.io) is not accepting new registrations.
+  - [5] 2026-11-03: the vendor gave no target date to reopen registration | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: We don’t have a target date for when [cloud.drone.io](http://cloud.drone.io) will accept new registrations.
+  - probe:cloud.drone.io 2026-11-03: cloud.drone.io answers: the root redirects (303) to /welcome, which returns HTTP 200 | capture: sha256:741eb5effc80f795e2c357bee1ebcde43ecf25417690d9a0c9f14dda8844f606 | quote: "status": 200
+- sources:
+  - [1] https://www.drone.io/
+  - [2] https://woodpecker-ci.org/docs/intro
+  - [3] https://docs.drone.io/enterprise/
+  - [4] https://www.drone.io/enterprise/opensource
+  - [5] https://drone.discourse.group/t/user-registration-is-disabled-on-cloud-drone-io/11904
+  - [6] https://cloud.drone.io/login
+  - [7] https://github.com/harness/drone
+  - [8] https://docs.drone.io/server/overview/
+
+## GoCD
+
+- `ci-cd-runners/gocd` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category CI software
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T02:46:16.196Z (live) | stale on 2026-12-20
+- url https://www.gocd.org/ | page https://fshy.ajam.dev/p/gocd.md
+- free tier: Apache-2.0 open-source software with no licence fee and no metered quota: the user downloads and runs a server and at least one agent on a machine the user provides. The Test Drive is a local, download-and-run evaluation instance, not a hosted service | unit: none | metered on: none | read on: 2026-11-19 | source: [1] | note: there is no hosted lane to denominate; the only cost is the machine the user runs the server and agents on
+- per-object cap: not applicable: there is no hosted service to impose a single-object cap; pipeline and artifact limits are set by the user's own server configuration | source: [2]
+- retention: whatever the machine running the GoCD server and agents retains; the software imposes no fixed retention period | source: [2]
+- egress: whatever the machine running the GoCD server and agents charges for outbound traffic; the software meters and caps no traffic itself | metered: no | source: [1]
+- identity: anonymous | detail: the software downloads and runs with no account: the download page links installers and images directly with no sign-up, and a newly installed GoCD server does not require users to authenticate. Optional password-file or LDAP/AD authentication is configured locally by the operator; the Test Drive is a local installer needing no registration
+- interface: git, rest, cli
+- limits:
+  - write-gated (binding): no hosted tier exists, so the path is a self-hosted deployment of a server plus at least one agent [2]
+- binding note: the binding constraint is the need to install and operate a server and agent on a machine the user provides, since the vendor offers no hosted runner that could be used instead
+- interface detail: a material is usually a source repository (Git, SVN, Mercurial) that the server polls for commits, and a timer or pipeline dependency can also trigger a run. A REST API at go-server-url:8154/go/api reads configuration and build history and can update configuration and execute builds; the API reference offers Shell bindings and curl examples
+- endpoint: https://go-server-url:8154/go/api (the host is the user's own server)
+- tooling: the user installs and runs the GoCD Server and one or more GoCD Agent daemons on a rented or free machine, from OS installers, Zip archives, Docker images or a Kubernetes Helm chart; the agent polls the server for work and executes the build tasks
+- composes with: no hosted runner lane exists: the Test Drive is a local download-and-run evaluation instance, described as for evaluation purposes only and not for production. The self-hosted server and agents are the last resort; pair them with a free or rented machine. Pipelines can be triggered by Git commits, a timer or an upstream pipeline, and driven through the REST API
+- reliability: the host, its bill and its uptime belong to whoever runs the instance, so no reliability event at a provider applies to this record; the Test Drive is explicitly for evaluation, not production use
+- notes: GoCD is a continuous delivery server the user installs and runs; there is no vendor-hosted runner lane. The vendor's Test Drive is a local download-and-run evaluation instance, not a hosted service, so it does not count as a hosted offer. Build container CPU, memory, outbound network access and any fixed artifact retention are set by the user's own server configuration and are unverified.
+- evidence note: the software's own pages were read and quoted: the download page, the installation page, the API reference, the concepts page and the authentication page. GoCD is software the user installs and runs; there is no hosted runner lane, and the Test Drive is a local installer rather than a hosted service. No build was run, so build container CPU, memory and outbound network behaviour are unverified
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-19: running GoCD requires the user to run both a server and at least one agent | capture: sha256:78f7f1de3ed3d469a4df8efb95ea3c3533df7a5a14a23f9dda287faa1d3b8320 | quote: To run GoCD, you'll need both server and agent
+  - [1] 2026-11-19: the server is distributed as a Docker image the user runs themselves | capture: sha256:78f7f1de3ed3d469a4df8efb95ea3c3533df7a5a14a23f9dda287faa1d3b8320 | quote: docker run -d -p8153:8153 gocd/gocd-server:v26.1.0
+  - [2] 2026-11-19: GoCD is installable software made of a server and agents, not a hosted service | capture: sha256:c486df0fc95f361afec443d3dcf08575149f4547744b7059e44128a383e12a47 | quote: GoCD consists of two installable components. The GoCD Server and one or more GoCD Agents.
+  - [3] 2026-11-19: the Test Drive is an evaluation-only experience, not a production hosted lane | capture: sha256:9c933f6d49e59bc80ff5e291fcfdc6d5102d0eff2cf35af72d5fd3b95ba6465a | quote: This is for evaluation purposes only, and not intended for production use.
+  - [3] 2026-11-19: the Test Drive leads to a download-and-install of the user's own server, confirming it is not hosted | capture: sha256:9c933f6d49e59bc80ff5e291fcfdc6d5102d0eff2cf35af72d5fd3b95ba6465a | quote: Once you've finished exploring our test drive, we recommend downloading and installing GoCD following our introduction to setting up your own GoCD server
+  - [4] 2026-11-19: GoCD is Apache-2.0 open-source software | capture: sha256:10f60f6c2f25aeef77f27a0028a6690929d14149a160f312ee71b782227ea76d | quote: GoCD is an open source project, sponsored by Thoughtworks, Inc. under the Apache License, Version 2.0.
+  - [5] 2026-11-19: a freshly installed server needs no account or sign-in, so registration is anonymous | capture: sha256:d3b3c9bcdfa81687023fb0f2222d52d238c33bab841ddec96f3619f10bdce90a | quote: A newly installed GoCD server does not require users to authenticate.
+  - [6] 2026-11-19: a REST API exposes configuration, build history and build execution on the user's server | capture: sha256:8fb13a4890eb0ccf8867c73067b3dd4c47cc5b6593b85cbd72a12a8c92e1aa69 | quote: You can use our API to access GoCD API endpoints, which can get information about the server’s configuration and build history. In addition it can be used to update configuration and execute builds.
+  - [7] 2026-11-19: Git repositories are a source material the server polls to trigger pipelines | capture: sha256:92022d225b1d9f56c6cf6bea0720a6c2a6a9a798034a19413291a08d7b1b8c08 | quote: Often, it is a source code material repository (Git, SVN, Mercurial, etc). The GoCD Server continuously polls configured materials
+- sources:
+  - [1] https://www.gocd.org/download/
+  - [2] https://docs.gocd.org/current/installation/
+  - [3] https://www.gocd.org/test-drive-gocd
+  - [4] https://github.com/gocd/gocd
+  - [5] https://docs.gocd.org/current/configuration/dev_authentication.html
+  - [6] https://api.gocd.org/current
+  - [7] https://docs.gocd.org/current/introduction/concepts_in_go.html
+
+## Jenkins
+
+- `ci-cd-runners/jenkins-cloud` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding write-gated | category CI software | tier open source automation server (no hosted tier)
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T02:46:16.148Z (live) | stale on 2026-12-20
+- url https://www.jenkins.io/doc | page https://fshy.ajam.dev/p/jenkins.md
+- free tier: The Jenkins project publishes no hosted Jenkins Cloud service and no price list; the open source automation server is free software the user installs and runs, so the cost is a machine the user provides | unit: none | metered on: none | read on: 2026-11-19 | source: [1] | note: the name 'Jenkins Cloud' names no hosted offer: a project maintainer writes on the first-party community forum that 'The open source project only has the open source self on prem install', and the download page only links out to public cloud vendors' own installation guides. Commercial managed distributions such as CloudBees CI are quoted separately and are not a Jenkins project offer.
+- per-object cap: unverified: no first-party page read states a per-object or per-build-size cap; the limit is whatever the host and the configured agent allow | source: [2]
+- retention: whatever the controller and agent hosts retain; workspaces may not be cleaned up automatically after inactivity | source: [3] | note: the pipeline book warns that depending on configuration some workspaces may not get automatically cleaned up after a period of inactivity; no fixed retention period is stated
+- egress: whatever the machine the user runs the controller and agents on charges for outbound traffic; no hosted allowance or price is stated | metered: no | source: [2]
+- identity: anonymous | detail: the software needs no account, email, phone, card or institution to download and run; the first admin user is created locally during the post-installation setup wizard on the user's own controller
+- interface: rest, cli, ssh, browser, git
+- limits:
+  - write-gated (binding): no hosted tier exists, so the path is a self-hosted deployment the user installs and runs [4]
+- limits note: no vendor-enforced request rate, pull count, object cap or retention clamp was found on the first-party pages read; the only gate is that the user must provide and operate a host
+- binding note: there is no hosted lane to sign up for: the first gate is obtaining and operating a machine for the controller and agents, not a request or build quota
+- interface detail: a REST-like remote access API under .../api/, a CLI client (.jar file) reachable over SSH or WebSocket, a web interface, and a Jenkinsfile kept in the project's source control repository
+- endpoint: the API lives under the installation's own .../api/ path; there is no shared public endpoint because the user runs the controller
+- tooling: the user installs and runs the Jenkins controller and one or more agents on a rented or free machine, from a WAR file, native package, installer or Docker image; pipelines are defined in a Jenkinsfile, driven through the web UI, the CLI client or the REST-like remote access API
+- composes with: a Jenkinsfile in a Git repository defines a pipeline that can be triggered by a source control change or by an HTTP POST to the remote API and runs on a controller and agents the user operates; managed Jenkins distributions sold by other vendors are separate offers and are not needed to run the free software
+- reliability: unverified: no first-party page read states an uptime commitment, ban policy or throttling for the software itself; the host, its bill and its uptime belong to whoever runs the instance, and the project publishes frequent security advisories for the controller and its plugins
+- notes: The name 'Jenkins Cloud' does not correspond to a hosted first-party offer. The Jenkins project distributes free, self-hosted automation software that the user installs and runs on a machine they provide; no hosted signup, free tier, price list or metered quota exists. Qualifies-with-caveat because the software is usable without a card, phone or institution but the whole cost and operation of a host falls on the user. Managed Jenkins sold by third parties is outside this record.
+- evidence note: every value is quoted from first-party jenkins.io pages and the project's own community forum; no controller was installed and no build was run, so the hardware, retention and outbound network behaviour of any particular deployment are unverified
+- self hosted: yes
+- evidence:
+  - [2] 2026-11-19: Jenkins is open-source automation software that the user deploys, not a hosted service | capture: sha256:5f52261b69ddc3e79c5fad7267c1f8940b3ff632434edff22c82d89991feb939 | quote: Jenkins is a self-contained, open source automation server which can be used to automate all sorts of tasks related to building, testing, and delivering or deploying software.
+  - [2] 2026-11-19: the user installs and runs Jenkins on a machine they provide | capture: sha256:5f52261b69ddc3e79c5fad7267c1f8940b3ff632434edff22c82d89991feb939 | quote: Jenkins can be installed through native system packages, Docker, or even run standalone by any machine with a Java Runtime Environment (JRE) installed.
+  - [1] 2026-11-19: the project describes Jenkins as an open-source automation server with plugins | capture: sha256:e5e5b8ed2404ef610f4c5a2f7a5f2158ddaa97ac77bad9b7509ebd6af564b038 | quote: The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
+  - [1] 2026-11-19: a browser web interface configures the installation | capture: sha256:e5e5b8ed2404ef610f4c5a2f7a5f2158ddaa97ac77bad9b7509ebd6af564b038 | quote: Jenkins can be easily set up and configured via its web interface, which includes on-the-fly error checks and built-in help.
+  - [5] 2026-11-19: the distribution forms are installable artefacts, not a hosted signup | capture: sha256:f89271c732660c0e16827f816b4f6b1a798050ee09675c61783006b3a7ce939b | quote: Jenkins is distributed as WAR files, native packages, installers, and Docker images.
+  - [5] 2026-11-19: the cloud paths are vendor installation guides rather than a Jenkins-hosted cloud | capture: sha256:f89271c732660c0e16827f816b4f6b1a798050ee09675c61783006b3a7ce939b | quote: Many public cloud vendors provide their own Jenkins installation guides and packages.
+  - [6] 2026-11-19: the project grants the software free of charge with no licence fee | capture: sha256:b05eebde7eb547c2313927bf07352feaa013197499c4ce68d55cc3ff10e6582c | quote: Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
+  - [4] 2026-11-19: a project maintainer states there is no Jenkins Cloud hosted version | capture: sha256:cbdc45e94a5faf10e822f34d926976f551f5d10e7c85423d0cb3f89b84244467 | quote: The open source project only has the open source self on prem install.
+  - [4] 2026-11-19: the question of a Jenkins cloud price list is raised on the project's own forum | capture: sha256:cbdc45e94a5faf10e822f34d926976f551f5d10e7c85423d0cb3f89b84244467 | quote: If we have Jenkins cloud what are the pricing/subscription details for it?
+  - [7] 2026-11-19: a REST-like remote access API is available | capture: sha256:878a631303a2e16d36b006c5facfa0ca3a068f2afb6451ac018dce81bc074b9a | quote: Remote access API is offered in a REST-like style.
+  - [7] 2026-11-19: the remote API can trigger builds programmatically | capture: sha256:878a631303a2e16d36b006c5facfa0ca3a068f2afb6451ac018dce81bc074b9a | quote: 2. trigger a new build
+  - [8] 2026-11-19: a CLI is reachable over SSH or a client jar | capture: sha256:87222add01707f7938ad39fd23c8d61b38a12a5220e6ada9b891f346913dd951 | quote: The command line interface can be accessed over SSH or with the Jenkins CLI client, a `.jar` file distributed with Jenkins.
+  - [3] 2026-11-19: pipelines are defined in a Jenkinsfile kept in source control | capture: sha256:14c2521c61a1186734610ac3f2a08622b342756a004f73160b60532adfe976a4 | quote: The definition of a Jenkins Pipeline is written into a text file (called a [`Jenkinsfile`](https://www.jenkins.io/doc/book/pipeline/jenkinsfile)) which in turn can be committed to a project's source control repository.
+  - [3] 2026-11-19: retention of build workspaces depends on the configuration and is not a fixed period | capture: sha256:14c2521c61a1186734610ac3f2a08622b342756a004f73160b60532adfe976a4 | quote: Depending on your Jenkins configuration, some workspaces may not get automatically cleaned up after a period of inactivity.
+- sources:
+  - [1] https://www.jenkins.io/
+  - [2] https://www.jenkins.io/doc
+  - [3] https://www.jenkins.io/doc/book/pipeline/
+  - [4] https://community.jenkins.io/t/jenkins-onpremise-and-cloud/1912
+  - [5] https://www.jenkins.io/download/
+  - [6] https://www.jenkins.io/license/
+  - [7] https://www.jenkins.io/doc/book/using/remote-access-api/
+  - [8] https://www.jenkins.io/doc/book/managing/cli/

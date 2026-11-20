@@ -1,0 +1,180 @@
+# fshy: Email, rejected
+
+> Sending, receiving, forwarding and inbox APIs.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/email/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## MailerSend
+
+- `email/mailersend` | fails-quota | evidence documented | binding request-rate | category transactional sender
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:33:30.050Z (live) | stale on 2026-12-05
+- url https://www.mailersend.com/pricing | page https://fshy.ajam.dev/p/mailersend.md
+- free tier: 500 emails/month on the Free plan once the account is approved, with a daily quota of 100 API and SMTP relay requests; 1 domain, 1 API token, 1 webhook, 1 template | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Sandbox mode, open with no payment method, gives 100 emails a month with a cap of 100 API requests a day, to any 2 recipients until the account is approved, with no time limit
+- per-object cap: not applicable
+- retention: 1-day activity data retention on the free plan | days: 1 | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: card | detail: signup needs an email address, confirmed from a verification email sent to that address; approval then asks for details of the company or organization and how the service will be used, and takes up to 48 hours; Sandbox mode needs no payment method; the Free plan is subscribed on the Plan and billing page with an organization address and credit card information, after the account is approved, and is not charged
+- interface: rest
+- limits:
+  - request-rate (binding): 500 emails per month [1]
+  - request-rate (binding): 100 API or SMTP relay requests per day on the Free plan; every request counts against the quota, which resets at midnight UTC [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1 sending domain, 1 API token, 1 webhook, 1 template. The daily 100 is a quota of API and SMTP relay requests on the rate-limit, SMTP relay and developer pages and in the plans table (Daily API requests), and the plans help page prose calls it a daily limit of 100 emails; how many emails one request may carry on the Free plan is not stated
+- interface detail: the MailerSend email API and SMTP relay
+- tooling: curl, any SMTP client
+- composes with: composes with a domain and with nothing that needs volume.
+- reliability: sending pauses when the monthly limit is reached and resumes when the 30-day period resets; the Free plan allows no extra usage
+- notes: The 14-day Professional trial at the top of the pricing page needs a payment method and ends on the Free plan; Sandbox mode needs no payment method.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the Free column reads '500 emails /month', 1 domain, 1-day retention and '100' daily API requests
+  - probe:smtp://smtp.mailersend.net:587 2026-10-22: banner 250, STARTTLS completed and AUTH LOGIN returned 334; EHLO advertises 8BITMIME and no SIZE extension
+  - [3] 2026-10-30: the Free plan sends 500 emails a month after approval, with a daily limit of 100 | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: Once approved, the Free plan allows you to send up to 500 emails a month for free, with a daily limit of 100 emails.
+  - [4] 2026-10-30: Sandbox mode sends 100 emails a month, to 2 recipients until approval | capture: sha256:b5ef3fb2b60bcdf994077330814f71bdd93114d9465c48877b6c306c51cea629 | quote: You can send to any 2 recipients in Sandbox mode, until your account is approved, after which your 100 monthly emails can go to any recipient.
+  - [1] 2026-10-30: the Free plan needs an organization address and a credit card on file | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: Simply go to the Plan and billing page and enter your organization’s address and credit card information to complete your subscription.
+  - [3] 2026-10-30: the Free plan keeps activity data 24 hours | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: | Activity retention | 24 hours | 24 hours | 7 days | 30 days |
+  - [3] 2026-10-30: sending pauses at the limit until the 30-day period resets | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: If you reach this limit within the 30-day usage period, your sendings will be paused until a new period begins and your email limit is reset.
+  - [3] 2026-10-30: the plans help page calls the daily 100 a limit of emails | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: Once approved, the Free plan allows you to send up to 500 emails a month for free, with a daily limit of 100 emails.
+  - [4] 2026-10-30: the 14-day trial ends on the Free plan | capture: sha256:b5ef3fb2b60bcdf994077330814f71bdd93114d9465c48877b6c306c51cea629 | quote: If you haven't chosen a plan by the time your 14 days are up, your account moves to the Free plan.
+  - [1] 2026-10-30: a card is asked for the Free plan and is not charged | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: You won't be charged for anything on the Free plan; we just ask that you provide this information to prevent abuse of the platform.
+  - probe:smtp.mailersend.net:587 2026-10-31: the MailerSend SMTP relay answers on port 587 with a 220 ESMTP banner | capture: sha256:21ba8b1bab525e6e89e778a2ad76f72cca8dfb34d1db49abb91165c33c3ddcd9 | quote: "banner": "220 smtp.mailersend.net ESMTP"
+  - [1] 2026-10-30: the Free plan sends 500 emails a month | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: This plan lets you send up to 500 emails per month for free!
+  - [1] 2026-10-31: the pricing page, the free tier's source_url, states the 500-email Free plan when read on 2026-10-31 | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: This plan lets you send up to 500 emails per month for free!
+  - [3] 2026-10-31: the Free plan sends 500 emails a month after approval, with a daily limit of 100 | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: Once approved, the Free plan allows you to send up to 500 emails a month for free, with a daily limit of 100 emails.
+  - [1] 2026-10-31: the Free plan allows 100 requests a day, 1 domain, 1 API token, 1 webhook and 1 template | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: Our Free plan has a few limits per account: 1 template, 1 domain, 1 user (plus 1 accountant), 1 API token, 1 webhook, and 100 daily requests.
+  - [3] 2026-10-31: the Free plan column (first) keeps activity data 24 hours | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: | Activity retention | 24 hours | 24 hours | 7 days | 30 days |
+  - [1] 2026-10-31: the Free plan needs an organization address and a credit card on file | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: Simply go to the Plan and billing page and enter your organization’s address and credit card information to complete your subscription.
+  - [3] 2026-10-31: sending pauses at the limit until the 30-day period resets | capture: sha256:e001c62342515d98999ec2419834e3feb3a51988a999648ea007d8052ade193e | quote: If you reach this limit within the 30-day usage period, your sendings will be paused until a new period begins and your email limit is reset.
+  - [4] 2026-10-31: Sandbox mode sends 100 emails a month with a cap of 100 API requests a day | capture: sha256:b5ef3fb2b60bcdf994077330814f71bdd93114d9465c48877b6c306c51cea629 | quote: 100 emails a month, with a cap of 100 API requests a day
+  - [4] 2026-10-31: the 14-day Professional trial needs a payment method and Sandbox mode is the alternative without one | capture: sha256:b5ef3fb2b60bcdf994077330814f71bdd93114d9465c48877b6c306c51cea629 | quote: When you sign up, we'll offer you a choice: start your free 14-day Professional trial by adding a payment method, giving you full access to send to real recipients and Professional features, or skip this and try Sandbox mode instead.
+  - [2] 2026-11-02: the Free plan's daily quota is 100 requests, counted for the API and the SMTP relay | capture: sha256:5cb41ee904ece1f1f4a4a58f3a42b83d2b73e3bfffcf97a594ad2eb6cbd8a326 | quote: Free plan: 100 requests per day
+  - [5] 2026-11-02: every API or SMTP relay request counts against the daily request quota, which resets at midnight UTC | capture: sha256:ac224243b6b8197354ea6b73567ad58b3dcced84e138e6817191df6747de92c3 | quote: MailerSend has a daily request quota for API and SMTP relay services, which varies depending on your subscription plan. Every request made counts against your daily quota, which is reset daily at midnight UTC
+  - [5] 2026-11-02: the daily request quota table lists 100 requests a day for the Free plan | capture: sha256:ac224243b6b8197354ea6b73567ad58b3dcced84e138e6817191df6747de92c3 | quote: | Free | 100 |
+  - [2] 2026-11-02: every API or SMTP relay request counts against the daily quota, which resets at midnight UTC | capture: sha256:5cb41ee904ece1f1f4a4a58f3a42b83d2b73e3bfffcf97a594ad2eb6cbd8a326 | quote: MailerSend has a daily request quota for API and SMTP relay services. Every request is counted against the quota and is reset daily at midnight UTC.
+  - [6] 2026-11-02: the developer documentation counts the daily quota in API and SMTP relay requests | capture: sha256:fa3470eab9dbd9683a06b1c3ef8bc46ca9bf5c7769bc2b2494320b50f89e8261 | quote: MailerSend has a daily request quota for API and SMTP relay services. Every request is counted against the quota and is reset daily at midnight UTC.
+  - [7] 2026-11-02: signup is confirmed by a verification email sent to the address given | capture: sha256:f87692e5dd76b55ec2b737a347ce0982f5d0928610860d736af658ee63de6318 | quote: Confirm your email address from the verification email sent to the address you signed up with.
+  - [7] 2026-11-02: account approval asks for details of the company or organization and the planned use | capture: sha256:f87692e5dd76b55ec2b737a347ce0982f5d0928610860d736af658ee63de6318 | quote: This involves providing details about your company or organization and explaining how you plan to use MailerSend.
+  - [7] 2026-11-02: account approval can take up to 48 hours | capture: sha256:f87692e5dd76b55ec2b737a347ce0982f5d0928610860d736af658ee63de6318 | quote: The approval process is usually very quick but can take up to 48 hours.
+  - [7] 2026-11-02: the payment method is asked only for the 14-day Professional trial, and skipping it leads to Sandbox mode | capture: sha256:f87692e5dd76b55ec2b737a347ce0982f5d0928610860d736af658ee63de6318 | quote: start your free 14-day Professional trial by adding a payment method, giving you full access to send to real recipients and Professional features, or skip this and try Sandbox mode instead
+  - [7] 2026-11-02: the getting-started guide was captured on 2026-11-02 and states the signup step the record cites | capture: sha256:f87692e5dd76b55ec2b737a347ce0982f5d0928610860d736af658ee63de6318 | quote: Confirm your email address from the verification email sent to the address you signed up with.
+  - [2] 2026-11-02: the SMTP relay help page still lists a Free plan quota of 100 requests a day | capture: sha256:5cb41ee904ece1f1f4a4a58f3a42b83d2b73e3bfffcf97a594ad2eb6cbd8a326 | quote: Free plan: 100 requests per day
+  - [1] 2026-11-04: the Free plan is 500 emails a month, unchanged | capture: sha256:e04f553ab7ed38fe36dce2571fa42d54916e068c356975ff8e473b473f53143d | quote: This plan lets you send up to 500 emails per month for free!
+- sources:
+  - [1] https://www.mailersend.com/pricing
+  - [2] https://www.mailersend.com/help/smtp-relay
+  - [3] https://www.mailersend.com/help/plans-features-and-limits
+  - [4] https://www.mailersend.com/help/sandbox-mode-and-the-professional-trial
+  - [5] https://www.mailersend.com/help/rate-limits-how-to-reduce-403-422-429-errors
+  - [6] https://developers.mailersend.com/general.html
+  - [7] https://www.mailersend.com/help/getting-started
+
+## MailPace
+
+- `email/mailpace` | fails-quota | evidence documented | binding request-rate | category transactional sender | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:00:24.471Z (live) | stale on 2026-12-03
+- url https://mailpace.com/pricing | page https://fshy.ajam.dev/p/mailpace.md
+- free tier: up to 100 emails per month on a free plan granted on request by email to support; public plans start under USD 4 per month for 1,000 emails | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Paid usage is metered: the emails sent and received in a billing period are counted and added to the bill, with plans from USD 10 per month for 10,000 emails. The service accepts transactional email only. Every plan includes unlimited domains and from-addresses and 30 days of email retention.
+- per-object cap: 30 MB total email size on the HTTPS API; up to 50 addresses in the To field | source: [2]
+- retention: 30 days of email history on every plan | days: 30 | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: Registration asks for an email and a password of at least 12 characters, with no card field. The onboarding then asks for an organization, a domain verified by a DKIM record, and a plan; the public plans are paid by card, PayPal or Apple and Google Pay, and the free plan of up to 100 emails a month is granted only on request by email to support. A domain the sender controls is required; SPF and DMARC records are optional, enabled as two more DNS records with a CNAME to mailer.ohmysmtp.com.
+- interface: rest
+- limits:
+  - request-rate (binding): up to 100 emails per month on the free plan [1]
+  - write-gated: the free plan is granted on request by email to support, and the onboarding asks for a plan before the first send [1]
+  - write-gated: the sending domain must be verified by DKIM before any email can be sent [3]
+- limits note: counts of things, not rates, so no vocabulary kind names them: up to 50 addresses in the To field of one message. Rate limits apply to high volumes over short periods, with no number stated.
+- binding note: 100 emails per month is the whole free allowance; the request to support comes first, but the monthly count is what makes the free plan a test allowance.
+- interface detail: the HTTPS API at https://app.mailpace.com/api/v1/send, and SMTP at smtp.mailpace.com on ports 25, 587 and 2525 with STARTTLS or 465 with TLS, using the domain's API token as username and password; the interface vocabulary has no smtp term
+- tooling: curl or any HTTP client, the vendor's libraries for Rails, Laravel, Node.js, Python and Go, or any SMTP client
+- composes with: the free plan is a test allowance at 100 a month; the paid plan at under USD 4 for 1,000 a month is the usable tier.
+- reliability: sending IP addresses are shared across customers and static IPs are not offered
+- notes: The vendor's page on how it keeps delivery rates high lists 'No free plan' among its anti-spam measures and says everyone sending is a paying user.
+- evidence note: no message was sent; smtp.mailpace.com answered a 220 banner on ports 587 and 2525. Whether support grants the free plan, and on what terms, is unverified: behind a request to support.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-30: a free plan of up to 100 emails per month is given on request by email to support | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: Yes! We have a secret free plan. [Contact us](mailto:support@mailpace.com) via email if you'd like to try us out (up to 100 emails/month).
+  - [4] 2026-10-30: the public plans start under 4 per month for 1,000 emails, and from 10 per month for 10,000 | capture: sha256:639c8afca9f72fbb8318724cddbe25569e66a5260260604d04263438038725cf | quote: 1000 emails/month for under $4/month. Scaling plans from $10/month (10,000+ emails).
+  - [1] 2026-10-30: paid usage is metered on emails sent and received per billing period | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: We calculate the amount of emails you've sent/received every billing period and add them onto your bill automatically.
+  - [1] 2026-10-30: plans are paid by card, PayPal or Apple and Google Pay | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: We accept all major credit cards, PayPal and Apple/Google Pay.
+  - [1] 2026-10-30: every plan has unlimited domains | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: All plans come with unlimited domains and subdomains.
+  - [1] 2026-10-30: emails are retained 30 days | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: Retain your emails for 30 days for easy access and review - contact us for a customizable retention period
+  - [5] 2026-10-30: the register form asks for an email and a password of at least 12 characters, with a confirmation and no card field | capture: sha256:31f2ae1aa8b02abc9e6b5439f4c89b710503a7ee932263752371ed2b5acb3ba2 | quote: (12 characters minimum)
+  - [6] 2026-10-30: the onboarding asks for an organization, a domain, its verification and a plan | capture: sha256:04ca9b63eb15688ad46a05ce2201ec2d569bedf60de585d7a30023343d4cc97b | quote: pick the right plan for your Organization
+  - [7] 2026-10-30: signing up to a plan is a prerequisite of the first send | capture: sha256:1ea5360a64b704c9112b188460d2f0cfa4f95f5bad610c79f546d90ba8ec82b1 | quote: Sign up to a Plan
+  - [3] 2026-10-30: domain ownership must be confirmed by DKIM before any send | capture: sha256:f80309f23ce8773c1ac69a16bd56b3653a6f4b49c58520369fa2dfb7392683a6 | quote: by DKIM verification before any emails can be sent
+  - [8] 2026-10-30: sending needs a verified domain the sender controls | capture: sha256:30e4830bd3419c309d9e73d21f6d1f8b86e191b8b7f9c6978020bcfb908906c0 | quote: In order to send emails with us you must verify ownership of your chosen domain.
+  - [3] 2026-10-30: SPF and DMARC records are optional | capture: sha256:f80309f23ce8773c1ac69a16bd56b3653a6f4b49c58520369fa2dfb7392683a6 | quote: we use the return path header of the email to ensure all SPF checks pass without this
+  - [8] 2026-10-30: the advanced verification adds a CNAME to mailer.ohmysmtp.com | capture: sha256:30e4830bd3419c309d9e73d21f6d1f8b86e191b8b7f9c6978020bcfb908906c0 | quote: Additionally, Because you will also add a CNAME record to `mailer.ohmysmtp.com` as part of this process, any bounce reports will also be redirected to our servers for handling.
+  - [3] 2026-10-30: the service accepts transactional email only | capture: sha256:f80309f23ce8773c1ac69a16bd56b3653a6f4b49c58520369fa2dfb7392683a6 | quote: MailPace can only be used for Transactional Email
+  - [3] 2026-10-30: sending IPs are shared and no static IP is offered | capture: sha256:f80309f23ce8773c1ac69a16bd56b3653a6f4b49c58520369fa2dfb7392683a6 | quote: our IP addresses are shared by other customers to maximise delivery rates and decrease time to inbox
+  - [2] 2026-10-30: the API accepts a total email size of 30 MB | capture: sha256:33539a8bc59073c8c5c162995b846158dae86f5374291b51825ed1d73309b093 | quote: The endpoint supports a total email size of 30 MB
+  - [2] 2026-10-30: one message reaches up to 50 To addresses | capture: sha256:33539a8bc59073c8c5c162995b846158dae86f5374291b51825ed1d73309b093 | quote: You can send to up 50 email addresses in one go in the `To` address fields
+  - [2] 2026-10-30: rate limits exist for bursts, with no number stated | capture: sha256:33539a8bc59073c8c5c162995b846158dae86f5374291b51825ed1d73309b093 | quote: Rate limits exist for high send volumes over short periods of time.
+  - [9] 2026-10-30: SMTP ports 25, 587 and 2525 with STARTTLS, 465 with TLS | capture: sha256:050014cdc6a0f994b4921f037e5f381ef7ec3c3a5e3d116eb7c8b992a3eb398c | quote: Pick `25`, `587` or `2525` if you wish to connect with `STARTTLS`, or `465` if you want to connect with `TLS` only
+  - probe:smtp.mailpace.com:587 2026-10-30: smtp.mailpace.com answered a 220 banner on ports 587 and 2525; no message was sent | capture: sha256:4d40c460ee6dfc824a3bc859d739b2159812341edf0ff5526a178b33ba18a8ec | quote: "banner": "220 smtp.ohmysmtp.com ESMTP"
+  - [10] 2026-11-02: the vendor's page on how it keeps delivery rates high lists No free plan as an anti-spam measure and says everyone sending is a paying user | capture: sha256:aa8163d65a5d4291e89ec8cf55dfd3b1600b0ba06c0269e18c78a592f9e8b7b0 | quote: Many providers let spammers sign up and send thousands of emails, for free! With MailPace, everyone sending is a paying user, and that dramatically reduces the volume of spammers.
+  - [1] 2026-11-02: the pricing FAQ still states a free plan of up to 100 emails a month, given on request by email to support | capture: sha256:01ce8ef3cafd48ae0b64da917a18e6b7cf72d0e7e9521f9794759798f28f1185 | quote: Yes! We have a secret free plan. [Contact us](mailto:support@mailpace.com) via email if you'd like to try us out (up to 100 emails/month).
+  - [4] 2026-11-02: the homepage comparison table lists MailPace's free tier as 100 per month | capture: sha256:639c8afca9f72fbb8318724cddbe25569e66a5260260604d04263438038725cf | quote: | Free Tier | 100/mo | 100/day | 100/mo | 5,000/mo |
+  - [6] 2026-11-02: choosing a plan for the organization is a step of the onboarding | capture: sha256:04ca9b63eb15688ad46a05ce2201ec2d569bedf60de585d7a30023343d4cc97b | quote: pick the right plan for your Organization
+  - [7] 2026-11-02: signing up to a plan is a prerequisite of sending the first email | capture: sha256:1ea5360a64b704c9112b188460d2f0cfa4f95f5bad610c79f546d90ba8ec82b1 | quote: Sign up to a Plan
+  - [4] 2026-11-02: plan payments go through the payment provider Paddle | capture: sha256:639c8afca9f72fbb8318724cddbe25569e66a5260260604d04263438038725cf | quote: No, only payments supported by our payment provider Paddle.com are supported.
+- sources:
+  - [1] https://mailpace.com/pricing
+  - [2] https://docs.mailpace.com/reference/send/
+  - [3] https://docs.mailpace.com/
+  - [4] https://mailpace.com/
+  - [5] https://app.mailpace.com/users/sign_up
+  - [6] https://mailpace.com/simple-transactional-emails
+  - [7] https://docs.mailpace.com/overview/firstEmail
+  - [8] https://docs.mailpace.com/guide/verification
+  - [9] https://docs.mailpace.com/integrations/smtp/
+  - [10] https://mailpace.com/how-we-keep-delivery-rates-high
+
+## Postmark
+
+- `email/postmark` | fails-quota | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:33:30.049Z (live) | stale on 2026-12-05
+- url https://www.postmark.com/pricing | page https://fshy.ajam.dev/p/postmark.md
+- free tier: 100 emails/month on the free Developer tier, which does not expire | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: 45 days of activity retention | days: 45 | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account with an email address; no credit card for the free Developer plan
+- interface: rest
+- limits:
+  - request-rate (binding): 100 emails per month with no daily allowance beyond it [1]
+  - write-gated: until Postmark approves a new account, it sends only to addresses on domains added to the account and verified; review takes under 24 hours on weekdays [2]
+- limits note: no daily allowance exists: 100 emails per month is the whole month, which is 3.3 a day averaged. A verified sender signature or domain is required and a card is not
+- interface detail: https://api.postmarkapp.com/email; an SMTP relay at smtp.postmarkapp.com for transactional messages and smtp-broadcasts.postmarkapp.com for broadcast messages, on ports 25, 2525 and 587 with STARTTLS
+- tooling: curl, any HTTP client, any SMTP client
+- composes with: composes with a domain and with nothing else at this volume.
+- reliability: no overage on the free tier
+- notes: There is no burst room at all, which distinguishes it from every 100/day product here.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Test your integration with 100 emails/month'
+  - probe:smtp://smtp.postmarkapp.com:587 2026-10-22: banner 250, EHLO advertises SIZE and 8BITMIME, STARTTLS completed, and AUTH LOGIN returned 334
+  - [1] 2026-10-30: message content history is kept 45 days by default | capture: sha256:4bb4051eb4976bc6ad36bdd799d13e17f7f175eef8251b8ba20e573d817747dc | quote: 45 days worth of full content history by default to help you troubleshoot (customizable from 7 to 365 days if needed).
+  - [1] 2026-10-30: the free plan needs no card | capture: sha256:4bb4051eb4976bc6ad36bdd799d13e17f7f175eef8251b8ba20e573d817747dc | quote: Try Postmark Free No Credit Card Required
+  - [2] 2026-10-30: a new account is limited to its own verified domains until it is approved | capture: sha256:93eefbc8f9e68af9ea8820060059d2e8fa5525324052e52181888be22969a197 | quote: Until your account is approved, you won’t be able to send to any email address outside the domains you’ve added to your account and verified.
+  - [1] 2026-10-30: the free plan allows no overage | capture: sha256:4bb4051eb4976bc6ad36bdd799d13e17f7f175eef8251b8ba20e573d817747dc | quote: No overages allowed in this plan.
+  - probe:smtp.postmarkapp.com:587 2026-10-31: the Postmark SMTP relay answers on port 587 with a 220 ESMTP banner | capture: sha256:21ba8b1bab525e6e89e778a2ad76f72cca8dfb34d1db49abb91165c33c3ddcd9 | quote: .smtpservice.postmarkapp.com ESMTP
+  - [1] 2026-10-30: the free Developer plan gives 100 emails a month and does not expire | capture: sha256:4bb4051eb4976bc6ad36bdd799d13e17f7f175eef8251b8ba20e573d817747dc | quote: Everyone starts on our free Developer plan, which includes 100 emails every month. And it never expires or runs out.
+  - [3] 2026-11-02: the SMTP relay hosts are smtp.postmarkapp.com for transactional and smtp-broadcasts.postmarkapp.com for broadcast messages | capture: sha256:455edad6cdb9b3d582a29c21177d087726331dab89e1dcefba4a5b61c4e04b7f | quote: After enabling access, you will be able to connect to smtp.postmarkapp.com (for transactional messages) or smtp-broadcasts.postmarkapp.com (for broadcast messages).
+  - [3] 2026-11-02: the SMTP relay is reached on ports 25, 2525 or 587 | capture: sha256:455edad6cdb9b3d582a29c21177d087726331dab89e1dcefba4a5b61c4e04b7f | quote: Ports - 25, 2525, or 587
+  - [3] 2026-11-02: TLS on the SMTP relay is available through STARTTLS | capture: sha256:455edad6cdb9b3d582a29c21177d087726331dab89e1dcefba4a5b61c4e04b7f | quote: TLS is available via the STARTTLS SMTP extension.
+  - [3] 2026-11-02: an SMTP client connects to the Postmark relay on ports 25, 2525 or 587 | capture: sha256:455edad6cdb9b3d582a29c21177d087726331dab89e1dcefba4a5b61c4e04b7f | quote: Ports - 25, 2525, or 587
+  - [1] 2026-11-02: the pricing page captured on 2026-11-02 states the free Developer plan of 100 emails a month with no expiry | capture: sha256:9fd76073c28fbbbfb6a6d8375a3f603a4b3519fefd9c91105430a290f51994e5 | quote: Everyone starts on our free Developer plan, which includes 100 emails every month. And it never expires or runs out.
+  - [1] 2026-11-02: the free plan needs no credit card | capture: sha256:9fd76073c28fbbbfb6a6d8375a3f603a4b3519fefd9c91105430a290f51994e5 | quote: Try Postmark Free No Credit Card Required
+  - [1] 2026-11-02: the pricing page was captured on 2026-11-02 and still states the free Developer plan | capture: sha256:9fd76073c28fbbbfb6a6d8375a3f603a4b3519fefd9c91105430a290f51994e5 | quote: Everyone starts on our free Developer plan, which includes 100 emails every month. And it never expires or runs out.
+  - [1] 2026-11-02: the pricing page still offers the free plan with no credit card | capture: sha256:9fd76073c28fbbbfb6a6d8375a3f603a4b3519fefd9c91105430a290f51994e5 | quote: Try Postmark Free No Credit Card Required
+  - [1] 2026-11-04: the free Developer plan is 100 emails a month with no expiry, unchanged | capture: sha256:4bb4051eb4976bc6ad36bdd799d13e17f7f175eef8251b8ba20e573d817747dc | quote: Everyone starts on our free Developer plan, which includes 100 emails every month. And it never expires or runs out.
+- sources:
+  - [1] https://www.postmark.com/pricing
+  - [2] https://postmarkapp.com/support/article/1084-how-does-the-account-approval-process-work
+  - [3] https://postmarkapp.com/developer/user-guide/send-email-with-smtp

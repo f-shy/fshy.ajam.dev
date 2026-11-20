@@ -1,0 +1,191 @@
+# ServerHost
+
+> serverhost.com | Compute, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/serverhost/ | JSON https://fshy.ajam.dev/api/v1/entity/serverhost.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ServerHost (compute/serverhost)
+
+- `compute/serverhost` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://serverhost.com/sale/2026/serverhost-fb-ad-june.html
+- disagrees on identity_kind: `compute/serverhost` says card, `compute/serverhost-2gb-promo` says email
+- free tier: Starter 2GB VPS at USD 16.99/year (USD 1.42/month): 1 Intel Xeon core at 2.0 GHz or faster, 2 GB guaranteed memory, 30 GB NVMe, unmetered bandwidth on a 1 Gbps shared port, Linux SSH and root. The 8 GB plan is USD 59.99/year with 2 cores and 60 GB NVMe; the 16 GB plan is USD 111.11/year with 4 cores and 240 GB NVMe. All plans carry a promo code and annual billing. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: plan block: 'USD 16.99 /year', '1 Intel Xeon Core @ 2.0GHz+', '30 GB NVMe', 'Unmetered Bandwidth', '1Gbps shared network port', quoted | metered: no | source: [1]
+- identity: card
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): unmetered bandwidth on a 1 Gbps shared port: the port and the neighbour load are the ceiling, and there is no monthly byte counter to plan against [1]
+- limits note: unmetered bandwidth on a 1 Gbps shared port: the port and the neighbour load are the ceiling, and there is no monthly byte counter to plan against
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: USD 1.42 a month for 2 GB and unmetered bandwidth is the cheapest always-on shape documented, and it is the natural front end for a Vast.ai GPU job that must not be billed while idle
+- reliability: no reliability event recorded
+- notes: The order links point at vpshostingservice.co rather than serverhost.com, and the promo code is part of the URL, so the price is a campaign rate rather than a list rate. The renewal rate is not stated anywhere on the page and is left null. LowEndBox carries the same offer independently, which is why the shape is recorded rather than only the headline.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 2
+  - facets.shape.disk_gib: 30
+  - benchmark[0].plan: 2 GB KVM VPS (1 vCPU / 1.9 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 7950X
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb5_single: 2208
+  - benchmark[0].gb5_multi: 2233
+  - benchmark[0].source_url: https://serververify.com/benchmarks/52015f49-4286-49c0-b0cf-82707b7b263b
+  - benchmark[0].source_date: 2026-07-07
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 7950X at 4.49 GHz. Geekbench 5 only: 2208 single / 2233 multi. Not compared with the Geekbench 6 rows.
+  - refund: 72 hours on a VPS; crypto none; a USD 50 chargeback fee
+- evidence:
+  - [1] 2026-10-22: plan block: 'USD 16.99 /year', '1 Intel Xeon Core @ 2.0GHz+', '30 GB NVMe', 'Unmetered Bandwidth', '1Gbps shared network port', quoted
+  - [1] 2026-10-22: the 16 GB plan is USD 111.11/year with 4 cores and 240 GB NVMe, and the page states 'Plans available up to 32GB RAM', quoted
+  - [2] 2026-10-22: LowEndBox lists the same USD 16.99/year 2 GB plan with a 30 GB NVMe disk and a 1 Gbps shared port, and describes the target workloads as bots, scripts, uptime monitors, VPNs and DNS
+  - [3] 2026-10-22: quoted: 'VPS plans start at $3/mo and dedicated bare-metal servers start at $89/mo. Every plan includes unmetered bandwidth.' and 'All-flash storage'
+  - [3] 2026-10-22: the meta description states 'High-performance unmetered VPS hosting from $3/mo. Ryzen/i9 and Xeon plans on pure NVMe with full root, 1 Gbps unmetered bandwidth and a 99.99% SLA across 7 global locations.'
+- sources:
+  - [1] https://serverhost.com/sale/2026/serverhost-fb-ad-june.html
+  - [2] https://lowendbox.com/blog/serverhost-halloween-2026/
+  - [3] https://www.serverhost.com/
+
+## ServerHost (2gb promo)
+
+- `compute/serverhost-2gb-promo` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier 2 GB KVM VPS (June promo, code FBAD2GB2026)
+- needs card unknown, phone no, ID no, institution no | verified 2026-10-24T03:20:00.000Z (live) | stale on 2026-11-24
+- url https://serverhost.com/sale/2026/serverhost-fb-ad-june.html
+- price parsed USD 1.42/mo
+- disagrees on identity_kind: `compute/serverhost` says card, `compute/serverhost-2gb-promo` says email
+- free tier: No free tier. The advertised entry plan is USD 16.99 a year for 2 GB with the promo code FBAD2GB2026, which is USD 1.42 a month. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The VPS persists while the annual term is paid; the promo page states no deletion schedule. | source: [1]
+- egress: The page's headline says 'Unmetered Bandwidth' on a 1 Gbps port and states no cap or throttle. | metered: no | free allowance: unmetered | source: [1]
+- identity: email | detail: Self-service order with an email account and a promo code. The page read states no card hold and lists no payment methods, so the accepted card, PayPal or crypto routes are not established.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): the USD 16.99 depends on promo code FBAD2GB2026 in the order URL; without it the price is not on the page [1]
+- binding note: The binding thing is not a quota but the promo code: the price exists only through that URL parameter, and the page publishes no renewal price.
+- interface detail: KVM guest, root SSH, NVMe storage, 1 Gbps port.
+- tooling: Any SSH client; KVM, so its own kernel.
+- composes with: The best shape-per-dollar just above the line: 2 GB and 30 GB NVMe for USD 16.99 a year, useful when 1 GB will not hold both a WireGuard peer and a monitor.
+- reliability: The offer is a June 2026 advertising page still served in October, so the price is a campaign that can end without notice. no suspension or data-loss event was observed.
+- notes: This refutes the framing that ServerHost's USD 16.99 a year is a sub-USD-1-a-month machine. It is USD 1.42 a month, and the renewal price is not published, so even that figure is a first-term figure. RENEWAL PASS 2026-10-24: this is the clearest first-term promo in this category. The discount arrives as a promo code on an annual billing cycle, and the same billing system publishes a monthly list price for the identical shape at 4.2x the promo's effective rate. Nothing read says what year 2 costs, so the row stays paid-only and the renewal stays unpublished. Note the read caveat: the sale page came from a stored snapshot dated 2026-10-22, not a live fetch.
+- evidence note: Price, code, shape and the unmetered claim are quoted from the vendor's page read. The renewal price is not published, which is why this is not a clean figure.
+- extras:
+  - shape.ram_gib: 2
+  - shape.disk_gib: 30
+  - billing_model: annual
+  - term: 12 months
+  - m24h_usd: 1.42
+  - m10h_usd: 1.42
+  - price_arithmetic: USD 16.99 a year / 12 = USD 1.4158 a month. Out of pocket at order: USD 16.99.
+  - first_payment_usd: 16.99
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one IPv4
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - payment_methods: not established on the page read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - advertised_entry.claim: from USD 3/mo
+  - advertised_entry.plan: Linux VPS - 1 GB, Xeon Linux platform
+  - advertised_entry.annual_only: yes
+  - advertised_entry.annual_price_usd: 36.0
+  - advertised_entry.monthly_equivalent_usd: 3.0
+  - advertised_entry.monthly_billing_usd: 5.0
+  - advertised_entry.shape.vcpu: 1
+  - advertised_entry.shape.ram_gib: 1
+  - advertised_entry.shape.disk_gib: 15
+  - advertised_entry.shape.disk_type: NVMe
+  - advertised_entry.cpu: 1x Intel E5
+  - advertised_entry.port: 1 Gbps shared, unmetered
+  - advertised_entry.note: USD 3.00 a month is USD 36.00 a year paid once; the same SKU is USD 5.00 a month on monthly billing, and no renewal price is published
+  - ladder_usd_month.xeon_linux.1GB: 3
+  - ladder_usd_month.xeon_linux.2GB: 6
+  - ladder_usd_month.xeon_linux.4GB: 12
+  - ladder_usd_month.xeon_linux.8GB: 24
+  - ladder_usd_month.xeon_linux.16GB: 48
+  - ladder_usd_month.xeon_linux.32GB: 96
+  - ladder_usd_month.xeon_linux.64GB: 192
+  - ladder_usd_month.ryzen_i9_linux.2GB: 9
+  - ladder_usd_month.ryzen_i9_linux.4GB: 18
+  - ladder_usd_month.ryzen_i9_linux.8GB: 35
+  - ladder_usd_month.ryzen_i9_linux.16GB: 65
+  - ladder_usd_month.xeon_windows.4GB: 14
+  - ladder_usd_month.xeon_windows.8GB: 28
+  - ladder_usd_month.xeon_windows.16GB: 56
+  - ladder_usd_month.xeon_windows.32GB: 112
+  - renewal_note: not published. The promo is delivered by a code in the order URL (`promocode=FBAD2GB2026` with `billingcycle=annually`), against a published monthly list price of USD 6.00 for the same 2 GB shape. No page read states what the second year costs, so the exposure is up to the list rate of USD 72.00 a year against the USD 16.99 first payment, a 4.2x jump.
+  - renewal_evidence: no renewal statement found; list price read from the order form
+  - promo_code: FBAD2GB2026
+  - list_price_usd_month: 6.0
+  - list_price_note: read from the order form at vpshostingservice.co, the billing system the sale page links to: 'Linux VPS - 2 GB ... Starting from $6.00 Monthly'. The full list ladder read the same way is 1 GB $5.00, 2 GB $6.00, 4 GB $12.00, 8 GB $24.00, 10 GB $30.00, 16 GB $48.00, 32 GB $96.00, 64 GB $192.00 a month.
+  - list_ladder_usd_month.1 GB: 5.0
+  - list_ladder_usd_month.2 GB: 6.0
+  - list_ladder_usd_month.4 GB: 12.0
+  - list_ladder_usd_month.8 GB: 24.0
+  - list_ladder_usd_month.10 GB: 30.0
+  - list_ladder_usd_month.16 GB: 48.0
+  - list_ladder_usd_month.32 GB: 96.0
+  - list_ladder_usd_month.64 GB: 192.0
+  - promo_vs_list: the June promo is 76% below list on the 2 GB rung (USD 16.99 a year against USD 72.00 at the monthly list rate) and 79% below list on the 8 GB rung (USD 59.99 a year against USD 288.00)
+  - read_caveat: the sale page was served from a stored snapshot dated 2026-10-22T16:20:54Z rather than read live; the list ladder on vpshostingservice.co was read live on 2026-10-24
+- evidence:
+  - [1] 2026-10-24: quoted: 'A Full Year of VPS Hosting From Just $16.99' and 'June VPS Promo From $16.99/year NVMe Storage Unmetered Bandwidth 1Gbps Port Linux SSH'
+  - [1] 2026-10-24: quoted: '2 GB KVM VPS $16.99 /year - 2 GB Guaranteed Memory - 30 GB NVMe' with order link carrying 'promocode=FBAD2GB2026'
+  - [2] 2026-10-24: quoted visible section heading: 'VPS Hosting' then 'Virtual servers, from $3/mo.' followed by 'NVMe-backed KVM instances with full root, in any location. Pick your platform and billing term - every plan ships unmetered.'
+  - [3] 2026-10-24: quoted FAQ answer to 'How much does a VPS cost?': 'Plans start at $3/mo for Xeon Linux and $9/mo for Ryzen/i9; Windows starts at $14/mo.'
+  - [3] 2026-10-24: quoted from the page's own price ladder, window.SH_VPS, the Xeon Linux 1 GB entry: '{"name":"1 GB","base":3,"annualOnly":true,"annualPrice":36,"specs":["1x Intel E5","15 GB NVMe"]}'. The same ladder prices 2 GB at 6, 4 GB at 12, 8 GB at 24, 16 GB at 48, 32 GB at 96 and 64 GB at 192
+  - [4] 2026-10-24: quoted order page for the same SKU: 'Linux VPS - 1 GB ... 1 Intel Xeon CPU Cores @ 2.0 GHZ+ ... 1 GB Guaranteed Memory ... 15 GB NVME Drive Space ... Unmetered Bandwidth ... 1 Gbps Shared Network Port ... Starting from $5.00 Monthly'
+  - [1] 2026-10-24: quoted order link: 'https://vpshostingservice.co/order/linux-performance-vps/linux-vps-2-gb-25?billingcycle=annually&promocode=FBAD2GB2026', so the annual figure is a promo-code price rather than a list price
+  - [5] 2026-10-24: quoted: '2 GB Guaranteed Memory 30 GB NVME Drive Space Unmetered Bandwidth 1 Gbps Shared Network Port' and 'Starting from $6.00 Monthly'
+  - [5] 2026-10-24: quoted: 'Starting from $24.00 Monthly' for the 8 GB rung; the ladder read the same way is 1 GB $5.00, 2 GB $6.00, 4 GB $12.00, 8 GB $24.00, 10 GB $30.00, 16 GB $48.00, 32 GB $96.00, 64 GB $192.00 a month
+  - [1] 2026-10-24: quoted: '8 GB KVM VPS $59.99 /year' against a list rate of USD 24.00 a month for the same shape
+- sources:
+  - [1] https://serverhost.com/sale/2026/serverhost-fb-ad-june.html
+  - [2] https://serverhost.com/
+  - [3] https://serverhost.com/vps-hosting.php
+  - [4] https://vpshostingservice.co/order/linux-performance-vps/linux-vps-1-gb-25
+  - [5] https://vpshostingservice.co/order/linux-performance-vps/linux-vps-8-gb-25
+
+## ServerHost, 2 GB KVM VPS (promotion)
+
+- `egress/serverhost-kvm-2gb` | paid-only | evidence documented | binding per-ip-shaping | category vps (hosted, Buffalo, Los Angeles, Toronto, Dallas, Chicago, KVM, unmetered) | tier 2 GB KVM VPS (promotion)
+- identity a placeholder: card and phone unknown | verified 2026-11-03T07:36:42.856Z (live) | stale on 2026-12-04
+- url https://www.serverhost.com/
+- price USD 16.99 per year (promotion) or from USD 3 per month, unmetered at 1 Gbps
+- free tier: No free tier. A 2 GB KVM VPS promotion is USD 16.99 a year (a third-party post quotes it), and the vendor says VPS plans start at USD 3 a month for Xeon Linux. Every VPS ships unmetered at its port speed, 1 Gbps, with no overage charges. | unit: none | metered on: none | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable: a virtual server, not an object store | source: [1]
+- retention: not applicable: a live server, not stored bytes | source: [1]
+- egress: Unmetered: no monthly volume allowance, no overage charges; the 1 Gbps port speed is the only limit the vendor states. | metered: no | free allowance: unmetered at 1 Gbps | source: [1]
+- identity: email | detail: unverified: the sign-up and order forms were not read. The promotion link carries a promo code and a billing-cycle parameter.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 1 Gbps port, no volume cap [1]
+- binding note: There is no volume quota; the 1 Gbps port speed is the only limit the vendor states.
+- interface detail: KVM guest with full root and any kernel module; SSH.
+- tooling: ssh; any VPN or proxy software the guest supports, which the vendor markets for VPN and proxy networks.
+- composes with: USD 16.99 a year for 2 GB with an unmetered 1 Gbps port; IPv6, NAT and inbound policy are not stated on the pages read.
+- reliability: The vendor home page says VPS plans ship unmetered at 1 Gbps.
+- notes: Vendor pages list seven locations; the plan-level IPv4 and IPv6 allocation is not on the pages read.
+- evidence note: The USD 3 a month figure and the unmetered 1 Gbps statement are vendor sentences read on 2026-11-03. The USD 16.99 promotion price is from a third-party post and was not found on the vendor pages read.
+- extras:
+  - nat: not stated
+  - ipv6: not stated
+  - inbound: not stated
+  - udp: not stated; the vendor markets VPN and proxy nodes
+- evidence:
+  - [2] 2026-11-03: the standing VPS price starts at USD 3 a month for Xeon Linux | capture: sha256:c2bf48569c7b091a04a51cee3fa343446cae15cb78656cdab9ddffe8fc764b32 | quote: Plans start at $3/mo for Xeon Linux and $9/mo for Ryzen/i9; Windows starts at $14/mo.
+  - [2] 2026-11-03: every VPS is unmetered at its port speed with no overage | capture: sha256:c2bf48569c7b091a04a51cee3fa343446cae15cb78656cdab9ddffe8fc764b32 | quote: Every VPS ships unmetered at its port speed. Transfer freely with no overage charges.
+  - [1] 2026-11-03: VPS plans are unmetered at a 1 Gbps port | capture: sha256:80dae2ed8670c563b2722e56f1e75917f83c4ff30826f5233d5083097c52ea14 | quote: Every VPS ships unmetered at 1 Gbps; dedicated servers scale up to 10 Gbps unmetered. No overage bills, ever.
+  - [1] 2026-11-03: the vendor markets nodes for VPN and proxy networks | capture: sha256:80dae2ed8670c563b2722e56f1e75917f83c4ff30826f5233d5083097c52ea14 | quote: High-egress, low-latency nodes with clean IP space for VPN and proxy networks.
+  - [2] 2026-11-03: every VPS is KVM with full root | capture: sha256:c2bf48569c7b091a04a51cee3fa343446cae15cb78656cdab9ddffe8fc764b32 | quote: Yes. Every VPS is a KVM instance with full root, so you can install any OS, kernel module, or stack you need.
+  - [3] 2026-11-03: the 2 GB KVM VPS promotion is USD 16.99 a year | capture: sha256:a352eab31aace86801981e33bdc2fe3de73eafe3637b44a9f7d09cd3713d60a4 | quote: $16.99/YEAR
+- sources:
+  - [1] https://www.serverhost.com/
+  - [2] https://serverhost.com/vps-hosting.php
+  - [3] https://lowendbox.com/blog/%f0%9f%8e%83-did-you-get-your-10-bonus-entries-in-serverhosts-500-giveaway-yet-or-a-cheap-vps-starting-at-16-99-year-dont-sleep-on-this-%f0%9f%91%bb/

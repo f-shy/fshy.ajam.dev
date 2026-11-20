@@ -1,0 +1,345 @@
+# Sakura
+
+> sakura.ad.jp | Compute, Egress and tunnels, Storage; 9 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/sakura/ | JSON https://fshy.ajam.dev/api/v1/entity/sakura.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Sakura Internet (さくらのVPS)
+
+- `compute/sakura-vps` | qualifies | evidence documented | binding none | category VPS | tier メモリ512MB
+- needs card yes, phone yes, ID no, institution no | verified 2026-10-24T02:05:00.000Z (live) | stale on 2026-11-24
+- url https://vps.sakura.ad.jp/specification/
+- price parsed USD 3.76/mo
+- free tier: no free tier; the 512 MB plan is JPY 590 a month equivalent or JPY 7,078 a year, and the 1 GB plan is JPY 807 a month equivalent | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: the instance persists while the plan is paid; there is no setup fee (初期費用無料) | source: [1]
+- egress: no traffic quota is printed on the specification page read; the plan table states CPU, memory and SSD only | metered: no | free allowance: unstated | source: [1]
+- identity: any-phone | detail: email signup, then a phone verification by automated voice call before the VPS can be used: '「さくらのクラウド」や「さくらのVPS」など一部のサービスは、電話認証が完了するまで利用できません。' The verification screen offers a country selector: '1電話番号・国を選択し、「音声電話で認証コードを受け取る」をクリックします。' A card is the default payment method; the flow page names 電話番号認証 as the last signup step. Whether a non-Japanese number is accepted was not tested
+- interface: ssh, rest
+- limits:
+  - volume-quota: no traffic allowance stated on the page read [1]
+- binding note: 512 MB of RAM and a 25 GB disk bind before anything else; the next plan at 1 GB is JPY 807, which is USD 5.15 and over the line
+- interface detail: root SSH; the vendor's web console; a REST API where documented
+- tooling: any SSH client
+- composes with: the cheapest Japanese machine from a large domestic host, at 512 MB it is a WireGuard node or a DNS secondary rather than a daily driver
+- reliability: no reliability event recorded
+- notes: The English site returned a 403 bot challenge, so whether an English order path exists is unverified. No traffic allowance is printed, which is unusual and worth a second look before relying on it for anything outbound-heavy.
+- evidence note: plan prices and shapes from the specification page read; the phone-verification gate from Sakura's own flow and support pages
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 25
+  - billing_model: monthly
+  - term: monthly, or annual at JPY 7,078
+  - m10h_usd: 3.76
+  - m24h_usd: 3.76
+  - price_arithmetic: JPY 590 a month equivalent (annual JPY 7,078 / 12 = 589.83) divided by 156.839696 = USD 3.76
+  - renewal_usd: 3.76
+  - fx.pair: USD/JPY
+  - fx.rate: 156.839696
+  - fx.date: 2026-10-24
+  - fx.source: open.er-api.com/v6/latest/USD
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS that bills whether it runs or not
+  - english: no; the English site answered 403 to every read attempted
+  - payment_methods: credit card, or the payment methods listed on the flow page; not itemised on the page read
+- evidence:
+  - [1] 2026-10-24: quoted: 'メモリ512MB ... 月額換算590円/月（年額7,078円） CPU 仮想1Core メモリ 512MB SSD 25GB'
+  - [1] 2026-10-24: quoted: 'メモリ1GB ... 月額換算807円/月（年額9,680円） CPU 仮想2Core メモリ 1GB SSD 50GB'
+  - [2] 2026-10-24: quoted: '会員IDの取得（ログイン）、サーバー設定、お支払い方法の選択、電話番号認証でお申し込みが完了します。'
+  - [3] 2026-10-24: quoted: '「さくらのクラウド」や「さくらのVPS」など一部のサービスは、電話認証が完了するまで利用できません。' and '1電話番号・国を選択し、「音声電話で認証コードを受け取る」をクリックします。'
+- sources:
+  - [1] https://vps.sakura.ad.jp/specification/
+  - [2] https://vps.sakura.ad.jp/flow/
+  - [3] https://help.sakura.ad.jp/purpose_beginner/2571/
+
+## Sakura Internet VPS
+
+- `egress/sakura-internet-vps` | trial-only | evidence documented | binding none | category vps (hosted, Japan) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://vps.sakura.ad.jp/
+- price JPY 0 for 14 days with a card; JPY 792 per month after (2 GB plan, campaign price on 2026-10-23)
+- free tier: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.' | unit: hours | metered on: wall-clock | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: [translated] 'Every plan is free for two weeks.' No traffic allowance is stated on the page read; the free window is 14 days.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.' The card is the condition of the trial, not a deposit: the manual states a three-month minimum contract for the paid service. | country: None
+- interface: ssh, cli, rest
+- binding note: No constraint kind fits: the free capacity is a 14-day window, and 1 TiB/month is reachable inside it at the shaping a Tokyo KVM guest gets. The window, not a quota, is what ends the free use.
+- interface detail: [translated] The control panel handles restart, OS reinstall and resource viewing in the browser; every plan ships SSD storage standard.
+- tooling: wg-quick inside the guest; any client works because the guest is a full VM
+- composes with: A 14-day Japanese KVM guest is enough to measure whether a Tokyo address is what a target cares about, and to carry a WireGuard endpoint while it lasts.
+- reliability: The paid service carries a three-month minimum contract per the vendor manual, so a trial that is not cancelled converts into a contract.
+- notes: On the pages read there is no free-forever plan: the offer is a two-week card trial on the VPS line, and the paid plans start at JPY 792 per month. SakuraFrp (natfrp.com) is a different company and is already recorded. Country: Japan, three domestic regions (Ishikari, Osaka, Tokyo). Considered and not read further: ConoHa VPS (a Japanese comparison page states it has no free trial period at all; third-party, unverified).
+- evidence note: The two-week card trial is a vendor sentence with a date. The traffic allowance is not on the page read, so volume stays null.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: A KVM guest with root: WireGuard is installed in the guest and wg-quick writes the .conf. The vendor issues no configuration. The page also sells a VPC router with WireGuard support, which a Japanese write-up prices at JPY 2619 per month for its smallest tier.
+  - ingress: tcp+udp
+  - volume_stated: [translated] 'Every plan is free for two weeks.' No traffic allowance is stated on the page read; the free window is 14 days.
+  - bytes_transit: yes
+  - transit_note: The guest's own address is the endpoint; Sakura's domestic backbone carries the bytes.
+- evidence:
+  - [1] 2026-10-23: [translated] 'If you select credit-card payment when you apply, you can try every plan free for two weeks.'
+  - [1] 2026-10-23: The plan table prices paid tiers from JPY 792 per month (2 GB, campaign price on the day read); no free-forever tier appears on the page.
+- sources:
+  - [1] https://vps.sakura.ad.jp/
+
+## Sakura VPS 2-week
+
+- `compute/sakura-vps-2-week` | trial-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:43:11.430Z (live) | stale on 2026-12-05
+- url https://vps.sakura.ad.jp/flow/
+- free tier: Every plan is free for two weeks when the order is placed with credit-card payment: 'クレジットカード払いをご選択された場合、全プランで2週間の無料お試し期間をご利用いただけます'. Two servers may run on trial at once. At the end of the two weeks the account converts automatically to the paid service ('自動的に本サービスのご利用開始（本登録）となります'), and the service carries a three-month minimum term. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: time-boxed-trial
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the application-flow page states that all plans are free for two weeks with credit-card payment, that two servers may be trialled at once, that the trial converts automatically to the paid service at expiry, and that the minimum service period is three months; the trial restriction table lists a 10 Mbps outbound cap, OP25B on port 25, and no free nameserver | metered: no | free allowance: unlimited data transfer (データ転送量: 無制限), network 100Mbps shared | source: [1]
+- identity: card | detail: a credit card at order is the condition of the free two weeks: the application-flow page states that when credit-card payment is selected every plan gets a two-week free trial, and two servers may be trialled at once. The authorisation amount is not stated; whether debit or prepaid is accepted is not stated. The account converts automatically to the paid service at expiry under a three-month minimum term
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): During the trial the outbound path is held at 10 Mbps, port 25 is closed, and the free nameserver is withheld; the first thing that fails is any bulk transfer, and the second is the automatic conversion to a paid contract with a three-month minimum if the trial is not cancelled in time. [1]
+- limits note: During the trial the outbound path is held at 10 Mbps, port 25 is closed, and the free nameserver is withheld; the first thing that fails is any bulk transfer, and the second is the automatic conversion to a paid contract with a three-month minimum if the trial is not cancelled in time.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The trial is the cheapest way to hold a Japanese-resident IP for two weeks at zero cost, and it stacks with nothing: the card is the same instrument the next provider will refuse if the trial is abandoned unpaid.
+- reliability: no reliability event recorded
+- notes: Sakura VPS offers a 14-day free trial across its VPS line up to 8 cores and 32 GB RAM with 1,600 GB SSD in Japan. Outbound network bandwidth during trial periods is shaped to 10 Mbps.
+- extras:
+  - facets.class: regional-trial
+  - facets.free_tier_kind: time-boxed-trial
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: the application-flow page states that all plans are free for two weeks with credit-card payment, that two servers may be trialled at once, that the trial converts automatically to the paid service at expiry, and that the minimum service period is three months; the trial restriction table lists a 10 Mbps outbound cap, OP25B on port 25, and no free nameserver
+  - [2] 2026-10-22: the price table gives 512 MB with 1 virtual core and 25 GB SSD at 月額換算590円/月 (年額7,078円), 1 GB with 2 cores and 50 GB at 807円/月, 2 GB with 3 cores and 100 GB at 1,594円/月, 4 GB with 4 cores and 200 GB at 3,227円/月, up to 32 GB with 8 cores and 1,600 GB at 24,200円/月, each with 初期費用無料
+  - [2] 2026-11-03: data transfer volume is unlimited | capture: sha256:7aead30902362a3a943d588202d6e03d1a441f6668f1dcca2acdc90158600093 | quote: データ転送量 | 無制限
+- sources:
+  - [1] https://vps.sakura.ad.jp/flow/
+  - [2] https://vps.sakura.ad.jp/specification/
+
+## Sakura Cloud
+
+- `compute/sakura-cloud-2` | paid-only | evidence documented | binding write-gated | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://cloud.sakura.ad.jp/faq/free-trial/
+- free tier: No free trial, stated outright: 'さくらのクラウドは無料トライアルを提供しておりません' (Sakura Cloud does not offer a free trial). Free capacity arrives only as coupon codes distributed at seminars, campaigns and through the Sakura Cloud certification exam. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: card: a coupon requires one on file - the manual states 'billing on the registered credit card starts when the coupon balance reaches zero'. There is no signup allowance at all: the FAQ states that Sakura Cloud does not offer a free trial, and both coupon routes have closed. No authorisation or hold amount is stated, and whether debit or prepaid is accepted is not stated: unknown.
+- interface: unknown
+- limits:
+  - write-gated (binding): There is no signup allowance at all: the only free capacity is a coupon, which is distributed by a campaign or earned by passing a paid certification exam, and the certification route closed after the third 2026 sitting. [1]
+- limits note: There is no signup allowance at all: the only free capacity is a coupon, which is distributed by a campaign or earned by passing a paid certification exam, and the certification route closed after the third 2026 sitting.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: A JPY 50,000 coupon would have paid for about 32 months of the smallest 1-core/1-GB server at JPY 1,540 a month, but both distribution routes have closed, so the composition is theoretical.
+- reliability: no reliability event recorded
+- notes: Paid-only for the general public. A coupon channel existed, it was large (JPY 50,000), and it is closed. The control panel also has a free 'Sandbox' test zone for exercising the console; the Sakura user community names it, but no first-party page that was read names it, so it is not part of the offer.
+- extras:
+  - facets.class: regional
+  - facets.free_tier_kind: none
+- evidence:
+  - [1] 2026-10-22: ' ' (we do not offer a free trial; use coupons instead), quoted
+  - [2] 2026-10-22: ' 2026 3 ' (coupon distribution under this scheme ended with the third 2026 exam), and the coupon was '50,000 ' for the basic exam and '10,000 ' for the update exam, with a 12-month free window once applied, quoted
+  - [3] 2026-10-22: ' 500 25,000 ' (JPY 25,000 coupon codes for the first 500 applicants), applyable 2026-04-08 to 2026-09-30, so that campaign has also closed, quoted
+  - [4] 2026-10-22: ' 0 ' (billing on the registered credit card starts when the coupon balance reaches zero), so a coupon requires a card on file, quoted
+- sources:
+  - [1] https://cloud.sakura.ad.jp/faq/free-trial/
+  - [2] https://www.sakura.ad.jp/certification/basic/
+  - [3] https://www.sakura.ad.jp/corporate/information/newsreleases/2026/04/08/1968224250/
+  - [4] https://manual.sakura.ad.jp/cloud/payment/coupon.html
+
+## Sakura Cloud Koukaryoku
+
+- `compute/sakura-cloud-koukaryoku` | paid-only | evidence documented | binding none | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T08:50:33.434Z (live) | stale on 2026-12-04
+- url https://cloud.sakura.ad.jp/products/server/gpu/
+- free tier: Japanese incumbent GPU VM with an hourly, daily and monthly ladder in JPY, converted at USD 1 = JPY 157.05. NVIDIA H100 80GB: JPY 990 per hour, USD 6.30; JPY 23,100 per day, USD 147.09; JPY 385,000 per month, USD 2,451.45. NVIDIA V100 16GB: JPY 481 per hour, USD 3.06; JPY 11,550 per day, USD 73.54; JPY 231,000 per month, USD 1,470.87. The daily rate applies after 24 hours of continuous use and the monthly rate applies after 17 days for H100 and 20 days for V100, which caps the cost of a long run. The V100 plan is withdrawn on 2027-03-31. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: The listed prices are tax-inclusive and fractions of a yen are truncated. The page lists no A100, L40S, L4 or RTX4090 plan.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: Sakura Cloud bills a Japanese account; no free lane is named on the GPU page and the payment route was not read.
+- interface: unknown
+- limits note: No published cap binds; the constraint is that the rate is roughly 3.5 times the H100 market median, so price rather than quota is what stops this.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The monthly cap makes a continuous H100 USD 3.36 per hour, which is still above the USD 3.29 market median, so the composition worth noting is the opposite one: the daily cap makes a 24-hour benchmark cost USD 147 rather than USD 151 as an hourly sum.
+- reliability: no reliability event recorded
+- extras:
+  - facets.class: regional-gpu-incumbent
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_class: H100
+  - facets.shape.gpu_count: 1
+  - facets.shape.vram_gib: 80
+- evidence:
+  - [1] 2026-10-22: quoted rate table: NVIDIA V100 231,000 JPY monthly, 11,550 JPY daily, 481 JPY hourly; NVIDIA H100 385,000 JPY monthly, 23,100 JPY daily, 990 JPY hourly
+  - [1] 2026-10-22: quoted: 24 hours of use switches to the daily rate, and H100 switches to the monthly rate after 17 days; V100 is withdrawn on 2027-03-31
+  - [1] 2026-10-22: quoted: H100 is available from JPY 990 an hour with no initial cost, and the VM can be stopped when unused
+  - [2] 2026-10-22: USD 1 = JPY 157.05 on 2026-10-22
+  - [1] 2026-11-03: all displayed prices include tax | capture: sha256:dd0d1c849690ddb3dd16ff5f263e5824eb8e6bd4429af46d49db244012892cbd | quote: ※ 表示価格は全て税込です。
+  - [1] 2026-11-03: the H100 plan is listed at JPY 990 per hour, JPY 23,100 per day and JPY 385,000 per month; V100 is the only other plan in the table | capture: sha256:dd0d1c849690ddb3dd16ff5f263e5824eb8e6bd4429af46d49db244012892cbd | quote: | NVIDIA H100 | 385,000円 | 23,100円 | 990円 |
+  - [1] 2026-11-03: fractions below one yen are truncated in the calculation | capture: sha256:dd0d1c849690ddb3dd16ff5f263e5824eb8e6bd4429af46d49db244012892cbd | quote: ※ 小数点以下は切り捨てて計算いたします。
+  - [1] 2026-11-03: the daily rate applies after 24 hours of use, as the record states | capture: sha256:dd0d1c849690ddb3dd16ff5f263e5824eb8e6bd4429af46d49db244012892cbd | quote: 高火力 VRTの各プランは、利用開始から24時間を超えると日額料金が適用されます。
+- sources:
+  - [1] https://cloud.sakura.ad.jp/products/server/gpu/
+  - [2] https://api.frankfurter.app/latest?from=USD&to=JPY
+
+## Sakura Internet Cloud
+
+- `compute/sakura-cloud` | paid-only | evidence documented | binding request-rate | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-10-22T04:47:51.912Z (live) | stale on 2026-11-22
+- url https://cloud.sakura.ad.jp/products/server/
+- free tier: no free tier: servers bill monthly, daily or hourly, from JPY 1,540 a month or JPY 7 an hour for 1 core and 1 GB | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate (binding): three billing modes: monthly from JPY 1,540, daily from JPY 77 and hourly from JPY 7 for 1 core and 1 GB [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the server product page was read on 2026-10-22 (Japanese) and publishes the three billing modes with rates. There is no free tier, so the record's claim is contradicted
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 1
+  - shape.ram: 1
+  - shape.note: the entry row; the table runs to 2 cores and 5 GB and beyond
+  - session_cap.restart_required: no
+  - session_cap.note: a server bills by the month, day or hour; the page states no reap
+  - free_tier_kind: none
+  - granularity.min_billed_s: 3600
+  - burst_x: 1.0641
+  - burst_bill: min 1 h
+  - ps.price: storage is part of the server specification
+  - ps.durability: attached disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the server exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the server price table was read on 2026-10-22 and lists vCPU, memory and 月額/日額/時間額 (monthly, daily, hourly) columns: '1コア 1GB 1,540円 77円 7円' and '2コア 5GB' upward
+- sources:
+  - [1] https://cloud.sakura.ad.jp/products/server/
+
+## sakura vps nfs (jp)
+
+- `storage/sakura-vps-nfs` | paid-only | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-03T15:04:38.759Z (live) | stale on 2026-12-04
+- url https://vps.sakura.ad.jp/functions/nfs/
+- free tier: none: a priced offer only. NFS storage in Ishikari, Osaka and Tokyo, JPY 880 per month for 100 GB up to JPY 26,400 per month for 3,200 GB (tax included); JPY 290,400 for 12 months of 3,200 GB. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The largest NFS size listed is 3,200 GB; it is ordered from the VPS control panel and needs a switch created first. Usable capacity is below the listed size.
+- notes: Pricing is 26,400 JPY monthly for 3,200 GB, equivalent to 8.25 JPY per gigabyte (~$52.25 per terabyte). Account registration and billing require Japanese local verification.
+- evidence note: The 2026-11-03 evidence rows read https://vps.sakura.ad.jp/functions/nfs/ for the 3,200 GB NFS price (JPY 26,400 per month, JPY 290,400 for 12 months), the switch prerequisite, ordering through the control panel and tax-inclusive prices. The paid-only verdict rests on that price, now cited by a vendor capture; the Japanese-only signup statement is not cited by a capture.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: ¥26,400/mo for 3,200 GB = ¥8.25/GB = $52.25/TB. The most expensive per-TB option checked. Japanese-only signup and billing.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: ¥26,400/mo for 3,200 GB = ¥8.25/GB = $52.25/TB. The most expensive per-TB option checked. Japanese-only signup and billing.
+  - [1] 2026-11-03: 3,200 GB NFS costs JPY 26,400 per month or JPY 290,400 for 12 months | capture: sha256:9129b17649bc5c8673fe0e81c47e5b99322d49f2e37b5040761d79d3250cfcd1 | quote: | SSD: 3,200GB | 26,400円 | 290,400円 |
+  - [1] 2026-11-03: a switch must be created to use it | capture: sha256:9129b17649bc5c8673fe0e81c47e5b99322d49f2e37b5040761d79d3250cfcd1 | quote: ご利用には「スイッチ」の作成が必要です。
+  - [1] 2026-11-03: ordering is through the control panel | capture: sha256:9129b17649bc5c8673fe0e81c47e5b99322d49f2e37b5040761d79d3250cfcd1 | quote: コントロールパネルのNFS一覧にある追加ボタンからお申し込みください。
+  - [1] 2026-11-03: all listed prices include tax | capture: sha256:9129b17649bc5c8673fe0e81c47e5b99322d49f2e37b5040761d79d3250cfcd1 | quote: 表示価格はすべて税込です。
+- sources:
+  - [1] https://vps.sakura.ad.jp/functions/nfs/
+
+## Sakura Cloud certification
+
+- `compute/sakura-cloud-certification` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone yes, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.sakura.ad.jp/corporate/information/newsreleases/2025/11/25/1968222073/
+- free tier: A one-month free Sakura Cloud learning environment, about 50 applicants a month, with no card: 'クレジットカードの登録は不要で、さくらインターネットの会員IDをお持ちであれば、どなたでも申し込みが可能です' (no credit card registration is required, and anyone with a Sakura Internet member ID can apply), '毎月約50名を対象に、「さくらのクラウド」の学習用環境を1か月間無償で提供します' (about 50 people a month get the learning environment free for one month). Conditions: '個人のお客さま' (individual customers), a member ID, and '最新のシラバスに基づく「さくらのクラウド検定」の合格を目指して学習している方' (someone studying to pass the Sakura Cloud certification). | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-trial
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: country-phone | detail: a Sakura Internet member ID plus a Japanese address and a Japanese phone number that answers a voice call: the help page states services are premised on use inside Japan and asks for a Japanese address and phone, and the signup manual states 'phone verification is mandatory before starting to use Sakura Cloud', by voice call to the registered number. No card is required for this campaign ('no credit card registration is required') and no hold arises; the coupon route is separate and does start billing on a registered card once the coupon reaches zero. Debit and prepaid acceptance are not stated. | country: jp
+- interface: unknown
+- limits:
+  - write-gated (binding): Two gates, and the second is the one that closes: about 50 slots a month is a lottery, and the account behind it needs a Japanese postal address and a Japanese phone that answers a voice call, because Sakura Cloud requires phone verification before any resource can be created. [1]
+- limits note: Two gates, and the second is the one that closes: about 50 slots a month is a lottery, and the account behind it needs a Japanese postal address and a Japanese phone that answers a voice call, because Sakura Cloud requires phone verification before any resource can be created.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: If the door were open this would be the cheapest way into a Japanese region with no card at all, and a one-month window is enough to move a dataset out of it, but the phone gate means it composes with nothing here.
+- reliability: no reliability event recorded
+- notes: The most interesting near-miss in the Japanese lane: the vendor removed the card requirement and opened it to anyone including minors, then left a Japanese address and voice verification in place, which is the pattern this category exists to find. Contrast with the neighbouring record: the same company's student ambassador program pays JPY 100,000 a month but needs school enrollment. Sakura Cloud's general paid tier is a separate record already in compute/sakura-cloud, and verification corrects that record on identity: it says email, while the registration manual quoted here shows a Japanese address plus phone verification.
+- extras:
+  - facets.class: regional
+  - facets.free_tier_kind: recurring-trial
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: ' ID ' and ' 50 1 ', plus the list and ' ' (some features restricted and a cap on resource creation), quoted
+  - [2] 2026-10-22: member registration asks for , , and , and states ' ' (services are premised on use inside Japan; register a Japanese address and phone; ask the customer centre by email for a foreign number), quoted
+  - [3] 2026-10-22: ' ' (phone verification is mandatory before starting to use Sakura Cloud), with a voice call to the registered number, quoted
+  - [4] 2026-10-22: ' ' (without phone verification, creation of new resources is restricted), quoted
+  - [5] 2026-10-22: ' ' (we do not offer a free trial; use coupons instead), quoted
+  - [6] 2026-10-22: ' 2026 3 ' (coupon distribution under this scheme ended with the third 2026 exam), and the coupon was '50,000 ' for the basic exam and '10,000 ' for the update exam, with a 12-month free window once applied, quoted
+  - [7] 2026-10-22: ' 500 25,000 ' (JPY 25,000 coupon codes for the first 500 applicants), applyable 2026-04-08 to 2026-09-30, so that campaign has also closed, quoted
+  - [8] 2026-10-22: ' 0 ' (billing on the registered credit card starts when the coupon balance reaches zero), so a coupon requires a card on file, quoted
+- sources:
+  - [1] https://www.sakura.ad.jp/corporate/information/newsreleases/2025/11/25/1968222073/
+  - [2] https://help.sakura.ad.jp/purpose_beginner/2545/
+  - [3] https://manual.sakura.ad.jp/cloud/payment/signup.html
+  - [4] https://faq.sakura.ad.jp/s/article/000001350
+  - [5] https://cloud.sakura.ad.jp/faq/free-trial/
+  - [6] https://www.sakura.ad.jp/certification/basic/
+  - [7] https://www.sakura.ad.jp/corporate/information/newsreleases/2026/04/08/1968224250/
+  - [8] https://manual.sakura.ad.jp/cloud/payment/coupon.html
+
+## Sakura Cloud student
+
+- `compute/sakura-cloud-student` | fails-identity | evidence documented | binding write-gated | category dev environment
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.sakura.ad.jp/certification/student-ambassador/
+- free tier: 'アンバサダーには、毎月10万円分のクラウドリソースが無償で提供されます' (ambassadors are given JPY 100,000 worth of cloud resources free every month), usable for '学習用の環境構築はもちろん、自作したWebアプリケーションやサービスの公開・運用にも活用できます' (building learning environments and also publishing and running your own web application). Eligibility: 'さくらのクラウド検定（ベーシック試験またはアドバンスド試験）の合格者' (a pass in the Sakura Cloud certification) and '大学・大学院・高等専門学校・専門学校・高校に在籍する学生' (enrolled at a university, graduate school, college of technology, vocational school or high school). | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: recurring-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number among documented hosts is also the least reachable. [1]
+- limits note: Enrollment at a Japanese school is the door: the program pays JPY 100,000 a month in cloud resources, and none of it is reachable without student status at a Japanese institution plus a passed certification exam, so the largest per-month number among documented hosts is also the least reachable.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Composes with nothing; for a registrant who does hold Japanese student status it is the largest recurring cloud allowance documented, because it is a monthly budget rather than a one-off credit.
+- reliability: no reliability event recorded
+- notes: JPY 100,000 a month is roughly the cost of thirty 2-core Sakura Cloud instances, and the door is school enrollment plus an exam, not a card. A third Sakura-linked program is folded here rather than given its own record: (kosen-career.tech/mirai-server), a free Sakura Cloud VPS for one year for students of Japanese, renewable while enrolled, also requiring membership of the Kosen Career Slack. Its spec sheet sits behind an application form and is not on the page, so its shape is unverified.
+- extras:
+  - facets.class: regional
+  - facets.free_tier_kind: recurring-allowance
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: ' 10 ', quoted; the list requires a certification pass and enrollment at ' '; the page also records '2026 8 '
+  - [2] 2026-10-22: a separate, narrower Sakura program: ' ' (free cloud for college-of-technology students), '1 ' (free for one year), reported
+- sources:
+  - [1] https://www.sakura.ad.jp/certification/student-ambassador/
+  - [2] https://www.kknews.co.jp/news/20240903o02

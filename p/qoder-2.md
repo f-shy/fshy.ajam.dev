@@ -1,0 +1,92 @@
+# Qoder
+
+> qoder.com | Coding subscriptions; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/qoder-2/ | JSON https://fshy.ajam.dev/api/v1/entity/qoder-2.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Qoder (Qoder International)
+
+- `coding-subs/qoder` | qualifies-with-caveat | evidence documented | binding request-rate | category coding subscription
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:47:33.036Z (live) | stale on 2026-12-04
+- url https://qoder.com/pricing
+- free tier: Free: USD 0 with a one-time 14-day Pro trial of 300 Credits, limited completions and next edits, and BYOK; when Credits run out, basic models subject to daily and monthly limits whose numbers are not published. Promotions open to Free accounts: 100 Credits claimable once a day in the Qoder desktop app, each claim valid 30 days, end time to be announced; Qwen3.8-Flash at a 0.0x Credit rate, end date to be announced; a daily free allowance of DeepSeek-Flash until 2026-10-31 24:00 UTC+8 | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Credits are deducted by model and by input plus output tokens, not by a flat request count; request-count is the nearest metered_on term. Estimated consumption: about 50 Credits per Qoder Agent Mode request, about 7 to 12 per Editor Agent Mode request, about 3 to 4 per Editor Ask request, so 100 Credits a day is about 2 Qoder Agent Mode requests or about 8 Editor Agent Mode requests at a 200K context. Paid ladder: Lite USD 10 a month with 1,000 Credits for curated models, Pro USD 20 with 2,000, Pro+ USD 60 with 6,000, Ultra USD 200 with 20,000; a Credit Pack is USD 20 for 1,500 Credits on paid plans.
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: email | detail: the sign-up form asks for a first name, a last name, an email address and a password, or Google or GitHub sign-up; no card is named for the Free plan; the Pro trial is one per user and extra trial accounts are suspended; the terms set a minimum age of 18; paid plans accept Visa, Mastercard, Alipay, Google Pay and Apple Pay
+- interface: cli
+- limits:
+  - request-rate (binding): 100 Credits a day, claimed by hand once per daily window in the Qoder desktop app, each claim valid 30 days; about 2 Qoder Agent Mode requests at about 50 Credits each [2]
+  - request-rate (binding): after Credits run out, free basic models subject to daily and monthly limits; no number is published [1]
+  - request-rate (binding): a one-time 14-day Pro trial with 300 Credits, one account per user, granted on first sign-in to the latest Qoder desktop app and not available on virtual machines [3]
+  - request-rate (binding): Lite at USD 10 a month: 1,000 Credits a month for curated models; paid users select the Efficient tier at 0.0x for a limited time, rate-limited or slower at peak hours [4]
+- binding note: the free allowance is a count of Credits and model uses per day; the daily 100-Credit claim, about 2 agent requests, runs out before any other limit, and the unpublished basic-model limit is what remains after it
+- interface detail: the Qoder desktop app, Qoder IDE, the JetBrains plugin and Qoder CLI share one Credits balance. Qoder CLI runs headless with `qoder -p` (long form `--print`), prints text, json or stream-json, takes the prompt from an argument or standard input, and authenticates without a browser through the QODER_PERSONAL_ACCESS_TOKEN environment variable
+- tooling: Qoder CLI, installed with `curl -fsSL https://qoder.com/install | bash` on macOS and Linux or `irm https://qoder.com/install.ps1 | iex` on Windows, or from npm as @qoder-ai/qodercli; the Qoder desktop app and IDE
+- composes with: the Free plan includes BYOK, so the CLI and IDE can run on a key from another inference provider once the daily Credits and the free Qwen3.8-Flash route are spent; a USD 10 Lite subscription adds the Efficient tier at 0.0x while that offer lasts
+- reliability: Qwen3.8-Flash and the Efficient tier are documented as slower or rate-limited at peak hours during their free offers; the Lite model tier was removed on 2026-09-18 and headless requests that named it fail; the daily 100-Credit claim entry is withheld from accounts or devices that fail a same-user same-device risk-control check
+- notes: Qoder International (qoder.com) and Qoder CN (qoder.cn, the former TONGYI Lingma) are separate accounts with separate prices and Credits; Qoder CN is its own record, coding-subs/lingma. The Free plan's lasting allowance is the daily 100-Credit claim, which needs the desktop app, plus the free Qwen3.8-Flash route; both are promotions with no announced end. The basic-model daily and monthly limit is unpublished on the pricing page, the documentation pricing page, the Credits page and the model selector page.
+- evidence note: the plan ladder, the trial, the daily Credit claim, the free-model promotions, the headless flags and the sign-up fields are quoted from first-party pages read. The size of the basic-model daily and monthly limit is not published anywhere read, so it stays unverified; no account was opened.
+- evidence:
+  - [3] 2026-10-30: the Free plan at USD 0 includes a 2-week Pro trial with 300 Credits | capture: sha256:fe3d67cc5bd679cc3b4d6ce5d46959454397d1fc2a7ab14f3153fe7b0fd7716b | quote: 2-Week Pro Trial with 300 Credits
+  - [3] 2026-10-30: after Credits run out the Free plan keeps a basic model under daily and monthly limits, with no number | capture: sha256:fe3d67cc5bd679cc3b4d6ce5d46959454397d1fc2a7ab14f3153fe7b0fd7716b | quote: If you choose to stay on the Free plan, don't worry—you can still use the basic model, subject to daily and monthly limits.
+  - [3] 2026-10-30: the Pro trial is granted on first sign-in to the latest desktop app and not on virtual machines | capture: sha256:fe3d67cc5bd679cc3b4d6ce5d46959454397d1fc2a7ab14f3153fe7b0fd7716b | quote: requires latest version; not available on virtual machines
+  - [3] 2026-10-30: the Pro trial is one account per user | capture: sha256:fe3d67cc5bd679cc3b4d6ce5d46959454397d1fc2a7ab14f3153fe7b0fd7716b | quote: To ensure a fair trial experience for all users, the Pro Trial is limited to one account per user.
+  - [3] 2026-10-30: the payment methods for paid plans | capture: sha256:fe3d67cc5bd679cc3b4d6ce5d46959454397d1fc2a7ab14f3153fe7b0fd7716b | quote: We currently accept Visa, Mastercard, Alipay, Google Pay and Apple Pay.
+  - [1] 2026-10-30: Free, Lite USD 10, Pro USD 20, Pro+ USD 60 and Ultra USD 200 a month | capture: sha256:49d9a397ccc1af5618c7b193ee28b0571e9fa06fbda37fcbace315b9829f76f6 | quote: | Price | Free | 10 USD/mo | 20 USD/mo | 60 USD/mo | 200 USD/mo |
+  - [1] 2026-10-30: the monthly Credits per plan and the Free plan's basic-model quota with no number | capture: sha256:49d9a397ccc1af5618c7b193ee28b0571e9fa06fbda37fcbace315b9829f76f6 | quote: | Quota | Basic models for limited user messages. | 1,000 Credits / month for curated models | 2,000 Credits / month; full model lineup | 6,000 Credits / month; full model lineup | 20,000 Credits / month; full model lineup |
+  - [1] 2026-10-30: the documentation states the same unnumbered daily and monthly basic-model limit | capture: sha256:49d9a397ccc1af5618c7b193ee28b0571e9fa06fbda37fcbace315b9829f76f6 | quote: we will continue to serve you with basic models, subject to daily and monthly limits
+  - [5] 2026-10-30: Credits are deducted by model and token consumption | capture: sha256:be6d793ab8ca728f7236f4777565f84b1082cced072e4f8760150ef2fa6b2447 | quote: The credits deducted are calculated based on the model used and the total token consumption for both input and output.
+  - [5] 2026-10-30: a Qoder Agent Mode request is estimated at about 50 Credits | capture: sha256:be6d793ab8ca728f7236f4777565f84b1082cced072e4f8760150ef2fa6b2447 | quote: | Qoder - Agent Mode | / | ~ 50 Credits / User Request |
+  - [5] 2026-10-30: an Editor Agent Mode request is estimated at about 7 to 12 Credits | capture: sha256:be6d793ab8ca728f7236f4777565f84b1082cced072e4f8760150ef2fa6b2447 | quote: | Editor - Agent Mode | ~ 7 Credits / User Request | ~ 12 Credits / User Request |
+  - [2] 2026-10-30: 100 Credits can be claimed every day in the desktop app | capture: sha256:b483e976cb4b33cbdb4902a9e2f945e1ef5556fa5f048a37d68ee1f9d3eb5101 | quote: individual users of Qoder International can claim 100 Credits every day in the Qoder desktop app
+  - [2] 2026-10-30: Free accounts are eligible for the daily claim | capture: sha256:b483e976cb4b33cbdb4902a9e2f945e1ef5556fa5f048a37d68ee1f9d3eb5101 | quote: Both free users and paid individual subscribers are eligible.
+  - [2] 2026-10-30: the daily claim has no announced end time | capture: sha256:b483e976cb4b33cbdb4902a9e2f945e1ef5556fa5f048a37d68ee1f9d3eb5101 | quote: End time: To be announced.
+  - [6] 2026-10-30: Qwen3.8-Flash at no Credit cost is open to Free accounts with no Credits | capture: sha256:349d290f47b809e0188cbdc76c67ec07022d99e3a0091e9f7703cd89bd9d1063 | quote: Free accounts and accounts with a zero Credits balance are also eligible.
+  - [6] 2026-10-30: Qwen3.8-Flash costs 0.0x during the promotion | capture: sha256:349d290f47b809e0188cbdc76c67ec07022d99e3a0091e9f7703cd89bd9d1063 | quote: The model's Credit rate is reduced from 0.1× to 0.0×. Calls to this model consume no Credits.
+  - [6] 2026-10-30: the free Qwen3.8-Flash route may be slower at peak times | capture: sha256:349d290f47b809e0188cbdc76c67ec07022d99e3a0091e9f7703cd89bd9d1063 | quote: Qwen3.8-Flash is experiencing high demand during the promotion, and responses may be slower at peak times.
+  - [7] 2026-10-30: the DeepSeek-Flash daily free allowance ends on 2026-10-31 at 24:00 UTC+8 | capture: sha256:baef9ab0b06c9614dd07ddaf5dd919c96b6399471ebe368a395e2b89b8865b2d | quote: Promotion period: October 20, 2026 at 00:00 through October 31 at 24:00 (November 1 at 00:00).
+  - [7] 2026-10-30: the DeepSeek-Flash daily allowance has no published number | capture: sha256:baef9ab0b06c9614dd07ddaf5dd919c96b6399471ebe368a395e2b89b8865b2d | quote: Each account receives a certain number of free uses per day. Paid subscribers receive more free uses than free users.
+  - [4] 2026-10-30: the Efficient tier at no Credit cost covers Lite and higher paid plans | capture: sha256:de1849ac4b9073a78ef4bee088f6097eb6831c254ac1c46e2d3bb32f76f98fba | quote: Eligible users: Paid users, including personal Lite, Pro, Pro+, and Ultra subscriptions, and Teams and Enterprise seats.
+  - [4] 2026-10-30: the Efficient tier costs 0.0x during the offer | capture: sha256:de1849ac4b9073a78ef4bee088f6097eb6831c254ac1c46e2d3bb32f76f98fba | quote: When Efficient is selected, the billing multiplier drops from 0.3x to 0.0x.
+  - [4] 2026-10-30: the free Efficient tier may be rate-limited at peak hours | capture: sha256:de1849ac4b9073a78ef4bee088f6097eb6831c254ac1c46e2d3bb32f76f98fba | quote: At peak hours it may be rate-limited or respond more slowly
+  - [8] 2026-10-30: Lite is 1,000 Credits a month for USD 10 | capture: sha256:5ceda4d2b6c8c52ca2fd30e3d4a46590e660433df0df62795f92b6f6c9938045 | quote: Starting today, users worldwide can get 1,000 Credits and a curated selection of cost-effective models for $10 a month.
+  - [8] 2026-10-30: the flagship models available on Lite | capture: sha256:5ceda4d2b6c8c52ca2fd30e3d4a46590e660433df0df62795f92b6f6c9938045 | quote: Flagship models: Qwen3.8-Max, DeepSeek-V4-Pro, GLM-5.3, Kimi-K3, Kimi-K2.8-Preview, and MiniMax-M3.
+  - [8] 2026-10-30: the Flash models available on Lite | capture: sha256:5ceda4d2b6c8c52ca2fd30e3d4a46590e660433df0df62795f92b6f6c9938045 | quote: Flash series: Qwen3.8-Flash (currently free for a limited time), DeepSeek-V4.1-Flash-1017 (currently free for a limited time), and GLM-5.3-Flash.
+  - [9] 2026-10-30: Qoder CLI runs headless with -p | capture: sha256:30cb89e0a0e1cb3e3ef72dc1182d861355027d537713badcf06a626050e873ac | quote: To enter Headless mode, add the `--print` flag (short form `-p`):
+  - [9] 2026-10-30: headless output can be stream-json | capture: sha256:30cb89e0a0e1cb3e3ef72dc1182d861355027d537713badcf06a626050e873ac | quote: | `stream-json` | Line-by-line JSON Message Stream | Real-time consumption of intermediate processes |
+  - [10] 2026-10-30: the CLI authenticates headless with a Personal Access Token | capture: sha256:aeaebc16094ecf646c84fd52607c111d72d17f14592f34e17f89a72ce7b95d02 | quote: Environment Variable: Authenticate using a Personal Access Token. Suitable for CI/CD pipelines and headless automation environments.
+  - [11] 2026-10-30: the CLI installs by script | capture: sha256:4d56cf13feaaafbcb09963dfa5c66f07b05752d9c0b8260c5f1c315a04275325 | quote: curl -fsSL https://qoder.com/install | bash
+  - [11] 2026-10-30: the CLI runs on macOS, Linux and Windows | capture: sha256:4d56cf13feaaafbcb09963dfa5c66f07b05752d9c0b8260c5f1c315a04275325 | quote: Operating System: macOS, Linux, Windows (Windows Terminal is recommended).
+  - [12] 2026-10-30: GitHub sign-up is offered | capture: sha256:333d356d585e39960532ea93899a7023c2333777bc74350666a37ecb184fd3b8 | quote: Sign up with GitHub
+  - [12] 2026-10-30: Google sign-up is offered | capture: sha256:333d356d585e39960532ea93899a7023c2333777bc74350666a37ecb184fd3b8 | quote: Sign up with Google
+  - [12] 2026-10-30: the email sign-up form asks for a first name, a last name, an email and a password | capture: sha256:333d356d585e39960532ea93899a7023c2333777bc74350666a37ecb184fd3b8 | quote: First Name Last Name Email Password
+  - [13] 2026-10-30: a minimum age of 18 | capture: sha256:65cb27fe15384da0ac53cb25da100734d1275077bdd5063cc1b5e80fbdbd73f7
+  - [14] 2026-10-30: headless requests that named the removed Lite tier fail | capture: sha256:24715869fb1831e2d9e9307cb9c5debc5da2d9a88e7aa88692f03ce0b1a07f7d | quote: Headless CLI, Cloud Agents API, and Service Account requests that specify Lite do not switch to another model.
+  - [15] 2026-10-30: a third-party tracker also finds no published number for the basic-model limit | capture: sha256:d583a7994641a23c1f8c725dc596743e730642d53ead9f70a4a8b61c6b5a885e | quote: The Free plan continues on unnamed basic models with unpublished daily and monthly limits after credits run out.
+  - [16] 2026-11-03: the vendor applies a same-user same-device risk-control check to the daily 100-Credit claim and tells accounts or devices that fail it that they cannot take part | capture: sha256:a6b79b359cd2cade15c2fe3a04fd060fcd7b897cffe4d9b5507f5112a0e4bb88 | quote: 为保证活动的公平公正，本次活动针对“同一用户、同一设备”设有系统安全风控机制，经核实您当前使用的账号/设备无法参与本次活动，特此通知。
+  - [17] 2026-11-03: a user reports that the claim entry vanished the day after a first successful claim, with no error | capture: sha256:4f6b2c54b84ececd1a3a408a6194b3d01492627b1d4e6fd4623cad87cea49776 | quote: 2026-09-22: Clicked “Claim” again →Missing Claim Button without any error
+  - [18] 2026-11-03: a vendor forum reply states a daily limit on basic-model usage, with no number or model name | capture: sha256:52ede36836688233fc8b027fbc7d1a193f877b033361b57bc066cb4d57256a94 | quote: There’s a daily limit on the basic model usage
+  - [5] 2026-11-03: the Credits page names no number and no model for the free basic models | capture: sha256:be6d793ab8ca728f7236f4777565f84b1082cced072e4f8760150ef2fa6b2447 | quote: When Credits run out, you can continue using free basic models, subject to daily and monthly limits.
+  - [10] 2026-11-03: the Personal Access Token is created on the Qoder account integrations page; no plan requirement is stated | capture: sha256:aeaebc16094ecf646c84fd52607c111d72d17f14592f34e17f89a72ce7b95d02 | quote: > [https://qoder.com/account/integrations](https://qoder.com/account/integrations)
+  - [7] 2026-11-03: the DeepSeek-Flash daily free allowance ended on 2026-10-31 at 24:00 UTC+8 | capture: sha256:baef9ab0b06c9614dd07ddaf5dd919c96b6399471ebe368a395e2b89b8865b2d | quote: This free offer ends on October 31, 2026 at 24:00 (UTC+8).
+  - [2] 2026-11-03: each account claims 100 Credits once per window and must claim by hand | capture: sha256:b483e976cb4b33cbdb4902a9e2f945e1ef5556fa5f048a37d68ee1f9d3eb5101 | quote: - Claim rules: Each account can claim 100 Credits once per window. You must claim the reward manually.
+- sources:
+  - [1] https://docs.qoder.com/account/pricing
+  - [2] https://docs.qoder.com/events/100credits
+  - [3] https://qoder.com/pricing
+  - [4] https://docs.qoder.com/events/efficientunlimited
+  - [5] https://docs.qoder.com/Credits
+  - [6] https://docs.qoder.com/events/flashoffer
+  - [7] https://docs.qoder.com/events/deepseek-flash-free
+  - [8] https://qoder.com/en/blog/qoder-lite
+  - [9] https://docs.qoder.com/cli/run-in-scripts
+  - [10] https://docs.qoder.com/cli/authentication
+  - [11] https://docs.qoder.com/cli/installation
+  - [12] https://qoder.com/users/sign-up
+  - [13] https://qoder.com/en/product-service
+  - [14] https://docs.qoder.com/release-notes/lite-model-tier-retirement-notice
+  - [15] https://mvalentsev.github.io/awesome-free-ai-coding/providers/qoder/
+  - [16] https://forum.qoder.com/t/qoder-app-usage-100-credits-claim-100-credits-every-day/12666
+  - [17] https://forum.qoder.com/t/cannot-claim-the-daily-100-credits/12833
+  - [18] https://forum.qoder.com/t/what-s-the-difference-when-we-go-into-the-basic-mode-after-using-out-2000-credits/1613

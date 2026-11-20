@@ -1,0 +1,48 @@
+# Arm Virtual Hardware
+
+> corellium.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/corellium/ | JSON https://fshy.ajam.dev/api/v1/entity/corellium.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Arm Virtual Hardware
+
+- `compute/arm-virtual-hardware` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T11:01:13.170Z (live) | stale on 2026-12-05
+- url https://support.avh.corellium.com/getting-started/access
+- free tier: A free trial that is documented with real numbers: 'Once registered, you automatically have access to Arm Virtual Hardware and are enrolled on a 30-day free trial. This trial provides access for up to 15 active CPU cores at a time and up to 100 core hours of usage. Your trial includes 25 device slots.' After the trial the rate is 'USD 0.50 per core hour, where a core hour is one hour of CPU core usage on AVH', with 'Discounts... for open-source software development and other non-commercial, academic, or research usage'. The models are instruction-accurate virtual development kits, Corstone fixed virtual platforms and Ethos-U NPU models, and they run in the vendor's cloud rather than on a local machine. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-credit
+- per-object cap: not applicable | source: [1]
+- retention: 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically. | source: [1]
+- egress: not published: the page read states no egress allowance and no overage price; https://support.avh.corellium.com/getting-started/access read 2026-11-03 | metered: no | source: [1]
+- identity: email
+- interface: rest, cli, ssh
+- limits:
+  - retention-clamped (binding): 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically. [1]
+- limits note: 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically.
+- binding note: the same as limits note
+- interface detail: REST API with an API token; AVH CLI installed from npm (@corellium/corellium-cli); SSH to a virtual device over the AVH VPN or an SSH tunnel
+- tooling: the provider documents its own CLI, the AVH CLI, per https://support.avh.corellium.com/sdk/cli/: "The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal."
+- composes with: It chains with a free CI runner: the same 25 device slots make a firmware or model test suite run in a build, which is the shape the workload needs. It breaks at throughput, because a virtual Ethos-U is a functional model and its latency numbers are not silicon numbers.
+- reliability: no reliability event recorded
+- notes: Two things are stated rather than measured: 100 core hours is the trial figure, and whether the trial resets per account is not published. The AWS Marketplace route is a second door with the same rate. This is the only accelerator-adjacent programme in evaluated offerings whose free allowance is published in a unit that can be planned against.
+- extras:
+  - facets.class: hardware-vendor-programme
+  - facets.free_tier_kind: trial-credit
+  - facets.shape.vcpu: 15
+  - facets.shape.gpu_class: Arm Ethos-U NPU and Cortex-M models, simulated
+- evidence:
+  - [1] 2026-10-22: 'a 30-day free trial... up to 15 active CPU cores at a time and up to 100 core hours of usage. Your trial includes 25 device slots', quoted
+  - [1] 2026-10-22: 'You will be charged based on usage at a rate of USD 0.50 per core hour' and 'After this trial period, the virtual device is automatically shut down', both quoted
+  - [2] 2026-10-22: the AWS Marketplace listing prices core hours at USD 0.50 with no tiers or fixed plans
+  - [3] 2026-10-22: the product page describes 'an instruction-accurate, and extensible modeling engine' for Arm-based processors and systems in the cloud, and a route via Arm Tools Artifactory 'free of charge'
+  - [1] 2026-11-03: the access page prices usage per core hour and states no egress allowance or price | capture: sha256:bc14b2c63c5dc175780f8f98691f1a76e0e87f0b0e4e90eec137ff94970fd12e | quote: After this trial period, the virtual device is automatically shut down and must be restarted by the user.
+  - [4] 2026-11-03: a REST API exists | capture: sha256:d3ceb5f939710bbb209f55126e1d40c6a947691a1444acd8e156a3f390328fd1 | quote: This example shell script demonstrates how to use the Corellium REST API to:
+  - [5] 2026-11-03: a CLI exists | capture: sha256:9104e669598da9e8eb19c6ad15a208b5af36c7f854cac67e43fa917e372da086 | quote: The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal.
+  - [6] 2026-11-03: SSH to a virtual device is documented | capture: sha256:11cae914dc469b4a44bbcc9d8b8282e3dbb85b0e187401a723f7bb5a85fead80 | quote: The Secure Shell protocol, or SSH, is a method of secure remote login from one computer to another.
+  - [5] 2026-11-04: the provider documents its own CLI, the AVH CLI | capture: sha256:9104e669598da9e8eb19c6ad15a208b5af36c7f854cac67e43fa917e372da086 | quote: The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal.
+- sources:
+  - [1] https://support.avh.corellium.com/getting-started/access
+  - [2] https://aws.amazon.com/marketplace/pp/prodview-3ert36ne4rlmq
+  - [3] https://www.arm.com/products/development-tools/simulation/virtual-hardware
+  - [4] https://support.avh.corellium.com/sdk/apis/rest/example-script
+  - [5] https://support.avh.corellium.com/sdk/cli/
+  - [6] https://support.avh.corellium.com/features/connect/ssh

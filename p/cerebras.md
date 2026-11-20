@@ -1,0 +1,171 @@
+# Cerebras Inference
+
+> cerebras.ai | Inference, Coding subscriptions, Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cerebras/ | JSON https://fshy.ajam.dev/api/v1/entity/cerebras.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cerebras
+
+- `inference/cerebras` | trial-only | evidence documented | binding retention-clamped | category inference endpoint, keyed free trial
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:54.945Z (live) | stale on 2026-11-28
+- url https://inference-docs.cerebras.ai/support/rate-limits
+- free tier: a Free Trial, not a free tier: USD 5 of credits granted after a verified payment method is added, expiring 30 days after they are granted. The page answers 'Is there a permanently free tier?' with 'No.' | unit: none | metered on: request-count | read on: 2026-10-22 | source: [1] | note: the trial's per-model limits are published: gpt-oss-120b and qwen-3.8-27b each at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD
+- per-object cap: not applicable
+- retention: the trial credits expire 30 days after they are granted | days: 30 | source: [1]
+- egress: metered: no
+- identity: card | detail: a verified payment method is required before the USD 5 of trial credits is granted; without a payment method the Playground and API access remain inactive
+- interface: rest
+- limits:
+  - request-rate: Free Trial, per organization and per model: gpt-oss-120b: 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD. qwen-3.8-27b: 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD, image limits 2 per request and 10 MiB total request payload. Any metric can trigger rate limiting, whichever comes… [1]
+  - retention-clamped (binding): the USD 5 of trial credits expire 30 days after they are granted, and API access stops when they run out or expire [1]
+- limits note: the Developer (Pay as You Go) tier removes the hourly and daily token caps and raises the per-model rates: gpt-oss-120b 1M uncached TPM, 3M total TPM and 1K RPM; qwen-3.8-27b 150K uncached TPM, 750K total TPM and 300 RPM; that tier is pay-as-you-go and not free
+- binding note: the 30-day credit expiry binds before any rate does: the whole allowance is USD 5 that disappears, so there is no recurring quota to design against
+- interface detail: an OpenAI-compatible chat completions endpoint at https://api.cerebras.ai/v1
+- endpoint: https://api.cerebras.ai/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with an agent only inside a 30-day trial and only after a card; the scarce link is the verified payment method, which turns a free offer into a payment relationship
+- reliability: an unauthenticated call returns 401 with 'Wrong API Key' and a 99-byte body, so an unauthenticated probe cannot distinguish a live endpoint from an expired one
+- notes: The vendor's own page says there is no permanently free tier: the offer is USD 5 of credits that expire in 30 days and require a verified payment method. The identity cost is therefore card, not email, and the verdict is trial-only.
+- evidence note: the trial's terms, its expiry, its per-model rates and the vendor's explicit 'No' to a permanently free tier are all quoted from the rate-limits page read 2026-10-22 at 200 with 393345 bytes. The 401 gate was also re-probed at 2026-10-22T04:42:43Z.
+- evidence:
+  - [1] 2026-10-22: 'New accounts receive $5 in free credits after adding a verified payment method. These credits expire 30 days after they're granted'; 'Is there a permanently free tier? No. The Free Trial is time- and credit-bounded'; and the Free Trial table giving gpt-oss-120b 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD
+  - probe:https://api.cerebras.ai/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 99-byte body, {"message":"Wrong API Key","type":"invalid_request_error","param":"api_key"}. The endpoint exists and gates on a key; no key existed here
+  - [1] 2026-10-28: the Free Trial table lists qwen-3.8-27b at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH and 1M TPD (gpt-oss-120b has the same row) | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: | `qwen-3.8-27b`<sup>1</sup> | 5 | 30K | 90K | 1M | 1M |
+  - [1] 2026-10-28: the Developer (Pay as You Go) table lists qwen-3.8-27b at 150K uncached TPM, 750K total TPM and 300 RPM | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: | `qwen-3.8-27b`<sup>1</sup> | 150K | 750K<sup>2</sup> | 300 |
+  - [1] 2026-10-28: API access stays inactive until a payment method is added | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: If you skip adding a payment method at sign-up, Playground and API access remain inactive until you do.
+  - [1] 2026-10-28: the Free Trial is USD 5 of credits granted after a verified payment method is added and expiring 30 days after they are granted | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: New accounts receive \$5 in free credits after adding a verified payment method. These credits expire 30 days after they're granted and can be used across all public models.
+  - [1] 2026-10-28: the vendor answers 'Is there a permanently free tier?' with No: the trial is USD 5 of credits that expire 30 days after they are granted | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: No. The Free Trial is time- and credit-bounded: \$5 in credits that expire 30 days after they're granted.
+- sources:
+  - [1] https://inference-docs.cerebras.ai/support/rate-limits
+
+## Cerebras Code
+
+- `coding-subs/cerebras-code` | trial-only | evidence documented | binding volume-quota | category coding subscription
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T00:31:38.346Z (live) | stale on 2026-12-04
+- url https://www.cerebras.ai/code
+- free tier: No free Code plan and none under USD 20: Pro is USD 50 and Max USD 200, both marked 'sold out'. The page's 'Free Trial' is 'Limited Free Credits', the platform trial: a one-time USD 5 promotional credit after a valid payment method is added, expiring 30 days after activation | unit: credits | metered on: unstated | read on: 2026-10-30 | source: [1] | note: the trial credit is spent per token at the Free Trial rate limits; the Code plans meter tokens per day
+- per-object cap: not applicable
+- retention: not applicable
+- egress: not applicable | metered: no
+- identity: card | detail: a cloud.cerebras.ai account and a valid payment method for the trial credit: 'Add a valid payment method to receive a one-time $5 promotional credit'; Code Pro and Max are prepaid monthly subscriptions
+- interface: rest
+- limits:
+  - volume-quota (binding): Pro: up to 24 million tokens per day; Max: up to 120 million tokens per day [1]
+  - request-rate: Pro 50 requests and 1,000,000 tokens a minute, Max 120 requests and 1,500,000 tokens a minute; requests per second are 10% of requests per minute (FAQ as archived on 2026-04-22; the live FAQ URL answers 404) [2]
+  - volume-quota (binding): Free Trial: 5 requests a minute, 30K uncached tokens a minute, 1M tokens an hour and 1M tokens a day per model, on gpt-oss-120b and qwen-3.8-27b [3]
+- binding note: with Pro and Max sold out, the reachable route is the one-time trial at 1M tokens a day per model, which ends when the USD 5 credit is spent or 30 days pass
+- interface detail: an API key from cloud.cerebras.ai used from any editor or agent that accepts an OpenAI-compatible endpoint; the vendor names Cline, OpenCode and Crush. There is no Cerebras agent, so the headless mode is whichever agent calls the key
+- tooling: any OpenAI-compatible coding agent or SDK
+- composes with: a key for Cline, OpenCode, Crush or Aider; a support article names a referral count that raises an account's limits to the Code Pro equivalent and states no duration; the current referral terms instead grant 200,000 bonus tokens per day to referrer and referee, capped at 1,000,000 tokens total per user and at five successful referrals, so the two pages do not agree and neither says how long a grant lasts (unverified: behind a sign-up, the account's Limits view)
+- reliability: both Code plans are marked sold out; the archived FAQ states operation at near 100% utilisation with requests briefly queued at peak, and 429 errors from per-second limits during bursts
+- notes: Not a plan at a low price: the cheapest Code plan is Pro and both Pro and Max are sold out; whether either can be bought at all is unverified: behind a sign-up (the sold out buttons link to cloud.cerebras.ai). Model: cerebras.ai/code names GLM 4.7 for Pro, Max and the Free Trial on 2026-11-02, while the shared model catalog lists only gpt-oss-120b and qwen-3.8-27b, the docs state the Free Trial reaches every model of that catalog, and the docs deprecation list records zai-glm-4.7 as deprecated on 2026-08-17; no public page other than the product page names the model a Code key serves, and the key's own model list is unverified: behind a sign-up. The referral route: how long a Code Pro limit granted by referrals lasts is stated on no public page (unverified).
+- evidence note: prices, sold-out state, daily token allowances, trial terms and the referral threshold are quoted from first-party pages read on 2026-10-30; the per-minute plan limits come from an archived copy of a FAQ that now answers 404. Whether a sold-out plan can be bought at all is shown only after sign-in.
+- evidence:
+  - [1] 2026-10-30: Pro at USD 50 serves GLM 4.7 with up to 24 million tokens a day | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: GLM4.7 access with fast, high-context completions. Send up to 24million tokens per day, enough for 3–4 hours of uninterrupted vibe coding.
+  - [1] 2026-10-30: Max at USD 200 allows up to 120 million tokens a day | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: GLM4.7 access for heavy coding workflows. Send up to 120 million tokens/day.
+  - [1] 2026-10-30: the Pro and Max buttons both read sold out | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: [sold out](https://cloud.cerebras.ai/)
+  - [1] 2026-10-30: the page's Free Trial is a limited-credit trial, not a recurring plan | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: GLM 4.7 access with limited tokens and requests.
+  - [1] 2026-10-30: the plan is an API key for third-party agents | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: Works out of the box with Cline, OpenCode, Crush, and more.
+  - [4] 2026-10-30: the trial needs a payment method and grants USD 5 once, expiring after 30 days | capture: sha256:9b056a998c1133b7fb65988b1f582bef7259fc7b811161e5491b6fb608d9df4f | quote: Add a valid payment method to receive a one-time $5 promotional credit. The credit expires 30 days after activation.
+  - [3] 2026-10-30: Free Trial limits are 5 RPM, 30K uncached TPM, 1M tokens an hour and 1M a day per model | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: | `gpt-oss-120b` | 5 | 30K | 90K | 1M | 1M |
+  - [3] 2026-10-30: there is no recurring free allowance | capture: sha256:4c51b7a2f6c81ea5384b9480d6c61a803a5e4933a8168faf73a776c0f0444016 | quote: Cerebras doesn't currently offer a no-cost tier that renews automatically or a per-model always-free allowance.
+  - [5] 2026-10-30: the shared catalog, which the trial reaches, lists only gpt-oss-120b and qwen-3.8-27b; GLM 4.7 is absent from it | capture: sha256:5adfee6c59a8d6a946f90b49ee22e556ca86183a9b8694f1ce057eb78e8b3530 | quote: You can use models available with Cerebras Shared Inference on the Free Trial and Pay as You Go tiers
+  - [2] 2026-10-30: Code Pro allowed 50 requests and 1,000,000 tokens a minute and 24M tokens a day, as archived on 2026-04-22 | capture: sha256:a2005a9a60da333ab9f773ac48f3d8630c4f303f6584355d576007e29af613ea | quote: | 50 | 1,000,000 | 24M |
+  - [2] 2026-10-30: Code Max allowed 120 requests and 1,500,000 tokens a minute and 120M tokens a day, as archived on 2026-04-22 | capture: sha256:a2005a9a60da333ab9f773ac48f3d8630c4f303f6584355d576007e29af613ea | quote: | 120 | 1,500,000 | 120M |
+  - [2] 2026-10-30: the vendor reported queueing at peak load | capture: sha256:a2005a9a60da333ab9f773ac48f3d8630c4f303f6584355d576007e29af613ea | quote: We’re currently operating at near 100% utilization due to high demand.
+  - [6] 2026-10-30: the live Code FAQ URL answers 404, so the per-minute plan limits rest on the archived copy | capture: sha256:a24912df40e7f561a2df76ad098b2ee9578d20b55a23ffa9a207d8a0f6c20fbe | quote: The page you're looking for can't be found.
+  - [7] 2026-10-30: 11 referred sign-ups raise an account's limits to the Code Pro equivalent | capture: sha256:09fd94800b19fcc92a4a3867c6fb4d57af07a4e0ab033c51cc0e5c7cc17bc702 | quote: Once you refer 11 people, you will see your Limits updated to the equivalent of Cerebras Code Pro!
+  - [8] 2026-10-30: the plans launched on Qwen3-Coder at the same USD 50 and USD 200 prices; the model has since changed to GLM 4.7 | capture: sha256:fcce4ee08e4bcb2273228b48fc76d8ce25195163a9d60d4dc9b7708f5281e8ee | quote: Both plans give you access to Qwen3-Coder
+  - [9] 2026-10-30: a third party records both plans as sold out on 2026-10-14 and earlier | capture: sha256:f1d26b2a71b68d2a7c5f9ecf1187ba775eefba2153f8846c8a10a0de3f852ca4 | quote: as of 2026-10-14 both Pro and Max are still marked “sold out” on cerebras.ai/code
+  - [10] 2026-11-02: the referral terms cap total bonus accrual at 1,000,000 tokens per user | capture: sha256:cedf6cae25560542b7033db09cc21c2ce6d1601a6b1c064987259ed1cc00bda5 | quote: Bonus accrual is capped at 1,000,000 tokens total per user.
+  - [11] 2026-11-02: the docs deprecation list records zai-glm-4.7 as deprecated (entry dated 2026-08-17) | capture: sha256:c1d0f75c20202e5732dd382dd618c73688d1e43ca6d86f3f8bfb1bb413378d1f | quote: Deprecated `zai-glm-4.7`
+  - [11] 2026-11-02: the deprecation entry for zai-glm-4.7 is dated 2026-08-17 | capture: sha256:c1d0f75c20202e5732dd382dd618c73688d1e43ca6d86f3f8bfb1bb413378d1f | quote: 2026-08-17
+  - [5] 2026-11-02: the shared catalog page re-read on 2026-11-02 lists only gpt-oss-120b and qwen-3.8-27b | capture: sha256:aa2455c38b18cb1fa122e92645d8f157ec02d659c5b88274d161db16d684f259 | quote: You can use models available with Cerebras Shared Inference on the Free Trial and Pay as You Go tiers
+  - [3] 2026-11-02: the Free Trial reaches exactly the shared catalog models, not GLM 4.7 | capture: sha256:55f8b314e98729aae45465a7882247a77abc1dc1bda4406528096a852d4996bb | quote: Every model in the Shared Inference [Model Catalog](https://inference-docs.cerebras.ai/models/overview) is available on the Free Trial tier
+  - [10] 2026-11-02: the referral terms cap bonus-earning referrals at five | capture: sha256:cedf6cae25560542b7033db09cc21c2ce6d1601a6b1c064987259ed1cc00bda5 | quote: A user can earn referral bonuses for up to five successful referrals.
+  - [10] 2026-11-02: each referral grants 200,000 bonus tokens a day to both parties | capture: sha256:cedf6cae25560542b7033db09cc21c2ce6d1601a6b1c064987259ed1cc00bda5 | quote: Both referrer and referee receive 200,000 bonus tokens per day.
+  - [10] 2026-11-02: referral eligibility is limited to the United States, with an addendum for listed regions | capture: sha256:cedf6cae25560542b7033db09cc21c2ce6d1601a6b1c064987259ed1cc00bda5 | quote: The Program is available only to users with personal accounts in good standing located in the United States.
+  - [12] 2026-11-02: the international addendum lists the eligible regions outside the United States | capture: sha256:9e1eb1612972aea3f2c18ef950735c1fb7a22b4f8f39b12296da63fec5b984c4 | quote: which currently include India, the European Union, the United Kingdom, Canada, Australia, Singapore, and Japan.
+  - [3] 2026-11-02: the Free Trial credit needs a verified payment method | capture: sha256:55f8b314e98729aae45465a7882247a77abc1dc1bda4406528096a852d4996bb | quote: New accounts receive \$5 in free credits after adding a verified payment method.
+  - [1] 2026-11-02: Pro and Max both still read sold out on 2026-11-02 | capture: sha256:078d6600b51d891c88d9eb25d1a65b25c88da088c6aeba83e362cac9770df66d | quote: [sold out](https://cloud.cerebras.ai/)
+- sources:
+  - [1] https://www.cerebras.ai/code
+  - [2] https://web.archive.org/web/20260422081637/https://support.cerebras.net/articles/9996007307-cerebras-code-faq
+  - [3] https://inference-docs.cerebras.ai/support/rate-limits
+  - [4] https://www.cerebras.ai/pricing
+  - [5] https://inference-docs.cerebras.ai/models/overview
+  - [6] https://support.cerebras.net/articles/9996007307-cerebras-code-faq
+  - [7] https://support.cerebras.net/articles/9150857851-how-to-get-your-free-code-plan
+  - [8] https://www.cerebras.ai/blog/introducing-cerebras-code
+  - [9] https://tomrochette.com/agents/model-access/cerebras-code/
+  - [10] https://www.cerebras.ai/referral-program
+  - [11] https://inference-docs.cerebras.ai/support/deprecation
+  - [12] https://www.cerebras.ai/referral-program-addendum
+
+## Cerebras Inference
+
+- `compute/cerebras-inference` | trial-only | evidence documented | binding retention-clamped | category inference API
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:24:57.572Z (live) | stale on 2026-12-05
+- url https://inference-docs.cerebras.ai/support/rate-limits
+- free tier: No recurring free allowance. The FAQ reads: 'Is there a permanently free tier? No. The Free Trial is time- and credit-bounded: $5 in credits that expire 30 days after they are granted.' The Free Trial row that carries the eye-catching numbers (gpt-oss-120b and qwen-3.8-27b at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD) sits inside that 30-day, card-gated window, and the same page states 'New accounts receive $5 in free credits after adding a verified payment method.' The trap is that the per-model pages have not caught up: the gpt-oss-120b model page still prints 'Free tier rate limits: 30 requests/min, 60k input tokens/min, 1M tokens/day' as though a free tier existed. | unit: requests | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-credit
+- per-object cap: not applicable | source: [1]
+- retention: the 30-day credit expiry binds before any rate does: USD 5 at gpt-oss-120b paid output pricing of USD 0.75 per 1M tokens is about 6.7M output tokens in total, or about 3.8M at a 3:1 input-to-output mix, so the whole allowance is one medium batch and not a monthly budget. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: card: a payment method is mandatory before any access - 'If you skip adding a payment method at sign-up, Playground and API access remain inactive until you do' - and the USD 5 arrives only 'after adding a verified payment method'. The pricing footnote adds 'You will not be charged or automatically enrolled in paid usage', so no authorisation or hold amount is stated in the evidence. Whether debit or prepaid is accepted is not stated: unknown.
+- interface: rest
+- limits:
+  - retention-clamped (binding): the 30-day credit expiry binds before any rate does: USD 5 at gpt-oss-120b paid output pricing of USD 0.75 per 1M tokens is about 6.7M output tokens in total, or about 3.8M at a 3:1 input-to-output mix, so the whole allowance is one medium batch and not a monthly budget. [1]
+- limits note: the 30-day credit expiry binds before any rate does: USD 5 at gpt-oss-120b paid output pricing of USD 0.75 per 1M tokens is about 6.7M output tokens in total, or about 3.8M at a 3:1 input-to-output mix, so the whole allowance is one medium batch and not a monthly budget.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: nothing composes into a recurring job: the 1M-tokens-a-day ceiling is real for 30 days and then access pauses until credits are purchased.
+- reliability: no reliability event recorded
+- notes: Corrects the shape of a claim that circulates widely: '1M tokens a day free on Cerebras'. The number is a daily rate limit inside a card-gated 30-day trial, so the monthly figure is not 30M tokens. Arithmetic, labelled estimate: USD 5 / (USD 0.75 per 1M output) = 6.67M output tokens if the credit were spent on output alone; at a 3:1 input-to-output split, USD 5 buys about 3.8M tokens of mixed traffic. The contradiction between the FAQ and the model pages is the real finding for a future reader: a session that reads only the model page records a free tier that the FAQ denies in as many words. See also the SambaNova record in a10-repos, the same pattern of a stale sub-page describing a withdrawn free tier.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: trial-credit
+  - facets.shape.gpu_class: wafer-scale WSE
+- evidence:
+  - [1] 2026-10-22: FAQ answer 'Is there a permanently free tier? No. The Free Trial is time- and credit-bounded: $5 in credits that expire 30 days after they are granted', quoted
+  - [1] 2026-10-22: FAQ answer 'New accounts receive $5 in free credits after adding a verified payment method. These credits expire 30 days after they are granted', quoted; and 'If you skip adding a payment method at sign-up, Playground and API access remain inactive until you do'
+  - [1] 2026-10-22: Free Trial table: gpt-oss-120b and qwen-3.8-27b at 5 RPM, 30K uncached TPM, 90K total TPM, 1M TPH, 1M TPD, quoted
+  - [2] 2026-10-22: pricing page footnote '*** Add a valid payment method to receive a one-time $5 promotional credit. The credit expires 30 days after activation. You will not be charged or automatically enrolled in paid usage.', quoted
+  - [3] 2026-10-22: model page still prints 'Free tier rate limits: 30 requests/min, 60k input tokens/min, 1M tokens/day' alongside paid pricing of USD 0.35 input and USD 0.75 output per 1M tokens, which contradicts the FAQ's 'there is no permanently free tier'
+  - [4] 2026-11-03: the API is an HTTP REST endpoint at api.cerebras.ai | capture: sha256:61cc9ca6b41ec1817bbebe5784dec5ccf7b7671a73c8478edcf7375e404787e3 | quote: POST /v1/chat/completions
+- sources:
+  - [1] https://inference-docs.cerebras.ai/support/rate-limits
+  - [2] https://www.cerebras.ai/pricing
+  - [3] https://inference-docs.cerebras.ai/models/openai-oss
+  - [4] https://inference-docs.cerebras.ai/api-reference/chat-completions
+
+## Cerebras Inference Research
+
+- `compute/cerebras-inference-research` | fails-identity | evidence documented | binding write-gated | category inference API
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.cerebras.ai/blog/grantfrp
+- free tier: 'Selected Principal Investigators (PIs) may receive the following: Cerebras Inference service credits, equivalent to no more than $50,000 USD of inference credits' plus 'tutorials and hands-on sessions with Cerebras engineers and researchers'. The call is addressed to 'university faculty and researchers'. The amount is capped by the vendor and 'The final grant amount and details will be determined by Cerebras.' | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: grant-credits
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): a written proposal reviewed by Cerebras, with a principal investigator attached to a university, is the gate; the currency is inference tokens rather than machine time, so no node-hour figure exists to plan against. [1]
+- limits note: a written proposal reviewed by Cerebras, with a principal investigator attached to a university, is the gate; the currency is inference tokens rather than machine time, so no node-hour figure exists to plan against.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: It would compose with the free Cerebras inference tier already recorded, because both spend one account. It does not compose for an individual: the PI requirement is the wall, and the USD 50,000 is the largest single number among evaluated providers that a person without an affiliation cannot touch.
+- reliability: no reliability event recorded
+- notes: The rung is documented, and the number is deliberately recorded with its ceiling wording. What is unknown and left null: the application window, whether the RFP is still open, and the token-to-dollar rate used to denominate the award. A reader should treat this as a closed door with a big number behind it, not as capacity.
+- extras:
+  - facets.class: institution-grant
+  - facets.free_tier_kind: grant-credits
+  - facets.shape.gpu_class: Cerebras Wafer Scale Engine 3, inference only
+- evidence:
+  - [1] 2026-10-22: 'Cerebras Inference service credits, equivalent to no more than $50,000 USD of inference credits', quoted, in the Grant section
+  - [1] 2026-10-22: 'We invite university faculty and researchers to respond to this Request for Proposals (RFP)', quoted
+  - [1] 2026-10-22: 'The final grant amount and details will be determined by Cerebras', quoted, so the USD 50,000 is a ceiling and not an award
+- sources:
+  - [1] https://www.cerebras.ai/blog/grantfrp

@@ -1,0 +1,147 @@
+# 591meta.com
+
+> 591meta.com | Netdisk and pan; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/591meta/ | JSON https://fshy.ajam.dev/api/v1/entity/591meta.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## ppp.591meta.com
+
+- `netdisk-pan/ppp-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:12:08.143Z (live) | stale on 2026-12-11
+- url https://ppp.591meta.com/
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through no identified front; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: no write offered probe:https://ppp.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: Additional hostname on the 591meta infrastructure. Responded to API calls and returned the same 26 package entries.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: not-tested
+  - upstream_provider: unknown
+  - advertised_write_flag: no
+  - base_path: /
+  - listing_sha256: e715d3d0
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-11-19T03:42:32.679Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://ppp.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field
+  - probe:https://ppp.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://ppp.591meta.com/ 2026-11-11:  | capture: sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e | quote: "checked_at": "2026-11-11T00:20:12.298Z"
+  - probe:https://ppp.591meta.com/ 2026-11-11:  | capture: sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e | quote: "listing_sha256": "e715d3d0"
+  - probe:https://ppp.591meta.com/ 2026-11-11:  | capture: sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e
+  - probe:https://ppp.591meta.com/ 2026-11-11:  | capture: sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e
+  - probe:https://ppp.591meta.com/ 2026-11-11:  | capture: sha256:051d4f00098d88080a1cf2f03ebfebb75e7c8c230dcd602eb95ba0cea252769e | quote: "alive": true
+  - probe:https://ppp.591meta.com/ 2026-11-19: the liveness and mount-list probe checked this host at this instant | capture: sha256:79c9e8128cde5d5ed281009413f9b93038ab7b921de0980150f782752b480c05 | quote: "checked_at": "2026-11-19T03:42:32.679Z"
+  - probe:https://ppp.591meta.com/ 2026-11-19: the anonymous session, settings and mount list all answered, so the fresh alive timestamp stands | capture: sha256:79c9e8128cde5d5ed281009413f9b93038ab7b921de0980150f782752b480c05 | quote: "alive": true
+  - probe:https://ppp.591meta.com/ 2026-11-19: the host answered every request of the probe, so the failure count stayed at zero | capture: sha256:79c9e8128cde5d5ed281009413f9b93038ab7b921de0980150f782752b480c05
+  - probe:https://ppp.591meta.com/ 2026-11-19: five fresh probes of this host returned the recorded listing hash e715d3d0 on three runs and a different hash c4cccc22 on two runs within minutes, so the listing flaps while the recorded value still recurs | capture: sha256:79c9e8128cde5d5ed281009413f9b93038ab7b921de0980150f782752b480c05 | quote: "listing_sha256": "e715d3d0"
+- sources:
+  - [1] https://ppp.591meta.com/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源 (p 591meta com)
+
+- `netdisk-pan/p-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:12:07.052Z (live) | stale on 2026-12-11
+- url https://p.591meta.com/
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://p.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: One of five hostnames serving an identical 26-entry collection of iOS IPA packages. The file repository serves as an informational index for a commercial signing service.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: e715d3d0
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-11-19T03:34:19.997Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://p.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://p.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://p.591meta.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+  - probe:https://p.591meta.com/ 2026-11-11:  | capture: sha256:2f97f1ef9594bb1f075885ed5917ef720f19768665de9d0cd36046fad2dd9b95
+  - probe:https://p.591meta.com/ 2026-11-11:  | capture: sha256:2f97f1ef9594bb1f075885ed5917ef720f19768665de9d0cd36046fad2dd9b95
+  - probe:https://p.591meta.com/ 2026-11-11:  | capture: sha256:2f97f1ef9594bb1f075885ed5917ef720f19768665de9d0cd36046fad2dd9b95 | quote: "alive": true
+  - probe:https://p.591meta.com/ 2026-11-11:  | capture: sha256:2f97f1ef9594bb1f075885ed5917ef720f19768665de9d0cd36046fad2dd9b95 | quote: "checked_at": "2026-11-11T00:20:04.905Z"
+  - probe:https://p.591meta.com/ 2026-11-11:  | capture: sha256:2f97f1ef9594bb1f075885ed5917ef720f19768665de9d0cd36046fad2dd9b95 | quote: "listing_sha256": "e715d3d0"
+  - probe:https://p.591meta.com/ 2026-11-19:  | capture: sha256:066086389b0c8e37c33c99193675dc5873c358f661995d2b332e216d8ba8df6e | quote: "checked_at": "2026-11-19T03:34:19.997Z"
+  - probe:https://p.591meta.com/ 2026-11-19: the host answered and its listing hash stayed e715d3d0 with no failures | capture: sha256:066086389b0c8e37c33c99193675dc5873c358f661995d2b332e216d8ba8df6e | quote: "checked_at": "2026-11-19T03:34:19.997Z"..."listing_sha256": "e715d3d0"..."consecutive_failures": 0
+- sources:
+  - [1] https://p.591meta.com/
+
+## 小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源 (pp 591meta com)
+
+- `netdisk-pan/pp-591meta-com` | qualifies-with-caveat | evidence measured | binding per-ip-shaping | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:12:07.762Z (live) | stale on 2026-12-11
+- url https://pp.591meta.com/
+- free tier: anonymous guest read of 26 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - per-ip-shaping (binding): no published rate; one operator and a CDN front absorb the read [1]
+  - write-gated: PUT denied at the guest role probe:https://pp.591meta.com/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier
+- reliability: The two fresh probes returned different root listing hashes minutes apart, so the listing is flapping; one of the two reproduced the recorded hash.
+- notes: anonymous POST /api/fs/list on / returned code 200 with 26 root entries (listing sha256 e715d3d0)
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: c4cccc22
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-11-19T03:38:21.894Z
+  - consecutive_failures: 0
+- evidence:
+  - probe:https://pp.591meta.com/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源'
+  - probe:https://pp.591meta.com/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 26 root entries; write:false, write_content_bypass:None, provider:unknown
+  - probe:https://pp.591meta.com/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+  - probe:https://pp.591meta.com/ 2026-11-11: the fs/list response carries this error text | capture: sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c | quote: "list_failure": "HTTP 520 on /api/fs/list with an empty body"
+  - probe:https://pp.591meta.com/ 2026-11-11: this run's probe found no listing, so the count is one | capture: sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c | quote: "consecutive_failures": 1
+  - probe:https://pp.591meta.com/ 2026-11-11: the settings endpoint answered HTTP 200 while the listing did not | capture: sha256:85ed884099694bc3ad2884d34eec411ca5a994304fd1eacc0053329670082e8c | quote: "status": 200
+  - probe:https://pp.591meta.com/ 2026-11-11:  | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075 | quote: "checked_at": "2026-11-11T01:56:23.251Z"
+  - probe:https://pp.591meta.com/ 2026-11-11:  | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075 | quote: "listing_sha256": "e715d3d0"
+  - probe:https://pp.591meta.com/ 2026-11-11:  | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075
+  - probe:https://pp.591meta.com/ 2026-11-11:  | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075 | quote: "alive": true
+  - probe:https://pp.591meta.com/ 2026-11-11: the root listing answered with this entry count and hash | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075 | quote: "listing_note": "anonymous POST /api/fs/list on / returned code 200 with 26 root entries (listing sha256 e715d3d0)"
+  - probe:https://pp.591meta.com/ 2026-11-11:  | capture: sha256:618f3aa3f5ea243cdcd580cc40e5c11df03412d1cb3d44d31e482d061adb8075
+  - probe:https://pp.591meta.com 2026-11-19: the probe's checked_at instant is the fresh last-alive verification time | capture: sha256:2291c195349eb493b3a36b2a49ae8f2e9b516ccdc52c77d15edba5f652da258d | quote: "checked_at": "2026-11-19T03:38:21.894Z"
+  - probe:https://pp.591meta.com 2026-11-19: the anonymous guest session answered and the root listing returned entries | capture: sha256:2291c195349eb493b3a36b2a49ae8f2e9b516ccdc52c77d15edba5f652da258d | quote: "alive": true
+  - probe:https://pp.591meta.com 2026-11-19: the /api/public/settings request answered HTTP 200 | capture: sha256:2291c195349eb493b3a36b2a49ae8f2e9b516ccdc52c77d15edba5f652da258d | quote: "status": 200
+  - probe:https://pp.591meta.com 2026-11-19: a fresh anonymous root listing produced this hash | capture: sha256:2291c195349eb493b3a36b2a49ae8f2e9b516ccdc52c77d15edba5f652da258d | quote: "listing_sha256": "c4cccc22"
+  - probe:https://pp.591meta.com 2026-11-19: the fresh root listing hash supports the changed-hash or flapping note | capture: sha256:2291c195349eb493b3a36b2a49ae8f2e9b516ccdc52c77d15edba5f652da258d | quote: "listing_sha256": "c4cccc22"
+  - probe:https://pp.591meta.com 2026-11-19: the second fresh probe produced a different hash, so the runs disagree | capture: sha256:14deceb89ca535c7016a15aac44298b2317d1bc713ca3922505184322ffe1e82 | quote: "listing_sha256": "e715d3d0"
+- sources:
+  - [1] https://pp.591meta.com/

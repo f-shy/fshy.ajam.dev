@@ -1,0 +1,93 @@
+# Eweka
+
+> eweka.nl | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/eweka/ | JSON https://fshy.ajam.dev/api/v1/entity/eweka.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Eweka
+
+- `debrid/eweka` | paid-only | evidence documented | binding none | category usenet provider (NNTP access, unlimited data, NL) | tier 15 months
+- needs card yes, phone no, ID no, institution no | verified 2026-10-30T13:11:55.968Z (live) | stale on 2026-11-30
+- url https://www.eweka.nl/en/checkout
+- free tier: None. Three paid terms; the 30-day money-back guarantee is the only risk-free route. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: a retrieval service, not stored bytes | source: [1]
+- retention: '6639+ Days Binary Retention' on every plan | days: 6639 | source: [1]
+- egress: 'Unlimited Data', 'Unlimited Speed', '50 Connections', 'No Speed Throttling' on every term. The VPN add-on is EUR 4.99 and is included free on the 15-month term. | metered: no | free allowance: unlimited on every term | source: [1]
+- identity: card | detail: Email, password and country at checkout; card payment. No phone or identity document.
+- interface: unknown
+- limits:
+  - request-rate: 50 connections on every term [1]
+  - retention-clamped: an article past retention, or listed by an indexer but never present, answers 423 or 430 [2]
+  - request-rate: the plan's connection count is the ceiling; exceeding it is refused at connect time [3]
+  - request-rate: 50 connections [4]
+  - retention-clamped: 6639+ days of article retention [4]
+- limits note: No byte cap on any term. The one number that varies is the connection count, and it does not vary here.
+- binding note: Unlimited data and 50 connections with no speed throttle means nothing in the vocabulary fires at 1 TiB/month; 1 TiB of monthly transfer needs about 3.2 Mbit/s sustained, well inside 50 connections.
+- interface detail: Access is NNTP over TLS. The schema's interface enum has no nntp token, so this is recorded as unknown; the real interface is the standard usenet protocol.
+- tooling: Every usenet client (SABnzbd, NZBGet); 'Free Newsreader with Search' is included on the account.
+- composes with: The 15-month term at EUR 6.99/month is the cheapest uncapped usenet feed found among debrid providers at EUR 104.85 for the whole term, and it carries a free VPN, which is the egress half of the same stack.
+- reliability: No incident found in the pages read. The 52%-off banner has run unchanged since at least 2023-09, which makes it a permanent price rather than an expiring promotion.
+- notes: The largest published promo-versus-list gap in the set: EUR 14.49/month struck through against EUR 6.99 charged, 52%. Two things make it less alarming than the number suggests. The discount has run unchanged for 37 months, so the list price is never observed to be charged; and the 12-month term at EUR 9.00 sets the realistic renewal floor, which is 28.8% above the 15-month rate. A client who renews at the 15-month rate pays nothing extra; one who falls to the 12-month rate pays 28.8% more. Potential failure points: retention, an indexer listing that outlives the article, or a group subscription problem. All three are named by the vendor. It is documented as an observation about the documentation, not about the spool. The 15-month offer at EUR 6.99/mo is the lowest per-month figure the vendor itself publishes, at EUR 104.85 for the term.
+- evidence note: Four dated reads, three archived, quoting the same three terms. A paid term would raise it to measured.
+- extras:
+  - price_history[0].date: 2023-09-21
+  - price_history[0].price: EUR 6.99 / month (15 months, list EUR 14.49)
+  - price_history[0].plan: 15 Months
+  - price_history[0].source_url: https://web.archive.org/web/20230921130919/https://www.eweka.nl/en/checkout
+  - price_history[1].date: 2023-09-21
+  - price_history[1].price: EUR 9.00 / month
+  - price_history[1].plan: 12 Months
+  - price_history[1].source_url: https://web.archive.org/web/20230921130919/https://www.eweka.nl/en/checkout
+  - price_history[2].date: 2024-10-13
+  - price_history[2].price: EUR 6.99 / month (list EUR 217.35 total)
+  - price_history[2].plan: 15 Months
+  - price_history[2].source_url: https://web.archive.org/web/20241013032533/https://www.eweka.nl/en/checkout
+  - price_history[2].change_pct: 0.0
+  - price_history[3].date: 2025-10-02
+  - price_history[3].price: EUR 6.99 / month (15 months, list EUR 14.49)
+  - price_history[3].plan: 15 Months
+  - price_history[3].source_url: https://web.archive.org/web/20251002203333/https://www.eweka.nl/en/checkout
+  - price_history[3].change_pct: 0.0
+  - price_history[4].date: 2026-10-23
+  - price_history[4].price: EUR 6.99 / month (15 months, list EUR 14.49)
+  - price_history[4].plan: 15 Months
+  - price_history[4].source_url: https://www.eweka.nl/en/checkout
+  - price_history[4].change_pct: 0.0
+  - price_history[5].date: 2026-10-23
+  - price_history[5].price: EUR 9.50 / month
+  - price_history[5].plan: 1 Month
+  - price_history[5].source_url: https://www.eweka.nl/en/checkout
+  - price_history[5].change_pct: 0.0
+  - change_36m: 0.0% on every term, 2023-09-21 to 2026-10-23
+  - promo_gap: charged EUR 6.99 against a published list of EUR 14.49: the list is 107.3% higher than the charge; the 12-month term is 28.8% higher
+  - renewal_price: not published; the page shows a struck list and a charged price, and the 12-month term is the nearest published non-promotional rate
+  - currency: EUR
+  - usenet: yes
+  - term_value: EUR 104.85 for 15 months
+  - failure_angle: missing article
+  - strongest_signal: 430 No Such Article
+  - account_states: article-level states only on the page read
+  - cache_miss: not applicable
+  - host_removal: not applicable
+  - backbone: Omicron (Highwinds Media), AS34343
+- evidence:
+  - [1] 2026-10-23: 1 Month EUR 9,50/mo, 12 Months EUR 9,00/mo, 15 Months 'EUR 14,49/mo' struck through and 'EUR 6,99/mo' charged with 'Save 52%', 6639+ days retention, 50 connections, unlimited data
+  - [5] 2023-09-21: the identical three terms and the identical strike-through, three years earlier
+  - [6] 2024-10-13: the same deal restated as an aggregate: 'EUR217,35' struck through, 'Now EUR6,99', '52% OFF' - 15 x 14.49
+  - [7] 2025-10-02: the same three terms, unchanged
+  - [2] 2026-10-23: Three stated causes: article older than retention; 'If your NZB was generated by a Usenet Indexer, and that Indexer listed an article that has already expired or never existed'; 'If your newsreader isn't set to subscribe to the newsgroup where the article resides'. Also 'Eweka adds one day of article retention every day'.
+  - [8] 2026-10-23: 
+  - [4] 2026-10-23: EUR 9.50 1 month, EUR 9.00 12 months, EUR 6.99 15-month offer; 6639+ days; 50 connections; unlimited access and speed
+  - [9] 2026-10-23: Eweka AMS on Highwinds, AS34343, article numbering 'August 2008 - present', NTD law on the Dutch farm; Newshosting AMS listed as a virtual version of the Eweka spool
+  - [8] 2026-10-30: a third-party blog post dated June 17, 2026 groups Eweka with Tweaknews, Usenet.Farm and ViperNews as the Dutch independent backbones on the European notice regime (NTD) | capture: sha256:47b22dd46960130f05ba3acb7eeaac73d7ad6dfdc6b21cc75164522c8b7bf59a | quote: the Dutch independents — Eweka, Tweaknews, Usenet.Farm, and ViperNews — all carry NTD notices.
+  - [8] 2026-10-30: the same post places Eweka and Newshosting's US servers in one corporate group, Highwinds/Omicron, with Eweka on the Dutch notice regime and the US servers on the US one, and calls the labels inference from server location and a community map | capture: sha256:47b22dd46960130f05ba3acb7eeaac73d7ad6dfdc6b21cc75164522c8b7bf59a
+- sources:
+  - [1] https://www.eweka.nl/en/checkout
+  - [2] https://help.eweka.nl/kb/article/1208-error-423-or-430-no-such-article/
+  - [3] https://notes.debridmediamanager.com/providers/usenet/
+  - [4] https://www.eweka.nl/en/pricing
+  - [5] https://web.archive.org/web/20230921130919/https://www.eweka.nl/en/checkout
+  - [6] https://web.archive.org/web/20241013032533/https://www.eweka.nl/en/checkout
+  - [7] https://web.archive.org/web/20251002203333/https://www.eweka.nl/en/checkout
+  - [8] https://nzb.is/blog/dmca-vs-ntd-usenet-completion/
+  - [9] https://www.reddit.com/r/usenet/wiki/providers

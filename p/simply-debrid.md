@@ -1,0 +1,92 @@
+# Simply-Debrid
+
+> simply-debrid.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/simply-debrid/ | JSON https://fshy.ajam.dev/api/v1/entity/simply-debrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Simply-Debrid
+
+- `debrid/simply-debrid` | qualifies-with-caveat | evidence documented | binding pull-count | category multi-hoster (premium link generator) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T01:39:03.000Z (live) | stale on 2026-11-23
+- url https://simply-debrid.com/faq
+- price EUR 3.00/month (annual, USD 3.37 at 0.8915 EUR/USD on 2026-10-23) | parsed USD 3.36/mo
+- free tier: You can generate download links for up to three different source links per day on sites marked Free. The allowance is shared by devices using the same public IP address. The free allowance resets at midnight UTC each day. | unit: requests | metered on: request-count | read on: 2026-10-23 | source: [1] | note: Premium-only sites are excluded from the free allowance entirely, so the effective host coverage on the free tier is whatever the supported-sites page marks Free.
+- per-object cap: not applicable: a URL is unlocked, nothing is stored. The FAQ says 'Supported file sizes depend on the source site, file type and processing required. Very large files or lengthy conversions may fail or take longer to prepare.' | source: [1] | note: No numeric object cap is published.
+- retention: Generated links are temporary. (FAQ: 'Generated links are temporary. Try generating a fresh link and check that the original content is still available') | source: [1] | note: No link lifetime is published in hours.
+- egress: Download is served direct from the source site after the link is generated. The plan page promises 'Unlimited link generation' on Premium; no byte allowance is published on either tier. | metered: no | free allowance: 3 links/day on Free-marked sites, per public IP | source: [2]
+- identity: email | detail: Free generation needs no account. Premium is a Stripe checkout (card, giropay, EPS, P24); the account itself needs only an email and password.
+- interface: rest
+- limits:
+  - pull-count (binding): 3 source links per day on Free-marked sites [1]
+  - per-ip-shaping: the daily allowance is shared by every device behind the same public IP address [1]
+  - retention-clamped: generated links are temporary and there is no published lifetime [1]
+  - request-rate: 3 links per day without a paid plan [3]
+  - pull-count (binding): three source links a day on sites marked Free [1]
+  - retention-clamped: generated links are temporary and no lifetime is published [1]
+- limits note: The supported-sites page runs past 1,000 entries and mixes cloud drives, social video and file hosts; the free/Premium split is per-site and was not enumerated.
+- binding note: 3 links a day is 90 a month, so 1 TiB would need an 11.4 GiB average per link, and the per-public-IP sharing means a second device or a household NAT spends the same allowance.
+- interface detail: Web generator plus direct HTTP links that can be pasted into any download manager. No public API is documented on the pages read.
+- tooling: Any HTTP download manager (JDownloader, aria2, curl) once a direct link is generated. No rclone backend and no CLI.
+- composes with: Cheapest per-month route among debrid providers at EUR 3.00/month on the annual plan, but its 3-links-per-day free tier and per-IP sharing make it a fallback rather than a first choice next to a host-specific path.
+- reliability: Free links expire quickly and Premium-only sites return nothing on the free tier; the allowance is tied to the public IP, so a VPN or a shared connection consumes it.
+- notes: Sub-USD-5 on the annual and quarterly terms, above it monthly (EUR 4.99 = USD 5.60). The site is a multi-site downloader as much as a multi-hoster: much of its 1,000-entry list is social and cloud sources that need no premium account, which inflates the host count a reader might take at face value. A 2026 rebuild: three auto-renewing plans where the site previously sold nothing it published. The annual at EUR 35.99 (EUR 3.00/month) is the cheapest per-month paid debrid in the set, and the free 3-link day survived the rebuild, which is the opposite of what AllDebrid did in the same window. Grouped as local-voucher, not as card-only, because a Neosurf cash code is a real cardless route; the verdict still carries a caveat because Neosurf availability is a country question did not resolve, and the local Stripe methods (giropay, EPS, P24) are bank-funded and therefore do not help an account without a bank. Rule used: identity_cost.kind describes the vendor's own gate, verdict describes the reachable route including a reseller or a cash code. The ladder's identity column ('email') is the right conservative reading and its 150 GB row is unaffected. The reset sentence, by contrast, is a genuine find and is the model the other steps lack.
+- evidence note: The free allowance and the price ladder are both quoted from the vendor's own pages. The per-site Free/Premium split and the absence of a byte cap are unverified.
+- extras:
+  - prices.monthly_eur: 4.99
+  - prices.quarterly_per_month_eur: 4.0
+  - prices.annual_per_month_eur: 3.0
+  - prices.annual_total_eur: 35.99
+  - free_links_per_day: 3
+  - free_reset: midnight UTC
+  - price_history[0].date: 2026-10-23
+  - price_history[0].price: EUR 4.99 / month
+  - price_history[0].plan: Monthly (auto-renew)
+  - price_history[0].source_url: https://simply-debrid.com/plan
+  - price_history[1].date: 2026-10-23
+  - price_history[1].price: EUR 11.99 / 3 months (EUR 4.00/month)
+  - price_history[1].plan: Quarterly (auto-renew)
+  - price_history[1].source_url: https://simply-debrid.com/plan
+  - price_history[2].date: 2026-10-23
+  - price_history[2].price: EUR 35.99 / year (EUR 3.00/month)
+  - price_history[2].plan: Annual (auto-renew)
+  - price_history[2].source_url: https://simply-debrid.com/plan
+  - price_history[3].date: 2026-10-23
+  - price_history[3].price: EUR 0 (3 links / day)
+  - price_history[3].plan: Free
+  - price_history[3].source_url: https://simply-debrid.com/
+  - price_history_status: unread
+  - price_history_note: Pricing page first captured 2026-02-10; earlier home pages carry no price.
+  - change_36m: unknown
+  - currency: EUR
+  - usenet: no
+  - payment_group: local-voucher
+  - payment.card: yes
+  - payment.paypal: no
+  - payment.local_rails: giropay; EPS; P24; Neosurf voucher
+  - payment.voucher: yes
+  - payment.voucher_detail: Neosurf code redeemed for premium time; resellers exist per search index but were not read
+  - payment.entry_price: EUR 2.5 / 15 days (unverified: a second-hand figure)
+  - reset_sentence: yes
+  - counter_scope: public IP
+  - links_per_month: 90
+- evidence:
+  - [1] 2026-10-23: 'up to three different source links per day on sites marked Free', 'shared by devices using the same public IP address', 'The free allowance resets at midnight UTC each day', 'Generated links are temporary'
+  - [2] 2026-10-23: Monthly EUR 4.99, quarterly EUR 4.00/month (EUR 11.99 per 3 months), annual EUR 3.00/month (EUR 35.99 per year), each 'Unlimited link generation' and 'All supported hosts'
+  - [4] 2026-10-23: the supported list is long and includes 1fichier, issuu, SlideServe, AcFun and social video sites, i.e. it is a multi-site downloader and not only a file-host multi-hoster
+  - [2] 2026-10-23: Monthly EUR 4.99, Quarterly EUR 11.99 billed as EUR 4.00/month, Annual EUR 35.99 billed as EUR 3.00/month, all 'Auto-renews'
+  - [3] 2026-10-23: '0/3 links used today' and '1,348+ sites supported'
+  - [5] 2024-10-10: the 2024 home page carried a host list and no price at all, so the 2024 price cannot be recovered from this route
+  - [6] 2026-10-23: the first capture of the pricing page is 2026-02-10, so no 12/24/36-month price history exists for it
+  - [1] 2026-10-23: 'Payments are processed by Stripe. Available cards, wallets and local payment methods are shown at checkout and depend on your country and whether you choose a subscription or a one-time purchase.'
+  - [2] 2026-10-23: the checkout strip 'Secure payment / Powered by Stripe / Accepted payment methods: giropay, EPS, P24' and 'Cancel anytime'
+  - [7] 2026-10-23: from the search index of the vendor's own terms page: 'Payments are processed securely through Stripe - Neosurf vouchers can be redeemed for premium time'.
+  - [1] 2026-10-23: 'up to three different source links per day on sites marked Free', 'shared by devices using the same public IP address', and 'The free allowance resets at midnight UTC each day. Unused links do not carry over to the next day.'
+  - [3] 2026-10-23: the home page carries 'Login' and 'Register' links and marks hosts 'Free'; no sentence states that the free generator works without an account
+- sources:
+  - [1] https://simply-debrid.com/faq
+  - [2] https://simply-debrid.com/plan
+  - [3] https://simply-debrid.com/
+  - [4] https://simply-debrid.com/supported-sites
+  - [5] https://web.archive.org/web/20241010003317/https://simply-debrid.com/
+  - [6] https://web.archive.org/cdx/search/cdx?url=simply-debrid.com/plan&output=json&fl=timestamp&filter=statuscode:200&limit=5
+  - [7] https://simply-debrid.com/en/terms

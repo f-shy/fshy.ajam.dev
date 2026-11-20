@@ -1,0 +1,2107 @@
+# fshy: Storage, dead, part 1 of 2
+
+> Where bytes can live: object storage, drives, registries, academic repositories, hosts used as storage.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/storage/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## 'email as filesystem' projects (imapfs, imapfs, gmailfs, gitmail)
+
+- `storage/email-as-filesystem-projects` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.062Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/github-waweber.md
+- free tier: none reachable: All real, all abandoned or trivial, none production-grade. waweber/imapfs (7 stars, last push 2024-03) documents the fatal economics itself: base64 means "a 33% overhead (only 75% of server | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the imapfs first-party page states no per-object size cap | note: not applicable
+- retention: stated-absent: the imapfs first-party page states no retention period for stored files
+- egress: stated-absent: the imapfs first-party page states no egress terms for stored files | metered: no
+- identity: email
+- interface: unknown
+- interface detail: stated-absent: imapfs is a FUSE filesystem over IMAP provided as software the user installs and runs; no hosted storage interface is stated
+- tooling: not documented
+- composes with: stated-absent: imapfs is self-installed software that stores files in an IMAP inbox and states no chaining into a hosted byte-storage service
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: All real, all abandoned or trivial, none production-grade. waweber/imapfs (7 stars, last push 2024-03) documents the fatal economics itself: base64 means "a 33% overhead (only 75% of server
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: All real, all abandoned or trivial, none production-grade. waweber/imapfs (7 stars, last push 2024-03) documents the fatal economics itself: base64 means "a 33% overhead only 75% of server
+  - [1] 2026-11-19: imapfs documents a base64 overhead of 33 percent on 2026-11-19 | capture: sha256:fbabe8817fb85abe520b4724c29fb4f0410a4692db0511e2169f3134eef62771 | quote: This results in a 33% overhead (only 75% of server storage space is available).
+  - [1] 2026-11-19: imapfs is a FUSE filesystem backed by an IMAP mail server, not a hosted byte-store interface | capture: sha256:fbabe8817fb85abe520b4724c29fb4f0410a4692db0511e2169f3134eef62771 | quote: This program provides a FUSE filesystem that stores files as email messages on the
+  - [1] 2026-11-19: the project turns an IMAP inbox into storage via software the user runs | capture: sha256:fbabe8817fb85abe520b4724c29fb4f0410a4692db0511e2169f3134eef62771 | quote: IMAPFS turns an inbox on your IMAP-enabled mail server into cloud storage.
+  - [1] 2026-11-19: the page documents encoding overhead but states no per-object cap | capture: sha256:fbabe8817fb85abe520b4724c29fb4f0410a4692db0511e2169f3134eef62771 | quote: This results in a 33% overhead (only 75% of server storage space
+  - [1] 2026-11-19: the project is a single-client self-run filesystem, not a hosted chaining endpoint | capture: sha256:fbabe8817fb85abe520b4724c29fb4f0410a4692db0511e2169f3134eef62771 | quote: This filesystem must only be mounted by one client at a time.
+- sources:
+  - [1] https://github.com/waweber/imapfs
+
+## alist.xiaoya.pro — 小雅 (xiaoya) public instance, the most famous chinese-pan
+
+- `storage/alist-xiaoya-pro-public-instance-the-most-famous-chinese` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:46.271Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/alist-xiaoya-pro.md
+- free tier: none reachable: DEAD. The canonical xiaoya host returns HTTP 302 from nginx and then a Cloudflare 504 on every path, including /api/public/settings. Xiaoya is the single largest AList deployment in China… | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the first-party host redirects to a consumer portal and states no per-object cap | note: not applicable
+- retention: stated-absent: the first-party host redirects to a consumer portal and states no retention period
+- egress: stated-absent: the first-party host redirects to a consumer portal and states no egress terms | metered: no
+- identity: email
+- interface: unknown
+- interface detail: stated-absent: the first-party host redirects with HTTP 302 to a consumer portal and exposes no storage API interface
+- tooling: not documented
+- composes with: stated-absent: the first-party host redirects to a consumer portal and states no way to chain byte storage with other services
+- reliability: Dead: the canonical AList host still redirects to an unrelated third-party site, so no public AList instance is served. A probe today followed the redirect off-host; the /api/public/settings path redirects the same way.
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: DEAD. The canonical xiaoya host returns HTTP 302 from nginx and then a Cloudflare 504 on every path, including /api/public/settings. Xiaoya is the single largest AList deployment in China…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - withheld 2026-10-21: DEAD. The canonical xiaoya host returns HTTP 302 from nginx and then a Cloudflare 504 on every path, including /api/public/settings. Xiaoya is the single largest AList deployment in China m
+  - probe:https://alist.xiaoya.pro/ 2026-11-19: a probe of the canonical host still returns a page that redirects away from the AList instance | capture: sha256:5b7c03d3069790fa79b98ee57c800949570d61d51998c7564794954e22ca84c1 | quote: "status": 200
+  - probe:https://alist.xiaoya.pro 2026-11-19: the host redirects to a consumer portal rather than serving a storage API, so no interface is exposed | capture: sha256:4a599e56cdc80cfa4e9fb3f54dad482b8cdb262316cbbfc3640a8f807a6e8704 | quote: "final_url": "https://bmh.163.com"
+
+## amazon sqs
+
+- `storage/amazon-sqs` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:54.754Z (live) | stale on 2026-12-04
+- url https://aws.amazon.com/sqs/pricing/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: None reachable: the first-party pricing page still offers 1 million requests per month free and a 1 MiB maximum message payload, but it is a message buffer rather than storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: The maximum message size is 1,048,576 bytes (1 MiB). | bytes: 1048576 | source: [1] | note: not applicable
+- retention: A message is retained for 4 days by default; the minimum is 60 seconds and the maximum is 1,209,600 seconds (14 days). | source: [1]
+- egress: Same-region send and receive data transfer is free; cross-region and internet transfer incurs standard AWS data-transfer charges. | metered: no
+- identity: email
+- interface: rest
+- interface detail: Queues are driven by API actions such as sending and receiving messages.
+- tooling: not documented
+- composes with: Buffers messages between producers and consumers; large payloads can be offloaded to Amazon S3 via the Extended Client Library, but SQS holds messages only briefly and is a buffer, not storage.
+- reliability: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage. Anything written is gone in two weeks. Free-tier request.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+  - [2] 2026-10-21: cited as the basis of the rejection: 1M requests/month free and 1 MiB max message sound workable, but max retention is 14 days (default 4). It is a buffer, not storage — anything written is gone in two weeks. Free-tier request
+  - [1] 2026-11-19: the first-party pricing page still states the 1 million free requests per month | capture: sha256:1090680391fa1722e028a213806ccbfa45764c753dff728fe7678b35dc51c99c | quote: All customers can make 1 million Amazon SQS requests for free each month.
+  - [2] 2026-11-19: the first-party developer guide still states the 4-day default and 14-day maximum retention | capture: sha256:d9a55b445a64d7c40ac46d15adeb32d9a76a77ae691d2a15a64665a8a499067d | quote: By default, a message is retained for 4 days. The minimum is 60 seconds (1 minute). The maximum is 1,209,600 seconds (14 days).
+  - [1] 2026-11-19: SQS is driven by API actions/requests | capture: sha256:1090680391fa1722e028a213806ccbfa45764c753dff728fe7678b35dc51c99c | quote: Every Amazon SQS action counts as a request.
+  - [2] 2026-11-19: the maximum SQS message size is 1,048,576 bytes (1 MiB) | capture: sha256:d9a55b445a64d7c40ac46d15adeb32d9a76a77ae691d2a15a64665a8a499067d | quote: The minimum message size is 1 byte (1 character). The maximum is 1,048,576 bytes (1 MiB).
+  - [1] 2026-11-19: same-region SQS data transfer is free; cross-region and internet transfer is charged | capture: sha256:1090680391fa1722e028a213806ccbfa45764c753dff728fe7678b35dc51c99c | quote: AWS does not charge for data transfer when sending messages to Amazon SQS or receiving messages from Amazon SQS if all resources are in the same AWS region. For cross-region data transfer and data transfer to or from the internet, standard AWS Data Transfer Charges apply.
+  - [1] 2026-11-19: SQS chains to S3 through the Extended Client Library, which stores large payloads and bills S3 storage | capture: sha256:1090680391fa1722e028a213806ccbfa45764c753dff728fe7678b35dc51c99c | quote: When using the Amazon SQS Extended Client Library to send payloads using Amazon S3, you incur Amazon S3 charges for any Amazon S3 storage you use to send message payloads.
+- sources:
+  - [1] https://aws.amazon.com/sqs/pricing/
+  - [2] https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/quotas-messages.html
+
+## aruba cloud object storage / infomaniak object storage landing page
+
+- `storage/aruba-cloud-object-storage-infomaniak-object-storage-lan` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:10.639Z (live) | stale on 2026-12-04
+- url https://www.aruba.it/en/cloud/cloud-object-storage.aspx | page https://fshy.ajam.dev/p/aruba.md
+- free tier: unverified: no free object-storage offer was found today: probes of the Aruba and Infomaniak product URLs returned a not-found status; the vendor still lists paid object storage with egress free up to 10 TB per organisation per month. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Product URLs returned HTTP 404 on 2026-10-21. Infomaniak pricing on the Public Cloud page is EUR 0.01/GB (EUR 10/TB), with egress free up to 10 TB/month per organisation and metered thereafter.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered
+  - [2] 2026-10-21: cited as the basis of the rejection: Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered
+  - [3] 2026-10-21: cited as the basis of the rejection: Both product URLs 404; Infomaniak's real numbers sit on a Public Cloud price page EUR 0.01/GB = EUR 10/TB, egress free only to 10 TB/month per organisation, metered
+  - probe:https://www.aruba.it/en/cloud/cloud-object-storage.aspx 2026-11-19: a probe today confirms the Aruba product URL still returns HTTP 404 | capture: sha256:9ae8ec63ae76a728f432650b504f40eb1377629ce413ef72b505e9ba10c907df | quote: "status": 404
+  - [4] 2026-11-19: the first-party Infomanik pricing page states 10 TB of included monthly outgoing traffic per organisation | capture: sha256:c4f7476f13c73f749422728cd664ff9f503799b7d31a11fc300eb041b4933648 | quote: Generally speaking, the incoming and outgoing traffic is free. With regard to storage, 10 TB are included per month and per organisation for outgoing traffic (the rate indicated on this page then applies).
+  - probe:https://www.aruba.it/en/cloud/cloud-object-storage.aspx 2026-11-19: a direct probe of the product page returned HTTP 404 on 2026-11-19, confirming the dead verdict | capture: sha256:d40b5ab58eb0251f7ac47dd78c502e2b87ca72a43b2ebb89d0fcb18b67f3d427 | quote: "status": 404
+- sources:
+  - [1] https://www.aruba.it/en/cloud/cloud-object-storage.aspx
+  - [2] https://www.infomaniak.com/en/hosting/object-storage
+  - [3] https://pcr.cloud-mercato.com/providers/infomaniak/object-storage/infomaniak-os/pricing
+  - [4] https://www.infomaniak.com/en/hosting/public-cloud/prices
+
+## azure open datasets
+
+- `storage/azure-open-datasets` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:56.868Z (live) | stale on 2026-12-04
+- url https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets | page https://fshy.ajam.dev/p/microsoft.md
+- disagrees on verdict: `storage/azure-open-datasets` says dead, `storage/azure-open-datasets-2` says fails-quota
+- free tier: none reachable: the Microsoft Learn overview page returned a not-found status on a probe; the first-party product page describes published datasets with no sign-up or intake form and states storage is free while egress may be charged to the accessing subscription. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: stated-absent: the Azure Open Datasets product page states no per-object size cap. | source: [1] | note: not applicable
+- retention: stated-absent: the Azure Open Datasets product page states no retention term for the published datasets; Microsoft states no SLA or availability guarantee for them. | source: [1]
+- egress: Azure Open Datasets: "Microsoft pays for the storage costs associated with hosting Azure Open Datasets. While storage will always remain free, egress costs associated with reading large datasets can be charged to the Azure subscription accessing the data." | metered: no
+- identity: email
+- interface: rest
+- interface detail: Azure Open Datasets are read from Azure Blob Storage through an SDK; the page states "Learn how datasets are stored in Azure and accessed using an SDK." No single interface token covers SDK-on-Blob access, so rest is the nearest term.
+- tooling: not documented
+- composes with: Azure Open Datasets: "Deliver insights at hyperscale using Azure Open Datasets with Azure's machine learning and data analytics solutions." Datasets are read-only inputs, not a writable deposit target.
+- reliability: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which…
+  - [2] 2026-10-21: cited as the basis of the rejection: Retired as a programme. Microsoft Learn's overview page 404s and the product page no longer exposes a dataset catalogue or an intake form; what remains is the Planetary Computer, which hosts
+  - probe:https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets 2026-11-19: a probe today confirms the Microsoft Learn overview page still returns HTTP 404 | capture: sha256:8ef970fe40019554722435927a33ebfc317e370fe912ef2904226c7b6540d23f | quote: "status": 404
+  - [2] 2026-11-19: the first-party product page still states the storage and egress terms | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Microsoft pays for the storage costs associated with hosting Azure Open Datasets. While storage will always remain free, egress costs associated with reading large datasets can be charged to the Azure subscription accessing the data.
+  - [2] 2026-11-19: the datasets are accessed programmatically through an SDK over Azure services | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Learn how datasets are stored in Azure and accessed using an SDK.
+  - [2] 2026-11-19: Azure Open Datasets are hosted on Azure Blob Storage | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Datasets are stored on Azure Blob Storage.
+  - [2] 2026-11-19: the datasets chain into Azure machine learning and analytics services | capture: sha256:14ab58d51e0c8806292ffad1437ed8cc5419d4f0ed5289e8fc0606431844d040 | quote: Deliver insights at hyperscale using Azure Open Datasets with Azure's machine learning and data analytics solutions.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/open-datasets/overview-what-is-azure-open-datasets
+  - [2] https://azure.microsoft.com/en-us/products/open-datasets
+
+## baidu cloud ccr personal edition
+
+- `storage/baidu-cloud-ccr-personal-edition` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:56.869Z (live) | stale on 2026-12-04
+- url https://cloud.baidu.com/doc/CCR/s/jkw60wx3m | page https://fshy.ajam.dev/p/baidu.md
+- free tier: none reachable: Dead since 2024-04-25: personal-edition instances no longer accept new namespaces or repositories at all, and no external image migration is allowed. Only pre-existing images keep working. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: stated-absent: the CCR personal-edition page states no per-object size cap; it lists a 500GB per-namespace storage quota and a 100-tag-per-namespace limit. | source: [1] | note: not applicable
+- retention: stated-absent: the CCR pricing page states storage quotas and billing but no retention or deletion term for images in the personal edition. | source: [1]
+- egress: BOS Bucket storage and traffic are billed by actual use: "根据实际使用情况将产生存储和流量费用". The personal-edition free scope and its egress treatment are not stated on this page. | metered: no
+- identity: email
+- interface: oci
+- interface detail: CCR is a container image and Helm chart registry; "企业版实例托管的云原生应用制品（如容器镜像和 Helm Chart）存储在您的 BOS Bucket 中". The personal edition accepts no new repositories since 2024-04-25.
+- tooling: not documented
+- composes with: CCR registry artifacts are stored in a user's BOS Bucket, chaining the registry to BOS storage; since 2024-04-25 the personal edition accepts no new namespaces, repositories or external image migrations.
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Dead since 2024-04-25: personal-edition instances no longer accept new namespaces or repositories at all, and no external image migration is allowed. Only pre-existing images keep working.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Dead since 2024-04-25: personal-edition instances no longer accept new namespaces or repositories at all, and no external image migration is allowed. Only pre-existing images keep working.
+  - [1] 2026-11-19: the first-party CCR doc still states that personal-edition instances stopped accepting new namespaces and repositories from 2024-04-25 | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 自 2024 年 4 月 25 日起，容器镜像仓库个人版实例不再支持新建命名空间与镜像仓库，也不再支持将外部镜像迁移至 CCR 个人版实例，不影响已迁移镜像的使用
+  - [1] 2026-11-19: CCR is a container-image and Helm-chart registry service | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 容器镜像服务 CCR 提供企业版和个人版。本文介绍 CCR 企业版的定价说明和个人版的免费说明。
+  - [1] 2026-11-19: registry artifacts are container images and Helm charts stored in BOS | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 企业版实例托管的云原生应用制品（如容器镜像和 Helm Chart）存储在您的 BOS Bucket 中
+  - [1] 2026-11-19: the CCR personal edition is a free, quota-limited service for individual developers with no SLA | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 个人版服务面向个人开发者，可在配额范围内免费使用，不承诺 SLA 及相关补偿。
+  - [1] 2026-11-19: the page states a 500 GB per-namespace storage quota, not a single-object cap | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 每个命名空间存储容量限额 | 500GB | 不支持调整，超出后将无法上传镜像
+  - [1] 2026-11-19: storage and traffic for the backing BOS bucket are billed by usage | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 根据实际使用情况将产生存储和流量费用
+  - [1] 2026-11-19: the personal edition is closed to new namespaces, repositories and external image migration | capture: sha256:11165253674cd0ab631b40c6e8d8829a24cfd39959b5e47174f3017698c4d2ba | quote: 自 2024 年 4 月 25 日起，容器镜像仓库个人版实例不再支持新建命名空间与镜像仓库，也不再支持将外部镜像迁移至 CCR 个人版实例
+- sources:
+  - [1] https://cloud.baidu.com/doc/CCR/s/jkw60wx3m
+
+## bashupload.com
+
+- `storage/bashupload-com` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:38:40.394Z (live) | stale on 2026-12-04
+- url https://bashupload.com/ | page https://fshy.ajam.dev/p/bashupload.md
+- free tier: None reachable: Domain no longer resolves to an origin. DNS returns only an SOA in the Authority section (NXDOMAIN-equivalent, registrar-servers.com), and the proxy returns HTTP 530. The dataset still list. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: 50G max | source: [1] | note: 50G per-file upload ceiling stated on the archived homepage
+- retention: Files are stored for 3 days and can be downloaded only once. | source: [1] | note: 3-day store with a single download
+- egress: not stated on the archived bashupload.com homepage | metered: no
+- identity: email
+- interface: cli
+- interface detail: command-line curl -T upload of a file to a share URL
+- tooling: curl -T to upload a file
+- composes with: single-use share: files stored for 3 days and downloadable only once
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Domain no longer resolves to an origin — DNS returns only an SOA in the Authority section (NXDOMAIN-equivalent, registrar-servers.com), and the proxy returns HTTP 530. The dataset still…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Domain no longer resolves to an origin — DNS returns only an SOA in the Authority section (NXDOMAIN-equivalent, registrar-servers.com), and the proxy returns HTTP 530. The dataset still…
+  - probe:https://bashupload.com/ 2026-11-19: the bashupload.com host does not resolve to an origin | capture: sha256:3f3f6666d30d3666affec4e9378b1471d06ffe65b917d0adec9df369ecb10995 | quote: "error_detail": "URLError: <urlopen error Tunnel connection failed: 502 the name did not resolve>"
+  - withheld 2026-11-19: the proxy to bashupload.com returns HTTP 530 with the origin name unresolved, confirming the host is gone | capture: sha256:76cd635ec60aef7f41590c9444d9e9df0c490d1b25d1739f231451376b131d8c | quote: "status": 530
+  - [2] 2026-11-19: the upload interface is a command-line curl -T upload | capture: sha256:64988caec8b7ff82b7cd8f246ca11bc37e9ed39eb7185295d7c0e99be801a7e4 | quote: curl bashupload.com -T your_file.txt
+  - [2] 2026-11-19: the offer chains by one-time download within a 3-day store | capture: sha256:64988caec8b7ff82b7cd8f246ca11bc37e9ed39eb7185295d7c0e99be801a7e4 | quote: Files are stored for 3 days and can be downloaded only once.
+  - [2] 2026-11-19: the per-object upload ceiling is 50G | capture: sha256:64988caec8b7ff82b7cd8f246ca11bc37e9ed39eb7185295d7c0e99be801a7e4 | quote: Upload files from command line to easily share between servers, desktops and mobiles, 50G max.
+  - withheld 2026-11-19: the proxy target was unreachable on the read date | capture: sha256:36b513153951cf43e44503eb21fffefeafa569d4489c32b2edfc5b87545a8b5e | quote: "status": 530
+  - withheld 2026-11-19: the proxy target failed DNS resolution and returned HTTP 530, so the domain no longer resolves to an origin | capture: sha256:29f5704ae3f07db813769be21eaa86d89eb73c2b331665e44256988064abc1c2 | quote: its name did not resolve (bashupload.com has no A or AAAA record)
+- sources:
+  - [1] https://bashupload.com/
+  - [2] https://web.archive.org/web/20240115205024/https://bashupload.com/?provider=wayback
+
+## bayfiles / anonfiles
+
+- `storage/bayfiles-anonfiles` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:38:40.819Z (live) | stale on 2026-12-04
+- url https://bayfiles.com/ | page https://fshy.ajam.dev/p/bayfiles.md
+- free tier: none reachable: Both gone, and they are not the same story. AnonFiles shut down August 2023 citing the volume of excess use; BayFiles' 2023-era successor domain no longer resolves. Neither has a free successor operatin | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: Max 20 GB per file | source: [1] | note: 20 GB per-file ceiling stated on the first-party homepage
+- retention: For as long as possible | source: [1] | note: retention stated as for as long as possible, subject to the terms
+- egress: unlimited downloads and no speed limits; hourly and daily traffic quotas are listed | metered: no
+- identity: email
+- interface: rest, browser
+- interface detail: REST POST upload API returning a share URL in JSON, plus browser download URLs
+- tooling: curl -F file=@ to POST an upload; GET the returned URL to download
+- composes with: direct share URLs returned on upload; files retrieved by that URL
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Both gone, and they are not the same story. AnonFiles shut down August 2023 citing the volume of excess use; BayFiles' 2023-era successor domain no longer resolves. Neither has a free successor operatin
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Both gone, and they are not the same story. AnonFiles shut down August 2023 citing the volume of excess use; BayFiles' 2023-era successor domain no longer resolves. Neither has a free successor operatin
+  - [2] 2026-10-21: cited as the basis of the rejection: Both gone, and they are not the same story. AnonFiles shut down August 2023 citing the volume of excess use; BayFiles' 2023-era successor domain no longer resolves. Neither has a free successor operatin
+  - probe:https://bayfiles.com/ 2026-11-19: a probe today could not resolve the BayFiles host | capture: sha256:21c6e7b3c3c518bf8b85edf02216632d8955ab2bf647b4a6e7386df3a8710dea | quote: "status": null
+  - probe:https://anonfiles.com/ 2026-11-19: a probe today could not resolve the AnonFiles host | capture: sha256:9e642996b8abe84caffb66434a3ebe97122c7b399b9fd9674ad2128678e99564 | quote: "status": null
+  - [3] 2026-11-19: the offer has a REST upload API returning a JSON download URL | capture: sha256:336394ffc9250205fb5556d87d5ef49646386b1f0d829fa7fec333dca746c885 | quote: You send us files with POST and we will store them and return an url for you in JSON.
+  - [3] 2026-11-19: curl -F is the documented upload tool | capture: sha256:336394ffc9250205fb5556d87d5ef49646386b1f0d829fa7fec333dca746c885 | quote: curl -F "file=@test.txt" https://api.bayfiles.com/upload
+  - [4] 2026-11-19: the per-object ceiling is 20 GB | capture: sha256:b5fade677eeee9c3600a04884b8ac779363f42f0dd5065a5cdac0ea932b6a85d | quote: Max 20 GB per file - unlimited downloads and no speed limits.
+  - [5] 2026-11-19: the stated retention is for as long as possible | capture: sha256:1caaab2c46e3caead4b1c369fec4005eaf0492a62a224267b33c8c74d0177907 | quote: For as long as possible
+  - [6] 2026-11-19: the archived first-party AnonFiles notice confirms the shutdown | capture: sha256:3d45252b717a89fdb9712cda3917757f0f394d3708c5530ccad923c62f620b82 | quote: Domain 4sale.
+  - probe:https://bayfiles.com/ 2026-11-19: the live BayFiles domain did not resolve on the read date | capture: sha256:1f71f9d54f08c9b8586300dff5b6eedd7bd38438c6b108bf61a3c9b052e2c17a | quote: "status": null
+  - [6] 2026-11-19: the first-party AnonFiles shutdown notice states the service ended because of the extreme volume of abuse | capture: sha256:3d45252b717a89fdb9712cda3917757f0f394d3708c5530ccad923c62f620b82 | quote: After trying endlessly for two years to run a file sharing site with user anonymity we have been tired of handling the extreme volumes of people abusing it and the headaches it has created for us.
+- sources:
+  - [1] https://bayfiles.com/
+  - [2] https://anonfiles.com/
+  - [3] https://web.archive.org/web/20230810101823/https://bayfiles.com/docs/api?provider=wayback
+  - [4] https://web.archive.org/web/20230810101823/https://bayfiles.com/?provider=wayback
+  - [5] https://web.archive.org/web/20230810101823/https://bayfiles.com/faq?provider=wayback
+  - [6] https://web.archive.org/web/20230913092920/https://anonfiles.com/?provider=wayback
+
+## binder (mybinder.org), binder
+
+- `storage/binder` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:57.620Z (live) | stale on 2026-12-04
+- url https://mybinder.readthedocs.io/en/latest/about/user-guidelines.html | page https://fshy.ajam.dev/p/mybinder-readthedocs-io.md
+- free tier: None reachable: the first-party guidelines still state that no persistent storage of any sort is offered; sessions are ephemeral and outgoing bandwidth is limited per session. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not stated on the mybinder usage guidelines page | source: [1] | note: not stated on the mybinder usage guidelines page
+- retention: We do not offer persistent storage of any sort, to protect us from becoming a host for malware. | source: [1] | note: sessions culled after more than 10 minutes of inactivity and capped at six hours; no persistent storage
+- egress: outgoing bandwidth per-session limited to ~1mbit | metered: no
+- identity: email
+- interface: browser
+- interface detail: a browser Binder link launches a session that runs the linked repository
+- tooling: browser (Binder link); self-hosted BinderHub is an alternative the user installs and runs
+- composes with: sessions launch from a linked repository and no persistent store backs them
+- reliability: Explicitly no persistence of any kind, and egress is throttled to ~1 mbit per session to stop it being used as a DDoS vector. Sessions die after 10 min idle / 6 h max, 1-2 GB RAM. A pure…
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Explicitly no persistence of any kind, and egress is throttled to ~1 mbit per session to stop it being used as a DDoS vector. Sessions die after 10 min idle / 6 h max, 1-2 GB RAM. A pure…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Explicitly no persistence of any kind, and egress is throttled to ~1 mbit per session to stop it being used as a DDoS vector. Sessions die after 10 min idle / 6 h max, 1-2 GB RAM. A pure…
+  - [1] 2026-11-19: the first-party user guidelines still state that no persistent storage is offered | capture: sha256:ec5ed737d9f9ce34cf5193b11a0765a46bd5bb3734bda79646691ef3665df3e1 | quote: We do not offer persistent storage of any sort, to protect us from becoming a host for malware.
+  - [1] 2026-11-19: access is by clicking a browser Binder link | capture: sha256:ec5ed737d9f9ce34cf5193b11a0765a46bd5bb3734bda79646691ef3665df3e1 | quote: If you or another Binder user clicks on a Binder link, the `mybinder.org` deployment will run the linked repository.
+  - [1] 2026-11-19: the hosted link is the primary access; BinderHub is the software behind it | capture: sha256:ec5ed737d9f9ce34cf5193b11a0765a46bd5bb3734bda79646691ef3665df3e1 | quote: `mybinder.org` uses software called \[BinderHub] to carry out its services.
+  - [1] 2026-11-19: session lifetime is bounded by inactivity culling | capture: sha256:ec5ed737d9f9ce34cf5193b11a0765a46bd5bb3734bda79646691ef3665df3e1 | quote: Binder will automatically shut down user sessions that have more than 10 minutes of inactivity
+  - [1] 2026-11-19: egress is capped at about 1mbit per session | capture: sha256:ec5ed737d9f9ce34cf5193b11a0765a46bd5bb3734bda79646691ef3665df3e1 | quote: We limit outgoing bandwidth per-session ( `~1mbit`) to protect against being used as a DDoS vector.
+- sources:
+  - [1] https://mybinder.readthedocs.io/en/latest/about/user-guidelines.html
+
+## buzzheavier paid tier
+
+- `storage/buzzheavier-paid-tier` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:10.640Z (live) | stale on 2026-12-04
+- url https://buzzheavier.com/upgrade | page https://fshy.ajam.dev/p/buzzheavier.md
+- free tier: none reachable: Endpoint buzzheavier.com/upgrade returned HTTP 404 on 2026-10-21. Published post-mortem 'The Real Cost of Storage: A Fresh Start' documents discontinuation of the paid tier. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Cannot be checked at all: buzzheavier.com/upgrade returns 404.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Cannot be checked at all: buzzheavier.com/upgrade returns 404.
+  - [1] 2026-11-19: the paid-tier upgrade path still answers HTTP 404 | capture: sha256:0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5 | quote: Not Found
+  - probe:https://buzzheavier.com/upgrade 2026-11-19: a probe of the upgrade path hit a Cloudflare challenge, consistent with the paid tier no longer being offered | capture: sha256:cacd270aed6c56e1d9e5a08d8f26ca746a074b013c2fc7bfaa8b04f5108545a8 | quote: "status": 403
+- sources:
+  - [1] https://buzzheavier.com/upgrade
+
+## buzzheavier's original torrent/webseed tier
+
+- `storage/buzzheavier-s-original-torrent-webseed-tier` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:11.211Z (live) | stale on 2026-12-04
+- url https://web.archive.org/web/20240330123905/https://buzzheavier.com/faq | page https://fshy.ajam.dev/p/buzzheavier-s-original-torrent-webseed.md
+- free tier: none reachable: The 2024 architecture (direct link embedded as BitTorrent webseed, files 'forever and ever', no caps) is gone. The /t/ upload endpoint that minted torrents now 404s, the FAQ that promised… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The archived FAQ described the webseed offer. A fresh check dated today found the live FAQ URL gone and the host answering the probe with an HTTP 403 Cloudflare challenge, so the offer is not reachable and the service remains dead.
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The 2024 architecture (direct link embedded as BitTorrent webseed, files 'forever and ever', no caps) is gone. The /t/ upload endpoint that minted torrents now 404s, the FAQ that promised…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The 2024 architecture (direct link embedded as BitTorrent webseed, files 'forever and ever', no caps) is gone. The /t/ upload endpoint that minted torrents now 404s, the FAQ that promised…
+  - [2] 2026-10-21: cited as the basis of the rejection: The 2024 architecture (direct link embedded as BitTorrent webseed, files 'forever and ever', no caps) is gone. The /t/ upload endpoint that minted torrents now 404s, the FAQ that promised pe
+  - [1] 2026-11-19: the archived FAQ shows the original webseed offer promised indefinite retention, an offer no longer reachable live | capture: sha256:f4c7ae729225bf3fe801dca8b9e75db95778d38477ed6bcb27ad9375d6b86abd | quote: Forever and ever...
+  - probe:https://buzzheavier.com/faq 2026-11-19: a live probe of the FAQ URL answered HTTP 403 with a Cloudflare challenge, so the page cannot be read and the service is not reachable as documented | capture: sha256:2cb513a2590e084e6b2e201cb33399c2c03f006c7881b23773894979f69212f8 | quote: "status": 403
+  - [1] 2026-11-19: the archived FAQ promised indefinite retention for the webseeded torrent files, an offer no longer reachable at the live URL | capture: sha256:f4c7ae729225bf3fe801dca8b9e75db95778d38477ed6bcb27ad9375d6b86abd | quote: Forever and ever...
+- sources:
+  - [1] https://web.archive.org/web/20240330123905/https://buzzheavier.com/faq
+  - [2] https://naw.buzzheavier.com/t/sample.mp4
+
+## cess deoss
+
+- `storage/cess-deoss` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:06.547Z (inherited) | stale on 2026-12-04
+- url https://deoss-sg.cess.cloud/health | page https://fshy.ajam.dev/p/cess.md
+- free tier: none reachable: Could not be probed alive: the documented endpoint does not resolve and the Cloudflare-fronted host returns 530. No quota page could be opened, so nothing to report. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Could not be probed alive: the documented endpoint does not resolve and the Cloudflare-fronted host returns 530. No quota page could be opened, so nothing to report.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Could not be probed alive: the documented endpoint does not resolve and the Cloudflare-fronted host returns 530. No quota page could be opened, so nothing to report.
+  - probe:https://deoss-sg.cess.cloud/health 2026-11-19: the documented DEOSS health endpoint does not resolve (name did not resolve) | capture: sha256:d98e6ea83fec7c20f1b6f5cff47e356ea59bfaa30dd36b830b0789d875cb5d0d | quote: "error": "transport"
+- sources:
+  - [1] https://deoss-sg.cess.cloud/health
+
+## cirrus ci (Storage)
+
+- `storage/cirrus-ci` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:11.668Z (live) | stale on 2026-12-04
+- url https://api.cirrus-ci.com/v1/task/1/artifacts | page https://fshy.ajam.dev/p/cirrus-ci.md
+- free tier: none reachable: Could not verify: the API host failed TLS negotiation from this environment, and the docs/pricing pages returned no extractable artifact-storage terms. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Cirrus CI shut down effective Monday, June 1, 2026.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Could not verify: the API host failed TLS negotiation from this environment, and the docs/pricing pages returned no extractable artifact-storage terms.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Could not verify: the API host failed TLS negotiation from this environment, and the docs/pricing pages returned no extractable artifact-storage terms.
+  - [2] 2026-10-21: cited as the basis of the rejection: Could not verify: the API host failed TLS negotiation from this environment, and the docs/pricing pages returned no extractable artifact-storage terms.
+  - [3] 2026-11-03: the vendor shut the Cirrus CI service down effective 2026-06-01, which ends its artifact storage | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+  - [3] 2026-11-03: the vendor shut the Cirrus CI service down effective 2026-06-01 | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+  - [3] 2026-11-19: the vendor's first-party announcement states Cirrus CI shut down effective Monday, June 1, 2026 | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+  - [3] 2026-11-19: the first-party announcement states Cirrus CI shut down effective Monday, June 1, 2026 | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+  - [3] 2026-11-19: the vendor's first-party announcement confirms Cirrus CI shut down, ending its artifact storage | capture: sha256:2fcf1b3d8ce8a9ca14f6b6c131587adcce7033c13e5d145d570d384b1a974542 | quote: Cirrus CI will shut down effective Monday, June 1, 2026.
+- sources:
+  - [1] https://api.cirrus-ci.com/v1/task/1/artifacts
+  - [2] https://cirrus-ci.org/pricing
+  - [3] https://cirruslabs.org/
+
+## codehive (codehive.sr.ht) / sourcehut generally
+
+- `storage/codehive-sourcehut-generally` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:08.916Z (live) | stale on 2026-12-04
+- url https://sourcehut.org/pricing/ | page https://fshy.ajam.dev/p/sourcehut.md
+- free tier: none reachable: codehive.sr.ht does not resolve (NXDOMAIN) - there is no such host. sourcehut itself is paid-for-project-hosting ('All users who host projects on SourceHut are expected to pay according to… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: codehive.sr.ht does not resolve (NXDOMAIN) - there is no such host. sourcehut itself is paid-for-project-hosting ('All users who host projects on SourceHut are expected to pay according to…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: codehive.sr.ht does not resolve (NXDOMAIN) - there is no such host. sourcehut itself is paid-for-project-hosting 'All users who host projects on SourceHut are expected to pay according to t
+  - [1] 2026-11-19: SourceHut requires payment to host projects | capture: sha256:b2c866d2b73759d911ec46fe4ecce60f0f4fc6cfae4692d7f5b019f68bbe9494 | quote: Payment is only required for users who wish to host their own projects on SourceHut.
+  - probe:codehive.sr.ht 2026-11-19: codehive.sr.ht does not resolve; the host is gone | capture: sha256:06fa489a41e17948578d00fde87bed8e6d9007e43a3bdb806793cfc636e602bc | quote: "error_detail": "URLError: <urlopen error Tunnel connection failed: 502 the name did not resolve>"
+- sources:
+  - [1] https://sourcehut.org/pricing/
+
+## cunofs / tigris / garage / hammerspace / weka as free-tier poolers
+
+- `storage/cunofs-tigris-garage-hammerspace-weka-as-free-tier-poole` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:11.210Z (live) | stale on 2026-12-04
+- url https://www.tigrisdata.com/pricing/ | page https://fshy.ajam.dev/p/tigrisdata.md
+- free tier: none reachable: Wrong problem class, and none of them advertises stacking free tiers. cunoFS is an HPC POSIX-on-object mount (docs now 404 at the previously indexed readthedocs paths, and it is a paid… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Wrong problem class, and none of them advertises stacking free tiers. cunoFS is an HPC POSIX-on-object mount (docs now 404 at the previously indexed readthedocs paths, and it is a paid…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Wrong problem class, and none of them advertises stacking free tiers. cunoFS is an HPC POSIX-on-object mount docs now 404 at the previously indexed readthedocs paths, and it is a paid Storj
+  - [2] 2026-10-21: cited as the basis of the rejection: Wrong problem class, and none of them advertises stacking free tiers. cunoFS is an HPC POSIX-on-object mount docs now 404 at the previously indexed readthedocs paths, and it is a paid Storj
+  - [3] 2026-10-21: cited as the basis of the rejection: Wrong problem class, and none of them advertises stacking free tiers. cunoFS is an HPC POSIX-on-object mount docs now 404 at the previously indexed readthedocs paths, and it is a paid Storj
+  - [1] 2026-11-19: the Tigris pricing page charges for stored data by tier and advertises no free tier, so none of the pooled offers advertises a stackable free tier | capture: sha256:cf850393dfee6d88beac1f12da5fe143a562d81b6eea2fc6d31fdc08a3359618 | quote: No. Bucket forking, lifecycle rules, and soft deletes carry no separate charge to turn on or use. You pay for the data you store, at the rate for the tier it is stored in.
+  - [2] 2026-11-19: Garage is software the user installs and runs itself, not a hosted free-tier pooler | capture: sha256:bee38937d7cce58932a6ae9e2d3f41d20566fd12ed8f729b7cf306ba82c474eb | quote: We ship a single dependency-free binary that runs on all Linux distributions
+  - probe:https://cuno-cunofs.readthedocs-hosted.com/en/stable/user-guide-core-concepts.html 2026-11-19: the previously indexed cunoFS documentation URL answered HTTP 404 on a live probe, so it documents no offer | capture: sha256:b2af673ef83f3e60bf831b7f14f940e8f1d8b776c15758fc6076569481dd6437 | quote: "status": 404
+- sources:
+  - [1] https://www.tigrisdata.com/pricing/
+  - [2] https://garagehq.deuxfleurs.fr/
+  - [3] https://cuno-cunofs.readthedocs-hosted.com/en/stable/user-guide-core-concepts.html
+
+## cyberdrop (cyberdrop.me)
+
+- `storage/cyberdrop-2` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cyberdrop.me/ | page https://fshy.ajam.dev/p/cyberdrop-2.md
+- free tier: None reachable: The .me domain is dead. Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.
+  - probe:https://cyberdrop.me/ 2026-11-19: a live probe of the .me domain got no HTTP status; the transport error reported that the name did not resolve, confirming the domain is dead | capture: sha256:483b62e3b2768f3f88e49af131d6941ef8ac7385d10bf1e9649a9a29178f0f20 | quote: "status": null
+- sources:
+  - [1] https://cyberdrop.me/
+
+## dans easy (legacy)
+
+- `storage/dans-easy` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:43.469Z (live) | stale on 2026-12-04
+- url https://easy.dans.knaw.nl/ | page https://fshy.ajam.dev/p/knaw.md
+- free tier: None reachable: Retired. 'As of 2 December 2024, EASY will no longer be accessible'. Datasets migrated to the domain-specific DANS Data Stations. Any EASY quota figure found in third-party guides is dead. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Retired. 'As of 2 December 2024, EASY will no longer be accessible' — datasets migrated to the domain-specific DANS Data Stations. Any EASY quota figure found in third-party guides is dead.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Retired. 'As of 2 December 2024, EASY will no longer be accessible' — datasets migrated to the domain-specific DANS Data Stations. Any EASY quota figure found in third-party guides is dead.
+  - [1] 2026-11-19: the EASY service is retired and datasets moved to the DANS Data Stations | capture: sha256:28bdf5798e1d274a0b47b86493755640b8b77ac8600612eaa30820ea01f03e49 | quote: As of 2 December 2024, EASY will no longer be accessible. Almost all datasets previously deposited in EASY have been successfully migrated to the new domain-specific DANS Data Stations
+  - [1] 2026-11-19: the first-party page confirms EASY is no longer accessible | capture: sha256:28bdf5798e1d274a0b47b86493755640b8b77ac8600612eaa30820ea01f03e49 | quote: As of 2 December 2024, EASY will no longer be accessible.
+- sources:
+  - [1] https://easy.dans.knaw.nl/
+
+## darkibox.com
+
+- `storage/darkibox-com` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:43.469Z (inherited) | stale on 2026-12-04
+- url https://darkibox.com/ | page https://fshy.ajam.dev/p/darkibox.md
+- free tier: none reachable: Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.
+  - probe:https://darkibox.com/ 2026-11-19: the host answers HTTP 410 Gone today, so the offer is gone | capture: sha256:f8f9b2912c698f96c83394a9b904479c4e16fc2143460f243f11e337453ed400 | quote: "status": 410
+  - probe:https://darkibox.com/ 2026-11-19: the host answers HTTP 410 Gone today, so the service is gone | capture: sha256:f8f9b2912c698f96c83394a9b904479c4e16fc2143460f243f11e337453ed400 | quote: "status": 410
+- sources:
+  - [1] https://darkibox.com/
+
+## data.gov.hk (hong kong) and data.gov.tw (taiwan)
+
+- `storage/data-gov-hk-and-data-gov-tw` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:43.469Z (inherited) | stale on 2026-12-04
+- url https://data.gov.hk/api/3/action/package_search?rows=0 | page https://fshy.ajam.dev/p/data-gov-hk.md
+- free tier: none reachable: Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw…
+  - [2] 2026-10-21: cited as the basis of the rejection: Neither exposes the CKAN action API (404 on package_search) and both have no /user/register route. Data.Gov.HK is a DATA.GOV.HK publishing platform for bureaux and departments; data.gov.tw i
+  - probe:https://data.gov.hk/api/3/action/package_search?rows=0 2026-11-19: the CKAN action API endpoint is not exposed on data.gov.hk today | capture: sha256:39e54bcbf3db773f2bdb5e64ad23ee9183db3bc350cc6e53ed8fa235114ad6e3 | quote: "status": 404
+  - probe:https://data.gov.tw/api/3/action/package_search?rows=0 2026-11-19: the CKAN action API endpoint is not exposed on data.gov.tw today | capture: sha256:aee279fb1b25ea747c3c01a5ac888b8dbff9a62a4672f5aca8478db1a1b2bf15 | quote: "status": 404
+  - probe:https://data.gov.hk/api/3/action/package_search?rows=0 2026-11-19: the CKAN action API endpoint on data.gov.hk is gone today | capture: sha256:39e54bcbf3db773f2bdb5e64ad23ee9183db3bc350cc6e53ed8fa235114ad6e3 | quote: "status": 404
+- sources:
+  - [1] https://data.gov.hk/api/3/action/package_search?rows=0
+  - [2] https://data.gov.tw/api/3/action/package_search?rows=0
+
+## data.gov.sg (singapore)
+
+- `storage/data-gov-sg` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:43.470Z (live) | stale on 2026-12-04
+- url https://data.gov.sg/api/3/action/package_search?rows=0 | page https://fshy.ajam.dev/p/data-gov-sg.md
+- free tier: None reachable: No longer a CKAN instance. It is a Next.js app and /api/3/action/* returns 404; there is no public register page either. Publication is by Singapore government agencies via the SingStat/Gov. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: No longer a CKAN instance — it is a Next.js app and /api/3/action/* returns 404; there is no public register page either. Publication is by Singapore government agencies via the…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: No longer a CKAN instance — it is a Next.js app and /api/3/action/* returns 404; there is no public register page either. Publication is by Singapore government agencies via the…
+  - [2] 2026-10-21: cited as the basis of the rejection: No longer a CKAN instance — it is a Next.js app and /api/3/action/* returns 404; there is no public register page either. Publication is by Singapore government agencies via the SingStat/Gov
+  - probe:https://data.gov.sg/api/3/action/package_search?rows=0 2026-11-19: the CKAN action API endpoint on data.gov.sg returns 404 today | capture: sha256:d092205ea6e6eccf77dcf7a99334088066b6381fca32ff357840608420b555da | quote: "status": 404
+  - probe:https://data.gov.sg/user/register 2026-11-19: the CKAN public register route on data.gov.sg returns 404 today | capture: sha256:0eba13dea34f7ca268dd328744a30970aa3b10aed1476005d67861a170e36ffe | quote: "status": 404
+  - [3] 2026-11-19: data.gov.sg is a government open-data publishing portal, not a storage service | capture: sha256:6c683121115f6f591d405df68842be8d2e4f6597854059d22433a4bb84e47cae | quote: Access 4,500+ datasets from over 70 government agencies
+  - probe:https://data.gov.sg/api/3/action/package_search?rows=0 2026-11-19: the CKAN API endpoint on data.gov.sg is gone today | capture: sha256:d092205ea6e6eccf77dcf7a99334088066b6381fca32ff357840608420b555da | quote: "status": 404
+- sources:
+  - [1] https://data.gov.sg/api/3/action/package_search?rows=0
+  - [2] https://data.gov.sg/user/register
+  - [3] https://data.gov.sg/
+
+## datahub.io
+
+- `storage/datahub-io` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:43.470Z (live) | stale on 2026-12-04
+- url https://datahub.io/pricing | page https://fshy.ajam.dev/p/datahub.md
+- free tier: none reachable: Pivoted from open-data publishing to a paid 'Data Solutions' shop. /pricing 301s to /solutions (enterprise reference datasets, CSV, S3 API for customers); /publish is a 404. No free storage | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Pivoted from open-data publishing to a paid 'Data Solutions' shop. /pricing 301s to /solutions (enterprise reference datasets, CSV, S3 API for customers); /publish is a 404. No free storage
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Pivoted from open-data publishing to a paid 'Data Solutions' shop. /pricing 301s to /solutions (enterprise reference datasets, CSV, S3 API for customers); /publish is a 404. No free storage
+  - [2] 2026-10-21: cited as the basis of the rejection: Pivoted from open-data publishing to a paid 'Data Solutions' shop. /pricing 301s to /solutions (enterprise reference datasets, CSV, S3 API for customers); /publish is a 404. No free storage
+  - [3] 2026-10-21: cited as the basis of the rejection: Pivoted from open-data publishing to a paid 'Data Solutions' shop. /pricing 301s to /solutions (enterprise reference datasets, CSV, S3 API for customers); /publish is a 404. No free storage
+  - [1] 2026-11-19: datahub.io now sells a paid data-solutions product with an S3 API for customers, not free storage | capture: sha256:55dee53aa8c69602b817b65c8a37bc834aaaf852b6c642f8962dff0b1a830b40 | quote: Get instant access to our S3 bucket for frictionless data retrieval, ensuring fast and scalable performance.
+  - probe:https://datahub.io/publish 2026-11-19: the former open-data publishing route returns 404 today | capture: sha256:b55f99d4f7b9c321ceb7e27cc265a1f646fefe0a111f923501d0101b59e634a6 | quote: "status": 404
+  - [1] 2026-11-19: the free open-data publishing service has been replaced by a paid data-solutions offering | capture: sha256:55dee53aa8c69602b817b65c8a37bc834aaaf852b6c642f8962dff0b1a830b40 | quote: Empower Your Innovation with Global Data Solutions
+- sources:
+  - [1] https://datahub.io/pricing
+  - [2] https://datahub.io/solutions
+  - [3] https://docs.datahub.io/
+
+## dataverse installations on 5.5–6.0 (cuhk, icrisat, cidacs, jpl, fz jülich,
+
+- `storage/dataverse-installations-on-5-5-6-0-cuhk-icrisat-cidacs-j` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.061Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/dataverse.md
+- free tier: None reachable: 19 of 149 installs predate the collection-quota feature (Dataverse 6.1+) and return 404 on the quota endpoint. They cannot be scored on this axis at all. The absence of the endpoint is not. | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the first-party Dataverse pages leave the per-installation maximum upload size to a setting (:MaxFileUploadSizeInBytes) and state no single numeric cap | note: not applicable
+- retention: stated-absent: the Dataverse collection-quota page states no retention period for stored files
+- egress: stated-absent: the Dataverse guide pages describe upload and download APIs but state no egress price or transfer terms | metered: no
+- identity: email
+- interface: rest, s3
+- interface detail: Dataverse exposes a REST-based native API and, on installations with direct upload enabled, pre-signed S3 URLs for file transfer.
+- tooling: not documented
+- composes with: Dataverse chains through DvUploader and through web applications such as OJS, OSF and RSpace that use the file upload API.
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: 19 of 149 installs predate the collection-quota feature (Dataverse 6.1+) and return 404 on the quota endpoint. They cannot be scored on this axis at all — the absence of the endpoint is not
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: 19 of 149 installs predate the collection-quota feature (Dataverse 6.1+) and return 404 on the quota endpoint. They cannot be scored on this axis at all — the absence of the endpoint is not
+  - [1] 2026-11-19: the collection-quota feature the record depends on was introduced only in Dataverse 6.1, so pre-6.1 installs cannot expose it | capture: sha256:8388e89e6de65072a1f41039ddcf9fcf12a7dcbb757d3c635e779a083a4dd9dc | quote: Please note that this is a new and still experimental feature (as of Dataverse v6.1 release).
+  - [2] 2026-11-19: Dataverse exposes an S3 direct-upload path alongside its REST-based native API | capture: sha256:e90c303165b7f43f750a8f34e9c373e72c31f1794c073985ab5b365cbfc970ba | quote: To initiate a transfer of a file to S3, make a call to the Dataverse installation indicating the size of the file to upload.
+  - [3] 2026-11-19: the Dataverse native API is REST-based | capture: sha256:ad5423b4b982223d0152bc7e275721ff1cb0e648637376cb5070bce8423aec14 | quote: The Dataverse Software exposes most of its GUI functionality via a REST-based API.
+  - [4] 2026-11-19: the page documents collection storage quotas introduced in v6.1 and states no retention term | capture: sha256:b4889df14b989834eed350206b2f05d6b9667f72755ebcacd01915a1b6860a06 | quote: Please note that this is a new and still experimental feature (as of Dataverse v6.1 release).
+  - [2] 2026-11-19: the upload cap is installation-configured through MaxFileUploadSizeInBytes, not stated as a fixed number | capture: sha256:e90c303165b7f43f750a8f34e9c373e72c31f1794c073985ab5b365cbfc970ba | quote: The call will return a 400 (BAD REQUEST) response if the file is larger than what is allowed by the
+  - [5] 2026-11-19: the API guide describes integration paths but states no egress terms | capture: sha256:9452a7f1fff755c391d106a3624d5e19a52413748663d0ca9ade668255605086 | quote: APIs open the door for integrations between the Dataverse Software and other software.
+  - [5] 2026-11-19: the file upload API lets external web applications deposit files into a Dataverse installation | capture: sha256:9452a7f1fff755c391d106a3624d5e19a52413748663d0ca9ade668255605086 | quote: OJS, OSF, and RSpace are all web applications that can integrate with a Dataverse installation
+  - [5] 2026-11-19: the first-party API guide documents a file upload API for integrations | capture: sha256:9452a7f1fff755c391d106a3624d5e19a52413748663d0ca9ade668255605086 | quote: API stands for “Application Programming Interface” and an example is the Dataverse Software’s “file upload” API.
+- sources:
+  - [1] https://guides.dataverse.org/en/6.1/admin/collectionquotas.html
+  - [2] https://guides.dataverse.org/en/6.11/developers/s3-direct-upload-api.html
+  - [3] https://guides.dataverse.org/en/latest/api/native-api.html
+  - [4] https://guides.dataverse.org/en/latest/admin/collectionquotas.html
+  - [5] https://guides.dataverse.org/en/latest/api/intro.html
+
+## dataverse upload api (post /api/users, post /api/datasets, post /api/builti
+
+- `storage/dataverse-upload-api-post-api-users-post-api-datasets-po` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.061Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/dataverse.md
+- free tier: none reachable: Not usable as a write path in this research frame. POST /api/users is 404 on 6.10+ (endpoint removed); POST /api/builtin-users requires :BuiltinUsersKey (403/404 without it). Writes… | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the Dataverse native API guide states no fixed per-object size cap | note: not applicable
+- retention: stated-absent: the Dataverse native API guide states no retention period for stored files
+- egress: stated-absent: the Dataverse API guides describe upload and download endpoints but state no egress price or transfer terms | metered: no
+- identity: email
+- interface: rest
+- interface detail: The Dataverse native API is REST-based; the builtin-user creation endpoint requires a server-side BuiltinUsersKey known only to the installation team.
+- tooling: not documented
+- composes with: Dataverse's file upload API chains with DvUploader and with web applications such as OJS, OSF and RSpace.
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Not usable as a write path in this research frame. POST /api/users is 404 on 6.10+ (endpoint removed); POST /api/builtin-users requires :BuiltinUsersKey (403/404 without it). Writes…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: Not usable as a write path in this research frame. POST /api/users is 404 on 6.10+ (endpoint removed); POST /api/builtin-users requires:BuiltinUsersKey (403/404 without it). Writes therefor
+  - probe:https://dataverse.harvard.edu/api/users 2026-11-19: POST's /api/users endpoint is removed and returns 404 on a current Dataverse install | capture: sha256:a61b4b2353b3c5f66ca467d812f91f358fb7e68e57abab3392054af4bd3482e4 | quote: "status": 404
+  - probe:https://dataverse.harvard.edu/api/builtin-users 2026-11-19: the builtin-users route is gated and returns 403 without the builtin-users key | capture: sha256:7e40676cb3e554abb2aeb3be381b034a231e40a73e532b1fd5d41169a80f5a46 | quote: "status": 403
+  - [1] 2026-11-19: the Dataverse native API, including the user and builtin-user endpoints, is REST-based | capture: sha256:ad5423b4b982223d0152bc7e275721ff1cb0e648637376cb5070bce8423aec14 | quote: The Dataverse Software exposes most of its GUI functionality via a REST-based API.
+  - [1] 2026-11-19: the builtin-user creation API needs a secret server-side key, so it is not an anonymous signup path | capture: sha256:ad5423b4b982223d0152bc7e275721ff1cb0e648637376cb5070bce8423aec14 | quote: For security reasons, builtin users cannot be created via API unless the team who runs the Dataverse installation has populated a database setting called `:BuiltinUsersKey`
+  - [2] 2026-11-19: the per-file cap is a per-installation setting, not a fixed documented number | capture: sha256:e90c303165b7f43f750a8f34e9c373e72c31f1794c073985ab5b365cbfc970ba | quote: The call will return a 400 (BAD REQUEST) response if the file is larger than what is allowed by the
+  - [3] 2026-11-19: the file upload API lets external applications deposit files into Dataverse | capture: sha256:9452a7f1fff755c391d106a3624d5e19a52413748663d0ca9ade668255605086 | quote: OJS, OSF, and RSpace are all web applications that can integrate with a Dataverse installation
+  - [3] 2026-11-19: the API guide describes integration paths but states no egress terms | capture: sha256:9452a7f1fff755c391d106a3624d5e19a52413748663d0ca9ade668255605086 | quote: APIs open the door for integrations between the Dataverse Software and other software.
+- sources:
+  - [1] https://guides.dataverse.org/en/latest/api/native-api.html
+  - [2] https://guides.dataverse.org/en/6.11/developers/s3-direct-upload-api.html
+  - [3] https://guides.dataverse.org/en/latest/api/intro.html
+
+## dataverse's own installations json (services.dataverse.harvard.edu/minivers
+
+- `storage/dataverse-s-own-installations-json-services-dataverse-ha` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.061Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/dataverse.md
+- free tier: None reachable: DNS dead. Cloudflare error 1016. Origin hostname does not resolve. The working substitute is the GitHub data file that powers the same map. | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the first-party Dataverse site states no per-object size cap for the installations-list endpoint | note: not applicable
+- retention: stated-absent: the first-party Dataverse site states no retention period for stored bytes
+- egress: stated-absent: the first-party Dataverse site states no egress terms for the installations-list endpoint | metered: no
+- identity: email
+- interface: unknown
+- interface detail: stated-absent: the first-party Dataverse site describes a hosted repository and self-installed software; it states no byte-storage interface for the installations-list endpoint
+- tooling: not documented
+- composes with: stated-absent: the first-party Dataverse site states no way to chain the installations-list endpoint as byte storage into other services
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: DNS dead. Cloudflare error 1016 — origin hostname does not resolve. The working substitute is the GitHub data file that powers the same map.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: DNS dead. Cloudflare error 1016 — origin hostname does not resolve. The working substitute is the GitHub data file that powers the same map.
+  - probe:https://services.dataverse.harvard.edu/miniverse 2026-11-19: the origin hostname does not resolve, so the installations-JSON endpoint is unreachable today | capture: sha256:d01394102a53fc724f796d2f52302de447434f03a620c19b0c19911bfa811ef9 | quote: "status": null
+  - [1] 2026-11-19: the first-party Dataverse site describes a hosted repository option and self-installed software but no installations-list JSON storage interface | capture: sha256:f9065a74ac71074bb4416c3d6b5d9d3e516ec64b204e460b310b448a05352af9 | quote: Does your institution need a place to host research data but doesn't need to install the Dataverse Project software?
+- sources:
+  - [1] https://dataverse.org/institutions
+
+## dati.gov.it, data.overheid.nl, data.gouv.fr, data.vic.gov.au, data.nsw.gov.
+
+- `storage/dati-gov-it-data-overheid-nl-data-gouv-fr-data-vic-gov-a` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.062Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/data.md
+- free tier: None reachable: A cluster of national/state portals that fail at the very first probe. 404 on the CKAN action API and either 404/403 on /user/register. data.gouv.fr has its own API (not CKAN); data.overhei. | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the data.gouv.fr and dati.gov.it first-party API pages state no per-object size cap | note: not applicable
+- retention: stated-absent: the data.gouv.fr and dati.gov.it first-party API pages state no retention period for stored data
+- egress: stated-absent: the data.gouv.fr and dati.gov.it first-party API pages state no egress terms for stored data | metered: no
+- identity: email
+- interface: rest
+- interface detail: A cluster of government open-data portals; data.gouv.fr exposes a catalogue API for metadata and resource links, and dati.gov.it exposes CKAN API endpoints returning JSON.
+- tooling: not documented
+- composes with: stated-absent: these government catalogue APIs publish metadata and links to data and state no way to chain byte storage into other services
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: A cluster of national/state portals that fail at the very first probe — 404 on the CKAN action API and either 404/403 on /user/register. data.gouv.fr has its own API (not CKAN)…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: A cluster of national/state portals that fail at the very first probe — 404 on the CKAN action API and either 404/403 on /user/register. data.gouv.fr has its own API (not CKAN)…
+  - probe:https://data.gov.it/api/3/action/package_list 2026-11-19: data.gov.it CKAN API gave no HTTP status on 2026-11-19 | capture: sha256:cd616a35f3cfc9e81b44e9dc8f437de239a5dcccf375ea305d07f95ebe574b0b | quote: "status": null
+  - [1] 2026-11-19: data.gouv.fr exposes an HTTP API to consult catalogue metadata and links to data | capture: sha256:f34c04c397ddaf203c34cc7eb800c625ddea7d9f883bc8cc6c106054f8361d07 | quote: L'API permet de consulter les métadonnées ainsi que d'avoir un lien vers les données.
+  - [2] 2026-11-19: dati.gov.it supports CKAN API requests returning JSON | capture: sha256:76fcb045c86b0d07d14e49fc4931386b77430cca820c2c1eaf49e645cd3474e7 | quote: Il portale supporta le API di CKAN che possono essere utilizzate attraverso richieste che forniscono i risultati formattati in JSON.
+- sources:
+  - [1] https://www.data.gouv.fr/dataservices/api-catalogue-des-donnees-ouvertes-data-gouv-fr
+  - [2] https://www.dati.gov.it/api
+
+## DedicatedCore — 6 TB storage VPS, 60 days free (3 slots only)
+
+- `storage/dedicatedcore-6-tb-storage-vps-60-days-free` | dead | evidence reported | binding none | category iaas
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:13:29.381Z (live) | stale on 2026-12-04
+- url https://dedicatedcore.com | page https://fshy.ajam.dev/p/dedicatedcore.md
+- free tier: 6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP. Free for 60 days. Only 3 units existed. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: until the instance is recycled; not persistent | source: [1] | note: not stated
+- egress: Includes 10 TB per month transfer. Bandwidth is metered beyond the allowance and Cloudflare proxying is not provided. | metered: no | free allowance: 10 TB per month
+- identity: email | detail: email
+- interface: sftp, rsync, ssh, rclone
+- limits note: Deleted after 60 days.
+- interface detail: sftp
+- tooling: Root KVM. SSH/SFTP/rsync, so rclone sftp or a local fuse mount works. No object API.
+- composes with: Not repeatable. Explicitly 'non-renewable, and the VPS will be deleted at the end of the 60-day period', 3 slots, application via a Google Form, and the thread closed with 'Filled!' within days. This is a marketing gesture, not a capacity source.
+- reliability: Deliberately ephemeral: the data is destroyed at day 60 by design. Good for one 6 TB cold-archive burst, worthless as standing storage.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 6 TB HDD, 3 vCPU, 4 GB RAM, 10,000 GB bandwidth, dedicated IP — free for 60 days. Only 3 units existed.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-21: 'DISK SPACE: 6 TB (HDD) … completely free for 60 days'; 'there are only 3 Storage VPS servers available'; 'This free offer is non-renewable, and the VPS will be deleted at the end of the 60-day period.'
+  - [1] 2026-11-19: the provider's forum post states the giveaway was non-renewable and deleted after 60 days | capture: sha256:380c7769f898a7e578d7bdc74851677c91d1178808a7a2ee1192ad34d7d6e645 | quote: Note: This free offer is non-renewable, and the VPS will be deleted at the end of the 60-day period.
+  - [1] 2026-11-19: the provider's forum thread records the three giveaway slots as filled in February 2025, so registration is closed | capture: sha256:380c7769f898a7e578d7bdc74851677c91d1178808a7a2ee1192ad34d7d6e645 | quote: Filled!
+- sources:
+  - [1] https://lowendspirit.com/discussion/9079/dedicatedcore-exclusive-offer-for-lowendspirit-community-3-free-6-tb-storage-vps-with-dedicated-ip
+
+## deutsche nationalbibliothek — pflichtexemplar
+
+- `storage/deutsche-nationalbibliothek-pflichtexemplar` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.042Z (inherited) | stale on 2026-12-04
+- url https://www.dnb.de/EN/Sammlungen/Pflichtexemplar/pflichtexemplar_node.html | page https://fshy.ajam.dev/p/dnb.md
+- free tier: Not an open deposit service; the page 404'd on the current path and the model is… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: the same as the free tier
+- notes: the same as the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Not an open deposit service; the page 404'd on the current path and the model is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Not an open deposit service; the page 404'd on the current path and the model is publishe
+  - probe:https://www.dnb.de/EN/Sammlungen/Pflichtexemplar/pflichtexemplar_node.html 2026-11-19: the DNB Pflichtexemplar page answered HTTP 404 on 2026-11-19 | capture: sha256:4b350562be52729546cc19aa591a9202d0b1fc632ff4e4b5adb3a4f99f4062aa | quote: "status": 404
+- sources:
+  - [1] https://www.dnb.de/EN/Sammlungen/Pflichtexemplar/pflichtexemplar_node.html
+
+## digitalocean spaces via github student pack
+
+- `storage/digitalocean-spaces-via-github-student-pack` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:34.058Z (live) | stale on 2026-12-04
+- url https://github.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/blob/main/SDP-changelog.md | page https://fshy.ajam.dev/p/github-github-education-resources.md
+- free tier: none reachable: The $100-$200 student credit was removed. Changelog: 'DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The $100-$200 student credit was removed. Changelog: 'DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-21: The $100-$200 student credit was removed. Changelog: 'DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be…
+  - [1] 2026-11-19: the student credit offer ended July 31, 2026 with credits expiring August 1, 2026 | capture: sha256:cf5523a0c8ed24c563824ca4c6e80d06cea10bc7270b83d51d49620ca5b2569d | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026. Verified students who have already redeemed the DigitalOcean offer can continue using any existing credits until August 1, 2026. After that date, any remaining credits will expire.
+  - [1] 2026-11-19: the DigitalOcean student credit offer was removed from the Student Developer Pack | capture: sha256:cf5523a0c8ed24c563824ca4c6e80d06cea10bc7270b83d51d49620ca5b2569d | quote: DigitalOcean is leaving the Student Developer Pack, and their student credit offer for $200 of platform credit will no longer be available after July 31, 2026. Verified students who have already redeemed the DigitalOcean offer can continue using any existing credits until August 1, 2026. After that date, any remaining credits will expire.
+- sources:
+  - [1] https://github.com/github-education-resources/Student-Developer-Pack-Current-Partners-FAQ/blob/main/SDP-changelog.md
+
+## discord as a durable cdn origin
+
+- `storage/discord-as-a-durable-cdn-origin` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.042Z (live) | stale on 2026-12-04
+- url https://docs.discord.com/developers/resources/message#signed-attachment-cdn-urls | page https://fshy.ajam.dev/p/discord.md
+- free tier: none reachable: Discord attachment CDN URLs are signed with a preset expiry time and cannot be stored as stable catalog URLs; the current first-party reference states no fixed lifetime for every endpoint. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Signed attachment URLs expire in exactly 24 hours (measured ex-is = 86400) and unsigned fetches 404. A URL cannot be stored in a catalog and reused; every read needs an authenticated…
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Signed attachment URLs expire in exactly 24 hours (measured ex-is = 86400) and unsigned fetches 404. A URL cannot be stored in a catalog and reused; every read needs an authenticated…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Signed attachment URLs expire in exactly 24 hours (measured ex-is = 86400) and unsigned fetches 404. A URL cannot be stored in a catalog and reused; every read needs an authenticated…
+  - [2] 2026-11-19: Discord attachment CDN URLs are signed with a preset expiry, not stable catalog URLs | capture: sha256:2ed3180963977cc17a3771255c1ddfc2b6c17e10a86f38a43dbf3c862383eb83 | quote: Attachments uploaded to Discord's CDN (like user and bot-uploaded images) have signed URLs with a preset expiry time.
+- sources:
+  - [1] https://docs.discord.com/developers/resources/message#signed-attachment-cdn-urls
+  - [2] https://docs.discord.com/developers/reference
+
+## drone ci (cloud.drone.io)
+
+- `storage/drone-ci` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.935Z (live) | stale on 2026-12-04
+- url https://docs.drone.io/ | page https://fshy.ajam.dev/p/drone.md
+- free tier: none: cloud.drone.io is not accepting new registrations, with no target date to reopen (vendor support reply, April 2022) | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: cloud.drone.io is not accepting new registrations, with no target date to reopen (vendor support reply, April 2022); the address still answers and its sign-in hands off to GitHub, so the service is closed to new accounts rather than gone. It is a CI service and documents no storage surface
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: registration-closed
+  - dead_end.why: The hosted cloud service is effectively gone — cloud.drone.io returns 303 with no usable public artifact surface. Drone now ships as self-hosted Community/Enterprise Edition only, so there…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-21: The hosted cloud service is effectively gone — cloud.drone.io returns 303 with no usable public artifact surface. Drone now ships as self-hosted Community/Enterprise Edition only, so there…
+  - [2] 2026-10-21: cited as the basis of the rejection: The hosted cloud service is effectively gone — cloud.drone.io returns 303 with no usable public artifact surface. Drone now ships as self-hosted Community/Enterprise Edition only, so there i
+  - [3] 2026-11-03: the vendor's support reply of 14 April 2022: cloud.drone.io takes no new registrations | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: Currently, [cloud.drone.io](http://cloud.drone.io) is not accepting new registrations.
+  - [4] 2026-11-03: the cloud.drone.io sign-in still answers and hands off to a GitHub OAuth sign-in for the cloud.drone.io app | capture: sha256:51ca33de43c325cedac3606278b49b17fed05bf3fb4c43f326d3bbff9e8726f6 | quote: to continue to cloud.drone.io
+  - probe:cloud.drone.io 2026-11-03: cloud.drone.io answers: the root redirects (303) to /welcome, which returns HTTP 200 | capture: sha256:741eb5effc80f795e2c357bee1ebcde43ecf25417690d9a0c9f14dda8844f606 | quote: "status": 200
+  - [5] 2026-11-19: the first-party cloud.drone.io login page still states that the hosted cloud service takes no new registrations | capture: sha256:078199b6a48bcae1cbdf356a420ec7b3e7a59d6de54de5c6eb17da33f547fd35 | quote: Drone Cloud is no longer accepting new registrations.
+  - [3] 2026-11-19: the vendor support thread states there is no target date for reopening new registrations | capture: sha256:bf03461be8e8b4d40e69394cbbbd2d933c75ffe5ca52ebfa6d6cd62f9aad56e5 | quote: We don’t have a target date for when [cloud.drone.io](http://cloud.drone.io) will accept new registrations.
+  - [6] 2026-11-19: the first-party Drone page directs users to install and run Drone themselves rather than use a hosted free tier | capture: sha256:7d329727921869b372d6c958179f2ee7c530fa709c8aa4e6710bb97c6c7a3545 | quote: Download our official Docker image or build from source. No need
+  - [5] 2026-11-19: the hosted cloud.drone.io service is closed to new registrations on 2026-11-19 | capture: sha256:078199b6a48bcae1cbdf356a420ec7b3e7a59d6de54de5c6eb17da33f547fd35 | quote: Drone Cloud is no longer accepting new registrations.
+- sources:
+  - [1] https://docs.drone.io/
+  - [2] https://cloud.drone.io/
+  - [3] https://drone.discourse.group/t/user-registration-is-disabled-on-cloud-drone-io/11904
+  - [4] https://cloud.drone.io/login
+  - [5] https://cloud.drone.io/login/error
+  - [6] https://drone.io/
+
+## dspace registry cohort (60 of 60 sampled)
+
+- `storage/dspace-registry-cohort` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.043Z (live) | stale on 2026-12-04
+- url http://academico.ehu.eus | page https://fshy.ajam.dev/p/ehu.md
+- free tier: None reachable: Every sampled site from page 1 of the official registry failed /server/api/info. They are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an…
+  - [2] 2026-10-21: cited as the basis of the rejection: Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento
+  - [3] 2026-10-21: cited as the basis of the rejection: Every sampled site from page 1 of the official registry failed /server/api/info — they are DSpace 6 or earlier with no REST API, or the host is gone. The registry is a museum, not an invento
+  - [4] 2026-11-19: the sampled site serves a DSpace repository | capture: sha256:d3cd413afad501924d84f3889edd1ad23f233fe8ecb37393833c1e8e330b93ed | quote: DSpace software
+  - probe:https://academico.ehu.eus/server/api/info 2026-11-19: the sampled DSpace site's REST info path answered HTTP 404 on 2026-11-19 | capture: sha256:d569fdc3c5ccae7c284b41295e8646cc44cc4cc4ef4c5f0310648c747ad375db | quote: "status": 404
+- sources:
+  - [1] http://academico.ehu.eus
+  - [2] http://corlib.pdn.ac.lk
+  - [3] http://ir.nust.ac.zw
+  - [4] https://academico.ehu.eus/
+
+## dspace.org/instances
+
+- `storage/dspace-org-instances` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.043Z (live) | stale on 2026-12-04
+- url https://dspace.org/instances | page https://fshy.ajam.dev/p/dspace.md
+- free tier: none reachable: The old /instances path is no longer the live registry; the active registry at dspace.org/registry/ lists 3,496 entries on 2026-11-19. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Old registry URL returned HTTP 404. The active registry is located at dspace.org/registry/ with 3,485 directory entries.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: 404 — the registry moved. The live registry is dspace.org/registry/ (3,485 entries, 35 pages).
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 404 — the registry moved. The live registry is dspace.org/registry/ (3,485 entries, 35 pages).
+  - [2] 2026-10-21: cited as the basis of the rejection: 404 — the registry moved. The live registry is dspace.org/registry/ (3,485 entries, 35 pages).
+  - [2] 2026-11-19: the live DSpace registry lists 3,496 entries on 2026-11-19 | capture: sha256:bcbae21e5c978934f94fde0bcd508252ad4930971598f229551d16b8f1118fd1 | quote: Displaying 1 - 100 of 3,496
+  - probe:https://dspace.org/instances 2026-11-19: the old /instances path answered HTTP 403 on 2026-11-19 | capture: sha256:a3208be40e8b2f2032e60bcd50a11501c690ff5da5272f8a08a2c7527ad5cd39 | quote: "status": 403
+- sources:
+  - [1] https://dspace.org/instances
+  - [2] https://dspace.org/registry/
+
+## edgio / limelight networks
+
+- `storage/edgio-limelight-networks` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:35.337Z (live) | stale on 2026-12-04
+- url https://ottverse.com/edgio-shuts-down-operations-following-bankruptcy-filing/ | page https://fshy.ajam.dev/p/ottverse.md
+- free tier: none reachable: Chapter 11 in September 2024, CDN went dark 15 Jan 2025. Akamai acquired the assets and select contracts. Any cached pricing for Edgio is fiction. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Chapter 11 in September 2024, CDN went dark 15 Jan 2025. Akamai acquired the assets and select contracts. Any cached pricing for Edgio is fiction.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Chapter 11 in September 2024, CDN went dark 15 Jan 2025. Akamai acquired the assets and select contracts. Any cached pricing for Edgio is fiction.
+  - [2] 2026-10-21: cited as the basis of the rejection: Chapter 11 in September 2024, CDN went dark 15 Jan 2025. Akamai acquired the assets and select contracts. Any cached pricing for Edgio is fiction.
+  - [1] 2026-11-19: the service went offline and is dead | capture: sha256:5b09d13ef9d85a8b4f9c8912a152f3061e79b50b8817394a3c128d444e87f761 | quote: Edgio, previously known as Limelight Networks, officially went offline on January 15, 2025, following its Chapter 11 bankruptcy filing in September 2024.
+- sources:
+  - [1] https://ottverse.com/edgio-shuts-down-operations-following-bankruptcy-filing/
+  - [2] https://www.datacenterdynamics.com/en/news/akamai-completes-acquisition-of-edgio-assets/
+
+## envs.sh
+
+- `storage/envs-sh` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.043Z (inherited) | stale on 2026-12-04
+- url https://envs.sh/ | page https://fshy.ajam.dev/p/envs.md
+- free tier: None reachable: Domain is PARKED and for sale. 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Domain is PARKED and for sale — 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Domain is PARKED and for sale — 'This domain may be for sale' via abovedomains.com for-sale parking script. Serves HTTP 200 with a sale page, so it looks alive to a status-code check but is
+  - probe:https://envs.sh/ 2026-11-19: envs.sh redirected to a parking host on 2026-11-19; no file-host answer was returned | capture: sha256:113e28ad5555b15067c4107455a3c2566d3b9c0a8f4ca48881306c51be6e6b44 | quote: "status": 302
+- sources:
+  - [1] https://envs.sh/
+
+## envs.sh and null.slipfox.xyz (0x0 instances)
+
+- `storage/envs-sh-and-null-slipfox-xyz` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.043Z (inherited) | stale on 2026-12-04
+- url https://envs.sh | page https://fshy.ajam.dev/p/envs.md
+- free tier: none reachable: Both listed in the 0x0 instance directory as live alternatives. Both domains are now parked/for-sale pages served by abovedomains.com, not file hosts. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Both listed in the 0x0 instance directory as live alternatives. Both domains are now parked/for-sale pages served by abovedomains.com, not file hosts.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both listed in the 0x0 instance directory as live alternatives. Both domains are now parked/for-sale pages served by abovedomains.com, not file hosts.
+  - [2] 2026-10-21: cited as the basis of the rejection: Both listed in the 0x0 instance directory as live alternatives. Both domains are now parked/for-sale pages served by abovedomains.com, not file hosts.
+  - probe:https://envs.sh/ 2026-11-19: envs.sh redirected to a parking host on 2026-11-19; no file-host answer was returned | capture: sha256:113e28ad5555b15067c4107455a3c2566d3b9c0a8f4ca48881306c51be6e6b44 | quote: "status": 302
+  - probe:https://null.slipfox.xyz 2026-11-19: null.slipfox.xyz redirected to a parking host on 2026-11-19; no file-host answer was returned | capture: sha256:f891014ed59a256460598d9018d79d3c770f5f7d742e1e680172161ed3a47239 | quote: "status": 302
+- sources:
+  - [1] https://envs.sh
+  - [2] https://null.slipfox.xyz
+
+## euserv backuphd 1t (se2021 / se2019 / wme2018)
+
+- `storage/euserv-backuphd-1t` | dead | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:13.492Z (live) | stale on 2026-12-05
+- url https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php | page https://fshy.ajam.dev/p/euserv.md
+- price unverified: the BackupHD Classic price is rendered by a cart script and is absent from the captured page text
+- free tier: none: the 1000 GB free-year offer (BackupHD 1T SE2021) was valid until 31.12.2021; the free period was 1 year, after which regular fees apply | unit: none | metered on: none | read on: 2026-10-21 | source: [1] | note: the current free edition (BackupHD Classic Free) provides 2 GB
+- per-object cap: Maximum single file size 5 TB, additionally limited by the storage space size | bytes: 5000000000000 | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: Bandwidth is listed as unmetered (flat fee, all traffic included) | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The 1000 GB free-year offer ended 31.12.2021 (one contract per customer, automatic renewal at regular fees after the first year).
+- notes: The 1000 GB free-year offer ended 31.12.2021.
+- evidence note: Documented from vendor pages re-read on 2026-11-04: https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php (offer ended 31.12.2021, one free year), https://www.euserv.com/en/cloud/backup-hd-free.php (current free edition) and https://www.euserv.com/en/cloud/backup-hd.php (paid plan sizes).
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-03
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-21: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is…
+  - [2] 2026-10-21: cited as the basis of the rejection: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is 'Back
+  - [3] 2026-10-21: cited as the basis of the rejection: The 1000 GB free-year offers are expired: the page itself says 'Offer is valid until 31.12.2021', one contract per customer, auto-renews at paid rates. The only current free product is 'Back
+  - [1] 2026-11-03: the 1000 GB free-year offer ended on 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-03: the free period of the 1000 GB offer is 1 year | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: - The free period of this offer is 1 year.
+  - [2] 2026-11-03: the current free edition (BackupHD Classic Free) provides 2 GB | capture: sha256:a8ea93df681aea438b7a6bd08ba197faeb41aa78bf6f3c810be634b715d30400 | quote: | Storage | | 2 GB [see upgrade plans](https://www.euserv.com/en/cloud/backup-hd.php) |
+  - [4] 2026-11-03: the paid BackupHD Classic plans range from 50 to 2000 GB per plan | capture: sha256:95cfdf74101031b5078a63be334d3d0fe87652d40f8474b10855361cd7921f68 | quote: | Storage | | 50 - 2000 GB |
+  - [1] 2026-11-03: regular fees apply after the free year | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: - After the one-year free period, regular fees will apply.
+  - [1] 2026-11-03: the offer ended 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-03: the maximum single file size is 5 TB | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: | Maximum filesize | technical limited maximum single filesize, additional limitation by reaching storage space size | 5 TB |
+  - [1] 2026-11-03: bandwidth is listed as unmetered | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: | Bandwidth | | unmetered ¹ |
+  - [4] 2026-11-03: the paid plans range from 50 to 2000 GB; the page text carries no price | capture: sha256:95cfdf74101031b5078a63be334d3d0fe87652d40f8474b10855361cd7921f68 | quote: | Storage | | 50 - 2000 GB |
+  - [1] 2026-11-03: the 1000 GB offer is past its end date | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+  - [1] 2026-11-04: the 1000 GB free-year offer ended on 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: # Offer is valid until 31.12.2021.
+- sources:
+  - [1] https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php
+  - [2] https://www.euserv.com/en/cloud/backup-hd-free.php
+  - [3] https://www.euserv.com/wiki/index.php/Übersicht_unterstützte_Protokolle_BackupHD/Onlinefestplatte/en
+  - [4] https://www.euserv.com/en/cloud/backup-hd.php
+
+## euserv backuphd 1t se2021 / se2019 / wme2018 — the '1 tb free for a year' o
+
+- `storage/euserv-backuphd-1t-se2021-se2019-wme2018-the-1-tb-free-f` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:48.062Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/euserv.md
+- free tier: none reachable: The most-cited 'free 1 TB' in this niche is a discontinued annual promo, not a standing offer. The pages are still live and still say 'free period of this offer is 1 year' + 'Offer is valid | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the EUserv BackupHD offer page states no per-object size cap | note: not applicable
+- retention: EUserv BackupHD: "The free period of this offer is 1 year." "Offer is valid until 31.12.2021."
+- egress: stated-absent: the EUserv BackupHD offer page states no egress price or transfer-out terms | metered: no
+- identity: email
+- interface: sftp, webdav, ftp, rsync
+- interface detail: EUserv BackupHD is reachable over encrypted Rsync, FTP/FTPS and WebDAV, or a graphical frontend.
+- tooling: not documented
+- composes with: stated-absent: the EUserv BackupHD offer page states no way to chain the storage into other services beyond its transfer protocols
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The most-cited 'free 1 TB' in this niche is a discontinued annual promo, not a standing offer. The pages are still live and still say 'free period of this offer is 1 year' + 'Offer is valid
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: The most-cited 'free 1 TB' in this niche is a discontinued annual promo, not a standing offer. The pages are still live and still say 'free period of this offer is 1 year' + 'Offer is valid
+  - [1] 2026-11-19: the promotional free tier is dated to 2021 and is no longer a standing offer | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: Offer is valid until 31.12.2021.
+  - [1] 2026-11-19: the offer is reachable through Rsync, FTPS and WebDAV transfer protocols | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: Use the front-end server and various transfer protocols such as encrypted Rsync, FTP, WebDAV, or a graphical frontend
+  - [1] 2026-11-19: the free offer lasts one year and, for this edition, is valid until 31.12.2021 | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: The free period of this offer is 1 year.
+  - [1] 2026-11-19: the page lists an unlimited backup count but states no per-object cap | capture: sha256:722276a3958d71928f930edc6ed096ca21eaeb829e92022dc73f41ebc8551a61 | quote: Number of backups | number of possible backupped archives | unlimited
+- sources:
+  - [1] https://www.euserv.com/en/cloud/backup-hd-1T-se2021.php
+
+## fed4fire+ / slices-ri
+
+- `storage/fed4fire-slices-ri` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:37.014Z (live) | stale on 2026-12-04
+- url https://www.fed4fire.eu/ | page https://fshy.ajam.dev/p/fed4fire.md
+- free tier: none reachable: Fed4FIRE+ closed in June 2022 ('reached its finish line ... Its legacy will be taken by SLICES-RI'). SLICES is a consortium of 16 European countries still building governance and roadmaps - | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Fed4FIRE+ closed in June 2022 ('reached its finish line ... Its legacy will be taken by SLICES-RI'). SLICES is a consortium of 16 European countries still building governance and roadmaps -
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Fed4FIRE+ closed in June 2022 ('reached its finish line ... Its legacy will be taken by SLICES-RI'). SLICES is a consortium of 16 European countries still building governance and roadmaps -
+  - [2] 2026-10-21: cited as the basis of the rejection: Fed4FIRE+ closed in June 2022 ('reached its finish line ... Its legacy will be taken by SLICES-RI'). SLICES is a consortium of 16 European countries still building governance and roadmaps -
+  - [1] 2026-11-19: the first-party site confirms the Fed4FIRE+ federation ended in June 2022 | capture: sha256:3dbbbe76b2db4388b8af6b9df45ac42b747a5ba3878a0fbbd859e6d583cdecea | quote: Fed4FIRE+ reached its finish line in June 2022 after more than 5 years of operation.
+  - [2] 2026-11-19: the purported successor is a 16-country research consortium, not a successor hosting offer | capture: sha256:a9fb9afc45db887ad79b1cc2bd65523f9215ddfc1eb57a6e00205000fb059c31 | quote: The SLICES-RI consortium gathers partners from 16 European countries, all of them having committed to contribute resources
+  - [1] 2026-11-19: the Fed4FIRE+ service has ended | capture: sha256:3dbbbe76b2db4388b8af6b9df45ac42b747a5ba3878a0fbbd859e6d583cdecea | quote: Fed4FIRE+ reached its finish line in June 2022 after more than 5 years of operation.
+- sources:
+  - [1] https://www.fed4fire.eu/
+  - [2] https://www.slices-ri.eu/
+
+## feimaipan (feimaipan.com)
+
+- `storage/feimaipan` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.044Z (inherited) | stale on 2026-12-04
+- url https://www.feimaipan.com/ | page https://fshy.ajam.dev/p/feimaipan.md
+- free tier: none reachable: Origin hostname no longer resolves (Cloudflare 1016), so the site is gone rather than blocked. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Origin hostname no longer resolves (Cloudflare 1016), so the site is gone rather than blocked.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Origin hostname no longer resolves (Cloudflare 1016), so the site is gone rather than blocked.
+  - probe:https://www.feimaipan.com/ 2026-11-19: feimaipan.com did not resolve on 2026-11-19 | capture: sha256:b21268c80e5e3b095b8656f7c46b7ad8265c7c69d542487c0c1914b42871275b | quote: "error": "transport"
+- sources:
+  - [1] https://www.feimaipan.com/
+
+## file.io (documented api path)
+
+- `storage/file-io-2` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.551Z (live) | stale on 2026-12-04
+- url https://www.file.io/ | page https://fshy.ajam.dev/p/file.md
+- disagrees on identity_kind: `storage/file-io` says anonymous, `storage/file-io-2` says email
+- disagrees on verdict: `storage/file-io` says fails-quota, `storage/file-io-2` says dead
+- disagrees on verdict: `storage/file-io-2` says dead, `storage/file-io-3` says fails-quota
+- free tier: none reachable: The REST upload flow documented on /about returns HTTP 405 Method Not Allowed on POST to file.io and www.file.io. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: The file-sharing service is live and files are deleted after 3 days; the old REST upload API was retired in 2025 in favour of the LimeWire MCP server.
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The REST flow printed in its own /about page no longer works: POST to both file.io and www.file.io returns 405 MethodNotAllowed from an S3-style object store.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The REST flow printed in its own /about page no longer works: POST to both file.io and www.file.io returns 405 MethodNotAllowed from an S3-style object store.
+  - [1] 2026-11-19: the documented file.io upload API was retired; uploads now go through the LimeWire MCP server | capture: sha256:fc10a8150432a82de583be477b936f87c9a3475cd9f25d582697e4e061cea112 | quote: The old file.io API was retired in 2025. To upload files from an AI agent or an automation, use the LimeWire MCP server: [how to connect it](https://www.file.io/developers).
+  - [1] 2026-11-19: the hosted file-sharing service deletes files after 3 days and is not a general storage offer | capture: sha256:fc10a8150432a82de583be477b936f87c9a3475cd9f25d582697e4e061cea112 | quote: The file is deleted automatically after 3 days, even if it was never downloaded, so nothing is left hanging around in the cloud.
+- sources:
+  - [1] https://www.file.io/
+
+## filepost (filepost.com)
+
+- `storage/filepost` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.551Z (live) | stale on 2026-12-04
+- url https://filepost.com/ | page https://fshy.ajam.dev/p/filepost.md
+- free tier: none reachable: Domain is now an ad/affiliate redirect farm ('ww547.filepost.com/?tkn=...' with 'best cloud storage plans' keyword links). The original file host is gone. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Domain is now an ad/affiliate redirect farm ('ww547.filepost.com/?tkn=...' with 'best cloud storage plans' keyword links). The original file host is gone.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Domain is now an ad/affiliate redirect farm ('ww547.filepost.com/?tkn=...' with 'best cloud storage plans' keyword links). The original file host is gone.
+  - [2] 2026-10-21: cited as the basis of the rejection: Domain is now an ad/affiliate redirect farm ('ww547.filepost.com/?tkn=...' with 'best cloud storage plans' keyword links). The original file host is gone.
+  - [1] 2026-11-19: filepost.com serves keyword-link affiliate pages rather than a file host | capture: sha256:48a614dcb386704da4ead686af214c9164168762d746585c328620dc39f83627 | quote: [best online streaming services](http://ww547.filepost.com/kw-click)
+- sources:
+  - [1] https://filepost.com/
+  - [2] http://ww547.filepost.com/?tkn=19vnMT3S
+
+## filepost / filepost.jp / filepost.com
+
+- `storage/filepost-filepost-jp-filepost-com` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:38.131Z (inherited) | stale on 2026-12-04
+- url https://filepost.jp/ | page https://fshy.ajam.dev/p/filepost-2.md
+- free tier: none reachable: Endpoint filepost.jp returns HTTP 504 with no active upload interface. Endpoint filepost.com operates as an advertising redirect portal. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Two separate corpses. filepost.jp returns 504 through the reader and has no live upload surface; Also note the
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Two separate corpses. filepost.jp returns 504 through the reader and has no live upload surface; Also note the
+  - [2] 2026-10-21: cited as the basis of the rejection: Two separate corpses. filepost.jp returns 504 through the reader and has no live upload surface; Also note the
+  - probe:https://filepost.jp/ 2026-11-19: the first-party host returned HTTP 403 to a direct probe on 2026-11-19 with an expired certificate | capture: sha256:aae79801da718ceacab3082537e08ea81fe98a8572d4a7512dc4549db20eb9fb | quote: "status": 403
+  - probe:https://filepost.jp/ 2026-11-19: the direct probe recorded an http-403 error for the first-party host on 2026-11-19 | capture: sha256:aae79801da718ceacab3082537e08ea81fe98a8572d4a7512dc4549db20eb9fb | quote: "error": "http-403"
+- sources:
+  - [1] https://filepost.jp/
+  - [2] http://muryo.net/storage/
+
+## files.link ('unlimited storage, permanent cdn urls')
+
+- `storage/files-link` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://files.link/ | page https://fshy.ajam.dev/p/files-3.md
+- free tier: none reachable: Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: unverified: the host did not resolve on 2026-11-19; a read-only probe recorded a name-resolution failure and no page could be read.
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is…
+  - [2] 2026-10-21: cited as the basis of the rejection: Could not be verified at all: TLS handshake fails through both the reader and the fetcher (Cloudflare 525), and the http:// variant 404s. The 'unlimited' claim in the search snippet is unaut
+  - probe:https://files.link/ 2026-11-19: the probe obtained no HTTP status because the files.link name did not resolve | capture: sha256:630b15b96e4ea1e554a2f5c6448842ff80021e869048cfa0d83b2c6b2f286a8c | quote: "status": null
+- sources:
+  - [1] https://files.link/
+  - [2] http://files.link/pdf-hosting
+
+## filesend / 宅ふぁいる便 (filesend.jp, ex-ogis ri) — twice dead
+
+- `storage/filesend-twice-dead` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:38.132Z (live) | stale on 2026-12-04
+- url https://www.filesend.jp/l/ja-JP/ | page https://fshy.ajam.dev/p/filesend.md
+- free tier: None reachable: Closed. The landing page reads 'サービス終了のお知らせ — FileSendサービスは新規アップロードの受付を終了しました'. The original 宅ふぁいる便 was killed in 2020 by a data breach with no resumption (OGIS Ri announced termination on 2. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Closed. The landing page reads 'サービス終了のお知らせ — FileSendサービスは新規アップロードの受付を終了しました'. The original 宅ふぁいる便 was killed in 2020 by a data breach with no resumption (OGIS Ri announced termination on…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Closed. The landing page reads 'サービス終了のお知らせ — FileSendサービスは新規アップロードの受付を終了しました'. The original 宅ふぁいる便 was killed in 2020 by a data breach with no resumption OGIS Ri announced termination on 2
+  - [2] 2026-10-21: cited as the basis of the rejection: Closed. The landing page reads 'サービス終了のお知らせ — FileSendサービスは新規アップロードの受付を終了しました'. The original 宅ふぁいる便 was killed in 2020 by a data breach with no resumption OGIS Ri announced termination on 2
+  - [1] 2026-11-19: the first-party landing page states FileSend has ended acceptance of new uploads | capture: sha256:5f7cd7764ee79665f4b7652d8fdef9d763407aa6bee82384ff609e4fa52bc1ae | quote: FileSendサービスは新規アップロードの受付を終了しました。
+- sources:
+  - [1] https://www.filesend.jp/l/ja-JP/
+  - [2] https://www.ogis-ri.co.jp/news/20200114_001.html
+
+## filestream.me
+
+- `storage/filestream-me` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://filestream.me/ | page https://fshy.ajam.dev/p/filestream.md
+- free tier: none reachable: Domain no longer resolves. Probe: Could not resolve host: filestream.me. The 'seedbox + HTTP streaming' product is dead. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: unverified: the host did not resolve on 2026-11-19; a read-only probe recorded a name-resolution failure and no page could be read.
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Domain no longer resolves. Probe: Could not resolve host: filestream.me. The 'seedbox + HTTP streaming' product is dead.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Domain no longer resolves. Probe: Could not resolve host: filestream.me. The 'seedbox + HTTP streaming' product is dead.
+  - probe:https://filestream.me/ 2026-11-19: the probe obtained no HTTP status because the filestream.me name did not resolve | capture: sha256:54daa5b1bbec8935169725ec1011c5524986b270c6e392a25dc81e6268a43987 | quote: "status": null
+- sources:
+  - [1] https://filestream.me/
+
+## firefish (firefish.social) — project abandoned
+
+- `storage/firefish-project-abandoned` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:38.131Z (live) | stale on 2026-12-04
+- url https://firefish.social/api/meta | page https://fshy.ajam.dev/p/firefish.md
+- free tier: none reachable: The flagship domain firefish.social is parked and for sale; /api/meta no longer serves an instance API response. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…
+  - [1] 2026-11-19: the first-party flagship domain is now parked for sale and returns no API metadata | capture: sha256:469d9949e51187ab5c24e452bf3f0f6106cbfae86bc90d89698f8dfaaec89aa8 | quote: This domain is for sale
+- sources:
+  - [1] https://firefish.social/api/meta
+
+## fleek
+
+- `storage/fleek` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.552Z (live) | stale on 2026-12-04
+- url https://fleek.xyz/pricing | page https://fshy.ajam.dev/p/fleek.md
+- free tier: none reachable: The product is gone. fleek.xyz serves a placeholder: 'What if you could start over? We've been building something new.' No storage product, no pricing, no docs. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The product is gone. fleek.xyz serves a placeholder: 'What if you could start over? We've been building something new.' No storage product, no pricing, no docs.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The product is gone. fleek.xyz serves a placeholder: 'What if you could start over? We've been building something new.' No storage product, no pricing, no docs.
+  - [2] 2026-10-21: cited as the basis of the rejection: The product is gone. fleek.xyz serves a placeholder: 'What if you could start over? We've been building something new.' No storage product, no pricing, no docs.
+  - [1] 2026-11-19: the former pricing URL serves a placeholder with no storage product or pricing | capture: sha256:1582f16cfa541dd2e99ce636a8f003f42ad60eb943666c28edb61a84137fba81 | quote: We've been building something new. We're excited to share more soon.
+- sources:
+  - [1] https://fleek.xyz/pricing
+  - [2] https://www.fleek.sh/
+
+## folderfort 2 tb lifetime (stacksocial $109.97)
+
+- `storage/folderfort-2-tb-lifetime` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.552Z (live) | stale on 2026-12-04
+- url https://www.stacksocial.com/sales/folderfort-2tb-cloud-storage-pro-plan-lifetime-subscription | page https://fshy.ajam.dev/p/stacksocial.md
+- free tier: None reachable: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free). The lifetime SKU is gone and the new model fails the egress fil. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress…
+  - [2] 2026-10-21: cited as the basis of the rejection: Listing 404s. FolderFort has moved to a 'Folder Fort 2.0' subscription model with bandwidth allowances (10 GB/month on free) — the lifetime SKU is gone and the new model fails the egress fil
+  - [1] 2026-11-19: the lifetime SKU listing no longer exists | capture: sha256:439b3bc073bf52672f4e538d2b7384e788c77f3774bb66b09a1200bc55315d68 | quote: Oops! It looks like the page does not exist.
+- sources:
+  - [1] https://www.stacksocial.com/sales/folderfort-2tb-cloud-storage-pro-plan-lifetime-subscription
+  - [2] https://folderfort.com/pricing
+
+## free music archive / ccmixter
+
+- `storage/free-music-archive-ccmixter` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.552Z (live) | stale on 2026-12-04
+- url https://freemusicarchive.org/about/ | page https://fshy.ajam.dev/p/freemusicarchive.md
+- free tier: none reachable: Both are curated libraries, not storage: FMA's upload path is gated behind a Tribe of Noise artist account and a curation/approval step, and /upload returns 404 on both sites (FMA has no… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Both are curated libraries, not storage: FMA's upload path is gated behind a Tribe of Noise artist account and a curation/approval step, and /upload returns 404 on both sites (FMA has no…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Both are curated libraries, not storage: FMA's upload path is gated behind a Tribe of Noise artist account and a curation/approval step, and /upload returns 404 on both sites FMA has no sel
+  - [1] 2026-11-19: the site is a curated music catalogue rather than a general file-storage service | capture: sha256:51485eb9d8f6c8abf73ecfef58da81c4692ade3db244b8b8b0b487efac3ebf88 | quote: Free Music Archive (FMA) offers free access to open licensed, original music by independent artists around the world.
+- sources:
+  - [1] https://freemusicarchive.org/about/
+
+## freeturn.net
+
+- `storage/freeturn-net` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.426Z (inherited) | stale on 2026-12-04
+- url https://freeturn.net/ | page https://fshy.ajam.dev/p/freeturn.md
+- free tier: not stated: https://freeturn.net/ does not resolve; public resolvers answer NXDOMAIN (Status 3) for freeturn.net | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: unverified: freeturn.net did not resolve on 2026-11-19; a public resolver answered NXDOMAIN (Status 3), so the free TURN service is unreachable
+- notes: free TURN relay: the archived page of 2024-05-27 listed a Free Plan at USD 0 forever with 1000 MBit/s and unlimited bandwidth; the domain then redirected to the paid fastturn.net and has since lapsed
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: freeturn.net does not resolve and holds no .net registration; the free TURN service ended
+  - dead_end.retry_when: never; the domain lapsed. Re-open only if the free service is relaunched
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-10-30
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: 
+  - probe:https://8.8.8.8/resolve?name=freeturn.net&type=A 2026-10-30: a public resolver answers NXDOMAIN (Status 3) for freeturn.net, with the .net registry as authority | capture: sha256:373948ca61bd2fca5168d9a68ff5a7f0b674ef326969b41d85bc33cc7700bf61 | quote: {"Status":3,"TC":false
+  - probe:https://8.8.8.8/resolve?name=freeturn.net&type=A 2026-10-30: the resolver answered the query with HTTP 200, so the NXDOMAIN is its answer | capture: sha256:22053797e11508803d81f7d29ae48b96d6e641f35f212e75f7d8bac7e8dd2060 | quote: "status": 200
+  - probe:https://1.1.1.1/dns-query?name=freeturn.net&type=A 2026-10-30: a second public resolver answers NXDOMAIN (Status 3) for freeturn.net | capture: sha256:0bfcd1dd7e49900d420cdeb7eda99463e39e7abe0b9aad6611e7c61c90178a64 | quote: {"Status":3,"TC":false
+  - [2] 2026-10-30: the .net registry RDAP service holds no registration for freeturn.net | capture: sha256:e7a201f9cb8a1a55b51b370f744637e425d1f26cec240353c37a7dfb3050016d | quote: HTTP/1.1 404 Not Found
+  - [3] 2026-10-30: the archived copy of 2025-11-17 is a registrar page for an expired domain | capture: sha256:b4b7e716000acce9c5f2bd4ad1e74e260f40552d2e2e3bfa579f80de8080e2da | quote: Your domain has expired. Please log in to your Spaceship account to renew it.
+  - [4] 2026-10-30: on 2024-12-31 freeturn.net answered HTTP 301 with a redirect to https://fastturn.net/ | capture: sha256:af844f2ffa3ad9a11c5c36ad9bd5d061da5e25a9e68cfd3da0bf5461360c4d77 | quote: Got an HTTP 301 response at crawl time
+  - [5] 2026-10-30: the archived page of 2024-05-27 listed a Free Plan with 1000 MBit/s and unlimited bandwidth | capture: sha256:e45296af846c42dde41e3460bee4119b970d5414564ec9612ff4a8c1c01e03fe | quote: 1000 MBit/s · Unlimited Bandwidth · No logging
+  - [6] 2026-10-30: fastturn.net, the redirect target, sells paid plans with 25 GB of TURN traffic per month | capture: sha256:6be2eef16e08b1f9a3f5e9235e5462a9d9d2b20451515cc29dfe363e78db1609 | quote: Our plans include unlimited STUN connections and 25 GB of TURN traffic per month.
+  - probe:https://8.8.8.8/resolve?name=freeturn.net&type=A 2026-11-19: a public resolver answered NXDOMAIN for freeturn.net, so the domain does not resolve | capture: sha256:1a139f0371201ed5d8ec12499c41236783b1c71617cfe3ca136b196ab299b6f0 | quote: {"Status":3,"TC":false
+- sources:
+  - [1] https://freeturn.net/
+  - [2] https://rdap.verisign.com/net/v1/domain/freeturn.net
+  - [3] https://web.archive.org/web/2025/https://freeturn.net/
+  - [4] https://web.archive.org/web/2024/https://freeturn.net/
+  - [5] https://web.archive.org/web/20240601000000/https://freeturn.net/
+  - [6] https://fastturn.net/
+
+## gakunin rdm (nii, japan)
+
+- `storage/gakunin-rdm` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.552Z (live) | stale on 2026-12-04
+- url https://rds.dx.kyushu-u.ac.jp/en/gakunin_rdm | page https://fshy.ajam.dev/p/rds-dx-kyushu-u-ac-jp.md
+- disagrees on identity_kind: `storage/gakunin-rdm` says institution, `storage/gakunin-rdm-standard-storage` says email
+- disagrees on verdict: `storage/gakunin-rdm` says dead, `storage/gakunin-rdm-standard-storage` says fails-quota
+- free tier: none reachable: Allocation is 100 GB per user with a 5 GB per-file cap on NII Storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: institution
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: re-checked in Japanese and the numbers…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: re-checked in Japanese and the numbers ar
+  - [2] 2026-10-21: re-checked in Japanese and the numbers ar
+  - [2] 2026-11-19: access requires an institutional authentication account | capture: sha256:d0ba89c10ef91405aa867e1b47a730b0c0d55708c718b799a43e1cfa8340ab81 | quote: You can log in to GakuNin RDM from your institution's common authentication system by accessing https://rdm.nii.ac.jp/ and selecting your institution's name from the pull-down menu in the upper right corner
+  - [1] 2026-11-19: the storage allocation is 100 GB per user with a 5 GB per-file cap | capture: sha256:8ac8fc3886cd84f79751b2b81f4b7ded118cc7bf578c98b6caeca5ad9b6ef7b2 | quote: NII Storage is limited to 100 GB per user and less than 5 GB per file.
+- sources:
+  - [1] https://rds.dx.kyushu-u.ac.jp/en/gakunin_rdm
+  - [2] https://support.rdm.nii.ac.jp/en/faq/
+
+## gamesparks
+
+- `storage/gamesparks` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:39.184Z (live) | stale on 2026-12-04
+- url https://aws.amazon.com/gamesparks/getting-started/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: none reachable: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: write-gated
+  - dead_end.why: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-21: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+  - [2] 2026-10-21: cited as the basis of the rejection: Retired. AWS states 'Amazon GameSparks (Preview) is no longer accepting new customers'; the AWS SDK has removed the service entirely. Nothing to sign up for.
+  - [1] 2026-11-19: the first-party AWS page still states GameSparks is closed to new customers | capture: sha256:7d6002607b152930fc95efce9b476b806817e89ce316b8fd870bc033190e05f6 | quote: Amazon GameSparks (Preview) is no longer accepting new customers
+  - [1] 2026-11-19: the service is closed to new customers | capture: sha256:7d6002607b152930fc95efce9b476b806817e89ce316b8fd870bc033190e05f6 | quote: Amazon GameSparks (Preview) is no longer accepting new customers
+- sources:
+  - [1] https://aws.amazon.com/gamesparks/getting-started/
+  - [2] https://github.com/aws/aws-sdk-java-v2/commit/c081b8d977113b75474a81f0b3a3fe8429cfd53d
+
+## ganso
+
+- `storage/ganso` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.552Z (live) | stale on 2026-12-04
+- url https://stackrater.io/cloud/lifetime-cloud-storage-scams/ | page https://fshy.ajam.dev/p/stackrater.md
+- free tier: None reachable: Shut down entirely. Cited alongside ThunderDrive as a completed instance of the 'cheap lifetime terabytes then vanish' script. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Shut down entirely — cited alongside ThunderDrive as a completed instance of the 'cheap lifetime terabytes then vanish' script.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Shut down entirely — cited alongside ThunderDrive as a completed instance of the 'cheap lifetime terabytes then vanish' script.
+  - [2] 2026-10-21: cited as the basis of the rejection: Shut down entirely — cited alongside ThunderDrive as a completed instance of the 'cheap lifetime terabytes then vanish' script.
+  - [1] 2026-11-19: the Ganso lifetime-storage service has shut down | capture: sha256:947dde57f3278181a4c428d5dfc7508a990346f07649c85e86b48af5d6c054a4 | quote: already shut down
+- sources:
+  - [1] https://stackrater.io/cloud/lifetime-cloud-storage-scams/
+  - [2] https://www.techradar.com/pro/grab-1-54tb-free-
+
+## gitea.com (hosted gitea)
+
+- `storage/gitea-com` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:44.553Z (inherited) | stale on 2026-12-04
+- url https://gitea.com/v2/ | page https://fshy.ajam.dev/p/gitea.md
+- free tier: none reachable: No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage.
+  - [2] 2026-10-21: cited as the basis of the rejection: No container registry endpoint at all: GET https://gitea.com/v2/ returns 404. Gitea's cloud offering is a 30-day trial, and the self-hosted product is free software, not free storage.
+  - probe:https://gitea.com/v2/ 2026-11-19: there is no container registry endpoint at gitea.com/v2/ | capture: sha256:74a2ee5a290b77ac433cc84bb3d2cf52f786194079f2072572910c4615a11333 | quote: "status": 404
+- sources:
+  - [1] https://gitea.com/v2/
+  - [2] https://about.gitea.com/products/cloud/
+
+## gitea.com (official hosted instance)
+
+- `storage/gitea-com-2` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.425Z (inherited) | stale on 2026-12-04
+- url https://gitea.com/api/v1/version | page https://fshy.ajam.dev/p/gitea.md
+- free tier: none reachable: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no…
+  - [2] 2026-10-21: cited as the basis of the rejection: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no publi
+  - [3] 2026-10-21: cited as the basis of the rejection: Instance is live and registration is open, but the container registry is not exposed: /v2/ returns 404 (not 401), and /api/v1/packages returns 404. Only the git side is usable, with no publi
+  - probe:https://gitea.com/v2/ 2026-11-19: the gitea.com container registry endpoint still returns HTTP 404, so no registry is exposed | capture: sha256:3f0f9ada22015e538ab3c916c1e1c6417271135e014aab2b1f0a1c039bc586a6 | quote: "status": 404
+  - probe:https://gitea.com/api/v1/packages 2026-11-19: the gitea.com packages API endpoint also returns HTTP 404 | capture: sha256:b24a15ce42a33397bbbfd0287156a4951cbfd43a0165d8fc401a7960e6de2ffc | quote: "status": 404
+- sources:
+  - [1] https://gitea.com/api/v1/version
+  - [2] https://gitea.com/v2/
+  - [3] https://gitea.com/api/v1/packages?limit=3
+
+## github releases as buzzheavier's actual upstream (the fafda path)
+
+- `storage/github-releases-as-buzzheavier-s-actual-upstream` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.425Z (inherited) | stale on 2026-12-04
+- url https://api.github.com/repos/GrandpaNutz/fafda | page https://fshy.ajam.dev/p/github.md
+- free tier: none reachable: Repository GrandpaNutz/fafda returned HTTP 404 and the associated user account returned HTTP 404. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - [2] 2026-10-21: cited as the basis of the rejection: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - [3] 2026-10-21: cited as the basis of the rejection: Works as an architecture, dead as a specific artifact: `GrandpaNutz/fafda` 404s, the user account 404s, and buzzheavier's own post predicted it 'I don't trust GitHub.
+  - probe:https://api.github.com/repos/GrandpaNutz/fafda 2026-11-19: the fafda repository endpoint still returns HTTP 404, so the upstream artifact is gone | capture: sha256:747b4d1ff57d10b0f456829d7fd5ca074bdd7dbe0f26c9572ec68c4cb78d2993 | quote: "status": 404
+  - probe:https://api.github.com/users/GrandpaNutz 2026-11-19: the GrandpaNutz user account endpoint also returns HTTP 404 | capture: sha256:8966365ca413244ef8538ba40934ddafedd74645edcb2ca072885f6efa9931fa | quote: "status": 404
+- sources:
+  - [1] https://api.github.com/repos/GrandpaNutz/fafda
+  - [2] https://api.github.com/users/GrandpaNutz
+  - [3] https://git.gay/ajtabjs/fafda
+
+## gitpod (now ona), Storage
+
+- `storage/gitpod` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:41.045Z (inherited) | stale on 2026-12-04
+- url https://www.gitpod.io/pricing | page https://fshy.ajam.dev/p/gitpod.md
+- free tier: None reachable: gitpod.io no longer resolves to a pricing page. It redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Gitpod.io no longer resolves to a pricing page. It redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to.
+- notes: the same as reliability
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: gitpod.io no longer resolves to a pricing page — it redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-21: gitpod.io no longer resolves to a pricing page — it redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to
+  - [2] 2026-10-21: cited as the basis of the rejection: gitpod.io no longer resolves to a pricing page — it redirects to ona.com, which routes /pricing to a sales contact form. There is no self-serve free tier to evaluate; the product pivoted to
+  - probe:https://www.gitpod.io/pricing 2026-11-19: the gitpod.io pricing URL redirects through ona.com/pricing to a sales contact page, with no self-serve pricing page reachable | capture: sha256:5c21a1262aeea27eeb2cc781ac8e02e6b00e71ee676c627a8d41a6267507134e | quote: "final_url": "https://ona.com/contact/sales"
+  - probe:https://www.gitpod.io/pricing 2026-11-19: the gitpod.io pricing URL now redirects to an Ona sales contact page; the old self-serve free tier is no longer offered | capture: sha256:5c21a1262aeea27eeb2cc781ac8e02e6b00e71ee676c627a8d41a6267507134e | quote: "final_url": "https://ona.com/contact/sales"
+- sources:
+  - [1] https://www.gitpod.io/pricing
+  - [2] https://ona.com/contact/sales
+
+## gitpod / ona
+
+- `storage/gitpod-ona` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.425Z (inherited) | stale on 2026-12-04
+- url https://www.gitpod.io/pricing | page https://fshy.ajam.dev/p/gitpod.md
+- free tier: none reachable: gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone.
+  - [2] 2026-10-21: cited as the basis of the rejection: gitpod.io now redirects to ona.com, which routes to 'Contact sales' with no public pricing and no free tier. The free-tier Gitpod that people remember is gone.
+  - probe:https://www.gitpod.io/pricing 2026-11-19: gitpod.io/pricing redirects to ona.com contact/sales, so the former free-tier Gitpod pricing is gone | capture: sha256:095cbb76881c4fdfca1db203e4c64b12e8e99d2d25d3bb50cb2b5bd35a07ac90 | quote: "final_url": "https://ona.com/contact/sales"
+- sources:
+  - [1] https://www.gitpod.io/pricing
+  - [2] https://ona.com/contact/sales
+
+## gofile.my (the 'free unlimited storage' lookalike)
+
+- `storage/gofile-my` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:41.640Z (inherited) | stale on 2026-12-04
+- url https://api.gofile.my/getServer | page https://fshy.ajam.dev/p/gofile-2.md
+- free tier: None reachable: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer. And it is a different operator from gofi. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from…
+  - [2] 2026-10-21: cited as the basis of the rejection: Markets 'Free unlimited storage with no file size restrictions', but its TLS certificate expired 2026-09-30 and its upload API host does not answer — and it is a different operator from gofi
+  - probe:https://api.gofile.my/getServer 2026-11-19: the upload API host api.gofile.my presents an expired TLS certificate and returns no HTTP response on 2026-11-19 | capture: sha256:5408848a086c2105a2433cc1a857d39a0d6ea6e12644fd78e2f93dcefcfedafa | quote: "verify_message": "certificate has expired"
+- sources:
+  - [1] https://api.gofile.my/getServer
+  - [2] https://gofile.my/terms
+
+## guilded (roblox)
+
+- `storage/guilded` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:13:45.425Z (live) | stale on 2026-12-04
+- url https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/ | page https://fshy.ajam.dev/p/guilded.md
+- free tier: None reachable: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant. Do n. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do…
+  - [2] 2026-10-21: cited as the basis of the rejection: Actually dead. Roblox announced shutdown and Guilded went dark on 19 December 2025. Its old 500 MB per-file free limit was the most generous of any chat platform and is now irrelevant — do n
+  - [3] 2026-11-19: the Guilded site is only a download shell, consistent with the service having ceased | capture: sha256:937d0f68c3f9155200682b1bd7791bf0839778abdf8338d15d7c9a118b5ffa7a | quote: Guilded requires JavaScript
+  - [1] 2026-11-19: Guilded shut down on 19 December 2025, so the former 500MB free file limit is no longer usable | capture: sha256:6916bc031faceb2ac731a9fb01ad459b0466bccedd31d68d4755c0ce98d78acf | quote: will discontinue service on December 19, 2025. On that date, access to the website, desktop, and mobile apps will cease, and all platform content will become inaccessible.
+- sources:
+  - [1] https://alternativeto.net/news/2025/11/guilded-to-shut-down-on-december-19-2025-as-focus-shifts-to-roblox-communities/
+  - [2] https://support.guilded.gg/hc/en-us/articles/7122316069655-Upload-Files
+  - [3] https://www.guilded.gg/
+
+## hidrive (strato)
+
+- `storage/hidrive` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:13.423Z (live) | stale on 2026-12-04
+- url https://www.strato.de/cloud-speicher/ | page https://fshy.ajam.dev/p/strato.md
+- free tier: None reachable: the free 5 GB tier was discontinued; the entry plan is 500 GB at 3,50 EUR/month after a first month free. WebDAV and rclone access remain. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: Free 5 GB tier was discontinued; the entry plan is 500 GB at 3,50 EUR/month after a first month free. WebDAV and rclone access remain.
+- notes: Free 5 GB tier was discontinued. The free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a T.
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a…
+  - [2] 2026-10-21: cited as the basis of the rejection: free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a T
+  - [3] 2026-10-21: cited as the basis of the rejection: free 5 GB tier was discontinued — the free plan ended 2020-04-30; current entry plan is 500 GB at 6 EUR/month. WebDAV endpoint still live (PROPFIND -> 405 unauthenticated) and rclone has a T
+  - [1] 2026-11-19: current entry plan is 500 GB at 3,50 EUR per month after the first free month | capture: sha256:673257bf09a345216142fd6ebb58fe569c00991dfcb3374484f0adf895ab4741 | quote: - danach 3,50 €/Mon.
+  - [1] 2026-11-19: the current entry price is 3,50 EUR per month after the first month | capture: sha256:673257bf09a345216142fd6ebb58fe569c00991dfcb3374484f0adf895ab4741 | quote: - danach 3,50 €/Mon.
+- sources:
+  - [1] https://www.strato.de/cloud-speicher/
+  - [2] https://free.arinco.org/storage/hidrive/
+  - [3] https://webdav.hidrive.strato.com/
+
+## huawei cloud obs free tier
+
+- `storage/huawei-cloud-obs-free-tier` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:13.423Z (live) | stale on 2026-12-04
+- url https://www.huaweicloud.com/intl/en-us/activity/free_packages/ | page https://fshy.ajam.dev/p/huaweicloud.md
+- disagrees on identity_kind: `storage/huawei-cloud-obs-free-packages` says card, `storage/huawei-cloud-obs-free-tier` says email
+- disagrees on verdict: `storage/huawei-cloud-obs-free-packages` says fails-quota, `storage/huawei-cloud-obs-free-tier` says dead
+- free tier: none reachable: the free-OBS landing page now serves only general OBS marketing text; no free OBS quota is stated there; claiming requires a payment method. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of…
+  - [2] 2026-10-21: cited as the basis of the rejection: The vendor's own free-OBS landing page (special/free-obs-pro.html) returns 404 and has no archive capture. What remains is a 100 GB / 12-month new-user package and a third-party claim of 500
+  - [1] 2026-11-19: new-user free packages run for 12 months and list no OBS allowance | capture: sha256:5189173011f11714a60879148d964e290823309712e0ed65a44c7d569f8f43fb | quote: (1) Free packages for all: Customers who register with Huawei Cloud after January 1, 2025 00:00:00 GMT+08:00 are eligible for the free usage of specified products for 12 months from the registration date.
+  - [1] 2026-11-19: claiming the free package requires a payment method and a registered account | capture: sha256:5189173011f11714a60879148d964e290823309712e0ed65a44c7d569f8f43fb | quote: A payment method must be specified to purchase Huawei Cloud products and services.
+  - [1] 2026-11-19: a payment method is required to claim the new-user free package | capture: sha256:5189173011f11714a60879148d964e290823309712e0ed65a44c7d569f8f43fb | quote: A payment method must be specified to purchase Huawei Cloud products and services.
+- sources:
+  - [1] https://www.huaweicloud.com/intl/en-us/activity/free_packages/
+  - [2] https://support.huaweicloud.com/intl/en-us/obs_faq/obs_faq_0160.html
+
+## Icedrive Lifetime Personal+ 2 TB
+
+- `storage/icedrive-lifetime-personal-2-tb` | dead | evidence reported | binding retention-clamped | category E2EE cloud drive, lifetime one-time
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T21:13:59.616Z (live) | stale on 2026-12-04
+- url https://icedrive.net/lifetime-plans | page https://fshy.ajam.dev/p/icedrive.md
+- price One-time $249.50/TB at 2 TB ($499). Over 5 years: $4.16/TB/mo. Over 10 years: $2.08/TB/mo. Expensive relative to pCloud at the same capacity.
+- free tier: Lifetime Personal 500 GB $229 (list $344); Lifetime Personal+ 2 TB $499 (list $749). Growth is by 'stack' add-ons (1 TB / 5 TB) or by attaching a subscription. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Refund terms disagree between the lifetime page (30 days) and the provider (14 days). | days: 30 | source: [1] | note: not stated
+- egress: No egress fee published. Vendor explicitly frames lifetime as 'Made for casual use — ideal for everyday uploads and access. Power users and heavier workloads may be better suited to a flexible subscription plan', which is a soft fair-use brake rather than a number. | metered: no
+- identity: card | detail: card
+- interface: webdav, rclone
+- limits:
+  - retention-clamped (binding): lifetime page (30 days [1]
+- limits note: Stacks cannot be combined with each other arbitrarily. Icedrive community staff: 'Its not possible to stack lifetime plans on top of one another. Only by purchasing Stacks .. can you add more storage.' So the 2 TB entry point is a ceiling unless you buy 5 TB stacks.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: WebDAV + rclone generic; desktop/mobile apps; virtual drive on Windows
+- tooling: WebDAV; no first-party rclone backend
+- composes with: WebDAV -> local -> CDN
+- reliability: No mass data-loss event documented. Pricing has churned violently across 2024-2026 (Black Friday $349 for 3 TB, then a $389 2 TB Core, now $499) which is a signal about unit economics, not integrity. Refund terms disagree between the lifetime page (30 days) and the provider (14 days).
+- notes: the same as the free tier
+- extras:
+  - price_verbatim: One-time $249.50/TB at 2 TB ($499). Over 5 years: $4.16/TB/mo. Over 10 years: $2.08/TB/mo. Expensive relative to pCloud at the same capacity.
+  - death.on: 2026-11-19
+  - death.cause: registration-closed
+- evidence:
+  - [1] 2026-10-21: 'Lifetime Personal+ 2 TB ... $749 $499 One-time payment'; '30-day money-back guarantee'; 'Ideal for everyday uploads and access. Power users and heavier workloads may be better suited to a flexible subscription plan'
+  - [2] 2026-10-21: stacking restriction confirmed by staff
+  - [1] 2026-11-19: Icedrive has ended sales of new Lifetime plans | capture: sha256:bd4c42cbbe5ad542726c82daed9b99357a9a81237964b59357c582563fea4b89 | quote: We no longer sell new Lifetime plans.
+- sources:
+  - [1] https://icedrive.net/lifetime-plans
+  - [2] https://community.icedrive.net/t/lifetime-plans-should-not-stack-just-let-us-add-as-if-we-were-first-time/11031
+
+## Icedrive — lifetime plans (direct)
+
+- `storage/icedrive-lifetime-plans` | dead | evidence reported | binding retention-clamped | category cloud-drive
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:14:02.632Z (live) | stale on 2026-12-04
+- url https://icedrive.net/lifetime-plans | page https://fshy.ajam.dev/p/icedrive.md
+- disagrees on verdict: `storage/icedrive` says fails-quota, `storage/icedrive-lifetime-plans` says dead
+- free tier: Lifetime Personal 500 GB $229 (from $344); Lifetime Personal+ 2 TB $499 (from $749). One-time, 'No recurring renewal'. Live on the vendor page 2026-10-21. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: 2 sync devices on lifetime, 14 days file versioning | days: 14 | source: [1] | note: not stated
+- egress: Free-tier bandwidth is capped (TechRadar: 3 GB/day on free). Lifetime paid tiers not metered per-GB; sync-limited to 2 devices on lifetime. | metered: no
+- identity: email | detail: email
+- interface: rest, webdav, rclone
+- limits:
+  - retention-clamped (binding): lifetime, 14 days [1]
+  - retention-clamped (binding): lifetime page but 14 days [1]
+- limits note: 2 sync devices on lifetime, 14 days file versioning. Vendor explicitly says heavy sync/NAS workloads belong on subscriptions. I.e. the lifetime tier is throttled by device count, not bytes.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: rest
+- tooling: rclone backend `icedrive`. Third-party clients exist; WebDAV is not native.
+- composes with: $250/TB at 2 TB. No stacking. Lifetime tiers are fixed capacity.
+- reliability: Gibraltar-registered ICE PRIVACY LTD, 30-day guarantee on the lifetime page but 14 days. Decide inside 14. Price discrepancy vs the 2026-10-17 audit ($699 for 2 TB) suggests the vendor page is running a deeper promo than third parties track.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Lifetime Personal 500 GB $229 (from $344); Lifetime Personal+ 2 TB $499 (from $749). One-time, 'No recurring renewal'. Live on the vendor page 2026-10-21.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: free-tier-removed
+- evidence:
+  - [1] 2026-10-21: 'Lifetime Personal+ 2 TB ... $749 $499 One-time payment', fetched 2026-10-21
+  - [2] 2026-10-21: 'Icedrive, for example, has a 3GB per day limit' on free
+  - [1] 2026-11-19: the lifetime plans page no longer offers the plans this record describes | capture: sha256:bd4c42cbbe5ad542726c82daed9b99357a9a81237964b59357c582563fea4b89 | quote: We no longer sell new Lifetime plans.
+  - [1] 2026-11-19: the lifetime plans this record describes are no longer sold | capture: sha256:bd4c42cbbe5ad542726c82daed9b99357a9a81237964b59357c582563fea4b89 | quote: We no longer sell new Lifetime plans.
+- sources:
+  - [1] https://icedrive.net/lifetime-plans
+  - [2] https://www.techradar.com/pro/grab-1-54tb-free-cloud-storage-for-life-but-you-will-need-to-sign-up-43-services
+
+## infura ipfs
+
+- `storage/infura-ipfs` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:13.423Z (live) | stale on 2026-12-04
+- url https://filebase.com/blog/infura-ipfs-is-shutting-down-how-to-migrate/ | page https://fshy.ajam.dev/p/filebase.md
+- free tier: none reachable: Discontinued. New uploads and pinning stopped 2026-08-03; the IPFS API and dedicated gateway ended 2026-08-15, after which unmigrated content is no longer available. Infura's own docs URL… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Discontinued. New uploads and pinning stopped 2026-08-03; the IPFS API and dedicated gateway ended 2026-08-15, after which unmigrated content is no longer available. Infura's own docs URL…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Discontinued. New uploads and pinning stopped 2026-08-03; the IPFS API and dedicated gateway ended 2026-08-15, after which unmigrated content is no longer available. Infura's own docs URL…
+  - [1] 2026-11-19: the shutdown date confirms the record's dead verdict | capture: sha256:9b65d666c7e0fcb645f5ac4bd35cc410c45778ab15d8deebc9608ea4ce85877c | quote: Infura is shutting down its IPFS service on August 15, 2026.
+- sources:
+  - [1] https://filebase.com/blog/infura-ipfs-is-shutting-down-how-to-migrate/
+
+## instances.social / fediverse.observer / fedidb.org — the three instance-ind
+
+- `storage/instances-social-fediverse-observer-fedidb-org-the-three` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:49.634Z (live) | stale on 2026-12-04
+- page https://fshy.ajam.dev/p/fedidb.md
+- free tier: none reachable: All three were unreachable at probe time, so the sweep had to be done host-by-host. instances.social requires a manually-issued OAuth token and its list API is gone; api.fediverse.observer… | unit: none | metered on: none | read on: 2026-10-21
+- per-object cap: stated-absent: the first-party page states no per-object size cap | note: not applicable
+- retention: stated-absent: the first-party page states no retention period for user bytes; the pages publish instance metadata
+- egress: stated-absent: the first-party page states no egress terms for stored bytes | metered: no
+- identity: email
+- interface: unknown
+- interface detail: stated-absent: the first-party page states no storage client interface on the instance-finder page or the FediDB metadata API
+- tooling: not documented
+- composes with: stated-absent: the first-party page states no way to chain byte storage with other services; the API serves instance metadata
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: All three were unreachable at probe time, so the sweep had to be done host-by-host. instances.social requires a manually-issued OAuth token and its list API is gone; api.fediverse.observer…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - withheld 2026-10-21: All three were unreachable at probe time, so the sweep had to be done host-by-host. instances.social requires a manually-issued OAuth token and its list API is gone; api.fediverse.observer…
+  - [1] 2026-11-19: FediDB is live with a public API, so the blanket three-host dead grouping no longer holds for this host | capture: sha256:093e041c048f1dea2e6ca9876c5a774cad45d51ff1e882b4552b81de949c996c | quote: Every number on this site comes from the public API. No key, no signup.
+  - [2] 2026-11-19: the instances.social first-party home page is an instance-finding tool, not a byte store | capture: sha256:948a381ee9efedaedbbf6613ec371636fb21e6f32f5d46fd3f06fe448ddde43a | quote: Let me help you choose an instance
+  - [3] 2026-11-19: the FediDB first-party home page describes a free public API over fediverse server metadata | capture: sha256:3255a867204a3a93fb4c2dc30816e413371d9ad4528185782ece73e726931213 | quote: FediDB indexes 43,242 servers across 673 software projects, checks every one of them each day, and publishes all of it through a free public API.
+  - [4] 2026-11-19: the FediDB first-party API docs describe a JSON API returning server entities | capture: sha256:98b1d27ebefce829855c8ff9142a5bba7398a3c866387a7bb145774b85b8a733 | quote: A single server, as returned by the server endpoints.
+- sources:
+  - [1] https://fedidb.org/
+  - [2] https://instances.social/
+  - [3] https://fedidb.com/
+  - [4] https://fedidb.com/resources/api-docs

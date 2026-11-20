@@ -1,0 +1,131 @@
+# 56IDC.Net
+
+> 56idc.net | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/56idc/ | JSON https://fshy.ajam.dev/api/v1/entity/56idc.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 56IDC.Net (无聊云)
+
+- `compute/56idc-toy-vps-nat-384` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier 玩具英国NAT1 (Toy UK NAT1)
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:18:00.000Z (live) | stale on 2026-11-24
+- url https://56idc.net/store/toy-vps
+- price parsed USD 0.1247/mo
+- disagrees on identity_kind: `compute/56idc-toy-nl-nat2` says card, `compute/56idc-toy-vps-nat-384` says email
+- free tier: No free tier. The toy NAT line is CNY 10.00 a year for 1 core, 384 MB of memory, 1 GB of disk, LXC, a 1 Gbps port, 1 TB a month of traffic, IPv4 NAT on 20 ports and one IPv6 /128. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the container persists for the paid year; the page states no refund and no balance return: '不支持任何形式的退款/退余额, 以及换区' | source: [1]
+- egress: 1 TB a month ('流量 1T/月'), one free traffic reset by ticket if the account has no abuse record; no overage price is printed | metered: yes | free allowance: 1 TB | source: [1]
+- identity: email | detail: no card hold and no payment method is printed on the store page read; the store is a WHMCS client area with a cart and a 立即订购 button, so an account is required, but the rails are unverified
+- interface: ssh
+- limits:
+  - volume-quota: 1 TB a month of traffic [1]
+  - per-ip-shaping (binding): IPv4 NAT with 20 ports on a shared address; one IPv6 /128 [1]
+  - request-rate:  [1]
+- binding note: 20 shared-IPv4 ports is the first hard limit: it decides whether a second service fits, and the vendor does not publish whether they are assigned or chosen.
+- interface detail: LXC container, so a root shell; the page lists no control panel beyond the WHMCS client area
+- tooling: any SSH client; the port block is a NAT range the vendor documents after the order
+- composes with: the cheapest NAT container documented at USD 0.1247 a month, 384 MB and 20 ports, with 13 of 23 locations showing no out-of-stock marker
+- reliability: the vendor states the product class is unreliable in its own words: '玩具产品稳定性较差, 请不要部署生产项目' (the toy products are relatively unstable, do not deploy production projects), and abuse '将直接删除服务' (deletes the service outright)
+- notes: The lowest published price among documented hosts by a factor of four: CNY 10.00 a year is USD 1.4969 a year, USD 0.1247 a month, for 384 MB, 1 GB of disk, 20 NAT ports, an IPv6 /128 and 1 TB a month. It is also the weakest offer on every axis that is not price. The vendor calls the class '玩具' (toy) and says in the plan body not to deploy production projects on it; abuse deletes the service with no refund and no balance return. The location list is 23 SKUs and 10 of them printed '0 可用' (0 available) when read, so stock is partial rather than absent: the UK, Ireland, Los Angeles NAT1/2, Netherlands NAT2/3, Buffalo, Dallas, Toronto, Chicago and Japan NAT2 SKUs carried no out-of-stock marker. Not established: whether the 20 ports are assigned by the host or chosen by the buyer, whether SSH is one of the 20, whether UDP is forwarded, and the payment rails. The order links on the store page ('/store/toy-vps/<slug>') resolve back to the category page, so the configuration step that would print the port rule was not reachable without adding to a cart, which this category does not do.
+- evidence note: price, term, shape, traffic, port count and the IPv6 /128 are quoted from the vendor's own store page read; the price is in CNY and converted at a dated rate; the port assignment rule, UDP support, the SSH port rule and the payment rails are unpublished
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.375
+  - shape.disk_gib: 1
+  - billing_model: annual prepay
+  - term: 12 months ('每年' / per year)
+  - m10h_usd: 0.1247
+  - m24h_usd: 0.1247
+  - price_arithmetic: CNY 10.00 a year x (12.0557 RUB per CNY / 80.5381 RUB per USD) = CNY 10.00 x USD 0.149689 = USD 1.4969 a year; / 12 = USD 0.1247 a month on annual prepay. Both rates from the CBR table dated 24.10.2026. Out of pocket for the first year is USD 1.4969. A VPS bills whether it runs or not, so the 24/7 and 10 h/day figures are the same.
+  - out_of_pocket_usd: 1.4969
+  - renewal_usd: not published
+  - renewal_note: one annual price is printed per SKU with no strike-through and no promo code, so CNY 10.00 is the ordinary rate; the renewal cycle is not stated separately
+  - port_mbps: 1000
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: IPv4 NAT with 20 ports on a shared address, plus one IPv6 /128
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /128
+  - signup_url: https://56idc.net/store/toy-vps
+  - cart_url_note: the page prints '/store/toy-vps/wan-ju-ying-guo-nat1' as the order href, but that URL returns x-web-final-url https://56idc.net/store/toy-vps, i.e. the category page again, so no configuration or cart URL is reachable
+  - nat_config.ports_tcp: 20
+  - nat_config.ports_assigned_or_chosen: unknown
+  - udp_forwarding: not stated
+  - payment_methods: not stated on the store page
+  - stock: partial: 13 of 23 SKUs carried no out-of-stock marker on 2026-10-24, including 玩具英国NAT1 at CNY 10.00/yr; 10 SKUs printed '0 可用' (0 available). Read from https://56idc.net/store/toy-vps
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a container that persists for the paid year
+- evidence:
+  - [1] 2026-10-24: quoted plan body: 'CPU 1C / 内存 384M / 磁盘 1GB / 虚拟化 LXC / 带宽 1G / 流量 1T/月 / IPv4 NAT(20端口) / IPv6 /128', and the English locale renders it as 'CPU 1C / Memory 384M / Storage 1G / Virtual LXC / Speed 1G / Traffic 1T/Mon / IPv4 NAT(20 ports) / IPv6 /128'
+  - [1] 2026-10-24: quoted price block for 玩具英国NAT1: '¥10.00CNY' then '每年' (CNY 10.00 a year); 玩具日本NAT2 and 玩具新加坡NAT1 print '¥20.00CNY / 每年'
+  - [1] 2026-10-24: stock markers: 10 of the 23 listed products carry '<span class="qty">0 可用</span>' (0 available) in their header - 玩具新加坡NAT1/2, 玩具德国NAT1/2, 玩具香港NAT1/2, 玩具荷兰NAT1, 玩具洛杉矶NAT3/4/5, 玩具日本NAT1, 玩具RN洛杉矶DC3 - while 玩具英国NAT1 carries no such marker
+  - [2] 2026-10-24: quoted FX table dated 'Date="24.10.2026"': 'CNY 1 12,0557' and 'USD 1 80,5381' RUB, so CNY 1 = 12.0557/80.5381 = USD 0.149689
+- sources:
+  - [1] https://56idc.net/store/toy-vps
+  - [2] https://www.cbr.ru/scripts/XML_daily.asp
+
+## 56IDC.Net / 无聊云
+
+- `compute/56idc-toy-nl-nat2` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier 玩具荷兰NAT2
+- identity a placeholder: card and phone unknown | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://56idc.net/store/toy-vps
+- price parsed USD 0.12/mo
+- disagrees on identity_kind: `compute/56idc-toy-nl-nat2` says card, `compute/56idc-toy-vps-nat-384` says email
+- free tier: No free tier. 玩具荷兰NAT2 is CNY 10.00 a year, printed '¥10.00CNY 每年'. Thirteen of the twenty-three plans on the page are at CNY 10.00 a year and the rest at CNY 15.00 to CNY 20.00 a year. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the page states '不支持任何形式的退款/退余额, 以及换区', that is no refund and no balance withdrawal and no region change; no deletion interval after expiry was published on the pages read | source: [1]
+- egress: 1 TB a month, printed '流量 1T/月', with one free reset per ticket where there is no abuse record | metered: yes | free allowance: 1 TB a month | source: [1]
+- identity: card | detail: a WHMCS account whose registration form marks first name, last name, street address, city and postcode as required and email as mandatory-verified; the phone field is present and labelled 手机号码 but is not marked required, and no national ID field exists in the form source. Payment rails could not be read, because the cart page requires a login before it lists a payment method, so the card requirement is inferred from the absence of any published rail rather than read. No ID document is requested at registration.
+- interface: ssh
+- limits:
+  - volume-quota: 1 TB a month, with one free reset per ticket if there is no abuse record [1]
+  - per-ip-shaping (binding): 20 forwarded ports on the shared IPv4, printed 'IPv4 NAT(20端口)' [1]
+- binding note: 20 forwarded ports is a workable budget, but the binding constraint in practice is the vendor's own stability warning and the no-refund rule: the page says the toy products are unstable and must not host production, so the machine can vanish without recourse.
+- interface detail: LXC guest; the site also runs a Web SSH page and an Sshwifty client as separate menu items
+- tooling: any SSH client; the vendor's WHMCS client area and its own Web SSH
+- composes with: the cheapest machine documented by a wide margin at USD 0.125 a month, with 20 forwarded ports and a /128 IPv6, for a monitoring node or a WireGuard endpoint that does not matter if it dies
+- reliability: the vendor's own warning, quoted: '玩具产品稳定性较差, 请不要部署生产项目' (the toy products are relatively unstable, do not deploy production projects); it also states '不保证中国大陆地区直连' and '滥用将直接删除服务' (abuse results in immediate deletion), and that all hosts have China-mainland IPv4 weak protocols disabled
+- notes: Pricing is CNY 10.00 a year (USD 1.50 a year, or USD 0.1249 a month at 6.6702 CNY per USD) for 512 MB RAM, 1 GB disk, 1 TB monthly transfer, 20 forwarded ports and an IPv6 /128. Products are designated as 'toy' servers with no stability guarantee and no refunds or region changes. Stock availability and UDP port support on the 20 forwarded ports are unconfirmed.
+- evidence note: price, shape, port count, IPv6 prefix, traffic allowance, the stock markers and the vendor's own warnings are quoted from the group page read; the registration form fields are quoted from the form source read. Not documented: the payment rails, because the cart demands login; whether the 20 ports carry UDP, because no page read names a protocol for them; and the legal entity, which is not named anywhere read.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 1
+  - billing_model: annual
+  - term: annual
+  - m10h_usd: 0.12
+  - m24h_usd: 0.12
+  - price_arithmetic: CNY 10.00 a year / 6.6702 CNY per USD = USD 1.4993 a year, / 12 = USD 0.1249 a month. The money out of pocket is CNY 10.00 once a year. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 1.5
+  - renewal_usd: same rate; no separate renewal price published and the terms refuse refunds
+  - fx: CNY 6.6702 per USD, api.frankfurter.app/latest read 2026-10-24, rate date 2026-10-23
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded ports on the shared IPv4; the IPv6 /128 is a single address with no port restriction stated
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - network_out.ipv6_prefix: /128
+  - udp: not stated: no page read says whether the 20 forwarded ports carry UDP
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: the cart requires login before it shows a payment method
+  - card_hold: not stated on any page read
+  - checkout_fields: first name, last name, street address, city and postcode required; email mandatory-verified; phone and company present but optional; no national ID
+  - stock: not shown for this plan: ten plans carry a '0 可用' stock span and thirteen, including this one, carry none, which is the stock-control-off state
+  - cart_works: unknown
+  - product_url: https://56idc.net/store/toy-vps
+  - signup_url: https://56idc.net/register.php
+  - cart_url_note: the button targets https://56idc.net/store/toy-vps/wan-ju-he-lan-nat2 (product id 57), but that path, a deliberately bogus path and cart.php with an invalid pid all returned the same 106,088-byte group listing.
+  - other_plans: 玩具英国NAT1 CNY 10/yr for 384 MB; 玩具爱尔兰NAT1 CNY 10/yr for 512 MB; 玩具洛杉矶NAT1/2/3/4/5, 玩具荷兰NAT1/3, 玩具水牛城NAT1, 玩具达拉斯NAT1, 玩具芝加哥NAT1, 玩具多伦多NAT1 and 玩具德国NAT2 all CNY 10/yr for 512 MB; 玩具RN洛杉矶DC3 CNY 15/yr for 256 MB; 玩具日本NAT1/2, 玩具新加坡NAT1/2 and 玩具香港NAT1/2 CNY 20/yr.
+  - sold_out_plans: 玩具新加坡NAT2, 玩具德国NAT1, 玩具香港NAT2, 玩具洛杉矶NAT3/4/5, 玩具日本NAT1, 玩具荷兰NAT1 and 玩具RN洛杉矶DC3 all read '0 可用'
+- evidence:
+  - [1] 2026-10-24: quoted plan: '玩具荷兰NAT2 CPU 1C 内存 512M 磁盘 1GB 虚拟化 LXC 带宽 1G 流量 1T/月 无异常记录可工单免费重置流量1次 IPv4 NAT(20端口) IPv6 /128 ... ¥10.00CNY 每年'
+  - [1] 2026-10-24: quoted warnings: '玩具产品稳定性较差, 请不要部署生产项目.' and '不保证中国大陆地区直连' and '滥用将直接删除服务' and '不支持任何形式的退款/退余额, 以及换区'
+  - [1] 2026-10-24: quoted test addresses for this plan: '85.208.9.1 测试IPv4' and '2a12:bec4:1821:e::a 测试IPv6'
+  - [1] 2026-10-24: the page's own stock markup: ten plans carry '<span class="qty"> 0 可用' and thirteen carry no qty span at all, so 玩具荷兰NAT2 shows no stock figure rather than a zero
+  - [2] 2026-10-24: the form source marks these required: firstname (placeholder 名字), lastname (姓氏), address1 (街道地址), city (城市), postcode (邮编); email is present with placeholder '请填写真实邮件地址, 系统强制验证'; phonenumber (手机号码) and companyname (公司名称 (选填)) are present but not required; no national ID field exists
+  - [1] 2026-10-24: the order buttons target /store/toy-vps/<slug> paths such as '/store/toy-vps/wan-ju-he-lan-nat2', with product ids 48 to 102
+- sources:
+  - [1] https://56idc.net/store/toy-vps
+  - [2] https://56idc.net/register.php

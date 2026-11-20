@@ -1,0 +1,169 @@
+# Trust.Zone
+
+> trust.zone | IP and proxies, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/trust/ | JSON https://fshy.ajam.dev/api/v1/entity/trust.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Trust.Zone (exit addresses)
+
+- `ip-proxy/trust-zone-exits` | trial-only | evidence documented | binding per-ip-shaping | category vpn subscription (exit source) | tier exit addresses
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:29:27.355Z (live) | stale on 2026-12-05
+- url https://trust.zone/prices
+- price USD 9.99 per month; no per-TB price | parsed USD 9.99/mo
+- disagrees on verdict: `ip-proxy/trust-zone` says paid-only, `ip-proxy/trust-zone-exits` says trial-only
+- free tier: No free tier. A 3-day free trial with no credit card is limited to 1,000 users a month and 1 simultaneous connection; the monthly plan is $9.99 billed monthly. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: A time-limited sale price is shown on the page; the monthly rate is the stable one.
+- per-object cap: not applicable | source: [2]
+- retention: not applicable: an address, not an object | source: [2]
+- egress: unverified: this record covers the exit addresses of the fleet, not the plan; the plan-level traffic terms belong to the vendor's own egress record where one exists. | metered: no | free allowance: none published for the address list | source: [1]
+- identity: email | detail: The 3-day trial page states no credit card is required; paid checkout lists cryptocurrency, PayPal and credit cards. unverified: what an account itself needs, behind a sign-up.
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): 3 simultaneous connections on the monthly plan, 1 on the free trial [1]
+- limits note: Address concentration: 54 addresses in 21 ASNs, 23 in AS9009 M247, 47 datacenter-listed and 25 VPN-listed.
+- binding note: The connection ceiling attached to the account binds before any byte quota, because the vendor states unlimited data transfer.
+- interface detail: The server list at https://trust.zone/servers names zone hostnames, which resolve by DNS to the exit addresses; no JSON API was found.
+- endpoint: part of interface detail
+- tooling: Reading the exits needs a DNS resolver and the server page; using one needs the vendor client or an OpenVPN or WireGuard config from an account. A SOCKS5 or HTTP proxy endpoint was not established.
+- composes with: A free compute node dials the tunnel and the traffic leaves at one of 54 addresses; 23 of them are in M247 (AS9009), and the pool spans 21 ASNs.
+- reliability: No suspension, throttle or data loss was measured. 25 of 54 addresses are on the VPN list and 47 on the datacenter list.
+- notes: Exit-address record for the Trust.Zone fleet, classified with detector index 20261103T163900Z-00d117b2 on 2026-11-03: 54 addresses, 47 datacenter-listed, 25 VPN-listed (all also datacenter), 0 Tor exits, 3 on an abuse list, 7 on none of the lists; 21 ASNs, largest AS9009 M247 with 23 addresses. The tier differs from any plan record.
+- evidence note: Plan facts are documented; list classification measured on 2026-11-03. Weakest rung documented.
+- extras:
+  - exit_classification.detector_index_version: 20261103T163900Z-00d117b2
+  - exit_classification.classified_on: 2026-11-03
+  - exit_classification.n: 54
+  - exit_classification.datacenter_listed: 47
+  - exit_classification.vpn_listed: 25
+  - exit_classification.tor_exit: 0
+  - exit_classification.abuse_listed: 3
+  - exit_classification.in_none_of_the_lists: 7
+  - exit_classification.asns: 21
+  - exit_classification.largest_asn: AS9009 M247 Europe SRL
+  - exit_classification.largest_asn_addresses: 23
+  - exit_classification.endpoint: https://trust.zone/servers (zone hostnames DNS-resolved)
+  - exit_classification.derived: counts taken over the 54 answers of the registered record; 23 / 54 = 42.6%
+- evidence:
+  - probe:https://trust.zone/servers 2026-11-03: The server hostnames resolved to 54 addresses which were classified. | capture: sha256:d421e56c6d9377595c09f2d5a153c05b8226c8c89d9fb969dea880dd4d917fbb | quote: "n": 54,
+  - [1] 2026-11-04: The 3-day trial needs no card. | capture: sha256:5df7a3d8120f2a3041a9f4fd119248d192761ebe95e5d6870349a3e826b02b73 | quote: No credit card required
+  - [1] 2026-11-04: The monthly plan price. | capture: sha256:5df7a3d8120f2a3041a9f4fd119248d192761ebe95e5d6870349a3e826b02b73 | quote: ＄9.99 billed monthly\*
+  - [3] 2026-11-03: Paid plans carry no data limit. | capture: sha256:ed6cd89f2fdef260add8794f3471a6d24b1ac3581609c88028caaf5b39d190a5 | quote: unlimited data transfer and unlimited bandwidth
+  - [1] 2026-11-04: the 3-day trial needs no card | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: No credit card required
+- sources:
+  - [1] https://trust.zone/prices
+  - [2] https://trust.zone/servers
+  - [3] https://trust.zone/
+
+## Trust.Zone (Egress and tunnels)
+
+- `egress/trust-zone` | paid-only | evidence documented | binding none | category tunnel (hosted): VPN and SOCKS5 proxy with an email account; WireGuard, OpenVPN and others; shared addresses | tier 1 year
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T10:11:45.490Z (live) | stale on 2026-12-05
+- url https://trust.zone/prices
+- price USD 39.99 billed annually for the 1-year plan; a subscription price, not a per-TB price
+- free tier: A 3-day free trial with 'No credit card required' is limited to 1,000 claims a month ('690/1000 claimed this month' when read) and gives 1 simultaneous connection; it is the only free offer. The standing plans are paid: '$39.99 billed annually' for 1 year (struck-through $119.88, 3 simultaneous connections, 172 locations, unlimited data transfer), $55.99 total for 2 years plus 6 months free, and $9.99 billed monthly. The paid plan is the standing offer, so the verdict is paid-only. | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The trial is 3 days and capped at 1,000 users a month; the unit vocabulary has no days term, so mixed is used. The page was read during a Black Friday sale banner ('+ 6 Months FREE'), so the listed prices may be sale prices.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: Unlimited: the vendor states 'unlimited data transfer and unlimited bandwidth on all paid plans', and its FAQ says the service 'doesn't block or throttle any kind of internet traffic'. The trial is also stated as unlimited data. | metered: no | free allowance: trial: 3 days, 1 simultaneous connection, no card | source: [2]
+- identity: email | detail: The vendor's page says 'The signup only requires your email.' The trial states no credit card is required. Paid plans are bought against that account; the payment methods are not read on the pages captured.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared exit addresses on the plans; a dedicated static IP is a paid add-on and is required for port forwarding [3]
+  - request-rate: 3 simultaneous connections on the 1-year plan and 1-month plan, 5 on the 2-year plan, 1 on the trial [1]
+- limits note: The simultaneous-connection count is filed under request-rate because the vocabulary has no concurrent-connection kind. Port forwarding is sold only with a Dedicated IP; the Dedicated IP price list on the prices page shows '$1.99/month' against a struck-through $4.99 for most locations.
+- binding note: No byte quota is published and the vendor states unlimited data on paid plans; the connection count and the dedicated-IP requirement for port forwarding are stated limits that the vocabulary cannot rank against a byte or rate quota.
+- interface detail: A tunnel and a proxy. Protocols listed on the manual setup page: WireGuard, Amnezia VPN, AmneziaWG, OpenVPN, L2TP/IPSec, IKEv2, PPTP, SSTP, a SOCKS5 proxy and ShadowSocks; plus apps and browser extensions. UDP: the vendor's SOCKS5 post says its SOCKS5 proxy servers can use UDP. Port forwarding: yes, one port from 5000 to 65535, only together with a paid Dedicated IP. SOCKS5: yes, 'all Trust.Zone VPN servers support SOCKS5 proxy' (vpn.trust.zone). Obfuscation: ShadowSocks and AmneziaWG are offered; the pages read give no detail of either. BitTorrent: not blocked ('All kinds of internet traffic are allowed').
+- tooling: The vendor's Windows client and browser extensions, or any WireGuard, OpenVPN, L2TP/IPSec, IKEv2, SSTP, ShadowSocks or SOCKS5 client with the credentials and config files shown after login; the manual setup page hides the username, password and config files behind a login.
+- composes with: A tunnel or SOCKS5 exit: a job can connect over a tunnel or send traffic to the SOCKS5 proxy at vpn.trust.zone, and the upstream sees a shared VPN address, or a dedicated address when the paid Dedicated IP add-on is bought.
+- reliability: The setup page and prices page were served with an ad-blocker notice and a sale banner; page content is complete in the capture, but the credentials and config files are behind a login and were not read.
+- notes: Cheapest yearly price: '$39.99 billed annually' for the 1-year plan on the prices page; the 2-year plan is $55.99 in total during the sale. The prices page lists both a 3-day no-card trial and the paid plans, so paid-only holds. The SOCKS5 post is dated 29 September 2020; the manual setup page lists the SOCKS5 proxy at vpn.trust.zone today.
+- evidence note: Documented: price, trial, protocol list, SOCKS5, port forwarding and BitTorrent lines are quoted from the vendor's own pages. Nothing was connected through the service, and the config files behind the login were not read, so transport and obfuscation details for ShadowSocks and AmneziaWG are unverified.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan is USD 39.99 billed annually. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: ＄119.88＄39.99 billed annually\*
+  - [1] 2026-11-04: The 1-month plan is USD 9.99. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: ＄9.99 billed monthly\*
+  - [1] 2026-11-04: The 2-year plan with 6 months free totals USD 55.99. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: total ＄299.7＄55.99\*
+  - [1] 2026-11-04: The 1-year plan allows 3 simultaneous connections. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: 3 simultaneous connections
+  - [1] 2026-11-04: The free trial needs no card. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: No credit card required
+  - [1] 2026-11-04: the trial is capped at 1,000 claims a month | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: 690/1000 claimed this month
+  - [1] 2026-11-04: A paid Dedicated Static IP add-on exists. | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: Dedicated Static IP Address
+  - [4] 2026-11-04: Registration needs an email. | capture: sha256:0eec8bd3994894b9b8cd83bac3f92926ab3bcf24d6f4b37c8f2af5a265476cb5 | quote: The signup only requires your email.
+  - [3] 2026-11-04: Port forwarding requires a Dedicated IP. | capture: sha256:6d3ad9c3f25c599e432b5f0ad0302ef7cc35528e9077fb83526cac7a2c698b06 | quote: With Trust.Zone, Port Forwarding is available together with Dedicated IP.
+  - [3] 2026-11-04: One forwarded port from the stated range (5000 to 65535). | capture: sha256:6d3ad9c3f25c599e432b5f0ad0302ef7cc35528e9077fb83526cac7a2c698b06 | quote: Choose one port from this range and use it in your app
+  - [5] 2026-11-04: SOCKS5 is offered on all servers. | capture: sha256:8e66295b2263f9df30a7a95d76ef21b9f0644058e194e8af483980ef7d461b3a | quote: Did you know that all Trust.Zone VPN servers support SOCKS5 proxy?
+  - [5] 2026-11-04: The SOCKS5 proxy can carry UDP. | capture: sha256:8e66295b2263f9df30a7a95d76ef21b9f0644058e194e8af483980ef7d461b3a | quote: Trust.Zone SOCKS5 proxy servers can use UDP protocol.
+  - [6] 2026-11-04: No P2P block. | capture: sha256:ad0244ffce5aaca2c289adfe5b5380006b4f1a4831c68fd1e2432aaae9fa8695 | quote: Trust.Zone VPN service doesn't block or throttle any kind of internet traffic. All kinds of internet traffic are allowed.
+  - [7] 2026-11-04: AmneziaWG config files are offered. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: Amnezia WG
+  - [7] 2026-11-04: The setup page lists a SOCKS5 proxy. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: SOCKS5 Proxy
+  - [7] 2026-11-04: IKEv2 is offered. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: IKEv2
+  - [7] 2026-11-04: L2TP/IPSec is offered. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: VPN type: L2TP/IPSec with pre-shared key
+  - [7] 2026-11-04: OpenVPN is offered. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: OpenVPN
+  - [7] 2026-11-04: WireGuard is offered. | capture: sha256:ce70dde0f7e9ee56f00abc9bd8c99a407c2d368a6bf96163a60ae1d07046fe03 | quote: WireGuard WireGuard (.conf) file:
+  - [8] 2026-11-04: A ShadowSocks setup page exists. | capture: sha256:4a0a763ef0d4b7ba45e39d56e4262e40abcfb91dfab1a5d6a978fca9f55a74cd | quote: ShadowSocks
+  - [1] 2026-11-04: a 3-day free trial is listed | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: ### Free Trial+ 3 days
+  - [1] 2026-11-04: the plans state unlimited data transfer | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: unlimited data transfer
+  - [3] 2026-11-04: forwarded ports run from 5000 to 65535 | capture: sha256:6d3ad9c3f25c599e432b5f0ad0302ef7cc35528e9077fb83526cac7a2c698b06 | quote: Port 5000–65535
+  - [6] 2026-11-04: no traffic type, p2p included, is blocked or throttled | capture: sha256:ad0244ffce5aaca2c289adfe5b5380006b4f1a4831c68fd1e2432aaae9fa8695 | quote: Trust.Zone VPN service doesn't block or throttle any kind of internet traffic. All kinds of internet traffic are allowed.
+- sources:
+  - [1] https://trust.zone/prices
+  - [2] https://trust.zone/
+  - [3] https://trust.zone/portforwarding
+  - [4] https://trust.zone/trustzone-vpn
+  - [5] https://trust.zone/post/trust.zone-supports-socks5-proxy
+  - [6] https://trust.zone/faq
+  - [7] https://trust.zone/setup
+  - [8] https://trust.zone/setup/manual/ss/
+
+## Trust.Zone (ip-proxy/trust-zone)
+
+- `ip-proxy/trust-zone` | paid-only | evidence documented | binding none | category VPN subscription (exit source) | tier 1 year
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:58:00.000Z (live) | stale on 2026-12-05
+- url https://trust.zone/prices
+- price USD 39.99 billed annually for the 1-year plan; a subscription price, not a per-TB price
+- duplicate of `egress/trust-zone`
+- disagrees on verdict: `ip-proxy/trust-zone` says paid-only, `ip-proxy/trust-zone-exits` says trial-only
+- free tier: No free plan. A 3-day free trial with 'No credit card required' is limited to 1,000 users each month ('688/1000 claimed this month' when read) and gives 1 simultaneous connection. The 1-year plan is listed at '$39.99 billed annually' (struck-through $119.88), with 3 simultaneous connections, 172 locations and unlimited data transfer; the 2-year plan with 6 months free is $55.99 and the 1-month plan is $9.99. | unit: mixed | metered on: wall-clock | read on: 2026-11-04 | source: [1] | note: The trial is 3 days and capped at 1,000 users a month; the unit vocabulary has no days term, so mixed is used. The page was read during a Black Friday sale banner ('+ 6 Months FREE'), so the listed prices may be sale prices.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: a tunnel, not stored bytes | source: [1]
+- egress: Unlimited: the vendor states 'unlimited data transfer and unlimited bandwidth on all paid plans', and its FAQ says the service 'doesn't block or throttle any kind of internet traffic'. The trial is also stated as unlimited data. | metered: no | free allowance: trial: 3 days, 1 simultaneous connection, no card | source: [2]
+- identity: email | detail: The vendor's page says 'The signup only requires your email.' The trial states no credit card is required. Paid plans are bought against that account; the payment methods are not read on the pages captured.
+- interface: unknown
+- limits:
+  - per-ip-shaping: shared exit addresses on the plans; a dedicated static IP is a paid add-on and is required for port forwarding [3]
+  - request-rate: 3 simultaneous connections on the 1-year plan and 1-month plan, 5 on the 2-year plan, 1 on the trial [1]
+- limits note: The simultaneous-connection count is filed under request-rate because the vocabulary has no concurrent-connection kind. Port forwarding is sold only with a Dedicated IP; the Dedicated IP price list on the prices page shows '$1.99/month' against a struck-through $4.99 for most locations.
+- binding note: No byte quota is published and the vendor states unlimited data on paid plans; the connection count and the dedicated-IP requirement for port forwarding are stated limits that the vocabulary cannot rank against a byte or rate quota.
+- interface detail: A tunnel and a proxy. Protocols listed on the manual setup page: WireGuard, Amnezia VPN, AmneziaWG, OpenVPN, L2TP/IPSec, IKEv2, PPTP, SSTP, a SOCKS5 proxy and ShadowSocks; plus apps and browser extensions. UDP: the vendor's SOCKS5 post says its SOCKS5 proxy servers can use UDP. Port forwarding: yes, one port from 5000 to 65535, only together with a paid Dedicated IP. SOCKS5: yes, 'all Trust.Zone VPN servers support SOCKS5 proxy' (vpn.trust.zone). Obfuscation: ShadowSocks and AmneziaWG are offered; the pages read give no detail of either. BitTorrent: not blocked ('All kinds of internet traffic are allowed').
+- tooling: The vendor's Windows client and browser extensions, or any WireGuard, OpenVPN, L2TP/IPSec, IKEv2, SSTP, ShadowSocks or SOCKS5 client with the credentials and config files shown after login; the manual setup page hides the username, password and config files behind a login.
+- composes with: A tunnel or SOCKS5 exit: a job can connect over a tunnel or send traffic to the SOCKS5 proxy at vpn.trust.zone, and the upstream sees a shared VPN address, or a dedicated address when the paid Dedicated IP add-on is bought.
+- reliability: The setup page and prices page were served with an ad-blocker notice and a sale banner; page content is complete in the capture, but the credentials and config files are behind a login and were not read.
+- notes: Duplicate of egress/trust-zone, which holds the offer: both records cite the same vendor page.
+- evidence note: Documented: price, trial, protocol list, SOCKS5, port forwarding and BitTorrent lines are quoted from the vendor's own pages. Nothing was connected through the service, and the config files behind the login were not read, so transport and obfuscation details for ShadowSocks and AmneziaWG are unverified.
+- evidence:
+  - [1] 2026-11-04: The 1-year plan is USD 39.99 billed annually. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: ＄119.88＄39.99 billed annually\*
+  - [1] 2026-11-04: The 1-month plan is USD 9.99. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: ＄9.99 billed monthly\*
+  - [1] 2026-11-04: The 2-year plan with 6 months free totals USD 55.99. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: total ＄299.7＄55.99\*
+  - [1] 2026-11-04: The 1-year plan allows 3 simultaneous connections. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: 3 simultaneous connections
+  - [1] 2026-11-04: The free trial needs no card. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: No credit card required
+  - [1] 2026-11-04: The trial is capped at 1,000 users a month. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: 688/1000 claimed this month
+  - [1] 2026-11-04: A paid Dedicated Static IP add-on exists. | capture: sha256:5ba5ef6cbd8a94e06cbfca17318a58bb306eac5b3c20df7dbe1239c3146ffa87 | quote: Dedicated Static IP Address
+  - [4] 2026-11-04: Registration needs an email. | capture: sha256:0eec8bd3994894b9b8cd83bac3f92926ab3bcf24d6f4b37c8f2af5a265476cb5 | quote: The signup only requires your email.
+  - [3] 2026-11-04: Port forwarding requires a Dedicated IP. | capture: sha256:281c64c2a3c9284b6f9d4085d7966714e0c74073421ef4a06010b2ae69f63886 | quote: With Trust.Zone, Port Forwarding is available together with Dedicated IP.
+  - [3] 2026-11-04: One forwarded port from the stated range (5000 to 65535). | capture: sha256:281c64c2a3c9284b6f9d4085d7966714e0c74073421ef4a06010b2ae69f63886 | quote: Choose one port from this range and use it in your app
+  - [5] 2026-11-04: SOCKS5 is offered on all servers. | capture: sha256:b1e8335c09813729a7f191485036b51ff3d29d7a03a52fd52b6ad508e41e742d | quote: Did you know that all Trust.Zone VPN servers support SOCKS5 proxy?
+  - [5] 2026-11-04: The SOCKS5 proxy can carry UDP. | capture: sha256:b1e8335c09813729a7f191485036b51ff3d29d7a03a52fd52b6ad508e41e742d | quote: Trust.Zone SOCKS5 proxy servers can use UDP protocol.
+  - [6] 2026-11-04: No P2P block. | capture: sha256:ad0244ffce5aaca2c289adfe5b5380006b4f1a4831c68fd1e2432aaae9fa8695 | quote: Trust.Zone VPN service doesn't block or throttle any kind of internet traffic. All kinds of internet traffic are allowed.
+  - [7] 2026-11-04: AmneziaWG config files are offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: Amnezia WG
+  - [7] 2026-11-04: The setup page lists a SOCKS5 proxy. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: SOCKS5 Proxy
+  - [7] 2026-11-04: IKEv2 is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: IKEv2
+  - [7] 2026-11-04: L2TP/IPSec is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: VPN type: L2TP/IPSec with pre-shared key
+  - [7] 2026-11-04: OpenVPN is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: OpenVPN
+  - [7] 2026-11-04: WireGuard is offered. | capture: sha256:b94f6fe1561a1cb669e2850a0e1a6231fa2ff2cfefa7118c8d6d2ad2d9acd5e4 | quote: WireGuard WireGuard (.conf) file:
+  - [8] 2026-11-04: A ShadowSocks setup page exists. | capture: sha256:726bf1114c989bb598dc3bb93e4563202aef4b9f654d63298c3d3c2810be54d6 | quote: ShadowSocks
+  - [1] 2026-11-04: the vendor page that both records cite shows the same offer, which the egress record holds | capture: sha256:40c1305ae8325561a3ad5337109c8e682d43743fe82f6a731f732e3efe9d5361 | quote: billed annually
+- sources:
+  - [1] https://trust.zone/prices
+  - [2] https://trust.zone/
+  - [3] https://trust.zone/portforwarding
+  - [4] https://trust.zone/trustzone-vpn
+  - [5] https://trust.zone/post/trust.zone-supports-socks5-proxy
+  - [6] https://trust.zone/faq
+  - [7] https://trust.zone/setup
+  - [8] https://trust.zone/setup/manual/ss/

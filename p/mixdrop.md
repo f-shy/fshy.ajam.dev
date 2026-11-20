@@ -1,0 +1,35 @@
+# mixdrop
+
+> mixdrop.co | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mixdrop/ | JSON https://fshy.ajam.dev/api/v1/entity/mixdrop.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## mixdrop
+
+- `storage/mixdrop` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:14.243Z (inherited) | stale on 2026-12-04
+- url https://mixdrop.co/
+- free tier: None reachable: Returns HTTP 410 Gone on the canonical domain. Service withdrawn at this address. No limits page reachable. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable.
+  - dead_end.first_recorded: 2026-10-21
+  - death.on: 2026-11-19
+  - death.cause: dead-service
+- evidence:
+  - [1] 2026-10-21: Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable.
+  - probe:https://mixdrop.co/ 2026-11-19: the probe made no HTTP connection (TLS EOF), so the canonical domain remains unreachable | capture: sha256:03cd767344d89938b6f616adabb2b2cf4d36757f3c0a507f6808ddbc4153a3b9 | quote: "status": null,
+  - probe:https://mixdrop.co/ 2026-11-19: the canonical domain makes no HTTP connection (TLS handshake EOF), so the offer is unreachable and dead | capture: sha256:03cd767344d89938b6f616adabb2b2cf4d36757f3c0a507f6808ddbc4153a3b9 | quote: "status": null,
+- sources:
+  - [1] https://mixdrop.co/

@@ -1,0 +1,188 @@
+# StepFun Step
+
+> stepfun.ai | Inference, Coding subscriptions; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/stepfun/ | JSON https://fshy.ajam.dev/api/v1/entity/stepfun.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## StepFun Open Platform (platform.stepfun.ai)
+
+- `inference/stepfun-open-platform` | trial-only | evidence documented | binding request-rate | category inference API, free preview models
+- identity a placeholder: card and phone unknown | verified 2026-11-18T05:36:08.856Z (live) | stale on 2026-12-19
+- url https://platform.stepfun.ai/
+- free tier: No standing token allowance. Billing draws from free credit first and then from the paid balance, free credit can expire, and no credit amount is published on the pages read. The preview speech models stepaudio-3-realtime-preview and stepaudio-3-chat-preview are listed Free (limited time). Text reasoning is paid: step-3.5-flash is USD 0.10 per 1M cache-miss input and USD 0.30 per 1M output | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: free-preview-models
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: unverified: the overseas documentation (platform.stepfun.ai) states individual accounts must complete identity verification first and names no document or country scope; the mainland sibling platform (platform.stepfun.com) documents an individual real-name check of the holder's name and ID card number with an Alipay face-recognition scan, and it is not stated that the overseas platform uses the same check
+- interface: rest
+- limits:
+  - request-rate (binding): tier V0 for cumulative top-up under USD 15: concurrency 5, 100 RPM, 500,000 TPM; the tier rises only with cash top-ups, and vouchers do not count [1]
+- binding note: rate tier follows cumulative cash top-up; an account with no top-up starts at the lowest tier
+- interface detail: OpenAI Chat Completions compatible. The overseas platform is served by the first-party StepFun inference API, with chat at POST https://api.stepfun.ai/v1/chat/completions and models at GET https://api.stepfun.ai/v1/models; auth is a bearer key in Authorization: Bearer $STEP_API_KEY, created on the Interface Keys page after sign-in. The mainland sibling uses https://api.stepfun.com/v1.
+- endpoint: part of interface detail
+- tooling: any OpenAI SDK with base URL https://api.stepfun.ai/v1; curl against POST https://api.stepfun.ai/v1/chat/completions with Authorization: Bearer $STEP_API_KEY.
+- composes with: the limited-time free audio preview models are the only zero-priced rows; text reasoning models are paid per token
+- reliability: text-to-image models step-2x-large and step-image-edit-2 were retired on October 10, 2026 and stopped serving requests
+- notes: A keyless GET or POST to the chat route returns HTTP 401 with body {"error":{"message":"Incorrect API key provided","type":"invalid_api_key"}}; no OpenAPI JSON endpoint was reachable on 2026-11-18. On 2026-11-18 two keyless POSTs to /v1/chat/completions for step-3.5-flash returned HTTP 401 invalid_api_key, so the route is live.
+- evidence note: The endpoint, routes and bearer scheme come from first-party docs pages, with the overseas-versus-mainland split stated on the Chinese first-party page; a keyless request returned HTTP 401 as expected. Key value and per-account quota remain unverified behind a sign-up.
+- probe:
+  - records[0].probe_id: stepfun-open-platform-20261118
+  - records[0].target: https://api.stepfun.ai/v1/chat/completions
+  - records[0].runs[0].label: run1
+  - records[0].runs[0].probed_at: 2026-11-18T05:26:20.849Z
+  - records[0].runs[0].status: 401
+  - records[0].runs[0].completion: no
+  - records[0].runs[0].capture: sha256:8b74e9777453aa7776d6c090424b6d67acb6815d6e5c6ee4bfb1b24a405578bf
+  - records[0].runs[1].label: run2
+  - records[0].runs[1].probed_at: 2026-11-18T05:36:08.856Z
+  - records[0].runs[1].status: 401
+  - records[0].runs[1].completion: no
+  - records[0].runs[1].capture: sha256:97d7cd7ab83e39ccaa63c51d44e1dfb574b55791559afb96a22f91e8e3f083fa
+- evidence:
+  - [1] 2026-10-28: a speech chat preview model is listed Free (limited time) | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | `stepaudio-3-chat-preview` | N/A | N/A | N/A | N/A | Free (limited time) |
+  - [1] 2026-10-28: step-3.5-flash list price per 1M tokens in USD | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | `step-3.5-flash` | 1M tokens | \$0.10 | \$0.02 | \$0.30 |
+  - [1] 2026-10-28: individual accounts need identity verification before a rate tier is assigned | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: Individual accounts must complete identity verification first. Tiers are assigned by cumulative top-up amount:
+  - [1] 2026-10-28: the lowest tier has concurrency 5, 100 RPM and 500,000 TPM | capture: sha256:d09376206e90e63192fca3540bae3690e6d47dbbe70fc0fc480700cde3206877 | quote: | V0 | Under \$15 | 5 | 100 | 500,000 |
+  - [2] 2026-10-28: free credit is consumed before the paid balance and can expire | capture: sha256:14b45b030a9acee8a5347082b5d4d2da56dc178260279f39cb1e728bb1a23984 | quote: Fees are deducted as `tokens used × model unit price`, drawing from free credit first, then paid balance. Free credit can expire, so please use it promptly.
+  - [3] 2026-11-03: the mainland sibling platform asks for the holder's name and ID card number | capture: sha256:1ad695d11cb40e1d6efdfbaf6cbb9ed0e5fc9ff2b37fe03bb9eef2bfd29be888 | quote: 在实名认证一行点击认证，选择个人实名认证，填写本人姓名和身份证号。
+  - [4] 2026-11-03: the platform terms allow limited-time trial credits for new users, with no amount stated | capture: sha256:fe9a2ee80534d537cca7a398c89117a97d21cb30eeb340174456a76ae9fa8529 | quote: The Platform may from time to time provide limited-time Trial Credits to new users for service testing and evaluation.
+  - [5] 2026-11-03: a user reported a USD 100 voucher at account creation; reported, not vendor-confirmed, and another user in the thread saw none | capture: sha256:3e3b45933eadee599ec34336f84d4cb0549a7a7d61725594b2e2d95b1533c839 | quote: 100$ free when you create the account, but limited to 10 requests/hour if you don't top up at least 15$
+  - [6] 2026-11-03: the Step Plan free trial promotion ended on August 24, 2026 | capture: sha256:e17695af1fa2fc6d1b6dd83620ee960918ad5c25ce85830463471730ee32d021 | quote: Ends on August 24, 2026, at 23:59 UTC
+  - [3] 2026-11-03: the mainland sibling platform completes verification by Alipay face recognition | capture: sha256:1ad695d11cb40e1d6efdfbaf6cbb9ed0e5fc9ff2b37fe03bb9eef2bfd29be888 | quote: 用支付宝扫码完成人脸识别，返回平台查看结果。
+  - [7] 2026-11-03: on the mainland sibling platform free-plan users must complete real-name verification and every user before paying | capture: sha256:c961f11ceae808ad062f6f10551810f8040411256088c5a5b4728d063a72f90f | quote: 使用免费套餐的用户需要完成实名认证才能继续使用。所有用户在付费前都需要完成实名认证。
+  - [1] 2026-11-03: the overseas platform requires identity verification of individual accounts and names no document | capture: sha256:6daaf65ec793230b80184ed145862ed6b20ff333b915296d14bfa1689efd45d8 | quote: Individual accounts must complete identity verification first. Tiers are assigned by cumulative top-up amount:
+  - [1] 2026-11-03: the lowest tier has concurrency 5, 100 RPM and 500,000 TPM | capture: sha256:6daaf65ec793230b80184ed145862ed6b20ff333b915296d14bfa1689efd45d8 | quote: | V0 | Under \$15 | 5 | 100 | 500,000 |
+  - [8] 2026-11-18: first-party POST route and full chat endpoint URL for the overseas platform | capture: sha256:242ceb11f3ba05c98fa595e9050f444ac04cabfb086261241df2c797a9ed62a6 | quote: ## Endpoint `POST https://api.stepfun.ai/v1/chat/completions`
+  - [9] 2026-11-18: model-list route confirms the /v1 base path | capture: sha256:e4958786de66cfd090301cdf2fbdd12c6813e8ae83d3ca790387f4e4be4b9e78 | quote: ## Endpoint `GET https://api.stepfun.ai/v1/models`
+  - [10] 2026-11-18: first-party SDK base URL for the overseas platform | capture: sha256:135b8903e61351aac67d16d65541db89b3146e3d2d10111be86f887f0b164ec9 | quote: client = OpenAI( api_key="YOUR_STEP_API_KEY", base_url="https://api.stepfun.ai/v1", )
+  - [11] 2026-11-18: first-party table separates the overseas endpoint (api.stepfun.ai/v1) from the mainland endpoint (api.stepfun.com/v1) | capture: sha256:54e90b785dcec39bd6a9c141c83cba2a312bd76179277e994236adf6748cb321 | quote: | 国内开放平台按量付费 | `https://api.stepfun.com/v1` | | 海外开放平台按量付费 | `https://api.stepfun.ai/v1` |
+  - probe:https://api.stepfun.ai/v1/chat/completions 2026-11-18: a keyless POST to https://api.stepfun.ai/v1/chat/completions for step-3.5-flash returned HTTP 401 with body {'error':{'message':'Incorrect API key provided','type':'invalid_api_key'}} and no completion in 1172 ms Probe start 2026-11-18T05:26:20.849Z. | capture: sha256:8b74e9777453aa7776d6c090424b6d67acb6815d6e5c6ee4bfb1b24a405578bf | quote: a keyless POST to https://api.stepfun.ai/v1/chat/completions for step-3.5-flash returned HTTP 401 with body {'error':{'message':'Incorrect API key provided','type':'invalid_api_key'}} and no completion in 1172 ms
+  - probe:https://api.stepfun.ai/v1/chat/completions 2026-11-18: a keyless POST to https://api.stepfun.ai/v1/chat/completions for step-3.5-flash returned HTTP 401 with body {'error':{'message':'Incorrect API key provided','type':'invalid_api_key'}} and no completion in 483 ms Probe start 2026-11-18T05:36:08.856Z. | capture: sha256:97d7cd7ab83e39ccaa63c51d44e1dfb574b55791559afb96a22f91e8e3f083fa | quote: a keyless POST to https://api.stepfun.ai/v1/chat/completions for step-3.5-flash returned HTTP 401 with body {'error':{'message':'Incorrect API key provided','type':'invalid_api_key'}} and no completion in 483 ms
+- sources:
+  - [1] https://platform.stepfun.ai/docs/en/guides/pricing/details
+  - [2] https://platform.stepfun.ai/docs/en/guides/pricing/intro.md
+  - [3] https://platform.stepfun.com/docs/zh/quickstart/real-name-verification
+  - [4] https://platform.stepfun.ai/docs/en/agreement/userservice.md
+  - [5] https://www.answeroverflow.com/m/1509957427003523202
+  - [6] https://platform.stepfun.ai/step-plan/trial-rules
+  - [7] https://platform.stepfun.com/docs/zh/faq/common-questions
+  - [8] https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create.md
+  - [9] https://platform.stepfun.ai/docs/en/api-reference/models/list.md
+  - [10] https://platform.stepfun.ai/docs/en/quickstart/overview.md
+  - [11] https://platform.stepfun.com/docs/zh/step-code/configuration/models
+
+## StepFun (Global)
+
+- `inference/stepfun-ai` | paid-only | evidence documented | binding request-rate | category inference API
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:00:00.000Z (live) | stale on 2026-12-19
+- url https://platform.stepfun.ai/docs/en/overview/concept
+- free tier: No free text allowance stated; the concept page documents rate limits by RPM, TPM and concurrency but no free credit or free quota. | unit: none | metered on: unstated | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an account and API key; signup fields not detailed on the concept page
+- interface: rest
+- limits:
+  - request-rate (binding): RPM, TPM and concurrency limits (e.g. RPM 20, TPM 200K examples) [1]
+- endpoint: https://api.stepfun.ai/v1
+- tooling: OpenAI-compatible client against the StepFun API
+- composes with: no documented free tier; rate limits apply once an account has quota
+- reliability: any one of RPM, TPM or concurrency can trigger a limit first
+- notes: No free tier on the captured concept page; the pricing route returned no content.
+- evidence:
+  - [1] 2026-11-18: rate limits are expressed as RPM, TPM and concurrency | capture: sha256:2c1aff98d00dbcaedc56908ce6e6a30528a03b858af1896ee8d7095a65a6da10 | quote: RPM (requests per minute)**: Number of requests allowed per minute.
+- sources:
+  - [1] https://platform.stepfun.ai/docs/en/overview/concept
+
+## StepFun Step Plan
+
+- `coding-subs/stepfun-step-plan` | paid-only | evidence documented | binding retention-clamped | category coding subscription
+- needs card yes, phone no, ID no, institution no | verified 2026-11-18T06:20:00.000Z (live) | stale on 2026-12-19
+- url https://platform.stepfun.ai/docs/en/step-plan/overview.md
+- price parsed USD 6.99/mo
+- free tier: no free tier. Four paid tiers: Flash Mini 400M Credits at USD 6.99 a month, Flash Plus 1,600M at USD 9.99, Flash Pro 8,000M at USD 29, Flash Max 40,000M at USD 99. Credits convert at approximately USD 1 = 7M Credits | unit: credits | metered on: request-count | read on: 2026-10-22 | source: [1] | note: the allowance is denominated in Credits, and the page states the conversion.
+- per-object cap: not applicable
+- retention: monthly Credits are cleared at the end of the month and do not roll over; booster-pack Credits expire on their own 30-day cycle | days: 30 | source: [1]
+- egress: not applicable | metered: no
+- identity: card | detail: registration takes an email address with an emailed verification code, or a Google account; the platform sign-in form offers 'Continue with Google' and 'Email verification code login', and a phone number is not required. There is no free route: use needs a paid subscription, and the checkout offers 'Pay with Stripe' (credit or debit card; the Step Plan page FAQ names Visa and Mastercard, the console subscription page FAQ names Alipay, UnionPay, Visa and Mastercard, plus corporate bank transfer for enterprises) or 'Pay with balance' (the account balance, topped up by credit or debit card). Whether the checkout asks for a billing address, a country or an identity check: unverified: behind a sign-up
+- interface: rest, cli
+- limits:
+  - request-rate: no time-window or request-frequency limit; the page states Step Plan is not subject to the platform's tiered RPM and TPM limits, and usage is governed by the monthly Credit allowance of the subscribed tier [1]
+  - retention-clamped (binding): monthly Credits are cleared at the end of the month and do not roll over; the full month's Credits are issued at once on subscribing [1]
+- limits note: booster packs are available to active subscribers only and run on their own 30-day cycle: Small USD 6.99 for 400M Credits, Large USD 9.99 for 1,600M
+- binding note: the monthly clearance binds before any request rate does, because there is no request rate to bind: an unused allowance is lost at month end rather than carried
+- interface detail: two documented Base URLs: https://api.stepfun.ai/step_plan for the Claude Code and Anthropic SDK shape, and https://api.stepfun.ai/step_plan/v1 for OpenAI SDK Chat Completions. The page states these are client configuration URLs and not full request URLs
+- tooling: Claude Code, the Anthropic SDK, the OpenAI SDK, Trae, Cursor and OpenClaw are named on the page as supported clients
+- composes with: pairs with any Anthropic-shaped or OpenAI-shaped agent; the monthly Credit allowance is the scarce link, and it is spent by the Step Plan Base URL rather than by the standard API channel, which has its own separate quota
+- reliability: on 2026-10-30 the Step Plan page and the console subscription page showed every tier (Mini, Plus, Pro, Max) as 'Out of stock'; the vendor's notice states that Plan purchase quotas are released in limited daily batches adjusted to real-time service capacity, and that new free trials are closed. A subscription can be unavailable to buy on a given day
+- notes: This record carried verdict: trial-only and confidence: unverified until 2026-10-22T04:14Z, on a 396-byte shell from www.stepfun.com/pricing. At USD 9.99 for 1,600M Credits, or about USD 228.6 of model usage, this is the cheapest plan in the market per unit of work and the strongest counter-example to the topic's 'nothing under USD 20 carries a usable allowance' conclusion.
+- evidence note: the four tiers, the Credit allowances, the conversion rate, the two Base URLs and the no-rate-limit statement are all quoted from the vendor's own documentation page, read 2026-10-22 at 200 with 9444 bytes. No subscription was bought, so the allowance is the vendor's number and not a measurement.
+- extras:
+  - monthly_usd: 6.99
+- evidence:
+  - [1] 2026-10-22: the four-tier ladder with monthly, quarterly and yearly prices: Flash Mini 400M Credits USD 6.99 / 18.99 / 69.99, Flash Plus 1,600M USD 9.99 / 26.99 / 95.99, Flash Pro 8,000M USD 29 / 79 / 289, Flash Max 40,000M USD 99 / 269 / 989; 'Credits convert to payment at approximately USD 1 = 7M Credits'; 'no time-window or request-frequency limits'; and the two Base URLs
+  - [2] 2026-10-22: a 2262-byte shell at HTTP 200 with no plan name and no price. This is the route the previous record used, and it is a marketing page that does not carry the documentation's ladder. It is a route note, not the finding
+  - [3] 2026-10-30: registration takes an email address or a Google account; no phone number is named for account creation | capture: sha256:4f8803613e409dde83114c0e39910a3eb4f357a1a54fa2fbdf7d8e96c1f8f40a | quote: When you use our Services, you may create an account with your email address or Google Account to complete the registration and become our user.
+  - [4] 2026-10-30: the platform sign-in form (English strings of the site bundle) offers Google sign-in or an email verification code, with no phone field | capture: sha256:39c69d5b3143d73a3897c1cb9ee7d09ce242c659246e0ef36c3d44dca43bcc5c | quote: "google-login":"Continue with Google","email-verification-code-login":"Email verification code login","please-enter-the-email":"Please enter the email"
+  - [3] 2026-10-30: account verification at registration is a verification code sent to the email address | capture: sha256:4f8803613e409dde83114c0e39910a3eb4f357a1a54fa2fbdf7d8e96c1f8f40a | quote: We may verify your identity by sending a verification code.
+  - [5] 2026-10-30: the paid subscription is activated by registering an account, choosing a plan and completing payment | capture: sha256:5e5aa0ff953e663efaae813a63ca10a43e497e1c161ba21c017b1aafb94ff9fc | quote: By registering and logging into your platform account, selecting a specific plan on the subscription page, and completing payment, you are deemed to have activated the relevant paid…
+  - [6] 2026-10-30: the Step Plan checkout's Stripe channel takes a credit or debit card | capture: sha256:30b6db94f610b890dee82d379ec17adc841621a1759a48f6ffa0760d4ecaa415 | quote: Secure credit and debit card checkout via Stripe.
+  - [6] 2026-10-30: the Step Plan checkout's second channel pays from the account balance | capture: sha256:30b6db94f610b890dee82d379ec17adc841621a1759a48f6ffa0760d4ecaa415 | quote: Your available balance will be used for this payment.
+  - [7] 2026-10-30: the documentation names two payment routes for a subscription: Stripe, or the account balance | capture: sha256:0171869dc8e3a3da509347c75d4011d66c650576e3d393d9ef8c1c7cb8cc5677 | quote: Subscriptions can be paid through Stripe, or redeemed using your account balance (top-up funds).
+  - [8] 2026-10-30: the Step Plan page FAQ (English) names Visa and Mastercard credit cards, and corporate bank transfer for enterprises | capture: sha256:fb3ec002d80a878bfe969021c54a34d591448801397c7e0dfb994993c3fe20d3 | quote: answer:"We accept Credit Cards (Visa, Mastercard). Enterprise users can also choose corporate bank transfers."
+  - [9] 2026-10-30: the console subscription page FAQ names Alipay, UnionPay, Visa and Mastercard, and corporate bank transfer for enterprises | capture: sha256:d5881172ea7fb46311056b81596197d0a0ecd9ccb55c6717f955acb3f458ec84 | quote: We accept major payment methods including Alipay, UnionPay, and Credit Cards (Visa, Mastercard). Enterprise users can also choose corporate bank transfers.
+  - [4] 2026-10-30: an account-balance top-up is paid by credit or debit card | capture: sha256:39c69d5b3143d73a3897c1cb9ee7d09ce242c659246e0ef36c3d44dca43bcc5c | quote: "please-use-your-credit-card-or-debit-card-to-complete-payment":"Please use your credit card or debit card to complete payment"
+  - [10] 2026-10-30: the rendered Step Plan page showed each of the four plan cards as Out of stock on 2026-10-30 | capture: sha256:109955a38e5a2a31592d7203c1173c772c83ba651871be76e17a4ecd08a2306e | quote: Out of stock
+  - [8] 2026-10-30: the Step Plan page notice states purchase quotas are released in limited daily batches and new free trials are closed | capture: sha256:fb3ec002d80a878bfe969021c54a34d591448801397c7e0dfb994993c3fe20d3 | quote: we are closing the channel for claiming new free trials and releasing Plan purchase quotas in limited daily batches.
+  - [8] 2026-10-30: the daily purchase quota follows service capacity | capture: sha256:fb3ec002d80a878bfe969021c54a34d591448801397c7e0dfb994993c3fe20d3 | quote: These quotas may be adjusted dynamically based on real-time service capacity.
+  - [10] 2026-10-30: a second rendering of the Step Plan page on 2026-10-30 also showed all four plan cards as Out of stock | capture: sha256:6bca8ffe386d7cd15480f2e5e8eedef356530ab427b6f8e6dccad3fbea857109 | quote: Out of stock
+  - [9] 2026-10-30: the console subscription page (Compare Plans) showed Mini, Plus, Pro and Max as Out of stock on 2026-10-30 | capture: sha256:d5881172ea7fb46311056b81596197d0a0ecd9ccb55c6717f955acb3f458ec84 | quote: Out of stock
+  - [10] 2026-10-30: the free-trial channel is closed; the only offer is the paid four-tier ladder, so no free allowance exists | capture: sha256:109955a38e5a2a31592d7203c1173c772c83ba651871be76e17a4ecd08a2306e | quote: To prioritize the experience of our paying subscribers given current service capacity, we are closing the channel for claiming new free trials.
+  - [7] 2026-10-30: the allowance is denominated in one unit, Credits | capture: sha256:0171869dc8e3a3da509347c75d4011d66c650576e3d393d9ef8c1c7cb8cc5677 | quote: Step Plan uses Credits as its unified billing unit.
+  - [7] 2026-10-30: the four-tier ladder, Credit allowances, conversion rate, month-end clearance, booster packs, no-RPM statement and the two Base URLs are unchanged on 2026-10-30 | capture: sha256:0171869dc8e3a3da509347c75d4011d66c650576e3d393d9ef8c1c7cb8cc5677 | quote: | Flash Plus | Daily productivity | 1,600M | \$9.99 | \$26.99 | \$95.99 |
+  - [1] 2026-11-10: the page states the plan table prices Flash Mini at USD 6.99 a month | capture: sha256:f34b855cfb7a52579f5e6faf2fb4479aa86d53591e2e0800c4e264e18b39ddcd | quote: | Flash Mini | Getting started with AI | 400M | \$6.99
+  - [11] 2026-11-18: the China ladder starts at CNY 49 per month for 400M Credits | capture: sha256:95d920f39edceb94d239c4a452d019cb52e8a3a728dfccfe5ce3eb8e08171912 | quote: Mini | 400M | ¥49 | ¥129 | ¥456
+  - [12] 2026-11-18: the dedicated China Step Plan base URL is documented | capture: sha256:06d1b715234aa8996da8e0e77f0a5db6dbfab21f9f7647c8385024d4baee97b8 | quote: 所有请求统一使用 `/step_plan/v1/...` 路径前缀，域名固定为 `https://api.stepfun.com`。
+- sources:
+  - [1] https://platform.stepfun.ai/docs/en/step-plan/overview.md
+  - [2] https://www.stepfun.com/pricing
+  - [3] https://platform.stepfun.ai/docs/en/agreement/userprivacy.md
+  - [4] https://platform.stepfun.ai/_next/static/chunks/app/layout-41354ddad23de804.js
+  - [5] https://platform.stepfun.ai/docs/en/step-plan/paid-service-agreement.md
+  - [6] https://platform.stepfun.ai/_next/static/chunks/8979-74ebcf993cc3dae7.js
+  - [7] https://platform.stepfun.ai/docs/en/step-plan/overview
+  - [8] https://platform.stepfun.ai/_next/static/chunks/5412-f823cf7b36c5d1c8.js
+  - [9] https://platform.stepfun.ai/plan-subscribe
+  - [10] https://platform.stepfun.ai/step-plan
+  - [11] https://platform.stepfun.com/docs/zh/step-plan/pricing.md
+  - [12] https://platform.stepfun.com/docs/zh/step-plan/integrations/reasoning-api
+
+## StepFun Step Plan (Global)
+
+- `coding-subs/stepfun-ai-step-plan` | paid-only | evidence documented | binding retention-clamped | category coding subscription
+- needs card yes, phone no, ID no, institution no | verified 2026-11-18T06:20:00.000Z (live) | stale on 2026-12-19
+- url https://platform.stepfun.ai/docs/en/step-plan/integrations/reasoning-api
+- duplicate of `coding-subs/stepfun-step-plan`
+- free tier: No free tier. Step Plan is a paid subscription with four Credit tiers (Flash Mini USD 6.99, Plus USD 9.99, Pro USD 29, Max USD 99 per month); USD 1 is about 7M Credits. Monthly Credits are cleared at month end and do not roll over. | unit: credits | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable: the vendor serves the inference; no caller-stored bytes
+- egress: not applicable | metered: no
+- identity: card | detail: a StepFun account plus a paid subscription (Stripe card or account balance); no free route remains, and the vendor closed new free trials
+- interface: rest, cli
+- limits:
+  - volume-quota: 400M to 40,000M Credits per month by tier [1]
+  - retention-clamped (binding): monthly Credits cleared at month end; no rollover [1]
+- endpoint: https://api.stepfun.ai/step_plan/v1
+- tooling: OpenAI SDK at /step_plan/v1 and Anthropic SDK at /step_plan; Claude Code, OpenClaw, Trae and Cursor are named
+- composes with: the monthly Credit allowance is spent only through the Step Plan base URL; the standard API channel has a separate quota and a successful call there does not spend Step Plan Credits
+- reliability: Step Plan purchase quotas are released in limited daily batches; tiers can show out of stock
+- notes: Paid-only. The reasoning-api doc URL is the manifest's page and is captured; the overview.md page supplies the price ladder because the reasoning page links to it.
+- extras:
+  - duplicate_of: stepfun-step-plan
+- evidence:
+  - [2] 2026-11-18: Step Plan has four paid tiers starting at USD 6.99 per month | capture: sha256:3fbc32dcc80c8431030d96f0c6ec8965ebda7b0f82e81e873d2c55d25d8ba3dc | quote: | Flash Mini | Getting started with AI | 400M | \$6.99
+  - [2] 2026-11-18: monthly Credits do not roll over | capture: sha256:3fbc32dcc80c8431030d96f0c6ec8965ebda7b0f82e81e873d2c55d25d8ba3dc | quote: No. Monthly-allowance Credits are cleared at the end of the month and do not carry over to the next cycle.
+  - [1] 2026-11-18: the dedicated OpenAI and Anthropic base URLs are documented | capture: sha256:386508120a16b12154bb585e50e1d925de249caf9fd2453f3fb0694fe0e6b20e | quote: All requests uniformly use the `/step_plan/v1/...` path prefix, and the domain name is fixed as `https://api.stepfun.ai`.
+- sources:
+  - [1] https://platform.stepfun.ai/docs/en/step-plan/integrations/reasoning-api
+  - [2] https://platform.stepfun.ai/docs/en/step-plan/overview.md

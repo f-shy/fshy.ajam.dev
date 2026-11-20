@@ -1,0 +1,43 @@
+# Virtury
+
+> virtury.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/virtury/ | JSON https://fshy.ajam.dev/api/v1/entity/virtury.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Virtury
+
+- `compute/virtury` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T17:40:47.141Z (live) | stale on 2026-12-08
+- url https://my.virtury.com/index.php?/cart/cloud-server/
+- price parsed USD 10/mo
+- free tier: 25GB NVMe cloud server at USD 10.00 per month: 1 vCPU, 1 GB DDR4 RAM, 25 GB NVMe, 1 TB a month of bandwidth at 500 Mbps, hosted in Pakistan (the vendor names its PDC-ISB01 data center, 'located in the heart of Pakistan (Isb)'). The 50GB plan is USD 15.00 with 2 GB RAM and 2 TB; the 80GB plan is USD 25.00 with 2 vCPU, 4 GB RAM and 4 TB. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 1 TB a month included, delivered at 500 Mbps; no overage price stated on the page read | metered: yes | free allowance: 1 TB a month | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 1 TB a month at 500 Mbps on the entry plan. The port is the tighter of the two for sustained transfer, so a large pull is shaped before the allowance is spent. [1]
+- limits note: 1 TB a month at 500 Mbps on the entry plan. The port is the tighter of the two for sustained transfer, so a large pull is shaped before the allowance is spent.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the cart is a WHMCS store that requires JavaScript; no API or client is documented on the pages read
+- composes with: a Pakistan-hosted box at USD 10 is the only way among documented hosts to get local latency inside that country without a local identity document, which is what regional work would need
+- reliability: no reliability event recorded
+- notes: Virtury provides KVM VPS hosting in Pakistan with plans starting at PKR 1,000 monthly, offering 500 Mbps network ports and NVMe storage.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 25
+  - price_on_page: USD 10.00/month (the 25 GB NVMe plan)
+  - renewal_usd: not published: the cart prices the plans monthly and prints no renewal price
+- evidence:
+  - [1] 2026-10-22: plan card: '25GB NVMe / $10.00 USD / Monthly / vCPU 1 / NVMe Storage 25 GB / RAM 1 GB DDR4 / Bandwidth 1 TB @ 500 Mbps'
+  - [2] 2026-10-22: the homepage's Product structured data carries {'@type': 'Offer', 'priceCurrency': 'USD', 'price': '10.00'}, the page text reads 'Starting at $10.00/month*', and it names the host: 'Powered by PDC-ISB01 Data-center, located in the heart of Pakistan (Isb)'; the page title reads 'T3 Pakistan Data Center'
+  - [3] 2026-10-22: tracker agrees on the row: '$10.00 / month 1 Intel Cores (shared) 1,024 MB RAM 25 GB NVMe 1,024 GB/month bandwidth 0.49 Gbps port speed IPv4 + IPv6 Pakistan'
+  - [1] 2026-11-07: the cart's plan card prices the 25GB NVMe server at $10.00 USD per month with 1 vCPU, 25 GB NVMe, 1 GB DDR4 and 1 TB at 500 Mbps | capture: sha256:8036e5f346714f8ac97713f8885d83806be21aab401bb3df1d19c39abda12e13 | quote: 25GB NVMe $10.00 USD / Monthly vCPU 1 NVMe Storage 25 GB RAM 1 GB DDR4 Bandwidth 1 TB @ 500 Mbps
+- sources:
+  - [1] https://my.virtury.com/index.php?/cart/cloud-server/
+  - [2] https://virtury.com/
+  - [3] https://vpspricetracker.com/provider/Virtury/vps

@@ -1,0 +1,346 @@
+# Tencent Cloud
+
+> tencentcloud.com | Compute, Storage, Databases and KV, Inference; 7 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/tencentcloud/ | JSON https://fshy.ajam.dev/api/v1/entity/tencentcloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Tencent Cloud International (Lighthouse)
+
+- `compute/tencent-lighthouse-intl` | qualifies | evidence documented | binding volume-quota | category VPS | tier Linux Starter
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:19:16.612Z (live) | stale on 2026-11-24
+- url https://www.tencentcloud.com/products/lighthouse
+- price parsed USD 4.2/mo
+- disagrees on identity_kind: `compute/tencent-cloud-international` says national-id, `compute/tencent-lighthouse-intl` says card
+- disagrees on verdict: `compute/tencent-cloud-international` says fails-identity, `compute/tencent-lighthouse-intl` says qualifies
+- free tier: no free tier; Linux Starter is USD 4.2 per month, or USD 10.08 for the first year against a stated original of USD 50.4 per year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: the instance and disk persist while the subscription is paid; the annual price is a first-term promotion and the renewal is USD 50.4 a year | source: [1]
+- egress: 0.5 TB a month on Linux Starter, then out-of-plan transfer is billed per outbound GB at the pay-as-you-go rate | metered: yes | free allowance: 0.5 TB | source: [1]
+- identity: card | detail: card required at signup and before any transaction; USD 1.00 pre-authorisation on binding, cancelled and refunded in 1 to 5 business days; debit accepted, with the vendor's own caveat that 'Some card brands may not support debit cards'; prepaid cards are DISPUTED between two first-party pages: the billing FAQ says 'Tencent Cloud does not support prepaid cards, virtual cards, or gift cards' while the registration doc says 'Seven types of credit cards/debit cards/prepaid cards are supported'; virtual cards and gift cards are refused on both pages; identity verification is required only for purchases in the Chinese Mainland, not for Hong Kong, Singapore or Tokyo
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 0.5 TB a month of outbound transfer; excess billed per GB [1]
+- binding note: 0.5 TB a month is the smallest traffic allowance on any 2 GB row here; at 4 GiB of daily backup upload it is gone in four months of steady use
+- interface detail: root SSH; the vendor's web console; a REST API where documented
+- tooling: any SSH client
+- composes with: two vCPUs and 2 GB for USD 4.2 a month in Hong Kong, Singapore or Tokyo is the largest shape under the line among documented hosts, and the first year at USD 10.08 is the cheapest year on any row that requires no local identity
+- reliability: no reliability event recorded
+- notes: Tencent Cloud Lighthouse offers lightweight application servers starting at USD 10.08 annually (USD 0.84 monthly) for 2 vCPU and 2 GB RAM in overseas regions. Standard credit and debit cards are supported for billing.
+- evidence note: price, shape and transfer from the Lighthouse product page read; card and identity rules from Tencent's own account and signup documents | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 2
+  - shape.disk_gib: 40
+  - billing_model: monthly or annual prepay
+  - term: monthly, or yearly with a first-term promotion
+  - m10h_usd: 4.2
+  - m24h_usd: 4.2
+  - price_arithmetic: 4.2 a month monthly, or 10.08 for year one = 10.08/12 = 0.84/mo equivalent; renewal 50.4/12 = 4.20/mo
+  - renewal_usd: 4.2
+  - first_term_usd: 0.84
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS that bills whether it runs or not
+  - english: yes, the international site is English throughout
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: disputed
+  - payment_methods.virtual: refused
+  - payment_methods.hold_amount: USD 1.00
+  - payment_methods.hold_detail: pre-authorisation on card binding, cancelled and refunded in 1 to 5 business days
+  - payment_methods.identity: email, then identity verification only for Chinese Mainland purchases
+  - payment_methods.source_url: https://www.tencentcloud.com/document/product/555/7425
+  - payment_methods.read_on: 2026-10-24
+  - payment_methods.superseded: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, Diners Club; debit and prepaid named as accepted
+- evidence:
+  - [1] 2026-10-24: quoted: 'Linux Starter $4.2/month CPU 2 vCPUs MEM 2 GB System disk 40 GB SSD ... Transfer 0.5 TB/month'
+  - [1] 2026-10-24: quoted: 'Linux Starter Plan ... $10.08/year originally$50.4/year CPU 2vCPUs2GB Transfer 0.5TB/month'
+  - [1] 2026-10-24: quoted: 'Out-of-plan data transfer is billed by the outbound traffic, i.e., total volume of data transferred over the public network in GB'
+  - [2] 2026-10-24: quoted: 'Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club.'
+  - [3] 2026-10-24: quoted: 'The account has a credit card bound or has applied for a credit limit.' and 'Identity Verification is required when you purchase or use cloud services in the Chinese Mainland'
+  - [4] 2026-10-24: quoted: individual verification accepts a passport, ID card, driving licence or work permit and takes 2 to 4 business days, required for promotional campaigns
+  - [5] 2026-10-24: quoted: 'Check your card type. Tencent Cloud does not support prepaid cards, virtual cards, or gift cards, and does not allow to bind enterprise accounts. Please select a credit or debit card of VISA, Master, JCB, DISCOVER, AMEX, or UnionPay. Some card brands may not support debit cards.'
+  - [5] 2026-10-24: quoted, the hold: 'After the pre-authorization fee of 1 USD is successfully deducted by the system, cancellation of pre-authorization will be automatically triggered. Generally, after 1 to 5 business days, the pre-authorization is cancelled, and the fee is refunded.' and 'To bind a card, pre-authorization deduction of 1 USD is required.'
+  - [6] 2026-10-24: the contradicting first-party sentence, on the registration doc last updated 2026-07-08: 'Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club.' The same page refuses virtual cards: 'Tencent Cloud does not support virtual cards or gift cards'
+  - [3] 2026-10-24: quoted: 'Identity Verification is required when you purchase or use cloud services in the Chinese Mainland' on the international site, against 'Identity Verification must be completed to purchase or use cloud services' on the China site
+- sources:
+  - [1] https://www.tencentcloud.com/products/lighthouse
+  - [2] https://www.tencentcloud.com/document/api/378/17985
+  - [3] https://www.tencentcloud.com/document/product/378/80429
+  - [4] https://www.tencentcloud.com/document/product/378
+  - [5] https://www.tencentcloud.com/document/product/555/7425
+  - [6] https://www.tencentcloud.com/document/product/378/17985
+
+## Tencent Cloud TCR Individual Edition
+
+- `storage/tencent-cloud-tcr-individual-edition` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category registry
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:22.053Z (live) | stale on 2026-12-04
+- url https://www.tencentcloud.com/products/tcr
+- free tier: Free, count-based only: 'The TCR Individual Edition is free of charge and can be activated directly.' Quotas: 'Number of image namespaces in a single region | 10', 'Number of image repositories in a single region | 500 in the Guangzhou region and 100 in other regions', 'Number of image tags for a single image | 100'. No byte quota is published for Individual Edition. | unit: mixed | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No per-GB egress charge is documented for Individual Edition; the billing page defines storage and public-network traffic fees only for Enterprise Edition ('The cloud-native artifacts of the TCR Enterprise managed instance ... are stored in your COS bucket. Storage and access fees will apply ... Using the public network to upload and download ... will incur public network traffic fees in COS'). Individual runs on Tencent's shared backend, not your COS bucket. Treat free egress as unverified-but-likely rather than confirmed. | metered: no
+- identity: email
+- interface: oci, rclone
+- limits:
+  - per-ip-shaping (binding): 20 MB/s [1]
+- limits note: 10 namespaces/region; 500 repos (Guangzhou) or 100 (elsewhere); 100 tags per image; 'Individual Edition instances don't support quota adjustment.' Image size limit '/' (none listed). Pull speed benchmark 20 MB/s.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: oci
+- tooling: docker/skopeo/ORAS. No TCR-specific rclone backend.
+- composes with: 10 namespaces/region x 500 repos (Guangzhou) x N Tencent accounts; tags per image capped at 100, so blob count per repo is bounded but repo count is not.
+- reliability: 'the image repository of TCR Individual Edition is shared with all other public cloud accounts, the images that have been pulled/pushed are blocked in the queue and are not displayed. You can try to push the images again'. I.e. pushes intermittently fail silently under contention.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'free of charge and can be activated directly'; 10 namespaces, 500/100 repos, 100 tags
+  - [2] 2026-10-21: Individual: no SLA, no dedicated storage backend, no OCI-artifact hosting (Enterprise only)
+  - [3] 2026-10-21: storage/traffic fees defined only for Enterprise/COS
+  - [4] 2026-10-21: probe: GET -> 401 (token required, Www-Authenticate realm=https://hkccr.ccs.tencentyun.com/service/token); GET /v2/ -> 401
+  - [1] 2026-11-19: the Individual Edition quota table lists 500 repositories in Guangzhou and 100 elsewhere | capture: sha256:ea4f9f51c06cad6dbcc2dcf952cbd523e44ec42add5af05a7e721e48e29e3860 | quote: Number of image repositories in a single region | 500 in the Guangzhou region and 100 in other regions
+  - [1] 2026-11-19: the docs state pushes can be blocked in the shared queue under contention | capture: sha256:ea4f9f51c06cad6dbcc2dcf952cbd523e44ec42add5af05a7e721e48e29e3860 | quote: Since the image repository of TCR Individual Edition is shared with all other public cloud accounts, the images that have been pulled/pushed are blocked in the queue and are not displayed. You can try to push the images again.
+- sources:
+  - [1] https://www.tencentcloud.com/document/product/1051/37243
+  - [2] https://www.tencentcloud.com/document/product/1051/74856
+  - [3] https://www.tencentcloud.com/document/product/1051/35483
+  - [4] https://hkccr.ccs.tencentyun.com/v2/library/nginx/manifests/latest
+
+## Tencent Cloud Database (TencentDB for MySQL and Redis)
+
+- `databases-kv/tencent-cloud-database` | trial-only | evidence documented | binding write-gated | category managed MySQL and Redis databases billed by subscription or pay-as-you-go; database free use is a new-user trial or a for-fee resource pack | tier new-user free trial
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-19T01:13:44.791Z (live) | stale on 2026-12-20
+- url https://www.tencentcloud.com/document/product/236/18335
+- free tier: No standing free tier for TencentDB for MySQL or Redis is published. Free use comes as a time-limited new-user product trial, listed among over 30 trial products, and for Redis as a赠送 (complimentary) standard bandwidth allowance by instance specification. TencentDB for MySQL free backup space is granted by region (100% of local-disk instance storage, 200% of cloud-disk instance storage). | unit: none | metered on: unstated | read on: 2026-11-19 | source: [1] | note: The trial is open only to product new users and expires; a trial instance can be renewed in the console before expiry. The cost calculator states that price accuracy requires login. No always-free database allocation was found on the pages read.
+- per-object cap: No single-object cap is published for the database engine on the pages read; storage is provisioned at purchase and storage beyond the purchased size is billed pay-as-you-go | source: [2]
+- retention: the new-user trial expires; before the product expires the user can renew it in the product control panel; a pay-as-you-go instance is billed for as long as it exists | source: [1] | note: null because the trial length varies by product and no single fixed clock is published; the finding is that the free use ends at trial expiry.
+- egress: Public network traffic fees are currently free. | metered: no | free allowance: public network traffic currently free | source: [2]
+- identity: card | detail: Registration takes an email address, a Google account, or WeChat. Step 3 requires a name, address, industry and a mobile number with a verification code. Step 4 requires a card binding: the signup page states to enter card information to complete card binding and lists VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER and Diners Club, with a USD 1.00 pre-authorisation. Identity verification to use services in the Chinese mainland requires an ID card, passport, driver's license or work permit (individual) or a business registration document (enterprise).
+- interface: rest, cli
+- limits:
+  - write-gated (binding): the free product trial is only open to new users of the product; users who have purchased or tried the product cannot join, and an unpaid order occupies the trial qualification [1]
+  - per-object-cap: free backup space is 100% of local-disk instance storage by region, or 200% of cloud-disk instance storage; storage beyond the purchased size is billed pay-as-you-go [2]
+- binding note: the trial is gated to product new users and ends at expiry; there is no always-free database allocation, so eligibility ends free use before any storage or backup limit binds
+- interface detail: the MySQL and Redis wire protocols; a TencentDB API and the Tencent Cloud CLI
+- tooling: mysql and redis-cli clients, the Tencent Cloud CLI, and the TencentDB console
+- composes with: a trial TencentDB instance can back an application on a Lighthouse or CVM instance in the same region; the trial expiry governs how long the chain runs free
+- reliability: an unpaid trial order occupies the trial qualification; a pay-as-you-go instance keeps billing until the user destroys it
+- notes: TencentDB has no standing free database tier on the pages read. The free path is a new-user trial among over 30 trial products, gated to product new users. Registration itself needs a phone number and a card binding, and mainland service needs identity verification. The developer-tier price quoted is USD 120 per node per month for a two-node 4-core 8000MB MySQL instance, not a free allowance.
+- evidence note: four first-party Tencent Cloud pages were captured and quoted on 2026-11-19: the free-tier page, the MySQL billing overview, and the signup documentation. No probe was run; the trial and identity facts are stated on those pages.
+- evidence:
+  - [1] 2026-11-19: database free use is a new-user trial, not a standing free tier | capture: sha256:69ccc0afcee6ecde3445f342bd0c809f755105e162e890d4912ff67424f1c258 | quote: The free product trial is only open to new users of the product.
+  - [1] 2026-11-19: prior purchase or trial of the product makes a user ineligible | capture: sha256:69ccc0afcee6ecde3445f342bd0c809f755105e162e890d4912ff67424f1c258 | quote: Q Why can't I participate in the free trial? A The free product trial is only open to new users of the product. Users who have purchased or tried the corresponding product (including annual and monthly subscriptions and pay-per-use) are not eligible for this activity.
+  - [1] 2026-11-19: an unpaid order consumes the trial eligibility | capture: sha256:69ccc0afcee6ecde3445f342bd0c809f755105e162e890d4912ff67424f1c258 | quote: Q Why can't I experience it after canceling my order? A If an order is placed without payment, it will occupy your purchase experience qualification.
+  - [2] 2026-11-19: public network traffic has no stated per-GB charge | capture: sha256:3c98bde8cc2e9d46a4145e1c390a37552b214c29ced462c20b0d6dc6fc56abb6 | quote: Traffic fees | Public network traffic fees are currently free.
+  - [2] 2026-11-19: free backup space on cloud-disk MySQL instances is 200% of instance storage | capture: sha256:3c98bde8cc2e9d46a4145e1c390a37552b214c29ced462c20b0d6dc6fc56abb6 | quote: For cloud disk instances, the free backup space size is 200% of your instance's storage space.
+  - [2] 2026-11-19: a paid two-node 4-core 8000MB MySQL instance costs USD 120 per node per month in Guangzhou | capture: sha256:3c98bde8cc2e9d46a4145e1c390a37552b214c29ced462c20b0d6dc6fc56abb6 | quote: The monthly price for a 4-core, 8000MB instance in the Guangzhou region is USD 120/month. Memory specification fee = 2 × USD 120/month × 1 month = USD 240.
+  - [3] 2026-11-19: the first registration gate is an email, Google account, or WeChat | capture: sha256:232f60ab6a2eb2da37ab77d8fd40993e43d05aaa02b485a440e465a7361160ad | quote: Tencent Cloud accounts can be registered using an email address, a Google account, or WeChat (you can choose any one of these methods to sign up):
+  - [3] 2026-11-19: a mobile number with a verification code is required in the account completion step | capture: sha256:232f60ab6a2eb2da37ab77d8fd40993e43d05aaa02b485a440e465a7361160ad | quote: 4. Enter the mobile number of the registration location.
+  - [3] 2026-11-19: a card binding is a required step to register a Tencent Cloud account | capture: sha256:232f60ab6a2eb2da37ab77d8fd40993e43d05aaa02b485a440e465a7361160ad | quote: Enter your card information correctly to complete the card binding. Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club.
+- sources:
+  - [1] https://www.tencentcloud.com/act/pro/FreeTier?lang=en
+  - [2] https://www.tencentcloud.com/document/product/236/18335
+  - [3] https://www.tencentcloud.com/document/product/378/17985?lang=en
+
+## Tencent HY Text Generation Global (Hunyuan-translation)
+
+- `inference/tencent-hy-text-global` | trial-only | evidence documented | binding volume-quota | category inference API, one-time free tokens
+- needs card no, phone yes, ID yes, institution no | verified 2026-11-18T05:36:12.233Z (live) | stale on 2026-12-19
+- url https://www.tencentcloud.com/document/product/1284/77186
+- free tier: A one-time free resource package of 1M tokens for Hunyuan-translation only, shared consumption, valid for 1 year from service activation and deducted before postpaid billing. After the package is used up or expires the service does not switch to postpaid on its own, and calls return a billing error until postpaid is enabled | unit: tokens | metered on: request-count | read on: 2026-10-28 | source: [1] | note: one-time-quota
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: national-id | detail: account sign-up takes an email address (or a Google or WeChat login) with an emailed code, a mobile number of the registration location with an SMS code, and a payment card (the sign-up flow adds a 1.00 USD pre-authorization). The Tencent HY Global quick start puts real-name authentication before activating the Tencent HY console service; on the international site that is individual identity verification with a government ID card, passport, driver's license or work permit from the registration country, or enterprise verification with business registration documents. The account pages tie identity verification to mainland-China services, partner status and invoicing, so whether the Text Generation Global activation enforces it is unverified: behind a sign-up. The quick start page that states it is the 3D Global one; no text-generation quick start exists
+- interface: rest
+- limits:
+  - volume-quota (binding): 1M tokens, one-time, Hunyuan-translation only [1]
+  - retention-clamped: the package expires 1 year after service activation and unused tokens become invalid [1]
+  - request-rate: documented default per-account concurrency 5 and frequency limit 20 requests/second on the ChatTranslations action, as stated in the API docs [2]
+- binding note: the quota covers a single translation model; any other model is billed
+- interface detail: Tencent Cloud API 3.0 (TC3-HMAC-SHA256 signed REST, JSON over HTTPS), not OpenAI-compatible. Action ChatTranslations serves model hunyuan-translation (Chinese page also lists hunyuan-translation-lite). Body carries Model, Stream, Text, Source, Target, Field, References.N, GlossaryIDs.N; streaming uses SSE.
+- endpoint: https://hunyuan.ai.intl.tencentcloudapi.com/ (API request domain); nearest-region alternative https://hunyuan.intl.tencentcloudapi.com/; POST / with X-TC-Action: ChatTranslations, Version 2023-09-01, TC3-HMAC-SHA256 auth; fixed-region forms like hunyuan.ap-guangzhou.tencentcloudapi.com exist
+- tooling: Tencent Cloud SDK 3.0 (Python/Java/PHP/Go/Node.js/.NET) and CLI 3.0; API Explorer at console.tencentcloud.com/api/explorer?Product=hunyuan&Version=2023-09-01&Action=ChatTranslations. First-party intl SDK: github.com/TencentCloud/tencentcloud-sdk-go-intl-en and tencentcloud-sdk-python-intl-en.
+- composes with: the free package covers one translation model only: the product's API lists hunyuan-translation as its model. The other Tencent HY text models (Hy4 preview, Hy3, Hy-MT2-Pro, Hy-MT2-Plus, Hy-MT2-Lite) are sold on TokenHub, whose international edition grants each root account a one-time free trial of 1 million tokens for every language model, valid 1 year on the billing page (a promotion page states a shorter validity), and freezes 10 USD against the account balance or credit limit on each claim
+- reliability: not assessed: no request was sent to the endpoint
+- notes: the endpoint was identified as the Hunyuan Cloud API 3.0 gateway; the worked example uses Host: hunyuan.intl.tencentcloudapi.com while the API-Description domain is hunyuan.ai.intl.tencentcloudapi.com; both probed live with unauthenticated MissingParameter errors. The mainland counterpart (hunyuan.ai.tencentcloudapi.com, product 1729) is in pre-decommission state per the Chinese docs and is not this global product. On 2026-11-18 two keyless GETs to the API root returned HTTP 200 with a MissingParameter error naming Version, so the root is the signed XML API and not a completion route.
+- evidence note: endpoint domain, method, action, version and TC3 auth are quoted from first-party Tencent Cloud docs and the API PDF; two unauthenticated probes returned Tencent Cloud API v3 MissingParameter errors, confirming live hosts; the API key, activation/identity gate and any successful translation response are unverified: behind a sign-up.
+- probe:
+  - records[0].probe_id: tencent-hy-text-global-20261118
+  - records[0].target: https://hunyuan.ai.intl.tencentcloudapi.com/
+  - records[0].runs[0].label: run1
+  - records[0].runs[0].probed_at: 2026-11-18T05:26:24.322Z
+  - records[0].runs[0].status: 200
+  - records[0].runs[0].completion: no
+  - records[0].runs[0].capture: sha256:394b4d360e93332f3769f27211a7d34d3619698f878babb966463c5cf826734a
+  - records[0].runs[1].label: run2
+  - records[0].runs[1].probed_at: 2026-11-18T05:36:12.233Z
+  - records[0].runs[1].status: 200
+  - records[0].runs[1].completion: no
+  - records[0].runs[1].capture: sha256:bc187e91003839a5bf9af7c73f59ac79adbec42f4dcb1b7413c9d62ffcb7d2f8
+- evidence:
+  - [1] 2026-10-28: a free quota is issued on first-time activation of the global text generation service | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: Upon first-time activation of the Tencent HY service, Tencent HY Text Generation Global will issue a certain free quota for your testing experience.
+  - [1] 2026-10-28: the free package is 100M tokens for Hunyuan-translation, valid for 1 year from activation | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: 100M tokens, shared consumption. The resource package is valid for 1 year. If the free resource package is not used up within 1 year after service activation, it will expire and become invalid.
+  - [1] 2026-10-28: no automatic switch to postpaid billing after the free package ends | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: By default, after the free resource package is used up or expires, it will not automatically switch to postpayment.
+  - [1] 2026-10-28: postpaid list price for Hunyuan-translation in USD per million input and output tokens | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: Hunyuan-translation 0.2571 0.7714
+  - [3] 2026-10-28: the Chinese edition of the same global purchase guide (updated 2026-01-27) gives the Hunyuan-translation shared free package as 100万 tokens, valid 1 year from activation | capture: sha256:6136600a2a26f66b07f20f944bed6fdaad3ccde41517c424ee3963e337d50d2f | quote: Hunyuan-translation 共100万 tokens，共享消耗。 资源包有效期为1年，⾃开通服务之⽇起1年内若免费资源包未使⽤完，则过期作废。
+  - [1] 2026-10-28: the English edition's own worked example consumes the free package at 1 million tokens | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: For first-time use in the current month, if a user cumulatively calls the Tencent HY Text Generation Global API for 2 million tokens, the free resource package will be consumed upon reaching 1 million tokens.
+  - [1] 2026-10-28: the one-time package, token unit and no automatic postpaid switch are unchanged in the global purchase guide | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: By default, after the free resource package is used up or expires, it will not automatically switch to postpayment.
+  - [4] 2026-11-03: the Tencent HY Global quick start puts real-name authentication before activating the Tencent HY console service | capture: sha256:3d1371461006be938e35bc5334e8c420c1d8ef2cce994ed0ba7c3495f7e060a3
+  - [5] 2026-11-03: TokenHub on the international site gives every language model a free trial of 1 million tokens, 1 year validity | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: All language models provide a free trial quota of 1 million Tokens, valid for 1 year.
+  - [1] 2026-11-03: the English worked example consumes the package at 1 million tokens, against the table's 100M | capture: sha256:16e0d34e0bf805b7f802beea757739edbf81d3fa5568dc6779920c1bfbaeb169 | quote: the free resource package will be consumed upon reaching 1 million tokens
+  - [6] 2026-11-03: the account pages tie international-site identity verification to mainland-China services, partner status and invoicing | capture: sha256:bdceb221a6ca25f22ff0a1f547baf10f60411d5926f645f18b1de6f3ec298781 | quote: If you need to purchase or use cloud services in the Chinese mainland (excluding Hong Kong (China), Macao (China), and Taiwan (China)), apply to become a Tencent Cloud partner, or use the online self-service invoice feature, you must complete identity verification for your Tencent Cloud account.
+  - [7] 2026-11-03:  | capture: sha256:f1dcb27c49890d86950f80673dec92cb01581bd90f399940bdedb72a907bec3a
+  - [8] 2026-11-03: the sign-up flow asks for a mobile number of the registration location | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Enter the mobile number of the registration location.
+  - [8] 2026-11-03: the international sign-up flow has a step that binds a payment card | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Enter your card information correctly to complete the card binding.
+  - [8] 2026-11-03: card binding issues a 1.00 USD pre-authorization | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: During the bank card binding process, the system will issue a 1.00 USD pre-authorization on your bound bank card to verify its validity.
+  - [8] 2026-11-03: an account registers with an email address, a Google account or WeChat | capture: sha256:b6750a98148b75d7630a6584256c3e50cb9678ead369907e951075e72d65fba0 | quote: Tencent Cloud accounts can be registered using an email address, a Google account, or WeChat (you can choose any one of these methods to sign up):
+  - [9] 2026-11-03: using cloud products on the international site needs a bound bank card or a credit authorization | capture: sha256:3a09aa6c9dd50bceb033b07ab7795888d5cd749e242061cb414f476f0879120e | quote: You can only purchase and use cloud products if you have a registered Tencent Cloud account that has completed bank card binding or credit authorization.
+  - [10] 2026-11-03: the Text Generation Global API lists hunyuan-translation as its model | capture: sha256:d5d5e053f2b6a7c190c869b8d38576d31003c8c7f0f839be1e8aa50a40e1f00d | quote: Model | Yes | String | Model name. optional values include hunyuan-translation.
+  - [5] 2026-11-03: the TokenHub free trial is one-time for each root account | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: TokenHub currently provides a one-time free trial quota for each root account, covering various model capabilities such as language models and visual generation, to help you experience the platform's model services.
+  - [5] 2026-11-03: each TokenHub free-package claim freezes 10 USD against the account balance or credit limit | capture: sha256:5a15cee5d49e5046a91677860daf2357caa41b98b658a7a9d38e26babce8570f | quote: Each time you claim a free resource package for a model or enable postpaid service for a model, 10 USD will be automatically frozen in your account. If your account balance or credit limit is insufficient, the claim or enablement will fail.
+  - [11] 2026-11-03: the international TokenHub quick start requires sign-up and identity verification before use | capture: sha256:7bba6e5d4633276992bb6f4bf509670b0569744e842b9edce4b39cbc505c1f31 | quote: Before using the Tencent Cloud large model service platform TokenHub, you need to [Singing up for a Tencent Cloud Account](https://www.tencentcloud.com/document/product/378/17985) and complete [Identity Verification](https://www.tencentcloud.com/document/product/378/10495).
+  - [12] 2026-11-03: the international TokenHub price table lists Tencent Hy3 (USD 0.132 input, 0.528 output per million tokens) | capture: sha256:98b54f44c5c3df65f352bb1a5f49c5c6148ece2eb9f88d7e213d34ad61d31a23 | quote: | Hy3 | - | - | 0.132 | 0.528 | 0.033 | - | - |
+  - [12] 2026-11-03: the international TokenHub price table lists the Hy-MT2 translation models (Plus: USD 0.074 input, 0.295 output) | capture: sha256:98b54f44c5c3df65f352bb1a5f49c5c6148ece2eb9f88d7e213d34ad61d31a23 | quote: | Hy-MT2-Plus | - | - | 0.074 | 0.295 | - | - | - |
+  - [13] 2026-11-03: the TokenHub promotion page states 90 days validity, against 1 year on the billing page | capture: sha256:28afda2cb9a0b7ba759004eebc405db36b928cf47ea65eff61e3d175a4c4f7f8 | quote: Exclusive for new users · Up to 1 million free tokens, valid for 90 days
+  - [3] 2026-11-03: the Chinese edition of the global purchase guide gives the Hunyuan-translation package as 100万 (1,000,000) tokens, shared, valid 1 year | capture: sha256:6136600a2a26f66b07f20f944bed6fdaad3ccde41517c424ee3963e337d50d2f | quote: Hunyuan-translation 共100万 tokens，共享消耗。 资源包有效期为1年，⾃开通服务之⽇起1年内若免费资源包未使⽤完，则过期作废。
+  - [2] 2026-11-18: the first-party API page names the request domain for the ChatTranslations (hunyuan-translation) action | capture: sha256:072705017d1e4dad6b9f6319288778306b1206e7e690f3395f89bca99a1ad17d | quote: Domain name for API request: hunyuan.ai.intl.tencentcloudapi.com.
+  - [2] 2026-11-18: the worked example uses POST / with X-TC-Action: ChatTranslations and the nearest-region host | capture: sha256:072705017d1e4dad6b9f6319288778306b1206e7e690f3395f89bca99a1ad17d | quote: POST / HTTP/1.1 Host: hunyuan.intl.tencentcloudapi.com Content-Type: application/json X-TC-Action: ChatTranslations
+  - [14] 2026-11-18: the global/nearest-region host and fixed-region alternatives are documented | capture: sha256:45a823c276ee877a02fee6373ec51d350b8d68920db16afe3753cadc351e93a6 | quote: The API supports access from either a nearby region (at hunyuan.intl.tencentcloudapi.com) or a specified region (at hunyuan.ap-guangzhou.tencentcloudapi.com for Guangzhou, for example).
+  - [15] 2026-11-18: auth is the TC3-HMAC-SHA256 signature placed in HTTP headers, with a SecretId/SecretKey pair | capture: sha256:87a36fb92eaac49af7091a95886fc29584a21b56a2c390c2988c382a121f9231 | quote: When the TC3-HMAC-SHA256 algorithm is used, the common parameters should be uniformly placed in the HTTP request header
+  - [16] 2026-11-18: the Chinese-language first-party page states the same request domain | capture: sha256:463ade0f5774ab84b1ba9030d2d6cd74f04b219f454ee01d347f5f6be0f367b7 | quote: 接口请求域名： hunyuan.ai.intl.tencentcloudapi.com 。
+  - probe:https://hunyuan.ai.intl.tencentcloudapi.com/ 2026-11-18: a keyless GET to https://hunyuan.ai.intl.tencentcloudapi.com/ returned HTTP 200, no assistant content and body {'Response':{'Error':{'Code':'MissingParameter','Message':'The request is missing a required parameter `Versio, in 3409 ms Probe start 2026-11-18T05:26:24.322Z. | capture: sha256:394b4d360e93332f3769f27211a7d34d3619698f878babb966463c5cf826734a | quote: a keyless GET to https://hunyuan.ai.intl.tencentcloudapi.com/ returned HTTP 200, no assistant content and body {'Response':{'Error':{'Code':'MissingParameter','Message':'The request is missing a required parameter `Versio, in 3409 ms
+  - probe:https://hunyuan.ai.intl.tencentcloudapi.com/ 2026-11-18: a keyless GET to https://hunyuan.ai.intl.tencentcloudapi.com/ returned HTTP 200, no assistant content and body {'Response':{'Error':{'Code':'MissingParameter','Message':'The request is missing a required parameter `Versio, in 3315 ms Probe start 2026-11-18T05:36:12.233Z. | capture: sha256:bc187e91003839a5bf9af7c73f59ac79adbec42f4dcb1b7413c9d62ffcb7d2f8 | quote: a keyless GET to https://hunyuan.ai.intl.tencentcloudapi.com/ returned HTTP 200, no assistant content and body {'Response':{'Error':{'Code':'MissingParameter','Message':'The request is missing a required parameter `Versio, in 3315 ms
+- sources:
+  - [1] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1284_75280_en.pdf
+  - [2] https://intl.cloud.tencent.com/document/api/1284/77188
+  - [3] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1284_75280_zh.pdf
+  - [4] https://www.tencentcloud.com/document/product/1284/75287
+  - [5] https://staticintl.cloudcachetci.com/doc/pdf/product/pdf/1300_78935_en.pdf
+  - [6] https://www.tencentcloud.com/document/product/378/80678
+  - [7] https://www.tencentcloud.com/document/product/378/10495
+  - [8] https://intl.cloud.tencent.com/document/product/378/17985
+  - [9] https://intl.cloud.tencent.com/document/product/378/80429
+  - [10] https://www.tencentcloud.com/document/product/1284/77188
+  - [11] https://www.tencentcloud.com/document/product/1300/78939
+  - [12] https://www.tencentcloud.com/document/product/1300/78937
+  - [13] https://www.tencentcloud.com/act/pro/tokenhub
+  - [14] https://www.tencentcloud.com/document/product/1284/75533
+  - [15] https://www.tencentcloud.com/document/product/1284/75534
+  - [16] https://intl.cloud.tencent.com/zh/document/product/1284/77188
+
+## Tencent Cloud International
+
+- `compute/tencent-cloud-international` | fails-identity | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone yes, ID yes, institution no | verified 2026-10-24T04:09:20.000Z (live) | stale on 2026-11-24
+- url https://www.tencentcloud.com/act/pro/FreeTier
+- disagrees on identity_kind: `compute/tencent-cloud-international` says national-id, `compute/tencent-lighthouse-intl` says card
+- disagrees on verdict: `compute/tencent-cloud-international` says fails-identity, `compute/tencent-lighthouse-intl` says qualifies
+- free tier: A 3-month free trial of one Lighthouse 2C2G30M instance or one CVM S5 2C4G instance, plus 50 GB of COS storage for 6 months, 14 days of EdgeOne, a free monthly TRTC quota, and about 26 further product trials, all at once, for a new account. The free tier page states the trial runs to at least 2026-12-31. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: time-boxed
+- per-object cap: not applicable | source: [1]
+- retention: The trial is time-boxed and does not renew itself: Lighthouse 2C2G30M and CVM S5 2C4G each run 3 months, COS 50 GB runs 6 months, EdgeOne runs 14 days, and the campaign runs 'From now until Dec 31, 2026, 24:00 GMT+8'. Renewal is a manual, paid act: 'Before the product expires, you can renew it in the product control panel', and 'The discounted renewal will not be available for the products purchased during the free trial period, and the renewal will be charged at the official selling price.' A destroyed instance forfeits the trial: 'if the free examples are destroyed, it is deemed to give up the free use'. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: national-id | detail: TWO GATES, and only the second one costs a document. GATE 1, opening an account: an email address (or a Google account, or WeChat) with an emailed code; a registration location, which 'cannot be changed' once set; the individual's name and address; 'the mobile number of the registration location', which must receive an SMS code and is capped at 'at most 5 Tencent Cloud accounts' per number; and a bound card - 'Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club', with 'a 1.00 USD pre-authorization' that is 'automatically canceled ... within 1 to 5 business days'. No ID document at this step. Virtual and gift cards are refused: 'Tencent Cloud does not support virtual cards or gift cards', and 'Some card brands may not support debit cards'.
+- interface: unknown
+- limits:
+  - retention-clamped (binding): 3 months on the machine, 6 months on the 50 GB COS bucket, 14 days on EdgeOne; the campaign ends Dec 31, 2026 24:00 GMT+8; one free experience and one discount renewal per product per real-name subject; renewal after the trial is at the full official price [1]
+- limits note: 3 months on the machine, 6 months on the COS bucket, 14 days on EdgeOne; the campaign ends Dec 31, 2026 24:00 GMT+8, and the discounted renewal is not available on a trial purchase
+- binding note: the machine is gone at 3 months and the campaign closes on Dec 31, 2026, so the clock binds before the money does; but the gate that decides whether a signup gets in at all is the real-name document, which is why the verdict is fails-identity rather than trial-only
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The Lighthouse 2C2G is a reachable box in Singapore, Bangkok or Frankfurt for 90 days and the COS 50 GB runs 180 days, so the two windows do not end together: storage outlives the server by about three months, which is the wrong way round for a backup target.
+- reliability: no reliability event observed; nothing was signed up for
+- notes: CONTRADICTION SETTLED 2026-10-24: THE VERDICT WAS RIGHT AND THE RECORD'S REASON FOR IT WAS WRONG. The record's identity_cost.detail asserted nothing ('as stated by the provider's signup page'), and its retention text overstated the gate - 'the account cannot be opened at all without a government document' is false. The two first-party stories are both true of different things. The Identity Verification Overview scopes verification to three triggers - mainland-China purchases, partner applications and self-service invoicing - and buying a Lighthouse or CVM instance in Singapore, Bangkok or Frankfurt is none of them. But the free trial is a campaign, not a purchase, and its own Rules make authentication an eligibility condition: 'All international site users who have registered on Tencent Cloud and completed enterprise or individual authentication ... are eligible to participate.' The Chinese original says 实名认证, the same term the verification doc is titled with, so this is the ID-document check and not an email confirmation. So the answer to 'is it mainland only' is: mainland only for ordinary purchases, ALL regions for the free trial. Hence fails-identity stands, now resting on a quoted sentence instead of a placeholder, and the account gate is correctly described as email + phone + card rather than a document. What this does NOT establish: whether the checkout enforces the campaign rule before or after the trial order is placed. The rule is stated, and the enforcement is inferred from the rule.
+- evidence note: every step of both gates is quoted from a first-party Tencent Cloud International page read, including the campaign Rules modal and its Chinese original.
+- extras:
+  - facets.class: regional
+  - facets.free_tier_kind: time-boxed
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: 'LighthouseFree Trial for 3 months', 'Lighthouse 2C2G30M', 'Cloud Virtual MachineFree Trial for 3 months', 'CVM S5 2C4G', 'COS 50GB Free Trial for 6 months', 'EdgeOne Free Trial for 14 days', 'TRTC Free Monthly Quota', quoted; the page lists 'Show you 30 trial products'
+  - [2] 2026-10-22: review 'within 2-4 business days', quoted
+  - [3] 2026-10-22: 'TokenHub currently provides a one-time free trial quota for each root account' and 'This campaign is valid until December 31, 2026', quoted
+  - [4] 2026-10-22: a third-party claim that a USD 1 pre-authorisation is required at signup and that virtual cards are refused; this contradicts Tencent's own walkthrough, which describes verification replacing the card, so the card term is contested and unverified either way, reported
+  - [5] 2026-10-24: quoted, the general verification trigger: 'If you need to purchase or use cloud services in the Chinese mainland (excluding Hong Kong (China), Macao (China), and Taiwan (China)), apply to become a Tencent Cloud partner, or use the online self-service invoice feature, you must complete identity verification for your Tencent Cloud account.'
+  - [6] 2026-10-24: the same sentence in the Chinese original: '如果您需要购买或使用中国大陆地区云服务（不含中国香港、中国澳门及中国台湾地区）、申请成为腾讯云合作伙伴、线上自助开票等，需要您完成腾讯云账号的实名认证。' - the English is a translation of binding text, not a rendering artefact
+  - [1] 2026-10-24: quoted from the campaign Rules modal, the eligibility gate: 'All international site users who have registered on Tencent Cloud and completed enterprise or individual authentication (excluding co-authors and sub-accounts) are eligible to participate.'
+  - [7] 2026-10-24: the same eligibility rule in the Chinese original: '腾讯云官网已注册且完成企业或个人实名认证的国际站用户均可参与（协作者与子用户账号除外）' - 实名认证 is the same term the Identity Verification Overview uses, so 'authentication' here means the ID-document check
+  - [2] 2026-10-24: quoted, and this is the sentence that ties the two pages together: 'If you want to participate in individual promotional campaigns on the Tencent Cloud official website, or if you want to register your Tencent Cloud account and cloud resources under your personal name, you must complete individual identity verification.' The free trial is an individual promotional campaign.
+  - [2] 2026-10-24: 
+  - [8] 2026-10-24: quoted, the account gate: 'Tencent Cloud accounts can be registered using an email address, a Google account, or WeChat'; 'Enter the mobile number of the registration location'; 'Each mobile number can be used for at most 5 Tencent Cloud accounts'; and 'Seven types of credit cards/debit cards/prepaid cards are supported: VISA, MasterCard, AMEX, UnionPay, JCB, DISCOVER, and Diners Club.'
+  - [8] 2026-10-24: quoted, the pre-authorisation and the exclusions: 'the system will issue a 1.00 USD pre-authorization on your bound bank card to verify its validity ... the pre-authorization will be automatically canceled ... within 1 to 5 business days'; 'Tencent Cloud does not support virtual cards or gift cards'; 'Some card brands may not support debit cards.'
+  - [1] 2026-10-24: quoted, shape, term and the absence of auto-renewal: 'Trial configuration: Lighthouse 2C2G30M' for '3 months', 'Trial configuration：CVM S5 2C4G' for '3 months', 'COS' '50GB Free Trial for 6 months', 'Free Trial for 14 days'; 'Before the product expires, you can renew it in the product control panel'; 'The discounted renewal will not be available for the products purchased during the free trial period, and the renewal will be charged at the official selling price.'; 'From now until Dec 31, 2026, 24:00 GMT+8'
+- sources:
+  - [1] https://www.tencentcloud.com/act/pro/FreeTier
+  - [2] https://www.tencentcloud.com/document/product/378/10495
+  - [3] https://www.tencentcloud.com/document/product/1300/80423
+  - [4] https://www.studentoffers.co/offer/tencent-cloud
+  - [5] https://www.tencentcloud.com/document/product/378/80678
+  - [6] https://www.tencentcloud.com/zh/document/product/378/80678
+  - [7] https://www.tencentcloud.com/zh/act/pro/FreeTier
+  - [8] https://www.tencentcloud.com/document/product/378/17985
+
+## Tencent Cloud COS — new-user free tier
+
+- `storage/tencent-cloud-cos-new-user-free-tier` | fails-egress | evidence reported | binding none | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:25.206Z (live) | stale on 2026-12-04
+- url https://www.tencentcloud.com/document/product/436/6240
+- free tier: 50 GB STANDARD storage capacity, valid 6 months (180 days), new users only. Some third-party summaries claim enterprise accounts get 1 TB/month for 6 months — not stated on the vendor page, so unverified. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Explicitly NOT covered: 'The free quota resource packages cannot be used to offset billable items for non-STANDARD storage usage, such as ... requests, and traffic.' Public network downstream traffic is billed from byte one at ~$0.1/GB. | metered: yes
+- identity: card | detail: inferred from the category 'iaas'; the source record states no identity cost, so this is a class assumption, not evidence
+- interface: s3-compatible, rclone
+- limits note: 50 GB, 6 months, storage only. Egress and requests are never free. 'user downloaded 10 GB .. 0.1 x 10 = 1 USD' in the vendor's own billing example.
+- interface detail: s3
+- tooling: COS XML/S3-compatible API. Rclone 's3' provider 'Tencent Cloud Object Storage (COS)'; COSCLI; SDKs. Public-read buckets and pre-signed URLs supported.
+- composes with: One free package per new account; 50 GB x 6 months. Account multiplication requires separate verified identities.
+- reliability: Reliable; the trap is that egress is charged from the first byte, so a public bucket can generate a real bill while storage itself is still free.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 50 GB STANDARD storage capacity, valid 6 months (180 days), new users only. Some third-party summaries claim enterprise accounts get 1 TB/month for 6 months — not stated on the vendor page, so unverified.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'New user | 50GB STANDARD storage capacity package | 6 months (180 days)'; 'cannot be used to offset ... requests, and traffic'
+  - [1] 2026-11-19: new users get 50 GB of STANDARD storage for 6 months (180 days) | capture: sha256:f05853391f18fb59d3a890ec96b911e9df04941a7565e04f279b5f2584e80829 | quote: | New user | 50GB STANDARD storage capacity package | 6 months (180 days) |
+  - [1] 2026-11-19: requests and traffic are excluded from the free package, so egress is charged | capture: sha256:f05853391f18fb59d3a890ec96b911e9df04941a7565e04f279b5f2584e80829 | quote: The free quota resource packages cannot be used to offset billable items for non-STANDARD storage usage, such as STANDARD_IA storage usage, ARCHIVE storage usage, requests, and traffic.
+- sources:
+  - [1] https://www.tencentcloud.com/document/product/436/6240
+
+## tencent edgeone free plan / edgeone makers (pages) as storage
+
+- `storage/tencent-edgeone-free-plan-edgeone-makers-as-storage` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:25.206Z (live) | stale on 2026-12-04
+- url https://www.tencentcloud.com/document/product/1145/70405
+- free tier: none reachable: Two separate failures. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: Two separate failures.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Two separate failures.
+  - [2] 2026-10-21: cited as the basis of the rejection: Two separate failures.
+  - [3] 2026-10-21: cited as the basis of the rejection: Two separate failures.
+  - [1] 2026-11-19:  | capture: sha256:472183e51b3adf4f89e4f6d02b623a6a012cf02247953f523bd6a2bcb4d45fbf | quote: 2. This Free Plan focuses on accelerating and caching standard website content (e.g., HTML, JS, CSS), but does not support video delivery or large-file distribution (including but not limited to high-volume images, audio/video files, game installers, etc.). For these use cases, please subscribe to a paid plan.
+  - [2] 2026-11-19: the EdgeOne Makers free edition Blob storage is 1 GB | capture: sha256:3449dde83c144e0c670daf712c61a353eeeddbd0bb32b1b4e0c8a7420de37c95 | quote: | Blob | Storage Space | 1 GB |
+- sources:
+  - [1] https://www.tencentcloud.com/document/product/1145/70405
+  - [2] https://pages.edgeone.ai/document/limits-and-quotas
+  - [3] https://raw.githubusercontent.com/tencentedgeone/edgeone-makers-tools/main/skills/edgeone-makers-tools/references/makers-storage/references/blob.md

@@ -1,0 +1,155 @@
+# Layer7
+
+> layer7.net | Compute, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/layer7/ | JSON https://fshy.ajam.dev/api/v1/entity/layer7.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Layer7 (windows)
+
+- `compute/layer7-windows` | qualifies-with-caveat | evidence inferred | binding volume-quota | category Windows VPS | tier AMD Epyc Cloud Server VPS, 4 cores, 16 GB, Windows Server 2022 Evaluation
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T12:18:00.000Z (live) | stale on 2026-11-26
+- url https://account.layer7.net/shop/amd-epyc-cloud-server-vps-germany-frankfurt-main
+- price parsed USD 10.14/mo
+- disagrees on identity_kind: `compute/layer7` says email, `compute/layer7-windows` says card
+- disagrees on verdict: `compute/layer7` says paid-only, `compute/layer7-windows` says qualifies-with-caveat
+- free tier: no free tier; the base configuration is EUR 4.90 a month for 2 cores, 8 GB and 80 GB of NVMe, and the 4 core and 16 GB options raise it to EUR 9.06 a month before VAT, or EUR 86.97 a year on the annual cycle | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: 50 TB a month included on a port up to 1 Gbps; 2.5 Gbps is EUR 30 a month more, and 50 TB with commercial VPN permission is EUR 10 a month more | metered: yes | free allowance: 50 TB per month | source: [1]
+- identity: card | detail: an account and a payment method at order; SSH keys are selected in the cart and the checkout was not completed
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 50 TB a month [1]
+  - per-ip-shaping: port up to 1000 Mbit/s [1]
+- limits note: the traffic figure is a hard monthly number, not a fair-use claim. The two Windows images are named 'Evaluation', so they expire and the buyer must license or reinstall.
+- binding note: 50 TB is generous for one box; the real constraint is the evaluation image, which is not a permanent licence.
+- interface detail: remote console over VNC and an individual ISO mount; the buyer installs the operating system, so the admin path is whatever the installed image provides
+- tooling: VNC console and ISO upload in the client area; any RDP client once Windows is installed
+- composes with: the cheapest monthly-billed 16 GB machine here, and the only one that prints a Windows evaluation image as a zero-cost OS option. It fits a throwaway Windows build or a test box that the buyer will license later.
+- reliability: no reliability event observed; VAT is excluded and the price is quoted for a German location.
+- notes: The total is EUR 4.90 base plus EUR 1.92 for 4 cores plus EUR 2.24 for 16 GB. The disk stays at the included 80 GB. The Windows images are evaluation builds, so the licence is the buyer's after the evaluation period. A vendor reply on LowEndTalk quoted EUR 6.90 for 4 cores, 24 GB and 180 GB, which the live option table does not reproduce.
+- evidence note: the base price, the option deltas, the billing cycles and the operating-system list are read from the live configurator. The EUR 9.06 total is arithmetic on the vendor's own option prices and is not a printed plan, so the total is inferred while the components are documented.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 80
+  - billing_model: monthly, quarterly, semiannual or annual
+  - term: none monthly; annual is 20 per cent lower
+  - base_eur: 4.9
+  - vcpu_delta_eur: 1.92
+  - ram_delta_eur: 2.24
+  - monthly_eur: 9.06
+  - monthly_usd: 10.14
+  - annual_base_eur: 47.04
+  - annual_vcpu_delta_eur: 18.43
+  - annual_ram_delta_eur: 21.5
+  - annual_total_eur: 86.97
+  - annual_monthly_eur: 7.25
+  - annual_monthly_usd: 8.11
+  - annual_first_payment_usd: 97.34
+  - setup_fee_eur: 0.0
+  - windows_licence: evaluation image only; buyer licenses or reinstalls
+  - windows_images: Windows 2019 Std EN Evaluation; Windows 2022 Std EN Evaluation
+  - ipv4_included: yes
+  - ipv6_included: yes
+  - port_mbps: 1000
+  - traffic: 50 TB/month
+  - location: Germany - Frankfurt/Main
+  - cart_url: https://account.layer7.net/shop/amd-epyc-cloud-server-vps-germany-frankfurt-main
+- evidence:
+  - [1] 2026-10-26: quoted: 'Base Price: EUR 4.90 ... CPU Cores: 2 ... RAM: 8 GB ... NVMe Disk Space: 80 GB ... Traffic per month included: 50 TB ... Total: EUR 4.90'
+  - [1] 2026-10-26: quoted from the configuration table: CPU '4 -' price 1.92; RAM '16 GB -' price 2.24
+  - [1] 2026-10-26: quoted from the option data: 4 cores annual 18.43; 16 GB annual 21.50; annual base 47.04, so the annual build is 86.97 EUR
+  - [1] 2026-10-26: quoted from the operating-system list: 'Windows 2019 Std EN Evaluation' price 0.00; 'Windows 2022 Std EN Evaluation' price 0.00
+  - [1] 2026-10-26: quoted: 'individual ISO mount ... Linux/Windows/BSD OS ready ... Remote Console ( VNC )'
+- sources:
+  - [1] https://account.layer7.net/shop/amd-epyc-cloud-server-vps-germany-frankfurt-main
+
+## Layer7 (compute/layer7)
+
+- `compute/layer7` | paid-only | evidence reported | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:35.518Z (live) | stale on 2026-11-22
+- url https://vpspricetracker.com/provider/Layer7/vps
+- disagrees on identity_kind: `compute/layer7` says email, `compute/layer7-windows` says card
+- disagrees on verdict: `compute/layer7` says paid-only, `compute/layer7-windows` says qualifies-with-caveat
+- free tier: EUR 4.90/month is the tracker's current cheapest card: 2 Epyc cores (shared), 8,192 MB RAM, 80 GB NVMe, 51,200 GB/month bandwidth, 0.98 Gbps port, IPv4 and IPv6, Frankfurt Germany; the tracker no longer lists a Paris location. The vendor's own configurator (layer7.net/cloud-server) prints no absolute prices: monthly contract, prices exclusive of VAT, with long-term prepayment discounts. The vendor's shop (account.layer7.net) answers 'Sold out for new customers!' and says only existing customers can purchase, so no new-customer cart price is readable. Derived from the configurator's discount table, if the tracker's EUR 4.90 is the monthly base rate: EUR 4.90 x (1 - 20%) = EUR 3.92 per month on the 12-month prepayment; no cart confirms it because the shop is closed to new customers. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 50 TB a month included and up to 300 TB extra, per the vendor range table (free_allowance is in GB a month); the price of the extra traffic is not stated on the page read | metered: yes | free allowance: 51200 | source: [2]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 50 TB a month included, with up to 300 TB of extra traffic sold; the vendor states prices exclusive of VAT, so the payable figure is above the card price wherever VAT applies. The 80 GB NVMe of the current cheapest card is the limit for anything cached locally, and extra HDD is EUR 2 per TB [1]
+- limits note: 50 TB (51,200 GB) a month included, with up to 300 TB of extra traffic sold; the vendor states prices exclusive of VAT, so the payable figure is above EUR 4.90 wherever VAT applies. The 50 GB NVMe is the limit for anything cached locally, and extra HDD is EUR 2 per TB
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: the cloud-server page is a configurator (CPU, location, then slider ranges); VNC console, ISO mount and up/down grades through the client area are documented; no published API was found on the pages read
+- composes with: 50 TB a month stated plainly on the vendor's own page for EUR 4.90 exclusive of VAT, with 6 GB of RAM, puts it just behind LowHosting's 51,200 GB claim in allowance and far ahead of the 5 TB at Luxvps and the 1 TB at LeapSwitch; the 50 GB NVMe is small, but the same vendor sells additional HDD at EUR 2 per TB for the first disk and 2.50, 3.00 and 3.50 for the next three, the cheapest stated disk rate among evaluated providers (LiteServer's 256 GB add-on block works out at EUR 10 per TB), which makes it the plausible route to putting the 20 TB dataset behind one invoice.
+- reliability: no reliability event observed; the tracker's profile text describes the vendor as owning its hardware in ISO/IEC 27001 colocation, which is the tracker's claim and was not checked.
+- notes: The configurator rendered ranges rather than per-plan prices, so the EUR 4.90 figure is the tracker's and the confidence is reported; the vendor page does confirm the included traffic, the VAT exclusion and the HDD add-on price, which is why those three are recorded from it. The tracker's '0.98 Gbps' looks like its rounding of a 1 Gbps port; the vendor states connectivity up to 2.5 Gbit/s.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 6
+  - facets.shape.disk_gib: 50
+- evidence:
+  - [1] 2026-10-22: Layer7 card, with the euro sign written EUR for ASCII: the price line prints 4.90 with the euro sign and '/ month'; the rest quotes verbatim as '1 Ryzen Cores (shared)', '6,144 MB RAM', '50 GB NVMe', '51,200 GB/month bandwidth', '0.98 Gbps port speed', 'IPv4 + IPv6', 'Paris France'. All 12 cards on the page carry an order link
+  - [2] 2026-10-22: range table quoted for the AMD Ryzen 9950X3D line: 'VPS | 1 - 8 | 6 - 48 GB | 50 GB - 400 GB | up to 3 disks 0 - 5 TB each | 50 TB incl. + up to 300 TB extra', with 'Prices here are exclusive VAT' and 'up to 3x additional HDD disks at 2,- EUR per TB'; location Frankfurt/Main and Paris
+  - [2] 2026-10-22: standard features quoted: 'KVM hardwarevirtualized, CPU pass-through', '1x IPv4 incl. rDNS', '1x IPv6 incl. rDNS', 'Remote Console (VNC)', 'individual ISO mount', 'up to 2500 Mbit/s Connectivity'
+  - [1] 2026-11-07: the tracker's current cheapest Layer7 card is EUR 4.90 a month for 2 Epyc cores, 8 GB RAM, 80 GB NVMe in Frankfurt | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: These are the cheapest VPSs currently offered by Layer7, starting at €4.90 per month: ... 2 Epyc Cores (shared) ... 8,192 MB RAM ... 80 GB NVMe ... 51,200 GB/month bandwidth ... 0.98 Gbps port speed ... Frankfurt Germany
+  - [1] 2026-11-07: the tracker's current cheapest Layer7 card is EUR 4.90 a month | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: These are the cheapest VPSs currently offered by Layer7, starting at €4.90 per month:
+  - [1] 2026-11-07: the tracker's current EUR 4.90 card is 2 Epyc cores, 8 GB RAM, 80 GB NVMe in Frankfurt, not the 1 Ryzen core, 6 GB, 50 GB Paris card the record described | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: 2 Epyc Cores (shared) ... 8,192 MB RAM ... 80 GB NVMe ... 51,200 GB/month bandwidth ... Frankfurt Germany
+  - [1] 2026-11-07: the tracker no longer lists Paris among Layer7's locations | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: Layer7 has VPSs in Germany.
+  - [2] 2026-11-07: the vendor configurator states a monthly contract, prices exclusive of VAT, and 20 percent off for 12-month prepayments, with no absolute price printed | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: Prices here are exclusive VAT. ... Monthly contract. ... 12 months = 20% discount
+  - [2] 2026-11-07: the vendor range table states the traffic allowance, the NVMe range and the HDD add-on price | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: 50 TB incl. + up to 300 TB extra ... 80 GB - 360 GB ... up to 3x additional HDD disks at 2,- EUR per TB
+  - [2] 2026-11-07: the vendor range table states 50 TB included and up to 300 TB extra | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: 50 TB incl. + up to 300 TB extra
+  - [3] 2026-11-07: the vendor's shop answers 'Sold out for new customers!' | capture: sha256:a6a07eba9a181a171e898d522e2eb41d768004afbfb4a1671f263434e07a8e9d | quote: Sold out for new customers!
+  - [3] 2026-11-07: the shop page says only existing customers can purchase and asks them to log in | capture: sha256:a6a07eba9a181a171e898d522e2eb41d768004afbfb4a1671f263434e07a8e9d | quote: Only existing customers can purchase. Please login to checkout available services.
+  - [1] 2026-11-07: the tracker's cheapest Layer7 card starts at EUR 4.90 per month | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: These are the cheapest VPSs currently offered by Layer7, starting at €4.90 per month
+  - [2] 2026-11-07: the configurator states prices exclusive of VAT, a monthly contract, and discounts of 5% at 3 months, 10% at 6 and 20% at 12 | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: Prices here are ... Monthly ... contract ... 3 months = 5% discount ... 12 months = 20% discount
+  - [1] 2026-11-07: the tracker's current EUR 4.90 card is 2 Epyc cores, 8 GB RAM, 80 GB NVMe, 51,200 GB/month, Frankfurt | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: 2 Epyc Cores (shared) ... 8,192 MB RAM ... 80 GB NVMe ... 51,200 GB/month bandwidth ... Frankfurt Germany
+  - [1] 2026-11-07: the tracker still prices the cheapest Layer7 card at EUR 4.90 per month, and the vendor still prints no absolute price | capture: sha256:6abb4deac1c291ec62f4f1e51f4d847eff796e900959fb1c611a135483d65156 | quote: These are the cheapest VPSs currently offered by Layer7, starting at €4.90 per month
+- sources:
+  - [1] https://vpspricetracker.com/provider/Layer7/vps
+  - [2] https://layer7.net/cloud-server
+  - [3] https://account.layer7.net/
+
+## Layer7 Networks
+
+- `egress/layer7-high-cpu-2` | paid-only | evidence reported | binding volume-quota | category cheap-egress VPS (KVM, Paris, 50 TB) | tier High CPU 2
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:55:17.777Z (live) | stale on 2026-11-19
+- url https://layer7.net/cloud-server
+- free tier: No free tier. High CPU 2 is listed by an aggregator at EUR 4.12 a month with 50 TB and a 1Gbps port in Paris. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: The vendor pages read print no price for the Paris High CPU 2 plan; the Germany shop lists a VPS from EUR 4.90 a month.
+- per-object cap: not applicable: a VPS, not an object store | source: [2]
+- retention: not applicable | source: [2]
+- egress: The vendor's cloud server table states 50 TB included plus up to 300 TB extra a month; the aggregator lists 50 TB for this plan; the price of the extra traffic is not published on the page read. | metered: yes | free allowance: 50 TB per month included | source: [2]
+- identity: email | detail: unverified: behind a sign-up. The shop page lists products with no sign-up fields.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 50 TB incl. + up to 300 TB extra per month [2]
+- limits note: The Paris page lists 50 - 300 TB traffic a month for the cloud server ranges.
+- binding note: 50 TB included is the only stated cap; it is far above 1 TiB a month.
+- interface detail: KVM VPS with 1x IPv4, 1x IPv6 and rDNS, console and ISO mount.
+- tooling: Any SSH client; the customer area offers a console and ISO mount.
+- composes with: One dedicated IPv4 and one IPv6 address with rDNS on a port of up to 2.5 Gbit/s; no port filter or protocol list is published on the page read.
+- reliability: unverified: the shop page for the Paris High CPU 2 plan was not found; the Germany shop lists two products.
+- notes: The existing compute record for Layer7 covers a different plan; this record is the Paris High CPU 2 plan.
+- evidence note: Traffic and connectivity are first-party text of the cloud server page; the plan, its price and the port are aggregator values.
+- extras:
+  - nat_ports: not applicable: one dedicated IPv4
+  - ipv6: 1x IPv6 with rDNS
+  - udp_forwarding: unverified: not stated
+  - routed_ipv6_prefix: unverified
+  - inbound_ipv4_ports: unverified
+  - term: monthly
+  - virtualization: KVM
+- evidence:
+  - [2] 2026-11-04: the vendor page states connectivity of up to 2.5 Gbit/s | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: - up to 2.5 Gbit/s Connectivity
+  - [2] 2026-11-04: the vendor page lists one IPv4, one IPv6 and rDNS | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: - 1x IPv4 / 1x IPv6 / rDNS
+  - [2] 2026-11-04: the Traffic month column reads 50 - 300 TB | capture: sha256:2f69aa84ab0f8f7b4327fbc352cf5cfdaf33ca0705ca69ae5c51b4a9b74eac1e | quote: | 4 - 16 | 8 - 128 GB | 120 GB - 720 GB | 0 - 10 TB | 50 - 300 TB |
+  - [3] 2026-11-04: the Germany shop lists a VPS from EUR 4.90 a month | capture: sha256:1ba61fd20d9ac73f3bfa5b06d24da3c5b8854ed687748885a70935365de23554 | quote: | AMD Epyc Cloud Server VPS Germany Frankfurt/Main | €4.90 /monthly | [Configure](https://account.layer7.net/shop/amd-epyc-cloud-server-vps-germany-frankfurt-main) |
+  - [1] 2026-11-04: serverdeals lists Layer7 High CPU 2 at EUR 4.12 a month | capture: sha256:ba82c6a3f9ba7041afedbc860aa053eb44fb6d83678c750d0bda6a45ebffd589 | quote: #### EUR 4.12 / month
+- sources:
+  - [1] https://serverdeals.cc/category/vps-high-spec
+  - [2] https://layer7.net/cloud-server
+  - [3] https://account.layer7.net/shop?category=2107&country=DE

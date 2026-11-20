@@ -1,0 +1,39 @@
+# Serper
+
+> serper.dev | Crawling; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/serper/ | JSON https://fshy.ajam.dev/api/v1/entity/serper.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Serper
+
+- `crawler-scraper/serperdev` | trial-only | evidence documented | binding request-rate | category search API
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T01:02:30.839Z (live) | stale on 2026-12-03
+- url https://serper.dev/
+- free tier: 2,500 queries on signup, one-time, no credit card | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a query | source: [1]
+- retention: the signup grant does not renew | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an account with name, email and password behind a reCAPTCHA; the sign-up page states no credit card is needed
+- interface: rest
+- limits:
+  - request-rate (binding): paid credit packs from USD 50 for 50k credits (USD 1.00 per 1k) at 50 queries per second to USD 3750 for 12.5M credits (USD 0.30 per 1k) at 300 queries per second; credits valid for 6 months; the FAQ gives a default of 300 queries per second for the Ultimate credits and says the limit can be changed for a specific use case; no rate for the free queries appears on the home page or in its FAQ [1]
+  - request-rate (binding): 2,500 queries on signup, one-time [1]
+- binding note: the 2,500-query grant is spent once and does not renew, before any per-second rate binds
+- interface detail: REST, Google SERP results as JSON
+- tooling: not established
+- composes with: Bills per Google SERP query. Serves as a reference control when primary search results appear irregular.
+- reliability: no reliability event recorded
+- notes: 2,500 free queries on sign-up with no card, stated on the home page. The paid model is top-up packs with no monthly subscription, so the free queries do not renew: a trial, not a tier. The /pricing path is not found.
+- evidence note: free grant, paid packs and the sign-up form quoted from first-party pages; the rate for free queries is not stated
+- evidence:
+  - [1] 2026-10-22: home page headline states USD 0.30 per 1,000 queries and no credit card required
+  - [1] 2026-10-30: the smallest pack is 50k credits at USD 1.00 per 1k and 50 queries per second; the largest is 12.5M credits at USD 0.30 per 1k and 300 queries per second; credits are valid for 6 months | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: 50k credits ($1.00/1k)
+  - [1] 2026-10-30: the home page offers 2,500 free queries | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: Get 2,500 free queries
+  - [2] 2026-10-30: the sign-up form asks for name, email and password behind a reCAPTCHA and states no card is needed | capture: sha256:540ee29fbafb86bc40aa1798d551dec2c427e5cea797560f70d2f22b25dd6dce | quote: Create a free account, no credit-card needed.
+  - [1] 2026-10-30: the free queries are a try-out grant beside top-up packs with no monthly subscription | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: Try 2,500 queries for free
+  - [1] 2026-10-30: the paid model is top-up credit packs with no monthly renewal | capture: sha256:37e272df6fd96fa33373016b9ef185f3127c4f5dbdd9479b2e786daf635cfdd1 | quote: No monthly subscriptions; simply pay for the credits you need.
+  - [1] 2026-11-01: the FAQ answer on queries per second gives a default of 300 for the Ultimate credits and says the limit can be changed for a specific use case | capture: sha256:f568f8ecd0234a5e416e1a5464f27a8d2fbf12532d41ef254c788ea89e8190b8 | quote: Our default rate limit for the Ultimate credits is 300 queries per second. This allows you to perform approximately 15,000 to 18,000 searches in 1 minute. If your specific use case requires a higher concurrency we are able to change this limit.
+  - [2] 2026-11-01: the sign-up form asks for name, email and password behind a reCAPTCHA and states no credit card is needed | capture: sha256:ee210e09d649c4d881079e7451b88da0769a0cd1409b4688ea39752b1461629c | quote: Create a free account, no credit-card needed. [...] Email* [...] Password*
+- sources:
+  - [1] https://serper.dev/
+  - [2] https://serper.dev/signup

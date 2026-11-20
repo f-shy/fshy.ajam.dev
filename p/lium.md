@@ -1,0 +1,69 @@
+# Lium
+
+> lium.io | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/lium/ | JSON https://fshy.ajam.dev/api/v1/entity/lium.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Lium
+
+- `compute/lium` | trial-only | evidence documented | binding volume-quota | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://docs.lium.io/pod-users/fingerprint-signup
+- free tier: Quoted, read 2026-10-22: 'New accounts can get $5 in free credit once they add and confirm an email address or make a first paid deposit, if Lium's abuse checks pass. It expires after 14 days.' The same page documents a one-call signup quoting: 'curl -fsS -X POST https://lium.io/api/auth/signup -d {}' returning 'signup_credit_granted': true. Lium's own llms-full.txt gives the grant condition in full: 'It is false when the platform has the credit off, and when this IP already signed up once.' | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-off-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: storage is USD 0.00005 per GB-hour (about USD 0.036 per GiB-month) also while detached, and every read from /mnt and every download is billed per GB at what AWS charges Lium, so the credit is spent by storage and egress as well as compute | metered: yes | source: [2]
+- identity: email | detail: a confirmed email address, or a paid deposit as the alternative: the docs state new accounts get USD 5 'once they add and confirm an email address or make a first paid deposit', so the card is one of two routes and not a requirement, and no hold exists on the email route. Fingerprint signup itself needs no email or password. The grant is once per IP address. Whether debit or prepaid is accepted on the deposit route is not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): The USD 5 is a once-per-IP grant that must be unlocked by confirming an email or making a paid deposit, so the second account from one address gets nothing; and at the cheapest rate actually rentable today it buys 20.8 GPU-hours, against the 83 hours the advertised USD 0.06 card implies. [1]
+- limits note: The USD 5 is a once-per-IP grant that must be unlocked by confirming an email or making a paid deposit, so the second account from one address gets nothing; and at the cheapest rate actually rentable today it buys 20.8 GPU-hours, against the 83 hours the advertised USD 0.06 card implies.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The credit is spendable only where a node is actually free, and the free nodes are all datacenter cards, so the USD 5 composes into 20.8 hours on an RTX 3090 or 1.3 to 2.5 hours on an H100 depending on tier; it does not compose into the cheap-tier hours the reference price suggests.
+- reliability: no reliability event recorded
+- notes: The grant is not granted to an anonymous account: it requires a confirmed email address or a paid deposit, so the identity cost of the credit is at least email and is 'card' if the deposit route is used. The realistic figure is 20.8 hours at the cheapest rentable rate. What the credit does NOT cover is not established either way: the billing page charges pods, volumes and backups from the same balance, so in practice it covers all three. No first-party statement says what happens to an unused credit at 14 days beyond the expiry sentence. No third-party account of a credit being spent or clawed back was found in eight searches, so that question is open. qualifies-with-caveat via a04-decentralized. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: decentralized-gpu-marketplace
+  - facets.free_tier_kind: one-off-credit
+  - facets.shape.gpu_class: RTX 3090 at USD 0.24 per GPU-hour
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: quoted: new accounts get USD 5 in free credit once they add and confirm an email address or make a first paid deposit, if abuse checks pass; it expires after 14 days; signup is one unauthenticated POST that returns signup_credit_granted
+  - [3] 2026-10-22: quoted: the credit is false 'when the platform has the credit off, and when this IP already signed up once', so one IP gets one grant; a false value and a null value are distinguished, and a null means read lium balance --json
+  - [4] 2026-10-22: quoted: per-second billing 'hourly price x seconds / 3600, with no minimum'; balance must cover 15 minutes of the pod price to rent; at zero balance pods run 2 more minutes then are deleted; volumes and backups keep charging until deleted
+  - [2] 2026-10-22: quoted: storage is USD 0.00005 per GB-hour (about USD 0.036 per GiB-month) also while detached, and every read from /mnt and every download is billed per GB at what AWS charges Lium, so the credit is spent by storage and egress as well as compute
+  - [5] 2026-10-22: quoted: 'With only the $5 credit you can rent nodes below $20 per hour'. Applied to the live feed, 5 of the 14 rentable nodes fall under the cap and 9 are excluded, including every 8-GPU H100 and 8-GPU B300 node; the cheapest usable node is the USD 0.24 RTX 3090
+  - [6] 2026-10-22: probe status 200, 12246 bytes, sha256 2025b5a306f0868f271c708b8aaeb5b648d33c7c90057127eb5cdd6dd63fd2e1; 15 rentable nodes, cheapest a Secure RTX 3090 at USD 0.24 per GPU-hour (USD 0.96 per node-hour), the next USD 0.29
+  - [7] 2026-10-22: probe status 200, 47229 bytes, sha256 864f7a4d63b84e0cc82f37e456b498865720818340af396ded6e6a17a142bd68; 1692 GPUs listed, 1612 rented, 80 idle, 85 available across 16 nodes; RTX 3060 reference price USD 0.06 shows available_nodes 0 and available_gpus 0
+  - [1] 2026-10-22: quoted: new accounts get USD 5 in free credit after confirming an email or a first deposit, expiring after 14 days; fingerprint signup needs no email or password
+  - [8] 2026-10-22: live per-GPU-hour asks: RTX 3060 USD 0.06 reference, RTX 4090 USD 0.30 reference, H100 80GB HBM3 USD 2.00-3.75 across 5 pods and 40 GPUs, B300 SXM6 USD 8.00-10.00; page generated 2026-10-22T13:32:59Z
+  - [8] 2026-10-22: probe returned status 200, 224717 bytes, sha256 8db824d420182163062a2574871628a9fe89bc05f1054fc361b773f9ad2bf91c
+  - [4] 2026-10-22: quoted: 'You pay per second: hourly price x seconds / 3600, with no minimum'; to rent, balance must cover 15 minutes of the node's price plus 15 minutes of each running pod; when balance reaches zero pods run 2 more minutes then are deleted
+  - [3] 2026-10-22: quoted: the signup credit is USD 5 when the platform has it enabled and no other account has signed up from this IP address; whether it landed is reported by signup_credit_granted in the signup response
+  - [9] 2026-10-22: reported: Lium billed USD 964,000 in a month across 1,187 renters, with 1,908 new signups, about 80 percent month-over-month retention, median rental time 1.15 hours, and about 63 percent of rentals initiated programmatically
+  - [10] 2026-10-22: quoted: Secure carries a penalty on rental interruption and shows no Spot badge; Spot has no penalty and shows the badge; the 48-hour rule is quoted verbatim
+  - [11] 2026-10-22: quoted: a BROKEN pod was force-closed by the provider, billing stops, a Secure node is credited and a Spot node is not, the credit can be charged back after review, and data is gone unless on a Volume or Backup
+  - [12] 2026-10-22: the notice window: scheduled maintenance is announced at least 24 hours ahead and lasts at most 60 minutes, the pod is still charged during it and is restarted within 10 minutes after; permanent removal is announced at least 48 hours ahead
+  - [4] 2026-10-22: quoted: a pod that fails to start is not charged; a RUNNING or rebooting pod is charged; a node offline for an hour or more is not charged until it is back; a BROKEN pod is not charged
+  - [13] 2026-10-22: auto-termination is set at deploy time in hours and can be set or removed on a running pod, which bounds an abandoned job
+  - [10] 2026-10-22: quoted: Secure nodes carry a penalty on rental interruption and Spot nodes do not; renters see a Spot badge and 'know the pod may be interrupted without compensation'
+  - [14] 2026-10-22: quoted 48-hour rule: on an 8x H100 at USD 2.00 per GPU-hour a dropped rental costs the provider about USD 730, which is the economic reason Secure supply is the scarcer supply
+  - [11] 2026-10-22: quoted: 'A pod with the red status BROKEN was force-closed by the GPU provider. The container and the rental are gone'; 'Data is gone unless it was on a Volume or in a Backup'; the interruption credit 'can be withdrawn after review' and is charged back if the provider was not at fault
+  - [11] 2026-10-22: quoted: node failure triggers a retry on another node at the same or lower price; FAILED pods are rebooted after about 30 minutes and billing resumes then; renters are advised to filter on Reliability, Uptime and Download
+- sources:
+  - [1] https://docs.lium.io/pod-users/fingerprint-signup
+  - [2] https://docs.lium.io/pod-users/volumes
+  - [3] https://lium.io/llms-full.txt
+  - [4] https://docs.lium.io/pod-users/billing
+  - [5] https://docs.lium.io/developers/agents
+  - [6] https://lium.io/api/public/v1/nodes
+  - [7] https://lium.io/pricing.json
+  - [8] https://lium.io/pricing
+  - [9] https://www.tao.media/lium-reports-964k-month-as-it-tops-bittensors-subnet-market-cap-rankings/
+  - [10] https://docs.lium.io/providers/portal/node-tier
+  - [11] https://docs.lium.io/pod-users/broken-pods
+  - [12] https://docs.lium.io/pod-users/provider-maintenance
+  - [13] https://docs.lium.io/pod-users/scheduled-termination
+  - [14] https://docs.lium.io/providers/rewards/penalties

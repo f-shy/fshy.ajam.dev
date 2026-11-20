@@ -1,0 +1,113 @@
+# Budget VPS hosts without an ASN field (survey)
+
+> IP and proxies; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/host-asn-field-absent/ | JSON https://fshy.ajam.dev/api/v1/entity/host-asn-field-absent.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## RackNerd, DediRock, VolpaByte and Datalix
+
+- `ip-proxy/host-asn-field-absent` | qualifies-with-caveat | evidence documented | binding none | category VPS egress | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T09:23:30.178Z (live) | stale on 2026-12-03
+- url https://stat.ripe.net/AS218841
+- price no per-TB figure is published by any of the four; entry prices are USD 21.99/year (RackNerd), USD 10.88/year (DediRock), EUR 3.49/month (VolpaByte) and EUR 2.45/month (Datalix) | parsed USD 2.74/mo
+- free tier: No free tier at any of the four. DediRock Yearly Promo VPS Saver USD 10.88/year for 10 GB SSD, 1 GB RAM, 1 vCPU, 1 TB bandwidth, 1 IPv4; VolpaByte EUR 3.49 a month for the 4 GB rung, with a free test server sold alongside; Datalix EUR 2.45 a month for the cheapest in-stock rung. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: Four hosts, four prices, none of them free. The prices are carried here from compute/racknerd, compute/dedirock, compute/volpabyte-ryzen-kvm-8gb and compute/datalix, which read the vendor pages on 2026-10-22 and 2026-10-24. This record exists for the ASN field, not the price, so the price is quoted only to establish that the four are buyable.
+- per-object cap: not applicable | source: [2] | note: The unit of this record is an ASN, which is a routing identity, not a stored object. There is no largest-single-object question to answer.
+- retention: not applicable: an address, not an object | source: [2] | note: An address is held for as long as the machine holding it is paid for. The nearest real retention fact is Datalix's term rule, recorded in limits[]: the server is locked at the end of the prepaid term and deleted 5 days later, so the address goes with it.
+- egress: The traffic position differs per host and none of the four quotes an ASN in it. Datalix states 10 TB a month on a 1 Gbit uplink and, on exhaustion, quotes 'wird die Geschwindigkeit Ihres Servers auf 10 MB/s (80Mbit/s) begrenzt', with more traffic buyable. RackNerd's specials page lists 3000 GB a month on a 1 Gbps port. DediRock's card states 1 TB of bandwidth and prints no period and no overage price. VolpaByte's plan page lists a 1 Gbit/s connection and no traffic figure at all; its homepage's older copy said 'unlimited traffic'. | metered: yes | free allowance: 10 TB a month (Datalix), 3000 GB a month (RackNerd), 1 TB with no period printed (DediRock), not stated (VolpaByte) | source: [3]
+- identity: email | detail: The set does not share one gate, and the weakest documented is an email address. Datalix's order page shows the sign-up fields 'Nutzername', 'E-Mail', 'Passwort' and 'Sprache', with no phone field and no identity document; payment is a prepaid account balance. VolpaByte's registration form asks for name, email, phone with a full country selector and address, and its payment step could not be read because the order store was empty: unverified rather than none. RackNerd's signup requirement and DediRock's were not read in their lanes and are recorded there as unverified and not read, so this record does not claim a gate for them.
+- interface: ssh, cli
+- limits:
+  - volume-quota: 3000 GB a month of transfer on a 1 Gbps port on the RackNerd specials ladder [1]
+  - volume-quota: 1 TB of bandwidth on a 1 Gbps connection, with no period and no overage price printed on the card [4]
+  - volume-quota: 10 TB a month, then the port is shaped to 10 MB/s (80Mbit/s); more traffic is buyable [3]
+  - volume-quota: traffic not stated on the plan page, which lists only a 1 Gbit/s connection; the homepage's older copy said unlimited traffic [5]
+  - retention-clamped: the Datalix server is locked at the end of the prepaid term and deleted 5 days later, taking its address with it [6]
+- limits note: Autonomous system numbers associate with specific deployment locations rather than hosting providers as single entities. RackNerd does not operate a dedicated autonomous system: published test IP addresses route via AS35916, AS198566, and AS40676. DediRock does not operate a dedicated autonomous system: test addresses route via AS36352 and AS40676. VolpaByte Frankfurt instances exit via AS24940 (Hetzner). Datalix AS218841 announces zero prefixes, with traffic routing via AS58087. Multi-location providers route traffic across distinct autonomous systems depending on provisioned location.
+- binding note: At about 45 GB a month across about 599,000 requests no volume quota in this set is close: the smallest allowance is DediRock's 1 TB, whose period the card does not print, and even read as a monthly figure that is roughly 22 times the monthly volume; the others are 10 TB a month and 3000 GB a month. What fails first is not a quota but the record shape: an ASN is per location and sometimes not the host's at all, so a single-ASN field per host is wrong before any traffic is sent.
+- interface detail: A VPS is reached by SSH into a root shell, plus the vendor's web control panel: RackNerd, DediRock and Datalix sell KVM guests with root; VolpaByte sells KVM with a WHMCS client area. The egress leaves from the guest's own address, so a SOCKS5 or HTTP proxy is software run on the guest, not a protocol the host sells.
+- tooling: Any SSH client, plus whatever proxy runs on the guest: a SOCKS5 or HTTP listener, an SSH -D tunnel, or a WireGuard server if the host allows it. No host in this set sells a proxy endpoint or a proxy wrapper, and no wrapper existing is not a rejection: the resource is a machine with a routable address, which is what a proxy needs.
+- composes with: One cheap VPS per ASN to hold, each running a SOCKS5 or HTTP proxy, fronted by the Cloudflare-Workers AI gateway as the egress pool: the gateway picks the upstream, the guest supplies the address, and the ASN seen by the far end is whatever the location's upstream announces, which is the fact this record establishes.
+- reliability: The exit's reputation belongs to whichever upstream announces the address, not to the host named on the invoice: RackNerd's addresses resolve to HostPapa/ColoCrossing, Multacom, Mamut Rahal and Psychz space, and Datalix's own AS218841 announces nothing while its front end sits in AS58087, held by an individual. A host that changes upstream changes the ASN under an unchanged product.
+- notes: This record exists because the obvious shape for an ASN field is wrong. The third is what this record carries. It also shows the field is not one value per host but one per location: RackNerd's published test addresses span AS35916, AS198566, AS40676 and AS36352, DediRock's span AS36352 and AS40676, and Datalix's own ASN carries none of its traffic. Any future record that writes one ASN for a multi-location host is a defect, and this record is the evidence for that rule. Two things are stated with less certainty than the rest. Second, VolpaByte: the commission says its Frankfurt location exits from AS24940 Hetzner, and three published YABS runs of VolpaByte Frankfurt guests plus the vendor's own hostnames all return AS211301 Unesty Company, which contradicts it; The structural finding survives either answer, because AS211301 is no more VolpaByte's ASN than AS24940 is. Five records mention an ASN inside tooling or evidence prose and none of those is a field. This record does not correct a wrong ASN in compute/racknerd, dedirock.json, volpabyte-ryzen-kvm-8gb.json or datalix.json, because those files assert no ASN.
+- evidence note: The ASN half of the verdict is measured: every ASN in this record was resolved with RIPEstat on 2026-10-24, and the zero-prefix answer for AS218841 was read from as-overview and announced-prefixes, not from a vendor claim.
+- extras:
+  - rung: 4
+  - rung_note: Every ASN here was resolved from an address or an ASN with RIPEstat, which is the ASN rung; nothing rests on a vendor's statement about its own network.
+  - asn_by_host.racknerd.own_asn: none registered to the name
+  - asn_by_host.racknerd.test_addresses_resolved.204.13.154.3: AS35916 MULTACOM CORPORATION
+  - asn_by_host.racknerd.test_addresses_resolved.5.181.135.8: AS198566 MAMUT RAHAL SOFTWARE FZCO
+  - asn_by_host.racknerd.test_addresses_resolved.192.3.81.8: AS36352 HostPapa/ColoCrossing
+  - asn_by_host.racknerd.test_addresses_resolved.192.3.253.2: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.192.3.254.158: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.192.210.207.88: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.198.23.228.15: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.198.23.249.100: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.107.173.164.160: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.107.174.51.158: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.167.160.186.8: AS36352
+  - asn_by_host.racknerd.test_addresses_resolved.23.94.101.88: AS36352
+  - asn_by_host.racknerd.assigned_set: AS35916, AS198566, AS40676
+  - asn_by_host.racknerd.reproduced_here: AS35916 and AS198566; AS40676 not reproduced on any RackNerd address, and AS36352 found on ten more
+  - asn_by_host.racknerd.own_asn_lookup.ripestat_searchcomplete_asn_suggestions: 0
+  - asn_by_host.racknerd.own_asn_lookup.arin_rdap_entity_search_exact_http_status: 404
+  - asn_by_host.racknerd.own_asn_lookup.arin_rdap_entity_search_wildcard_http_status: 200
+  - asn_by_host.dedirock.own_asn: none registered to the name
+  - asn_by_host.dedirock.test_addresses_resolved.199.188.100.133: AS36352 HostPapa/ColoCrossing
+  - asn_by_host.dedirock.test_addresses_resolved.107.174.123.254: AS36352
+  - asn_by_host.dedirock.test_addresses_resolved.198.37.127.161: AS40676 Psychz Networks
+  - asn_by_host.dedirock.assigned_set: AS36352, AS40676
+  - asn_by_host.dedirock.reproduced_here: both, exactly
+  - asn_by_host.dedirock.own_asn_lookup.ripestat_searchcomplete_asn_suggestions: 0
+  - asn_by_host.dedirock.own_asn_lookup.arin_rdap_entity_search_exact_http_status: 404
+  - asn_by_host.dedirock.own_asn_lookup.arin_rdap_entity_search_wildcard_http_status: 404
+  - asn_by_host.volpabyte.own_asn: none registered to the name
+  - asn_by_host.volpabyte.assigned: Frankfurt exits from AS24940 Hetzner
+  - asn_by_host.volpabyte.measured: 179.61.251.70 (vendor hostnames and status, lg, speedtest subdomains) resolves to AS211301 Unesty Company; three YABS runs of Frankfurt guests also report AS211301
+  - asn_by_host.volpabyte.status: assigned value not reproduced; the structural finding holds either way
+  - asn_by_host.volpabyte.own_asn_lookup.ripestat_searchcomplete_asn_suggestions: 0
+  - asn_by_host.volpabyte.own_asn_lookup.arin_rdap_entity_search_exact_http_status: 404
+  - asn_by_host.volpabyte.own_asn_lookup.arin_rdap_entity_search_wildcard_http_status: 404
+  - asn_by_host.datalix.own_asn: AS218841, holder DatalixGmbH Datalix GmbH, announced false
+  - asn_by_host.datalix.announced_prefixes: 0
+  - asn_by_host.datalix.traffic_exits_via: assigned AS58087, held by an individual; corroborated here only by datalix.de's own A record 194.15.36.245 landing in that ASN, which is the vendor's front end and not a guest's egress path
+  - asn_by_host.datalix.own_asn_lookup.ripestat_searchcomplete_asn_suggestions: 1
+  - schema_note: The enum is worth extending for this topic; until then ssh and cli carry the meaning and interface_detail carries the rest.
+  - compute_field_absence.records: 1336
+  - compute_field_absence.records_with_an_asn_key: 0
+  - compute_field_absence.method: five records mention an ASN in tooling or evidence prose and none of those is a field
+  - compute_field_absence.named_files: compute/racknerd; compute/dedirock; compute/volpabyte-ryzen-kvm-8gb; compute/datalix
+  - one_asn_per_host_is_a_defect: Any record that writes a single ASN for a multi-location host is wrong. The ASN is per location and sometimes not the host's at all: Datalix owns AS218841 and announces nothing from it, and RackNerd owns no ASN while its addresses sit in four other operators' networks.
+- evidence:
+  - probe:stat.ripe.net/data/prefix-overview?resource=204.13.154.3 2026-10-24: RackNerd's Los Angeles DC-02 test address 204.13.154.3 sits in 204.13.152.0/22, announced by AS35916 MULTA-ASN1 - MULTACOM CORPORATION. The address is not in a RackNerd ASN because RackNerd holds none.
+  - probe:stat.ripe.net/data/prefix-overview?resource=5.181.135.8 2026-10-24: RackNerd's Los Angeles DC-05 test address 5.181.135.8 sits in 5.181.135.0/24, announced by AS198566 MAMUTRAHAL - MAMUT RAHAL SOFTWARE FZCO. A second RackNerd location, a second unrelated ASN.
+  - probe:stat.ripe.net/data/prefix-overview?resource=199.188.100.133 2026-10-24: DediRock's New York test address 199.188.100.133 sits in 199.188.100.0/24, announced by AS36352 AS-COLOCROSSING - HostPapa.
+  - probe:stat.ripe.net/data/prefix-overview?resource=198.37.127.161 2026-10-24: DediRock's Los Angeles test address 198.37.127.161 sits in 198.37.127.0/24, announced by AS40676 - Psychz Networks. Two DediRock locations, two ASNs, neither of them DediRock's.
+  - probe:stat.ripe.net/data/as-overview?resource=AS218841 2026-10-24: AS218841's holder is 'DatalixGmbH Datalix GmbH' and as-overview returns announced: false, so the host owns an ASN that originates nothing.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS218841 2026-10-24: AS218841 announces zero prefixes, v4 and v6 alike. This is the zero in the headline and it is a count, not an inference from the absent holder page.
+  - probe:stat.ripe.net/data/prefix-overview?resource=194.15.36.245 2026-10-24: datalix.de's A record 194.15.36.245 sits in 194.15.36.0/24, announced by AS58087, held by an individual. This is the vendor's own front end, not a guest's egress path, so it corroborates the AS58087 attribution without proving where a bought server's traffic leaves.
+  - probe:stat.ripe.net/data/prefix-overview?resource=179.61.251.70 2026-10-24: volpabyte.net and its status, lg and speedtest subdomains all resolve to 179.61.251.70, in 179.61.251.0/24 announced by AS211301 UNESTY, held by an individual trading as Unesty Company. This does not reproduce AS24940 for VolpaByte and is recorded as a contradiction, not as confirmation.
+  - probe:stat.ripe.net/data/prefix-overview?resource=192.3.81.8 2026-10-24: Ten further RackNerd looking-glass test addresses (192.3.81.8, 192.3.253.2, 192.3.254.158, 192.210.207.88, 198.23.228.15, 198.23.249.100, 107.173.164.160, 107.174.51.158, 167.160.186.8, 23.94.101.88) all resolve to AS36352 HostPapa/ColoCrossing, a fourth ASN in RackNerd's published set and the one carrying most of its locations.
+  - [7] 2026-10-24: AS24940's holder is HETZNER-AS Hetzner Online GmbH with 96 announced prefixes, so the ASN the commission attributes to VolpaByte's Frankfurt location exists and is a hosting network. The holder is established; the attribution of VolpaByte's traffic to it is not.
+  - [1] 2026-10-22: RackNerd's entry price and monthly transfer: USD 21.99 a year for 1 GB RAM, 1 vCPU, 20 GB SSD and 3000 GB a month, read from the vendor page on 2026-10-22; compute/racknerd holds the same figures.
+  - [4] 2026-10-22: DediRock's Yearly Promo VPS Saver at USD 10.88 a year with 1 TB of bandwidth on a 1 Gbps connection, read from the vendor page on 2026-10-22; compute/dedirock holds the same figures.
+  - [5] 2026-10-24: VolpaByte's ladder starts at EUR 3.49 a month for the 4 GB rung, the 8 GB rung lists a 1 Gbit/s connection and no traffic figure, and the page names Frankfurt as the location, read through compute/volpabyte-ryzen-kvm-8gb on 2026-10-24.
+  - [3] 2026-10-24: Datalix's cheapest in-stock server is EUR 2.45 a month, the plan gives 10 TB a month on a 1 Gbit uplink, and on exhaustion the vendor writes 'wird die Geschwindigkeit Ihres Servers auf 10 MB/s (80Mbit/s) begrenzt', read through compute/datalix on 2026-10-24.
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=RackNerd 2026-11-02: RIPEstat searchcomplete for RackNerd lists one category, Domains (racknerd.com), and no ASNs category. | capture: sha256:8a54f48c07f5ab09ef75eabddd00f5e9d0254350d622b7102d453247e9ef9f1d | quote: "categories":[{"category":"Domains","suggestions":[{"value":"racknerd.com"
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=DediRock 2026-11-02: RIPEstat searchcomplete for DediRock returns an empty category list. | capture: sha256:e5cb873656de63eade58f7716499ec4cceff9acf23d1ca4d7859f6d391b0b8bf | quote: "categories":[],"query_term":"DediRock"
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=VolpaByte 2026-11-02: RIPEstat searchcomplete for VolpaByte returns an empty category list. | capture: sha256:f68f91b4cc9362c7ba7080882aaa72c78144069e1736d96ab055d90665e3a7a0 | quote: "categories":[],"query_term":"VolpaByte"
+  - probe:https://stat.ripe.net/data/searchcomplete/data.json?resource=Datalix 2026-11-02: RIPEstat searchcomplete for Datalix lists an ASNs category with one suggestion, AS218841 (DatalixGmbH Datalix GmbH), and a Domains category. | capture: sha256:544f42346f6178b04895e21a1a4d6a23f93d715753741017c76e09eb3b670a9c | quote: "category":"ASNs","suggestions":[{"label":"AS218841","value":"AS218841","description":"DatalixGmbH Datalix GmbH"}]
+  - probe:https://rdap.arin.net/registry/entities?fn=RackNerd 2026-11-02: ARIN RDAP entity search with fn=RackNerd, an exact name, answers HTTP 404. | capture: sha256:c6192e577f6f5f57f914fc4d338db33464a5588f0821435d56d4a071c13187b9 | quote: "status": 404
+  - probe:https://rdap.arin.net/registry/entities?fn=DediRock 2026-11-02: ARIN RDAP entity search with fn=DediRock, an exact name, answers HTTP 404. | capture: sha256:bb98baf80f61de7f949f790fb4f7b82b2dc2e672889d18050a4022fdc483836c | quote: "status": 404
+  - probe:https://rdap.arin.net/registry/entities?fn=VolpaByte 2026-11-02: ARIN RDAP entity search with fn=VolpaByte, an exact name, answers HTTP 404. | capture: sha256:373bed9d4ea42f6f0d447a75ec3e41e45856c61cf42c2e617da34d40097e2891 | quote: "status": 404
+  - probe:https://rdap.arin.net/registry/entities?fn=RackNerd* 2026-11-02: ARIN RDAP entity search with the wildcard fn=RackNerd* answers HTTP 200 with a result body. | capture: sha256:7269ff9d276041f87648afc321e3c45c265fcc235aeac875e61c56ece181fac3 | quote: "status": 200
+  - probe:https://rdap.arin.net/registry/entities?fn=DediRock* 2026-11-02: ARIN RDAP entity search with the wildcard fn=DediRock* answers HTTP 404. | capture: sha256:5e30f42acbaf9d1619fd7f1120ca2a5012c0bfee1b096b01bd31eede3cf96617 | quote: "status": 404
+  - probe:https://rdap.arin.net/registry/entities?fn=VolpaByte* 2026-11-02: ARIN RDAP entity search with the wildcard fn=VolpaByte* answers HTTP 404. | capture: sha256:59998a0920a6539a8f5e116565b22ad849ddb7f0a8710b256b8c24a5c8c1e3be | quote: "status": 404
+  - probe:https://stat.ripe.net/data/as-overview/data.json?resource=AS218841 2026-11-02: RIPEstat as-overview for AS218841 gives holder DatalixGmbH Datalix GmbH and announced false. | capture: sha256:cb229e0b2a43908627baffc4b9d2dfff6f7c5ee69209fca9b75b9551486ccefc | quote: "resource":"218841" ... "holder":"DatalixGmbH Datalix GmbH","announced":false
+- sources:
+  - [1] https://www.racknerd.com/specials
+  - [2] https://stat.ripe.net/AS218841
+  - [3] https://datalix.de/ryzen-kvm-server-mieten
+  - [4] https://dedirock.com/KVMSuperSale/
+  - [5] https://volpabyte.net/ryzen-vps.html
+  - [6] https://datalix.de/2026-sale
+  - [7] https://stat.ripe.net/AS24940

@@ -1,0 +1,565 @@
+# IBM
+
+> ibm.com | Compute, Inference, Egress and tunnels, Domains and DNS, Storage, Developer services; 14 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/ibm/ | JSON https://fshy.ajam.dev/api/v1/entity/ibm.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## IBM Quantum Open
+
+- `compute/ibm-quantum-open` | qualifies-with-caveat | evidence documented | binding volume-quota | category quantum compute
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T04:58:09.428Z (live) | stale on 2026-12-19
+- url https://quantum.cloud.ibm.com/docs/en/guides/plans-overview
+- free tier: The promotion is quoted: 'As of 16 March 2026, active Open Plan users can opt in to an additional 180 minutes over the next 12 months', and the blog states the precondition: 'Use 20 minutes of runtime within any 12-month period' and that the plan 'reverts back to 10 minutes/month once 12-month period ends'. | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: monthly-allowance
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - volume-quota (binding): The allowance is 10 minutes in 28 days and every circuit execution plus its transpile and queue overhead spends it, so a single variational loop exhausts a month, and the 180-minute promotion cannot be reached in under two months because it requires 20 minutes of prior runtime. [1]
+- limits note: The allowance is 10 minutes in 28 days and every circuit execution plus its transpile and queue overhead spends it, so a single variational loop exhausts a month, and the 180-minute promotion cannot be reached in under two months because it requires 20 minutes of prior runtime.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: qiskit_ibm_runtime Python package (QiskitRuntimeService); the REST API is also called with curl or Python requests
+- composes with: A 10-minute-a-month QPU allowance composes with a simulator on a free CPU runner, because most of the work in a variational loop can be done on a simulator and only the final evaluation needs the hardware.
+- reliability: no reliability event recorded
+- notes: The promotion is the interesting term: 180 minutes for 12 months is 18 times the base allowance, and it is reachable because the only preconditions are a non-trial account and 20 minutes of prior use. The failure is the price beyond the line: one user cites USD 96 a minute on the pay-as-you-go meter, so an overrun is not a soft stop and the 10-minute window has to be watched rather than delegated. The region restriction and the promotion are additions.
+- extras:
+  - facets.class: verification
+  - facets.free_tier_kind: monthly-allowance
+- evidence:
+  - [1] 2026-10-22: quoted: 'up to 10 minutes per 28-day rolling window'; 'Open Plan instances can only be created in the us-east region'; 'active Open Plan users can opt in to an additional 180 minutes over the next 12 months'
+  - [2] 2026-10-22: Open Plan: 'Access quantum computers for up to 10 minutes of runtime per month. Active users may be eligible to request additional time.' Price: Free, quoted
+  - [1] 2026-10-22: 'Run your quantum circuits on the world's best QPUs for free (up to 10 minutes per 28-day rolling window)'; Open Plan instances can only be created in the us-east region, quoted
+  - [3] 2026-10-22: quoted: 'users who use 20 minutes of runtime within any 12-month period can opt in to a special one-time promotion and get 180 minutes of runtime for the next 12 months'; 'Plan reverts back to 10 minutes/month once 12-month period ends'
+  - [4] 2026-10-22: 
+  - [1] 2026-11-04: the documented Python client is qiskit_ibm_runtime | capture: sha256:9348a864167e7c103c3be430442de37103d555776c311d4f6750dccf8ebe5000 | quote: from qiskit_ibm_runtime import QiskitRuntimeService
+  - [1] 2026-11-18: not stated | capture: sha256:37fccc0eb714313115dbeafb4a85e31bb7fbc2141c6621c341c2ff4a9f4eea2c | quote: # Plans overview If you want access to multiple plans, you can create multiple instances and assign different plans to them. For example, you can have an Open Plan instance and a Pay-As-You-Go Plan instance. You can set preferred instances to use in the `QiskitRuntimeService` ini
+- sources:
+  - [1] https://quantum.cloud.ibm.com/docs/en/guides/plans-overview
+  - [2] https://www.ibm.com/quantum/pricing
+  - [3] https://www.ibm.com/quantum/blog/open-plan-updates
+  - [4] https://quantumcomputing.stackexchange.com/questions/46432/do-paid-pay-as-you-go-minutes-count-toward-the-20-minutes-needed-for-ibms-180-m
+
+## IBM watsonx.ai (Free / Lite plan)
+
+- `inference/ibm-watsonx-ai-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category inference platform with embedding and rerank APIs, monthly free token allowance | tier Free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T09:59:10.179Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/products/watsonx-ai/pricing
+- free tier: Free plan (Toolbox playground): foundation-model tokens up to 300,000 per month; the embeddings and reranking APIs are listed as available on the free Lite plan | unit: tokens | metered on: request-count | read on: 2026-11-03 | source: [1] | note: unverified: no page read says whether embedding and rerank tokens draw down the 300,000 foundation-model tokens; the embedding and reranker models are billed per token on the paid plans. Of the hosted models, slate-125m, slate-30m, all-minilm-l6-v2 and the ms-marco reranker carry a Deprecated mark; granite-embedding-278m-multilingual and multilingual-e5-large do not
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an IBM Cloud account is needed; IBM's sign-up pages state that email address, personal information and a credit card (used to verify identity) are entered at account creation, with no charge unless the account is upgraded to a billable plan and billable services are consumed; a third-party catalogue reports no payment card for the Lite plan, which IBM's pages contradict
+- interface: rest
+- limits:
+  - volume-quota (binding): 300,000 foundation-model tokens per month on the Free plan; unverified whether embedding and rerank tokens count against it [1]
+  - request-rate: a third-party catalogue reports 2 inference requests per second on the Lite plan; unverified at IBM [2]
+- binding note: 300,000 tokens a month is the stated ceiling, shared at least with foundation-model inference
+- endpoint: https://us-south.ml.cloud.ibm.com/ml/v1/text/embeddings
+- tooling: watsonx.ai REST API and Python library with a bearer token from an IBM Cloud API key and a project id; embeddings via the text embeddings method, rerank via the rerank method
+- composes with: the one account also covers chat models under the same 300,000-token allowance
+- reliability: several hosted encoder models are marked Deprecated in the model table, among them the only listed reranker; the documentation gives a withdrawal date of June 8, 2026 for all-minilm-l6-v2
+- notes: the plans page was reachable only through a provider-pinned read after the origin answered HTTP 403 to the default read
+- evidence note: the Free token allowance, the availability of the embeddings and reranking APIs on the Lite plan and the credit-card step of sign-up are quoted from vendor pages; the draw-down of embedding tokens and the rate limit are unverified at the vendor.
+- evidence:
+  - [1] 2026-11-03: the Free plan includes up to 300,000 foundation-model tokens per month | capture: sha256:24e70dd007bb06fe77f882d0080b2936d7ad5f92f52a41147dbd5994e5ee486a | quote: Foundation Models: Up to 300,000 tokens per month
+  - [3] 2026-11-03: the Lite and Professional plans share the feature list that follows, which includes the embeddings and reranking APIs | capture: sha256:4b982dcd6285bf4d266eccf0a0facfd6e953726f2f6ded0212e706e6154487d4 | quote: Both watsonx.ai Studio plans provide the following features you can use with unstructured data and to develop generative AI solutions:
+  - [3] 2026-11-03: the text reranking API is available on the free Lite plan | capture: sha256:4b982dcd6285bf4d266eccf0a0facfd6e953726f2f6ded0212e706e6154487d4 | quote: - Text reranking API
+  - [4] 2026-11-03: granite-embedding-278m-multilingual is a hosted embedding model with 512 input tokens and 768 dimensions | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | [granite-embedding-278m-multilingual](https://www.ibm.com/docs/en/watsonx/saas?topic=models-supported-encoder#granite-278m-multilingual) | `ibm/granite-embedding-278m-multilingual` | $0.0001 | 512 | 768 |
+  - [4] 2026-11-03: multilingual-e5-large is a hosted embedding model with 1,024 dimensions | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | `intfloat/multilingual-e5-large` | Microsoft | $0.0001 | 512 | 1,024 |
+  - [4] 2026-11-03: the listed hosted reranker is ms-marco-minilm-l-12-v2, marked Deprecated, with 512 input tokens | capture: sha256:48e082b55aace78407f6068eeb5ee6dfdb8a52edec2c0ea9c7f7d982ba1f5016 | quote: | `cross-encoder/ms-marco-minilm-l-12-v2` | Microsoft | $0.000005 | 512 |
+  - [2] 2026-11-03: a third-party catalogue reports a 2 requests per second inference limit on the Lite plan | capture: sha256:f6b8ba8653f20bce8ca5e9ae1f78d530c8fbeaea089799b47fd9f2cc91d03ad6 | quote: Rate-limited to 2 inference requests per second, custom foundation models are not available, and you cannot downgrade back to Lite after upgrading.
+  - [2] 2026-11-03: a third-party catalogue reports that the Lite plan needs no payment card | capture: sha256:f6b8ba8653f20bce8ca5e9ae1f78d530c8fbeaea089799b47fd9f2cc91d03ad6 | quote: - Payment card: Not needed.
+  - [5] 2026-11-03: IBM's watsonx sign-up page states that the IBM Cloud account behind watsonx asks for a credit card for identity verification | capture: sha256:181a5043df6f68a7f9054dfa45216a10d0c23c0f7e38bd5ab4ec0f5084832829 | quote: For your IBM Cloud account, you enter your email address, personal information, and credit card information, which is used to verify your identity.
+  - [6] 2026-11-03: IBM Cloud's account FAQ states that creating a new account requires a credit card for identity verification | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [7] 2026-11-03: the watsonx.ai account setup page states that a credit card is entered to create the account | capture: sha256:e1de014a1726d046176ef4de40071b22132c1ce95d3e6e9c62b323451cb86e0c | quote: You must enter a credit card to create a Pay-As-You-Go IBM Cloud account.
+  - probe:https://us-south.ml.cloud.ibm.com/ml/v1/text/embeddings 2026-11-10: a keyless POST on 2026-11-10 answered HTTP 401 with the vendor's own gate message, so the tier is gated on a key | capture: sha256:f9a86e50c8aabda2c75697a0f2cafea63ef1eb20a20b82b6f0c678c037cdca31 | quote: "status": 401
+- sources:
+  - [1] https://www.ibm.com/products/watsonx-ai/pricing
+  - [2] https://aifree.dev/offer/ibm-watsonx-ai-lite-plan
+  - [3] https://www.ibm.com/docs/en/watsonx/saas?topic=cloud-watsonxai-studio-plans
+  - [4] https://www.ibm.com/docs/en/watsonx/saas?topic=models-supported-encoder
+  - [5] https://www.ibm.com/docs/en/watsonx/saas?topic=tutorials-signing-up-watsonx
+  - [6] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+  - [7] https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/setup-account.html?context=dph
+
+## watsonx.ai
+
+- `inference/watsonx` | qualifies-with-caveat | evidence documented | binding volume-quota | category managed inference on an enterprise AI platform
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:00:00.000Z (live) | stale on 2026-12-19
+- url https://www.ibm.com/products/watsonx-ai/pricing
+- duplicate of `inference/ibm-watsonx-ai-free`
+- free tier: Free plan: up to 300,000 tokens per month for foundation models, up to 20 Compute Usage Hours per month, and up to 100 documents per month for text extraction. | unit: tokens | metered on: request-count | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an IBM Cloud account starts the free plan; no card is stated for the free tier
+- interface: rest
+- limits:
+  - volume-quota (binding): 300,000 foundation-model tokens per month on the Free plan [1]
+- endpoint: https://{region}.ml.cloud.ibm.com/ml/v1
+- tooling: OpenAI-compatible endpoint and the IBM watsonx.ai SDK with an IAM key
+- composes with: the 300,000-token monthly ceiling is the scarce link and bounds any workload
+- reliability: the free tier is a monthly token allowance, not unlimited, and text extraction is capped at 100 documents per month
+- notes: A real standing free allowance exists (300,000 tokens/month), but the monthly cap is a hard constraint; the doc URL was walled, so the pricing page was used.
+- extras:
+  - duplicate_of: ibm-watsonx-ai-free
+- evidence:
+  - [1] 2026-11-18: the Free plan gives up to 300,000 foundation-model tokens per month | capture: sha256:24e70dd007bb06fe77f882d0080b2936d7ad5f92f52a41147dbd5994e5ee486a | quote: Foundation Models: Up to 300,000 tokens per month
+- sources:
+  - [1] https://www.ibm.com/products/watsonx-ai/pricing
+
+## IBM Cloud (Compute)
+
+- `compute/ibm-cloud` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:21:02.824Z (live) | stale on 2026-11-24
+- url https://cloud.ibm.com/docs/account?topic=account-accounts
+- free tier: The free page states: 'You get credit for your first USD 200 of apps and services on us. Try any IBM Cloud product with this credit, available for 30 days.' The account itself is Pay-As-You-Go from registration: 'Even though you provide your credit card information for account security and identity verification purposes, you can still use IBM Cloud for free by selecting products in the catalog that offer Free and Lite pricing plans.' | unit: mixed | metered on: none | read on: 2026-10-23 | source: [1] | note: the USD 200 is a 30-day offset, not a perpetual free tier
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: not stated | metered: no | source: [2]
+- identity: card | detail: card required to create the account; a temporary verification hold is reversed within 24 to 72 hours, and its amount is not published on the account FAQ; debit accepted only if it is a Visa or Mastercard and not a disposable or one-time-use number, so virtual and prepaid-style cards are refused; email first, then card
+- interface: unknown
+- limits:
+  - volume-quota (binding): USD 200 of usage over 30 days [1]
+- limits note: the card is required before the balance is usable, and no catalog Free plan is a virtual server
+- binding note: the 30-day window ends the USD 200; the card is required before the balance is usable
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing composes. The USD 200 credit on a new Pay-As-You-Go account is a 30-day trial, and it is spent on billed services rather than held as a free tier.
+- reliability: no reliability event recorded
+- notes: This record refutes the claim that IBM Cloud offers a free account with no card and no end date: registration produces a Pay-As-You-Go account with a card, and the Lite accounts described in old tutorials are only those created before 2021-10-25. The free balance is USD 200 for 30 days. The academic trial remains the institution door. The account FAQ publishes no amount, only the 24-to-72-hour reversal, so the USD 1.00 figure is not confirmed here and is left as a dash. The card-type rule is documented and is the material one: disposable and one-time-use numbers are refused, which is how IBM phrases its prepaid and virtual exclusion.
+- evidence note: Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence[].
+- extras:
+  - facets.class: refutation-no-free-vm
+  - facets.free_tier_kind: one-time-credit
+  - hourly_usd.bx4_4x16_derived: 0.183208
+  - hourly_usd.bx4_2x8_derived: 0.091604
+  - component_rates.usd_per_63_vcpu_hours: 1.7626
+  - component_rates.usd_per_450_gb_hours: 2.0054
+  - rate_basis: derived on 2026-10-23 from IBM's component rates; no per-profile rate is published and the console estimator was not reached
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted-with-condition
+  - payment_methods.prepaid: refused
+  - payment_methods.virtual: refused
+  - payment_methods.hold_detail: temporary hold reversed within 24 to 72 hours; amount not published on the page read
+  - payment_methods.identity: email, then a card used for identity verification
+  - payment_methods.source_url: https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [2] 2026-10-22: docs last updated 2026-04-17: registration produces a Pay-As-You-Go account with a credit card required for identity verification; Lite accounts are only those created before 25 October 2021, quoted
+  - [2] 2026-10-22: the only card-free account is a Trial, which requires institution credentials via ibm.biz/academic and expires after 30 days
+  - [1] 2026-10-22: vendor states a nominal hold of typically about USD 1.00 is placed on the card, and Lite service instances are deleted after 30 days of no development activity
+  - [1] 2026-10-23: 'You get credit for your first USD 200 of apps and services on us. Try any IBM Cloud product with this credit, available for 30 days.', quoted; the same page lists 40 or more always-free Lite products and five promotion codes with a 2026-12-31 expiry
+  - [3] 2026-10-24: quoted: 'For identity verification, a credit card is required when you create a new account. A debit card is acceptable if it is from Visa or Mastercard, and it is not a disposable card or one-time use card number.'
+  - [3] 2026-10-24: quoted, the hold: 'As part of the authorization process, you might see a temporary hold on your credit card for verification and security when creating an account. This credit card hold is reversed within 24 to 72 hours.'
+- sources:
+  - [1] https://www.ibm.com/products/cloud/free
+  - [2] https://cloud.ibm.com/docs/account?topic=account-accounts
+  - [3] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+
+## IBM Cloud (free)
+
+- `egress/ibm-cloud` | trial-only | evidence unverified | binding volume-quota | category trial credit (provider VM) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T21:10:53.813Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/cloud/free
+- price USD 200 of credit
+- free tier: To receive the USD 200 credit, you first need to upgrade to a Pay-as-you-go account ... Your promotional credit of USD 200 is automatically applied but might take a few hours to appear in your account. The credit is available for first-time Pay-as-you-go accounts only. | unit: mixed | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: Payment details are required up front ... there will be a nominal hold placed on your card to verify its authenticity ... typically around USD 1.00. | country: None
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): USD 200 of credit, expiry unstated on the page read [1]
+- binding note: the credit is the only allowance named, and neither its expiry nor the egress rate it buys was readable on the page, so what fails first at 1 TiB a month is unestablished rather than known.
+- interface detail: the IBM Cloud CLI and the VPC API
+- tooling: wg-quick on the VPC instance; the IBM Cloud CLI
+- composes with: a 200 dollar credit that could pay for a VPC instance and its egress, if the rate and expiry turn out to be workable
+- reliability: Lite-plan service instances are deleted after 30 days without development activity
+- notes: Arithmetic is blocked on the egress rate. The credit is real and documented at USD 200, but a credit whose expiry is unstated and whose spend rate is unread cannot be converted to TiB, and inventing either number would be worse than the gap. The 40 Lite-plan products are always free and include no VM with a public IP, and the academic trial needs an accredited institution. Left open: the expiry, which IBM's own promo documentation holds; that page could not be read.
+- evidence note: the credit amount is documented but the two numbers the arithmetic needs, the expiry and the per-GB egress rate, were not on the page and the promo-code documentation returned HTTP 500.
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a VPC virtual server instance with a floating IP; wg-quick binds UDP on the instance
+  - ingress: udp
+  - volume_stated: USD 200 of credit; the egress rate it is spent against was not read, so the TB it buys is not established
+  - bytes_transit: yes
+  - transit_note: outbound bytes cross IBM's network and are metered against the pay-as-you-go account the credit sits on
+- evidence:
+  - [1] 2026-10-23: 'Your promotional credit of USD 200 is automatically applied', 'The credit is available for first-time Pay-as-you-go accounts only', 'Payment details are required up front'
+  - [1] 2026-10-23: 'After 30 days of no development activity, your service instances with Lite plans are deleted', the reliability note for anything left running
+  - [1] 2026-11-04: a card is required at sign-up | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Payment details are required up front, but you won’t be charged until you consume a billable service; however, there will be a nominal hold placed on your card to verify its authenticity.
+  - [1] 2026-11-19: the only allowance named on the first-party free-tier page is the USD 200 credit; its expiry and the egress rate it buys are not stated there | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: Your promotional credit of USD 200 is automatically applied but might take a few hours to appear in your account.
+- sources:
+  - [1] https://www.ibm.com/cloud/free
+
+## IBM Cloud VPC
+
+- `compute/ibm-cloud-vpc` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card yes, phone unknown, ID no, institution no | verified 2026-11-06T17:42:12.763Z (live) | stale on 2026-12-07
+- url https://www.ibm.com/products/virtual-servers/pricing
+- free tier: no free tier: new VPC clients get 70% off for 12 months on virtual servers, block storage and file storage, and the offer expires 2026-12-31 | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: card | detail: card: an account is registered with an email address and a credit card is required for identity verification: 'You can create an account by registering your email address. For identity verification, a credit card is required when you create a new account.' A debit card is accepted when it is from Visa or Mastercard and is not a disposable card or one-time use card number, and authorization places 'a temporary hold on your credit card for verification and security when creating an account', reversed within 24 to 72 hours. Phone: not published: https://cloud.ibm.com/docs/account?topic=account-accountfaqs (2026-11-06) states no phone requirement at registration. Country: not published: the same page states no country restriction.
+- interface: unknown
+- limits:
+  - request-rate: 70% off for 12 months for a new VPC client, then list price [1]
+  - retention-clamped (binding): the offer expires 2026-12-31 and is valid only for new IBM Cloud VPC clients [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the virtual servers pricing page was read on 2026-10-22 and carries a discount rather than an allowance. A 12-month 70% discount is a trial by another name, so the verdict moves to trial-only and the expiry is recorded
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an instance bills while it exists; the discount is the clock, not a machine
+  - free_tier_kind: trial
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.price: block and file storage are included in the same 70% discount
+  - ps.durability: block or file storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - net.ipv6: yes
+  - net.allowance: up to 80 Gbps across general-purpose profiles
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'IBM Cloud VPC - 70% off for 12 months. Only valid for new IBM Cloud VPC clients', covering 'Virtual Server Instances (VSI), Block Storage, and File Storage', with 'Expires 31 December 2026', quoted
+  - [2] 2026-11-04: a card is required to create any IBM Cloud account, and a VPC client needs one | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [2] 2026-11-04: a card is required for identity verification, with a temporary hold | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: As part of the authorization process, you might see a temporary hold on your credit card for verification and security when creating an account.
+  - [2] 2026-11-04: every new account is Pay-As-You-Go, so the card gate applies to a new VPC client | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: New accounts are created as Pay-As-You-Go accounts, except purchased subscriptions and temporary educational accounts.
+  - [2] 2026-11-04: the card gate is unchanged and applies to a new account | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+  - [2] 2026-11-06: a credit card is required for identity verification when an account is created, and the page states no phone or country requirement | capture: sha256:49949e801520d94753f386298206eca96506d0d97fa853508c649c2483ed71a9 | quote: For identity verification, a credit card is required when you create a new account.
+- sources:
+  - [1] https://www.ibm.com/products/virtual-servers/pricing
+  - [2] https://cloud.ibm.com/docs/account?topic=account-accountfaqs
+
+## IBM NS1 Connect, Trial (30-day free trial)
+
+- `domains-dns/ns1-connect` | trial-only | evidence documented | binding request-rate | category managed authoritative DNS and traffic steering | tier Trial (30-day free trial)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T02:46:19.580Z (live) | stale on 2026-12-20
+- url https://www.ibm.com/products/ns1-connect/pricing
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-essentials` says paid-only
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-standard` says paid-only
+- free tier: a 30-day free trial with 50M DNS queries/month, 500 DNS records, 20 health check monitors, 10 traffic steering chains, 50 HTTPS redirects, Cloud Sync and zone versioning; no credit card required at sign-up | unit: requests | metered on: request-count | read on: 2026-11-19 | source: [1] | note: This is a time-boxed trial, not a recurring free allowance. The trial is the only no-charge entry; no permanent free tier was found on the pricing page.
+- per-object cap: 500 DNS records in the trial; a DNS record may hold multiple answers, and the maximum TTL on a record is 86400 seconds (24 hours), with values above that automatically adjusted to 86400 | source: [1] | note: The 86400-second TTL ceiling is from the DNS-record documentation and applies to records in all zones, not to the trial alone.
+- retention: unverified: no data-deletion or retention period after the 30-day trial ends is stated on the pages read | source: [1] | note: Zone records survive only while the account and its subscription or trial remain active; the exact post-trial deletion window is unverified.
+- egress: DNS queries are counted against a monthly allowance (50M DNS queries/month on the trial); no per-GB traffic price is published, since DNS is priced by query count rather than by bytes out | metered: yes | free allowance: 50M DNS queries/month on the trial | source: [1]
+- identity: email | detail: the trial sign-up page asks for a business email address, first name, last name, country and password to create an IBMid; Company is a required field in the form metadata; no credit card is required ('Create your account. No credit card required.'); a phone number and an ID document are not requested on the form read (https://www.ibm.com/account/reg/signup?formid=urx-54055)
+- interface: rest, browser
+- limits:
+  - request-rate (binding): 50M DNS queries/month (trial) [1]
+  - per-object-cap: 500 DNS records (trial); TTL capped at 86400 seconds (24 hours) [1]
+  - volume-quota: 20 health check monitors and 10 traffic steering chains (trial) [1]
+- binding note: the 50M DNS queries/month trial allowance is the first quantity an active zone consumes; the 500-record and 20-monitor caps are far above a single zone's needs
+- interface detail: a REST API at https://api.nsone.net/v1 (legacy) and https://api.nsone.net/{category}/v1 (newer) returning JSON over HTTPS, authenticated with an API key secret in the X-NSONE-Key header; the first key must be created in the NS1 Connect portal; a web portal manages zones and records
+- tooling: REST API through curl or any HTTP client with an X-NSONE-Key API key; the NS1 Terraform provider (ns1-terraform/ns1) is the documented infrastructure-as-code path; Ansible integration is listed on the product page
+- composes with: managed authoritative DNS with real-time traffic steering, health-check monitors and HTTPS redirects; Cloud Sync synchronises zones with Amazon Route 53 as a paid add-on, and a Terraform toolkit keeps zones in step with other providers
+- reliability: the API requires HTTPS and rejects plain HTTP or unauthenticated requests; the Terraform provider documentation warns that 429 rate-limit responses occur and recommends rate_limit_parallelism 60; no outage history was read
+- notes: The 30-day trial is a time-boxed offer, not a recurring free allowance. No permanent free tier is stated on the pricing page. Prices shown on the page are indicative and may vary by country and by product-offering availability in a locale.
+- evidence note: first-party pricing, signup, product, API, Terraform and DNS-record pages were read and quoted; every value is at documented rung, with no live trial measurement of post-trial behaviour
+- evidence:
+  - [1] 2026-11-19: the entry offer is a 30-day free trial | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 30 day Free Trial
+  - [1] 2026-11-19: the trial allows 50 million DNS queries per month | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 50M DNS queries/month
+  - [1] 2026-11-19: the trial allows 500 DNS records | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 500 DNS records
+  - [1] 2026-11-19: the trial allows 20 health check monitors | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 20 health check monitor
+  - [1] 2026-11-19: the trial allows 10 traffic steering chains | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 10 traffic steering chains
+  - [1] 2026-11-19: the trial allows 50 HTTPS redirects | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 50 HTTPS redirects
+  - [1] 2026-11-19: Cloud Sync is a listed trial feature | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Cloud Sync
+  - [1] 2026-11-19: zone versioning is a listed trial feature | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Zone versioning
+  - [2] 2026-11-19: the trial sign-up needs no payment card | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Create your account. No credit card required.
+  - [2] 2026-11-19: the trial sign-up requires a business email address | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Business email is required
+  - [2] 2026-11-19: the trial form requires a company name | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Company is required
+  - [2] 2026-11-19: the trial form requires a country | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Country is required
+  - [3] 2026-11-19: the service exposes a REST API | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: This REST API returns JSON responses and uses standard HTTP methods (GET, PUT, POST, DELETE) to perform operations on resources.
+  - [3] 2026-11-19: API access is authenticated by an API key secret | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: The NS1 Connect API uses API key secrets to authenticate requests.
+  - [3] 2026-11-19: the legacy REST base URL | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: Legacy endpoints: `https://api.nsone.net/v1`
+  - [3] 2026-11-19: plain HTTP and unauthenticated requests are rejected | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: All API requests must be made over HTTPS. Requests made over plain HTTP or without authentication will fail.
+  - [4] 2026-11-19: a Terraform toolkit manages zones and records as infrastructure as code | capture: sha256:cb25cc8477f2d51739065fa79ea48bec287070eda6d412ec1ab3a183895c4295 | quote: The NS1 Connect + Terraform toolkit provides the tools needed to sync DNS zones and records across all of your DNS providers to create a single source of truth and to centralize resource management.
+  - [5] 2026-11-19: a DNS record's TTL is capped at 86400 seconds | capture: sha256:3810c116152a11b9f0a4c802dcc5217d2a4fbac0b85873f7e442931321a1bf7b | quote: In NS1 Connect, the maximum TTL value you can set for a DNS record is 86400 seconds or 24 hours. Values exceeding this limit are automatically adjusted to 86400 seconds.
+  - [6] 2026-11-19: the anycast network has 26+ points of presence | capture: sha256:6eea5d2ab831bd1f0341e141f5f92aad2317ff0a3b43f346c67cf548ec5cf87f | quote: Reduce latency worldwide with 26+ points of presence across six continents
+  - [6] 2026-11-19: Terraform, Ansible and CI/CD integration are documented | capture: sha256:6eea5d2ab831bd1f0341e141f5f92aad2317ff0a3b43f346c67cf548ec5cf87f | quote: Integrate with Terraform®, Ansible® and CI/CD workflows
+- sources:
+  - [1] https://www.ibm.com/products/ns1-connect/pricing
+  - [2] https://www.ibm.com/account/reg/signup?formid=urx-54055
+  - [3] https://www.ibm.com/docs/en/ns1-connect?topic=introduction-using-api
+  - [4] https://www.ibm.com/docs/en/ns1-connect?topic=toolkits-terraform-toolkit-ns1-connect
+  - [5] https://www.ibm.com/docs/en/ns1-connect?topic=answers-create-dns-record
+  - [6] https://www.ibm.com/products/ns1-connect
+
+## IBM NS1 Connect (Essentials)
+
+- `domains-dns/ns1-connect-essentials` | paid-only | evidence documented | binding request-rate | category managed authoritative DNS and traffic steering | tier Essentials
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T02:46:19.580Z (live) | stale on 2026-12-20
+- url https://www.ibm.com/products/ns1-connect/pricing
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-essentials` says paid-only
+- free tier: no permanent free tier on this plan; a 30-day free trial precedes it, and Essentials is priced starting at $108.00 USD per month (a discounted starting price of $43.20 USD per month is shown) | unit: none | metered on: none | read on: 2026-11-19 | source: [1] | note: Prices shown are indicative, may vary by country, exclude applicable taxes and duties, and are subject to product-offering availability in a locale.
+- per-object cap: 1000 DNS records; a DNS record may hold multiple answers, and the maximum TTL on a record is 86400 seconds (24 hours), with values above that automatically adjusted to 86400 | source: [1]
+- retention: unverified: no data-deletion or retention period is stated on the pages read; zone records survive while the subscription remains active | source: [1]
+- egress: DNS queries are counted against a monthly allowance (30-80M DNS queries/month on Essentials); no per-GB traffic price is published, since DNS is priced by query count rather than by bytes out | metered: yes | free allowance: 30-80M DNS queries/month on Essentials | source: [1]
+- identity: email | detail: the trial sign-up page asks for a business email address, first name, last name, country and password to create an IBMid; Company is a required field in the form metadata; no credit card is required for the trial. The paid purchase steps were not read, so the payment identity required to buy Essentials is unverified: behind a sign-up (https://www.ibm.com/account/reg/signup?formid=urx-54055, https://www.ibm.com/products/ns1-connect/pricing)
+- interface: rest, browser
+- limits:
+  - request-rate (binding): 30-80M DNS queries/month (Essentials) [1]
+  - per-object-cap: 1000 DNS records; TTL capped at 86400 seconds (24 hours) [1]
+  - volume-quota: 2 health check monitors and 1 traffic filter chain (Essentials) [1]
+- binding note: the 30-80M DNS queries/month allowance is the quantity that governs the plan; the 1000-record and 2-monitor caps are lower than the trial but still far above a single zone's needs
+- interface detail: a REST API at https://api.nsone.net/v1 (legacy) and https://api.nsone.net/{category}/v1 (newer) returning JSON over HTTPS, authenticated with an API key secret in the X-NSONE-Key header; the first key must be created in the NS1 Connect portal; a web portal manages zones and records
+- tooling: REST API through curl or any HTTP client with an X-NSONE-Key API key; the NS1 Terraform provider (ns1-terraform/ns1) is the documented infrastructure-as-code path; Ansible integration is listed on the product page
+- composes with: managed authoritative DNS with real-time traffic steering, health-check monitors and HTTPS redirects; Cloud Sync is an add-on on paid plans, and a Terraform toolkit keeps zones in step with other providers
+- reliability: the API requires HTTPS and rejects plain HTTP or unauthenticated requests; the Terraform provider documentation warns that 429 rate-limit responses occur and recommends rate_limit_parallelism 60; no outage history was read
+- notes: Essentials is the entry paid tier, listed at USD 108 per month with a promotional discounted price of USD 43.20 per month at the time of reading. DNS is priced by query volume and record count, not by stored bytes, so a per-TB price is not applicable.
+- evidence note: the first-party pricing page, the trial sign-up form (read from a raw fetch), the API documentation (read through a read provider), the Terraform toolkit documentation and the DNS-record documentation were captured and quoted; the paid checkout was not entered, so the payment identity for a paid purchase is documented as unverified
+- evidence:
+  - [1] 2026-11-19: the Essentials list price starts at USD 108 per month | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Pricing: Starting at $108.00 USD per month
+  - [1] 2026-11-19: a discounted Essentials price of USD 43.20 per month is shown | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Discounted Pricing: Starting at $43.20 USD per month
+  - [1] 2026-11-19: the Essentials monthly DNS query allowance | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 30-80M DNS queries/month
+  - [1] 2026-11-19: the Essentials DNS record cap | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 1000 DNS records
+  - [1] 2026-11-19: the Essentials health check monitor count | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 2 health check monitors
+  - [1] 2026-11-19: the Essentials traffic filter chain count | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 1 traffic filter chain
+  - [1] 2026-11-19: the prices are indicative and vary by country and locale | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Prices shown are indicative, may vary by country, exclude any applicable taxes and duties, and are subject to product offering availability in a locale.
+  - [2] 2026-11-19: a DNS record's TTL is capped at 86400 seconds | capture: sha256:3810c116152a11b9f0a4c802dcc5217d2a4fbac0b85873f7e442931321a1bf7b | quote: In NS1 Connect, the maximum TTL value you can set for a DNS record is 86400 seconds or 24 hours. Values exceeding this limit are automatically adjusted to 86400 seconds.
+  - [3] 2026-11-19: the service exposes a REST API | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: This REST API returns JSON responses and uses standard HTTP methods (GET, PUT, POST, DELETE) to perform operations on resources.
+  - [4] 2026-11-19: a Terraform toolkit manages zones and records as infrastructure as code | capture: sha256:cb25cc8477f2d51739065fa79ea48bec287070eda6d412ec1ab3a183895c4295 | quote: The NS1 Connect + Terraform toolkit provides the tools needed to sync DNS zones and records across all of your DNS providers to create a single source of truth and to centralize resource management.
+  - [5] 2026-11-19: the trial sign-up needs no payment card | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Create your account. No credit card required.
+- sources:
+  - [1] https://www.ibm.com/products/ns1-connect/pricing
+  - [2] https://www.ibm.com/docs/en/ns1-connect?topic=answers-create-dns-record
+  - [3] https://www.ibm.com/docs/en/ns1-connect?topic=introduction-using-api
+  - [4] https://www.ibm.com/docs/en/ns1-connect?topic=toolkits-terraform-toolkit-ns1-connect
+  - [5] https://www.ibm.com/account/reg/signup?formid=urx-54055
+
+## IBM NS1 Connect (Standard)
+
+- `domains-dns/ns1-connect-standard` | paid-only | evidence documented | binding request-rate | category managed authoritative DNS and traffic steering | tier Standard
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T02:46:19.580Z (live) | stale on 2026-12-20
+- url https://www.ibm.com/products/ns1-connect/pricing
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-standard` says paid-only
+- free tier: no permanent free tier on this plan; a 30-day free trial precedes it, and Standard is priced starting at $380.00 USD per month (a discounted starting price of $152.00 USD per month is shown) | unit: none | metered on: none | read on: 2026-11-19 | source: [1] | note: Prices shown are indicative, may vary by country, exclude applicable taxes and duties, and are subject to product-offering availability in a locale.
+- per-object cap: 1000 - 10,000 DNS records depending on the selected query volume; a DNS record may hold multiple answers, and the maximum TTL on a record is 86400 seconds (24 hours), with values above that automatically adjusted to 86400 | source: [1]
+- retention: unverified: no data-deletion or retention period is stated on the pages read; zone records survive while the subscription remains active | source: [1]
+- egress: DNS queries are counted against a monthly allowance (50 - 1BN DNS queries/month on Standard); no per-GB traffic price is published, since DNS is priced by query count rather than by bytes out | metered: yes | free allowance: 50 - 1BN DNS queries/month on Standard | source: [1]
+- identity: email | detail: the trial sign-up page asks for a business email address, first name, last name, country and password to create an IBMid; Company is a required field in the form metadata; no credit card is required for the trial. The paid purchase steps were not read, so the payment identity required to buy Standard is unverified: behind a sign-up (https://www.ibm.com/account/reg/signup?formid=urx-54055, https://www.ibm.com/products/ns1-connect/pricing)
+- interface: rest, browser
+- limits:
+  - request-rate (binding): 50 - 1BN DNS queries/month (Standard) [1]
+  - per-object-cap: 1000 - 10,000 DNS records; TTL capped at 86400 seconds (24 hours) [1]
+  - volume-quota: 2 - 100 health check monitors and 1-100 traffic filter chains (Standard) [1]
+- binding note: the 50M - 1BN DNS queries/month allowance scales the plan's price and is the first quantity a busy zone consumes; the record and monitor counts scale with it
+- interface detail: a REST API at https://api.nsone.net/v1 (legacy) and https://api.nsone.net/{category}/v1 (newer) returning JSON over HTTPS, authenticated with an API key secret in the X-NSONE-Key header; the first key must be created in the NS1 Connect portal; a web portal manages zones and records
+- tooling: REST API through curl or any HTTP client with an X-NSONE-Key API key; the NS1 Terraform provider (ns1-terraform/ns1) is the documented infrastructure-as-code path; Ansible integration is listed on the product page
+- composes with: managed authoritative DNS with real-time traffic steering, health-check monitors, HTTPS redirects, zone versioning and spike protection (DDoS + NXD); Cloud Sync is an add-on, and a Terraform toolkit keeps zones in step with other providers
+- reliability: the API requires HTTPS and rejects plain HTTP or unauthenticated requests; the Terraform provider documentation warns that 429 rate-limit responses occur and recommends rate_limit_parallelism 60; Standard adds spike protection (DDoS + NXD); no outage history was read
+- notes: Standard is the mid paid tier, listed at USD 380 per month with a promotional discounted price of USD 152 per month at the time of reading. DNS is priced by query volume and record count, not by stored bytes, so a per-TB price is not applicable.
+- evidence note: the first-party pricing page, the trial sign-up form (read from a raw fetch), the API documentation (read through a read provider), the Terraform toolkit documentation and the DNS-record documentation were captured and quoted; the paid checkout was not entered, so the payment identity for a paid purchase is documented as unverified
+- evidence:
+  - [1] 2026-11-19: the Standard list price starts at USD 380 per month | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Pricing: Starting at $380.00 USD per month
+  - [1] 2026-11-19: a discounted Standard price of USD 152 per month is shown | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Discounted Pricing: Starting at $152.00 USD per month
+  - [1] 2026-11-19: the Standard monthly DNS query allowance range | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 50 - 1BN DNS queries/month
+  - [1] 2026-11-19: the Standard DNS record cap range | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 1000 - 10,000 DNS records
+  - [1] 2026-11-19: the Standard health check monitor count range | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 2 - 100 health check monitors
+  - [1] 2026-11-19: the Standard traffic filter chain count range | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 1-100 traffic filter chains
+  - [1] 2026-11-19: Standard includes DDoS and NXDOMAIN spike protection | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Spike protection (DDoS + NXD)
+  - [1] 2026-11-19: the prices are indicative and vary by country and locale | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Prices shown are indicative, may vary by country, exclude any applicable taxes and duties, and are subject to product offering availability in a locale.
+  - [2] 2026-11-19: a DNS record's TTL is capped at 86400 seconds | capture: sha256:3810c116152a11b9f0a4c802dcc5217d2a4fbac0b85873f7e442931321a1bf7b | quote: In NS1 Connect, the maximum TTL value you can set for a DNS record is 86400 seconds or 24 hours. Values exceeding this limit are automatically adjusted to 86400 seconds.
+  - [3] 2026-11-19: the service exposes a REST API | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: This REST API returns JSON responses and uses standard HTTP methods (GET, PUT, POST, DELETE) to perform operations on resources.
+  - [4] 2026-11-19: a Terraform toolkit manages zones and records as infrastructure as code | capture: sha256:cb25cc8477f2d51739065fa79ea48bec287070eda6d412ec1ab3a183895c4295 | quote: The NS1 Connect + Terraform toolkit provides the tools needed to sync DNS zones and records across all of your DNS providers to create a single source of truth and to centralize resource management.
+  - [5] 2026-11-19: the trial sign-up needs no payment card | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Create your account. No credit card required.
+- sources:
+  - [1] https://www.ibm.com/products/ns1-connect/pricing
+  - [2] https://www.ibm.com/docs/en/ns1-connect?topic=answers-create-dns-record
+  - [3] https://www.ibm.com/docs/en/ns1-connect?topic=introduction-using-api
+  - [4] https://www.ibm.com/docs/en/ns1-connect?topic=toolkits-terraform-toolkit-ns1-connect
+  - [5] https://www.ibm.com/account/reg/signup?formid=urx-54055
+
+## ibm aspera on cloud
+
+- `storage/ibm-aspera-on-cloud` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:04.771Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/docs/en/aspera-on-cloud?topic=started-try-aspera-cloud-free
+- free tier: none reachable: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Trial only and small: 30 days OR 50 GB of transfer volume, whichever comes first, and package sending to external users is disabled during the trial. FASP's speed advantage is real but…
+  - [1] 2026-11-19: only a 30-day / 50 GB trial is offered, no free tier | capture: sha256:64c85283d9dbab84b376cbc8a4db30538e207a56cce1a9048713c8eeb5a826f9 | quote: You can use your Aspera on Cloud trial for 30 days or for 50 Gb of transfer volume, whichever happens first.
+- sources:
+  - [1] https://www.ibm.com/docs/en/aspera-on-cloud?topic=started-try-aspera-cloud-free
+
+## IBM Cloud Container Registry (free plan)
+
+- `storage/ibm-cloud-container-registry` | fails-quota | evidence reported | binding per-ip-shaping | category registry
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:04.771Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/products/container-registry
+- free tier: 500 MB storage and 5 GB pull traffic per month: 'Amount of storage for images | 500 MB | Unlimited', 'Pull traffic | 5 GB per month | Unlimited' (Free vs Standard). Free-plan allowance confirmed in the quota doc: 'The free tier allowance for storage is 512 MB and traffic is 5120 MB.' | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Pull traffic is metered as a quota, not priced per GB on the free plan: 'Pull traffic across public connections counts toward usage and quota. Pull traffic across private connections doesn't count.' Exceed it and access stops — . 'If you exceed your storage or pull traffic limits, you cannot push or pull images to and from your namespace.'. | metered: yes
+- identity: email
+- interface: oci, cli
+- limits:
+  - per-ip-shaping (binding): traffic | 5 GB per month | Unlimited' (Free vs Standard) [1]
+- limits note: 512 MB storage, 5 GB pull traffic per month, per account across all namespaces in a registry instance; overage blocks push and pull entirely.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: oci
+- tooling: ibmcloud cr CLI, docker/skopeo. OCI distribution spec compliant.
+- composes with: None. 512 MB is per IBM Cloud account and the overage behaviour is a hard stop, not a bill.
+- reliability: Hard cutoff on quota rather than overage billing, so a bulk workload simply stops mid-transfer.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 500 MB storage and 5 GB pull traffic per month: 'Amount of storage for images | 500 MB | Unlimited', 'Pull traffic | 5 GB per month | Unlimited' (Free vs Standard). Free-plan allowance confirmed in the quota doc: 'The free tier allowance for storage is 512 MB and traffic is 5120 MB.'
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Free plan 500 MB storage / 5 GB pull traffic; 'you cannot push or pull images' on exceed
+  - [2] 2026-10-21: 'free tier allowance for storage is 512 MB and traffic is 5120 MB'
+  - [3] 2026-10-21: probe: GET -> 401, Server: IBM Cloud Container Registry, realm https://us.icr.io/oauth/token
+  - [1] 2026-11-19: free plan storage allowance is 500 MB | capture: sha256:57fcc68ef5e19fecab4b03cc6f8e246110d72c4166402beb322da473f1c77ec6 | quote: | Amount of storage for images. | 500 MB | Unlimited |
+  - [2] 2026-11-19: free tier storage is 512 MB and pull traffic 5120 MB per month | capture: sha256:4cc0fec9712214dc3b7d185e7943d6dd4d34ae44286c0978aa387b64fc4678dd | quote: The free tier allowance for storage is 512 MB and traffic is 5120 MB.
+- sources:
+  - [1] https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview
+  - [2] https://cloud.ibm.com/docs/Registry?topic=Registry-registry_quota
+  - [3] https://us.icr.io/v2/
+
+## ibm cloud object storage lite plan as a storage tier
+
+- `storage/ibm-cloud-object-storage-lite-plan-as-a-storage-tier` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:04.772Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/products/cloud/free
+- free tier: none reachable: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any…
+  - [2] 2026-10-21: cited as the basis of the rejection: The Lite plan is always-free and never expires, but the published storage allowance belongs to the Standard plan Free Tier (5 GB for 12 months). No Lite storage quota was published on any IB
+  - [1] 2026-11-19: Lite instances are deleted after 30 idle days; always-free quotas do not carry a published storage allowance | capture: sha256:c4b919eacb52997a3436c23a556093034d5a041370b191551c2f0315b2aea2ed | quote: After 30 days of no development activity, your service instances with Lite plans are deleted.
+- sources:
+  - [1] https://www.ibm.com/products/cloud/free
+  - [2] https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-provision
+
+## IBM Cloud Object Storage — Standard plan Free Tier
+
+- `storage/ibm-cloud-object-storage-standard-plan-free-tier` | fails-quota | evidence reported | binding retention-clamped | category iaas
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:04.772Z (live) | stale on 2026-12-04
+- url https://www.ibm.com/products/cloud/free/storage
+- free tier: 5 GB/month of Smart Tier storage, 2,000 Class A + 20,000 Class B requests, 10 GB/month retrieval, 5 GB/month egress. For 12 months. The separate Lite plan (always-free, never expires) does not carry a published storage allowance on the current pages. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Lite-plan instances are deleted after 30 days of no development activity. | days: 30 | source: [1] | note: not stated
+- egress: 5 GB/month egress inside the Free Tier; beyond that it is metered per GB. Not free egress at any useful scale. | metered: yes | free allowance: 5 GB per month
+- identity: card | detail: an account is created using an email address first and payment details are required up front with a nominal hold placed on the card to verify authenticity
+- interface: s3-compatible, rclone
+- limits:
+  - retention-clamped (binding): deleted after 30 days [1]
+- limits note: 5 GB storage / 5 GB egress / 12 months. Reaching any quota 'suspends the service for that month'. Lite-plan instances are deleted after 30 days of no development activity.
+- binding note: a clock, not a quota: bytes leave whether or not transfer is completed
+- interface detail: s3
+- tooling: IBM COS S3 API. Rclone 's3' provider name 'IBM COS S3'; HMAC or IAM keys; pre-signed URLs (docs note the UI does not generate them, use Cyberduck/clients).
+- composes with: One Lite instance per service per org; quota limits are per ORG, not per instance ('New instances that are created in the same org reflect any usage from previous instances'), which deliberately blocks instance multiplication inside an org.
+- reliability: Service suspends at quota rather than billing overage. No surprise bills, but no headroom either. Lite instances vanish after 30 idle days.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: retention
+  - dead_end.why: 5 GB/month of Smart Tier storage, 2,000 Class A + 20,000 Class B requests, 10 GB/month retrieval, 5 GB/month egress — for 12 months. The separate Lite plan (always-free, never expires) does not carry a published storage allowance on the current pages.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 'Free Tier allowance: Storage up to 5GB/month ... Up to 5GB/month of egress'
+  - [2] 2026-10-21: '5GB of free monthly usage for up to 12 months from the sign-up date'
+  - [3] 2026-10-21: 'After 30 days of no development activity, your service instances with Lite plans are deleted'; 'Quota limits are per org, not per instance'
+  - [4] 2026-11-19: card details are required up front, confirming identity_cost.kind card with first-party evidence | capture: sha256:bac96db07fa8276d17f728180361fd69a5d571774c6f68ea86c3efa26cdb8855 | quote: Payment details are required up-front, but you won’t be charged until you consume a billable service; however, there’ll be a nominal hold placed on your card to verify its authenticity.
+  - [5] 2026-11-19: free tier storage allowance is 5 GB per month for up to 12 months | capture: sha256:9186a498a0a6a0c14730aa5198c2eb23f2d73f9a6e3b8d8b630c8897b37e1757 | quote: Up to 5 GB of Smart Tier storage capacity
+- sources:
+  - [1] https://cloud.ibm.com/objectstorage/create
+  - [2] https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-provision
+  - [3] https://www.ibm.com/products/cloud/free
+  - [4] https://www.ibm.com/products/cloud/free/storage
+  - [5] https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-billing&format=markdown
+
+## HCP Vault Secrets
+
+- `dev-services/hcp-vault-secrets` | dead | evidence documented | binding volume-quota | category hosted SaaS secret store, decommissioned | tier Free
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-20T04:15:44.723Z (live) | stale on 2026-12-21
+- url https://www.ibm.com/support/pages/hcp-vault-secrets-end-life
+- free tier: Free tier, while HCP Vault Secrets was on sale: 25 static secrets, 25 applications, 5 versions per secret, 5 secret sync destinations and Bronze support. New customers lost access at end of sale on 2025-06-30, and applications were deleted at end of life on 2026-07-01. | unit: objects | metered on: object-count | read on: 2026-11-19 | source: [1] | note: The headline unit counted is the static secret. The Essentials and Standard tiers raised the caps to 2500 and 25000 secrets, but the product is now decommissioned.
+- per-object cap: 5120 characters per secret value | source: [2]
+- retention: 5 versions per secret on the Free tier; a deleted application's audit logs were not retained in the UI log viewer | source: [1] | note: Retention is by version count, not by a number of days.
+- egress: unverified: no egress quota or per-GB price is stated on the pages read; secret values were read back through the REST API, whose rate limits were stated for the Essentials and Standard tiers only | metered: no | source: [1]
+- identity: email | detail: An HCP account was created with email and password, GitHub or IBMid. The create-account page says 'Visit the HCP portal and provide your email and a password.' A credit card was not asked for at signup: HCP started in a trial state with 500 USD in trial credits, and the billing page only recommends a card 'to ensure continuity of service when trial credits are depleted.' The signup page itself answered HTTP 503, so the exact form fields are unverified: behind a sign-up. The offer is now closed to new customers.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 25 static secrets on the Free tier [1]
+  - volume-quota (binding): 25 applications on the Free tier [1]
+  - per-object-cap: 5120 characters per secret value, on all tiers [2]
+  - retention-clamped: 5 secret versions per secret on the Free tier [1]
+  - volume-quota (binding): 5 secret sync destinations on the Free tier [1]
+- limits note: Auto-rotating and dynamic secrets were Standard tier only, so the Free tier had no rotation. The 6000 secret access and 2000 other API requests per minute limits were stated for the Essentials and Standard tiers only. Resource ceilings of 100 apps and 100 integrations per project, 300 secrets, 10 dynamic secrets and 15 syncs per app applied to all tiers.
+- binding note: The 25-static-secret cap filled first on the Free tier, before the 25-application cap or the per-secret value size was reached.
+- interface detail: A REST API with operations such as OpenAppSecrets and ListOpenAppSecretVersions, and a CLI run command that injects secret names containing an underscore into environment variables. The HCP web UI was the management console.
+- endpoint: https://api.cloud.hashicorp.com/secrets
+- tooling: The HCP CLI vault-secrets commands, the HCP REST API and the HCP Terraform provider
+- composes with: A hosted secret store for API keys and credentials, with sync to third-party destinations and an HCP CLI run command for injecting secrets into application environments.
+- reliability: The offer was decommissioned by the vendor: end of sale on 2025-06-30, applications deleted at end of life on 2026-07-01. A known API bug disconnected all sync integrations from an app when an edit omitted the sync_integrations field; a deleted application's audit logs were not retained in the UI log viewer.
+- notes: HCP Vault Secrets was a hosted, multi-tenant secret store, not self-hosted software. Its free allowance was 25 static secrets. The product reached end of sale on 2025-06-30 and end of life on 2026-07-01, so it is dead as of the verification date. The live documentation URLs now redirect to HCP Vault Dedicated documentation; the original first-party text was read from the Wayback archive of the same HashiCorp developer URLs. unverified: behind a sign-up — the later steps of the sign-up form were not visible in a keyless read on 2026-11-20, so a card or phone requirement at those steps cannot be stated.
+- evidence note: All numbers come from first-party pages: the IBM end-of-life notice and the archived HashiCorp tiers, constraints, account and billing documentation. The signup form fields are unverified behind a sign-up, and the signup page answered HTTP 503.
+- evidence:
+  - [3] 2026-11-19: the vendor states that HCP Vault Secrets is being decommissioned | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: HashiCorp will be decommissioning HCP Vault Secrets.
+  - [3] 2026-11-19: the offer is closed to new customers from the end-of-sale date | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: New customers will no longer have access to HCP Vault Secrets
+  - [3] 2026-11-19: the end-of-life date, after which applications are deleted | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: End of life: Earlier of the Flex contract expiry or July 1, 2026
+  - [1] 2026-11-19: the Free tier allowed 25 static secrets | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Static secrets | The total # of secrets created | 25 | 2500 | 25000 |
+  - [1] 2026-11-19: the Free tier allowed 25 applications | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Applications | The total # of applications | 25 | 1000 | 10000 |
+  - [1] 2026-11-19: the Free tier retained 5 versions per secret | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret versions | The total # of versions per secret | 5 | 50 | 50 |
+  - [1] 2026-11-19: the Free tier allowed 5 secret sync destinations | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret syncs | The total # of active secret sync destinations | 5 | 200 | 2000 |
+  - [1] 2026-11-19: auto-rotating secrets were not on the Free tier | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Auto-rotating secrets | The total # of auto-rotating secrets created | Standard tier only | Standard tier only | 5000 |
+  - [1] 2026-11-19: the stated API rate limit for secret access operations | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret access API operations | 6000 requests/minute |
+  - [2] 2026-11-19: the per-secret value size cap | capture: sha256:0ff6127b18245282e8d21d42fafe5af45b88482a16f9f4bb341a82fd45cb1819 | quote: The current character limit for the secret value is 5120 characters per secret.
+  - [2] 2026-11-19: audit logs of a deleted application were not retained in the UI viewer | capture: sha256:0ff6127b18245282e8d21d42fafe5af45b88482a16f9f4bb341a82fd45cb1819 | quote: deleted application's audit logs are not retained within the UI log viewer
+  - [1] 2026-11-19: the tier was reachable through a free account signup | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: Sign up [here](https://www.hashicorp.com/cloud) for a free account to get started.
+  - [4] 2026-11-19: account creation requires an email address and a password | capture: sha256:109f6c29cf050d31560c50340eff8e972f7183d3d85842921716614dabe91d29 | quote: Visit the HCP portal and provide your email and a password.
+  - [4] 2026-11-19: the accepted account-creation methods | capture: sha256:109f6c29cf050d31560c50340eff8e972f7183d3d85842921716614dabe91d29 | quote: You can create an account using email and password, GitHub, or IBMid.
+  - [5] 2026-11-19: new HCP organizations began with trial credits rather than a card charge | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: The HCP organization is automatically granted $500 in trial credits to apply towards HCP services, enabling you to try before you buy. Trial credits have a 6 month expiration.
+  - [5] 2026-11-19: the card is recommended for continuity, not asked for at signup | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: You should configure a payment method (credit card) to ensure continuity of service when trial credits are depleted.
+  - [6] 2026-11-19: the offer was a hosted SaaS secret store | capture: sha256:13a5e117acb5c1a5748b3217c9795c23e3cf34b9198007e8b9a5c2286b160d2e | quote: HCP Vault Secrets is a SaaS platform which provides secure and simplified workflows for centralizing the storage and managment of secrets
+  - [5] 2026-11-20: a first-party page was read on 2026-11-20; the sign-up gate keeps later form steps unverified | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: To view your current billing information, log into [the HCP Portal](https://portal.cloud.hashicorp.com/) and navigate to Billing via the billing summary tile on your Project or Organization dashboard.
+- sources:
+  - [1] https://developer.hashicorp.com/hcp/docs/vault-secrets/get-started/plan-implementation/tiers-features
+  - [2] https://developer.hashicorp.com/hcp/docs/vault-secrets/get-started/plan-implementation/constraints-considerations
+  - [3] https://www.ibm.com/support/pages/hcp-vault-secrets-end-life
+  - [4] https://developer.hashicorp.com/hcp/docs/hcp/create-account
+  - [5] https://developer.hashicorp.com/hcp/docs/hcp/admin/billing
+  - [6] https://developer.hashicorp.com/hcp/docs/vault-secrets

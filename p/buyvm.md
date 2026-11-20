@@ -1,0 +1,218 @@
+# BuyVM
+
+> buyvm.net | Compute, Storage; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/buyvm/ | JSON https://fshy.ajam.dev/api/v1/entity/buyvm.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## BuyVM (compute/buyvm)
+
+- `compute/buyvm` | paid-only | evidence documented | binding per-ip-shaping | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://buyvm.net/kvm-dedicated-server-slices/
+- disagrees on identity_kind: `compute/buyvm` says card, `compute/buyvm-slice-512` says email
+- free tier: SLICE 512: 1 core at 3.50+ GHz with fair-share CPU, 512 MB RAM, 10 GB SSD, unmetered bandwidth, 1 IPv4, at USD 24.00 per year. SLICE 1024: 1024 MB, 20 GB SSD, unmetered, USD 3.50 per month. SLICE 2048: 2048 MB, 40 GB SSD, USD 7.00 per month. SLICE 4096 carries dedicated CPU at USD 15.00 per month. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: SLICE 512 listed at '$24.00 per year' with 512 MB memory, 10 GB SSD and 'Unmetered' bandwidth, quoted | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - per-ip-shaping (binding): bandwidth is unmetered but the CPU is fair-share and the port is shared, so contention throttles you before any byte counter stops you [1]
+- limits note: bandwidth is unmetered but the CPU is fair-share and the port is shared, so contention throttles you before any byte counter stops you
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: unmetered bandwidth makes this the egress end of a chain whose compute sits on a cheaper per-GiB host; 512 MB is enough for a proxy or tunnel endpoint, not for compute
+- reliability: no reliability event recorded
+- notes: 'Unmetered' is the claim to test: the page pairs it with 'Fair Share CPU Usage' and publishes no byte cap on this tier. Open corner: the slice cards state no port speed, while the high-volume table states 1000 Mbps.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 10
+  - benchmark[0].plan: SLICE 2048 (1 vCPU / 2 GiB)
+  - benchmark[0].cpu_model: AMD Ryzen 9 3900X 12-Core Processor
+  - benchmark[0].dedicated_or_shared: shared
+  - benchmark[0].gb6_single: 1192
+  - benchmark[0].gb6_multi: 1161
+  - benchmark[0].gb5_single: 924
+  - benchmark[0].gb5_multi: 897
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/buyvm-1c-2gb-tg5628
+  - benchmark[0].source_date: 2024-05-28
+  - benchmark[0].rung: reported
+  - benchmark[0].note: Ryzen 9 3900X at 3.79 GHz. One vCPU beat every 2 vCPU x86 row here on single core except RackNerd's. Trial is from 2024, the oldest measurement in the table.
+- evidence:
+  - [1] 2026-10-22: SLICE 512 listed at '$24.00 per year' with 512 MB memory, 10 GB SSD and 'Unmetered' bandwidth, quoted
+  - [1] 2026-10-22: SLICE 1024 '$3.50 per month', SLICE 2048 '$7.00 per month', SLICE 4096 '$15.00 per month' with Dedicated CPU Usage
+  - [1] 2026-10-22: high volume plans: 2 cores / 8 GB / 160 GB SSD / unlimited at 1000 Mbps for USD 30.00 a month
+- sources:
+  - [1] https://buyvm.net/kvm-dedicated-server-slices/
+
+## BuyVM (SLICE 2048)
+
+- `compute/buyvm-slice-2048` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier SLICE 2048
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T01:56:00.000Z (live) | stale on 2026-11-24
+- url https://buyvm.net/kvm-dedicated-server-slices/
+- price parsed USD 7/mo
+- disagrees on identity_kind: `compute/buyvm-slice-2048` says card, `compute/buyvm-slice-512` says email
+- free tier: no free tier; the ladder starts at 'SLICE 512 ... $24.00 per year' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid
+- egress: 'Unmetered Bandwidth' on every slice; the high-volume table states 'Unlim. 1000 Mbps' | metered: no | free allowance: unmetered | source: [1]
+- identity: card | detail: an account and a payment method at order.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): unmetered traffic, port speed not stated on the slice cards [1]
+  - per-object-cap: 40 GB SSD on SLICE 2048 [1]
+- binding note: traffic is unmetered, so what binds is the port and the single core; the published slice card does not state the port speed, which is the gap in this row.
+- interface detail: root SSH on KVM, Stallion control panel, block storage add-on
+- tooling: any SSH client; Stallion panel
+- composes with: an unmetered 2 GiB box where the traffic allowance, not the RAM, is what you are buying
+- reliability: no reliability event recorded
+- notes: USD 7.00 for 2 GiB is well over the line, and the row is documented because BuyVM's unmetered traffic is the cheapest genuinely unmetered bandwidth in evaluated offerings. The slice that fits the budget is SLICE 1024 at USD 3.50 for 1 GiB, which is too small to rank. USD 24.00 a year for SLICE 512 is the cheapest annual figure seen anywhere on 2026-10-24.
+- evidence note: shape and price are quoted from the slice cards read; port speed and IPv6 are not stated there.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 40
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 7.0
+  - m24h_usd: 7.0
+  - price_arithmetic: USD 7.00/month flat
+  - out_of_pocket_usd: 7.0
+  - renewal_usd: 7.0
+  - renewal_note: list price, monthly
+  - promo: no
+  - over_line: yes
+  - ipv4_included: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'SLICE 2048 - 1 Core @ 3.50+ GHz - Fair Share CPU Usage - 2048 MB Memory - 40 GB SSD Storage - Unmetered Bandwidth - 1 IPv4 Address - $7.00 per month'
+  - [1] 2026-10-24: quoted for the rungs below: 'SLICE 1024 ... 1024 MB Memory ... 20 GB SSD ... $3.50 per month' and 'SLICE 512 ... 512 MB Memory ... 10 GB SSD ... $24.00 per year'
+- sources:
+  - [1] https://buyvm.net/kvm-dedicated-server-slices/
+
+## BuyVM (SLICE 512)
+
+- `compute/buyvm-slice-512` | paid-only | evidence documented | binding per-ip-shaping | category VPS | tier SLICE 512
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T17:20:15.330Z (live) | stale on 2026-12-07
+- url https://buyvm.net/kvm-dedicated-server-slices/
+- price parsed USD 2/mo
+- disagrees on identity_kind: `compute/buyvm` says card, `compute/buyvm-slice-512` says email
+- disagrees on identity_kind: `compute/buyvm-slice-2048` says card, `compute/buyvm-slice-512` says email
+- free tier: No free tier. SLICE 512 is USD 24.00 a year; SLICE 1024 is USD 3.50 a month and is not sold annually on this page. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: The slice persists while the term is paid; the page states no deletion schedule. | source: [1]
+- egress: Unmetered bandwidth, in the vendor's wording 'Unmetered Dedicated KVM Slice Servers'; the SLICE 512 card prints no port speed, and the 1000 Mbps figure appears only in the separate HIGH VOLUME VPS PLANS table for the 8 GB and larger slices. | metered: no | free allowance: unmetered | source: [1]
+- identity: email | detail: Self-service order with an email account; the page read states no card hold and lists no payment methods.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): unmetered transfer with no port speed printed on the SLICE 512 card; the vendor states no volume cap, so throughput under contention is the practical limit [1]
+- binding note: With no traffic quota, the only thing that degrades is throughput under contention on a shared port; the SLICE 512 card prints no port speed.
+- interface detail: KVM slice with unmetered transfer; the card prints no port speed.
+- tooling: Any SSH client; KVM, so its own kernel.
+- composes with: USD 24.00 a year buys 512 MB with unmetered transfer and a real IPv4: twice evaluated offerings's ceiling, but the cheapest unmetered machine found here.
+- reliability: Long-running provider with a block-storage product on the same account. No suspension or data loss event was observed.
+- notes: The cheapest machine on the page is the 512 MB slice at USD 24.00 a year, USD 2.00 a month, and it has half the RAM of the cheapest SoftShellWeb container. It cannot be bought: the vendor's plan script marks all four locations disabled and the Las Vegas cart answers Out of Stock.
+- evidence note: the annual price, the shape and the unmetered transfer are quoted from the plan card; the stock state is quoted from the vendor's plan script and the cart page, which disable every location and answer Out of Stock
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.5
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: 12 months, sold by the year; the card carries no monthly cycle
+  - m24h_usd: 2.0
+  - m10h_usd: 2.0
+  - price_arithmetic: USD 24.00 a year / 12 = USD 2.00 a month. Out of pocket at order: USD 24.00.
+  - renewal_usd: not published: the plan card prints one annual price with no strike-through, no term discount and no renewal sentence; read at https://buyvm.net/kvm-dedicated-server-slices/
+  - first_payment_usd: 24.0
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all, on one IPv4
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - payment_methods: not established on the page read
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - monthly_usd: 2.0
+  - annual_usd: 24.0
+  - renewal_note: the plan card prints one annual price, with no strike-through and no end date, so USD 24.00 reads as the standing price; nothing read says how year two is invoiced, and the card sells no monthly cycle
+  - stock: out of stock: the vendor's plan script marks the 512 plan disabled at Las Vegas, New York, Luxembourg and Miami, and the Las Vegas cart answers 'Out of Stock ... orders for it have been suspended until more stock is available.'
+  - cart_url: https://my.frantech.ca/cart.php?a=add&pid=1439
+  - cart_works: no: the cart page answers Out of Stock and orders are suspended
+  - price_on_page: USD 24.00 per year for the 512 MB slice
+- evidence:
+  - [1] 2026-10-24: quoted: 'SLICE 512 ... 512 MB Memory ... 10 GB SSD Storage ... $24.00 per year'
+  - [1] 2026-10-24: quoted: 'SLICE 1024 ... 1024 MB Memory ... 20 GB SSD Storage ... $3.50 per month'
+  - [1] 2026-11-06: the SLICE 512 card lists unmetered bandwidth and no port speed; its other bullets are 1 Core, Fair Share, 512 MB, 10 GB SSD, 1 IPv4 and $24.00 a year | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - Unmetered Bandwidth
+  - [1] 2026-11-06: the vendor's page title carries the 'Unmetered Dedicated KVM Slice Servers' wording | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: # Unmetered Dedicated KVM Slice Servers from BuyVM
+  - [1] 2026-11-06: the card prints unmetered bandwidth and no port speed | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - Unmetered Bandwidth
+  - [1] 2026-11-06: the SLICE 512 card prints USD 24.00 a year | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - $24.00 per year
+  - [1] 2026-11-06: the card prints one annual price and no renewal rate | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - $24.00 per year
+  - [1] 2026-11-06: the card prints one annual price with no strike-through | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - $24.00 per year
+  - [1] 2026-11-06: the SLICE 512 card prices the slice by the year | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - $24.00 per year
+  - [2] 2026-11-06: the vendor's plan script maps the 512 slice to pid 1439 and marks it disabled at Las Vegas | capture: sha256:847c42c83ad05fe9e843bf95b04fbe8d2ace17afc81a1470a2c1cacc24d826a9 | quote: "512": [ { "location": "Las Vegas", "url": "https://my.frantech.ca/cart.php?a=add&pid=1439", "disabled": "true" },
+  - [3] 2026-11-06: the Las Vegas cart for pid 1439 answers Out of Stock and suspends orders | capture: sha256:d256f2e5dba4524c098ed7e8e50c7192ca9a3ca75e7b1d052789b658b7622b56 | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available.
+  - [2] 2026-11-06: the vendor's plan script gives pid 1439 as the 512 slice cart | capture: sha256:847c42c83ad05fe9e843bf95b04fbe8d2ace17afc81a1470a2c1cacc24d826a9 | quote: "url": "https://my.frantech.ca/cart.php?a=add&pid=1439",
+  - [3] 2026-11-06: the cart page answers Out of Stock | capture: sha256:d256f2e5dba4524c098ed7e8e50c7192ca9a3ca75e7b1d052789b658b7622b56 | quote: Out of Stock
+  - [1] 2026-11-06: the card prints the shape and unmetered bandwidth | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - Unmetered Bandwidth
+  - [1] 2026-11-06: the SLICE 512 slice is still USD 24.00 a year | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: - $24.00 per year
+- sources:
+  - [1] https://buyvm.net/kvm-dedicated-server-slices/
+  - [2] https://buyvm.net/assets/js/plans.js?1793984495
+  - [3] https://my.frantech.ca/cart.php?a=add&pid=1439
+
+## BuyVM Block Storage Slabs
+
+- `storage/buyvm-block-storage-slabs` | paid-only | evidence documented | binding per-object-cap | category block-storage
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T15:03:47.538Z (live) | stale on 2026-12-04
+- url https://buyvm.net/block-storage-slabs/
+- price $5.00/TB-month for the slab ($50.00/month for a 10TB slab). A slab needs a KVM Slice in the same facility: 10TB on the 4096 MB slice ($15.00/month) is $65.00/month = $6.50/TB-month all-in; on the 8 GB High Volume slice ($30.00/month, Unlim. 1000 Mbps) it is $80.00/month = $8.00/TB-month. The page does not say whether the TB in slab sizes is binary: unverified. | parsed USD 5/TB-mo
+- free tier: Sold in 256 GB chunks at $1.25/mo. Max 10 TB per Slab, max 8 Slabs per KVM Slice = 80 TB theoretical. Requires an accompanying KVM slice in the same facility. Available Las Vegas, New York, Miami, Luxembourg. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 10 TB hard cap per | bytes: 10000000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: Every KVM Slice plan on the vendor page is listed 'Unmetered Bandwidth' and the High Volume plans 'Unlim. 1000 Mbps'; no numeric transfer cap is published on the vendor pages read. No fair-use rule tied to the memory of the slice is stated on the vendor pages read. | metered: no | free allowance: unmetered; no numeric transfer cap is published on the vendor pages read
+- identity: card | detail: Registration needs a legitimate name and surname and a residential address, placed from a residential ISP; a phone number is not required; payment by PayPal, credit card, cryptocurrency (Coinpayments) or Alipay, with account details matching the payment method.
+- interface: sftp, rsync, nfs
+- limits:
+  - per-object-cap (binding): 10 TB hard cap per [1]
+- limits note: Per-object-cap: none. Downgrade impossible. You must order a new slab and migrate. 10 TB hard cap per slab. Requires a base slice, so the true entry cost is a slice plus a slab.
+- interface detail: block (attach as disk), then sftp/rsync/nfs from the slice
+- tooling: Anything. It is a raw block device on a KVM slice.
+- composes with: Hot-pluggable between slices in the same facility with no reboot, which makes it easy to re-front with a different server. No object API at all ('We may consider an Object Store product down the line, but not at this time').
+- reliability: Frantech, operating since 2010, the most consistently recommended block-storage product on LET for a decade. Known friction: signup must come from a residential ISP and is refused from VPN/Tor/datacenter IPs, P.O. boxes rejected. A real obstacle for a privacy-conscious buyer but not an identity-document requirement. Storage is 'enterprise 7200RPM hard drives with an NVME cache and a 40Gbit+ InfiniBand'.
+- notes: the same as the free tier
+- evidence note: Re-read on 2026-11-03 from vendor pages: https://buyvm.net/block-storage-slabs/ (1TB slab $5.00/month, 10TB slab $50.00/month, 10TB maximum, a KVM Slice in the same facility is required), https://buyvm.net/kvm-dedicated-server-slices/ (4096 MB slice $15.00/month, Unmetered Bandwidth; 8 GB High Volume Unlim. 1000 Mbps $30.00/month) and https://buyvm.net/terms-of-service/ (3,1,1 legitimate name, surname and residential address; 3,1,4 registration and order placement from a residential ISP; 3,1,3 no phone number required). The third-party forum rows on bandwidth rules stay unverified: the vendor pages state no such rule.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Sold in 256 GB chunks at $1.25/mo. Max 10 TB per Slab, max 8 Slabs per KVM Slice = 80 TB theoretical. Requires an accompanying KVM slice in the same facility. Available Las Vegas, New York, Miami, Luxembourg.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $5.00/TB/mo flat, plus the base slice. At 5 TB: $25/mo slab + $3.50 slice = $28.50/mo = $5.70/TB all-in. At 20 TB: 2x 10 TB slabs = $100/mo + $3.50 = $103.50/mo = $5.18/TB. The all-in figure is what matters and it is worse than the headline because the slice is mandatory overhead.
+- evidence:
+  - [1] 2026-10-21: 'Block Storage Slabs are sold in chunks of 256GB for $1.25/month. A 1TB Block Storage Slab is $5.00/month, with a 10TB Block Storage Slab being just $50.00/month', max 10 TB/slab, max 8 slabs, four locations
+  - [2] 2026-10-21: cheapest slice $24.00/yr (512 MB), $3.50/mo (1 GB), all 'Unmetered Bandwidth'
+  - [3] 2026-10-21: BuyVM's quoted bandwidth rule: '100Mbit/s of 24/7 usage per every 4GB of memory'
+  - [4] 2026-10-21: 'FUP is 25 Mbps per 1GB of RAM for the 95th percentile'
+  - [5] 2026-10-21: 'Registration and ordering must come from a user's residential ISP ... P.O. boxes and mail-forwarding addresses are refused'
+  - [1] 2026-11-03: a 10TB slab is $50.00/month and a 1TB slab $5.00/month, so $5.00 per TB-month for the slab alone | capture: sha256:8964031c70ef7c54abf4e6c6de6eae2374e2fabd416f99d085d8bda4a6d981da | quote: A 1TB Block Storage Slab is $5.00/month, with a 10TB Block Storage Slab being just $50.00/month.
+  - [2] 2026-11-03: the 8 GB High Volume plan is listed Unlim. 1000 Mbps at $30.00/month | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: | 2 Cores @ 3.50+ GHz | 8 GB Memory | 160 GB SSD | Unlim. 1000 Mbps | $30.00 / month | ORDER NOW |
+  - [2] 2026-11-03: the 4096 MB KVM Slice, which a slab must be attached to, is $15.00/month with Unmetered Bandwidth | capture: sha256:f27f93a2f4e2d8834f47e23442c95373c215ad10d3aa3b20bf230806b37cfcc5 | quote: 4096 MB Memory - 80 GB SSD Storage - Unmetered Bandwidth - 1 IPv4 Address - $15.00 per month
+  - [6] 2026-11-03: registration needs a legitimate name and surname and a residential address | capture: sha256:3f9c60a76cdf8917b36629dc20e7247fad320d05fcf7971929d473a450390cb7 | quote: 3,1,1 - Clients must provide their legitimate name and surname and residential address when registering an account.
+  - [1] 2026-11-03: a slab cannot be bought alone; it needs a KVM Slice in the same facility | capture: sha256:8964031c70ef7c54abf4e6c6de6eae2374e2fabd416f99d085d8bda4a6d981da | quote: you must have an accompanying [KVM Dedicated Server Slice](https://buyvm.net/kvm-dedicated-server-slices/) in the same facility
+  - [1] 2026-11-03: a slab is at most 10TB | capture: sha256:8964031c70ef7c54abf4e6c6de6eae2374e2fabd416f99d085d8bda4a6d981da | quote: Block Storage Slabs can be a maximum of 10TB in size.
+  - [6] 2026-11-03: registration and ordering must take place from a user's residential ISP | capture: sha256:3f9c60a76cdf8917b36629dc20e7247fad320d05fcf7971929d473a450390cb7 | quote: 3,1,4 - Registration and Order Placement must take place from the client's residential ISP.
+- sources:
+  - [1] https://buyvm.net/block-storage-slabs/
+  - [2] https://buyvm.net/kvm-dedicated-server-slices/
+  - [3] https://lowendtalk.com/discussion/171839/
+  - [4] https://lowendtalk.com/discussion/186157/
+  - [5] https://nokyc.host/provider/buyvm
+  - [6] https://buyvm.net/terms-of-service/

@@ -1,0 +1,66 @@
+# BageVM
+
+> bagevm.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bagevm/ | JSON https://fshy.ajam.dev/api/v1/entity/bagevm.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## BageVM
+
+- `compute/bagevm` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T11:15:27.362Z (live) | stale on 2026-12-08
+- url https://www.bagevm.com/index.php/store/los-angeles-servers
+- price parsed USD 2.99/mo
+- free tier: Los Angeles TINY at USD 2.99 per month (the vendor cart): 1 vCPU, 1 GB RAM, 20 GB SSD, 4 TB transfer @1000Mbps, 1 IPv4 + 1 IPv6, Los Angeles, 0 available (out of stock); the order button is disabled. The ladder runs STARTER 4.99 (1 vCPU / 2 GB / 30 GB / 8 TB) to LARGE 14.99 (3 vCPU / 4 GB / 50 GB / 20 TB) in Los Angeles; the store rows print a monthly term only; no annual or renewal price is printed. | unit: GiB | metered on: wall-clock | read on: 2026-11-07 | source: [1] | note: none
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: metered: 4 TB of transfer on the TINY row @1000Mbps (in and out) and no overage rate printed; the vendor labels it 'transfer' rather than egress | metered: yes | free allowance: 4 TB/month | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 4 TB a month on the Los Angeles TINY row @1000Mbps (in and out); the store page prints no overage rate and lists Los Angeles rows only. [1]
+- limits note: 4 TB a month on the Los Angeles TINY row @1000Mbps (in and out); the store page prints no overage rate and lists Los Angeles rows only.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated on the page read; the site runs a WHMCS cart at /cart.php?gid=<n> and a registration page, with no API documented on the pages read
+- composes with: USD 2.99 for the Los Angeles TINY (1 vCPU, 1 GB RAM, 20 GB SSD, 4 TB transfer @1000Mbps in and out) is the lowest monthly price on the store page; the Hong Kong Standard TINY at USD 3.99 carries 2 TB @1000Mbps
+- reliability: no reliability event recorded
+- notes: The pricing page disclaimer notes table data may be stale; USD 1.99 pricing is documented with that qualification. Verification criteria: cart page totals.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+  - monthly_usd: 2.99
+  - annual_usd: not published: the store row prints a monthly cycle only and the cart refuses the order (out of stock); read at https://www.bagevm.com/index.php/store/los-angeles-servers
+  - renewal_usd: not published: no renewal price is printed on the store row and the cart refuses the order (out of stock); read at https://www.bagevm.com/index.php/store/los-angeles-servers
+  - term: monthly; the store rows print a monthly cycle only
+  - in_stock: no: the row's badge reads '0 Available', the order button carries the disabled class, and the cart answers 'Out of Stock' with orders suspended
+  - cart_url: https://www.bagevm.com/index.php/store/los-angeles-servers/tiny
+  - cart_note: the cart answers WHMCS's out-of-stock page and prices nothing: 'We are currently out of stock on this item so orders for it have been suspended until more stock is available. For further information, please contact us.'
+- evidence:
+  - [2] 2026-10-22: row quoted under 'Los Angeles': 'TINY 1 vCPU/ 1GB RAM/ 10GB SSD/ 1TB Transfer 1.99 Order Now'; and under 'Hong Kong': 'TINY 1 vCPU/ 1GB RAM/ 10GB SSD/ 1TB Transfer 2.99'
+  - [3] 2026-10-22: homepage 'Simple pricing': 'Started 2.99 1 vCPU/ 1GB RAM/ 10GB SSD/ 4TB Transfer', 'Base 4.99 2 vCPU/ 2GB RAM/ 20GB SSD/ 8TB Transfer', 'Professional 8.99 2 vCPU/ 4GB RAM/ 30GB SSD/ 12TB Transfer' - no location attached and a 4 TB transfer
+  - [2] 2026-10-22: page disclaimer quoted: 'The products and prices in the table may not be updated in time due to adjustment, for reference only.'
+  - [4] 2026-10-22: tracker's cheapest row: 'BageVM - 2.98 / month', 'quarterly Service', 'cpu 1 Ryzen Cores (shared)', 'ram 1,024 MB RAM', 'disk 20 GB NVMe', 'bandwidth 4,096 GB/month bandwidth', 'rj45 0.98 Gbps port speed', city U.S.A.
+  - [1] 2026-11-07: the vendor's own cart prices the LA TINY row | capture: sha256:62786af7961918faaadc678c3bcdbdc078f45789e1d1bf066d6bd9a3486b1d57 | quote: Los Angeles - TINY 0 Available $2.99 USD Monthly 1 vCPU 1GB RAM 20GB SSD 4TB Transfer @1000Mbps (In & Out) 1IPv4 & 1IPv6 Los Angeles,United States No refunds
+  - [1] 2026-11-07: the vendor's live store prices the Los Angeles TINY row at 4 TB of transfer, 1000 Mbps in and out | capture: sha256:a5ed0fafaafebbe0b13c5eb7962643c7f426df8243a4292cf9ce013922a00893 | quote: 4TB Transfer @1000Mbps (In & Out)
+  - [5] 2026-11-07: the vendor's live Hong Kong Standard TINY carries 2 TB of transfer at 1000 Mbps in and out at USD 3.99 monthly | capture: sha256:826c549f50db0215cd748e0b7bd790ed0f071509857759a22ec19fd037fa5fb5 | quote: 2TB Transfer @1000Mbps (In & Out)
+  - [1] 2026-11-07: the live store's Los Angeles TINY row confirms the record's free tier, egress and limits figures | capture: sha256:a5ed0fafaafebbe0b13c5eb7962643c7f426df8243a4292cf9ce013922a00893 | quote: 4TB Transfer @1000Mbps (In & Out)
+  - [1] 2026-11-07: the live store prices Los Angeles TINY at USD 2.99 monthly | capture: sha256:8a8e2d132db9117f5c05ecd5db91c3fba7f4ccb0f0f1712177232a5fcb0f1bfd | quote: $2.99 USD
+  - [6] 2026-11-07: the Los Angeles TINY cart prices nothing and suspends orders | capture: sha256:46299a1d89cb2d2ee380f5da1eb64c2242b752853310b8ad76a15e596e6ddb2d | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available. For further information, please contact us.
+  - [6] 2026-11-07: the cart prints no price beside the suspension notice | capture: sha256:46299a1d89cb2d2ee380f5da1eb64c2242b752853310b8ad76a15e596e6ddb2d | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available. For further information, please contact us.
+  - [1] 2026-11-07: the cycle line under the Los Angeles TINY price reads Monthly | capture: sha256:8a8e2d132db9117f5c05ecd5db91c3fba7f4ccb0f0f1712177232a5fcb0f1bfd | quote: Monthly
+  - [1] 2026-11-07: the live store's Los Angeles TINY row prints 0 Available | capture: sha256:8a8e2d132db9117f5c05ecd5db91c3fba7f4ccb0f0f1712177232a5fcb0f1bfd | quote: Los Angeles - TINY 0 Available
+  - [1] 2026-11-07: the Los Angeles TINY row's disabled Order Now button links the cart at /index.php/store/los-angeles-servers/tiny | capture: sha256:9af5231071fdddb4db849fe7065ccf0cc04613c73acc34a35c8b8f008e62ae80 | quote: class="btn btn-info btn-order-now disabled" id="product1-order-button"
+  - [6] 2026-11-07: the Los Angeles TINY cart suspends orders and prices nothing | capture: sha256:46299a1d89cb2d2ee380f5da1eb64c2242b752853310b8ad76a15e596e6ddb2d | quote: We are currently out of stock on this item so orders for it have been suspended until more stock is available. For further information, please contact us.
+  - probe:https://www.bagevm.com/index.php/store/los-angeles-servers/tiny 2026-11-07: the warmed-session cart read agrees: the cart carries the out-of-stock phrase and no price | capture: sha256:64b8908e4d8146573cc7e53d56f2226b05a9caf521e247703da696c2b57c6494 | quote: "out of stock"
+  - [1] 2026-11-07: the live store page on www.bagevm.com prices the record's plan | capture: sha256:8a8e2d132db9117f5c05ecd5db91c3fba7f4ccb0f0f1712177232a5fcb0f1bfd | quote: Los Angeles - TINY 0 Available
+  - probe:https://bagevm.net/pricing.php 2026-11-07: bagevm.net does not resolve from this machine (DNS getaddrinfo failed) | capture: sha256:ddc7d6e19c21c0f524d2fd756bf7cc249b81d8b2e50488cc993f1ae179902ea6 | quote: "error": "dns"
+  - [1] 2026-11-07: the live store still prices Los Angeles TINY at USD 2.99 monthly, 0 available, 1 vCPU, 1 GB RAM, 20 GB SSD, 4TB Transfer @1000Mbps (In & Out) | capture: sha256:8a8e2d132db9117f5c05ecd5db91c3fba7f4ccb0f0f1712177232a5fcb0f1bfd | quote: Los Angeles - TINY 0 Available
+- sources:
+  - [1] https://www.bagevm.com/index.php/store/los-angeles-servers
+  - [2] https://bagevm.net/pricing.php
+  - [3] https://bagevm.net/
+  - [4] https://vpspricetracker.com/provider/BageVM/vps
+  - [5] https://www.bagevm.com/index.php/store/hong-kong-servers
+  - [6] https://www.bagevm.com/index.php/store/los-angeles-servers/tiny

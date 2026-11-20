@@ -1,0 +1,261 @@
+# Kamatera
+
+> kamatera.com | Compute, Egress and tunnels; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/kamatera/ | JSON https://fshy.ajam.dev/api/v1/entity/kamatera.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Kamatera, Basic (recommended configuration)
+
+- `compute/kamatera-basic` | qualifies | evidence documented | binding volume-quota | category VPS | tier Basic (recommended configuration)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T04:09:20.000Z (live) | stale on 2026-11-24
+- url https://www.kamatera.com/pricing/
+- price parsed USD 4/mo
+- disagrees on verdict: `compute/kamatera` says trial-only, `compute/kamatera-basic` says qualifies
+- disagrees on verdict: `compute/kamatera-basic` says qualifies, `compute/kamatera-windows` says paid-only
+- free tier: no free tier on the pricing page; 'Our servers start at $4 a month, with no long-term contracts' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the server is paid; 'no long-term contracts'
+- egress: '5 TB Internet Traffic' on the Basic configuration | metered: yes | free allowance: 5 TB | source: [1]
+- identity: card | detail: card required at order and even to start the free trial; no hold amount published; debit, prepaid, virtual and electronic cards accepted in writing - 'We accept all major credit and debit cards, provided they include the cardholder’s name. This includes virtual, prepaid, and electronic cards.' PayPal only after a card activation; an ID document is not named on any page that answered, and the vendor's ID-verification answer pages return 410
+- interface: ssh, rest
+- limits:
+  - volume-quota (binding): 5 TB a month of internet traffic [1]
+- binding note: 5 TB is generous next to 1 GiB of RAM, so on this shape the memory fails first; the published quota is the only number the vendor enforces.
+- interface detail: root SSH and the Kamatera API; servers deploy from a web console
+- tooling: any SSH client; Kamatera API and CLI
+- composes with: a 1 GiB no-contract box for a single daemon, priced per configuration rather than per plan
+- reliability: no reliability event recorded
+- notes: USD 4.00 for 1 GiB is poor value against every other row, but it is the only row here that prices a shape per configuration with no contract, so the money buys flexibility rather than capacity. Nothing on the page shows a 4 GiB configuration at or below USD 5. The payment FAQ was read and accepts debit, prepaid and virtual cards by name; no hold amount is published. No hold amount is published.
+- evidence note: the configuration, its price and its traffic allowance are quoted from the pricing page read. | Payment facts re-read on 2026-10-24: the card types, the hold and the identity gate each come from a first-party page quoted in evidence.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: monthly
+  - term: monthly, no contract
+  - m10h_usd: 4.0
+  - m24h_usd: 4.0
+  - price_arithmetic: USD 4.00/month flat for the recommended Basic configuration
+  - out_of_pocket_usd: 4.0
+  - renewal_usd: 4.0
+  - renewal_note: no contract and no promo shown; the rate is the list rate
+  - promo: no
+  - ipv4_included: yes
+  - ipv6: yes
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VM
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: accepted
+  - payment_methods.virtual: accepted
+  - payment_methods.hold_detail: no hold amount published
+  - payment_methods.identity: email plus card
+  - payment_methods.source_url: https://www.kamatera.com/faq/answer/which-payment-methods-do-you-accept/
+  - payment_methods.read_on: 2026-10-24
+- evidence:
+  - [1] 2026-10-24: quoted: 'Basic $4 /mo - 1 vCPU (2667 MHz) - 1 GB RAM (Memory) - 20 GB NVMe SSD Storage - 5 TB Internet Traffic'
+  - [1] 2026-10-24: quoted: 'Our servers start at $4 a month, with no long-term contracts and no hidden fees.'
+  - [2] 2026-10-24: quoted: 'We accept all major credit and debit cards, provided they include the cardholder’s name. This includes virtual, prepaid, and electronic cards.'
+  - [3] 2026-10-24: quoted, the trial this paid plan follows: 'if you do not cancel before the trial ends, we will begin charging for services used.' - so the USD 4.00 rate is what the Basic configuration costs once the trial ends, not a separate product
+- sources:
+  - [1] https://www.kamatera.com/pricing/
+  - [2] https://www.kamatera.com/faq/answer/which-payment-methods-do-you-accept/
+  - [3] https://www.kamatera.com/faq/answer/what-are-the-terms-of-the-free-trial/
+
+## Kamatera (compute/kamatera)
+
+- `compute/kamatera` | trial-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T10:36:21.698Z (live) | stale on 2026-12-05
+- url https://www.kamatera.com/pricing/
+- price parsed USD 19.73/mo
+- disagrees on verdict: `compute/kamatera` says trial-only, `compute/kamatera-basic` says qualifies
+- disagrees on verdict: `compute/kamatera` says trial-only, `compute/kamatera-windows` says paid-only
+- free tier: 'Sign up for a free 30-day trial to receive cloud services worth up to $100', covering '1 cloud server valued up to $100 with the configuration of your choice', '1 TB of cloud block storage' and '1 TB of traffic (incoming/outgoing)', with 'Full access to all features on our cloud platform'. The trial does not expire into nothing: 'If you wish to cancel the free trial, you can simply terminate your server without incurring any charges. However, if you do not cancel before the trial ends, we will begin charging for services used.' | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: time-boxed at 30 days, then it converts to paid automatically unless the server is terminated
+- per-object cap: not stated | source: [2]
+- retention: The trial is 30 days from the first server, not from signup: 'Your 30-day Free Trial does not begin the moment you sign up; it only starts once you create your first server ... your trial period will remain "on hold" until you are ready to launch your first project.' It then auto-converts: 'if you do not cancel before the trial ends, we will begin charging for services used.' Billing is post-hoc, so the first invoice arrives after the trial: 'if you start the free trial on March 15th, it will expire on April 15th and your first invoice will be emailed to you in May. The invoice in May will include a prorated charge for April 15th through the end of the month in addition to the entire month of May.' | days: 30 | source: [3] | note: the server and its disk persist through the trial and into paid billing unless terminated; a cancelled trial leaves no charge
+- egress: '1 TB of traffic (incoming/outgoing)' during the trial; the counter is shared in and out, so the 1 TB is the sum. Beyond the included allowance, 'Additional traffic is only $0.01 per GB' on the pricing page. | metered: yes | free allowance: 1 TB | price per TB: USD 10 per TB | source: [4]
+- identity: card | detail: Card required even to start the trial, and no hold amount is published anywhere read: 'In order to activate your your free trial, you must enter a credit credit. The card will not be charged for any usage that is within the limitations of our free trial.' Debit and PREPAID are accepted in writing: 'We accept all major credit and debit cards, provided they include the cardholder's name. This includes virtual, prepaid, and electronic cards.' PayPal is refused for a new account: 'New Accounts: For security reasons, the initial activation must be completed using a credit or debit card.' Where a card is declined the vendor offers a prepayment instead: 'If, for some reason, your card is not accepted, you will be given the option to make a pre-payment in the form of a deposit which can be made via PayPal.' A deposit can also be demanded ad hoc: 'We occasionally request a fully refundable security deposit when our system detects unusual billing activity (such as multiple card attempts).' An identity document is not part of signup; a manual verification asking for a 2-second video holding an ID is indexed by the vendor's own search but both of its answer pages returned 410, so it is not asserted here.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 'you may create one server with a configuration costing up to $100' - one server, not a pool [4]
+  - volume-quota (binding): '1 TB of free traffic (including both inbound and outbound traffic)' [4]
+  - retention-clamped: 30 days, then automatic conversion to paid billing unless the server is terminated before the trial ends [4]
+- limits note: one server, USD 100 of configuration and 1 TB of shared in/out traffic for 30 days, after which billing starts by itself
+- binding note: one server at up to USD 100 is the real ceiling: the money is generous but it cannot be spread over two machines, and the 30-day conversion means the decision to keep it is made by doing nothing
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event observed.
+- notes: TRIAL VERIFIED 2026-10-24. The shape is one server of any configuration up to USD 100, plus 1 TB of block storage and 1 TB of traffic in and out, for 30 days. Its real end is the part worth stating plainly: the trial CONVERTS TO PAID BY DEFAULT. 'if you do not cancel before the trial ends, we will begin charging for services used', and because billing is post-hoc the first invoice lands in the month after the trial with a prorated charge for the trial's tail. Cancelling means terminating the server; that is free. Card: required, no published hold, and the ad-hoc USD 10 deposit a vendor FAQ describes is a refundable security deposit triggered by its own risk scoring, not a standing hold. Debit, prepaid, virtual and electronic cards are accepted in writing, which makes this the one unambiguous 'prepaid works' statement in earlier readings - verified verbatim on the vendor's own FAQ answer page today, not taken from a snippet. PayPal is refused for a new account but accepted for a deposit when a card is declined, which is the route that makes the trial reachable without a card that passes authorisation. One detail worth having: the 30 days do not start at signup. 'Your 30-day Free Trial does not begin the moment you sign up; it only starts once you create your first server', so an account can be opened, a card bound and the trial left 'on hold' indefinitely until a machine is wanted. The clock that converts to paid starts on first deploy, not on registration. The ID-video verification step is still unverified: both answer pages return 410 Gone today, so it stays out of the detail.
+- evidence note: the trial's shape, its 30-day term, the automatic conversion to paid and the card rules are each quoted from a first-party Kamatera page read. The hold is a dash because no amount is published; the ad-hoc deposit is quoted but its trigger is the vendor's own risk scoring, so it is recorded as a possibility rather than a term.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: flat-pool
+  - shape.vcpu: 1
+  - shape.ram: 1
+  - shape.disk: 20
+  - shape.note: the entry shape; threads are dedicated rather than shared
+  - session_cap.restart_required: no
+  - session_cap.note: a monthly or hourly server; no session clock
+  - price_note: a VPS bills by the month with an hourly rate capped at the monthly figure, so the two columns answer two questions: destroying the box between runs versus keeping it up.
+  - free_tier_kind: trial
+  - m10h_usd: 8.22
+  - m24h_usd: 19.73
+  - price_basis: 10 h/day column = 300 h at the hourly rate, which is what a server destroyed between runs costs; 24/7 column = the monthly cap, because a VPS kept up all month stops at the cap. Rates re-read on the vendor pricing page on 2026-10-23.
+  - burst_x: 1.0333
+  - ps.gib: 20
+  - ps.price: included in the server price; extra storage is $0.05 a GB a month
+  - ps.durability: NVMe SSD SAN
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the server exists
+  - net.out: yes
+  - net.in: yes
+  - net.ports: any
+  - net.static_ip: yes
+  - payment_methods.card_at_signup: yes
+  - payment_methods.debit: accepted
+  - payment_methods.prepaid: accepted
+  - payment_methods.virtual: accepted
+  - payment_methods.hold_detail: no hold amount published; the card is not charged within the trial limits, and a fully refundable deposit is requested only when the vendor's risk scoring fires
+  - payment_methods.identity: email plus card; the ID-video verification answer pages return 410 today, so no document step is asserted
+  - payment_methods.source_url: https://www.kamatera.com/faq/answer/which-payment-methods-do-you-accept/
+  - payment_methods.read_on: 2026-10-24
+  - trial_end.converts_to_paid: yes
+  - trial_end.cancel_action: terminate the server
+  - trial_end.first_invoice: the month after the trial expires, including a prorated charge for the trial tail
+  - trial_end.source_url: https://www.kamatera.com/faq/answer/how-does-billing-work/
+- evidence:
+  - [1] 2026-10-23: quoted: 'Sign up for a free 30-day trial to receive cloud services worth up to $100' and '1 cloud server valued up to $100'
+  - [2] 2026-10-23: quoted presets: Basic $4/mo 1 vCPU/1 GB, Standard $25/mo 2 vCPU/2 GB, Pro $39/mo 2 vCPU/4 GB; the only hourly figure rendered is the calculator default at $0.014/hr
+  - [5] 2026-10-23: 404 on 2026-10-23 with no archive capture
+  - [6] 2026-10-24: quoted: 'We accept all major credit and debit cards, provided they include the cardholder’s name. This includes virtual, prepaid, and electronic cards.'
+  - [7] 2026-10-24: quoted: 'In order to activate your your free trial, you must enter a credit credit. The card will not be charged for any usage that is within the limitations of our free trial.' (the vendor's own duplicated words)
+  - [8] 2026-10-24: quoted: 'New Accounts: For security reasons, the initial activation must be completed using a credit or debit card.' PayPal is enabled only after a card activation
+  - [1] 2026-10-24: quoted: 'Sign up for a free 30-day trial to receive cloud services worth up to $100', '1 cloud server valued up to $100 with the configuration of your choice', '1 TB of cloud block storage', '1 TB of traffic (incoming/outgoing)'
+  - [4] 2026-10-24: quoted, the conversion: 'If you wish to cancel the free trial, you can simply terminate your server without incurring any charges. However, if you do not cancel before the trial ends, we will begin charging for services used.'
+  - [4] 2026-10-24: quoted: 'During the 30-day trial period, you may create one server with a configuration costing up to $100.' and 'You will have 1 TB of free traffic (including both inbound and outbound traffic).'
+  - [6] 2026-10-24: quoted verbatim, the prepaid sentence: 'We accept all major credit and debit cards, provided they include the cardholder’s name. This includes virtual, prepaid, and electronic cards.'
+  - [7] 2026-10-24: quoted: 'In order to activate your your free trial, you must enter a credit credit. The card will not be charged for any usage that is within the limitations of our free trial.' (the vendor's own duplicated words) plus the deposit fallback 'you will be given the option to make a pre-payment in the form of a deposit which can be made via PayPal'
+  - [8] 2026-10-24: quoted: 'New Accounts: For security reasons, the initial activation must be completed using a credit or debit card.'
+  - [3] 2026-10-24: quoted, when the clock starts: 'Your 30-day Free Trial does not begin the moment you sign up; it only starts once you create your first server ... your trial period will remain "on hold" until you are ready to launch your first project.'
+  - [9] 2026-10-24: quoted, the post-trial invoice: 'if you start the free trial on March 15th, it will expire on April 15th and your first invoice will be emailed to you in May. The invoice in May will include a prorated charge for April 15th through the end of the month in addition to the entire month of May.'
+  - [10] 2026-10-24: quoted: 'We occasionally request a fully refundable security deposit when our system detects unusual billing activity (such as multiple card attempts).' and 'the amount can be refunded at any time or applied to future invoices'
+  - [11] 2026-10-24: 410 Gone today: the page the vendor's own search index lists for ID documents does not resolve, so no document requirement is asserted
+  - [12] 2026-10-24: 410 Gone today: the manual-verification answer does not resolve either, so the ID-video step is not asserted
+  - [2] 2026-11-04: extra traffic beyond the included allowance costs USD 0.01 per GB | capture: sha256:cafb968e76a0a00f012df9bfe6f95bcc6fb7abc294f9a054c3ed87374bfbb013 | quote: Additional traffic is only $0.01 per GB
+- sources:
+  - [1] https://www.kamatera.com/free-trial/
+  - [2] https://www.kamatera.com/pricing/
+  - [3] https://www.kamatera.com/faq/answer/what-if-i-signed-up-but-im-not-ready-to-start-my-free-trial-yet/
+  - [4] https://www.kamatera.com/faq/answer/what-are-the-terms-of-the-free-trial/
+  - [5] https://www.kamatera.com/Products/44/Cloud-Server-Trial
+  - [6] https://www.kamatera.com/faq/answer/which-payment-methods-do-you-accept/
+  - [7] https://www.kamatera.com/faq/answer/can-i-sign-up-for-the-free-trial-without-a-credit-card/
+  - [8] https://www.kamatera.com/faq/answer/do-you-accept-paypal/
+  - [9] https://www.kamatera.com/faq/answer/how-does-billing-work/
+  - [10] https://www.kamatera.com/faq/answer/why-am-i-being-asked-to-make-a-deposit-during-my-30-day-free-trial-period/
+  - [11] https://www.kamatera.com/faq/answer/what-documents-are-required-for-verification/
+  - [12] https://www.kamatera.com/faq/answer/what-is-the-manual-verification-process/
+
+## Kamatera (windows)
+
+- `compute/kamatera-windows` | paid-only | evidence documented | binding volume-quota | category Windows VPS | tier 4 vCPU Type A / 16 GiB / 50 GiB NVMe + Windows Server 2022 Standard
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://www.kamatera.com/pricing/
+- price parsed USD 83/mo
+- disagrees on verdict: `compute/kamatera` says trial-only, `compute/kamatera-windows` says paid-only
+- disagrees on verdict: `compute/kamatera-basic` says qualifies, `compute/kamatera-windows` says paid-only
+- free tier: no free tier; the 4 vCPU Type A shape with 16 GiB, 50 GiB and Windows Server is USD 83.00/month by the vendor's own price formula | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the server is paid; billing is monthly or hourly with no commitment
+- egress: 5 TB included, then USD 0.01/GB | metered: yes | free allowance: 5 TB per month | price per TB: USD 10.00 per TB beyond the allowance | source: [1]
+- identity: card | detail: an account and a payment method at order; the calculator and licensing pages were read, the checkout was not
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 TB included, then USD 0.01/GB [1]
+  - per-ip-shaping: the page does not state a port speed [1]
+- limits note: the Windows Server licence is priced per server at USD 19.00/month for the Standard edition and USD 10.00/month for the entry edition
+- binding note: 5 TB included and USD 0.01/GB after is the only byte term; the port speed is not stated.
+- interface detail: RDP over a public IPv4; Kamatera has an API and CLI
+- tooling: any RDP client; Kamatera API, CLI and control panel
+- composes with: 4 vCPU and 16 GiB for about USD 83 a month, priced by configuration rather than by a fixed plan, which makes it the most flexible row in the class
+- reliability: no reliability event recorded
+- notes: The total is derived: USD 12.00 CPU + USD 42.00 RAM + USD 10.00 disk + USD 0.00 traffic + USD 19.00 Windows = USD 83.00. A Type B 4-core machine is USD 35.00 and a Type D dedicated 4-core is USD 205.00, so the Type A row is the cheap general-purpose one and its CPU is shared.
+- evidence note: every component price is printed on the pricing page, and the vendor's own formula reproduces its three printed presets to the cent. The USD 83.00 total is arithmetic, not a printed plan price, and the checkout was not read.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 50
+  - billing_model: monthly or hourly, no commitment
+  - term: none
+  - monthly_usd: 83.0
+  - first_month_usd: 83.0
+  - setup_fee_usd: 0.0
+  - renewal_usd: 83.0
+  - components_usd.cpu_type_a_4: 12.0
+  - components_usd.ram_16_gib: 42.0
+  - components_usd.nvme_50_gib: 10.0
+  - components_usd.traffic_5_tb: 0.0
+  - components_usd.windows_standard: 19.0
+  - windows_licence: add-on, USD 19.00/month for Windows Server 2022 Standard
+  - ipv4_included: yes
+  - ipv4_cost_usd: 0.0
+  - traffic: 5 TB included, USD 0.01/GB after
+  - stock: deploy in 60 seconds; no stock language
+  - cart_url: https://www.kamatera.com/pricing/
+- evidence:
+  - [1] 2026-10-26: the price table lists 4 vCPU Type A at USD 12.00, 16 GiB at USD 42.00, 50 GiB NVMe at USD 10.00 and 5 TB of traffic at USD 0.00
+  - [2] 2026-10-26: quoted: 'Microsoft Windows Server - Any Version, Any Edition | Per Server | $10 / $19'
+  - [1] 2026-10-26: the page's calculation formula reproduces the three printed presets USD 4.00 (1 vCPU/1 GiB/20 GiB), USD 25.00 (2 vCPU/2 GiB/20 GiB) and USD 39.00 (2 vCPU/4 GiB/20 GiB)
+- sources:
+  - [1] https://www.kamatera.com/pricing/
+  - [2] https://www.kamatera.com/solutions/software-licensing/
+
+## Kamatera (Basic)
+
+- `egress/kamatera-basic-vps` | paid-only | evidence documented | binding volume-quota | category origin VM (paid VPS) | tier Basic
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:36:43.376Z (live) | stale on 2026-12-04
+- url https://www.kamatera.com/pricing/
+- price USD 4 a month with 5 TB included; USD 0.01 per GB beyond | parsed USD 0.8/TB-mo
+- free tier: no free plan: the Basic server is '$4 /mo' with '5 TB Internet Traffic'; a separate card-gated 30-day trial gives 1 TB of free traffic | unit: TB | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 5 TB of Internet traffic included on Basic, additional traffic $0.01 per GB; IPv6 costs $1 per address a month, up to 4 per server, and must be requested from support; inbound UDP policy is not stated on the pages read | metered: yes | free allowance: 5 TB a month on the $4 Basic server | source: [1]
+- identity: card | detail: a valid credit card is needed to start the free trial; a third-party index reports that a short video holding a photo ID plus a photo of the card may be asked for when an account is flagged by fraud checks | country: None
+- interface: ssh
+- limits:
+  - volume-quota (binding): 5 TB of Internet traffic included on Basic; additional traffic $0.01 per GB [1]
+- binding note: nothing in the seven kinds fails at 1 TiB a month on the paid server, because 5 TB is included and the overage is a stated per-GB price; on the 30-day trial the 1 TB of free traffic would be passed first
+- interface detail: SSH to the server's public address
+- tooling: wg-quick or any VPN daemon inside the guest
+- composes with: a USD 4 a month origin with 5 TB of included traffic; a card is needed before any server starts
+- reliability: unverified: no suspension, throttle or data-loss behaviour is stated on the pages read
+- notes: The pricing page quotes the Basic server at 1 vCPU, 1 GB RAM and 20 GB NVMe; the existing compute records for Kamatera cover the same server from the compute side.
+- evidence note: price, included traffic, overage rate, IPv6 price and the card requirement are quoted from vendor pages read on 2026-11-03; the ID-video rule is third-party; no server was ordered
+- extras:
+  - wg_path: native-conf
+  - wg_detail: a full Linux guest with a public address; wg-quick binds UDP natively unless a firewall is added; inbound UDP was not probed
+  - ingress: unverified: no inbound port policy is stated on the pages read
+  - volume_stated: 5 TB of Internet traffic included on Basic
+  - bytes_transit: yes
+  - transit_note: bytes leave through the server's own public address on Kamatera's network
+- evidence:
+  - [1] 2026-11-03: the Basic server is USD 4 a month | capture: sha256:cafb968e76a0a00f012df9bfe6f95bcc6fb7abc294f9a054c3ed87374bfbb013 | quote: $4 /mo
+  - [1] 2026-11-03: the Basic server includes 5 TB of Internet traffic | capture: sha256:cafb968e76a0a00f012df9bfe6f95bcc6fb7abc294f9a054c3ed87374bfbb013 | quote: 5 TB Internet Traffic
+  - [1] 2026-11-03: traffic beyond the included amount is USD 0.01 per GB | capture: sha256:cafb968e76a0a00f012df9bfe6f95bcc6fb7abc294f9a054c3ed87374bfbb013 | quote: Additional traffic is only $0.01 per GB
+  - [2] 2026-11-03: IPv6 is available at USD 1 per address a month, up to 4 per server | capture: sha256:821ac0c2a7b94aec98123c1a0b0550f7646c31167e472193bebc2bfaaa421816 | quote: Yes, we support IPv6! Each address costs $1 per month. You can have up to 4 addresses per server.
+  - [3] 2026-11-03: the free trial requires a valid credit card | capture: sha256:4b1c61b39c64acf5a1c217a69328778b6c9c5082ae1037a6f05546aca39ab62e | quote: Customers must provide a valid credit card to start the trial, but the card will not be charged if you stay within the usage limits stated above.
+  - [3] 2026-11-03: the 30-day trial carries 1 TB of traffic, inbound and outbound together | capture: sha256:4b1c61b39c64acf5a1c217a69328778b6c9c5082ae1037a6f05546aca39ab62e | quote: You will have 1 TB of free traffic (including both inbound and outbound traffic).
+  - [4] 2026-11-03: a third-party index reports an ID video check when an account is flagged | capture: sha256:1024a3ef3bd24d3c69aee00d45d8e0d0c236b1b57c4516927e13213809b8137c | quote: | ID checks | Sometimes | May ask for a short video holding photo ID plus a photo of the card, typically when an account is flagged or locked by fraud checks [Source ↗](https://www.kamatera.com/faq/answer/what-documents-are-required-for-verification/) |
+- sources:
+  - [1] https://www.kamatera.com/pricing/
+  - [2] https://www.kamatera.com/faq/answer/does-your-infrastructure-support-ipv6/
+  - [3] https://www.kamatera.com/faq/answer/what-are-the-terms-of-the-free-trial/
+  - [4] https://serverworth.com/providers/kamatera/

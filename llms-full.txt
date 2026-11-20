@@ -1,0 +1,221 @@
+# fshy: every record in full
+
+> A catalogue of free, nearly free and cheapest-paid cloud capacity: storage, compute and GPU time, model inference, egress and tunnels, proxies, crawling, debrid, netdisks, databases, email, DNS and domains, CI runners, developer services, data APIs and coding subscriptions. 5,237 records from 3,690 providers. Each record states its quota, the limit that runs out first, the identity a signup costs (email, phone, card, ID), its evidence and how fresh that evidence is.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+All 5,237 records are 24,434 KB, about 6,604K tokens in Markdown, more than any context window holds, so the text is split: one file per topic when the topic fits in 300 KB, about 81K tokens, else one per verdict group with the topic's self-hosted records in one last group, and a group over that size into balanced parts. Every record is in exactly one part. The parts below come topic by topic, each topic in the one order (hosted before self-hosted, then verdict, provider name, record id), and every self-hosted part comes after all of them, in the last group, 'Self-hosted, the last resort'; a topic in one file holds its self-hosted records at its end. To answer a question, read the topic's one-line index, https://fshy.ajam.dev/t/<topic>.md, then the provider pages it links, https://fshy.ajam.dev/p/<id>.md; or query the store.
+
+## How to read a record
+
+Each record opens with its id (topic/slug), verdict, evidence, binding limit and category. Then it says what a signup needs, when the record was verified and when that check goes stale. Then it gives its URL and its provider page. Each line of the lists below is one term and its meaning.
+
+- verdict, best first:
+  - `qualifies`: usable as stated; the read path was probed
+  - `qualifies-with-caveat`: usable, with a named limit or an unprobed read path
+  - `trial-only`: a time-boxed or one-time trial, not a recurring allowance
+  - `paid-only`: no free allowance; listed for its price
+  - `fails-identity`: the identity required is not reachable without it
+  - `fails-egress`: data cannot be read back out at a usable rate or price
+  - `fails-quota`: the free allowance is too small to matter
+  - `dead`: the offer or the service no longer exists
+- group, the verdicts that a topic page lists together:
+  - `usable`: verdict qualifies or qualifies-with-caveat
+  - `trial`: verdict trial-only
+  - `paid`: verdict paid-only
+  - `rejected`: verdict fails-identity, fails-egress or fails-quota
+  - `dead`: verdict dead
+- evidence, how a claim is backed, strongest first:
+  - `measured`: a live request was made and its output kept
+  - `documented`: a first-party page was read and the sentence quoted
+  - `reported`: a third party said so
+  - `inferred`: reasoned from other evidence
+  - `unverified`: asserted and not checked
+- binding, the limit that runs out first:
+  - `request-rate`: requests per unit of time
+  - `pull-count`: number of downloads or pulls
+  - `per-ip-shaping`: bandwidth shaped per address or port
+  - `per-object-cap`: largest single object
+  - `write-gated`: writes need approval, payment or a gate
+  - `retention-clamped`: data is deleted after a period
+  - `volume-quota`: total stored or transferred volume
+  - `none`: no named constraint binds
+- identity, what a signup costs:
+  - `anonymous`: nothing is asked for
+  - `email`: an email address
+  - `any-phone`: a phone number from any country
+  - `country-phone`: a phone number from a named country
+  - `national-id`: a government identity document
+  - `card`: a payment card
+  - `institution`: membership of a university, lab or company
+- `needs card, phone, ID, institution`: yes, no or unknown. Unknown never means no. In an index, `?` after the identity marks a placeholder that no source states, and `card?` or `phone?` an unknown requirement.
+- `free tier` or `no free tier` in an index: the record states a free allowance, or states that it has none. Neither word: the record does not say.
+- verified: when the record was last verified, with `checked` after it when the check date of the staleness policy differs; then the basis:
+  - `live`: the record was checked against the service
+  - `inherited`: carried from an earlier source; checked_on is an upper bound
+- stale on: the date that the evidence window of the check ends. Compare it with today. An index line says `stale since` in place of `stale on` when that date is on or before the date of the data.
+- price: the price as written, then `parsed` USD figures where a number parsed. No parsed figure means none parsed, not free.
+- `[n]`: a numbered source; the sources list of the record gives each URL once. An evidence line reads: source, date, what it proved.
+- `self-hosted, last resort`: in place of the verdict, software or a node that the user installs, runs and maintains; the verdict follows it as `verdict <word>`. Every list puts it after every hosted record. Self-hosted options are listed last, because this site is for users who have no hardware.
+- not stated, not recorded, not applicable: the value was not published, or does not apply. A field that a record does not show was not published: that is unknown, not absent.
+- the same as: the value equals an earlier line of the record, word for word.
+- part of: the value is a part of an earlier line of the record. That line holds it in full.
+
+## Parts
+
+- [Storage: Usable part 1 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-1.txt): 56 records, AlphaVPS Storage VPS (qualifies) to Printables (Prusa Research) (qualifies); 273 KB, about 74K tokens
+- [Storage: Usable part 2 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-2.txt): 54 records, PulsedMedia M10G Storage Box (16 TB) (qualifies) to Chan Zuckerberg Initiative - Essential Open Source Software for Science (EOSS) (qualifies-with-caveat); 271 KB, about 73K tokens
+- [Storage: Usable part 3 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-3.txt): 63 records, Civitai — model version files (the 'arbitrary 65 GiB blob' hub) (qualifies-with-caveat) to Gofile (qualifies-with-caveat); 269 KB, about 73K tokens
+- [Storage: Usable part 4 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-4.txt): 65 records, Google Chat spaces as a quota-exempt attachment store (Chat API media.upload/media.download) (qualifies-with-caveat) to Modrinth (qualifies-with-caveat); 273 KB, about 74K tokens
+- [Storage: Usable part 5 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-5.txt): 69 records, Mozilla Data Collective (MDC) (qualifies-with-caveat) to Shuttleworth Foundation Fellowship - individual, no organisation, $275k project funding (qualifies-with-caveat); 271 KB, about 73K tokens
+- [Storage: Usable part 6 of 6](https://fshy.ajam.dev/t/storage/llms-full-usable-6.txt): 61 records, Sia Storage App (sia.storage) (qualifies-with-caveat) to 蓝奏云优享版 iLanzou (ilanzou.com) (qualifies-with-caveat); 272 KB, about 74K tokens
+- [Storage: Trial](https://fshy.ajam.dev/t/storage/llms-full-trial.txt): 31 records; 135 KB, about 36K tokens
+- [Storage: Paid only part 1 of 2](https://fshy.ajam.dev/t/storage/llms-full-paid-1.txt): 53 records, acronis cyber protect (bundled cloud storage) (paid-only) to OVHcloud 3-AZ Active Archive class (paid-only); 236 KB, about 64K tokens
+- [Storage: Paid only part 2 of 2](https://fshy.ajam.dev/t/storage/llms-full-paid-2.txt): 50 records, OVHcloud Cold Archive (paid-only) to zoolz (paid-only); 244 KB, about 66K tokens
+- [Storage: Rejected part 1 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-1.txt): 78 records, 123pan vip (20 tb) (fails-identity) to evolution host (fails-egress); 292 KB, about 79K tokens
+- [Storage: Rejected part 2 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-2.txt): 77 records, Filecoin Plus DataCap (faucet + allocators) (fails-egress) to 0x0.st (fails-quota); 293 KB, about 79K tokens
+- [Storage: Rejected part 3 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-3.txt): 79 records, 163.com / 126.com free (netease) (fails-quota) to azure pipelines build artifacts (as a free archive) (fails-quota); 292 KB, about 79K tokens
+- [Storage: Rejected part 4 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-4.txt): 87 records, b2drop (eudat) (fails-quota) to confluent cloud (kafka) (fails-quota); 291 KB, about 79K tokens
+- [Storage: Rejected part 5 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-5.txt): 95 records, conoha (jp) object storage (fails-quota) to farcaster as a file store (fails-quota); 292 KB, about 79K tokens
+- [Storage: Rejected part 6 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-6.txt): 89 records, Farcaster hubs / Snapchain — storage RENT, actively metered (fails-quota) to google cloud free trial ($300 / 90 days) (fails-quota); 291 KB, about 79K tokens
+- [Storage: Rejected part 7 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-7.txt): 104 records, google cloud public datasets (as an intake) (fails-quota) to KrakenFiles (fails-quota); 293 KB, about 79K tokens
+- [Storage: Rejected part 8 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-8.txt): 100 records, krakenfiles.com (fails-quota) to notion (free workspace as file store) (fails-quota); 290 KB, about 78K tokens
+- [Storage: Rejected part 9 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-9.txt): 99 records, Observable (fails-quota) to seaart (seaart.ai) (fails-quota); 292 KB, about 79K tokens
+- [Storage: Rejected part 10 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-10.txt): 95 records, seaart ai (fails-quota) to typesense cloud (fails-quota); 293 KB, about 79K tokens
+- [Storage: Rejected part 11 of 11](https://fshy.ajam.dev/t/storage/llms-full-rejected-11.txt): 102 records, Uguu (fails-quota) to 파일노리 / 싸다파일 / 빅파일 / 온디스크 / 위디스크 / 파일마루 / 파일구리 (korean webhard category) (fails-quota); 292 KB, about 79K tokens
+- [Storage: Dead part 1 of 2](https://fshy.ajam.dev/t/storage/llms-full-dead-1.txt): 66 records, 'email as filesystem' projects (imapfs, imapfs, gmailfs, gitmail) (dead) to instances.social / fediverse.observer / fedidb.org — the three instance-ind (dead); 188 KB, about 51K tokens
+- [Storage: Dead part 2 of 2](https://fshy.ajam.dev/t/storage/llms-full-dead-2.txt): 74 records, ipfs / arweave / filecoin pinning as the hidden upstream (dead) to 闪电盘 sdisk / sdpan (zhenghaof/flash-disk-object-storage) (dead); 185 KB, about 50K tokens
+- [Compute: Usable part 1 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-1.txt): 37 records, Alibaba Cloud (Simple Application Server, international site) (qualifies) to Privex (Privex Inc.) (qualifies); 287 KB, about 78K tokens
+- [Compute: Usable part 2 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-2.txt): 46 records, RackNerd (qualifies) to ASCS Cloud (AS Computer Solutions - Cloud Networks) (qualifies-with-caveat); 284 KB, about 77K tokens
+- [Compute: Usable part 3 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-3.txt): 45 records, AssemblyAI (qualifies-with-caveat) to Cartesia (qualifies-with-caveat); 287 KB, about 78K tokens
+- [Compute: Usable part 4 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-4.txt): 46 records, CepatCloud.id (qualifies-with-caveat) to DeluxHost (qualifies-with-caveat); 288 KB, about 78K tokens
+- [Compute: Usable part 5 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-5.txt): 46 records, Deno Deploy (qualifies-with-caveat) to Gladia (qualifies-with-caveat); 282 KB, about 76K tokens
+- [Compute: Usable part 6 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-6.txt): 44 records, Gladiolus (vm.gl) (qualifies-with-caveat) to IBM Quantum Open (qualifies-with-caveat); 288 KB, about 78K tokens
+- [Compute: Usable part 7 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-7.txt): 53 records, Inference.net (qualifies-with-caveat) to nanoHUB (qualifies-with-caveat); 283 KB, about 77K tokens
+- [Compute: Usable part 8 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-8.txt): 49 records, NATKVM (KhanWebHost Limited) (qualifies-with-caveat) to Rabisu (qualifies-with-caveat); 287 KB, about 78K tokens
+- [Compute: Usable part 9 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-9.txt): 62 records, RackNerd (qualifies-with-caveat) to Tenstorrent TT Console (qualifies-with-caveat); 287 KB, about 77K tokens
+- [Compute: Usable part 10 of 10](https://fshy.ajam.dev/t/compute/llms-full-usable-10.txt): 54 records, The Catalyst (qualifies-with-caveat) to 无忧云 (Wuyou Cloud) (qualifies-with-caveat); 288 KB, about 78K tokens
+- [Compute: Trial part 1 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-1.txt): 45 records, ABLENET VPS (trial-only) to DigitalOcean Harness Runtime (trial-only); 229 KB, about 62K tokens
+- [Compute: Trial part 2 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-2.txt): 37 records, EcoHash (trial-only) to Nosana (trial-only); 226 KB, about 61K tokens
+- [Compute: Trial part 3 of 3](https://fshy.ajam.dev/t/compute/llms-full-trial-3.txt): 51 records, oblako.kz (trial-only) to Zylora startup GPU (trial-only); 229 KB, about 62K tokens
+- [Compute: Paid only part 1 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-1.txt): 45 records, 62yun (paid-only) to Baseten (paid-only); 266 KB, about 72K tokens
+- [Compute: Paid only part 2 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-2.txt): 58 records, Beam (paid-only) to DataPasa (paid-only); 274 KB, about 74K tokens
+- [Compute: Paid only part 3 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-3.txt): 53 records, Daytona GPU (paid-only) to Halluminate (paid-only); 261 KB, about 70K tokens
+- [Compute: Paid only part 4 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-4.txt): 58 records, HengHost (paid-only) to JustHosting (paid-only); 273 KB, about 74K tokens
+- [Compute: Paid only part 5 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-5.txt): 57 records, KAGOYA CLOUD VPS (paid-only) to NEAR AI Cloud (paid-only); 263 KB, about 71K tokens
+- [Compute: Paid only part 6 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-6.txt): 60 records, Nebius (paid-only) to Qyrax (paid-only); 269 KB, about 73K tokens
+- [Compute: Paid only part 7 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-7.txt): 56 records, Rabisu (paid-only) to SF Compute (GPU (paid-only); 266 KB, about 72K tokens
+- [Compute: Paid only part 8 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-8.txt): 62 records, SF Compute (GPU market + Autoresearch sandboxes) (paid-only) to TrumVPS (paid-only); 269 KB, about 73K tokens
+- [Compute: Paid only part 9 of 9](https://fshy.ajam.dev/t/compute/llms-full-paid-9.txt): 60 records, TrumVPS (paid-only) to Zorocloud (paid-only); 266 KB, about 72K tokens
+- [Compute: Rejected part 1 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-1.txt): 59 records, 1517 Medici Project (fails-identity) to GitHub Copilot Student (fails-identity); 259 KB, about 70K tokens
+- [Compute: Rejected part 2 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-2.txt): 55 records, GitHub Student Developer (fails-identity) to Nobus Cloud (fails-identity); 255 KB, about 69K tokens
+- [Compute: Rejected part 3 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-3.txt): 59 records, Northflank (fails-identity) to wap.ac (WAPAC) (fails-quota); 260 KB, about 70K tokens
+- [Compute: Dead part 1 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-1.txt): 39 records, 4vps.su (dead) to Gabia VPS hosting (dead); 156 KB, about 42K tokens
+- [Compute: Dead part 2 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-2.txt): 41 records, Glitch (dead) to Yandex Cloud (dead); 159 KB, about 43K tokens
+- [Inference: Usable part 1 of 2](https://fshy.ajam.dev/t/inference/llms-full-usable-1.txt): 48 records, Augure (qualifies) to Kilo Gateway (qualifies-with-caveat); 224 KB, about 61K tokens
+- [Inference: Usable part 2 of 2](https://fshy.ajam.dev/t/inference/llms-full-usable-2.txt): 52 records, Liquid Inference (qualifies-with-caveat) to Zro (qualifies-with-caveat); 215 KB, about 58K tokens
+- [Inference: Trial](https://fshy.ajam.dev/t/inference/llms-full-trial.txt): 60 records; 289 KB, about 78K tokens
+- [Inference: Paid only part 1 of 2](https://fshy.ajam.dev/t/inference/llms-full-paid-1.txt): 79 records, 302.AI (paid-only) to Leonardo.Ai (paid-only); 178 KB, about 48K tokens
+- [Inference: Paid only part 2 of 2](https://fshy.ajam.dev/t/inference/llms-full-paid-2.txt): 90 records, LibreTranslate hosted (libretranslate.com) (paid-only) to ZeroGPU (paid-only); 174 KB, about 47K tokens
+- [Inference: Rejected](https://fshy.ajam.dev/t/inference/llms-full-rejected.txt): 18 records; 62 KB, about 17K tokens
+- [Inference: Dead](https://fshy.ajam.dev/t/inference/llms-full-dead.txt): 13 records; 46 KB, about 13K tokens
+- [Egress and tunnels: Usable](https://fshy.ajam.dev/t/egress/llms-full-usable.txt): 56 records; 283 KB, about 76K tokens
+- [Egress and tunnels: Trial](https://fshy.ajam.dev/t/egress/llms-full-trial.txt): 23 records; 95 KB, about 26K tokens
+- [Egress and tunnels: Paid only part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-paid-1.txt): 67 records, AffordableBytes (paid-only) to KhanWebHost (paid-only); 279 KB, about 75K tokens
+- [Egress and tunnels: Paid only part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-paid-2.txt): 58 records, KhanWebHost (paid-only) to Windscribe (paid-only); 276 KB, about 75K tokens
+- [Egress and tunnels: Rejected part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-rejected-1.txt): 63 records, AWS Activate (fails-identity) to Render (fails-egress); 201 KB, about 54K tokens
+- [Egress and tunnels: Rejected part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-rejected-2.txt): 66 records, serveo (fails-egress) to zrok (hosted) (fails-quota); 204 KB, about 55K tokens
+- [Egress and tunnels: Dead](https://fshy.ajam.dev/t/egress/llms-full-dead.txt): 21 records; 64 KB, about 17K tokens
+- [IP and proxies: Usable part 1 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-usable-1.txt): 11 records, Mullvad VPN (qualifies) to Oxylabs (qualifies-with-caveat); 187 KB, about 50K tokens
+- [IP and proxies: Usable part 2 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-usable-2.txt): 12 records, Proton VPN (qualifies-with-caveat) to Windscribe (qualifies-with-caveat); 168 KB, about 45K tokens
+- [IP and proxies: Trial](https://fshy.ajam.dev/t/ip-proxy/llms-full-trial.txt): 6 records; 48 KB, about 13K tokens
+- [IP and proxies: Paid only part 1 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-paid-1.txt): 22 records, 711Proxy (paid-only) to Obscura (paid-only); 164 KB, about 44K tokens
+- [IP and proxies: Paid only part 2 of 2](https://fshy.ajam.dev/t/ip-proxy/llms-full-paid-2.txt): 21 records, Oeck (paid-only) to ZooProxy (formerly FluxISP) (paid-only); 167 KB, about 45K tokens
+- [IP and proxies: Rejected](https://fshy.ajam.dev/t/ip-proxy/llms-full-rejected.txt): 9 records; 116 KB, about 31K tokens
+- [IP and proxies: Dead](https://fshy.ajam.dev/t/ip-proxy/llms-full-dead.txt): 6 records; 40 KB, about 11K tokens
+- [Crawling: Usable](https://fshy.ajam.dev/t/crawler-scraper/llms-full-usable.txt): 38 records; 228 KB, about 62K tokens
+- [Crawling: Trial](https://fshy.ajam.dev/t/crawler-scraper/llms-full-trial.txt): 9 records; 69 KB, about 19K tokens
+- [Crawling: Paid only](https://fshy.ajam.dev/t/crawler-scraper/llms-full-paid.txt): 1 records; 2 KB, about 1K tokens
+- [Crawling: Rejected](https://fshy.ajam.dev/t/crawler-scraper/llms-full-rejected.txt): 3 records; 24 KB, about 6K tokens
+- [Crawling: Dead](https://fshy.ajam.dev/t/crawler-scraper/llms-full-dead.txt): 8 records; 31 KB, about 8K tokens
+- [Debrid: Usable part 1 of 5](https://fshy.ajam.dev/t/debrid/llms-full-usable-1.txt): 58 records, 1fichier (qualifies) to AllDebrid (qualifies-with-caveat); 277 KB, about 75K tokens
+- [Debrid: Usable part 2 of 5](https://fshy.ajam.dev/t/debrid/llms-full-usable-2.txt): 52 records, altHUB (qualifies-with-caveat) to Eurostat web services (SDMX 2.1 and Statistics API) (qualifies-with-caveat); 250 KB, about 68K tokens
+- [Debrid: Usable part 3 of 5](https://fshy.ajam.dev/t/debrid/llms-full-usable-3.txt): 60 records, EvoSeedbox (qualifies-with-caveat) to LuluStream (qualifies-with-caveat); 267 KB, about 72K tokens
+- [Debrid: Usable part 4 of 5](https://fshy.ajam.dev/t/debrid/llms-full-usable-4.txt): 63 records, Magnet Link Downloader (@MagnetLinkDLBot) (qualifies-with-caveat) to simonews (qualifies-with-caveat); 260 KB, about 70K tokens
+- [Debrid: Usable part 5 of 5](https://fshy.ajam.dev/t/debrid/llms-full-usable-5.txt): 66 records, Simply-Debrid (qualifies-with-caveat) to 镜芯 API (api2.wer.plus) (qualifies-with-caveat); 269 KB, about 73K tokens
+- [Debrid: Trial](https://fshy.ajam.dev/t/debrid/llms-full-trial.txt): 17 records; 66 KB, about 18K tokens
+- [Debrid: Paid only part 1 of 2](https://fshy.ajam.dev/t/debrid/llms-full-paid-1.txt): 47 records, 0DayDown (paid-only) to Newshosting (paid-only); 224 KB, about 61K tokens
+- [Debrid: Paid only part 2 of 2](https://fshy.ajam.dev/t/debrid/llms-full-paid-2.txt): 43 records, nzbwolf (paid-only) to Zevera (paid-only); 217 KB, about 59K tokens
+- [Debrid: Rejected](https://fshy.ajam.dev/t/debrid/llms-full-rejected.txt): 50 records; 237 KB, about 64K tokens
+- [Debrid: Dead](https://fshy.ajam.dev/t/debrid/llms-full-dead.txt): 52 records; 151 KB, about 41K tokens
+- [Netdisk and pan: Usable](https://fshy.ajam.dev/t/netdisk-pan/llms-full-usable.txt): 49 records; 244 KB, about 66K tokens
+- [Netdisk and pan: Trial](https://fshy.ajam.dev/t/netdisk-pan/llms-full-trial.txt): 2 records; 12 KB, about 3K tokens
+- [Netdisk and pan: Paid only](https://fshy.ajam.dev/t/netdisk-pan/llms-full-paid.txt): 2 records; 9 KB, about 2K tokens
+- [Netdisk and pan: Rejected](https://fshy.ajam.dev/t/netdisk-pan/llms-full-rejected.txt): 34 records; 170 KB, about 46K tokens
+- [Netdisk and pan: Dead](https://fshy.ajam.dev/t/netdisk-pan/llms-full-dead.txt): 15 records; 48 KB, about 13K tokens
+- [Databases and KV](https://fshy.ajam.dev/t/databases-kv/llms-full.txt): all 42 records, 1 self-hosted at its end; 231 KB, about 63K tokens
+- [Email: Usable](https://fshy.ajam.dev/t/email/llms-full-usable.txt): 30 records; 161 KB, about 44K tokens
+- [Email: Trial](https://fshy.ajam.dev/t/email/llms-full-trial.txt): 3 records; 26 KB, about 7K tokens
+- [Email: Paid only](https://fshy.ajam.dev/t/email/llms-full-paid.txt): 9 records; 114 KB, about 31K tokens
+- [Email: Rejected](https://fshy.ajam.dev/t/email/llms-full-rejected.txt): 3 records; 29 KB, about 8K tokens
+- [Email: Dead](https://fshy.ajam.dev/t/email/llms-full-dead.txt): 1 records; 6 KB, about 2K tokens
+- [Domains and DNS: Usable](https://fshy.ajam.dev/t/domains-dns/llms-full-usable.txt): 27 records; 207 KB, about 56K tokens
+- [Domains and DNS: Trial](https://fshy.ajam.dev/t/domains-dns/llms-full-trial.txt): 3 records; 29 KB, about 8K tokens
+- [Domains and DNS: Paid only](https://fshy.ajam.dev/t/domains-dns/llms-full-paid.txt): 11 records; 124 KB, about 33K tokens
+- [Domains and DNS: Rejected](https://fshy.ajam.dev/t/domains-dns/llms-full-rejected.txt): 1 records; 5 KB, about 1K tokens
+- [Domains and DNS: Dead](https://fshy.ajam.dev/t/domains-dns/llms-full-dead.txt): 1 records; 2 KB, about 1K tokens
+- [CI runners: Usable](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-usable.txt): 25 records; 169 KB, about 46K tokens
+- [CI runners: Trial](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-trial.txt): 4 records; 26 KB, about 7K tokens
+- [CI runners: Paid only](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-paid.txt): 7 records; 60 KB, about 16K tokens
+- [CI runners: Rejected](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-rejected.txt): 1 records; 13 KB, about 4K tokens
+- [CI runners: Dead](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-dead.txt): 7 records; 40 KB, about 11K tokens
+- [Developer services: Usable part 1 of 3](https://fshy.ajam.dev/t/dev-services/llms-full-usable-1.txt): 25 records, cron-job.org (qualifies) to Firebase Cloud Messaging (qualifies-with-caveat); 266 KB, about 72K tokens
+- [Developer services: Usable part 2 of 3](https://fshy.ajam.dev/t/dev-services/llms-full-usable-2.txt): 28 records, Flagpool (qualifies-with-caveat) to PostHog (qualifies-with-caveat); 263 KB, about 71K tokens
+- [Developer services: Usable part 3 of 3](https://fshy.ajam.dev/t/dev-services/llms-full-usable-3.txt): 26 records, PropelAuth (qualifies-with-caveat) to ZITADEL Cloud (qualifies-with-caveat); 260 KB, about 70K tokens
+- [Developer services: Trial](https://fshy.ajam.dev/t/dev-services/llms-full-trial.txt): 9 records; 92 KB, about 25K tokens
+- [Developer services: Paid only](https://fshy.ajam.dev/t/dev-services/llms-full-paid.txt): 1 records; 12 KB, about 3K tokens
+- [Developer services: Rejected](https://fshy.ajam.dev/t/dev-services/llms-full-rejected.txt): 2 records; 33 KB, about 9K tokens
+- [Developer services: Dead](https://fshy.ajam.dev/t/dev-services/llms-full-dead.txt): 2 records; 17 KB, about 4K tokens
+- [Data APIs: Usable part 1 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-1.txt): 37 records, AllRatesToday (open keyless endpoints) (qualifies) to Open-Meteo (qualifies); 265 KB, about 72K tokens
+- [Data APIs: Usable part 2 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-2.txt): 25 records, OpenAlex (qualifies) to CurrencyFreaks (qualifies-with-caveat); 278 KB, about 75K tokens
+- [Data APIs: Usable part 3 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-3.txt): 25 records, Currents API (qualifies-with-caveat) to IPKit (ipkit.dev) (qualifies-with-caveat); 258 KB, about 70K tokens
+- [Data APIs: Usable part 4 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-4.txt): 21 records, LatLng (qualifies-with-caveat) to Stack Exchange API (qualifies-with-caveat); 277 KB, about 75K tokens
+- [Data APIs: Usable part 5 of 5](https://fshy.ajam.dev/t/data-apis/llms-full-usable-5.txt): 18 records, Stadia Maps (qualifies-with-caveat) to Wolfram|Alpha API (qualifies-with-caveat); 267 KB, about 72K tokens
+- [Data APIs: Trial](https://fshy.ajam.dev/t/data-apis/llms-full-trial.txt): 3 records; 16 KB, about 4K tokens
+- [Data APIs: Paid only](https://fshy.ajam.dev/t/data-apis/llms-full-paid.txt): 5 records; 36 KB, about 10K tokens
+- [Data APIs: Rejected](https://fshy.ajam.dev/t/data-apis/llms-full-rejected.txt): 12 records; 83 KB, about 22K tokens
+- [Data APIs: Dead](https://fshy.ajam.dev/t/data-apis/llms-full-dead.txt): 8 records; 46 KB, about 12K tokens
+- [Coding subscriptions: Usable](https://fshy.ajam.dev/t/coding-subs/llms-full-usable.txt): 21 records; 216 KB, about 58K tokens
+- [Coding subscriptions: Trial](https://fshy.ajam.dev/t/coding-subs/llms-full-trial.txt): 2 records; 15 KB, about 4K tokens
+- [Coding subscriptions: Paid only](https://fshy.ajam.dev/t/coding-subs/llms-full-paid.txt): 41 records; 273 KB, about 74K tokens
+- [Coding subscriptions: Rejected](https://fshy.ajam.dev/t/coding-subs/llms-full-rejected.txt): 2 records; 22 KB, about 6K tokens
+- [Coding subscriptions: Dead](https://fshy.ajam.dev/t/coding-subs/llms-full-dead.txt): 2 records; 6 KB, about 2K tokens
+
+### Self-hosted, the last resort
+
+Software or a node that the user installs, runs and maintains. Self-hosted options are listed last, because this site is for users who have no hardware.
+
+- [Storage: Self-hosted, the last resort](https://fshy.ajam.dev/t/storage/llms-full-self-hosted.txt): 73 records; 203 KB, about 55K tokens
+- [Compute: Self-hosted, the last resort](https://fshy.ajam.dev/t/compute/llms-full-self-hosted.txt): 34 records; 107 KB, about 29K tokens
+- [Inference: Self-hosted, the last resort](https://fshy.ajam.dev/t/inference/llms-full-self-hosted.txt): 5 records; 9 KB, about 2K tokens
+- [Egress and tunnels: Self-hosted, the last resort part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-self-hosted-1.txt): 53 records, BastionRoute (self-hosted, last resort; verdict qualifies-with-caveat) to Innernet (self-hosted, last resort; verdict fails-egress); 153 KB, about 41K tokens
+- [Egress and tunnels: Self-hosted, the last resort part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-self-hosted-2.txt): 50 records, iodine (self-hosted, last resort; verdict fails-egress) to hypertunnel (self-hosted, last resort; verdict dead); 153 KB, about 41K tokens
+- [Debrid: Self-hosted, the last resort](https://fshy.ajam.dev/t/debrid/llms-full-self-hosted.txt): 18 records; 76 KB, about 21K tokens
+- [Netdisk and pan: Self-hosted, the last resort](https://fshy.ajam.dev/t/netdisk-pan/llms-full-self-hosted.txt): 2 records; 10 KB, about 3K tokens
+- [Email: Self-hosted, the last resort](https://fshy.ajam.dev/t/email/llms-full-self-hosted.txt): 1 records; 4 KB, about 1K tokens
+- [CI runners: Self-hosted, the last resort](https://fshy.ajam.dev/t/ci-cd-runners/llms-full-self-hosted.txt): 5 records; 31 KB, about 8K tokens
+- [Developer services: Self-hosted, the last resort](https://fshy.ajam.dev/t/dev-services/llms-full-self-hosted.txt): 5 records; 65 KB, about 18K tokens
+- [Data APIs: Self-hosted, the last resort](https://fshy.ajam.dev/t/data-apis/llms-full-self-hosted.txt): 1 records; 9 KB, about 3K tokens
+- [Coding subscriptions: Self-hosted, the last resort](https://fshy.ajam.dev/t/coding-subs/llms-full-self-hosted.txt): 6 records; 50 KB, about 13K tokens
+
+## Query it
+
+- [MCP endpoint](https://fshy.ajam.dev/about/#api): POST JSON-RPC 2.0 to `https://fshy.ajam.dev/mcp` (Streamable HTTP; a GET there answers 405), stateless and read-only; tools help, search, filter, get, entity, need, sql, worklist. Connect: `claude mcp add --transport http fshy https://fshy.ajam.dev/mcp`
+- [help.txt](https://fshy.ajam.dev/api/v1/help.txt): the query primer: tables, columns, vocabularies and worked SQL; read it first
+- [search](https://fshy.ajam.dev/api/v1/search?q=gpu+hours&topic=compute): full-text search; `q` words, optional `topic`
+- [records](https://fshy.ajam.dev/api/v1/records?topic=storage&no_card=1&sort=usd_per_tb_month): filter and sort record cards; `free=1` keeps the records with a free allowance
+- [sql](https://fshy.ajam.dev/api/v1/sql?q=SELECT+rid,verdict+FROM+record+LIMIT+5): read-only SQLite over the store
+- [record](https://fshy.ajam.dev/api/v1/record/compute/oracle-cloud): one record as JSON, `/api/v1/record/<topic>/<slug>`
+- [entity](https://fshy.ajam.dev/api/v1/entity/oracle.json): one provider and all its records as JSON, `/api/v1/entity/<id>.json`
+- [schema.sql](https://fshy.ajam.dev/api/v1/schema.sql): the store's schema; [vocab.json](https://fshy.ajam.dev/api/v1/vocab.json): its vocabularies
+- [fshy-public.sqlite.gz](https://fshy.ajam.dev/data/fshy-public.sqlite.gz): the whole store as one SQLite file, gzip. data/manifest.json gives public_db.gzip_sha256, the SHA-256 of this download, and public_db.sha256, the SHA-256 of the SQLite file after gunzip

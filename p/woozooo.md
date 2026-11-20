@@ -1,0 +1,44 @@
+# Lanzou
+
+> woozooo.com | Netdisk and pan; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/woozooo/ | JSON https://fshy.ajam.dev/api/v1/entity/woozooo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Lanzou (蓝奏云, pc.woozooo.com)
+
+- `netdisk-pan/lanzou` | fails-quota | evidence documented | binding per-object-cap | category consumer-pan
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T00:21:07.069Z (live) | stale on 2026-11-26
+- url https://pc.woozooo.com/
+- free tier: unlimited total storage on the free tier, with no download rate limit, no download count limit and no login to download; the per-file cap is the constraint | unit: unlimited | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 100 MiB per file, which the resolver's driver table states and which the free tier does not publish on its own page | bytes: 104857600 | source: [2] | note: stated as 100M in the driver table; the free tier's own page says only that total storage is unlimited
+- retention: unverified: the vendor home page as read states no share-link lifetime; the account's own retention is not published | source: [1]
+- egress: downloads are stated as unlimited in speed, volume and count, with no login; there is no egress price | metered: no | source: [1]
+- identity: any-phone | detail: the register form asks for a phone number with an SMS code, then a username and password ('请使用用户名登录，手机号仅用于找回短信验证'); it shows no email field and no country selector. Whether a non-mainland number is accepted is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - per-object-cap (binding): 100 MiB per file [2]
+- binding note: The total is genuinely unlimited and the egress is genuinely free, but a 100 MiB per-file cap over a 10 TiB working set is 100,000 objects, which is a file-count problem before it is a storage one.
+- tooling: no WebDAV and no official API; the practical route is the netdisk-fast-download 'lz' driver, which resolves a share link to a direct URL
+- composes with: the cheapest place to put files under 100 MiB that must be downloadable without an account, which makes it a config, patch and asset host rather than a data store
+- reliability: Share-link lifetime is not stated on the vendor home page as read. The per-file cap is what stops it from being storage at any scale.
+- notes: Offers unconstrained total storage capacity constrained by a 100 MiB per-file ceiling. Functions primarily as a lightweight direct-link distribution target for small file archives.
+- extras:
+  - access_mode: registration-gated
+  - api: none official
+  - resolver_driver: lz
+  - per_file_cap_source: the resolver's driver table, not the vendor page
+- evidence:
+  - [1] 2026-10-22: '拥有无限制的总存储空间' (unlimited total storage) and '下载不限速度，不限流量，不限次数，免登录下载' (no speed, volume or count limit on downloads, no login needed), and share links are permanent
+  - [2] 2026-10-22: the Lanzou driver has a per-file limit of 100M and a free no-login download, and the second table gives Lanzou 'unlimited space' with the same 100M per-file cap
+  - [1] 2026-11-03: the vendor page states unlimited total storage | capture: sha256:9aedd22bca29979c2a778196bd01de05e0b439ce4627c51b9789e736ae34a7f0 | quote: 拥有无限制的总存储空间，支持个性化定制。
+  - [3] 2026-11-03: the register form asks for a phone number, used for SMS verification and recovery, and a username and password | capture: sha256:392416d0d364934533ee37ce79a1d509337ab3a498b29033449939cf440c8818 | quote: 请使用用户名登录，手机号仅用于找回短信验证。
+  - [4] 2026-11-03: the wrapper's README claims it works around the file-type and per-file size limits | capture: sha256:c90cdc1e534cd1b8c14d32c9eaa9f40151898ddda5201861e15b61a1b3804185 | quote: 解决了蓝奏云的上传格式限制和单文件大小限制，同时增加了以下功能: 批量上传/下载文件
+  - [3] 2026-11-03: a retired or suspended phone number is handled by hand through support | capture: sha256:392416d0d364934533ee37ce79a1d509337ab3a498b29033449939cf440c8818 | quote: 手机号已注销，停机等情况，可以联系人工处理
+  - [1] 2026-11-03: downloads are stated as unlimited in speed, volume and count, with no login | capture: sha256:9aedd22bca29979c2a778196bd01de05e0b439ce4627c51b9789e736ae34a7f0 | quote: 下载不限速度，不限流量，不限次数，免登录下载！
+  - [5] 2026-11-04: the OpenList Lanzou driver mounts an account by username and password and refreshes the cookie itself; it also has cookie and share-link modes (reverse-engineered, third-party) | capture: sha256:ea97382be4ddfd770e37a0a1258a89fce5bef892ff485d54dbe66a90ba305ca2 | quote: 可以显示自己网盘所有文件，只需要填写帐号密码，会自动帮你刷新cookie
+- sources:
+  - [1] https://pc.woozooo.com/
+  - [2] https://nfd-parser.github.io/
+  - [3] https://pc.woozooo.com/account.php?action=register
+  - [4] https://github.com/zaxtyson/LanZouCloud-API
+  - [5] https://openlistteam.github.io/docs/zh/guide/drivers/lanzou.html

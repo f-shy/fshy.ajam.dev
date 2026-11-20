@@ -1,0 +1,122 @@
+# NexusBytes
+
+> nexusbytes.org | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nexusbytes/ | JSON https://fshy.ajam.dev/api/v1/entity/nexusbytes.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## NexusBytes
+
+- `compute/nexusbytes` | paid-only | evidence documented | binding volume-quota | category cloud VM | tier Ryzen VPS, entry rung advertised from USD 3.20 a month
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T02:16:00.000Z (live) | stale on 2026-11-24
+- url https://nexusbytes.org/ryzen-vps-hosting.html
+- free tier: no free tier; the cheapest advertised VPS is 'From $3.20/month' | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not stated on the pricing page read | source: [1]
+- egress: 1000 GB a month on a shared 1 Gbps port for the entry rung, quoted '1000GB@1 Gbps | Shared port speed'; the ladder rises to 12000 GB at the top rung | metered: yes | free allowance: 1000 GB | source: [1]
+- identity: card | detail: account plus payment at order.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1000 GB a month of transfer on the entry rung, on a shared 1 Gbps port [1]
+  - request-rate: the CPU is sold as fair-share vCores ('Fair share Ryzen vCores'), so burst above the share is not guaranteed [1]
+- limits note: not established: the reported 500 GB plan carries 2,500 GB a month, which is a third-party figure and not a quota this category can assert.
+- binding note: the 1 TB monthly transfer on the entry rung is the stated ceiling; the shape is the real problem, because the vendor does not publish which RAM rung the USD 3.20 price buys.
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: part of limits note
+- composes with: nothing priced: a reported 500 GB plan at USD 3.20 would be USD 6.40/TB if it exists, which would put it beside HostHatch, and this category cannot confirm it
+- reliability: no reliability event observed; the homepage describes the brand as 'Affordable boutique servers' and the locations page lists New York City Metro, Los Angeles, Miami, Naaldwijk NL, London UK, Singapore, Tokyo and Melbourne
+- notes: This settles the lead. The provider is live and sells VPS. Two facts are established: the VPS prices (entry 'From $3.20/month', with 20% off on annual commitment) and the RAM ladder (VPS-1G through VPS-12G, 1 to 12 GB). What is NOT established is which price buys which RAM, because the table's Price column is a configurator link. A price with no shape cannot be ranked, so this row neither enters nor leaves the Q1 shortlist. The path shape is why earlier routes failed: the site uses .html paths (ryzen-vps-hosting.html), so /pricing, /vps and /store are all genuine 404s, not walls.
+- evidence note: the price ladder, core counts, disk sizes, bandwidth and locations are quoted from the vendor's own Ryzen pricing page read. The page's plan table lists VPS-1G through VPS-12G with a Memory column but leaves the Price column as a 'Configure & Order' link, so the price-to-RAM mapping is NOT published and this record does not supply one.
+- extras:
+  - facets.free_tier_kind: none
+  - shape.vcpu: 1
+  - shape.disk_gib: 15
+  - shape_note: 1 vCPU and 15 GB NVMe are stated on the USD 3.20 card; the RAM for that price is not published. The plan table runs VPS-1G to VPS-12G (1-12 GB) with no prices.
+  - billing_model: monthly, with 20% off on annual commitment
+  - term: monthly or annual
+  - price_arithmetic: not computable: USD 3.20 a month is published for a 1 vCPU / 15 GB NVMe / 1 TB row, but its RAM is not published, so no shape can be attached to the price
+  - out_of_pocket_usd: 3.2
+  - renewal_note: not published; the page states '20% savings with annual commitment' but shows no renewal rate
+  - ladder_vcpu[0].vcpu: 1
+  - ladder_vcpu[0].disk_gib: 15
+  - ladder_vcpu[0].disk_gib_annual: 20
+  - ladder_vcpu[0].tb_month: 1
+  - ladder_vcpu[0].usd_month: 3.2
+  - ladder_vcpu[1].vcpu: 2
+  - ladder_vcpu[1].disk_gib: 30
+  - ladder_vcpu[1].disk_gib_annual: 40
+  - ladder_vcpu[1].tb_month: 2
+  - ladder_vcpu[1].usd_month: 6.4
+  - ladder_vcpu[2].vcpu: 2
+  - ladder_vcpu[2].disk_gib: 45
+  - ladder_vcpu[2].disk_gib_annual: 60
+  - ladder_vcpu[2].tb_month: 3
+  - ladder_vcpu[2].usd_month: 9.6
+  - ladder_vcpu[3].vcpu: 4
+  - ladder_vcpu[3].disk_gib: 60
+  - ladder_vcpu[3].disk_gib_annual: 80
+  - ladder_vcpu[3].tb_month: 4
+  - ladder_vcpu[3].usd_month: 12.8
+  - ladder_vcpu[4].vcpu: 4
+  - ladder_vcpu[4].disk_gib: 75
+  - ladder_vcpu[4].disk_gib_annual: 100
+  - ladder_vcpu[4].tb_month: 5
+  - ladder_vcpu[4].usd_month: 16.0
+  - ladder_vcpu[5].vcpu: 6
+  - ladder_vcpu[5].disk_gib: 90
+  - ladder_vcpu[5].disk_gib_annual: 120
+  - ladder_vcpu[5].tb_month: 6
+  - ladder_vcpu[5].usd_month: 19.2
+  - ladder_vcpu[6].vcpu: 6
+  - ladder_vcpu[6].disk_gib: 105
+  - ladder_vcpu[6].disk_gib_annual: 140
+  - ladder_vcpu[6].tb_month: 6
+  - ladder_vcpu[6].usd_month: 22.4
+  - ladder_vcpu[7].vcpu: 8
+  - ladder_vcpu[7].disk_gib: 120
+  - ladder_vcpu[7].disk_gib_annual: 160
+  - ladder_vcpu[7].tb_month: 8
+  - ladder_vcpu[7].usd_month: 25.6
+  - ladder_vcpu[8].vcpu: 8
+  - ladder_vcpu[8].disk_gib: 135
+  - ladder_vcpu[8].disk_gib_annual: 180
+  - ladder_vcpu[8].tb_month: 9
+  - ladder_vcpu[8].usd_month: 28.8
+  - ladder_vcpu[9].vcpu: 10
+  - ladder_vcpu[9].disk_gib: 150
+  - ladder_vcpu[9].disk_gib_annual: 200
+  - ladder_vcpu[9].tb_month: 10
+  - ladder_vcpu[9].usd_month: 32.0
+  - ladder_vcpu[10].vcpu: 10
+  - ladder_vcpu[10].disk_gib: 165
+  - ladder_vcpu[10].disk_gib_annual: 220
+  - ladder_vcpu[10].tb_month: 11
+  - ladder_vcpu[10].usd_month: 35.2
+  - ladder_vcpu[11].vcpu: 12
+  - ladder_vcpu[11].disk_gib: 180
+  - ladder_vcpu[11].disk_gib_annual: 240
+  - ladder_vcpu[11].tb_month: 12
+  - ladder_vcpu[11].usd_month: 38.6
+  - ram_ladder_gib: 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12
+  - locations: New York City Metro US; Los Angeles US; Miami US; Naaldwijk NL; London UK; Singapore SG; Tokyo JP; Melbourne AU
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [2] 2026-10-22: 
+  - [3] 2026-10-22: product list quoted: 'LiteSpeed Web Hosting Starting From $1/mo', 'Reseller Hosting Starting From $2.50/mo', 'Email Hosting Starting From $0.25/mo', 'Premium Ryzen VPS $3.2/mo', 'Affordable Entry VPS $3.75/mo', 'VPS Reseller $6.4/mo'; no storage product appears
+  - [4] 2026-10-22: reported only: a Chinese-language review claims a storage VPS at USD 3.20/month with 2 cores, 0.5 GB RAM, 500 GB disk, 2,500 GB of transfer and 1 Gbps, sold from the US, UK and the Netherlands
+  - [1] 2026-10-24: quoted from the entry card: '1 vCPU 3.5 GHz+ | Fair share Ryzen vCores | 15 GB 20 | Free upgraded with annual commitment | 1000GB@1 Gbps | Shared port speed | From $3.20/month | 20% savings with annual commitment'
+  - [1] 2026-10-24: quoted from the ladder above it: '2 vCPU | 30 GB 40 | 2000GB@1 Gbps | From $6.40/month', '2 vCPU | 45 GB 60 | 3000GB@1 Gbps | From $9.60/month', '4 vCPU | 60 GB 80 | 4000GB@1 Gbps | From $12.80/month'
+  - [1] 2026-10-24: quoted plan table with the price column left blank: '| PLAN | Ryzen vCPU | Memory | NVMe Storage | Bandwidth | IPv4+IPv6 | Price |' then '| VPS-1G | 1 GB | 1 + /64 | Configure & Order |' through '| VPS-12G | 12 GB | 1 + /64 | Configure & Order |'
+  - [3] 2026-10-24: homepage tiles, quoted: 'Premium Ryzen VPS $3.2/mo', 'Affordable Entry VPS $3.75/mo', 'VPS Reseller $6.4/mo'
+  - [3] 2026-10-24: 
+- sources:
+  - [1] https://nexusbytes.org/ryzen-vps-hosting.html
+  - [2] https://nexusbytes.com/storage-vps
+  - [3] https://nexusbytes.org/
+  - [4] https://www.vs37.com/2361.html

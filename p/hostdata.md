@@ -1,0 +1,133 @@
+# HostData.id
+
+> hostdata.id | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/hostdata/ | JSON https://fshy.ajam.dev/api/v1/entity/hostdata.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## HostData.id (NAT SG 1GB)
+
+- `compute/hostdata-nat-sg-1gb` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT SG 1GB
+- needs card no, phone no, ID no, institution no | verified 2026-10-24T06:21:00.000Z (live) | stale on 2026-11-24
+- url https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore
+- price parsed USD 1.11/mo
+- disagrees on identity_kind: `compute/hostdata-id-nat-sg-ssd-1gb` says card, `compute/hostdata-nat-sg-1gb` says email
+- disagrees on verdict: `compute/hostdata-id-nat-sg-ssd-1gb` says fails-identity, `compute/hostdata-nat-sg-1gb` says qualifies-with-caveat
+- free tier: No free tier. NAT SG 1GB is Rp 20,000 IDR a month: 1 GB RAM, 1 vCPU, 10 GB SSD, 300 GB bandwidth, a shared IPv4 with '20 VDF Records' and Domain Forwarding, OpenVZ 7, Singapore. The plan carries '1 Available' on the store page and the page states 'Tidak ada IPv6' for this Singapore line. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not stated on any page read; the store is WHMCS with monthly billing and no deletion window is published on the product page | source: [1]
+- egress: 300 GB of bandwidth a month; no overage price and no shaping rule is published on the page read | metered: yes | free allowance: 300 GB | source: [1]
+- identity: email | detail: no card at registration was established; the store is WHMCS and exposes a Register link at my.mnethosting.com-style /register.php and a client area, and no card, ID or phone-verification field appears on the product page read. What the checkout form asks for was NOT read, so the card situation is unverified rather than absent: the vendor publishes no payment-method list on the product page. No card hold or authorisation amount is stated anywhere read.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): a shared IPv4 with '20 VDF Records' and Domain Forwarding; no IPv6 on this Singapore product line - the page states 'Tidak ada IPv6' [1]
+  - volume-quota: 300 GB of bandwidth a month [1]
+  - volume-quota: stock is one unit: the store page reads '1 Available' on this plan, so it is a single remaining instance [1]
+- binding note: there is no IPv6 on the Singapore line at all, so every reachable service has to fit inside the 20 port records; the single-unit stock is the second constraint and will bind first in practice.
+- interface detail: Root on an OpenVZ 7 container over SSH, reached through the shared IPv4 on the assigned port records. The store states 'Tanpa dukungan teknis' (no technical support) on this product line.
+- tooling: any SSH client; WHMCS billing panel; no VPS control panel and no API named on the page.
+- composes with: USD 1.106 a month for 1 GB and 10 GB in Singapore with 20 port records, which is the largest RAM-per-dollar among the NAT rows here; the Singapore location is the reason to pick it over the Indonesian line, and the absence of IPv6 is the reason not to.
+- reliability: no reliability event observed. The vendor states 'Tanpa dukungan teknis' (no technical support) on this product and advises against storing important files: 'Tidak disarankan untuk menyimpan file penting'.
+- notes: Two things make this a caveat rather than a clean qualification. The stock is one unit, which the vendor's own counter states, so it can be gone by the time anyone reads this. And the identity cost is unverified: the checkout form was not read, so nothing here should be taken as evidence that no card is wanted. 'VDF Records' is unexplained; it sits where a port-forward count would sit and the sibling EU product also prints '20 VDF Records', so it is most likely the port count, but that is an inference and is labelled as one. The better EU offer at Rp15K with a dedicated IPv6 is sold out on all four rungs today.
+- evidence note: the Rp 20,000 monthly price, the shape, the 20 port records, the '1 Available' stock line and the 'Tidak ada IPv6' statement are all quoted from the vendor's own store page read. The registration and payment fields were not read, which is why identity_cost is written as unverified rather than as a claim. 'VDF Records' is the vendor's own phrase and is not expanded anywhere on the page.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 1.106
+  - m24h_usd: 1.106
+  - price_arithmetic: Rp 20,000 IDR a month, billed monthly; 20000 / 18089.973852 = USD 1.1056, rounded to USD 1.106. Rate: 1 USD = IDR 18089.973852 (open.er-api.com/v6/latest/USD, time_last_update_utc Sat, 24 Oct 2026 00:02:31 +0000). A VPS bills whether it runs or not, so 24/7 and 10 h/day are the same.
+  - out_of_pocket_usd: 1.106
+  - first_payment_usd: 1.106
+  - renewal_usd: same Rp 20,000 a month; no promotional price and no end date printed
+  - stock: in stock but one unit: the store page prints '1 Available' beside NAT SG 1GB, read 2026-10-24
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 port records on a shared IPv4, plus Domain Forwarding; no IPv6 on this line
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - signup_url: https://hostdata.id/portal/register.php
+  - cart_url: https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore
+  - ipv6_only: no
+  - nat_config.ports_tcp: 20
+  - nat_config.ports_assigned_or_chosen: not stated; the page prints '20 VDF Records' without expanding the term, and no mapping procedure or panel is named. The count of 20 is the vendor's own figure and is read as the port-forward count because it sits in that position and the sibling EU product prints the same phrase.
+  - payment_methods: not read; no payment list appears on the product page and the checkout was not reached
+  - card_hold: not established
+  - checkout_fields: not read
+  - udp: not stated on any page read
+  - fx: open.er-api.com/v6/latest/USD read 2026-10-24T00:02Z: 1 USD = IDR 18089.973852
+- evidence:
+  - [1] 2026-10-24: quoted product block: 'NAT SG 1GB | 1 Available | 1GB RAM | 1 vCPU | 10GB SSD | 300GB Bandwidth | Shared IPv4 | 20 VDF Records | Domain Forwarding | OpenVZ 7 | Tanpa dukungan teknis | Tidak disarankan untuk menyimpan file penting | Tidak ada IPv6' with the price line 'Rp20,000 IDR | Monthly | Order Now'
+  - [1] 2026-10-24: the stock counters on the same page: 'NAT SG 1GB | 1 Available', 'NAT SG 2GB | 1 Available' at 'Rp30,000 IDR', 'NAT SG 4GB | 0 Available'
+  - [2] 2026-10-24: quoted: 'NAT VPS Singapura Direkomendasikan untuk BOT dan VPN | 1 | 1GB | 50GB SSD | Singapore DC | Rp20K/bulan' and 'VPS dengan Shared IPv4 dan Dedicated IPv6' - the dedicated-IPv6 claim on this index page does not hold for the Singapore line, whose own product page says 'Tidak ada IPv6'
+  - [3] 2026-10-24: quoted, the row that would have been the better offer and is sold out: 'NAT 1GB | Rp15K bulan | 1GB RAM | 1 vCPU | 15GB SSD NVME | 1 TB Bandwidth | Shared IPv4 | 1 Dedicated IPv6 | 20 VDF Records | Germany, Hetzner', with the store page for it reading '0 Available' on all four rungs
+- sources:
+  - [1] https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore
+  - [2] https://hostdata.id/nat-vps/
+  - [3] https://hostdata.id/nat-vps-eu-2-ssd/
+
+## HostData.id (NAT SG SSD 1GB)
+
+- `compute/hostdata-id-nat-sg-ssd-1gb` | fails-identity | evidence documented | binding per-ip-shaping | category NAT VPS | tier NAT SG SSD 1GB
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:03:49.000Z (live) | stale on 2026-11-24
+- url https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore-ssd
+- price parsed USD 1.1/mo
+- disagrees on identity_kind: `compute/hostdata-id-nat-sg-ssd-1gb` says card, `compute/hostdata-nat-sg-1gb` says email
+- disagrees on verdict: `compute/hostdata-id-nat-sg-ssd-1gb` says fails-identity, `compute/hostdata-nat-sg-1gb` says qualifies-with-caveat
+- free tier: No free tier. NAT SG SSD 1GB is IDR 20,000 a month, printed 'Rp20,000 IDR Monthly'. The listing showed '3 Available' and the cart returned 'Out of Stock' for the same product on the same day. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: monthly billing; no deletion interval after expiry was published on the pages read | source: [1]
+- egress: 300 GB a month on the 1 GB Singapore plan, printed '300 GB Bandwidth' | metered: yes | free allowance: 300 GB a month | source: [1]
+- identity: card | detail: a WHMCS account; the registration fields were not read because the cart refused the product before a checkout page was reachable. Payment rails and any authorisation hold are therefore unestablished. No national ID requirement is published anywhere read.
+- interface: ssh
+- limits:
+  - volume-quota: 300 GB a month [1]
+  - per-ip-shaping (binding): 20 forwarded records on the shared IPv4, printed '20 VDF Records', plus one dedicated IPv6 address [1]
+- interface detail: OpenVZ 7 container with root, shared IPv4 with port forwarding and one dedicated IPv6 address
+- tooling: any SSH client; a WHMCS client area; no API documented
+- composes with: a 1 GB Singapore container with a dedicated IPv6 at USD 1.10 a month, unusable as a VPN endpoint: the vendor blocks every kind of VPN on the Singapore plans
+- reliability: the vendor states 'Tanpa dukungan teknis' (no technical support) on the Singapore plan and lists a WhatsApp support line as the only contact; no uptime figure published
+- notes: Listing details contradict cart totals; cart checkout figures are authoritative.
+- evidence note: the stock contradiction is quoted from the vendor's own cart, which refused the same product the listing showed as available. Not documented: the registration fields and the payment rails, because the cart refuses before checkout.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 1.1
+  - m24h_usd: 1.1
+  - price_arithmetic: IDR 20,000 a month / 18,108 IDR per USD = USD 1.1045 a month, from the ECB reference rate read 2026-10-24 with rate date 2026-10-23. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 1.1
+  - renewal_usd: IDR 20,000 a month; no separate renewal price published
+  - fx: IDR 18,108 per USD, api.frankfurter.app/latest read 2026-10-24, rate date 2026-10-23
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 forwarded records on the shared IPv4 plus one dedicated IPv6 address
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - udp: not stated: no page read says whether the 20 forwarded records carry UDP
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: the cart refuses the product before a payment step
+  - card_hold: not stated on any page read
+  - checkout_fields: not established
+  - stock: contradicted: '3 Available' on the store page and 'Out of Stock' from cart.php?a=add&pid=1 on the same day
+  - cart_url: https://hostdata.id/portal/cart.php?a=add&pid=1
+  - cart_works: refused: the cart answered 'Out of Stock ... orders for it have been suspended'
+  - product_url: https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore-ssd
+  - signup_url_note: a WHMCS register.php exists at /portal/register.php but was not read, because the stock refusal meant no checkout route was needed.
+  - other_plans: NAT SG SSD 2GB IDR 30,000 with 2 Available; NAT SG SSD 4GB IDR 60,000, 8GB IDR 120,000, 16GB IDR 250,000 and 24GB IDR 350,000 all '0 Available'
+  - german_sibling: NAT 1GB EU NVME IDR 15,000 = USD 0.8284 a month for 1 GB, 15 GB NVMe, 1 TB and a dedicated IPv6, with a narrower prohibition that bars public VPN but not private; all four German tiers read '0 Available'
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'NAT SG SSD 1GB 3 Available 1GB RAM 1 vCPU 10GB SSD 300 GB Bandwidth Shared IPv4 1 Dedicated IPv6 20 VDF Records Domain Forwarding Direkomendasikan untuk Bot Telegram, Whatsapp, Discord dll OpenVZ 7 Tanpa dukungan teknis Latency kecil dari Indonesia ... Rp20,000 IDR Monthly'
+  - [1] 2026-10-24: 
+  - [2] 2026-10-24: the cart contradicted the listing: 'Out of Stock We are currently out of stock on this item so orders for it have been suspended until more stock is available.' - for product id 1, which the store page showed as '3 Available' minutes earlier
+  - [3] 2026-10-24: 
+  - [4] 2026-10-24: quoted index: 'NAT VPS Indonesia | 1 | 1GB | 50GB HDD / 15GB SSD | Indonesia DC | Rp20K/bulan' and 'NAT VPS EU | 1 | 1GB | 15GB SSD NVMe | Germany, Hetzner | Rp15K/bulan' and the description 'VPS dengan Shared IPv4 dan Dedicated IPv6'
+- sources:
+  - [1] https://hostdata.id/portal/index.php?rp=/store/nat-vps-singapore-ssd
+  - [2] https://hostdata.id/portal/cart.php?a=add&pid=1
+  - [3] https://hostdata.id/portal/index.php?rp=/store/nat-vps-eu-2-ssd-hetzner
+  - [4] https://hostdata.id/nat-vps/

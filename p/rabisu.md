@@ -1,0 +1,132 @@
+# Rabisu
+
+> rabisu.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/rabisu/ | JSON https://fshy.ajam.dev/api/v1/entity/rabisu.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Rabisu (Aydin VPS x16)
+
+- `compute/rabisu-windows` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category Windows VPS | tier Aydin VPS x16
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T13:30:00.000Z (live) | stale on 2026-11-10
+- url https://www.rabisu.com/panel/store/vps/aydin-vps-x16
+- price parsed USD 10.99/mo
+- disagrees on identity_kind: `compute/rabisu` says email, `compute/rabisu-windows` says card
+- disagrees on verdict: `compute/rabisu` says paid-only, `compute/rabisu-windows` says qualifies-with-caveat
+- free tier: no free tier; Aydin VPS x16 is USD 10.99 a month on the monthly cycle and USD 8.79 a month on the annual cycle for 6 cores, 16 GB of RAM and 120 GB of SSD, with unlimited bandwidth on a 1 Gbps port and no setup fee printed | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: unlimited bandwidth on a 1 Gbps port under a fair-use policy, stated on the configurator; no byte quota and no overage price is printed | metered: no | free allowance: unlimited under fair use | source: [1]
+- identity: card | detail: an account and a payment method at order; the configurator's order summary prints no total and the add-to-cart POST was not completed
+- interface: rest, cli
+- limits:
+  - volume-quota: unlimited traffic under fair use [1]
+  - per-ip-shaping (binding): shared 1 Gbps port [1]
+- limits note: the page calls the traffic unlimited and adds a fair-use clause; it prints no byte number, no monthly cap and no throttle rate. The port is shared, so the 1 Gbps figure is a ceiling and not a guarantee. The monthly cycle is the default: the monthly radio carries checked in the served HTML, and the four cycles print monthly 10.99, quarterly 9.89, semi-annual 9.34 and annual 8.79, each against the 10.99 reference.
+- binding note: the shared 1 Gbps port and the unstated fair-use threshold decide sustained throughput; the RAM and disk shapes are not the constraint at this price.
+- interface detail: full administrator access over RDP on a dedicated IPv4; the WHMCS control panel starts, stops, reinstalls and opens a console, and the operating-system select lists Windows Server 2012R2, 2019 and 2022 among the images
+- tooling: any RDP client; the Rabisu panel for reinstall and console
+- composes with: the cheapest 16 GB machine whose operating-system list offers Windows at no printed surcharge, so it is the row a reader reaches for first. What it cannot carry is the licence claim: the machine is cheap and documented, the licence is unresolved, and the two are different facts.
+- reliability: no reliability event observed; the configurator renders a 'please correct the following errors' banner because the add-to-cart POST was not completed, and the 'FREE Setup Fee' text on the page belongs to a cross-sell block rather than to this plan.
+- notes: Two claims were separated here on 2026-10-26. The machine is documented and unchanged: USD 10.99 monthly, USD 8.79 annual, 6 cores, 16 GB, 120 GB SSD, monthly cycle as the default, Windows 2012R2, 2019 and 2022 in the OS list at no printed surcharge, no setup fee. The record's url moved from the dead /vps-windows path to the live configurator, which is the page every number above comes from. The annual cycle needs USD 105.48 up front. Region upgrades move the price: on the monthly cycle London, Dublin, Falkenstein, New York, Los Angeles, Miami, Dallas and Beauharnois add USD 5.22, Sydney, Singapore and Hong Kong add USD 8.72, and Karachi adds USD 22.12; the annual cycle scales those to USD 4.18, USD 6.98 and USD 17.70.
+- evidence note: the machine is documented: the shape, all four cycle rates, the monthly default, the Windows Server images in the operating-system select and the absence of a setup fee are read from the live configurator on 2026-10-26. The licence inclusion is reported and not documented, which is what drags the record down a rung: the sentence 'all Windows VPS plans include a genuine Windows Server license' was carried by an earlier reader from https://www.rabisu.com/vps-windows, that path now returns 404, and the configurator, the home page and the knowledgebase contain zero occurrences of licen, license or genuine. A cart with a licence line, or a vendor statement on a live path, moves this record back to documented.
+- extras:
+  - shape.vcpu: 6
+  - shape.ram_gib: 16
+  - shape.disk_gib: 120
+  - billing_model: monthly, quarterly, semiannual or annual
+  - term: none monthly; 12 months annual
+  - monthly_usd: 10.99
+  - annual_monthly_usd: 8.79
+  - first_payment_usd: 10.99
+  - annual_first_payment_usd: 105.48
+  - setup_fee_usd: 0.0
+  - windows_licence: unresolved: the vendor FAQ sentence did not reproduce; the OS option carries no price delta, which proves the surcharge is zero and not that a licence is supplied
+  - licence_downgraded_on: 2026-10-26
+  - licence_former_source: https://www.rabisu.com/vps-windows (HTTP 404 on 2026-10-26)
+  - windows_images: Windows Server 2012R2; Windows Server 2019; Windows Server 2022
+  - ipv4_included: yes
+  - ipv6_included: no
+  - port_mbps: 1000
+  - traffic: unlimited under fair use
+  - locations_included: Turkiye - Istanbul; Bulgaria - Sofia
+  - location_surcharge_usd_monthly.United Kingdom - London: 5.22
+  - location_surcharge_usd_monthly.Ireland - Dublin: 5.22
+  - location_surcharge_usd_monthly.Germany - Falkenstein: 5.22
+  - location_surcharge_usd_monthly.United States - New York: 5.22
+  - location_surcharge_usd_monthly.United States - Los Angeles: 5.22
+  - location_surcharge_usd_monthly.United States - Miami: 5.22
+  - location_surcharge_usd_monthly.United States - Dallas: 5.22
+  - location_surcharge_usd_monthly.Canada - Beauharnois: 5.22
+  - location_surcharge_usd_monthly.Australia - Sydney: 8.72
+  - location_surcharge_usd_monthly.Singapore: 8.72
+  - location_surcharge_usd_monthly.Hong Kong: 8.72
+  - location_surcharge_usd_monthly.Pakistan - Karachi: 22.12
+  - location_surcharge_usd_annual.United Kingdom - London: 4.18
+  - location_surcharge_usd_annual.Ireland - Dublin: 4.18
+  - location_surcharge_usd_annual.Germany - Falkenstein: 4.18
+  - location_surcharge_usd_annual.United States - New York: 4.18
+  - location_surcharge_usd_annual.United States - Los Angeles: 4.18
+  - location_surcharge_usd_annual.United States - Miami: 4.18
+  - location_surcharge_usd_annual.United States - Dallas: 4.18
+  - location_surcharge_usd_annual.Canada - Beauharnois: 4.18
+  - location_surcharge_usd_annual.Australia - Sydney: 6.98
+  - location_surcharge_usd_annual.Singapore: 6.98
+  - location_surcharge_usd_annual.Hong Kong: 6.98
+  - location_surcharge_usd_annual.Pakistan - Karachi: 17.7
+  - cart_url: https://www.rabisu.com/panel/cart.php?a=confproduct&i=0
+- evidence:
+  - [1] 2026-10-26: quoted: '6 Core CPU ... 16 GB Ram ... 120 GB SSD ... 1 Gbps Port ... Unlimited Bandwith ... Windows / Linux' and 'Monthly $10.99/mo ... Quarterly $9.89/mo Save 10% ... Semi-Annually $9.34/mo Save 15% ... Annually $8.79/mo Save 20%'
+  - [1] 2026-10-26: quoted from the Operating System select: 'Windows Server 2012R2', 'Windows Server 2019', 'Windows Server 2022' as plain options with no price suffix, while every region upgrade prints its surcharge in the option text, so the OS carries no printed surcharge
+  - [1] 2026-10-26: the monthly cycle is the default: '<input class="icheck-control" type="radio" value="monthly" name="billingcycle" checked>'; no setup fee is printed for this plan and the order summary prints no total
+  - [2] 2026-10-26: the path returns HTTP 404 on 2026-10-26, so the sentence is carried as a third-party reading with no live source and the licence is unresolved
+  - [3] 2026-10-26: 
+  - [4] 2026-10-26: the home page (200, 133,582 bytes) returns zero matches for licen, Licen, genuine and license
+- sources:
+  - [1] https://www.rabisu.com/panel/store/vps/aydin-vps-x16
+  - [2] https://www.rabisu.com/vps-windows
+  - [3] https://www.rabisu.com/panel/knowledgebase
+  - [4] https://www.rabisu.com/
+
+## Rabisu (compute/rabisu)
+
+- `compute/rabisu` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:16:58.955Z (live) | stale on 2026-12-08
+- url https://www.rabisu.com/vps
+- price parsed USD 2.39/mo
+- disagrees on identity_kind: `compute/rabisu` says email, `compute/rabisu-windows` says card
+- disagrees on verdict: `compute/rabisu` says paid-only, `compute/rabisu-windows` says qualifies-with-caveat
+- free tier: Aydin VPS x4 at USD 2.99 a month on the cart's monthly term, USD 2.69 on the quarterly term, USD 2.54 on the semi-annual term and USD 2.39 on the annual term (the vendor page shows the same 20 percent off annual): 2 Ryzen cores, 4 GB RAM, 40 GB NVMe, dedicated IPv4, free backup with 2 backup points, quoted. The vendor advertises 'unlimited traffic' and 'Fair Usage Traffic'; the tracker row states 10240 GB/month on a 1 Gbps port in Istanbul or Sofia; the cart's region selector prices Istanbul with no surcharge and twelve regions extra (Karachi +USD 11.98; London, Falkenstein, Dublin, New York, Los Angeles, Miami, Dallas and Beauharnois +USD 3.20; Sydney, Singapore and Hong Kong +USD 4.64) and lists no Sofia. Aydin VPS x8 is USD 5.99/month with 4 cores, 8 GB and 60 GB. The cart shows no out-of-stock badge. Renewal: not published on any page. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the vendor says 'unlimited traffic' and marks each plan 'Fair Usage Traffic' with no published number; the tracker states 10240 GB/month. No overage price was published on either page | metered: yes | free allowance: 10240 GB/month as stated by the tracker; 'unlimited' with fair use as stated by the vendor | source: [2]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): The vendor publishes no number: it says 'unlimited traffic' in the page header and 'Fair Usage Traffic' on every plan card. The tracker states 10240 GB/month on a 1 Gbps port, which is the only figure in the sources and is recorded as the working cap, with the discrepancy noted. [1]
+- limits note: The vendor publishes no number: it says 'unlimited traffic' in the page header and 'Fair Usage Traffic' on every plan card. The tracker states 10240 GB/month on a 1 Gbps port, which is the only figure in the sources and is recorded as the working cap, with the discrepancy noted.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: instant setup, dedicated IPv4, free backup with 2 backup points, 24/7 support; no API was stated on the page read
+- composes with: USD 2.99 a month, USD 2.39 on the annual term, for 2 Ryzen cores, 4 GB and 40 GB of NVMe is the best RAM per dollar here and the cheapest box here that can hold a Docker Compose stack with a database. At 10240 GB a month it is a worker rather than a serving host, and the cart region list, Istanbul with no surcharge plus twelve surcharged regions, gives a crawl an egress geography none of the other providers here offers at this price.
+- reliability: the page advertises a 99 percent uptime guarantee, the lowest among documented hosts, where every other provider here states 99.9 or above; the page's live statistics report avg hypervisor CPU 32.90 percent, 5,368 total cores and 454.77 TB of NVMe provisioned
+- notes: Rabisu offers Ryzen KVM VPS instances ('Aydin VPS') operated by 2E Telekomunikasyon Ltd. Sti. Plans feature 1 Gbps uplink ports with unmetered fair-use traffic.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 40
+  - price_on_page: USD 2.99/month for Aydin VPS x4; USD 2.39/month on the annual term; renewal: not published
+- evidence:
+  - [1] 2026-10-22: plan card quoted: 'Aydin VPS x4 Ryzen CPU', '2 Core CPU', '4GB RAM', '40 GB NVMe', 'FREE Backup', 'Starting at: $2.39 /mo', '$2.99 20% OFF', 'Fair Usage Traffic', '99% Uptime Guarantee', 'Dedicated IP Address'
+  - [1] 2026-10-22: billing toggle quoted: 'Monthly Quarterly -10% Semi-Annual -15% Annually -20%', so USD 2.39/mo is the annual rate and USD 2.99/mo the monthly; page header states '100% NVMe storage, unlimited traffic'
+  - [2] 2026-10-22: cheapest row: '$2.99 / month', '2 Intel Cores (shared)', '4,096 MB RAM', '40 GB NVMe', '10,240 GB/month bandwidth', '1 Gbps port speed', 'IPv4', Istanbul Turkey; the same plan is also listed for Sofia Bulgaria
+  - [3] 2026-11-07: the WHMCS store lists Aydın VPS x4 starting at USD 2.99 monthly, the plan and price free_tier.stated records | capture: sha256:47eedcdcefa36a53e81489ef2c6ec5efdd3e61a38f966774b39d04b311863a48 | quote: Aydın VPS x4 Starting from $2.99 Monthly
+  - [4] 2026-11-07: the Aydin VPS x4 cart prices the monthly term at 2.99 USD, quarterly 2.69, semi-annual 2.54 and annual 2.39 per month, with Istanbul at no surcharge and no out-of-stock badge | capture: sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78 | quote: Annually <br> $2.39/mo
+  - [4] 2026-11-07: the cart's region selector prices Istanbul with no surcharge and other regions at surcharges | capture: sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78 | quote: Türkiye - Istanbul Pakistan - Karachi $11.98 United Kingdom - London $3.20
+  - [2] 2026-11-07: the tracker's Rabisu page lists the 2.99 USD plan at 10,240 GB/month on a 1 Gbps port in Istanbul and Sofia | capture: sha256:2bc27bde266a326304dbc8b7108719dc77df6fe53697025dccc25bcdb6660551 | quote: bandwidth 10,240 GB/month
+  - [4] 2026-11-07: the Aydin VPS x4 cart prices the annual term at 2.39 USD a month | capture: sha256:5ee764cb446a99460ab47aa9a7d590a2ea6466ba6fdb88c35b3755b543666e78 | quote: Annually <br> $2.39/mo
+- sources:
+  - [1] https://www.rabisu.com/vps
+  - [2] https://vpspricetracker.com/provider/Rabisu/vps
+  - [3] https://www.rabisu.com/panel/store/vps
+  - [4] https://www.rabisu.com/panel/store/vps/aydin-vps-x4

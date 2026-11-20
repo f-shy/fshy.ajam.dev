@@ -1,0 +1,122 @@
+# Inngest server
+
+> inngest.com | Developer services; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/inngest/ | JSON https://fshy.ajam.dev/api/v1/entity/inngest.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Inngest
+
+- `dev-services/inngest` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted durable-execution and event orchestration | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-31T00:43:02.028Z (live) | stale on 2026-12-01
+- url https://www.inngest.com/pricing
+- free tier: Free: 50,000 executions and 500,000 events ingested per month, 5 concurrent steps, no credit card required | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: An execution is one function run or one step execution, so a run with five steps uses six. The Free plan also allows 3 active workspaces, 5 apps per workspace, 100 functions per app and 2 active branch deploys; a run may last 30 days including sleeps. Function code runs on the user's own host, which Inngest calls.
+- per-object cap: 256 KiB per event; 32 MiB of function run state | source: [1]
+- retention: trace and log history: 24 hours on Free | source: [1]
+- egress: not applicable: Inngest calls the user's function endpoints; no traffic allowance is published | metered: no | source: [2]
+- identity: email | detail: The sign-up form asks for an email address and a password, or GitHub or Google sign-in; the free tier needs no card.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 50,000 executions per month [1]
+  - volume-quota (binding): 500,000 events ingested per month [1]
+  - per-object-cap: 256 KiB per event [1]
+  - retention-clamped: 24 hours of trace and log history [1]
+- limits note: 5 concurrent steps, queue depth 100,000, event batches of 5 with a 30-second batch timeout. A step may run up to 2 hours, subject to the host's shorter timeout. Since October 20, 2026 executions in runs with checkpointing are no longer undercounted, so a Free account may reach the cap sooner.
+- binding note: 50,000 executions a month binds first, and each step counts, so multi-step functions reach it in fewer runs.
+- interface detail: REST API at api.inngest.com (v1 stable, v2 stable in development) for events, function runs and environments; every endpoint is also exposed in the Inngest CLI
+- endpoint: https://api.inngest.com/v1
+- tooling: the Inngest SDKs in the user's app, the Inngest CLI (inngest api) and the local dev server (npx inngest-cli dev). As a last resort the open-source server can be installed and run by the user on a rented or free machine.
+- composes with: Adds retries, schedules, sleeps and fan-out to functions served from a free serverless host, so it composes with a free compute tier that has no queue or cron of its own.
+- reliability: Since October 20, 2026 executions in checkpointed runs count in full, so a Free account can hit its cap sooner than before.
+- evidence note: Plan limits and sign-up fields are read on first-party pages; the REST API answered HTTP 401 to a request without a key. A function run is not measured.
+- evidence:
+  - [2] 2026-10-30: the free plan needs no credit card | capture: sha256:eaca5b53dedec049164fac298b2a4680141e046baae607cd09bfe5ec2dc841e9 | quote: Generous monthly limits to prove it before production. No credit card required.
+  - [1] 2026-10-30: Free includes 50,000 executions a month | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Executions included per month | 50,000 | 1 million | 10 million | Custom |
+  - [1] 2026-10-30: Free includes 500,000 events a month | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Events ingested included per month | 500,000 | 5 million | 50 million | Custom |
+  - [1] 2026-10-30: Free allows 5 concurrent steps | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Concurrent steps | 5 | 100 included | 500 | Custom |
+  - [1] 2026-10-30: a Free event is at most 256 KiB | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Maximum event size | 256 KiB | 3 MiB | 3 MiB | Custom |
+  - [1] 2026-10-30: Free queue depth is 100,000 | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Queue depth | 100,000 | 1 million | 10 million | Custom |
+  - [1] 2026-10-30: Free event batches hold 5 events | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Event batch capacity | 5 events | 100 events | 500 events | Custom |
+  - [1] 2026-10-30: Free batch timeout is 30 seconds | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Event batch timeout | 30 seconds | 5 minutes | 5 minutes | Custom |
+  - [1] 2026-10-30: Free allows 3 active workspaces | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Active workspaces per account | 3 | 10 | 10 | 50 |
+  - [1] 2026-10-30: Free allows 5 apps per workspace | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Active apps per workspace | 5 | 10 | 10 | 250 |
+  - [1] 2026-10-30: Free allows 100 functions per app | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Active functions per app | 100 | 500 | 500 | 1,000 |
+  - [1] 2026-10-30: Free keeps 24 hours of trace and log history | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Trace and log history | 24 hours | 7 days | 14 days | Up to 365 days |
+  - [1] 2026-10-30: a Free run may last 30 days including sleeps | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: On the Free plan, a run can sleep for up to 30 days in total.
+  - [1] 2026-10-30: an execution is a run or a step | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: An execution is one function run or one step execution.
+  - [1] 2026-10-30: a five-step run uses six executions | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: A function run with five steps uses six executions.
+  - [1] 2026-10-30: Free allows 2 active branch deploys | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | 2 | 10 | 10 | Up to 250 |
+  - [1] 2026-10-30: function run state is capped at 32 MiB | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Function run state | 32 MiB across event data, step data, function return data, and metadata | Keep large data outside run state. |
+  - [1] 2026-10-30: a step may run up to 2 hours, subject to the host timeout | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: | Step timeout | Up to 2 hours, subject to the function host's shorter timeout | Check the host's timeout. Split long work into steps where needed. |
+  - [1] 2026-10-30: from October 2026 Free accounts may reach the execution cap sooner | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: Free accounts may reach their execution cap sooner.
+  - [1] 2026-10-30: function code runs on the user's own host | capture: sha256:ae947b8136f0e2212ad62459d544c9188cd8980dd59cde198f5ab2f468c4fc32 | quote: When you run function code on your infrastructure, check the host's request size, concurrency, memory, and execution timeout.
+  - [3] 2026-10-31: the sign-up form asks for an email address and a password | capture: sha256:16c7bf4569218f62c745a26bcf4c437f86d049b398e5a2d98c35abe983811910 | quote: Email address
+  - [3] 2026-10-31: GitHub and Google sign-in are offered | capture: sha256:16c7bf4569218f62c745a26bcf4c437f86d049b398e5a2d98c35abe983811910 | quote: ![Sign in with GitHub](https://img.clerk.com/static/github.svg?width=160)GitHub![Sign in with Google](https://img.clerk.com/static/google.svg?width=160)Google
+  - [3] 2026-10-31: the sign-up page states the free tier needs no card | capture: sha256:16c7bf4569218f62c745a26bcf4c437f86d049b398e5a2d98c35abe983811910 | quote: SOC 2 Type II certified ·Free tier, no card required
+  - [4] 2026-10-30: a REST API covers events, function runs and environments | capture: sha256:be038f1152e43fa6ccb784d7fb5dc4d91d652b37551e86c98939f8d60030def1 | quote: The Inngest REST API lets you interact with events, function runs, environments, and more programmatically.
+  - [4] 2026-10-30: every API endpoint is also in the CLI | capture: sha256:be038f1152e43fa6ccb784d7fb5dc4d91d652b37551e86c98939f8d60030def1 | quote: Every API endpoint is automatically exposed in the CLI which can connect to Inngest Cloud and the Dev Server.
+  - probe:https://api.inngest.com/v1/events 2026-10-31: the REST API at api.inngest.com answered HTTP 401 to a request without a key | capture: sha256:8e5f3ab83fe0e1e05e650086c716aca4f9a488d95592b4177ed09bf681769651 | quote: "status": 401
+  - [5] 2026-10-30: the server can be self-hosted | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Self-hosting support for Inngest is supported as of the 1.0 release.
+- sources:
+  - [1] https://www.inngest.com/docs/usage-limits/inngest
+  - [2] https://www.inngest.com/pricing
+  - [3] https://app.inngest.com/sign-up
+  - [4] https://api-docs.inngest.com/
+  - [5] https://www.inngest.com/docs/self-hosting
+
+## Inngest server (self-hosted)
+
+- `dev-services/inngest-server` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category self-hosted durable-execution and event orchestration server (open-source Inngest server) | tier Self-hosted
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:13:27.751Z (live) | stale on 2026-12-02
+- url https://www.inngest.com/docs/self-hosting
+- free tier: The Inngest server is published on GitHub: installing the Inngest CLI, a single binary that includes all Inngest services, and running inngest start gives a self-hosted server on a machine the user runs, with SQLite for persistence by default | unit: none | metered on: none | read on: 2026-11-01 | source: [1] | note: The hosted Inngest free tier (dev-services/inngest) comes first. The user's function code stays on an app host of the user's own, served through HTTP or Connect.
+- per-object cap: not stated on the self-hosting pages read | source: [1]
+- retention: the server does not delete old PostgreSQL rows for events, runs or traces by itself, so retention is whatever the user's cleanup keeps; the default database is SQLite at ./.inngest/main.db | source: [1]
+- egress: not set by the software: the server invokes the user's functions over HTTPS or the Connect gateway from the machine the user runs it on, so the network terms of that host apply | metered: no | source: [1]
+- identity: anonymous | detail: No Inngest account is needed: the user creates an event key and a signing key in any format they choose (the signing key a hexadecimal string with an even number of characters) and passes them to inngest start.
+- interface: rest, graphql, cli
+- limits:
+  - request-rate: 100 queue workers run in parallel on one server by default (--queue-workers) [1]
+- limits note: inngest start runs Inngest as a single-node service labelled beta, and with the default SQLite database the server does not scale beyond a single node. The signing key must be a hexadecimal string with an even number of characters.
+- binding note: The self-hosting pages state no execution or event quota; the machine, Redis and the database bound throughput, and 100 queue workers run in parallel by default.
+- interface detail: the server provides GraphQL and REST APIs for programmatic access and management of system resources, with the Event API and the Dashboard UI on port 8288 and the Connect gateway on port 8289; the Inngest CLI starts it with inngest start, and the Inngest SDKs in the user's app send events with an event key and share a signing key with the server
+- tooling: the user installs and runs the Inngest server on a rented or free machine: the Inngest CLI (npm install -g inngest-cli, the inngest/inngest Docker image or a release binary) started with inngest start, with SQLite and an in-memory Redis by default, or with PostgreSQL and Redis through the Docker Compose example or the Helm chart for Kubernetes; the Inngest SDKs in the user's own app.
+- composes with: Last resort after the hosted durable-execution offers (the hosted Inngest free tier in dev-services/inngest, then Temporal Cloud in dev-services/temporal-cloud and the n8n Cloud trial in dev-services/n8n-cloud): the user's functions still run on a host that serves them, and the server adds the queue, schedules, retries and fan-out from a machine that the user installs and keeps running.
+- reliability: Inngest's support team does not guarantee direct support for self-hosted instances; inngest start is labelled beta; without external services the queue and run state live in an in-memory Redis whose snapshots are saved to SQLite periodically and at shutdown, a Docker run that does not mount the SQLite directory loses the database with the container, and PostgreSQL rows for events, runs and traces are not removed automatically.
+- notes: Self-hosted software and the last resort: the hosted offers come first (the hosted Inngest free tier dev-services/inngest, the Temporal Cloud credit dev-services/temporal-cloud and the n8n Cloud trial dev-services/n8n-cloud). This record is no duplicate of dev-services/inngest: it is the server that the user installs and runs.
+- evidence note: Install, configuration, persistence and the interfaces are read on the first-party self-hosting documentation and the repository README; the server was not installed or run, and the self-hosting pages state no price or quota.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-01: self-hosting is supported as of the Inngest 1.0 release | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Self-hosting support for Inngest is supported as of the 1.0 release.
+  - [1] 2026-11-01: the Inngest CLI is a single binary that includes all Inngest services and is all that self-hosting needs to install | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: To begin self-hosting Inngest, you only need to install the Inngest CLI. The Inngest CLI is a single binary that includes all Inngest services and can be run in any environment.
+  - [1] 2026-11-01: the source code for Inngest and all its services is available on GitHub | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: The source code for Inngest and all services is [available on GitHub](https://github.com/inngest/inngest).
+  - [1] 2026-11-01: the CLI binary can be downloaded directly from the GitHub releases | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Alternatively, you can download the binary directly from [GitHub releases]
+  - [1] 2026-11-01: the Event API receives events from the SDKs over HTTP | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Receives events from SDKs via HTTP requests.
+  - [1] 2026-11-01: the signing key signs and validates data between the server and the apps | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Signing key used to sign and validate data between the server and apps.
+  - [1] 2026-11-01: the self-hosting page includes a Docker Compose example | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: ## Docker compose example
+  - [1] 2026-11-01: the CLI installs as a Docker image | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: docker pull inngest/inngest
+  - [1] 2026-11-01: the CLI installs from npm | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: npm install -g inngest-cli
+  - [1] 2026-11-01: inngest start serves on port 8288 with SQLite for persistence, and the Connect gateway is on port 8289 | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: This will start the Inngest server on the default port `8288` and use the default configuration, including SQLite for persistence. Additionally, the Connect gateway will be available on port `8289`.
+  - [1] 2026-11-01: the server provides GraphQL and REST APIs | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: API - GraphQL and REST APIs for programmatic access and management of system resources.
+  - [1] 2026-11-01: the event and signing keys are chosen by the user in any format | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: To securely configure your server, create your event and signing keys using whatever format you choose and start the Inngest server using them.
+  - [1] 2026-11-01: the signing key must be a hexadecimal string with an even number of characters | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: The signing key must be a valid hexadecimal string with an even number of characters.
+  - [1] 2026-11-01: by default the queue and state store run in an in-memory Redis server | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Use an in-memory Redis server for the queue and state store.
+  - [1] 2026-11-01: the default database is SQLite at ./.inngest/main.db and snapshots are saved periodically and before shutdown | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Use SQLite for persistence. The default database is located at `./.inngest/main.db`. Queue and state store snapshots are periodically saved to the SQLite database, including prior to shutdown.
+  - [1] 2026-11-01: the default SQLite persistence does not scale beyond a single node | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: By default, the Inngest server uses SQLite for persistence. This is convenient for zero-dependency deployments, but does not support scaling beyond a single node.
+  - [1] 2026-11-01: an external PostgreSQL database is set with the postgres-uri flag | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: --postgres-uri string PostgreSQL database URI for configuration and history persistence. Defaults to SQLite database.
+  - [1] 2026-11-01: an external Redis server is set with the redis-uri flag | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: --redis-uri string Redis server URI for external queue and run state. Defaults to self-contained, in-memory Redis server with periodic snapshot backups.
+  - [1] 2026-11-01: the server does not delete old PostgreSQL rows for events, runs or traces | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: The Inngest server does not automatically delete old database rows within Postgres for events, runs, or traces.
+  - [1] 2026-11-01: each Inngest server runs 100 queue workers in parallel by default | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: By default, each Inngest server only runs `100` queue workers in parallel for execution.
+  - [1] 2026-11-01: inngest start is a single-node service labelled beta | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: inngest start - [Beta] Run Inngest as a single-node service.
+  - [1] 2026-11-01: Inngest's support team does not guarantee direct support for self-hosted instances | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Inngest's support team does not guarantee direct support for self-hosted instances.
+  - [1] 2026-11-01: a Helm chart deploys the server on Kubernetes | capture: sha256:2004324b231334279b247263c0f335988a59a03abfe4f424b509f4c9be87fc3e | quote: Inngest provides a Helm chart for production-ready Kubernetes deployments.
+  - [2] 2026-11-01: the application hosts its function code separately from the self-hosted server | capture: sha256:2c9c64ce67e146fa1f3764b371919abb7cf06a936b3a598acde2f4fce8fe9acb | quote: Your application hosts its function code separately.
+  - [2] 2026-11-01: the app serves its function code to the self-hosted server through HTTP serve() or Connect | capture: sha256:2c9c64ce67e146fa1f3764b371919abb7cf06a936b3a598acde2f4fce8fe9acb | quote: Your app still serves function code through HTTP `serve()` or Connect.
+  - [2] 2026-11-01: a Docker run without a mounted SQLite database loses the database with the container | capture: sha256:2c9c64ce67e146fa1f3764b371919abb7cf06a936b3a598acde2f4fce8fe9acb | quote: It does not mount the SQLite database, so removing the container also removes its local database.
+  - [2] 2026-11-01: PostgreSQL rows for events, runs and traces are not removed automatically | capture: sha256:2c9c64ce67e146fa1f3764b371919abb7cf06a936b3a598acde2f4fce8fe9acb | quote: PostgreSQL rows for events, runs, and traces are not automatically removed; plan retention and cleanup.
+  - [3] 2026-11-01: the repository states that self-hosting the Inngest server is possible | capture: sha256:711400f5e0ceec9b5c1104a85a6aed4856db528987f62dd39b6bf3c6d26be67b | quote: Self-hosting the Inngest server is possible and easy to get started with.
+  - [3] 2026-11-01: the server invokes the user's functions over HTTPS when triggering events arrive | capture: sha256:711400f5e0ceec9b5c1104a85a6aed4856db528987f62dd39b6bf3c6d26be67b | quote: Inngest invokes your functions securely via HTTPS whenever triggering events are received.
+  - [3] 2026-11-01: functions are written with the Inngest language SDKs | capture: sha256:711400f5e0ceec9b5c1104a85a6aed4856db528987f62dd39b6bf3c6d26be67b | quote: Write durable functions using any of our language SDKs
+- sources:
+  - [1] https://www.inngest.com/docs/self-hosting
+  - [2] https://www.inngest.com/docs-markdown/platform-and-operations/self-host-inngest
+  - [3] https://github.com/inngest/inngest

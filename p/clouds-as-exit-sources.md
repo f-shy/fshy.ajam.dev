@@ -1,0 +1,112 @@
+# Cloud hosts as exit sources (survey)
+
+> IP and proxies; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/clouds-as-exit-sources/ | JSON https://fshy.ajam.dev/api/v1/entity/clouds-as-exit-sources.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Oracle Cloud, Google Cloud, AWS, Microsoft Azure, Hetzner
+
+- `ip-proxy/clouds-as-exit-sources` | fails-egress | evidence documented | binding retention-clamped | category cloud egress | tier mixed: Always Free tiers on Oracle, Google Cloud and AWS; paid addresses on Azure and Hetzner
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T08:33:41.731Z (live) | stale on 2026-12-04
+- url https://stat.ripe.net/resource/AS31898
+- price not a per-TB product: addresses are billed per hour or per prefix — USD 0.005/h, USD 3.65/month, per address on Google Cloud and AWS; EUR 2.27 per usable IP per month on Hetzner; Azure unverified | parsed USD 3.65/mo
+- free tier: Oracle Always Free includes 1,500 OCPU-hours and 9,000 GB-hours a month plus 10 TB/month of egress, on a card that takes a USD 1.00 authorisation and reverses it. Google Cloud's free tier includes an e2-micro with 1 GB/month of egress. AWS includes 750 public-IPv4 hours a month. Azure and Hetzner record no free allowance: Azure's price cells all render as $- and Hetzner's /29 is sold at EUR 13.60/month plus EUR 34.90 setup. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: Allowances combine compute time and bandwidth limits: Oracle and AWS provide hour-denominated allowances (OCPU-hours, GB-hours, 750 hours) alongside byte-denominated egress limits (10 TB monthly, 1 GB monthly). metered_on reflects compute hours as the headline quota, while byte allowances are documented separately.
+- per-object cap: not applicable | source: [2] | note: The nearest equivalent is the smallest unit that can be allocated: a /29 prefix on Azure and Hetzner, one external IPv4 on Google Cloud, one public IPv4 on AWS. Hetzner's own figure of EUR 2.27 per usable IP against EUR 13.60 a month implies six usable addresses in the eight.
+- retention: not applicable: an address, not an object. The nearest equivalent is the instance holding it: Oracle reclaims an Always Free compute instance that sits at 7-day p95 idle, and the address goes with the machine. | source: [1] | note: Activity-based, so days is null rather than 7: the clock is a rolling idle percentile, not a fixed lease. The facts record no reclaim rule for the other four providers; Oracle's is the only one with a clock, and it is the constraint the binding field names.
+- egress: Metered, with a large free allowance on Oracle and a small one on Google Cloud: Oracle includes 10 TB/month on Always Free, Google Cloud's free e2-micro includes 1 GB/month, and AWS bills the address itself at USD 0.005/h with 750 free hours. Hetzner bills a /29 at EUR 13.60/month plus EUR 34.90 setup. Azure's address prices render as $- and are unverified. | metered: yes | free allowance: Oracle 10 TB/month on Always Free; Google Cloud free e2-micro 1 GB/month; AWS 750 public-IPv4 hours/month | source: [1]
+- identity: card | detail: Oracle Always Free tier requires a credit card and executes a reversible USD 1.00 authorization. Registration requirements for other listed providers are unverified against recent signup flows.
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): 7-day p95 idle reclaim on Oracle Always Free: the machine is taken back and the address with it [1]
+  - volume-quota: Oracle Always Free includes 10 TB/month of egress, about 222 times 45 GB/month [1]
+  - volume-quota: Google Cloud free e2-micro includes 1 GB/month of egress, which 45 GB/month exceeds about 45 times over [3]
+  - volume-quota: AWS includes 750 public-IPv4 hours a month, which covers one address continuously (744 hours in a 31-day month) with 6 hours spare [4]
+  - volume-quota: Google Cloud external IPv4 costs USD 0.005/h while in use, USD 3.65/month, with no free allowance stated [5]
+- limits note: Three constraints fit none of the seven. Cost: Hetzner's /29 is EUR 13.60 a month plus EUR 34.90 setup, EUR 2.27 per usable IP, and AWS and Google Cloud charge USD 0.005/h per address, USD 3.65 a month. Unverified price: Azure offers a /29 public IP prefix but every price cell on its pricing page renders as hBc, so the price of that prefix is unverified rather than zero. Denominator: the five publish different address products, such as a prefix, a single address, or a subnet, so per-address cost is comparable while capacity is not.
+- binding note: At 45 GB a month across about 599,000 requests nothing here is near a byte or request ceiling except Google Cloud's 1 GB/month free egress, and crossing that produces a bill rather than a stop; Oracle's 7-day p95 idle reclaim is the only constraint that removes the address, so it is the one that ends the arrangement.
+- interface detail: Each provider exposes its own REST API and CLI for address objects, so rest is the nearest token in the closed set and cli is the other half. The schema's enum has no token for a cloud provider API and none for a subnet product. The address is a resource in the account: an external IPv4 on Google Cloud, a public IPv4 on AWS, a public IP prefix on Azure, a subnet on Hetzner, a public IP on an Oracle VNIC.
+- tooling: The provider's own REST API, SDK and CLI. No third-party wrapper exists or is needed, because the address is a resource in the account rather than a product with its own protocol. The work is a small driver that creates an instance, attaches the address, and recreates it when the provider takes the machine back. Access is not the problem here.
+- composes with: One of these sits behind the Workers AI gateway as the egress hop: the Worker calls the instance, the instance dials out from a cloud address, and because every one of the five is a single ASN the chain buys a second provider rather than a second network.
+- reliability: All five are datacenter ranges registered to the cloud provider itself or to one of its own entities (ARIN DIRECT ALLOCATION for Oracle, Google Cloud and Azure; ARIN ALLOCATION for AWS; RIPE ASSIGNED PA for Hetzner), so an exit carries that cloud ASN's reputation, and on Oracle the address disappears with the reclaimed machine.
+- notes: What this record is for. The compute topic owns the prices: compute/oracle-cloud, compute/google-cloud-free-tier, compute/aws-free-plan-t4g and compute/hetzner-cloud each carry the free-tier shape and the egress terms, and this record does not correct any of them. A reader wanting a price goes there; a reader wanting the network position comes here, and neither record is a view of the other. One sample, said plainly. The RDAP read is a single address, 129.146.0.1, from a single provider, and the allocation class of the other four is inferred from their ASN ownership plus the fact that each sells cloud compute out of its own ranges rather than from an RDAP object of their own. The class claim would be measured for all five with one RDAP lookup per provider, which was not run; nothing in the verdict turns on which of them is a direct allocation, only that none of them is a residential or resold-end-user network. Denominators, recorded rather than smoothed. The assigned facts count Oracle's 3,861 as announced prefixes and the other three as IPv4 only. Re-read: AS31898 3,861 total and 2,852 v4; AS396982 3,924 total and 3,558 v4; AS16509 25,440 total and 19,416 v4; AS8075 1,355 total and 1,233 v4; AS24940 96 total and 91 v4. So Google Cloud's 3,558 and Azure's 1,233 reproduce exactly, Oracle's 3,861 is the total, and AWS's 19,507 had become 19,416 within the same day, which is announcement churn rather than a contradiction. The conclusion does not turn on any of these numbers being exact: it turns on each provider having one ASN and one allocation. Hetzner's ASN was not in the assigned facts. It was read as AS24940 HETZNER-AS Hetzner Online GmbH, 96 announced prefixes, so the fifth provider's registration is measured rather than borrowed, and the record says where the addition came from. Nothing else was added to the assigned facts. What a static fetch can and cannot re-prove.
+- evidence note: The ASN numbers and holders are measured with RIPE prefix-overview and the allocation class is measured for all five providers with one registry lookup each (ARIN for Oracle, Google Cloud, AWS and Azure; RIPE for Hetzner), on one address per provider. The free-tier and price fields are vendor-page reads, so the weakest rung the verdict depends on is documented, not measured.
+- extras:
+  - rung: 4
+  - rung_note: Rung 4 is confirmed for all five providers by ASN and announced-prefix reads on 2026-10-24, and rung 5 was tested and is not a diversity route, because a bigger prefix out of one direct allocation is the same registration rather than a second network.
+  - asns.AS31898: ORACLE-BMC-31898 - Oracle Corporation
+  - asns.AS396982: GOOGLE-CLOUD-PLATFORM - Google LLC
+  - asns.AS16509: AMAZON-02 - Amazon.com, Inc.
+  - asns.AS8075: MICROSOFT-CORP-MSN-AS-BLOCK - Microsoft Corporation
+  - asns.AS24940: HETZNER-AS Hetzner Online GmbH, read and not in the assigned facts
+  - prefix_counts.AS31898.announced: 3861
+  - prefix_counts.AS31898.ipv4: 2852
+  - prefix_counts.AS396982.announced: 3924
+  - prefix_counts.AS396982.ipv4: 3558
+  - prefix_counts.AS16509.announced: 25440
+  - prefix_counts.AS16509.ipv4: 19416
+  - prefix_counts.AS8075.announced: 1355
+  - prefix_counts.AS8075.ipv4: 1233
+  - prefix_counts.AS24940.announced: 96
+  - prefix_counts.AS24940.ipv4: 91
+  - prefix_counts.assigned_v4_counts.AS396982: 3558
+  - prefix_counts.assigned_v4_counts.AS16509: 19507
+  - prefix_counts.assigned_v4_counts.AS8075: 1233
+  - prefix_counts.note: Oracle's assigned 3,861 is the announced total, the other three assigned figures are IPv4 only, and AWS moved from 19,507 to 19,416 between the first count and the re-check.
+  - rdap_allocation.address: 129.146.0.1
+  - rdap_allocation.handle: NET-129-144-0-0-1
+  - rdap_allocation.netname: OPC1
+  - rdap_allocation.type: DIRECT ALLOCATION
+  - rdap_allocation.range: 129.144.0.0-129.159.255.255
+  - rdap_allocation.source: https://rdap.arin.net/registry/ip/129.146.0.1
+  - address_products.oracle: public IP on a VNIC, inside the Always Free allowance
+  - address_products.google_cloud: external IPv4, USD 0.005/h in use
+  - address_products.aws: public IPv4, USD 0.005/h, 750 free hours a month
+  - address_products.azure: /29 public IP prefix, price unverified
+  - address_products.hetzner: contiguous /29, EUR 13.60/month plus EUR 34.90 setup, EUR 2.27 per usable IP
+  - azure_price_render: every price cell is <span class='price-value'>$-</span> with data-hide-meter-type-if-no-price='true', so the prefix price is unverified rather than zero
+  - prices_owned_elsewhere: compute/oracle-cloud; compute/google-cloud-free-tier; compute/aws-free-plan-t4g; compute/hetzner-cloud
+  - confidence_corrected: Was measured.
+  - registration_class.oracle: ARIN DIRECT ALLOCATION: NET-129-144-0-0-1 (OPC1), 129.144.0.0-129.159.255.255, registrant Oracle Corporation; looked up 129.146.0.1, inside 129.146.0.0/21 published in Oracle's public_ip_ranges.json
+  - registration_class.google_cloud: ARIN DIRECT ALLOCATION: NET-34-64-0-0-1 (GOOGL-2), 34.64.0.0-34.127.255.255, registrant Google LLC; looked up 34.80.0.1, inside 34.80.0.0/15 published in Google's cloud.json
+  - registration_class.aws: ARIN ALLOCATION: NET-3-5-0-0-1 (AMAZON-S3), 3.5.0.0-3.5.255.255, registrant Amazon Data Services Northern Virginia, parent NET-3-0-0-0-1; looked up 3.5.140.1
+  - registration_class.azure: ARIN DIRECT ALLOCATION: NET-20-33-0-0-1 (MSFT), 20.33.0.0-20.128.255.255, registrant Microsoft Corporation; looked up 20.36.0.1
+  - registration_class.hetzner: RIPE ASSIGNED PA: 88.198.0.0 - 88.198.15.255 (HETZNER-RZ-NBG-NET), country DE, parent 88.198.0.0 - 88.198.255.255; looked up 88.198.0.1
+  - registration_class.note: one address looked up per provider; the registries carry no IP-type field, so the class is the registry object type and registrant
+- evidence:
+  - probe:stat.ripe.net/data/as-overview?resource=AS31898 2026-10-24: AS31898 holder is ORACLE-BMC-31898 - Oracle Corporation and the ASN is announced; re-read, so the AS name is measured rather than remembered.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS31898 2026-10-24: 3,861 prefixes announced, of which 2,852 are IPv4, so the record's 3,861 is a total and not a v4 count.
+  - [6] 2026-10-24: RDAP object NET-129-144-0-0-1, name OPC1, type DIRECT ALLOCATION, covering 129.144.0.0-129.159.255.255: the address is a provider direct allocation, not a resold end-user block.
+  - probe:stat.ripe.net/data/as-overview?resource=AS396982 2026-10-24: AS396982 holder is GOOGLE-CLOUD-PLATFORM - Google LLC.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS396982 2026-10-24: 3,558 IPv4 prefixes out of 3,924 announced, reproducing the assigned v4 figure exactly.
+  - probe:stat.ripe.net/data/as-overview?resource=AS16509 2026-10-24: AS16509 holder is AMAZON-02 - Amazon.com, Inc.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS16509 2026-10-24: 19,416 IPv4 prefixes out of 25,440 announced at re-check, against 19,507 assigned earlier the same day, so the count is a snapshot that moves within a day and the finding is order of magnitude.
+  - probe:stat.ripe.net/data/as-overview?resource=AS8075 2026-10-24: AS8075 holder is MICROSOFT-CORP-MSN-AS-BLOCK - Microsoft Corporation.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS8075 2026-10-24: 1,233 IPv4 prefixes out of 1,355 announced, reproducing the assigned v4 figure exactly.
+  - probe:stat.ripe.net/data/as-overview?resource=AS24940 2026-10-24: AS24940 holder is HETZNER-AS Hetzner Online GmbH; this ASN was not in the assigned facts and was read, so the fifth provider's registration is measured rather than assumed.
+  - probe:stat.ripe.net/data/announced-prefixes?resource=AS24940 2026-10-24: 96 prefixes announced, 91 of them IPv4, an order of magnitude smaller than any of the four clouds and the whole of Hetzner's single registration.
+  - [1] 2026-10-24: Oracle Always Free states 1,500 OCPU-hours and 9,000 GB-hours a month plus 10 TB/month of egress, with a card and a reversed USD 1.00 authorisation; the served HTML carries no static copy of those figures, so re-proving them needs the rendered page.
+  - [5] 2026-10-24: The external IP address pricing line reads 0.005 / 1 hour in the static HTML, which is USD 0.005 per external IPv4 hour, about USD 3.65 a month.
+  - [4] 2026-10-24: AWS's free tier lists 750 public-IPv4 hours a month and public IPv4 at USD 0.005/h.
+  - [7] 2026-10-24: Every price cell renders as <span class='price-value'>$-</span> carrying data-hide-meter-type-if-no-price='true', so the Azure address price is unverified rather than zero; the /29 public IP prefix product is the assigned fact and the string did not appear in the static HTML, so that half is not re-proved here.
+  - [8] 2026-10-24: Hetzner's cloud page is the price source for the contiguous /29 at EUR 13.60/month plus EUR 34.90 setup, EUR 2.27 per usable IP.
+  - probe:rdap.arin.net/registry/ip/34.80.0.1 2026-11-03: 34.80.0.1 lies in NET-34-64-0-0-1 (name GOOGL-2, 34.64.0.0-34.127.255.255), a DIRECT ALLOCATION registered to Google LLC. | capture: sha256:1b211e329d9383b23e55b64164918c6f5b9ee858dbcaf6a2f19b0c8413c3d128 | quote: "type" : "DIRECT ALLOCATION"
+  - probe:rdap.arin.net/registry/ip/3.5.140.1 2026-11-03: 3.5.140.1 lies in NET-3-5-0-0-1 (name AMAZON-S3, 3.5.0.0-3.5.255.255), an ALLOCATION registered to Amazon Data Services Northern Virginia, parent NET-3-0-0-0-1. | capture: sha256:0c8a34a6ad30694ce46a4f217d6fff1f2cab91368a07e1d69d5b272e53fe9d21 | quote: "type" : "ALLOCATION"
+  - probe:rdap.arin.net/registry/ip/20.36.0.1 2026-11-03: 20.36.0.1 lies in NET-20-33-0-0-1 (name MSFT, 20.33.0.0-20.128.255.255), a DIRECT ALLOCATION registered to Microsoft Corporation. | capture: sha256:82274af1c0c4fc8aef9cb189c6b57831a2c3ddfcf64e1c29f5fdd62d2437c7f1 | quote: "type" : "DIRECT ALLOCATION"
+  - probe:rdap.db.ripe.net/ip/88.198.0.1 2026-11-03: 88.198.0.1 lies in 88.198.0.0 - 88.198.15.255 (name HETZNER-RZ-NBG-NET, country DE), an ASSIGNED PA object with parent 88.198.0.0 - 88.198.255.255. | capture: sha256:d15e71fc94f75abe89feacba4a7e8e6640677b779741c0f9a5592cbb598ae04c | quote: "type" : "ASSIGNED PA",
+  - probe:www.gstatic.com/ipranges/cloud.json 2026-11-03: Google publishes 34.80.0.0/15 (service Google Cloud, scope asia-east1) in its cloud.json range list, creationTime 2026-11-02T18:07:01.260033. | capture: sha256:2efb8fcafc47c961963d300d3a61c9243ef969bf21d6bf796abda02d5eaf8489 | quote: "ipv4Prefix": "34.80.0.0/15",
+  - probe:docs.oracle.com/iaas/tools/public_ip_ranges.json 2026-11-03: Oracle publishes 129.146.0.0/21 (region us-phoenix-1, tag OCI) in its public_ip_ranges.json, last_updated_timestamp 2026-10-28T02:47:53.012304. | capture: sha256:c070ef9ff7bea6d63e56e19578d083ffbdbd535c1344d6b74d36d23cce2cd228 | quote: "cidr": "129.146.0.0/21",
+  - probe:rdap.arin.net/registry/autnum/396982 2026-11-03: ARIN aut-num AS396982 has name GOOGLE-CLOUD-PLATFORM, registrant Google LLC. | capture: sha256:defcfaa71f1dbc3a5161cd5ac4039e160cee88ae9687bef1582758ebac4b8d64 | quote: "name" : "GOOGLE-CLOUD-PLATFORM",
+  - probe:rdap.arin.net/registry/autnum/16509 2026-11-03: ARIN aut-num AS16509 has name AMAZON-02. | capture: sha256:fa88d2a42874a884592cdaf2d9147d4dfc25f729c814782d772c67584868c118 | quote: "name" : "AMAZON-02",
+  - probe:rdap.arin.net/registry/autnum/8075 2026-11-03: ARIN aut-num block AS8068-AS8075 (which holds AS8075) is named MICROSOFT-CORP-MSN-AS-BLOCK, registrant Microsoft Corporation. | capture: sha256:7b24e93036a92810c42765c0ba82f29e42f1caafb42db147cd35313b95ef1e1d | quote: "name" : "MICROSOFT-CORP-MSN-AS-BLOCK",
+  - probe:rdap.arin.net/registry/autnum/31898 2026-11-03: ARIN aut-num AS31898 has name ORACLE-BMC-31898, registrant Oracle Corporation. | capture: sha256:4b3aa253b53e3ee7e5d35c76f2e4e9f3e2b9147be302db257725819650382ebc | quote: "name" : "ORACLE-BMC-31898",
+  - probe:rdap.db.ripe.net/autnum/24940 2026-11-03: RIPE aut-num AS24940 has as-name HETZNER-AS, registrant organisation ORG-HOA1-RIPE Hetzner Online GmbH. | capture: sha256:36ab9bcc4b6a5383a627954103306ac612950ec2d901acd97724351afdd42699 | quote: "name" : "HETZNER-AS",
+  - probe:rdap.arin.net/registry/ip/129.146.0.1 2026-11-03: 129.146.0.1 lies in NET-129-144-0-0-1 (name OPC1, 129.144.0.0-129.159.255.255), a DIRECT ALLOCATION registered to Oracle Corporation. | capture: sha256:80d6f6de52fc4a244b85beed83323fd2f42ab5a1c4ef0b4edf2960b520d74a91 | quote: "type" : "DIRECT ALLOCATION"
+- sources:
+  - [1] https://www.oracle.com/cloud/free/
+  - [2] https://stat.ripe.net/resource/AS31898
+  - [3] https://cloud.google.com/free/docs/free-cloud-features
+  - [4] https://aws.amazon.com/free/
+  - [5] https://cloud.google.com/vpc/pricing
+  - [6] https://rdap.arin.net/registry/ip/129.146.0.1
+  - [7] https://azure.microsoft.com/en-us/pricing/details/ip-addresses/
+  - [8] https://www.hetzner.com/cloud/

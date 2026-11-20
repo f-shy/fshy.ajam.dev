@@ -1,0 +1,19 @@
+# fshy: Egress and tunnels in full
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 1,703 KB, about 460K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable](https://fshy.ajam.dev/t/egress/llms-full-usable.txt): 56 records; 283 KB, about 76K tokens
+- [Trial](https://fshy.ajam.dev/t/egress/llms-full-trial.txt): 23 records; 95 KB, about 26K tokens
+- [Paid only part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-paid-1.txt): 67 records, AffordableBytes (paid-only) to KhanWebHost (paid-only); 279 KB, about 75K tokens
+- [Paid only part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-paid-2.txt): 58 records, KhanWebHost (paid-only) to Windscribe (paid-only); 276 KB, about 75K tokens
+- [Rejected part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-rejected-1.txt): 63 records, AWS Activate (fails-identity) to Render (fails-egress); 201 KB, about 54K tokens
+- [Rejected part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-rejected-2.txt): 66 records, serveo (fails-egress) to zrok (hosted) (fails-quota); 204 KB, about 55K tokens
+- [Dead](https://fshy.ajam.dev/t/egress/llms-full-dead.txt): 21 records; 64 KB, about 17K tokens
+- [Self-hosted, the last resort part 1 of 2](https://fshy.ajam.dev/t/egress/llms-full-self-hosted-1.txt): 53 records, BastionRoute (self-hosted, last resort; verdict qualifies-with-caveat) to Innernet (self-hosted, last resort; verdict fails-egress); 153 KB, about 41K tokens
+- [Self-hosted, the last resort part 2 of 2](https://fshy.ajam.dev/t/egress/llms-full-self-hosted-2.txt): 50 records, iodine (self-hosted, last resort; verdict fails-egress) to hypertunnel (self-hosted, last resort; verdict dead); 153 KB, about 41K tokens

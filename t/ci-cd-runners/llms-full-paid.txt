@@ -1,0 +1,364 @@
+# fshy: CI runners, paid only
+
+> Hosted CI runners and registries, and what they will run.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ci-cd-runners/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Actuated
+
+- `ci-cd-runners/actuated` | paid-only | evidence documented | binding per-object-cap | category CI runner control plane | tier Self-Service
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T16:14:44.903Z (live) | stale on 2026-12-07
+- url https://actuated.com/pricing | page https://fshy.ajam.dev/p/actuated.md
+- free tier: none at self-service: the Self-Service plan is a flat USD 150 a month for the first server and USD 125 for each additional, with unlimited build minutes and unlimited concurrency, and the servers are rented separately; the sponsored programme with the CNCF and Ampere grants no plan, no seat and no server, and the notes state what it does grant | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: there is no list price per minute: the pricing table shows USD 0.005 per minute for every runner size against USD 0.008 for GitHub's 2-core hosted runner, which is the flat USD 150 spread over the workload the page's calculator assumes
+- per-object cap: not stated as a number: a job is bounded by one server's vCPU and RAM, chosen per job with a runs-on label such as actuated-2cpu-8gb | source: [2]
+- retention: each job runs in a microVM created for it and removed immediately after; server metrics are kept 14 days | source: [3]
+- egress: not stated by Actuated: jobs run on the rented server, so traffic leaves under that server provider's terms | metered: no | source: [4]
+- identity: card | detail: a GitHub organisation with admin access to install the actuated GitHub App, and a company credit card for the monthly subscription; the agent's Account API Token is issued on request; the sponsored CNCF programme is requested through the vendor's form instead of a subscription
+- interface: git
+- limits:
+  - per-object-cap (binding): a job is bounded by one server's vCPU and RAM; the plan sets how many servers may run [4]
+  - retention-clamped: an autoenrolled agent offline for 15 minutes is removed automatically; jobs queue until a server is ready [5]
+- limits note: no minute cap: unlimited build minutes, RAM, CPUs and concurrency at a flat rate per server; plans are paid monthly with no minimum commitment; Linux only, AMD64 or 64-bit Arm; a GitHub organisation, not a personal account, and an organisation admin to install the GitHub App
+- binding note: no free allowance, so the card and the plan price fail first; inside a plan the minutes are unlimited and the size of one rented server bounds every job
+- interface detail: a GitHub Actions workflow targets the fleet with runs-on: actuated or a sized label such as actuated-2cpu-8gb; GitLab CI is also supported. The control plane schedules each job into a Firecracker microVM on a Linux server, x86_64 or 64-bit Arm, that runs the Actuated agent
+- endpoint: https://github.com/apps/self-actuated
+- tooling: the user rents a Linux server with KVM, bare metal or a cloud VM with nested virtualisation, and runs the Actuated agent on it; Actuated runs the control plane, the GitHub App and the managed VM images, and issues the Account API Token the agent installer needs
+- composes with: the monthly floor is the USD 150 plan plus a rented server, which the vendor prices at 40-50 EUR a month at the low end of bare metal; GitHub Actions on a public repository stays free and comes first
+- reliability: the control plane holds jobs in a queue while no enrolled server is online, and drops an autoenrolled agent that has been offline for 15 minutes
+- notes: Paid only at self-service, and the one documented zero-cost route is the sponsored programme with the CNCF and Ampere. That programme is neither a plan, a seat nor a server of the project's own: it grants a selected project a share of a sponsor-funded pool of Arm64 runners that the vendor operates, shared with every other participating project, and reached with the same runs-on label as a paid fleet. The published pool is 20 build slots shared between all CNCF projects. It is limited to CNCF projects and to Arm CI only, so a project outside the CNCF cannot join it; the vendor granted access to individual non-CNCF projects case by case, runc among them, which it calls an OCI project under the Linux Foundation rather than a CNCF project while counting its minutes in the programme's totals, and it separately lists Atuin, runc and criu among the open-source projects it has sponsored, without naming the programme. A sponsored project keeps its own GitHub organisation, where a maintainer installs the Actuated GitHub App, and it must add the Actuated badge to the top of the README of every repository that uses the runners. The first one-year pilot filled every slot by March 2024, after which the vendor offered a discounted subscription to a company that would fund a maintainer's time. The vendor's FAQ still listed the programme when it was read on 2026-11-04, but no page states whether it accepts projects now, and the Arm servers it ran on were hosted by Equinix Metal, which ended service on 2026-06-30, so its current status is unverified. Hosted runners with a free allowance in this topic come first.
+- evidence note: the price, the plan terms and the registration requirements are quoted from the vendor's pricing page and documentation; no account was opened
+- self hosted: no
+- evidence:
+  - [1] 2026-10-30: the plan is a flat USD 150 a month for the first server and USD 125 for each additional | capture: sha256:66ba555698a7f1cfe52172f606a9edf8156aac30e93dbd6b29ac29a24b5b0cce | quote: Flat rate per server: $150 for the first, $125 for each additional.
+  - [1] 2026-10-30: build minutes are not capped | capture: sha256:66ba555698a7f1cfe52172f606a9edf8156aac30e93dbd6b29ac29a24b5b0cce | quote: Unlimited build minutes
+  - [1] 2026-10-30: concurrency is not capped by the plan | capture: sha256:66ba555698a7f1cfe52172f606a9edf8156aac30e93dbd6b29ac29a24b5b0cce | quote: Unlimited concurrency
+  - [1] 2026-10-30: the comparison table shows USD 0.005 per minute at USD 150 a month for a 2-core runner | capture: sha256:66ba555698a7f1cfe52172f606a9edf8156aac30e93dbd6b29ac29a24b5b0cce | quote: | 2-core | $0.005 | $150 |
+  - [1] 2026-10-30: the same table prices GitHub's 2-core hosted runner at USD 0.008 per minute, USD 240 a month | capture: sha256:66ba555698a7f1cfe52172f606a9edf8156aac30e93dbd6b29ac29a24b5b0cce | quote: | 2-core | $0.008 | $240 |
+  - [6] 2026-10-30: Actuated is a managed control plane for runners on servers the customer supplies | capture: sha256:48efbb7bd3eede03937897959fca38bcbd27e3694a57676502f931ef4774faf5 | quote: Actuated is a managed service, where you plug in your own servers, and we do everything else needed to create and manage self-hosted runners for your GitHub Actions.
+  - [6] 2026-10-30: registration needs a company credit card | capture: sha256:48efbb7bd3eede03937897959fca38bcbd27e3694a57676502f931ef4774faf5 | quote: A company credit-card to pay for your subscription
+  - [6] 2026-10-30: registration needs admin access to install the GitHub App | capture: sha256:48efbb7bd3eede03937897959fca38bcbd27e3694a57676502f931ef4774faf5 | quote: Administrative access to install the actuated GitHub App
+  - [6] 2026-10-30: plans are monthly with no minimum commitment | capture: sha256:48efbb7bd3eede03937897959fca38bcbd27e3694a57676502f931ef4774faf5 | quote: Plans are paid monthly, without any minimum commitment.
+  - [4] 2026-10-30: a GitHub organisation is required, not a personal account | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: For GitHub users, a GitHub organisation is required for installation, and runners are attached to individual repositories as required to execute builds.
+  - [4] 2026-10-30: GitHub Actions and GitLab CI are both supported | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: Support for GitHub Actions and GitLab CI is available.
+  - [4] 2026-10-30: only Linux on AMD64 or 64-bit Arm is supported | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: Linux is the only supported platform for actuated at this time on a AMD64 or 64-bit Arm architecture.
+  - [4] 2026-10-30: a sponsored programme with the CNCF and Ampere covers some open-source projects | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: We have a sponsored program with the CNCF and Ampere for various Open Source projects
+  - [4] 2026-10-30: the plan sets how many servers may run | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: The plan you select will determine how many Actuated Servers you can run
+  - [4] 2026-10-30: jobs queue while no server is ready | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: Actuated will hold jobs in a queue until a server is ready to take them again.
+  - [4] 2026-10-30: server metrics are kept 14 days | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: which has a 14 day retention policy
+  - [4] 2026-10-30: a cloud VM with nested virtualisation can serve as the server | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: If `/dev/kvm` is available within the VM, or the VM can be configured so that nested virtualisation is available, then you can use a VM as an actuated server.
+  - [3] 2026-10-30: each job environment is created for one build and removed after it | capture: sha256:fd0e734b1ac636069bf9158db94ec1eda0261ef9c0b0f561f6ede93540ec1864 | quote: Each environment is created just in time to take a build, and is removed immediately after.
+  - [5] 2026-10-30: an autoenrolled agent offline for 15 minutes is removed | capture: sha256:ba8dfb74c061a001ea7113efa7a40b48e76a97f545f682aca69ee9252ee67fc3 | quote: Any Autoenrolled agent that has been offline for 15 minutes will be removed automatically.
+  - [5] 2026-10-30: the agent installer needs an Account API Token that the vendor issues | capture: sha256:ba8dfb74c061a001ea7113efa7a40b48e76a97f545f682aca69ee9252ee67fc3 | quote: `TOKEN` - your Account API Token - reach out to us and we'll generate one for you
+  - [2] 2026-10-30: the server must support Linux KVM | capture: sha256:177497bd7195dfab630a5df724a6b171c02c898dbe87979a5f923cb65d3d489e | quote: You'll need to provision a Server which is capable of virtualisation with Linux KVM.
+  - [2] 2026-10-30: rented bare metal costs 40-50 EUR a month per host at the low end | capture: sha256:177497bd7195dfab630a5df724a6b171c02c898dbe87979a5f923cb65d3d489e | quote: At the lower end of bare-metal providers, you'll pay 40-50 EUR / mo per host, moving up to 80-150 EUR / mo for NVMe and AMD processors
+  - [2] 2026-10-30: job size is chosen per job with a runs-on label | capture: sha256:177497bd7195dfab630a5df724a6b171c02c898dbe87979a5f923cb65d3d489e | quote: by changing the `runs-on: actuated` label to: `runs-on: actuated-2cpu-8gb`
+  - [1] 2026-11-04: the plan is a flat USD 150 a month for the first server and USD 125 for each additional; no free allowance | capture: sha256:6633b8ed96589c5a0aec064e3023b8b91fe86e83bc521100971f8822394ff759 | quote: Flat rate per server: $150 for the first, $125 for each additional.
+  - [1] 2026-11-04: the Self-Service plan is USD 150 for the first server and USD 125 for each additional; no free allowance is offered | capture: sha256:6633b8ed96589c5a0aec064e3023b8b91fe86e83bc521100971f8822394ff759 | quote: Flat rate per server: $150 for the first, $125 for each additional.
+  - [7] 2026-11-04: the sponsored pool's build slots are shared between all CNCF projects | capture: sha256:d6ed1a3861acdaea89cb44f3ae7f9b0ae157dcf7f07ea4894ba80cc56d32dd44 | quote: There's a total of 20 build slots available to be shared between all CNCF projects in the pool.
+  - [8] 2026-11-04: access is requested by a CNCF project through the vendor's form, not by buying a plan | capture: sha256:7475ffc918738c870c0640d9be0eb325c9f04afae349a7f8a5bb99ade2c21ec0 | quote: If you are working on a CNCF project and would like access, please contact us via this form.
+  - [8] 2026-11-04: the programme is a sponsor-funded one-year pilot for CNCF projects | capture: sha256:7475ffc918738c870c0640d9be0eb325c9f04afae349a7f8a5bb99ade2c21ec0 | quote: Together, Ampere and the CNCF are now sponsoring an initial 1-year pilot of managed Arm CI provided by actuated, for CNCF projects, with the view to expand it, if the pilot is a success.
+  - [4] 2026-11-04: a sponsored project must badge every repository that uses the runners | capture: sha256:e516f03472fda37e0119dd11da1d067822fc124bc7b6def9771e0bbae435c3df | quote: Sponsored projects are required to add our GitHub badge to the top of their README file for each repository where the actuated is being used, along with any other GitHub badges such as build status, code coverage, etc.
+  - [9] 2026-11-04: the pilot's slots were full by March 2024 | capture: sha256:6f5680475a48cea3a15674919c2e96e8fa5ec67a4851bbf75368f2626e3b78ac | quote: Whilst the original pilot program is now full, we have the capacity to onboard many other projects and would love to work with you.
+  - [9] 2026-11-04: a project whose sponsored slots are gone is offered a discounted paid subscription instead | capture: sha256:6f5680475a48cea3a15674919c2e96e8fa5ec67a4851bbf75368f2626e3b78ac | quote: We are happy to offer a discounted subscription if your employer that sponsors your time on the said CNCF project will pay for it.
+  - [10] 2026-11-04: the vendor also sponsored individual projects outside the CNCF programme | capture: sha256:1f56a15f488988f78220fdf2a33c3e9dab0c2f5d3c13a46b683bfdd0700ae812 | quote: We've also sponsored the Atuin, runc and criu open-source projects.
+  - [11] 2026-11-04: a sponsored project uses a pool of servers the vendor manages, not a server of its own | capture: sha256:a9455ec19d36e36443fd08b3549f103351f6cbacbd186e81bcbe384fbc6f70a4 | quote: After the program was live, teams who had been maintaining their own servers got to remove lengthy documentation on server configuration and maintenance, and relied on our team to manage a pool of servers used for scheduling microVMs.
+  - [11] 2026-11-04: the vendor granted sponsored access to runc, which it calls an OCI project under the Linux Foundation rather than a CNCF project | capture: sha256:a9455ec19d36e36443fd08b3549f103351f6cbacbd186e81bcbe384fbc6f70a4 | quote: runc which is within the opencontainers organisation is technically an Open Container Initiative (OCI) project under the LinuxFoundation, rather than a CNCF project, but we gave them access since it is a key dependency for containerd and cri-o.
+  - [12] 2026-11-04: the CNCF Community Cluster that supplied the Equinix Metal credits was shut down at the end of 2025 | capture: sha256:52645983e2ddccc82332df457556c691ef8cf16ca55c5841410877ec8713267d | quote: The CNCF Community Cluster will be completely decommissioned on December 31, 2025.
+  - [13] 2026-11-06: Equinix Metal, which hosted the programme's Ampere Arm servers, ended service on 2026-06-30 | capture: sha256:684a2fbff56f206258da0dfac9975901abbe78047ff630556d3a73d8f496d047 | quote: Equinix Metal was sunset on June 30, 2026.
+- sources:
+  - [1] https://actuated.com/pricing
+  - [2] https://docs.actuated.com/provision-server/
+  - [3] https://docs.actuated.com/
+  - [4] https://docs.actuated.com/faq/
+  - [5] https://docs.actuated.com/install-agent/
+  - [6] https://docs.actuated.com/register/
+  - [7] https://github.com/etcd-io/etcd/pull/16801
+  - [8] https://actuated.com/blog/arm-ci-cncf-ampere
+  - [9] https://actuated.com/blog/cncf-arm-march-update
+  - [10] https://actuated.com/blog/actuated-com-two-year-review
+  - [11] https://actuated.com/blog/millions-of-cncf-minutes
+  - [12] https://www.cncf.io/blog/2025/06/04/thank-you-equinix-metal-the-cncf-community-bids-farewell-to-the-bare-metal-cluster/
+  - [13] https://docs.equinix.com/metal/
+
+## Cloudflare Artifacts
+
+- `ci-cd-runners/cloudflare-artifacts` | paid-only | evidence documented | binding write-gated | category CI runner control plane | tier Workers Paid
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T15:23:42.470Z (live) | stale on 2026-12-03
+- url https://developers.cloudflare.com/artifacts/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: none on Workers Free: Artifacts is unavailable there. Workers Paid (USD 5 a month minimum) includes the first 10,000 operations and the first 1 GB of storage each month, then USD 0.15 per additional 1,000 operations and USD 0.50 per additional GB-month; billing for both starts on 2026-11-12 | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: the Paid allowance is 10,000 operations and 1 GB-month of storage a month, inside a plan that costs USD 5 a month; the pricing table names no Workers Free allowance
+- per-object cap: 32 MiB per file, 64 MiB per push, 50,000 objects per push | source: [2]
+- retention: repositories remain stored until they are explicitly deleted | source: [1]
+- egress: unverified: the Artifacts pricing page lists two billed dimensions, operations and storage, and states nothing about egress | metered: no | source: [1]
+- identity: card | detail: sign-up needs an email address and a password; Workers Paid needs a primary payment method (card, PayPal or a wallet) on the billing profile
+- interface: git, rest
+- limits:
+  - write-gated (binding): not available on Workers Free; Workers Paid (USD 5 a month minimum) is required [3]
+  - volume-quota: 1 GB per repository for repos created on or after 2026-09-29, 10 GB for earlier repos; 1 TB per account, raisable on request; repositories and namespaces unlimited [2]
+  - per-object-cap: 32 MiB per file; 64 MiB and 50,000 objects per push [2]
+  - request-rate: 2,000 Git requests per 10 seconds per artifact; 2,000 control-plane requests per 10 seconds per namespace [2]
+- limits note: the account ceiling of 1 TB and the per-repository ceiling apply on top of the billed 1 GB included; the per-repository ceiling was 10 GB before 2026-09-29
+- binding note: the service is not available on the Workers Free plan; a Workers Paid subscription, which needs a payment method, is required before any repository can be created
+- interface detail: a Workers binding, a REST API and the Git smart-HTTP protocol over one repository; any standard Git client clones and pushes to the repository's remote URL with a short-lived repository token; Workers Builds can build and deploy a Worker from a repository
+- endpoint: https://artifacts.cloudflare.net/v1/api/namespaces/<NAMESPACE>/repos
+- tooling: a standard Git client, the Cloudflare REST API with an API token, or the Artifacts binding in a Worker; ArtifactFS is also documented for filesystem access
+- composes with: source hosting for Workers Builds on the same account: a push to the production branch builds and deploys the Worker, other branches create Worker Previews. No runner of its own: it stores code and does not execute jobs. GitHub or GitLab hosting comes first for a free account
+- reliability: Artifacts is in open beta (announced 2026-10-01); billing was first announced for 2026-10-14 and the pricing page now says 2026-11-12
+- notes: Not usable on Workers Free: the docs state usage is unavailable there, so the free-account answer is no. On Workers Paid it is Git-compatible storage with 1 GB of storage and 10,000 operations included each month; its CI relevance is as a source repository for Workers Builds. Per-repository storage was 10 GB for repos created before 2026-09-29 and is 1 GB after.
+- evidence note: every value is quoted from Cloudflare's Artifacts documentation pages read on 2026-11-02; no repository was created, the dashboard sign-up and plan upgrade were not passed, and egress terms for Artifacts are unverified
+- evidence:
+  - [3] 2026-11-02: Artifacts needs Workers Paid and is not available on Workers Free | quote: Artifacts requires a Workers Paid plan. Usage is not available on Workers Free. | capture: sha256:a5ddb463b5373b4ac434bfe6b88f42de7d7023d4855b20f7c07d64ef10347959
+  - [1] 2026-11-02: the Workers Free column is Unavailable for operations | quote: | Operations (1,000 operations) | Unavailable | First 10,000 per month + $0.15 per additional 1,000 operations | | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: the Workers Free column is Unavailable for storage; Paid includes 1 GB then USD 0.50 per GB-month | quote: | Storage (GB-mo) | Unavailable | First 1 GB per month + $0.50 per additional GB-mo | | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: billing for operations and storage starts on 2026-11-12 | quote: Cloudflare will begin billing for Artifacts operations and storage on November 12, 2026. | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: pricing has two dimensions only, operations and storage | quote: Artifacts pricing is billed on two dimensions: | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [1] 2026-11-02: repositories are kept until deleted | quote: Repos remain stored until you explicitly delete them. | capture: sha256:4e62bdefa58dd0bf46ad2b8e3fd3502b2ddccfd98cccf18dcb2d2215ad6b37fe
+  - [2] 2026-11-02: per-repository storage limit is 1 GB for new repos, 10 GB for older ones | quote: | Maximum storage per repository | 1 GB for repos created on or after 2026-09-29. Repos created earlier have a 10 GB limit. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: account storage ceiling is 1 TB, raisable on request | quote: | Maximum storage per account | 1 TB (can be raised on request) | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: the number of repositories is unlimited | quote: | Maximum number of repositories | Unlimited | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: file size cap is 32 MiB | quote: | Maximum file size | 32 MiB per file. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: push size cap is 64 MiB | quote: | Maximum push size | 64 MiB per push. Includes all data sent in the push. | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: objects per push cap is 50,000 | quote: | Maximum objects per push | 50,000 objects, such as file versions, folders, and commits. | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: Git request rate per artifact | quote: | Git request rate, per artifact | 2,000 requests per 10 seconds per artifact | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [2] 2026-11-02: control-plane request rate per namespace | quote: | Control-plane request rate | 2,000 requests per 10 seconds per Artifacts namespace | | capture: sha256:bb9340ad653892d311e52690f1c288e0fd713818afd36b634f3f6d2370a97615
+  - [4] 2026-11-02: older repositories keep 10 GB | quote: Repos created before September 29, 2026, will retain their 10 GB storage limit. | capture: sha256:cefaf779026a02d24a4cff40142382421c5c0e4d297d482ffba96436066afe03
+  - [5] 2026-11-02: Artifacts is in open beta and available on Workers Paid | quote: Artifacts is available for customers on the Workers Paid plan. | capture: sha256:6c494db254434f6c8d73d3500a21ed8665ff1d07c5325af08ad4810f3e29e969
+  - [6] 2026-11-02: Workers Paid costs a minimum of USD 5 a month per account | quote: The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account. | capture: sha256:9d31eb8daa4dc748c605d2fcf63773aa89d227483a57cc0d989128d353cf2a18
+  - [7] 2026-11-02: buying a Cloudflare product needs a primary payment method | quote: A primary payment method is required to purchase Cloudflare products and services. | capture: sha256:5ce86720b4ddb72032ffe13a60d5c93647cb26a752f272f2d6a3cacfd6a7b023
+  - [8] 2026-11-02: sign-up asks for an email and a password | quote: Enter your Email and Password. | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543
+- sources:
+  - [1] https://developers.cloudflare.com/artifacts/platform/pricing/
+  - [2] https://developers.cloudflare.com/artifacts/platform/limits/
+  - [3] https://developers.cloudflare.com/artifacts/
+  - [4] https://developers.cloudflare.com/changelog/post/2026-09-29-repository-size-limit/
+  - [5] https://developers.cloudflare.com/artifacts/platform/changelog/
+  - [6] https://developers.cloudflare.com/workers/platform/pricing/
+  - [7] https://developers.cloudflare.com/billing/get-started/create-billing-profile/
+  - [8] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Codefresh CI (Octopus Deploy)
+
+- `ci-cd-runners/codefresh-ci` | paid-only | evidence documented | binding write-gated | category CI runner
+- needs card no, phone yes, ID no, institution no | verified 2026-11-04T06:00:39.389Z (live) | stale on 2026-12-05
+- url https://codefresh.io/docs/docs/pipelines/run-pipeline/ | page https://fshy.ajam.dev/p/codefresh.md
+- free tier: no free hosted runner: a free account runs pipelines only on a Hybrid Runner in a Kubernetes cluster the user provides; Cloud Builds (the SaaS runtime) are disabled for all accounts by default and enabled on an admin request answered within 24 hours; codefresh.io/pricing/ now serves Octopus Deploy pricing, which lists no Codefresh plan | unit: none | metered on: none | read on: 2026-10-30 | source: [1] | note: the pricing page as archived on 2024-01-04 offered a free Community plan: up to 5 developers, 1000 cloud credits a month, unlimited hybrid builds and 1 week of data retention; at 5 credits a minute on the S machine that is 1000 / 5 = 200 minutes
+- per-object cap: unverified: no build duration limit for the SaaS runtime was found in the pages read | source: [1]
+- retention: build and log data are kept for six months, for SaaS and on-premises installations | source: [1]
+- egress: unverified: no egress terms for the SaaS runtime were found in the pages read | metered: no | source: [1]
+- identity: any-phone | detail: sign-up through GitHub, Bitbucket, GitLab, Azure, Google or LDAP, then a phone number with a country code verified by a sent code, then organization details and use cases
+- interface: git, cli
+- limits:
+  - write-gated (binding): Cloud Builds are disabled for all accounts by default; an account admin requests them and the answer takes up to 24 hours [1]
+  - retention-clamped: build and log data are kept six months [1]
+- limits note: SaaS memory limits are Small 1 GB, Medium 4 GB and Large 8 GB; pipeline concurrency is a per-pipeline setting from 0 to 14 or unlimited, and no plan concurrency limit was found; by default a build step that prints nothing to the log for 45 minutes is terminated; no build duration limit and no monthly cloud credit allowance for a Cloud Builds grant were found in the pages read
+- binding note: no hosted build runs until Codefresh grants Cloud Builds to the account; without the grant the only runtime is a Hybrid Runner on infrastructure the user supplies
+- interface detail: a Codefresh pipeline triggered from a Git provider integration; the codefresh CLI
+- tooling: SaaS machine sizes from S (1 CPU, 1 GB) to XXL (16 CPU, 32 GB), billed in cloud credits, once Cloud Builds are granted. The free path is the Hybrid Runner, which the user installs and runs in a Kubernetes cluster on rented or free machines; it comes after any hosted runtime
+- composes with: no hosted capacity without a Cloud Builds grant; the hosted control plane can drive a Hybrid Runner placed on a free compute offer
+- reliability: Octopus Deploy acquired Codefresh in February 2024; Codefresh CI remains available for customers, and the Codefresh pricing URL redirects to Octopus Deploy pricing
+- notes: No free hosted runner today: a new free account gets the hosted control plane and must bring a Kubernetes cluster for the Hybrid Runner, while Cloud Builds are granted on request with no published allowance or price. The 1000-credit Community plan of January 2024 is gone from the live pricing URL.
+- evidence note: the Codefresh documentation, the Octopus Deploy Codefresh pages and the live and archived pricing pages were read and quoted on 2026-10-30; the sign-up app is a login wall and was not passed, so the outcome of a Cloud Builds request is unverified.
+- evidence:
+  - [1] 2026-10-30: no account has the SaaS runtime by default | capture: sha256:1ae42d2fc427ec95515ac445ea56168a7d134235872692f28d84fcfd250bc69a | quote: Cloud Builds for Codefresh pipelines are disabled for all accounts by default.
+  - [1] 2026-10-30: a free account runs pipelines only on a Hybrid Runner | capture: sha256:1ae42d2fc427ec95515ac445ea56168a7d134235872692f28d84fcfd250bc69a | quote: If you create a free account, to run pipelines, you need to configure Build Runtime settings with a Hybrid Runner runtime environment.
+  - [1] 2026-10-30: build and log data are kept six months | capture: sha256:1ae42d2fc427ec95515ac445ea56168a7d134235872692f28d84fcfd250bc69a | quote: Codefresh retains build and log data for pipelines for a period of six months, for both on-premises and SaaS installation configurations.
+  - [2] 2026-10-30: since February 2023 accounts no longer get a SaaS runtime by default | capture: sha256:bf046fc2e96e31a5a88c667bfd1bac0caf0fe65335e9c0140ccd8558df9ad233 | quote: Previously, all Codefresh accounts had access to a SaaS runtime environment to run pipelines. However, this is no longer the case.
+  - [3] 2026-10-30: pipelines need the Hybrid Runner | capture: sha256:3a429e85314defdc3177be4318d4b831bf2bd1e307d900e07cebe0325f84696d | quote: the Hybrid Runner is required to run Codefresh pipelines.
+  - [4] 2026-10-30: with the Hybrid Runner, builds run on the user's Kubernetes cluster | capture: sha256:53093598ce4ff684711aa5f8b294f0395ef8387315bdb092f5115c7c8eadd2d8 | quote: The UI runs on Codefresh infrastructure, while the builds happen on a Kubernetes cluster in the customer’s premises.
+  - [5] 2026-10-30: the S machine is 1 CPU and 1 GB at 5 credits a minute | capture: sha256:822f3f4a6825ced2aaa501da9680447f7488c3b15a52b934b3d192a93292156e | quote: | S | 1 | 1 GB | 5 |
+  - [5] 2026-10-30: the XXL machine is 16 CPU and 32 GB at 80 credits a minute | capture: sha256:822f3f4a6825ced2aaa501da9680447f7488c3b15a52b934b3d192a93292156e | quote: | XXL | 16 | 32 GB | 80 |
+  - [6] 2026-10-30: sign-up verifies a phone number | capture: sha256:ce2042a0b8f3fd229aac7e98b6e2bde33c287562c60408396ea12335c56b256e | quote: Select the required country code, enter your phone number, and then click Send.
+  - [6] 2026-10-30: sign-up goes through an identity provider | capture: sha256:ce2042a0b8f3fd229aac7e98b6e2bde33c287562c60408396ea12335c56b256e | quote: Codefresh currently supports the following IdPs:
+  - [7] 2026-10-30: Octopus Deploy acquired Codefresh in February 2024 | capture: sha256:9b7ca092ea10bafee7e8c10edade99ef7c2f9c7ff3f57edc494b410cdd096bd1 | quote: In February 2024, Octopus acquired Codefresh.
+  - [7] 2026-10-30: Codefresh CI is still offered to customers | capture: sha256:9b7ca092ea10bafee7e8c10edade99ef7c2f9c7ff3f57edc494b410cdd096bd1 | quote: Codefresh CI remains available for customers. It continues to be developed and supported within the Octopus Deploy portfolio.
+  - [8] 2026-10-30: the Codefresh pricing URL now serves Octopus Deploy's plans | capture: sha256:be1be1511f6025ae1fbdd6d4ddcf3b5f86ad7b32ae3ec4e6e8b6fdd7f0232144 | quote: Free tier - No time limit, but includes usage limits: 10 projects, 10 tenants, 10 machines, and 10 users.
+  - [9] 2026-10-30: the archived 2024-01-04 Community plan included 1000 cloud credits a month | capture: sha256:a186c6f42d47ca73671af450f8fde367e9acf320aa335eb9052abb6016208fe1 | quote: 1000 cloud credits per month
+  - [9] 2026-10-30: the archived Community plan had unlimited hybrid builds | capture: sha256:a186c6f42d47ca73671af450f8fde367e9acf320aa335eb9052abb6016208fe1 | quote: Unlimited hybrid builds
+  - [10] 2026-11-02: a build step with no log output for 45 minutes is terminated by default | capture: sha256:60b5df5841d8b5727bdb4a41b5568033ffe526b4985bcad4809d0a21e282bbd1 | quote: By default, the system terminates a build step that seems “inactive” after 45 minutes.
+  - [1] 2026-11-02: Cloud Builds are enabled on an admin request, not by default | capture: sha256:1ae42d2fc427ec95515ac445ea56168a7d134235872692f28d84fcfd250bc69a | quote: Account admins can request Codefresh to enable Cloud Builds for an account.
+  - [11] 2026-11-02: the SaaS memory limits (Small 1 GB, Medium 4 GB, Large 8 GB) are listed in the knowledge base | capture: sha256:60ae89911814e04ed831056c134c717fc2ac201577b984a8097a4a6de3660f33 | quote: On our SaaS offering, the standard limits are as follows:
+  - [12] 2026-11-02: a Cloud Builds request is an automated email request answered within 24 hours, and an approval adds a SaaS runtime | capture: sha256:fbddd85f811723337dca98f0da8d23ee02d092b686b37fc860c0c7fe990f46d8 | quote: Clicking the Enable Cloud Builds button sends an automated email request, with a response time frame of 24 hours. If approved, you should see the SaaS runtime in the list of Runtime Environments.
+  - [1] 2026-11-04: no hosted runner by default | capture: sha256:1ae42d2fc427ec95515ac445ea56168a7d134235872692f28d84fcfd250bc69a | quote: Cloud Builds for Codefresh pipelines are disabled for all accounts by default.
+- sources:
+  - [1] https://codefresh.io/docs/docs/pipelines/run-pipeline/
+  - [2] https://codefresh.io/docs/docs/ARCHIVED/2023-02-15-february-changelog/
+  - [3] https://codefresh.io/docs/docs/installation/runner/behind-the-firewall/
+  - [4] https://codefresh.io/docs/docs/installation/runner/
+  - [5] https://codefresh.io/docs/docs/terms-and-privacy-policy/cloud-credits/
+  - [6] https://codefresh.io/docs/docs/ci-quick-start/ci-create-codefresh-account/
+  - [7] https://octopus.com/codefresh
+  - [8] https://codefresh.io/pricing/
+  - [9] https://web.archive.org/web/20240104230433/https://codefresh.io/pricing/
+  - [10] https://codefresh.io/docs/docs/kb/articles/workflow-terminated-by-system/
+  - [11] https://codefresh.io/docs/docs/kb/articles/reached-your-memory-usage-limit/
+  - [12] https://codefresh.io/docs/docs/pipelines/pipelines/
+
+## Dagger Cloud
+
+- `ci-cd-runners/dagger-cloud` | paid-only | evidence documented | binding volume-quota | category hosted CI pipeline engine with usage-based pricing and a monthly plan minimum | tier Starter USD 20 per month; Scale USD 200 per month
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T07:00:00.000Z (live) | stale on 2026-12-20
+- url https://dagger.io/pricing/ | page https://fshy.ajam.dev/p/dagger.md
+- free tier: no free hosted tier: idle capacity is free, repeat cache work costs 5x less, and the Starter plan is USD 20 a month with a higher Scale plan at USD 200 a month | unit: mixed | metered on: none | read on: 2026-11-19 | source: [1]
+- per-object cap: unverified: no per-object or build wall-clock cap stated in the first-party pages read | source: [1]
+- retention: unverified: no number is stated in the first-party pages read | source: [1]
+- egress: unverified: pipeline input and output data are billed by the GB, but the page states no free egress allowance | metered: no | source: [1]
+- identity: email | detail: a Dagger Cloud account is needed for the hosted service; the exact form fields are unverified: behind a sign-up
+- interface: cli, rest, git
+- limits:
+  - volume-quota (binding): pipeline CPU and memory are billed at USD 0.005 per CPU-minute and USD 0.005 per GB-minute for new work, and five times less for repeat work [1]
+  - volume-quota (binding): pipeline inputs cost USD 0.025 per GB and outputs USD 0.10 per GB for new work, five times less for repeat work [1]
+  - volume-quota (binding): the plan price or the usage bill is charged, whichever is higher; Starter is USD 20 a month and Scale USD 200 a month [1]
+- binding note: there is no free hosted plan: the monthly minimum applies even when usage is below it, so the Starter price binds a reader with no budget
+- interface detail: pipelines are written as code in an SDK and run as containers; the hosted cloud runs the same pipelines the open-source engine runs locally
+- endpoint: unverified: no public API endpoint stated on the pages read
+- tooling: pipelines as code in an SDK, executed as standard OCI containers with content-addressed caching
+- composes with: a pipeline defined in code runs in containers on Dagger Cloud, with cache hits billed at a fifth of the rate of new work
+- reliability: 
+- notes: A hosted CI pipeline service with usage pricing and a monthly plan minimum. The open-source engine is a different offer already recorded under compute/dagger.
+- evidence note: all values are quoted from the first-party pricing page read on 2026-11-19. The engine itself is open source and can run locally; this record is for the hosted Dagger Cloud service and its pricing. There is no standing free hosted tier on the page.
+- evidence:
+  - [1] 2026-11-19: idle capacity is free on the hosted service | capture: sha256:fa5ef1ca966dd9bea34f35487c68ac5c775682386f692df14b0b7c613424d852 | quote: ## Idle capacity is free
+  - [1] 2026-11-19: repeat cache work is billed five times less | capture: sha256:fa5ef1ca966dd9bea34f35487c68ac5c775682386f692df14b0b7c613424d852 | quote: You pay 5× less for operations that could be served from cache, whether or not they actually are.
+  - [1] 2026-11-19: the hosted Starter plan is USD 20 per month | capture: sha256:fa5ef1ca966dd9bea34f35487c68ac5c775682386f692df14b0b7c613424d852 | quote: Starter — $20/mo
+  - [1] 2026-11-19: the monthly plan minimum applies | capture: sha256:fa5ef1ca966dd9bea34f35487c68ac5c775682386f692df14b0b7c613424d852 | quote: You pay the plan price or your usage, whichever is higher.
+- sources:
+  - [1] https://dagger.io/pricing/
+
+## SourceHut builds.sr.ht
+
+- `ci-cd-runners/sourcehut-builds` | paid-only | evidence documented | binding write-gated | category CI runner | tier paid account
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T06:00:39.390Z (live) | stale on 2026-12-05
+- url https://man.sr.ht/builds.sr.ht/ | page https://fshy.ajam.dev/p/sr.md
+- free tier: no free allowance: builds.sr.ht requires a paid account (EUR 4 or USD 4 a month at the lowest tier, every tier with the same service and limits) for users registered on or after 2021-05-01; free service is issued to a user who emails support explaining that they cannot pay | unit: none | metered on: none | read on: 2026-10-30 | source: [1]
+- per-object cap: 1 GiB per artifact file; the hosted build time limit is not published, the documented SSH message reads 'Your VM will be terminated 4 hours from now', and the software's example configuration sets a 45-minute maximum build duration | bytes: 1073741824 | source: [2]
+- retention: artifacts are uploaded only for successful jobs and pruned after 90 days | days: 90 | source: [2]
+- egress: unverified: no egress terms were found in the pages read | metered: no | source: [1]
+- identity: card | detail: a meta.sr.ht account registered as a maintainer with payment by credit card, SEPA direct debit, iDEAL or Bancontact; free service is issued on an emailed request to support; a contributor account without payment cannot submit builds
+- interface: git, ssh, graphql, cli
+- limits:
+  - write-gated (binding): submitting build jobs needs a paid account; free service only after an emailed request to support [3]
+  - per-object-cap: 1 GiB per artifact file [2]
+  - retention-clamped: artifacts pruned after 90 days, uploaded only for successful jobs [2]
+- limits note: the hosted runner size and per-user concurrency are not published; the build image control script boots each VM with 2 CPUs and 4096 MB of memory unless configured otherwise, and a build host of 16 cores and 128 GB supports up to 16 parallel build slots; a failed build's VM stays up 10 more minutes for SSH
+- binding note: nothing runs without a payment or an aid grant; once paid, every tier has the same service limits
+- interface detail: a YAML build manifest submitted through the API, the web form at builds.sr.ht/submit, a manifest in a git.sr.ht or hg.sr.ht repository, patches sent to a mailing list, or the hut CLI; SSH into a running or failed build VM
+- tooling: full virtual machines with root through sudo, on x86_64 images (the only native architecture in the image table); the hut CLI. SourceHut is AGPL-3.0 software the user can install and run on a rented or free machine, which comes after the hosted service
+- composes with: a paid or aid-granted account gets full VMs with root and SSH access; artifacts leave through the jobs page and are pruned at 90 days
+- reliability: the service is in public alpha; from the beta, unpaid accounts become read-only for their own projects, with at least 60 days notice by email; pricing is set to change after the alpha
+- notes: Not free hosted CI: builds.sr.ht has needed a paid account since 2021-05-01, at EUR 4 or USD 4 a month for the whole service, with free service granted on an emailed request. The hosted runner size, job time limit and concurrency are not published; the repository defaults are 2 CPUs, 4096 MB and 45 minutes.
+- evidence note: the pricing, billing FAQ, builds billing-change, alpha, builds and manifest pages were read and quoted on 2026-10-30; runner size and the 45-minute timeout come from the open-source repository's defaults, not from the hosted service, and no build was run.
+- evidence:
+  - [1] 2026-10-30: builds.sr.ht requires payment | capture: sha256:b2c866d2b73759d911ec46fe4ecce60f0f4fc6cfae4692d7f5b019f68bbe9494 | quote: | builds.sr.ht | Required | chat.sr.ht | Required |
+  - [1] 2026-10-30: the lowest tier is EUR 4 or USD 4 a month | capture: sha256:b2c866d2b73759d911ec46fe4ecce60f0f4fc6cfae4692d7f5b019f68bbe9494 | quote: | Amateur hackers | €4/mo† | $4/mo |
+  - [3] 2026-10-30: submitting build jobs needs a paid account | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: To create repositories, mailing lists, trackers, or submit build jobs, you will need to pay for your account.
+  - [3] 2026-10-30: free service is issued on an emailed request | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: you can simply send us an email explaining your situation, and you will be issued free service.
+  - [3] 2026-10-30: every tier has the same limits | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: There is no difference between any of the plans: they all have access to the same level of service, and the same service limits.
+  - [3] 2026-10-30: payment by credit card | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: - Major credit cards
+  - [3] 2026-10-30: payment by SEPA direct debit | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: SEPA direct debits
+  - [3] 2026-10-30: the software is AGPL-3.0 | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: sr.ht is 100% free software, mostly licensed under the GNU Affero General Public license (aka AGPL 3.0).
+  - [4] 2026-10-30: builds became paid for users registered from 2021-05-01 | capture: sha256:0ed15eb13d462403c0c49f9a6f2b11780cfa290d76ec656ef0117672d34b8180 | quote: All new users who register on or after 2021-05-01 will be required to pay for their account to use builds.sr.ht.
+  - [5] 2026-10-30: a maintainer account is a paid account with financial aid available | capture: sha256:b9042fcca29a51668bc0a37b7a5c3472ed85124c9dadc8e0c7e8b6b289a2a082 | quote: Projects hosted on sourcehut are expected to pay for their account. Financial aid is available for those in need.
+  - [6] 2026-10-30: builds run in full VMs with root | capture: sha256:c4ac25cbf4a3689edfe2f30997e3b013ce000dcc92a1d7ce249fde1d5cddd2f3 | quote: These are full virtual machines with relatively broad permissions offered to users
+  - [6] 2026-10-30: the documented SSH session message names a 4-hour termination | capture: sha256:c4ac25cbf4a3689edfe2f30997e3b013ce000dcc92a1d7ce249fde1d5cddd2f3 | quote: Your VM will be terminated 4 hours from now, or when you log out.
+  - [6] 2026-10-30: manifests are submitted through the API or the website | capture: sha256:c4ac25cbf4a3689edfe2f30997e3b013ce000dcc92a1d7ce249fde1d5cddd2f3 | quote: these manifests are submitted via the API or ad-hoc on the website
+  - [7] 2026-10-30: an SSH session lasts until the normal build time limit | capture: sha256:3b2c43240590c262e34983c66cdc8415458d000aab53bd0655bd9865ec06fc26 | quote: we keep the VM alive until you log out or until your normal build time limit has elapsed.
+  - [2] 2026-10-30: 1 GiB per artifact, pruned after 90 days | capture: sha256:daf7002ac828a390aefb835fc2a3b16f17e44b4f0708edf1d8a1fbfe4869bf12 | quote: The maximum allowed file size of an artifact file is 1 GiB. Artifacts are only uploaded for successful jobs and are pruned after 90 days.
+  - [8] 2026-10-30: x86_64 is the supported native architecture | capture: sha256:0c385517baef4e87d4aefbe264ec3208ebff1b99b5be345e9ce744d24419f8aa | quote: | `arch: x86_64` (default) | ✓ | ✓ | daily |
+  - [9] 2026-10-30: a build host supports up to 16 parallel build slots | capture: sha256:817a61b0f6e0543aed2b2f052bbff95413e292adef7a8c80d392244b91c55d89 | quote: This configuration supports up to 16 parallel build slots.
+  - [10] 2026-10-30: the control script boots each build VM with 2 CPUs | capture: sha256:f99f74a7ac8407f81520cb495cfd6eb921ba86e4e56bd862a0b3af53f82b06b5 | quote: -smp cpus=2 \
+  - [10] 2026-10-30: the control script defaults to 4096 MB of memory | capture: sha256:f99f74a7ac8407f81520cb495cfd6eb921ba86e4e56bd862a0b3af53f82b06b5 | quote: -m ${MEMORY:-4096} \
+  - [11] 2026-10-30: the example configuration sets a 45-minute maximum build duration | capture: sha256:7551b93f29ab225daf873adca23253135fe4fee6f8190ec94f5e8c524a2bf187 | quote: timeout=45m
+  - [12] 2026-10-30: unpaid accounts become read-only from the beta with 60 days notice | capture: sha256:9aa72cbabb5f65b42d11142bf81eb5899b130d69eb1277d877e0a161279999a0 | quote: From the beta onwards, unpaid accounts will be limited to read-only access to their own projects. Affected users will be emailed at least 60 days in advance of the transition.
+  - [2] 2026-11-02: the artifact size cap and the 90-day pruning are unchanged | capture: sha256:daf7002ac828a390aefb835fc2a3b16f17e44b4f0708edf1d8a1fbfe4869bf12 | quote: The maximum allowed file size of an artifact file is 1 GiB. Artifacts are only uploaded for successful jobs and are pruned after 90 days.
+  - [3] 2026-11-04: build jobs need a paid account | capture: sha256:784c327f2a7926dddda17681f175b0ef0e70c1c7c01e9b821fd9638ad9c83628 | quote: To create repositories, mailing lists, trackers, or submit build jobs, you will need to pay for your account.
+  - [2] 2026-11-04: 1 GiB artifact cap | capture: sha256:daf7002ac828a390aefb835fc2a3b16f17e44b4f0708edf1d8a1fbfe4869bf12 | quote: The maximum allowed file size of an artifact file is 1 GiB.
+- sources:
+  - [1] https://sourcehut.org/pricing/
+  - [2] https://man.sr.ht/builds.sr.ht/manifest.md
+  - [3] https://man.sr.ht/billing-faq.md
+  - [4] https://man.sr.ht/ops/builds.sr.ht-migration.md
+  - [5] https://meta.sr.ht/register
+  - [6] https://man.sr.ht/builds.sr.ht/
+  - [7] https://drewdevault.com/blog/Introducing-shell-access-for-builds/
+  - [8] https://man.sr.ht/builds.sr.ht/compatibility.md
+  - [9] https://man.sr.ht/ops/provisioning.md
+  - [10] https://git.sr.ht/~sircmpwn/builds.sr.ht/blob/master/images/control
+  - [11] https://git.sr.ht/~sircmpwn/builds.sr.ht/blob/master/config.example.ini
+  - [12] https://sourcehut.org/alpha-details/
+
+## TeamCity Cloud
+
+- `ci-cd-runners/teamcity-cloud` | paid-only | evidence documented | binding volume-quota | category CI runner | tier 14-day free trial, then paid per committer
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:52:06.675Z (live) | stale on 2026-12-20
+- url https://www.jetbrains.com/teamcity/cloud/ | page https://fshy.ajam.dev/p/jetbrains.md
+- free tier: no free tier: 'we do not currently offer a free tier in TeamCity Cloud'; a 14-day trial includes unlimited committer slots, 12,000 build credits (up to 20 build hours on the Linux small instance type), unlimited parallel builds, 120 GB of storage and up to 3 concurrent self-hosted builds; paid plans start from USD 15.00 per committer per month | unit: none | metered on: wall-clock | read on: 2026-11-19 | source: [1] | note: the trial is time-limited to 14 days, not an always-free allowance; the free-forever Professional licence is the separate TeamCity On-Premises software the reader installs and runs, and is not this hosted offer
+- per-object cap: no per-object cap stated; the trial and the paid plan include 120 GB of storage for build results and artifacts | source: [2]
+- retention: unverified: no page read states a build log or artifact retention period for TeamCity Cloud | source: [3]
+- egress: cloud data transfer is counted when artifacts and build logs are downloaded out of TeamCity Cloud; the paid plan includes 600 GB of data transfer per month | metered: yes | free allowance: 600 GB of data transfer per month on the paid plan | source: [2]
+- identity: email | detail: the signup page offers GitHub, GitLab, Bitbucket or Google sign-in, or an email address ('Sign up for a free 14-day trial using: GitHub GitLab Bitbucket Google Or sign up using your email'); no phone number or card is asked for on that page
+- interface: git, rest, cli
+- limits:
+  - volume-quota (binding): 24,000 build credits per month on the 3-committer paid plan; 12,000 build credits in the 14-day trial, good for up to 20 build hours on the Linux small instance type [2]
+  - volume-quota (binding): 120 GB of storage and 600 GB of data transfer per month on the paid plan [2]
+  - request-rate: unlimited parallel builds on the paid plan; up to 3 concurrent self-hosted builds in the trial [3]
+  - retention-clamped: remaining subscription build credits expire at the end of each month; additional credits purchased on demand do not expire [3]
+- limits note: a committer slot is needed for a user who authors 10 or more VCS changes over a 30-day period; non-committing web users are unlimited
+- binding note: the monthly build credit budget binds first: subscription credits expire each month and the hosted plan starts at USD 15.00 per committer, while parallel builds are unlimited on the paid plan
+- interface detail: pipelines are defined in YAML, the Kotlin DSL or a visual editor; the REST API gives programmatic access to builds, projects and pipelines, and the cloud page states full MCP and CLI access
+- endpoint: unverified: the REST API endpoint URL is not stated on the pages read
+- tooling: JetBrains-hosted Windows, Linux and ARM build agents that start on demand, with a preinstalled build tool set and Docker container steps; self-hosted agents connect from the reader's own network; Kotlin DSL, YAML, a visual editor, a REST API, a CLI and MCP access
+- composes with: a Git push or API call starts a build on a JetBrains-hosted agent and consumes build credits; credits can also be redeemed for self-hosted agent concurrency, prepaid agents, extra storage and extra data transfer; TeamCity On-Premises Professional is the separate self-hosted software, listed after this hosted offer
+- reliability: unverified: no suspension or data-loss event is stated on the pages read; build time on a JetBrains-hosted agent is charged against build credits at a rate that depends on the agent instance type
+- notes: TeamCity Cloud is the JetBrains-hosted CI service, billed per committer after a 14-day trial. The free-forever Professional licence belongs to TeamCity On-Premises, which is software the reader installs and runs and is not a hosted offer. Self-hosted agents may connect to the hosted control plane, but the control plane and the JetBrains-hosted agents are managed by the vendor, so this record stays hosted. No build was run, so the agent's CPU, memory and disk and the build log retention period are unverified.
+- evidence note: the JetBrains licensing documentation, buy page, cloud page, signup page and support FAQ were read and quoted on 2026-11-19; no build was run, so CPU, memory and disk of a JetBrains-hosted agent and the build log retention period are unverified
+- self hosted: no
+- evidence:
+  - [1] 2026-11-19: TeamCity Cloud has no free tier; the free-forever licence applies only to On-Premises | capture: sha256:a293a6216d9eb59aa877d1f34e2ff36e9727a6c7276abeb55314eb5978bb1306 | quote: we do not currently offer a free tier in TeamCity Cloud
+  - [3] 2026-11-19: the trial lasts 14 days and gives 12,000 build credits, 120 GB of storage, unlimited parallel builds and 3 concurrent self-hosted builds | capture: sha256:b1f2100caded9a5d621532d4f0da5d958338222d1cae66b62267a75f0092526b | quote: You can try TeamCity Cloud for free for 14 days. The free trial subscription plan includes unlimited committer slots, 12,000 build credits (good for up to 20 build hours on our Linux small instance type), unlimited parallel builds, 120 GB of storage, and up to 3 concurrent self-hosted builds.
+  - [3] 2026-11-19: a committer slot is required after 10 VCS changes in 30 days | capture: sha256:b1f2100caded9a5d621532d4f0da5d958338222d1cae66b62267a75f0092526b | quote: All users who author 10 or more VCS changes over a 30-day period require a committer slot in TeamCity Cloud.
+  - [3] 2026-11-19: subscription build credits expire monthly; purchased credits do not | capture: sha256:b1f2100caded9a5d621532d4f0da5d958338222d1cae66b62267a75f0092526b | quote: At the end of each month, the remaining build credits expire from your subscription, and a new set of build credits is provided at the beginning of the next month. If you purchase additional build credits, they do not expire.
+  - [2] 2026-11-19: the paid hosted plan starts at USD 15.00 per committer per month | capture: sha256:b466a641514b8905b9a910ba89757f668f5cb17c96c84131463959001225e256 | quote: From $15.00 per committer, per month
+  - [2] 2026-11-19: the hosted plan includes 120 GB of storage | capture: sha256:b466a641514b8905b9a910ba89757f668f5cb17c96c84131463959001225e256 | quote: 120 GB of storage
+  - [2] 2026-11-19: the hosted plan includes 600 GB of data transfer per month | capture: sha256:b466a641514b8905b9a910ba89757f668f5cb17c96c84131463959001225e256 | quote: 600 GB of data transfer per month
+  - [2] 2026-11-19: the 3-committer hosted plan includes 24,000 build credits per month | capture: sha256:b466a641514b8905b9a910ba89757f668f5cb17c96c84131463959001225e256 | quote: 24,000 build credits per month
+  - [4] 2026-11-19: the signup page opens a 14-day trial | capture: sha256:22673724931de362b5ef1602563ca9781ffb253cf17c67ba7a8ddf44402b8c2e | quote: Sign up for a free 14-day trial using:
+  - [4] 2026-11-19: sign-in options are GitHub, GitLab, Bitbucket and Google | capture: sha256:22673724931de362b5ef1602563ca9781ffb253cf17c67ba7a8ddf44402b8c2e | quote: GitHubGitLabBitbucketGoogle
+  - [4] 2026-11-19: an email address is an alternative to the social sign-in options | capture: sha256:22673724931de362b5ef1602563ca9781ffb253cf17c67ba7a8ddf44402b8c2e | quote: Or sign up using your email:
+  - [5] 2026-11-19: the hosted service connects to GitHub, GitLab, Bitbucket and Perforce | capture: sha256:3c0c02142f63612ba2cb2d509ed9b46ff318265aa271280846fab57ed7d2564b | quote: Connect GitHub, GitLab, Bitbucket, and Perforce to the same project simultaneously
+- sources:
+  - [1] https://teamcity-support.jetbrains.com/hc/en-us/articles/360021064900-Is-there-a-free-plan-for-TeamCity-Cloud
+  - [2] https://www.jetbrains.com/teamcity/buy/#cloud
+  - [3] https://www.jetbrains.com/help/teamcity/cloud/teamcity-cloud-subscription-and-licensing.html
+  - [4] https://www.jetbrains.com/teamcity/signup/cloud-enterprise/
+  - [5] https://www.jetbrains.com/teamcity/cloud/
+
+## Travis CI
+
+- `ci-cd-runners/travis-ci` | paid-only | evidence documented | binding write-gated | category CI runner
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T17:29:39.667Z (live) | stale on 2026-12-04
+- url https://docs.travis-ci.com/user/billing-overview/ | page https://fshy.ajam.dev/p/travis-ci.md
+- free tier: no free trial; OSS credits are granted by support rather than self-serve | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: there is no self-serve free allowance to cap
+- retention: not applicable | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: card | detail: a payment method for any plan, and no self-serve free tier
+- interface: git
+- limits:
+  - write-gated (binding): OSS credits are granted by support, so the gate is a person and a queue [1]
+- interface detail: a .travis.yml pipeline, once an account exists
+- tooling: not relevant without an allowance
+- composes with: no path: the free trial is withdrawn and the OSS path is a support request
+- reliability: the 10,000-credit 14-day trial that appears in older comparisons no longer exists
+- notes: The service is live and paid: the usage-based plan is USD 15 a month for 35,000 Linux build credits, and a standard Linux build minute costs 10 credits. The free trial is unavailable and OSS credits are granted by the support team on request.
+- evidence note: the billing overview was read and states the trial is unavailable.
+- evidence:
+  - [1] 2026-10-22: the free trial plan is currently unavailable; open-source credits are granted on request rather than self-serve
+  - [2] 2026-11-03: the vendor pricing page sells a paid usage-based plan with 35,000 Linux build credits a month | capture: sha256:fd2cb726f5483ca814d905cb31f2b20601af1ce6fc631c7cf76b31a0c758b847 | quote: 35,000 Linux build credits per month
+  - [1] 2026-11-03: a standard Linux build minute costs 10 credits | capture: sha256:daaaf3fd77dcb1c876386a0685140a308ab7ab3b49d3e4ce51dbb9a018aeb680 | quote: | Build Job: Standard Linux/FreeBSD | 10 credits / minute | 10 credits / minute | |
+  - [1] 2026-11-03: the free trial plan is unavailable | capture: sha256:daaaf3fd77dcb1c876386a0685140a308ab7ab3b49d3e4ce51dbb9a018aeb680 | quote: > Free Trial Plans are currently unavailable.
+  - [3] 2026-11-03: OSS credits are granted by the support team on request | capture: sha256:08708d10f3925e37dc0b324d2b40c368e544c3abaa2f11712f528f75f7dac568 | quote: Travis CI may grant an amount of special OSS credits per month assigned to run builds only on public repositories.
+- sources:
+  - [1] https://docs.travis-ci.com/user/billing-overview/
+  - [2] https://www.travis-ci.com/pricing/
+  - [3] https://docs.travis-ci.com/user/billing-faq/

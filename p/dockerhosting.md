@@ -1,0 +1,115 @@
+# Dockerhosting.ru
+
+> dockerhosting.ru | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/dockerhosting/ | JSON https://fshy.ajam.dev/api/v1/entity/dockerhosting.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Dockerhosting.ru, Prodv (Prodvinutyy)
+
+- `compute/dockerhosting-prodv` | qualifies | evidence documented | binding per-ip-shaping | category VPS | tier Prodv (Prodvinutyy)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://www.dockerhosting.ru/universalvps.html
+- price parsed USD 4.91/mo
+- free tier: no free tier; the entry plan is 'Start 299 rub.' for 2 GB | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; no deletion clock is published on the tariff page
+- egress: 'Trafik: bezlimitnyy' (traffic: unlimited) on every tariff on the page | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: the order page was not opened on 2026-10-24, so card acceptance, debit acceptance and any hold are unverified. Russian hosts in this price band commonly take Mir cards and SBP transfers, but nothing on the page read states it.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): traffic is unlimited with no published fair-use number; the core clock is stated as 2600 MHz per core [1]
+- binding note: traffic is unlimited and the disk is fixed, so the shared 2600 MHz cores are the only thing left to throttle.
+- interface detail: the tariff card states 'SSH dostup' and 'Root prava' (root rights)
+- tooling: any SSH client; the vendor's own order panel
+- composes with: 4 GiB and 2 cores for USD 4.91 in Russia with unlimited traffic; the cheapest 4 GiB under the line found in any of the nine languages searched
+- reliability: no reliability event recorded
+- notes: A search index returned 'Start ... 145 rub.' for the same 1-core 2 GB shape that the live page prices at 299 rub., so either the index is stale or the price doubled; the live page is the price of record and the discrepancy is noted rather than resolved. The legal entity is not stated on the page read and was not established.
+- evidence note: the four tariffs and their prices are parsed from the vendor's live page HTML today, because the table does not survive text extraction. The identity and payment fields are unverified.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 40
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 4.9079
+  - m24h_usd: 4.9079
+  - price_arithmetic: 399 RUB a month, times 0.012301 USD per RUB = USD 4.91 a month.
+  - out_of_pocket_usd: 4.9079
+  - renewal_usd: 4.9079
+  - renewal_note: the tariff page shows one price with no promo marking; 399 RUB is treated as the renewal
+  - promo: no
+  - over_line: no
+  - fx.pair: RUB/USD
+  - fx.rate: 0.01230062
+  - fx.date: 2026-10-24
+  - fx.source: open.er-api.com/v6/latest/USD
+  - gib_per_usd: 0.815
+  - locations: Russia (the page does not name the city)
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'Prodvinutyy | 399 rub. | CPU: 2 yadra x 2600 MHz | RAM: 4 Gb RAM | SSD: 40 Gb SSD NVMe | Trafik: bezlimitnyy'
+  - [1] 2026-10-24: quoted: 'Start | 299 rub. ... 1 yadro x 2600 MHz | RAM: 2 Gb RAM | SSD: 15 Gb SSD NVMe | Trafik: bezlimitnyy'
+  - [1] 2026-10-24: quoted: 'Profi | 849 rub. ... 4 yadra ... 8 Gb RAM | 80 Gb SSD NVMe' - the 8 GB rung is USD 10.44, over the line
+- sources:
+  - [1] https://www.dockerhosting.ru/universalvps.html
+
+## Dockerhosting.ru (Start)
+
+- `compute/dockerhosting-start` | qualifies | evidence documented | binding per-ip-shaping | category VPS | tier Start
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T03:25:00.000Z (live) | stale on 2026-11-24
+- url https://www.dockerhosting.ru/universalvps.html
+- price parsed USD 3.68/mo
+- free tier: no free tier; Start at 299 RUB a month is the entry plan | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; no deletion clock is published
+- egress: 'Trafik: bezlimitnyy' (traffic: unlimited) | metered: no | free allowance: unlimited | source: [1]
+- identity: card | detail: the order page was not opened on 2026-10-24, so card acceptance, debit acceptance and any hold are unverified.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): traffic unlimited with no published fair-use number; 1 core at 2600 MHz [1]
+- binding note: one shared core is the binding resource; the 15 GB disk is the second.
+- interface detail: the tariff card states 'SSH dostup'
+- tooling: any SSH client; the vendor's own order panel
+- composes with: a 2 GiB Russian box with unlimited traffic for USD 3.68; a WireGuard node or a health monitor with room to spare
+- reliability: no reliability event recorded
+- notes: The same index-versus-live discrepancy as the 4 GB rung applies: search returned 145 RUB for this shape, the live page says 299 RUB. The legal entity was not established.
+- evidence note: price and shape are parsed from the vendor's live page HTML today. The identity and payment fields are unverified.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 2
+  - shape.disk_gib: 15
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 3.6779
+  - m24h_usd: 3.6779
+  - price_arithmetic: 299 RUB a month, times 0.012301 USD per RUB = USD 3.68 a month.
+  - out_of_pocket_usd: 3.6779
+  - renewal_usd: 3.6779
+  - renewal_note: single price on the tariff page, no promo marking
+  - promo: no
+  - over_line: no
+  - fx.pair: RUB/USD
+  - fx.rate: 0.01230062
+  - fx.date: 2026-10-24
+  - fx.source: open.er-api.com/v6/latest/USD
+  - gib_per_usd: 0.5438
+  - locations: Russia (city not named on the page)
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: no
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+- evidence:
+  - [1] 2026-10-24: quoted: 'Start | 299 rub. | CPU: 1 yadro x 2600 MHz | RAM: 2 Gb RAM | SSD: 15 Gb SSD NVMe | Trafik: bezlimitnyy ... SSH dostup'
+- sources:
+  - [1] https://www.dockerhosting.ru/universalvps.html

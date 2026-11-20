@@ -1,0 +1,198 @@
+# FakirDebrid
+
+> fakirdebrid.net | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/fakirdebrid/ | JSON https://fshy.ajam.dev/api/v1/entity/fakirdebrid.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## FakirDebrid
+
+- `debrid/fakirdebrid` | paid-only | evidence measured | binding volume-quota | category multi-hoster download service (debrid), Turkish market | tier vip
+- needs card no, phone no, ID no, institution no | verified 2026-10-23T03:37:00.000Z (live) | stale on 2026-11-23
+- url https://fakirdebrid.net/status.php
+- free tier: The status table is readable with no account and shows a daily bandwidth, a link count and a weekly bandwidth for each host; the site sells 'Buy ViP Membership' and a voucher flow. | unit: none | metered on: none | read on: 2026-10-23 | source: [1] | note: Whether an anonymous visitor gets those caps is not stated; the page shows 0.00 KB used, which is consistent with a fresh account view.
+- per-object cap: not published | source: [1]
+- retention: not applicable: links are generated on demand | source: [1]
+- egress: A public table with three counters per host: Daily Bandwidth ('0.00 KB / 25 GB'), Links ('0 / 100 Links') and Weekly Bandwidth ('0 Bytes / 200 GB'). | metered: yes | free allowance: per host: 5-35 GB/day, 25-100 links/day, 40-280 GB/week | source: [1]
+- identity: email | detail: Login form is Username / Password / Captcha with a 'Login by E-Mail' option; registration is by email.
+- interface: unknown
+- limits:
+  - volume-quota (binding): per host per day 5 GB (file.al, filedot, upstore) to 35 GB (rapidgator); weekly 40-280 GB [1]
+  - request-rate: per host 25-100 links per day [1]
+- limits note: Several hosts print 'Unlimited' in all three counters (dailyuploads, pixeldrain, depositfiles, filefactory, filestore, 4shared, drop.download, alfafile, hexload, rapidrar, scribd, streamtape, emload-adjacent hosts), so the table is a real mix and not a uniform cap.
+- binding note: Its 280 GB/week works out at 40 GB/day, so the weekly counter is the looser of the two.
+- interface detail: No public API documentation was found; /api.php answers a Cloudflare challenge. Integrations are the site's own downloader flow plus a jDownloader plugin.
+- endpoint: https://fakirdebrid.net/status.php
+- tooling: jDownloader plugin and a web generator; no documented REST API. That is a tooling note, not a verdict.
+- composes with: The weekly counter is the only one of its kind in this matrix: a host at 35 GB/day and 280 GB/week cannot deliver its daily cap seven days running, so a bulk job has to be paced across hosts.
+- reliability: The counters are served to an anonymous visitor with zero usage, so the page is a limits board rather than an account dashboard; there is no way to tell from it whether enforcement differs by plan.
+- notes: Reseller documentation lists '50 GB Download traffic per day / 300 Links Daily' as a plan total, while individual host quotas vary across supported providers.
+- evidence note: The 64-row table is a live 50273-byte response read. Whether the caps apply to a free account is not established, which is why the verdict carries a caveat rather than a qualify.
+- extras:
+  - host_matrix.published_daily_caps: yes
+  - host_matrix.source: https://fakirdebrid.net/status.php
+  - host_matrix.hosts_listed: 64
+  - host_matrix.rows[0].host: 1fichier.com
+  - host_matrix.rows[0].daily_cap: unlimited
+  - host_matrix.rows[1].host: 4shared.com
+  - host_matrix.rows[1].daily_cap: unlimited
+  - host_matrix.rows[2].host: alfafile.net
+  - host_matrix.rows[2].daily_cap: unlimited
+  - host_matrix.rows[3].host: anonfile.de
+  - host_matrix.rows[3].daily_cap: unlimited
+  - host_matrix.rows[4].host: clicknupload.org
+  - host_matrix.rows[4].daily_cap: unlimited
+  - host_matrix.rows[5].host: dailyuploads.net
+  - host_matrix.rows[5].daily_cap: unlimited
+  - host_matrix.rows[6].host: ddownload.com
+  - host_matrix.rows[6].daily_cap: unlimited
+  - host_matrix.rows[7].host: depositfiles.com
+  - host_matrix.rows[7].daily_cap: unlimited
+  - host_matrix.rows[8].host: drop.download
+  - host_matrix.rows[8].daily_cap: unlimited
+  - host_matrix.rows[9].host: fastbit.cc
+  - host_matrix.rows[9].daily_cap: unlimited
+  - host_matrix.rows[10].host: fileaxa.com
+  - host_matrix.rows[10].daily_cap: unlimited
+  - host_matrix.rows[11].host: filecat.net
+  - host_matrix.rows[11].daily_cap: unlimited
+  - host_matrix.rows[12].host: filefactory.com
+  - host_matrix.rows[12].daily_cap: unlimited
+  - host_matrix.rows[13].host: filestore.me
+  - host_matrix.rows[13].daily_cap: unlimited
+  - host_matrix.rows[14].host: filextras.com
+  - host_matrix.rows[14].daily_cap: unlimited
+  - host_matrix.rows[15].host: gofile.io
+  - host_matrix.rows[15].daily_cap: unlimited
+  - host_matrix.rows[16].host: hexload.com
+  - host_matrix.rows[16].daily_cap: unlimited
+  - host_matrix.rows[17].host: mediafire.com
+  - host_matrix.rows[17].daily_cap: unlimited
+  - host_matrix.rows[18].host: mega.nz
+  - host_matrix.rows[18].daily_cap: unlimited
+  - host_matrix.rows[19].host: mixdrop.co
+  - host_matrix.rows[19].daily_cap: unlimited
+  - host_matrix.rows[20].host: pixeldrain.com
+  - host_matrix.rows[20].daily_cap: unlimited
+  - host_matrix.rows[21].host: prefiles.com
+  - host_matrix.rows[21].daily_cap: unlimited
+  - host_matrix.rows[22].host: rapidrar.com
+  - host_matrix.rows[22].daily_cap: unlimited
+  - host_matrix.rows[23].host: scribd.com
+  - host_matrix.rows[23].daily_cap: unlimited
+  - host_matrix.rows[24].host: send.now
+  - host_matrix.rows[24].daily_cap: unlimited
+  - host_matrix.rows[25].host: streamtape.com
+  - host_matrix.rows[25].daily_cap: unlimited
+  - host_matrix.rows[26].host: upload.ee
+  - host_matrix.rows[26].daily_cap: unlimited
+  - host_matrix.rows[27].host: upload42.com
+  - host_matrix.rows[27].daily_cap: unlimited
+  - host_matrix.rows[28].host: uploadflix.cc
+  - host_matrix.rows[28].daily_cap: unlimited
+  - host_matrix.rows[29].host: uploadrar.com
+  - host_matrix.rows[29].daily_cap: unlimited
+  - host_matrix.rows[30].host: uploady.io
+  - host_matrix.rows[30].daily_cap: unlimited
+  - host_matrix.rows[31].host: usersdrive.com
+  - host_matrix.rows[31].daily_cap: unlimited
+  - host_matrix.rows[32].host: vidoza.net
+  - host_matrix.rows[32].daily_cap: unlimited
+  - host_matrix.rows[33].host: vimeo.com
+  - host_matrix.rows[33].daily_cap: unlimited
+  - host_matrix.rows[34].host: vipfile.cc
+  - host_matrix.rows[34].daily_cap: unlimited
+  - host_matrix.rows[35].host: wipfiles.net
+  - host_matrix.rows[35].daily_cap: unlimited
+  - host_matrix.rows[36].host: file.al
+  - host_matrix.rows[36].daily_gb: 5.0
+  - host_matrix.rows[36].daily_links: 100
+  - host_matrix.rows[37].host: filedot.to
+  - host_matrix.rows[37].daily_gb: 5.0
+  - host_matrix.rows[37].daily_links: 15
+  - host_matrix.rows[38].host: upstore.net
+  - host_matrix.rows[38].daily_gb: 5.0
+  - host_matrix.rows[38].daily_links: 25
+  - host_matrix.rows[39].host: filesmonster.com
+  - host_matrix.rows[39].daily_gb: 8.0
+  - host_matrix.rows[39].daily_links: 100
+  - host_matrix.rows[40].host: world-files.com
+  - host_matrix.rows[40].daily_gb: 8.0
+  - host_matrix.rows[40].daily_links: 50
+  - host_matrix.rows[41].host: fileboom.me
+  - host_matrix.rows[41].daily_gb: 10.0
+  - host_matrix.rows[41].daily_links: 100
+  - host_matrix.rows[42].host: filefox.cc
+  - host_matrix.rows[42].daily_gb: 10.0
+  - host_matrix.rows[42].daily_links: 100
+  - host_matrix.rows[43].host: gigapeta.com
+  - host_matrix.rows[43].daily_gb: 10.0
+  - host_matrix.rows[43].daily_links: 100
+  - host_matrix.rows[44].host: jumploads.com
+  - host_matrix.rows[44].daily_gb: 10.0
+  - host_matrix.rows[44].daily_links: 50
+  - host_matrix.rows[45].host: keep2share.cc
+  - host_matrix.rows[45].daily_gb: 10.0
+  - host_matrix.rows[45].daily_links: 100
+  - host_matrix.rows[46].host: ubiqfile.com
+  - host_matrix.rows[46].daily_gb: 10.0
+  - host_matrix.rows[46].daily_links: 20
+  - host_matrix.rows[47].host: uploadgig.com
+  - host_matrix.rows[47].daily_gb: 10.0
+  - host_matrix.rows[47].daily_links: 50
+  - host_matrix.rows[48].host: filejoker.net
+  - host_matrix.rows[48].daily_gb: 12.0
+  - host_matrix.rows[48].daily_links: 100
+  - host_matrix.rows[49].host: extmatrix.com
+  - host_matrix.rows[49].daily_gb: 15.0
+  - host_matrix.rows[49].daily_links: 100
+  - host_matrix.rows[50].host: hitfile.net
+  - host_matrix.rows[50].daily_gb: 15.0
+  - host_matrix.rows[50].daily_links: 100
+  - host_matrix.rows[51].host: hotlink.cc
+  - host_matrix.rows[51].daily_gb: 15.0
+  - host_matrix.rows[51].daily_links: 100
+  - host_matrix.rows[52].host: loadme.cc
+  - host_matrix.rows[52].daily_gb: 15.0
+  - host_matrix.rows[52].daily_links: 100
+  - host_matrix.rows[53].host: tezfiles.com
+  - host_matrix.rows[53].daily_gb: 15.0
+  - host_matrix.rows[53].daily_links: 100
+  - host_matrix.rows[54].host: xubster.com
+  - host_matrix.rows[54].daily_gb: 15.0
+  - host_matrix.rows[54].daily_links: 100
+  - host_matrix.rows[55].host: katfile.com
+  - host_matrix.rows[55].daily_gb: 20.0
+  - host_matrix.rows[55].daily_links: 50
+  - host_matrix.rows[56].host: emload.com
+  - host_matrix.rows[56].daily_gb: 25.0
+  - host_matrix.rows[56].daily_links: 100
+  - host_matrix.rows[57].host: filespace.com
+  - host_matrix.rows[57].daily_gb: 25.0
+  - host_matrix.rows[57].daily_links: 100
+  - host_matrix.rows[58].host: hot4share.com
+  - host_matrix.rows[58].daily_gb: 25.0
+  - host_matrix.rows[58].daily_links: 100
+  - host_matrix.rows[59].host: isra.cloud
+  - host_matrix.rows[59].daily_gb: 25.0
+  - host_matrix.rows[59].daily_links: 100
+  - host_matrix.rows[60].host: kshared.com
+  - host_matrix.rows[60].daily_gb: 25.0
+  - host_matrix.rows[60].daily_links: 100
+  - host_matrix.rows[61].host: myqloud.org
+  - host_matrix.rows[61].daily_gb: 25.0
+  - host_matrix.rows[61].daily_links: 100
+  - host_matrix.rows[62].host: turbobit.net
+  - host_matrix.rows[62].daily_gb: 25.0
+  - host_matrix.rows[62].daily_links: 100
+  - host_matrix.rows[63].host: rapidgator.net
+  - host_matrix.rows[63].daily_gb: 35.0
+  - host_matrix.rows[63].daily_links: 100
+  - host_matrix.extra_counters: weekly_gb
+- evidence:
+  - probe:https://fakirdebrid.net/status.php 2026-10-23: 64 hosts with Daily Bandwidth, Links, Weekly Bandwidth; e.g. 'Tezfiles.com 0.00 KB / 15 GB', 'Rapidgator.net 0.00 KB / 35 GB', 'Dailyuploads.net Unlimited'
+  - probe:https://fakirdebrid.net/ 2026-10-23: the site's navigation: 'Limits and Service List', 'Buy ViP Membership', 'Register', 'Login by E-Mail' - the status page is the vendor's own limits link
+  - probe:https://fakirdebrid.net/api.php 2026-10-23: 'Just a moment...' Cloudflare challenge, so no API documentation could be read
+  - probe:https://fakirdebrid.com/Features 2026-10-23: same 403 on the features route, so the whole .com host is walled while .net is readable
+  - probe:https://fakirdebrid.com/fakirdebrid-premium-180-days 2026-11-03: on 2026-11-03 a direct GET of the plan page answered HTTP 401 (172 bytes, www-authenticate: Basic realm "Authorization") | capture: sha256:40a3967fec3e44cfd9d462f25775e42d4f4c5fa3b9354a337f89f72433d4ca7b | quote: "status": 401
+- sources:
+  - [1] https://fakirdebrid.net/status.php

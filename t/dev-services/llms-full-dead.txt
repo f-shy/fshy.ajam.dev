@@ -1,0 +1,98 @@
+# fshy: Developer services, dead
+
+> Monitoring, error tracking, analytics, scheduled jobs, queues, realtime and authentication services.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/dev-services/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## HCP Vault Secrets
+
+- `dev-services/hcp-vault-secrets` | dead | evidence documented | binding volume-quota | category hosted SaaS secret store, decommissioned | tier Free
+- needs card unknown, phone no, ID no, institution no | verified 2026-11-20T04:15:44.723Z (live) | stale on 2026-12-21
+- url https://www.ibm.com/support/pages/hcp-vault-secrets-end-life | page https://fshy.ajam.dev/p/ibm.md
+- free tier: Free tier, while HCP Vault Secrets was on sale: 25 static secrets, 25 applications, 5 versions per secret, 5 secret sync destinations and Bronze support. New customers lost access at end of sale on 2025-06-30, and applications were deleted at end of life on 2026-07-01. | unit: objects | metered on: object-count | read on: 2026-11-19 | source: [1] | note: The headline unit counted is the static secret. The Essentials and Standard tiers raised the caps to 2500 and 25000 secrets, but the product is now decommissioned.
+- per-object cap: 5120 characters per secret value | source: [2]
+- retention: 5 versions per secret on the Free tier; a deleted application's audit logs were not retained in the UI log viewer | source: [1] | note: Retention is by version count, not by a number of days.
+- egress: unverified: no egress quota or per-GB price is stated on the pages read; secret values were read back through the REST API, whose rate limits were stated for the Essentials and Standard tiers only | metered: no | source: [1]
+- identity: email | detail: An HCP account was created with email and password, GitHub or IBMid. The create-account page says 'Visit the HCP portal and provide your email and a password.' A credit card was not asked for at signup: HCP started in a trial state with 500 USD in trial credits, and the billing page only recommends a card 'to ensure continuity of service when trial credits are depleted.' The signup page itself answered HTTP 503, so the exact form fields are unverified: behind a sign-up. The offer is now closed to new customers.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 25 static secrets on the Free tier [1]
+  - volume-quota (binding): 25 applications on the Free tier [1]
+  - per-object-cap: 5120 characters per secret value, on all tiers [2]
+  - retention-clamped: 5 secret versions per secret on the Free tier [1]
+  - volume-quota (binding): 5 secret sync destinations on the Free tier [1]
+- limits note: Auto-rotating and dynamic secrets were Standard tier only, so the Free tier had no rotation. The 6000 secret access and 2000 other API requests per minute limits were stated for the Essentials and Standard tiers only. Resource ceilings of 100 apps and 100 integrations per project, 300 secrets, 10 dynamic secrets and 15 syncs per app applied to all tiers.
+- binding note: The 25-static-secret cap filled first on the Free tier, before the 25-application cap or the per-secret value size was reached.
+- interface detail: A REST API with operations such as OpenAppSecrets and ListOpenAppSecretVersions, and a CLI run command that injects secret names containing an underscore into environment variables. The HCP web UI was the management console.
+- endpoint: https://api.cloud.hashicorp.com/secrets
+- tooling: The HCP CLI vault-secrets commands, the HCP REST API and the HCP Terraform provider
+- composes with: A hosted secret store for API keys and credentials, with sync to third-party destinations and an HCP CLI run command for injecting secrets into application environments.
+- reliability: The offer was decommissioned by the vendor: end of sale on 2025-06-30, applications deleted at end of life on 2026-07-01. A known API bug disconnected all sync integrations from an app when an edit omitted the sync_integrations field; a deleted application's audit logs were not retained in the UI log viewer.
+- notes: HCP Vault Secrets was a hosted, multi-tenant secret store, not self-hosted software. Its free allowance was 25 static secrets. The product reached end of sale on 2025-06-30 and end of life on 2026-07-01, so it is dead as of the verification date. The live documentation URLs now redirect to HCP Vault Dedicated documentation; the original first-party text was read from the Wayback archive of the same HashiCorp developer URLs. unverified: behind a sign-up — the later steps of the sign-up form were not visible in a keyless read on 2026-11-20, so a card or phone requirement at those steps cannot be stated.
+- evidence note: All numbers come from first-party pages: the IBM end-of-life notice and the archived HashiCorp tiers, constraints, account and billing documentation. The signup form fields are unverified behind a sign-up, and the signup page answered HTTP 503.
+- evidence:
+  - [3] 2026-11-19: the vendor states that HCP Vault Secrets is being decommissioned | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: HashiCorp will be decommissioning HCP Vault Secrets.
+  - [3] 2026-11-19: the offer is closed to new customers from the end-of-sale date | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: New customers will no longer have access to HCP Vault Secrets
+  - [3] 2026-11-19: the end-of-life date, after which applications are deleted | capture: sha256:c27b9482a5313e64b2cdbbaa1ab7a563e631db6936e17fc8deda2691564c5c95 | quote: End of life: Earlier of the Flex contract expiry or July 1, 2026
+  - [1] 2026-11-19: the Free tier allowed 25 static secrets | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Static secrets | The total # of secrets created | 25 | 2500 | 25000 |
+  - [1] 2026-11-19: the Free tier allowed 25 applications | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Applications | The total # of applications | 25 | 1000 | 10000 |
+  - [1] 2026-11-19: the Free tier retained 5 versions per secret | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret versions | The total # of versions per secret | 5 | 50 | 50 |
+  - [1] 2026-11-19: the Free tier allowed 5 secret sync destinations | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret syncs | The total # of active secret sync destinations | 5 | 200 | 2000 |
+  - [1] 2026-11-19: auto-rotating secrets were not on the Free tier | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Auto-rotating secrets | The total # of auto-rotating secrets created | Standard tier only | Standard tier only | 5000 |
+  - [1] 2026-11-19: the stated API rate limit for secret access operations | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: | Secret access API operations | 6000 requests/minute |
+  - [2] 2026-11-19: the per-secret value size cap | capture: sha256:0ff6127b18245282e8d21d42fafe5af45b88482a16f9f4bb341a82fd45cb1819 | quote: The current character limit for the secret value is 5120 characters per secret.
+  - [2] 2026-11-19: audit logs of a deleted application were not retained in the UI viewer | capture: sha256:0ff6127b18245282e8d21d42fafe5af45b88482a16f9f4bb341a82fd45cb1819 | quote: deleted application's audit logs are not retained within the UI log viewer
+  - [1] 2026-11-19: the tier was reachable through a free account signup | capture: sha256:8db825b62827b46fab338b0fb7844ded60193aad61ea1a52b4b7ab15723143a7 | quote: Sign up [here](https://www.hashicorp.com/cloud) for a free account to get started.
+  - [4] 2026-11-19: account creation requires an email address and a password | capture: sha256:109f6c29cf050d31560c50340eff8e972f7183d3d85842921716614dabe91d29 | quote: Visit the HCP portal and provide your email and a password.
+  - [4] 2026-11-19: the accepted account-creation methods | capture: sha256:109f6c29cf050d31560c50340eff8e972f7183d3d85842921716614dabe91d29 | quote: You can create an account using email and password, GitHub, or IBMid.
+  - [5] 2026-11-19: new HCP organizations began with trial credits rather than a card charge | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: The HCP organization is automatically granted $500 in trial credits to apply towards HCP services, enabling you to try before you buy. Trial credits have a 6 month expiration.
+  - [5] 2026-11-19: the card is recommended for continuity, not asked for at signup | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: You should configure a payment method (credit card) to ensure continuity of service when trial credits are depleted.
+  - [6] 2026-11-19: the offer was a hosted SaaS secret store | capture: sha256:13a5e117acb5c1a5748b3217c9795c23e3cf34b9198007e8b9a5c2286b160d2e | quote: HCP Vault Secrets is a SaaS platform which provides secure and simplified workflows for centralizing the storage and managment of secrets
+  - [5] 2026-11-20: a first-party page was read on 2026-11-20; the sign-up gate keeps later form steps unverified | capture: sha256:163241e53e35adc58e5cb66f5e32ef075014dc1af1216067e6fe29d711d6d26d | quote: To view your current billing information, log into [the HCP Portal](https://portal.cloud.hashicorp.com/) and navigate to Billing via the billing summary tile on your Project or Organization dashboard.
+- sources:
+  - [1] https://developer.hashicorp.com/hcp/docs/vault-secrets/get-started/plan-implementation/tiers-features
+  - [2] https://developer.hashicorp.com/hcp/docs/vault-secrets/get-started/plan-implementation/constraints-considerations
+  - [3] https://www.ibm.com/support/pages/hcp-vault-secrets-end-life
+  - [4] https://developer.hashicorp.com/hcp/docs/hcp/create-account
+  - [5] https://developer.hashicorp.com/hcp/docs/hcp/admin/billing
+  - [6] https://developer.hashicorp.com/hcp/docs/vault-secrets
+
+## Hypertune (feature flags)
+
+- `dev-services/hypertune` | dead | evidence documented | binding volume-quota | category feature flags and experimentation, formerly hosted | tier Free
+- identity a placeholder: card and phone unknown | verified 2026-11-20T04:15:44.827Z (live) | stale on 2026-12-21
+- url https://www.hypertune.com/pricing | page https://fshy.ajam.dev/p/hypertune.md
+- free tier: The former Free plan, USD 0 a month, was for testing and evaluation, or small-scale deployments: 1m CDN requests, 1m analytics events, up to 3 team members, unlimited CDN bandwidth, service connections, MAUs/MTUs, environments, projects, feature flags and experiments; the offer is no longer reachable on the original domain | unit: mixed | metered on: request-count | read on: 2026-11-19 | source: [1] | note: The figures are read from a Wayback capture of the original first-party pricing page dated 2026-06-13, not from the live domain. The live hypertune.com/pricing now serves an unrelated PC game optimizer, hypertune.ai is a domain-parking page, and docs.hypertune.com returns a server-side failure.
+- per-object cap: unverified: no per-flag value size cap is stated on the captured pages | source: [1]
+- retention: unverified: no retention period for flags, analytics events or audit logs is stated on the captured pages | source: [1]
+- egress: not applicable: a flag service formerly metered by CDN requests and analytics events; no traffic allowance or byte price is published on the captured pages | metered: no | source: [1]
+- identity: email | detail: unverified: a third party reported that the service stopped taking new sign-ups, but no current first-party sign-up page is reachable; the archived pricing page showed Google SSO on the Free plan. No sign-up form was available to read, so the exact registration fields cannot be stated.
+- interface: rest
+- limits:
+  - volume-quota (binding): 1m CDN requests a month on the former Free plan [1]
+  - volume-quota (binding): 1m analytics events a month on the former Free plan [1]
+  - per-object-cap: up to 3 team members on the former Free plan [1]
+- limits note: Unlimited MAUs/MTUs, CDN bandwidth, service connections, environments, projects, feature flags and experiments were listed on the former Free plan. The original domain now serves an unrelated product.
+- binding note: The 1m monthly CDN request and 1m analytics event quotas were the first thresholds on the former Free plan; the offer is no longer reachable.
+- interface detail: The former product offered a GraphQL edge API and type-safe, Rust-powered SDKs for major languages. The live docs domain no longer serves the product documentation, so the interface could not be re-read on a first-party page.
+- tooling: Former type-safe, Rust-powered SDKs for major languages; no longer reachable on the original domain.
+- composes with: No current hosted offer: the original feature-flag domain now serves an unrelated product and the docs domain is unreachable, so there is no live hosted lane to chain.
+- reliability: The original feature-flag pricing page no longer serves the product: hypertune.com/pricing now serves an unrelated PC game optimizer, hypertune.ai is a domain-parking page stating the registration expired, and docs.hypertune.com returned a 530 status. The last accessible first-party pricing text is a Wayback capture dated 2026-06-13.
+- notes: The former Free plan is documented, but the original domain now serves an unrelated product and the docs domain is unreachable, so no hosted self-serve tier is currently available. A first-party shutdown date was not published, so none is stated here. unverified: behind a sign-up — the later steps of the sign-up form were not visible in a keyless read on 2026-11-20, so a card or phone requirement at those steps cannot be stated.
+- evidence note: The former plan figures are quoted from a Wayback capture of the original first-party pricing page, and the current state from captures of the live hypertune.com and hypertune.ai domains. The docs domain could not be read. The service is recorded as dead on first-party evidence that the original pages no longer serve the product.
+- evidence:
+  - [1] 2026-11-19: the live hypertune.com/pricing now serves an unrelated PC game optimizer, not the feature-flag product | capture: sha256:05cd8e1a93125bda41c9e4263214841d20ee843b0e8c63141c0464eb8ecad49f | quote: Boost your gaming
+  - [2] 2026-11-19: the hypertune.ai domain registration expired and is parked | capture: sha256:98abb0e9b8f8c493d51f7b7a35fabf966323f0007c53ba119a48ba19ad204523 | quote: Domain registration has expired.
+  - [3] 2026-11-19: the former Free plan was USD 0 a month for testing and evaluation | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: $0 / month
+  - [3] 2026-11-19: the former Free plan included 1m CDN requests | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: 1m CDN requests
+  - [3] 2026-11-19: the former Free plan included 1m analytics events | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: 1m analytics events
+  - [3] 2026-11-19: the former Free plan allowed up to 3 team members | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: Up to 3 team members
+  - [3] 2026-11-19: the former Free plan had unlimited MAUs and MTUs | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: Unlimited MAUs / MTUs
+  - [3] 2026-11-19: the former Free plan offered Google SSO | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: SSO via Google
+  - [3] 2026-11-20: a first-party page was read on 2026-11-20; the sign-up gate keeps later form steps unverified | capture: sha256:7d24c6ac1c792c36de70d5c053b783590621a3af7284d2989791d6c232e47be9 | quote: Preview flag values, including experiment assignments, for any context
+- sources:
+  - [1] https://www.hypertune.com/pricing
+  - [2] https://www.hypertune.ai/
+  - [3] https://web.archive.org/web/20260613091436/https://www.hypertune.com/pricing?provider=wayback

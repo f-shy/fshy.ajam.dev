@@ -1,0 +1,32 @@
+# cyberdrop
+
+> cyberdrop.me | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cyberdrop-2/ | JSON https://fshy.ajam.dev/api/v1/entity/cyberdrop-2.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## cyberdrop (cyberdrop.me)
+
+- `storage/cyberdrop-2` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://cyberdrop.me/
+- free tier: None reachable: The .me domain is dead. Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: The .me domain is dead — Cloudflare 1016, origin hostname does not resolve. The service lives on at cyberdrop.cr; the .me records are a trap for anyone copying old links.
+  - probe:https://cyberdrop.me/ 2026-11-19: a live probe of the .me domain got no HTTP status; the transport error reported that the name did not resolve, confirming the domain is dead | capture: sha256:483b62e3b2768f3f88e49af131d6941ef8ac7385d10bf1e9649a9a29178f0f20 | quote: "status": null
+- sources:
+  - [1] https://cyberdrop.me/

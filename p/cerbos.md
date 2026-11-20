@@ -1,0 +1,44 @@
+# Cerbos Hub
+
+> cerbos.dev | Developer services; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cerbos/ | JSON https://fshy.ajam.dev/api/v1/entity/cerbos.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cerbos Hub
+
+- `dev-services/cerbos-hub` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted authorization control plane for policies (Hub) that manages policy decision points the user runs; the separate open-source Cerbos PDP is not this hosted offer | tier Proof of Concept
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-20T04:15:44.302Z (live) | stale on 2026-12-21
+- url https://www.cerbos.dev/pricing
+- free tier: Proof of Concept plan at USD 0 a month, up to 100 monthly active principals, with 1 workspace, 2 developers, 2 Playgrounds, 2 simultaneous PDPs, up to 5 custom tenants, 5 policy builds a week and 1 week of unified audit logs; free up to 100 principals with no card | unit: users | metered on: identity-count | read on: 2026-11-19 | source: [1] | note: The meter is monthly active principals, where a principal is a user or a service; it is counted as unique principals authorized in one calendar month. Authorization decisions run in the user's own environment; Hub is the cloud control plane that builds and pushes policies. The free tier is a Proof of Concept plan and the first-party product-package document restricts it to proof of concept use.
+- per-object cap: unverified: no per-policy or per-request byte size cap is stated on the pricing page read
+- retention: 1 week of unified audit logs on the Proof of Concept plan; the Development plan raises this to 3 months and Production to 1 year | days: 7 | source: [1] | note: The 7 days is from the Proof of Concept entry '1 week of unified audit logs'. Custom audit log retention is an Enterprise feature.
+- egress: not applicable to authorization decisions: the control plane runs in the cloud and the PDPs that answer checks run in the user's environment; no data egress quota is stated for the Proof of Concept plan | metered: no | source: [1]
+- identity: email | detail: The first-party sign-up walkthrough says to choose to sign in with a Google or GitHub ID or create a new ID with an email address; the Hub landing page states No credit card required. Whether a phone number is asked for is unverified: behind a sign-up.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 100 monthly active principals on Proof of Concept [1]
+  - volume-quota (binding): 1 workspace, 2 developers and 2 Playgrounds on Proof of Concept [1]
+  - volume-quota (binding): 2 simultaneous PDPs, up to 5 custom tenants and 5 policy builds per week on Proof of Concept [1]
+  - retention-clamped: 1 week of unified audit logs on Proof of Concept [1]
+- binding note: The 100 monthly active principals cap binds first for a growing application, ahead of the 2-simultaneous-PDP and 5-builds-a-week caps. Beyond 100 principals the next plan is Development from USD 25 a month. Audit logs are kept only 1 week on the free plan.
+- interface detail: Policies are managed through the Hub interface, the Cerbos CLI and an API; the first-party documentation lists programmatic policy management via the CLI or SDK. Decision checks are served by the Cerbos PDP that runs in the user's environment, while Hub distributes policy bundles to it.
+- endpoint: https://hub.cerbos.cloud/
+- tooling: The Cerbos Hub web interface at hub.cerbos.cloud, the Cerbos CLI and API for policy management, and a Cerbos PDP that the user runs to answer checks; Cerbos Synapse is included on the Proof of Concept plan for data enrichment
+- composes with: Author and version policies in the hosted Hub, which builds them and pushes bundles to PDPs running next to the application; checks stay inside the user's network. The open-source Cerbos PDP can run standalone with no Hub account and is the last-resort, self-run option.
+- reliability: The proof-of-concept package is stated as for proof of concept use only, with 1 week of audit logs and community support. A PDP needs outbound internet access to fetch bundle updates from Hub; decisions themselves run in the user's environment.
+- notes: Cerbos Hub is a hosted control plane; the decision points run in the user's environment, so this record is hosted and self_hosted is false. The open-source Cerbos PDP runs standalone with no account and is a separate, self-run option, not this hosted offer. The sign-in gate is taken from first-party Cerbos material; hub.cerbos.cloud redirects were not readable. unverified: behind a sign-up — the later steps of the sign-up form were not visible in a keyless read on 2026-11-20, so a card or phone requirement at those steps cannot be stated.
+- evidence note: Quotas, retention and the free-up-to-100 no-card claim are quoted from the first-party pricing page. Sign-up options come from a first-party Cerbos walkthrough. Any gate shown only after registration is unverified: behind a sign-up.
+- self hosted: no
+- evidence:
+  - [1] 2026-11-19: Cerbos Hub is free up to 100 monthly active principals with no card | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: It is free up to 100 (Proof of Concept, no card)
+  - [1] 2026-11-19: the hosted Hub is metered by monthly active principals | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: Cerbos Hub, the managed control plane, is priced by monthly active principals
+  - [1] 2026-11-19: the Proof of Concept plan allows 2 simultaneous PDPs | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: 2 simultaneous PDPs
+  - [1] 2026-11-19: the Proof of Concept plan allows 5 policy builds a week | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: 5 policy builds per week
+  - [1] 2026-11-19: the Proof of Concept plan keeps 1 week of unified audit logs | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: 1 week of unified audit logs
+  - [1] 2026-11-19: authorization decisions run in the user's environment while Hub is the cloud control plane | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: Hub manages the PDPs from the cloud, but the PDPs that answer each request run next to your application.
+  - [1] 2026-11-19: a no-account playground exists for trying policies | capture: sha256:4c8a8ae0b23897b6ff97307c670aa64a5b2299e43d4e9e8bce138dd45ed9f686 | quote: Just trying policies out: the Cerbos playground, in the browser with no account.
+  - [2] 2026-11-19: sign-up accepts an email address or a Google or GitHub identity | capture: sha256:730016666f6fa6b907c5723fd8e9126bf71f0ebf7fa59b9c3585e2a38e66c2d7 | quote: create a new ID with your email address
+  - [2] 2026-11-20: a first-party page was read on 2026-11-20; the sign-up gate keeps later form steps unverified | capture: sha256:730016666f6fa6b907c5723fd8e9126bf71f0ebf7fa59b9c3585e2a38e66c2d7 | quote: Click on the \` `Log in or sign up`\` button on the left-hand side. That will lead you to the login/signup page. Choose to sign in with your Google or GitHub ID, or create a new ID with your email address.
+- sources:
+  - [1] https://www.cerbos.dev/pricing
+  - [2] https://www.cerbos.dev/blog/get-started-with-cerbos-hub

@@ -1,0 +1,505 @@
+# fshy: Developer services, trial
+
+> Monitoring, error tracking, analytics, scheduled jobs, queues, realtime and authentication services.
+
+Data as of 2026-11-20, the date of the published data. Version `7e4259089a05`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/dev-services/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## n8n
+
+- `dev-services/n8n-cloud` | trial-only | evidence documented | binding retention-clamped | category hosted workflow automation (n8n Cloud) | tier free trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:37:50.219Z (live) | stale on 2026-12-03
+- url https://n8n.io/pricing/ | page https://fshy.ajam.dev/p/n8n.md
+- free tier: No free plan on n8n Cloud: a 14-day trial with Pro features and a limit of 1000 executions, no credit card required; Starter is 20€/mo billed annually for 2.5K workflow executions | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: When the trial ends without an upgrade, n8n deletes the instance; workflows can be downloaded for 90 days after. The n8n public REST API is not available on the trial. The free Community Edition is self-hosted only: the user installs and runs it on a rented or free machine.
+- per-object cap: not stated on the pages read
+- retention: the trial instance is deleted at the end of the trial; workflows can be downloaded for 90 days after | source: [1]
+- egress: not applicable: workflows call third-party APIs; no traffic allowance is published | metered: no | source: [2]
+- identity: email | detail: The Cloud sign-up page asks first for an email address (labelled Company email in one rendering and Email in another; the step can answer 'Email domain is not allowed') and then verifies it: a link is sent to that address, or a code is entered on the page. A details form follows with Full name, Password (8+ characters, at least one number and one uppercase letter) and Instance name (it becomes the instance URL), an optional newsletter checkbox and a Cloudflare Turnstile bot check. The form submits no phone number, company name or card detail. A multiple-choice onboarding survey that includes the company size opens once the account exists. The trial needs no credit card. Whether a screen inside the created account asks for more is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota: 1000 executions during the 14-day trial [1]
+  - retention-clamped (binding): the trial instance is deleted when the 14-day trial ends without an upgrade [1]
+- limits note: Trial compute matches the Starter plan.
+- binding note: The trial ends after 14 days with the instance deleted, whatever the execution count.
+- interface detail: the n8n public REST API is on Cloud Starter, Pro and Enterprise and on every self-hosted edition, but not on the free trial; during the trial workflows are built in the web editor
+- tooling: the n8n web editor; the REST API and the n8n API node on paid Cloud plans. As a last resort, the Community Edition, which the user installs and runs on a rented or free machine.
+- composes with: A 14-day trial only; for a lasting free automation layer the hosted free tiers come first (Pipedream Connect, Zapier Free, Inngest Free), and the self-installed Community Edition last.
+- reliability: The trial instance is deleted when the trial ends without an upgrade.
+- evidence note: Trial terms, plan prices and API availability are read on first-party pages. The sign-up steps after the email are read from the sign-up app's own front-end code and English text, not from a rendered screen; nothing inside a created account was read.
+- evidence:
+  - [1] 2026-10-30: the Cloud trial lasts 14 days with Pro features | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: When you create a new n8n Cloud trial, you have 14 days to try all the features of the [Pro plan](https://n8n.io/pricing/), including:
+  - [1] 2026-10-30: the trial is limited to 1000 executions with Starter compute | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: The trial gives you Pro plan features with a limit of 1000 executions and the same computing power as the [Starter plan](https://n8n.io/pricing/).
+  - [1] 2026-10-30: the instance is deleted when the trial ends | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: If you don't upgrade by the end of your trial, the trial automatically expires and n8n deletes your instance.
+  - [1] 2026-10-30: workflows can be downloaded for 90 days after the trial | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: You have 90 days to download your workflows after your free trial ends.
+  - [1] 2026-10-30: the only free Cloud option is the 14-day trial | capture: sha256:82f71baf22a0afbcc66429103674bc253d5c2fedba27bb1b6ca9922240e9430b | quote: | Free trial | Trying n8n Cloud with Pro features for 14 days |
+  - [2] 2026-10-30: Starter costs 20 EUR a month billed annually | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: 20€/mo, billed annually
+  - [2] 2026-10-30: Starter includes 2.5K workflow executions | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: 2.5Kworkflow executionswith unlimited steps
+  - [2] 2026-10-30: the trial needs no credit card | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: No credit card required
+  - [2] 2026-10-30: the Community Edition is self-hosted | capture: sha256:c3ed41c5416bc747ab6448f995acb1ec453ddfe693ddaea8766349ea3d250eac | quote: A standard, self-hosted version of n8n is available on GitHub.
+  - [3] 2026-10-31: the sign-up page offers a 14-day trial with no credit card | capture: sha256:4954f3000c9e2050e7e3589eaa4f1a17121b4c707cada31dae3391a07e216fd0 | quote: Set up an n8n Cloud instance to run your workflows. Free 14-day trial, no credit card required.
+  - [3] 2026-10-31: the sign-up page asks for an email address | capture: sha256:4954f3000c9e2050e7e3589eaa4f1a17121b4c707cada31dae3391a07e216fd0 | quote: Company email
+  - [3] 2026-10-31: a second rendering of the sign-up page asks for an email and a Continue step | capture: sha256:9c1ffcead376974dd288547ecf3d62d8c77a691ed7ae89f7d41eb01618f476b7 | quote: Email
+  - [4] 2026-10-31: the n8n public API is not available on the trial | capture: sha256:f27c27c826b0003a897cf25ac1d666fca466fb7294dcba247f4403e1bd8c5c68 | quote: It isn't available on the free trial.
+  - [4] 2026-10-31: the n8n API is on Cloud Starter, Pro and Enterprise | capture: sha256:f27c27c826b0003a897cf25ac1d666fca466fb7294dcba247f4403e1bd8c5c68 | quote: * n8n Cloud: Starter, Pro, Enterprise
+  - [5] 2026-11-01: the sign-up form's submitted values are name, username (the instance name), email, password, marketingConsent (false until ticked), timezone and a bot-check token; it has no phone, company or card value | capture: sha256:99b9ecb0519a73858639e47caf39df9c786362128fa432bf9f88c2ceb97e2705 | quote: R=h({name:``,username:``,email:``,password:``,marketingConsent:!1,timezone:gt(),recaptcha:``})
+  - [6] 2026-11-01: the sign-up app's English text titles the step after email verification 'Finish creating your account' | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: verifiedEmailTitle:{t:0,b:{t:2,i:[{t:3}],s:`Finish creating your account`}}
+  - [3] 2026-11-01: the sign-up page still offers the 14-day trial and states no credit card is required | capture: sha256:9c1ffcead376974dd288547ecf3d62d8c77a691ed7ae89f7d41eb01618f476b7 | quote: Set up an n8n Cloud instance to run your workflows. Free 14-day trial, no credit card required.
+  - [6] 2026-11-01: after the email step the page asks the user to click a verification link sent to the address or to enter a code | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: verificationDescription:{t:0,b:{t:2,i:[{t:3,v:`Click on the verification link sent to `},{t:4,k:`email`},{t:3,v:`, or enter the code below.`}]}}
+  - [6] 2026-11-01: the details form has a Full name field | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: fullName:{t:0,b:{t:2,i:[{t:3}],s:`Full name`}}
+  - [6] 2026-11-01: the details form has a Password field and states its rule: 8+ characters, at least one number and one uppercase letter | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: password:{t:0,b:{t:2,i:[{t:3}],s:`Password`}},passwordHelper:{t:0,b:{t:2,i:[{t:3}],s:`8+ characters, at least one number and one uppercase letter.`}}
+  - [6] 2026-11-01: the details form has an Instance name field that becomes the instance URL (lowercase letters, digits and hyphens) | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: accountName:{t:0,b:{t:2,i:[{t:3}],s:`Instance name`}},accountNameHelper:{t:0,b:{t:2,i:[{t:3}],s:`This becomes your instance URL. Lowercase letters, digits, and hyphens.`}}
+  - [6] 2026-11-01: the details form has a newsletter checkbox labelled 'Sign up for product news and community updates.' | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: newsletter:{t:0,b:{t:2,i:[{t:3}],s:`Sign up for product news and community updates.`}}
+  - [6] 2026-11-01: the email step can answer 'Email domain is not allowed.' for an address | capture: sha256:bface6c49d3665172be19c9d628b98175ce674de2fd8a07ebfe3b524bbd8f316 | quote: Email domain is not allowed.
+  - [3] 2026-11-01: the sign-up page's served configuration enables the Turnstile bot check | capture: sha256:0fbea29eab247a2ccad7f270a226f25211f2fa7e8a7c02c8e3129e4df55c900f | quote: turnstile:{enabled:true
+  - [5] 2026-11-01: the details form renders a Turnstile widget for the register action | capture: sha256:99b9ecb0519a73858639e47caf39df9c786362128fa432bf9f88c2ceb97e2705 | quote: ref_key:`turnstile`,ref:re,options:{action:`register`,size:`flexible`}
+  - [7] 2026-11-01: the onboarding survey page requires a signed-in account (auth middleware) and belongs to the Authentication flow | capture: sha256:c16f3c9c0f38180e516cff81acfa48dee463e45b56104a5c88595c0409b465ee | quote: L({layout:`public`,middleware:[`auth`,`account-setup`,`skip-ai-preview-survey`],analytics:{category:`Authentication flow`,name:`Survey`}})
+  - [8] 2026-11-01: page 1 of 5 of the n8n-hosted onboarding survey form asks the company size | capture: sha256:8b50ad2f4049471025e22592b30f3ca900859157c571f49bc5d8678986ca0ded | quote: [1/5] What is the size of your company?
+  - [9] 2026-11-01: the Typeform onboarding survey asks the company size as a single-selection question with a list of choices | capture: sha256:92a5d0c7c1dbcb8ee51b72b1dfca0fc58936a531b76b5d2ed571390bb67b6dd5 | quote: "title":"What is the size of your company?","ref":"what_is_the_size_of_your_company","properties":{"randomize":false,"allow_multiple_selection":false,"allow_other_choice":false,"none_of_the_above":false,"vertical_alignment":true,"choices":[{"id":"cAvHrtQ172fL"
+  - [10] 2026-11-01: the chat onboarding variant of the Typeform survey also asks the company size as a single-selection question with a list of choices | capture: sha256:50914f62d87adcc951c2d2c104f274ca203854e1cbc637393f3340a87be97eae | quote: "title":"What is the size of your company?","ref":"what_is_the_size_of_your_company","properties":{"randomize":false,"allow_multiple_selection":false,"allow_other_choice":false,"none_of_the_above":false,"vertical_alignment":true,"choices":[{"id":"dk0OTCwCV4Mf"
+  - [3] 2026-11-01: the sign-up app is configured with two Typeform survey form ids, the default and a chat onboarding variant | capture: sha256:0fbea29eab247a2ccad7f270a226f25211f2fa7e8a7c02c8e3129e4df55c900f | quote: typeform:{onboardingSurveyFormId:"OArzTwNz",onboardingChatSurveyFormId:"bcoMdHSX"
+  - [11] 2026-11-01: the registration process includes choosing a unique instance name, which is the instance's subdomain | capture: sha256:5e4a5c19d021ba43041b0048f6ee6e86e057a8dc237bb168ba06a38acd7d3d64 | quote: Choose a unique instance name for your new instance. If the desired subdomain (instance name) is unavailable, try a slightly different name.
+  - [12] 2026-11-01: the n8n help center states there is no free Cloud plan and that a paid subscription is required after the trial | capture: sha256:1b8fe978eb950ed08c43ee95e443962f08b5586e18665e1e2ae73c684b0377c4 | quote: There is no free plan. After the trial ends, a paid subscription is required to continue using n8n Cloud.
+- sources:
+  - [1] https://docs.n8n.io/deploy/use-n8n-cloud/start-your-free-trial
+  - [2] https://n8n.io/pricing/
+  - [3] https://app.n8n.cloud/register
+  - [4] https://docs.n8n.io/api/
+  - [5] https://app.n8n.cloud/_nuxt/DOjQz-s4.js
+  - [6] https://app.n8n.cloud/_nuxt/CZ8sblfI.js
+  - [7] https://app.n8n.cloud/_nuxt/CI8_Bu1T.js
+  - [8] https://app.n8n.cloud/form/survey
+  - [9] https://form.typeform.com/to/OArzTwNz
+  - [10] https://form.typeform.com/to/bcoMdHSX
+  - [11] https://support.n8n.io/article/how-to-rename-an-n8n-cloud-instance-7hqhd7zwqu9zipq65whd0m50
+  - [12] https://support.n8n.io/article/how-do-i-cancel-my-trial
+
+## OpenObserve
+
+- `dev-services/openobserve-cloud` | trial-only | evidence documented | binding retention-clamped | category observability platform for logs, metrics, traces and RUM (hosted) | tier Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-01T18:13:30.918Z (live) | stale on 2026-12-02
+- url https://openobserve.ai/pricing/ | page https://fshy.ajam.dev/p/openobserve.md
+- free tier: No recurring free tier on OpenObserve Cloud: a 14-day free trial of the Pay As You Go plan with no credit card required to start; afterwards USD 0.50 per GB ingested and USD 0.01 per GB queried, with 15 months of metrics and 30 days of logs, traces and RUM included | unit: none | metered on: wall-clock | read on: 2026-11-01 | source: [1] | note: The Cloud free tier was discontinued on 2 June 2025 and replaced by usage-based pricing with a 14-day trial for new accounts. The repository README still says the Cloud free tier includes up to 50 GB a day of ingestion, which the pricing page and the policy post do not; the 50 GB a day free allowance on the pricing page belongs to the self-hosted Enterprise edition.
+- per-object cap: unverified: no per-event or per-log-line size is stated on the pages read
+- retention: 15 months of metrics and 30 days of logs, traces, RUM and other non-metrics data are included by default; further 30-day periods of non-metrics retention cost USD 0.02 per GB | days: 30 | source: [1]
+- egress: queries are billed at USD 0.01 per GB queried; no charge on data read out other than the query volume is stated on the pages read | metered: yes | source: [1]
+- identity: email | detail: The pricing FAQ states no credit card is required to start the 14-day trial; a valid credit card on file is needed after the trial, as the policy post states for former free-tier accounts. The sign-up fields are unverified: the cloud sign-in page is behind a login wall.
+- interface: rest
+- limits:
+  - retention-clamped (binding): 14-day trial window, then pay as you go [1]
+  - volume-quota: USD 0.50 per GB ingested and USD 0.01 per GB queried after the trial [1]
+- binding note: The 14-day trial ends before any quota matters, and a valid credit card is needed to continue on Pay As You Go.
+- interface detail: REST APIs for ingestion, search and management on the account's own host, authenticated by HTTP basic authentication with a base64 encoded user and password.
+- tooling: the web app and the REST APIs. Last resort, after every hosted offer: the Open Source edition (AGPL-3.0) is free forever and the Self-Hosted Enterprise edition is free up to 50 GB of ingestion a day, and the user installs and runs the server on a rented or free machine.
+- composes with: Logs, metrics and traces of a free-hosted app in one place for 14 days, then pay per GB with no seat or host fees.
+- reliability: After the trial the account needs a credit card on file and is billed on usage; the Cloud free tier was discontinued with a 30-day exemption in June 2025.
+- notes: Cloud Professional is the only Cloud plan listed; the Enterprise plan is custom priced.
+- evidence note: The trial, the prices and the discontinued free tier are quoted from first-party pages; the README line that contradicts them is recorded as evidence. No account was opened.
+- self hosted: no
+- evidence:
+  - [1] 2026-11-01: OpenObserve Cloud offers a 14-day free trial of Pay As You Go with no credit card required to start | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: Yes. OpenObserve Cloud offers a 14-day free trial on the Pay As You Go plan - no credit card required to start.
+  - [1] 2026-11-01: the Cloud plan covers logs, metrics, traces, RUM, session replay and error tracking | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: - Logs, Metrics, Traces, RUM, Session Replay, Error tracking
+  - [1] 2026-11-01: the Cloud plan is billed at USD 0.50 per GB ingested | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: $0.50/GB ingested
+  - [1] 2026-11-01: queries are billed at USD 0.01 per GB queried, billed monthly | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: $0.01/GB queried · billed monthly
+  - [1] 2026-11-01: default retention is 15 months for metrics and 30 days for logs, traces and RUM | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: Metrics: 15 months - Logs, Traces, RUM, and other non-metrics data: 30 days
+  - [1] 2026-11-01: extra retention for non-metrics data costs USD 0.02 per GB per additional 30-day period | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: You can extend non-metrics retention at $0.02 per GB per additional 30-day period.
+  - [1] 2026-11-01: the self-hosted editions are free: Open Source forever and Self-Hosted Enterprise up to 50 GB of ingestion a day | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: For self-hosted deployments, the Open Source edition is free forever, and the Self-Hosted Enterprise edition is free for up to 50 GB of ingestion per day.
+  - [1] 2026-11-01: all Cloud plans include unlimited users with no per-seat charges | capture: sha256:9d6ce314fde34620d4e602e2f02c20cf6c8cd6f11308fa4921e9b372c414ad4b | quote: All OpenObserve Cloud plans include unlimited users with no per-seat charges.
+  - [2] 2026-11-01: the OpenObserve Cloud free tier was discontinued with usage-based pricing from 2 June 2025 | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: Additionally, we are discontinuing the OpenObserve Cloud free tier.
+  - [2] 2026-11-01: new accounts get a 14-day free trial | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: New Customers: All new accounts can take advantage of a 14-day free trial to experience the full power of OpenObserve before committing.
+  - [2] 2026-11-01: after the exemption a valid credit card on file is needed and usage is billed | capture: sha256:853fe2293db7d8aca70838a7cf4e8309f1a83cba084a539eb823e4d5e1360eff | quote: After this period, you'll need a valid credit card on file and will be charged based on your actual usage.
+  - [3] 2026-11-01: the repository README still says the Cloud free tier includes up to 50 GB a day, contradicting the pricing page | capture: sha256:a33ac02d442f77fa3caea5638e6d1351348417f2770d790eb52c3c0db48087c3 | quote: Get started in minutes without managing infrastructure. The free tier includes up to 50 GB/day of ingestion.
+  - [4] 2026-11-01: the APIs authenticate with HTTP basic authentication from a user id and password | capture: sha256:0e1fbc288ac0bbb8f1c71c2d2a7db6e7320afc43c611546ed060444e8c6912f2 | quote: Authorization header can be created using base64 encoded values of user id and password. For the sake of simplicity it is HTTP basic authentication mechanism.
+- sources:
+  - [1] https://openobserve.ai/pricing/
+  - [2] https://openobserve.ai/blog/june-25-pricing-policy-updates/
+  - [3] https://raw.githubusercontent.com/openobserve/openobserve/main/README.md
+  - [4] https://openobserve.ai/docs/api/
+
+## Plausible Analytics
+
+- `dev-services/plausible` | trial-only | evidence documented | binding retention-clamped | category hosted web analytics | tier Cloud trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T00:37:34.247Z (live) | stale on 2026-12-03
+- url https://plausible.io/docs/trial | page https://fshy.ajam.dev/p/plausible.md
+- free tier: No free plan on Plausible Cloud: every account starts with a free 30-day trial with Business plan features and limits and no credit card; the cheapest plan after it is Starter at EUR 9/month for up to 10k monthly pageviews and one site | unit: none | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: The trial does not convert to a paid subscription by itself, because no payment method is on file. Growth is EUR 14/month and Business, the plan with the Stats API, EUR 19/month, at the same 10k pageview tier.
+- per-object cap: not applicable: billed by pageviews and custom events, not stored objects
+- retention: When an unsubscribed trial ends, the dashboard is locked, new stats are no longer collected, and dashboards and stats are eventually deleted after an e-mail warning; paid plans state no retention limit | source: [1]
+- egress: not applicable: a hosted dashboard; stats leave through the Stats API at 600 requests per hour per key, a Business plan feature that the trial includes | metered: no | source: [2]
+- identity: email | detail: The registration form asks for a full name, an e-mail address and a password of at least 12 characters, behind a Friendly Captcha check; no credit card is asked for. The documented flow then sends a four-digit code by e-mail and starts the 30-day trial once it is verified, and Plausible's WordPress page states that registration asks only for a name and an e-mail address.
+- interface: rest
+- limits:
+  - retention-clamped (binding): 30-day trial, then the dashboard is locked and new stats are not collected [1]
+  - request-rate: 600 Stats API requests per hour per key [2]
+  - volume-quota: Starter: up to 10k monthly pageviews, one site [3]
+- binding note: The trial ends after 30 days and the dashboard locks, before any pageview or API limit matters.
+- interface detail: Stats API: a read-only HTTP interface, POST /api/v2/query with an API key in the Authorization header, 600 requests per hour by default; on the Business plan and during the trial. The Sites API is Enterprise-only.
+- endpoint: https://plausible.io/api/v2/query
+- tooling: the tracking script on the site, and any HTTP client with a Stats API key
+- composes with: A 30-day window to evaluate privacy-focused web analytics, then EUR 9 a month; there is no free allowance to build on.
+- reliability: After an unsubscribed trial, collection stops and dashboards and stats are deleted permanently after an e-mail warning.
+- notes: Plausible Cloud has no recurring free allowance. Last resort, after every hosted offer: Plausible Community Edition, the same software under the AGPL, is free to self-host, and the user installs and runs the server on a rented or free machine and maintains it.
+- evidence note: The trial terms, plan prices and API limits are quoted from first-party pages. No account was opened.
+- evidence:
+  - [1] 2026-10-30: every account starts with a free 30-day trial | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: Every Plausible account starts with a free 30-day trial.
+  - [1] 2026-10-30: registration asks for no credit card | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: We don't ask for a credit card when you [register](https://plausible.io/docs/register-account).
+  - [1] 2026-10-30: the dashboard locks when the trial ends without a subscription | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: If you haven't subscribed by the end of the trial, your dashboard is locked.
+  - [1] 2026-10-30: without a subscription collection stops and stats are eventually deleted | capture: sha256:0805a3434e0f0d7eb823265ed703088d620df9c6eb45b40c4765f7414f38bd28 | quote: If you don't subscribe, we'll stop collecting new stats and eventually delete your dashboards and all their stats permanently.
+  - [4] 2026-10-30: all plans include a 30-day trial without a card | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: All plans include a 30-day free trial, no credit card required.
+  - [4] 2026-10-30: the trial has Business plan features and limits | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: During the trial you have access to all Business plan features and limits
+  - [5] 2026-10-30: Starter is EUR 9 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €9 /month
+  - [5] 2026-10-30: the price shown is for up to 10k monthly pageviews | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: Up to 10k monthly pageviews
+  - [5] 2026-10-30: Starter covers one site | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: One site
+  - [5] 2026-10-30: paid plans state no retention limit | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: No retention limit
+  - [5] 2026-10-30: Growth is EUR 14 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €14 /month
+  - [5] 2026-10-30: Business is EUR 19 a month | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: €19 /month
+  - [5] 2026-10-30: the Business plan includes the Stats API at 600 requests per hour | capture: sha256:fe7e2ce2118f8a3b3082d8a9401f791259876fe5e8832beb4016c8d3757a2f8c | quote: Stats API (600 requests per hour)
+  - [2] 2026-10-30: the Stats API takes POST queries at /api/v2/query | capture: sha256:3536f727f4889db659d97c2027a80bab752c08f857b75f894c91c45c5d6e0196 | quote: The `/api/v2/query` endpoint accepts simple and complex stats queries in the POST request body and returns the metrics as JSON.
+  - [2] 2026-10-30: API keys allow 600 requests per hour by default | capture: sha256:3536f727f4889db659d97c2027a80bab752c08f857b75f894c91c45c5d6e0196 | quote: API keys have a rate limit of 600 requests per hour by default.
+  - [4] 2026-10-30: the Sites API is an Enterprise feature | capture: sha256:e0d27cc99df39d9c93194ad3d3256a3c6e549c7bfefc5cb093ef394069dacf77 | quote: Sites API: create and manage sites programmatically.
+  - [6] 2026-10-30: the registration form asks for no card | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: No credit card required. Cancel anytime.
+  - [6] 2026-10-30: the registration form asks for a full name | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: Full name
+  - [6] 2026-10-30: the password needs at least 12 characters | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: At least 12 characters
+  - [6] 2026-10-30: the registration form is behind a Friendly Captcha check | capture: sha256:000b5044b5da0ad8aa03e6fa30e04d15dcc538704ca4bf428e947736160212e9 | quote: Friendly Captcha
+  - [7] 2026-10-30: Plausible Community Edition is free, self-hosted and AGPL-licensed | capture: sha256:4e1656c4d91166675d5b585cf42a0c576e0dfa1068ce714bcd012496e5a7763f | quote: is the free, self-hosted, AGPL-licensed release: you run it on your own server and manage everything yourself.
+  - [8] 2026-11-01: Plausible states that registration asks only for a name and an e-mail address | capture: sha256:fd11c0e977ce0b7c623a7ee0ab69a0363208b35d4081ecccd0036d4b11202f5a | quote: We only ask for your name and email, and the 30-day trial needs no credit card.
+  - [9] 2026-11-01: an e-mailed four-digit code activates the account | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Please enter the four digit code that we sent to you through email to activate your Plausible Analytics account.
+  - [9] 2026-11-01: the 30-day trial starts as soon as the e-mailed code is verified | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Once verified, your 30-day trial starts immediately.
+  - [9] 2026-11-01: the registration form takes a full name, an e-mail address and a password | capture: sha256:8f9036b3cbd965a68e19275695fcc42ea68f63b26d723cf7997b20929aaf557f | quote: Fill in your full name and email address, choose your account password and click on the Start my free trial button.
+- sources:
+  - [1] https://plausible.io/docs/trial
+  - [2] https://plausible.io/docs/stats-api
+  - [3] https://plausible.io/
+  - [4] https://plausible.io/docs/subscription-plans
+  - [5] https://plausible.io/#pricing
+  - [6] https://plausible.io/register
+  - [7] https://plausible.io/self-hosted-web-analytics
+  - [8] https://plausible.io/wordpress-analytics-plugin
+  - [9] https://plausible.io/docs/register-account
+
+## Plivo
+
+- `dev-services/plivo` | trial-only | evidence documented | binding volume-quota | category hosted SMS, MMS and voice API with phone numbers, SIP trunking and voice AI agents (hosted) | tier Pay as you go / Free Trial (US data region, before first payment)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T01:56:54.567Z (live) | stale on 2026-12-20
+- url https://www.plivo.com/pricing | page https://fshy.ajam.dev/p/plivo.md
+- free tier: USD 10 in free credits, no credit card required; the free trial credits last for the first 3 weeks, after which a payment card is required to continue on the Professional plan. There is no free message or call allowance: platform usage is billed per use from the credits, and SMS & MMS, WhatsApp and Verify are available on the Enterprise plan only (USD 1,000 a month). | unit: credits | metered on: unstated | read on: 2026-11-19 | source: [1] | note: USD 10 is the stated trial credit value; the pricing page does not state how many messages or minutes that buys, and the trial is time-limited to 3 weeks rather than recurring.
+- per-object cap: A single SMS segment holds up to 160 characters in GSM-7 encoding, or 70 characters with Unicode; longer messages are split into billed segments. A call recording file is capped at 2GB. | source: [2] | note: The two caps apply to different objects: a message segment and a recording file, so no single byte count is recorded.
+- retention: Call logs can be retrieved for the last 90 days only; if no end_time filter is given, the Calls API searches the last 7 days and the maximum search range is 30 days. | days: 90 | source: [3] | note: The 90-day window is a documented retrieval limit for call records, not a stated deletion guarantee.
+- egress: Not a data-transfer service: calls and messages are billed per minute or per segment, and the API returns JSON over HTTPS with no separate per-GB egress charge stated on the pages read. | metered: no | source: [4]
+- identity: country-phone | detail: The signup page at cx.plivo.com/signup answered with a VPN or proxy block, so no form fields were observed there. First-party account and support pages state the registration gate: name, work email address and password, then email activation via a link, then verification of a unique phone number by SMS OTP or voice call. Personal and disposable email domains are rejected, the number must be SMS-enabled, non-VoIP and match the region, and no VPN is allowed during onboarding. A data region is chosen at signup: the United States region requires an international credit or debit card or USD bank transfer, while the India region requires an Indian card, both only for payment after the trial. No card is required to open the free trial. | country: US or India data region; phone country must match the region
+- interface: rest
+- limits:
+  - volume-quota (binding): USD 10 in free trial credits, valid for the first 3 weeks [1]
+  - volume-quota (binding): Free Tier (before first payment): 1 outbound call per second and 2 concurrent calls in the US data region [5]
+  - request-rate: 300 API requests per five seconds; above that the API answers 429 Too Many Requests [5]
+  - request-rate: Default inbound CPS is 10 per account; calls above it are rejected [5]
+  - per-object-cap: SMS segment of 160 GSM-7 characters or 70 Unicode characters; call recording file up to 2GB [2]
+  - retention-clamped: Call logs retrievable for the last 90 days only [3]
+- limits note: SMS & MMS, WhatsApp and Verify are listed as Enterprise-only features (from USD 1,000/month) in the US data region, so SMS use is gated to the paid tier. The default account usage limit is USD 1,000 a month and the Professional maximum is USD 2,500 a month. The vocabulary has no kind for a spend cap or a time-limited credit, so both are filed as volume-quota.
+- binding note: The USD 10 trial credit that expires after 3 weeks and the 2 concurrent calls on the free tier are reached before the API rate of 300 requests per five seconds, and the free tier cannot send SMS at all in the US data region.
+- interface detail: The Voice API is at https://api.plivo.com/v1/Account/{auth_id}/ and uses standard HTTP methods with JSON request and response bodies. All API requests use HTTP Basic Authentication with the Auth ID as username and Auth Token as password. Messaging, phone number and pricing APIs share the same host, and XML documents and the PHLO visual tool cover call flow design.
+- endpoint: part of interface detail
+- tooling: Official server SDKs for Node.js, Python, Go, Java, PHP, Ruby, .NET and Salesforce; cURL or any HTTP client using Basic Auth and JSON; the PHLO visual designer; Browser SDK for WebRTC calls.
+- composes with: A worker on any host can place calls or send messages through the REST API, and audio streaming or SIP trunking connects calls to a separate voice agent over WebSocket or SIP.
+- reliability: Voice API calls in the US region are billed in 60-second increments starting at answer; calls above the concurrency limit are rejected immediately with hangup cause 5030, and requests above the monthly usage limit answer 403. The default maximum call duration is four hours, extendable to 24 hours.
+- notes: Plivo is a hosted communications API, not downloadable software; the user runs only their own application code against its REST API, so self_hosted is false. The free offer is a time-limited USD 10 trial credit, not a recurring free tier, and in the US data region SMS and MMS are Enterprise-only, which is why the verdict is trial-only. Trial credits buy an unstated amount of voice or SMS usage. The 90-day figure is a call-record retrieval window, not a published deletion guarantee.
+- evidence note: Every limit is quoted from first-party pricing, FAQ, account-limit and API pages. No account was opened and no message or call was sent, so no measured rung is claimed. The signup page was walled with a VPN notice; the identity fields come from first-party account-management and support pages. unverified: whether a work email alone is enough to receive trial credits, since registration also requires a verified phone number, and how much voice or SMS usage USD 10 of credit buys.
+- evidence:
+  - [1] 2026-11-19: the pay-as-you-go offer grants USD 10 in free credits with no card at signup | capture: sha256:2d7587825ee6159d6cb2f06edcfe5e7e02b9a7efc4ab15964f4e1205b049d1d8 | quote: $10 in free credits. No credit card required.
+  - [1] 2026-11-19: the pay-as-you-go plan covers the US and India and states 2 RPS, 50 concurrent calls and a USD 2,500 monthly usage ceiling | capture: sha256:2d7587825ee6159d6cb2f06edcfe5e7e02b9a7efc4ab15964f4e1205b049d1d8 | quote: Coverage in the United States & India SIP Trunking, Audio Streaming, AI Agents & Phone Numbers 2 RPS & 50 call concurrency Up to $2,500 of monthly usage
+  - [1] 2026-11-19: the Enterprise plan starts at USD 1,000 a month | capture: sha256:2d7587825ee6159d6cb2f06edcfe5e7e02b9a7efc4ab15964f4e1205b049d1d8 | quote: ## Enterprise Starts at $1,000 per month
+  - [1] 2026-11-19: SMS messages are priced from USD 0.0077 each | capture: sha256:2d7587825ee6159d6cb2f06edcfe5e7e02b9a7efc4ab15964f4e1205b049d1d8 | quote: ### SMS & Verify API Messages start at $0.0077/sms
+  - [1] 2026-11-19: SMS and Verify are limited to the paid Enterprise plan | capture: sha256:2d7587825ee6159d6cb2f06edcfe5e7e02b9a7efc4ab15964f4e1205b049d1d8 | quote: Available in Enterprise plan only (starts at $1,000/month)
+  - [6] 2026-11-19: the free trial credits last 3 weeks and a card is needed afterwards | capture: sha256:d204f14f17e76dca044334e317b43eb8251aa5ee8ee2487e83b0d7da4010eb52 | quote: Yes. You get free credits for your first 3 weeks. After they expire, add a payment card to continue on the Professional plan. You can later upgrade to Enterprise as your needs grow.
+  - [6] 2026-11-19: in the US data region the Professional plan has a USD 2,500 monthly usage limit, 2 default CPS, US coverage and no SMS or MMS | capture: sha256:d204f14f17e76dca044334e317b43eb8251aa5ee8ee2487e83b0d7da4010eb52 | quote: | Usage limit | $2,500/month | As required | | CPS | 2 (default) | Custom | | Coverage | United States | Custom — [global](https://docs.plivo.com/docs/numbers#country-availability) | | Voice & SIP Trunking | ✓ | ✓ | | SMS & MMS | ✗ | ✓ |
+  - [5] 2026-11-19: the free tier before first payment allows 1 outbound CPS and 2 concurrent calls | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: | US data region | Free Tier — before your first payment | 1 | 2 |
+  - [5] 2026-11-19: the free tier is automatic and ends at the first payment | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: Free Tier is not a plan you select. Every US data region account starts there and moves to Professional on its first payment.
+  - [5] 2026-11-19: the API rate limit is 300 requests per five seconds | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: Plivo limits all accounts to 300 API requests per five seconds. The limit applies separately to call-initiating APIs and to all other APIs:
+  - [5] 2026-11-19: requests above the API rate limit are blocked with an HTTP error | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: If you send more requests than the limit allows, Plivo blocks the requests and responds with the HTTP error
+  - [5] 2026-11-19: the default inbound call rate is 10 per second and excess calls are rejected | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: The default inbound CPS is 10 per account. Calls above the inbound CPS are rejected, not queued.
+  - [5] 2026-11-19: calls above the concurrency limit are rejected immediately with hangup cause 5030 | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: with hangup cause `5030` (`Concurrency Limit Breached`)
+  - [5] 2026-11-19: the default maximum call duration is four hours and can be extended to 24 hours | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: is four hours starting from the time a call is answered. You can extend the limit to 86,400 seconds (24 hours).
+  - [5] 2026-11-19: a call recording file is capped at 2GB | capture: sha256:5a74bfaa904d20b8c06089c534f42470f9ee1cbcc39b6642814e8cfd4d0b62a7 | quote: The maximum recording file size is 2GB.
+  - [2] 2026-11-19: US Voice API calls are billed in 60-second blocks starting at answer | capture: sha256:aa39655246e07b6570a8249c7d170c91877dc05d4a86f6fe0844cb88a95f8d5b | quote: | Voice API | 60-second (60/60) | Calls are rounded up to the next full minute. A 10-second call is billed as 1 minute. |
+  - [2] 2026-11-19: one SMS segment holds 160 GSM-7 characters | capture: sha256:aa39655246e07b6570a8249c7d170c91877dc05d4a86f6fe0844cb88a95f8d5b | quote: A single SMS segment can contain up to 160 characters using GSM-7 encoding (standard Latin characters).
+  - [2] 2026-11-19: one Unicode SMS segment holds 70 characters | capture: sha256:aa39655246e07b6570a8249c7d170c91877dc05d4a86f6fe0844cb88a95f8d5b | quote: If your message uses Unicode characters (such as non-Latin scripts or special symbols), the segment limit drops to 70 characters.
+  - [3] 2026-11-19: call records are retrievable for 90 days with a 30-day maximum search range | capture: sha256:29651d4be599b518b2b2f1585ee5e39567231d1053949aba733151cb66f591b8 | quote: Only calls from the last 90 days can be retrieved. If no `end_time` filter is specified, Plivo searches the last 7 days. The maximum search range is 30 days.
+  - [4] 2026-11-19: the Voice API is a REST interface with JSON responses | capture: sha256:744571dd76e76d49857bee8aa1fd751b16c7d27d84e99be862f1265c45af2f97 | quote: The Plivo Voice API lets you programmatically make and receive calls, play audio, record conversations, and build interactive voice applications. The API uses standard HTTP methods and returns JSON responses.
+  - [4] 2026-11-19: the Voice API base URL | capture: sha256:744571dd76e76d49857bee8aa1fd751b16c7d27d84e99be862f1265c45af2f97 | quote: https://api.plivo.com/v1/Account/{auth_id}/
+  - [4] 2026-11-19: the API authenticates with HTTP Basic Auth | capture: sha256:744571dd76e76d49857bee8aa1fd751b16c7d27d84e99be862f1265c45af2f97 | quote: All API requests use HTTP Basic Authentication with your Plivo credentials
+  - [4] 2026-11-19: the API answers 429 above 300 requests per five seconds | capture: sha256:744571dd76e76d49857bee8aa1fd751b16c7d27d84e99be862f1265c45af2f97 | quote: API rate limit exceeded (300 requests/5 sec), CPS limit reached
+  - [7] 2026-11-19: the signup page was walled with a VPN or proxy check on the reading machine, so no form fields were observed | capture: sha256:07643da1a7c669386876fc5103aac27ea44f3e1ff7795e6020898937821446eb | quote: Sign up unavailable
+  - [8] 2026-11-19: registration asks for name, work email, password and a verified phone number | capture: sha256:c1036342cde02ad37d81dbec6cc730e41d9b3e004c6dcebbe0d06b33a8ff3759 | quote: 1. Go to [Plivo signup](https://cx.plivo.com/signup) 2. Enter your name, work email, and set a password 3. Verify your email via activation link 4. Verify your phone number
+  - [8] 2026-11-19: a work email and a valid phone number are required and no VPN is allowed during onboarding | capture: sha256:c1036342cde02ad37d81dbec6cc730e41d9b3e004c6dcebbe0d06b33a8ff3759 | quote: - Work email address — personal (e.g., @gmail.com, @yahoo.com) and disposable email domains are not accepted - Valid phone number for verification - No VPN during onboarding
+  - [8] 2026-11-19: the default monthly account usage limit is USD 1,000 | capture: sha256:c1036342cde02ad37d81dbec6cc730e41d9b3e004c6dcebbe0d06b33a8ff3759 | quote: New accounts start with a usage limit of $1,000 per month.
+  - [9] 2026-11-19: a unique phone number must be verified before the account is accessible | capture: sha256:811aad2adca26a90de2ebdae2e5e441585d44e269776e13016a5c59cc5dd5e37 | quote: Plivo account registration requires a unique phone number to be linked with the account. You won’t be able to access your account until you complete the phone verification process.
+  - [9] 2026-11-19: the verification number must be SMS-enabled, non-VoIP and match the signup region | capture: sha256:811aad2adca26a90de2ebdae2e5e441585d44e269776e13016a5c59cc5dd5e37 | quote: You must use a valid, SMS-enabled, non-VoIP number, and the number country should match the region you’re signing up from.
+  - [9] 2026-11-19: phone verification uses an SMS OTP or a voice call | capture: sha256:811aad2adca26a90de2ebdae2e5e441585d44e269776e13016a5c59cc5dd5e37 | quote: We’ll send a one-time password (OTP) to the number to complete the phone verification process. If you’re unable to receive a code from Plivo via text message, you can select the option to receive a code via phone call.
+- sources:
+  - [1] https://www.plivo.com/pricing
+  - [2] https://docs.plivo.com/docs/faq/billing-and-invoices/billing-concepts
+  - [3] https://docs.plivo.com/docs/voice/api/calls
+  - [4] https://docs.plivo.com/docs/voice/api/overview
+  - [5] https://docs.plivo.com/docs/voice/concepts/account-limits
+  - [6] https://docs.plivo.com/docs/faq/account/plans
+  - [7] https://cx.plivo.com/signup
+  - [8] https://docs.plivo.com/docs/faq/account/account-management
+  - [9] https://old-support.plivo.com/hc/en-us/articles/360041203772-How-can-I-create-a-Plivo-account
+
+## Sinch
+
+- `dev-services/sinch` | trial-only | evidence documented | binding write-gated | category hosted communications platform as a service: SMS, MMS, RCS, WhatsApp and voice APIs with a free trial (hosted) | tier Trial (free Sinch Build Dashboard account)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T01:56:26.216Z (live) | stale on 2026-12-20
+- url https://support.sinch.com/hc/en-us/articles/53692675690643-Sending-messages-with-your-Sinch-Build-Dashboard-trial-account | page https://fshy.ajam.dev/p/sinch.md
+- free tier: Trial account: 2 units of local currency as test credit, for example USD 2 for US based accounts; a free virtual number for testing; a default project, Service Plan ID and API token; no credit card required to start. | unit: credits | metered on: unstated | read on: 2026-11-19 | source: [1] | note: The 2 units are the account's local currency, for example USD 2 for US based accounts. The schema has no fiat or currency unit, so 'credits' is the nearest term. The free offer is a trial credit with send restrictions, not a permanent free tier.
+- per-object cap: unverified: no per-message or per-object size cap is stated on the pages read
+- retention: unverified: the support and API pages read do not state a message or call log retention period | source: [1]
+- egress: not applicable: a hosted messaging and voice API; messages are priced per outbound or inbound message and calls per call leg minute, not per byte of data transferred out; no per-GB egress line is stated | metered: no | source: [2]
+- identity: any-phone | detail: Signup asks for a work email address and a phone number that Sinch verifies with a 6-digit 2FA code; the phone also becomes a verified destination number for test messages. Basic authentication is for test purposes only and is heavily rate limited. No credit card is required to start.
+- interface: rest
+- limits:
+  - volume-quota: 2 units of local currency as test credit, for example USD 2 for US based accounts [1]
+  - volume-quota: trial accounts have a limit of 5 verified numbers [3]
+  - request-rate: trial accounts are limited to a throughput of 1 SMS/s; upgrade raises this to 10 SMS/s [4]
+  - write-gated (binding): unrestricted text messages only to your own verified numbers in SMS; otherwise the content is replaced by a test template [1]
+  - request-rate: Conversation API projects are limited to 800 requests per second across all apps and most endpoints [5]
+  - volume-quota: Conversation API apps have a maximum MT ingress queue size of 500000 messages, drained at 20 messages per second by default [5]
+- binding note: On a trial account the send gate fails first: an SMS to any number other than your own verified number is replaced by a test template. The 2-unit credit and the 1 SMS/s throughput bind soon after.
+- interface detail: REST APIs at regional endpoints us, eu and br.conversation.api.sinch.com. The Conversation API covers SMS, RCS, WhatsApp, Viber Business and Facebook Messenger, with OAuth2 bearer tokens or HTTP basic auth. SDKs for Node.js, Java, .NET and Python are documented. The standalone SMS REST API reached end of sale on 15 April 2026; new SMS integrations use the SMS channel of the Conversation API.
+- endpoint: https://us.conversation.api.sinch.com
+- tooling: the Sinch Build Dashboard, the Conversation API REST endpoints and SDKs for Node.js, Java, .NET and Python
+- composes with: hosted CPaaS: send SMS, RCS and WhatsApp and place voice calls through one Conversation API and one credential set from the Sinch Build Dashboard
+- reliability: The API documents HTTP 429 rate limiting when project or app limits are exceeded; trial throughput is 1 SMS/s and basic authentication is heavily rate limited.
+- notes: The free offer is a trial credit with send restrictions, not a permanent free tier. Paid SMS starts at USD 0.0078 per outbound message on US 10DLC or toll-free with carrier fees extra. The free virtual number is for testing only and cannot be bought on a trial account.
+- evidence note: All values are quoted from first-party Sinch support, pricing and API documentation. The sign-up fields come from the Sinch support article, so account-only values remain unverified.
+- evidence:
+  - [1] 2026-11-19: the trial test credit is 2 units of local currency, USD 2 for US accounts | capture: sha256:2f5ce3f6009cfe0deb5e87b3865845da89c7e56949a4b04ddcb6d84951ef323b | quote: You will only receive 2 units of your country’s currency as a test credit, for example, $2 USD for US based accounts.
+  - [1] 2026-11-19: trial SMS is gated to the account's own verified numbers | capture: sha256:2f5ce3f6009cfe0deb5e87b3865845da89c7e56949a4b04ddcb6d84951ef323b | quote: You can only send unrestricted text messages to your own verified numbers in SMS, otherwise the content will be replaced by a test template.
+  - [4] 2026-11-19: trial SMS throughput is 1 message per second and rises to 10 after upgrade | capture: sha256:6a69bafc61dc1f7f0ca06f97a90188206a2767afad82532dfa97109c6214a012 | quote: Trial accounts are limited to a throughput of 1 SMS/s. Once you upgrade this automatically goes up to 10 SMS/s.
+  - [3] 2026-11-19: a trial account can hold at most 5 verified numbers | capture: sha256:4e44c1e5077f1d44767c378ddd79d2c8b9ce3d2b475522e043654ebfd2d48030 | quote: Trial accounts have a limit of 5 verified numbers. If you need access to more verified numbers then please upgrade your account.
+  - [6] 2026-11-19: signup asks for a work email address | capture: sha256:e1a8d3a26db43f41b1f860638484815cf3d99deab0cc90c82f6b6386721ea7bf | quote: Enter your work email address
+  - [6] 2026-11-19: signup requires a phone number verified by a 2FA code | capture: sha256:e1a8d3a26db43f41b1f860638484815cf3d99deab0cc90c82f6b6386721ea7bf | quote: Sinch needs to verify this phone number and will send a 2FA code to the number:
+  - [7] 2026-11-19: a free account needs no card and comes with a default project and API token | capture: sha256:f414ef274ddbe68ae8c6e1cf9b212757d695df7cdf405ffd492302e342b3bb11 | quote: Create your Sinch Build account. Your trial credit, default project, Service Plan ID, and API token are waiting for you. No credit card required to start.
+  - [7] 2026-11-19: free trial access is self-service and needs no credit card | capture: sha256:f414ef274ddbe68ae8c6e1cf9b212757d695df7cdf405ffd492302e342b3bb11 | quote: Sinch Build is a fully self-service developer dashboard with free trial access and no credit card required.
+  - [5] 2026-11-19: Conversation API project request rate is 800 per second | capture: sha256:c27ce852d62af296b8b5d4e4a69792d63de5d0c13fe0db59690805d2d26cdec0 | quote: Projects are limited to 800 requests per second across all apps and most endpoints.
+  - [5] 2026-11-19: app ingress queue is 500000 messages drained at 20 per second by default | capture: sha256:c27ce852d62af296b8b5d4e4a69792d63de5d0c13fe0db59690805d2d26cdec0 | quote: Conversation API apps have a maximum MT ingress queue size of 500000 messages, which are drained towards the channel at a rate of 20 messages per second by default
+  - [5] 2026-11-19: the Conversation API is a REST interface over several messaging channels | capture: sha256:c27ce852d62af296b8b5d4e4a69792d63de5d0c13fe0db59690805d2d26cdec0 | quote: Send and receive messages globally over SMS, RCS, WhatsApp, Viber Business, Facebook messenger and other popular channels using the Sinch Conversation API.
+  - [5] 2026-11-19: basic authentication is for testing and is heavily rate limited | capture: sha256:c27ce852d62af296b8b5d4e4a69792d63de5d0c13fe0db59690805d2d26cdec0 | quote: Basic authentication is intended for test purposes only, and should only be used for experimenting with APIs and building prototypes. API calls using basic authentication are heavily rate limited, and these limits may change at any time without warning.
+  - [8] 2026-11-19: a new account receives a free virtual number for testing | capture: sha256:5b3c00d201ca3a8969503f2cbe19e3fa0717c3910beb01283de6fde392a74928 | quote: you get a free virtual number for testing
+  - [2] 2026-11-19: the listed per-message SMS price in the US 10DLC and toll-free table | capture: sha256:cdb793a4caa368f59b6905a9ce469f4c0d53101878d8b41357786d99a75aeee9 | quote: $0.0078
+- sources:
+  - [1] https://support.sinch.com/hc/en-us/articles/53692675690643-Sending-messages-with-your-Sinch-Build-Dashboard-trial-account
+  - [2] https://sinch.com/pricing/sms
+  - [3] https://support.sinch.com/hc/en-us/articles/53521765674003-Upgrading-Sinch-Accounts
+  - [4] https://support.sinch.com/hc/en-us/articles/55024845465363-How-do-I-upgrade-my-Sinch-account
+  - [5] https://developers.sinch.com/docs/conversation/api-reference/conversation/section/overview/rate-limits
+  - [6] https://support.sinch.com/hc/en-us/articles/53501378504467-How-to-sign-up-for-your-free-Sinch-account
+  - [7] https://sinch.com/build-dashboard-overview
+  - [8] https://developers.sinch.com/docs/sms/getting-started
+
+## Temporal
+
+- `dev-services/temporal-cloud` | trial-only | evidence documented | binding volume-quota | category hosted durable-execution service (Temporal Cloud) | tier pay-as-you-go
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T00:37:45.455Z (live) | stale on 2026-12-03
+- url https://temporal.io/pricing | page https://fshy.ajam.dev/p/temporal.md
+- free tier: $150 in free credits for every new Temporal Cloud account, expiring after 90 days; a credit card is required to sign up | unit: credits | metered on: request-count | read on: 2026-10-30 | source: [1] | note: After the credits are used or 90 days pass, usage is billed with no base monthly fee at $50 per million Actions on pay-as-you-go, plus storage. The open-source Temporal server is free software that the user installs and runs on a rented or free machine.
+- per-object cap: not stated on the pages read
+- retention: closed workflow histories kept for a configurable retention period, up to 90 days on Temporal Cloud | days: 90 | source: [1] | note: Longer retention uses the Export feature.
+- egress: not applicable: workers poll Temporal Cloud; no traffic allowance is published | metered: no | source: [1]
+- identity: card | detail: A credit card is required to sign up for Temporal Cloud; the sign-up page offers a work email or Google or Microsoft sign-in, and AWS or GCP marketplace routes. The card is not charged during the first 90 days while credits remain.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): $150 of credits, expiring after 90 days [1]
+  - retention-clamped: closed workflow histories retained up to 90 days [1]
+- limits note: On-Demand capacity starts at 500 Actions per second and auto-scales on 7-day usage.
+- binding note: The credit expires after 90 days, and a card is taken at sign-up.
+- interface detail: Temporal SDK clients and workers reach a Namespace over gRPC at the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233; the Cloud Ops API is a public HTTP API and a gRPC API at saas-api.tmprl.cloud:443, authenticated by an API key; tcld and the temporal CLI cloud extension manage namespaces, users and keys. The vocabulary has no gRPC term.
+- endpoint: part of interface detail
+- tooling: the Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP), tcld and the temporal CLI. As a last resort the open-source server, which the user installs and runs on a rented or free machine.
+- composes with: A card-gated 90-day credit; for durable execution with no card, the hosted Inngest free tier comes first.
+- reliability: After the credits run out or 90 days pass, usage is billed to the card on file.
+- evidence note: Credits, card requirement, retention and interfaces are read on first-party pages; nothing behind the sign-up was read.
+- evidence:
+  - [1] 2026-10-30: new accounts get $150 of credits expiring after 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: All new accounts receive $150 in free credits that expire after 90 days.
+  - [1] 2026-10-30: a credit card is required to sign up for Temporal Cloud | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: No credit card required to explore Temporal via the open-source quickstart. A credit card is required to sign up for Temporal Cloud.
+  - [1] 2026-10-30: the card is not charged in the first 90 days while credits remain | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Your card will not be charged during the first 90 days as long as you have remaining credits.
+  - [1] 2026-10-30: closed workflow histories are retained up to 90 days | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Retained Storage: Storage used by closed workflow histories, kept for a configurable retention period (up to 90 days on Temporal Cloud).
+  - [1] 2026-10-30: pay-as-you-go has no base monthly fee | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - No base monthly fee
+  - [1] 2026-10-30: on-demand capacity starts at 500 Actions per second | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - On-Demand capacity (500 Actions Per Second (APS), auto-scales based on 7-day usage)
+  - [1] 2026-10-30: SDK languages | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: - Temporal SDKs (Go, Java, Python, TypeScript, .NET, Ruby, PHP)
+  - [1] 2026-10-30: the server is open source and can be self-hosted | capture: sha256:3b561e925d63d8190ab009e95959dbcc2e00a3e1a88aa614efcaf54c9a0f97ce | quote: Temporal is open source. You can run the full Temporal platform on your own infrastructure at no cost from Temporal.
+  - [2] 2026-10-30: pay-as-you-go Actions cost $50 per million | capture: sha256:19ae76bcdab581afa8e998a9d685060c7b12b141fbe7c549f4d8a6a94b4bf1f3 | quote: $50 per million actions
+  - [3] 2026-10-30: the sign-up page offers $150 of credits | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up and get $150 in credits
+  - [3] 2026-10-30: Google and Microsoft sign-in are offered alongside a work email | capture: sha256:5b0aac676a2c618fccaca3757ae090ee075a03cfdb48b3bbcda16c3d04532235 | quote: Sign up with Google Sign up with Microsoft
+  - [4] 2026-10-31: the Cloud Ops gRPC endpoint | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [4] 2026-10-31: the Cloud Ops API is offered over HTTP and gRPC | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: You can use the HTTP API or the gRPC API depending on how you need to integrate with your platform.
+  - [5] 2026-10-31: tcld manages Temporal Cloud from the command line | capture: sha256:ffa114cd6bac06cfcbd47450605a731f8a8a3676c40c87307cda4d91394fb2e2 | quote: The Temporal Cloud CLI (tcld) is a command-line tool that you can use to interact with Temporal Cloud.
+  - [6] 2026-11-01: Workers and Temporal Clients connect to the Namespace endpoint <namespace>.<account>.tmprl.cloud:7233 | capture: sha256:757e6f97f835095ecd4a8a9ec2e9f6e7677dfee0dd43001768afc7d11c02db09 | quote: Use the Namespace endpoint: Configure Workers and Temporal Clients to use the Namespace endpoint format: `<namespace>.<account>.tmprl.cloud:7233`
+  - [4] 2026-11-01: the Cloud Ops API is served over gRPC at saas-api.tmprl.cloud:443 | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - gRPC: `saas-api.tmprl.cloud:443`
+  - [7] 2026-11-01: an SDK client connects to Temporal Cloud at the gRPC Namespace endpoint on port 7233 | capture: sha256:0e7dcc124c46b87d5ed34d988f8ea11cff2639941f4bef560f8b1dea4930ffd3 | quote: The recommended _endpoint_ is the gRPC Namespace endpoint: `<namespace>.<account>.tmprl.cloud:7233`.
+  - [4] 2026-11-01: the Cloud Ops API is also served over HTTP at https://saas-api.tmprl.cloud | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - HTTP: `https://saas-api.tmprl.cloud`
+  - [4] 2026-11-01: the Cloud Ops API is authenticated by an API key owned by a user or service account | capture: sha256:d9d1268b5bd1a22813ea8e024912f826cccb90681f56f5549f9e2c62799decba | quote: - An [API Key](/cloud/api-keys#manage-api-keys) for authentication (owned by that User or Service Account)
+  - [8] 2026-11-01: the Temporal CLI Cloud extension adds temporal cloud commands for namespaces, users and API keys | capture: sha256:0c667a999e2f53f0b1941bf45042a7caae99010f56f3e1caca9883a763cf3f28 | quote: The extension adds `temporal cloud` commands for managing your Temporal Cloud account, including Namespaces, users, API keys, and Nexus endpoints.
+- sources:
+  - [1] https://temporal.io/pricing.md
+  - [2] https://temporal.io/pricing
+  - [3] https://temporal.io/get-cloud
+  - [4] https://docs.temporal.io/ops
+  - [5] https://docs.temporal.io/cloud/tcld
+  - [6] https://docs.temporal.io/cloud/connectivity/ip-addresses
+  - [7] https://docs.temporal.io/develop/python/client/temporal-client
+  - [8] https://docs.temporal.io/cli/cloud
+
+## Twilio Programmable Messaging
+
+- `dev-services/twilio-programmable-messaging` | trial-only | evidence documented | binding volume-quota | category hosted SMS, MMS, RCS and voice API with a time-limited free trial (hosted) | tier Free Trial
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T01:54:13.418Z (live) | stale on 2026-12-20
+- url https://www.twilio.com/docs/usage/trials | page https://fshy.ajam.dev/p/twilio.md
+- free tier: 30-day free trial with product-specific free units instead of a dollar balance: 100 SMS messages, 100 WhatsApp messages, 3,000 emails and 75 voice minutes. No credit card at signup. Trial messaging is restricted to verified recipients (up to 5 per account) and to the sign-up country, and requires Twilio-provided message templates. | unit: mixed | metered on: request-count | read on: 2026-11-19 | source: [1] | note: Every SMS or WhatsApp message deducts one free unit; a verification over SMS deducts one SMS unit and one verification unit. The trial expires 30 days after sign-up. A plan help article states 150 free messages with a 10-per-day cap; a restrictions article states a 50-per-day maximum. Those first-party figures conflict with the trials table and are recorded in notes and an open_question.
+- per-object cap: An MMS message carries up to 10 media files with a total size of up to 5MB; Twilio rejects messages with over 5MB of media. | source: [2] | note: The 5MB is a total across up to 10 attached files, not a single-object cap, so bytes is null. This cap applies to billed MMS messages; the free trial allocates message units, not media storage.
+- retention: Message bodies and records are kept until the customer requests removal with an HTTP DELETE. Message Logs and the Messages API show records for up to 13 months (400 days) by default, configurable from 7 to 400 days. Records older than 13 months remain accessible through Bulk Export, while MMS media older than 13 months is permanently deleted. Bodies may persist up to 30 days in backups after a DELETE. | days: 400 | source: [3] | note: 400 days is the default data-access window in the Console and Messages API, not automatic loss: records survive in Bulk Export beyond it, but MMS media older than 13 months is deleted. The value is customer-configurable between 7 and 400 days.
+- egress: Not a byte-egress offer: messages are sent and read back through the Programmable Messaging REST API and webhooks. Outbound SMS is billed per segment, starting at USD 0.0083 per outbound or inbound segment on a long code (pricing current as of November 2026); no bandwidth egress quota is stated. | metered: no | free allowance: 100 free SMS messages in the 30-day trial | source: [4]
+- identity: any-phone | detail: Sign-up asks for an email address and a personal phone number, both verified, plus information about the project. The sign-up text states: 'Verify your email address.' and 'Verify your personal phone number.' A free trial account needs no credit card. Trial sending is limited to verified recipients and the sign-up country. The identity needed for a paid account that sends A2P messaging, including adding funds and payment details and carrier registration, is unverified: behind a sign-up.
+- interface: rest
+- limits:
+  - volume-quota (binding): 100 SMS messages free in the 30-day trial [1]
+  - request-rate: trial accounts are restricted to a maximum of 50 messages per day [5]
+  - volume-quota (binding): up to 5 verified recipients per account [1]
+  - per-object-cap: MMS media up to 5MB total across up to 10 media files per message [2]
+  - volume-quota (binding): one Twilio number per trial account, at most 3 unique numbers over the account's life [5]
+  - request-rate: trial calls limited to a maximum of 10 minutes and a maximum of 5 concurrent calls [5]
+  - write-gated: must use Twilio-provided message templates; custom message bodies are not available during the trial [1]
+- binding note: The 100-message, 5-recipient, 30-day trial quota ends free use before the 5MB media cap or the 50-per-day rate is reached; the offer is a trial, not a recurring free tier.
+- interface detail: The Programmable Messaging REST API serves SMS, MMS, RCS and WhatsApp. The API base URL is https://api.twilio.com/2010-04-01 and authentication is HTTP Basic with the API key SID as username and API key secret as password. A separate base URL serves Messaging Services. The Twilio Console and the Message Logs expose the same records.
+- endpoint: part of interface detail
+- tooling: The hosted API is reached with the Twilio SDKs (twilio-node, twilio-python and others), with curl against the REST API, or from the Twilio Console. No software the user installs and runs is required: the messaging service is hosted by the vendor. This is a hosted service, not a self-hosted offer.
+- composes with: Send and receive SMS, MMS, RCS and WhatsApp from an application with delivery-status callbacks, inbound webhooks and message scheduling; combine with Messaging Services and other Twilio products. Hosted service only.
+- reliability: Trial messages carry a 'Sent from a Twilio Trial account' prefix and trial numbers are shared Twilio-owned numbers that cannot be kept after upgrade. An unused trial number may be removed after 60 days. Message bodies may persist up to 30 days in database backups after an HTTP DELETE request.
+- notes: First-party pages disagree on the trial SMS allocation and daily cap: the trials table and trial tutorial state 100 SMS messages, a plan help article states 150 messages with a 10-per-day cap, and the trial-restrictions article states a 50-per-day maximum. The trials table is used as the headline value. This offer is a 30-day trial of a hosted messaging API, not a recurring free tier and not self-hosted software.
+- evidence note: All values are quoted from first-party Twilio pricing, documentation and help pages. Sign-up requirements are quoted from the public trial documentation; paid-account identity is unverified behind a sign-up and the trial SMS figures conflict across first-party pages.
+- evidence:
+  - [1] 2026-11-19: the trial includes 100 free SMS messages | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: | Messaging | SMS messages | 100 |
+  - [1] 2026-11-19: the trial needs no credit card and expires after 30 days | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: You can sign up for a Twilio free trial account without a credit card. Trial accounts expire after 30 days.
+  - [1] 2026-11-19: sign-up verifies an email address and a personal phone number and asks for project information | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: * Verify your email address. * Verify your personal phone number. * Customize your account by providing information about your project.
+  - [1] 2026-11-19: an account can verify at most 5 recipients during the trial | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: Each account can verify up to 5 recipients.
+  - [1] 2026-11-19: trial SMS is restricted to the sign-up country | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: SMS messages and voice calls are restricted to your sign-up country, determined by the phone number you used during registration.
+  - [1] 2026-11-19: trial messaging requires Twilio-provided templates, not custom message bodies | capture: sha256:7b20047d77d498d98952da50fd754e577418b15b1d996655d0dc5384d2990a75 | quote: You must use Twilio-provided templates or message examples. Custom message bodies, email content, and WhatsApp templates aren't available during the trial.
+  - [5] 2026-11-19: trial accounts have a 50-message-per-day maximum | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: Trial accounts are restricted to a maximum of 50 messages per day
+  - [5] 2026-11-19: one Twilio number is allowed per trial account | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: We only allow one Twilio number per trial account.
+  - [5] 2026-11-19: a trial account can verify at most 3 unique numbers over its life | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: Trial accounts are limited to 3 unique numbers over the duration of their life.
+  - [5] 2026-11-19: trial calls are limited to 10 minutes and 5 concurrent calls | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: All trial calls are limited to a maximum of 10 minutes
+  - [5] 2026-11-19: trial project messages carry a trial-account prefix | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: When you send an SMS from your free trial project, it will begin with
+  - [5] 2026-11-19: an unused trial number may be removed after 60 days | capture: sha256:0937f02c5ae28624c754e972eca75206d7f8e65a0d8e2712f97b85eedb5178cb | quote: If your phone number is unused in your trial account for more than 60 days, it may be removed
+  - [6] 2026-11-19: a plan help article states a different trial allocation of 150 messages with a 10-per-day cap | capture: sha256:098fa0d1c724048545d9fc8850a41331a94cf331feeef58091a2a401049a6096 | quote: Messaging includes 150 free messages with a 10-per-day cap; Voice includes 75 free minutes
+  - [3] 2026-11-19: message records are shown for up to 13 months (400 days) by default | capture: sha256:3c48fd825f94b7b136c9a85972d75257734a9a5344b9b7717185e655cb2650f4 | quote: display message records for up to 13 months (400 days) after the message is created, by default
+  - [3] 2026-11-19: MMS media older than 13 months is permanently deleted | capture: sha256:3c48fd825f94b7b136c9a85972d75257734a9a5344b9b7717185e655cb2650f4 | quote: Message media objects (e.g. MMS attachments) older than 13 months are permanently deleted.
+  - [2] 2026-11-19: a message carries up to 10 media files totalling up to 5MB | capture: sha256:d3206a671e967c452641522a1e88c7ee368570d2c7a829b3308a6e92b189d52c | quote: You can send messages using Twilio with up to 10 media files that have a total size of up to 5MB.
+  - [7] 2026-11-19: the messaging REST API authenticates with an API key SID and secret | capture: sha256:71ac6d08fe585edbd854551c86c4138b0ed059313fdc3ef880ff5d5971b086a8 | quote: Use your API key SID as the username and your API key secret as the password.
+  - [4] 2026-11-19: long-code SMS is billed per segment starting at USD 0.0083, with pricing current as of November 2026 | capture: sha256:1f7f3a912cb76678099ad9eb2ff46115888e2602b2968a6087b4163a660f201f | quote: A 10-digit number for SMS and voice calls with localized identity. | $0.0083 | $0.0083 | $0.022 | $0.0165 |
+- sources:
+  - [1] https://www.twilio.com/docs/usage/trials
+  - [2] https://www.twilio.com/docs/messaging/api/media-resource
+  - [3] https://help.twilio.com/articles/223181008-Twilio-SMS-message-and-traffic-storage
+  - [4] https://www.twilio.com/en-us/sms/pricing/us
+  - [5] https://help.twilio.com/articles/360036052753
+  - [6] https://help.twilio.com/articles/55716603558939-How-do-I-choose-a-plan-when-I-create-a-Twilio-account
+  - [7] https://www.twilio.com/docs/messaging/api
+
+## Vonage
+
+- `dev-services/vonage` | trial-only | evidence documented | binding write-gated | category hosted SMS and voice API provider with a free trial credit and a DEMO mode; paid plans are usage based | tier Free Trial (DEMO mode)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T00:19:24.331Z (live) | stale on 2026-12-20
+- url https://www.vonage.com/communications-apis/pricing/ | page https://fshy.ajam.dev/p/vonage.md
+- free tier: EUR 2 free test credit on signup, with the account in DEMO mode; trial SMS is limited to the registered number and four verified test numbers and carries a [FREE SMS DEMO, TEST MESSAGE] notice; no credit card required | unit: credits | metered on: unstated | read on: 2026-11-19 | source: [1] | note: The test credit is denominated in euros. One first-party guide states up to 10 destination numbers in DEMO mode while two support articles state the registered number plus four verified test numbers; both figures are quoted in evidence. No credit card is required at signup.
+- per-object cap: unverified: the API reference pages read state no hard numeric limit on SMS message length; an over-long message returns error code 12 'Message Too Long' | source: [2]
+- retention: not applicable to stored bytes: messages are delivered and can be looked up, but no explicit message-log retention period is stated on the pages read; SMS delivery is attempted by default for 72 hours, typically 24 to 48 hours | source: [2]
+- egress: Outbound SMS and voice calls are the metered service itself; the pricing page lists USD 0.00860 per US LVN SMS message and USD 0.01538 per voice minute, with carrier fees added. SMS delivery attempts run for up to 72 hours by default. | metered: yes | free allowance: EUR 2 free test credit in DEMO mode | source: [3]
+- identity: any-phone | detail: The sign-up page lists Email, First name, Last name, Password and Phone number and the steps Verify email and Verify number. A verified phone number is required and no card is asked for; for very few countries Vonage cannot create an account automatically.
+- interface: rest, cli
+- limits:
+  - volume-quota: EUR 2 free test credit on signup in DEMO mode [1]
+  - write-gated (binding): trial SMS only to the registered number and four verified test numbers; voice calls only to the registered number [4]
+  - write-gated (binding): trial credit cannot be used to buy virtual phone numbers [4]
+  - write-gated (binding): DEMO mode requires target numbers to be added to a whitelisted destination list [2]
+  - request-rate: Pricing API rate limited to one request per second [5]
+  - retention-clamped: SMS delivery attempted for up to 72 hours by default, typically 24 to 48 hours [2]
+- limits note: First-party pages disagree on the trial destination count: two support articles say the registered number plus four verified test numbers (or up to 5 test numbers), while the account getting-started guide says up to 10 destination numbers. Both figures are quoted in evidence.
+- binding note: The DEMO mode destination whitelist and the ban on buying virtual numbers with trial credit restrict what the account can send to before the EUR 2 credit is used up.
+- interface detail: A REST SMS API at rest.nexmo.com with an OpenAPI specification, plus Messages, Voice and Pricing APIs, authenticated with an API key and secret; a Vonage CLI, language SDKs and inbound and outbound webhooks are documented. SMPP is also listed as an option. The Pricing API is rate limited to one request per second.
+- endpoint: https://rest.nexmo.com
+- tooling: Vonage CLI, language SDKs, the REST API with an OpenAPI description, the Account Dashboard and inbound webhook endpoints
+- composes with: Transactional SMS and voice for alerts and two-factor authentication; the Verify API adds OTP delivery with voice fallback, and webhooks feed delivery and inbound events into a larger stack.
+- reliability: The SMS API answers error 1 when sending faster than the account limit, error 9 when credit is insufficient and error 29 for non-whitelisted destinations in demo mode; inbound webhooks are retried for 24 hours without a 2xx answer.
+- notes: Vonage was formerly Nexmo. The free offer is a DEMO mode trial with a [FREE SMS DEMO, TEST MESSAGE] notice on SMS. A verified phone number is required at signup and no card is required. For very few countries Vonage cannot create an account automatically. The trial destination count differs between first-party pages (5 versus 10); both figures are quoted and the conflict is left open rather than resolved.
+- evidence note: Values are quoted from first-party signup, documentation and support pages. No account was opened, so any value visible only after signup is unverified.
+- evidence:
+  - [6] 2026-11-19: the signup page states no credit card is required | capture: sha256:f99ee0c674881b454d5248fb392502f157157f7770f53e648c090f43fd39516c | quote: No credit card required.
+  - [6] 2026-11-19: a verified phone number is required at signup | capture: sha256:f99ee0c674881b454d5248fb392502f157157f7770f53e648c090f43fd39516c
+  - [6] 2026-11-19: signup requires email verification | capture: sha256:f99ee0c674881b454d5248fb392502f157157f7770f53e648c090f43fd39516c | quote: 2. Verify email
+  - [6] 2026-11-19: the signup form asks for a phone number | capture: sha256:f99ee0c674881b454d5248fb392502f157157f7770f53e648c090f43fd39516c | quote: Phone number
+  - [1] 2026-11-19: signup gives EUR 2 free test credit and puts the account in DEMO mode | capture: sha256:87b26634b0920b437117351cade4a136a2ed1a26a1a4a5c78d23ffbb38076beb | quote: When you create your Vonage account you are given €2 free test credit and your account is set in DEMO mode.
+  - [1] 2026-11-19: DEMO mode allows messages to up to 10 destination numbers and appends a demo notice to SMS | capture: sha256:87b26634b0920b437117351cade4a136a2ed1a26a1a4a5c78d23ffbb38076beb | quote: You can use our products to send messages to up to 10 destination numbers, a message stating that the account is in demo mode is added to all the SMS you send.
+  - [1] 2026-11-19: phone verification uses a PIN sent by text message or call, with a 5 minute timeout | capture: sha256:87b26634b0920b437117351cade4a136a2ed1a26a1a4a5c78d23ffbb38076beb | quote: Vonage sends a PIN to your phone as a text message or automated phone call. The timeout for each verification attempt is 5 minutes.
+  - [1] 2026-11-19: some countries cannot create an account automatically because of payment or trading restrictions | capture: sha256:87b26634b0920b437117351cade4a136a2ed1a26a1a4a5c78d23ffbb38076beb | quote: For very few countries Vonage cannot create an account for you automatically.
+  - [4] 2026-11-19: trial SMS is limited to the registered number and four verified test numbers, voice to the registered number | capture: sha256:3759fb6de1013e12dee6c62c00a3fc4aa1267944065afb80bffe665f9dd2282e | quote: You can send SMS to your registered number and four verified test numbers, while Voice calls can only be made to your registered number.
+  - [4] 2026-11-19: trial credit cannot buy virtual phone numbers | capture: sha256:3759fb6de1013e12dee6c62c00a3fc4aa1267944065afb80bffe665f9dd2282e | quote: You cannot use trial credit to buy virtual phone numbers.
+  - [4] 2026-11-19: trial SMS carries a demo notice in the message body | capture: sha256:3759fb6de1013e12dee6c62c00a3fc4aa1267944065afb80bffe665f9dd2282e | quote: Your SMS messages will have the text [FREE SMS DEMO, TEST MESSAGE] appended to the body of the message.
+  - [7] 2026-11-19: trial mode allows messages and calls to up to 5 verified test numbers | capture: sha256:42742fac6cdabee1ebad3edb37a7d74e6703008908461a8816b45b0ae188cf3b | quote: While in trial mode, you can only send messages and make calls to up to 5 test numbers that you've verified.
+  - [3] 2026-11-19: Vonage offers free credit with no credit card | capture: sha256:3805fa4642d542dcbbe5a80da0a817450598c7fc8b55d02dbd38867fe8eb1223 | quote: Start developing now with free credit. No credit card required.
+  - [3] 2026-11-19: API pricing is usage based | capture: sha256:3805fa4642d542dcbbe5a80da0a817450598c7fc8b55d02dbd38867fe8eb1223 | quote: All API pricing is by usage, with big value and no surprises a key part of our philosophy.
+  - [3] 2026-11-19: the lowest listed US LVN SMS price is USD 0.00860 per message | capture: sha256:3805fa4642d542dcbbe5a80da0a817450598c7fc8b55d02dbd38867fe8eb1223 | quote: €0.00735/$0.00860
+  - [2] 2026-11-19: demo mode requires a whitelisted destination list | capture: sha256:331349aa8af233509e9f329463c584496c1f821826a5711502270829dd538e9f | quote: Non-Whitelisted Destination. Your Vonage account is still in demo mode. While in demo mode you must add target numbers to your whitelisted destination list.
+  - [2] 2026-11-19: sending faster than the account limit returns a throttled error | capture: sha256:331349aa8af233509e9f329463c584496c1f821826a5711502270829dd538e9f | quote: Throttled. You are sending SMS faster than the account limit.
+  - [2] 2026-11-19: SMS delivery is attempted for up to 72 hours by default, typically 24 to 48 hours | capture: sha256:331349aa8af233509e9f329463c584496c1f821826a5711502270829dd538e9f | quote: By default Vonage attempts delivery for 72 hours, however the maximum effective value depends on the operator and is typically 24 - 48 hours.
+  - [2] 2026-11-19: inbound webhooks are retried for 24 hours without a 2xx answer | capture: sha256:331349aa8af233509e9f329463c584496c1f821826a5711502270829dd538e9f | quote: If you do not send a 2xx response Vonage will resend the inbound message for the next 24 hours.
+  - [5] 2026-11-19: the Pricing API is limited to one request per second | capture: sha256:42a0cdbef98e4603563ff2c8ae20f0de0c16638dbdb5689146fd1963a385a1f0 | quote: Please note the Pricing API is rate limited to one request per second.
+- sources:
+  - [1] https://developer.vonage.com/en/account/guides/dashboard-management
+  - [2] https://developer.vonage.com/en/api/sms
+  - [3] https://www.vonage.com/communications-apis/pricing/
+  - [4] https://api.support.vonage.com/hc/en-us/articles/212554438-What-are-the-limitations-of-a-trial-account
+  - [5] https://developer.vonage.com/en/api/pricing
+  - [6] https://developer.vonage.com/sign-up
+  - [7] https://api.support.vonage.com/hc/en-us/articles/212107987-How-can-I-get-full-account-features-enabled
+
+## WonderPush
+
+- `dev-services/wonderpush` | trial-only | evidence documented | binding volume-quota | category hosted push notification service for iOS, Android and the web (a Brevo company) | tier Push notifications
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:19:24.791Z (live) | stale on 2026-12-20
+- url https://www.wonderpush.com/pricing | page https://fshy.ajam.dev/p/wonderpush.md
+- free tier: 0 subscribers is free; a 14-day free trial gives all features with no credit card. From 1 subscriber the push plan is EUR 1 per month for 1-1000 subscribers, EUR 2 for 1001-2000 and EUR 3 for 2001-3000, plus EUR 1 for every further 1000. | unit: users | metered on: identity-count | read on: 2026-11-19 | source: [1] | note: The unit stated by the vendor is a subscriber: a unique device and application or website combination. There is no ongoing free tier at any positive subscriber count, only the 14-day trial.
+- per-object cap: not stated: no per-payload or per-message size cap is published on the pricing or billing pages read | source: [1]
+- retention: By default navigation data is kept for 3 months; the user decides what data is stored and for how long. If payment fails after the trial, sending is blocked but project and subscriber data is kept for 90 days, after which it is deleted from the servers. | days: 90 | source: [2] | note: The 90-day figure is the unpaid-account deletion window; the navigation figure of 3 months is a separate default and is stated on the pricing page.
+- egress: not metered per message or per byte: push sending is unlimited on the plan and the bill is based on subscriber count | metered: no | source: [1]
+- identity: email | detail: The sign-up form asks for an email address, a password and a confirmation password with a reCAPTCHA, and offers Brevo, Google, GitHub, Facebook and Shopify sign-in. The pricing page states that the 14-day trial needs no credit card. Payment details are taken only when the plan starts, through Stripe.
+- interface: rest, browser
+- limits:
+  - volume-quota (binding): 0 subscribers is free; EUR 1 per month for 1-1000 subscribers, EUR 2 for 1001-2000, EUR 3 for 2001-3000, plus EUR 1 per further 1000 [1]
+  - retention-clamped: a 14-day free trial with no credit card; after it, sending is blocked until payment is supplied and unpaid data is deleted after 90 days [2]
+- limits note: A maximum monthly budget can be set; when it is reached the service stops signing up new users while other activity continues. Push sending is unlimited and no per-message price is published.
+- binding note: The subscriber count sets the price from the first subscriber, so the 0-subscriber free state ends as soon as one device opts in.
+- interface detail: A documented RESTful API sends notifications from a backend or CMS, and the Management API automates sends; iOS, Android and web SDKs register devices, and an online dashboard designs notifications and reads real-time analytics. Web and iOS web push register through the browser service worker.
+- endpoint: unverified: the API base URL is not stated on the pricing or billing pages read
+- tooling: The vendor runs the hosted service; the user adds an iOS, Android or web SDK, calls the REST or Management API, and uses the web dashboard. No software is installed to run the push service itself.
+- composes with: A hosted service with a REST API, web dashboard and SDKs for iOS, Android and the web; no machine is supplied by the user. Self-hosted push servers are a separate option and are considered after this hosted offer.
+- reliability: The vendor states a push delivery speed of 350k messages per second. Three failed payment collections suspend sending until invoices are paid; unpaid project and subscriber data is deleted after 90 days. European user data is stored in Europe.
+- notes: WonderPush is hosted software run by the vendor and has no ongoing free tier at a positive subscriber count: the free state is 0 subscribers and a 14-day trial needs no card. Sign-up asks for an email address and a password and needs no card before the trial ends.
+- evidence note: The price, subscriber definition, trial, retention windows and payment terms are read on the first-party pricing page and billing documentation; the sign-up fields are read from the first-party sign-up form. No account was opened and no payment was made.
+- evidence:
+  - [1] 2026-11-19: the push plan starts at EUR 1 per month plus EUR 1 for every further 1000 subscribers | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: starting €1 / month
+  - [1] 2026-11-19: the price table tiers subscribers at EUR 1 for 1-1000, EUR 2 for 1001-2000 and EUR 3 for 2001-3000 | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: | €1 | 1-1000 |
+  - [1] 2026-11-19: a 14-day free trial is offered with no credit card | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: Start your 14-day free trial
+  - [1] 2026-11-19: no credit card is required for the trial | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: No credit card required
+  - [1] 2026-11-19: push sending is unlimited on the plan | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: Unlimited Push
+  - [1] 2026-11-19: a maximum monthly budget stops new sign-ups when the limit is reached | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: Set a max monthly budget When you reach your limit, we'll let you know and just stop signing up new users.
+  - [1] 2026-11-19: by default navigation data is kept for 3 months | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: By default, navigation data is kept for 3 months.
+  - [1] 2026-11-19: the plan bills monthly 30 days after sign-up | capture: sha256:ac1965123e8f69a13cee02e1dc4abbf79f590c818b7c511996de3816f50b6d05 | quote: Monthly subscription billed 30 days after you sign up
+  - [2] 2026-11-19: the service is paid, with a 14-day trial that needs no credit card | capture: sha256:7a4c852d374c6890e994167c781a02523270be5aad1d2e8a0339ab1dad72a2e6 | quote: No, WonderPush is a paying platform that offers a free trial period of 14 days. During that time, you can use all the features for free and without filling any credit card.
+  - [2] 2026-11-19: the price is EUR 1 per 1000 subscribers per month | capture: sha256:7a4c852d374c6890e994167c781a02523270be5aad1d2e8a0339ab1dad72a2e6 | quote: With WonderPush, you pay €1 per 1000 subscribers, per month.
+  - [2] 2026-11-19: a subscriber is a unique device and application or website combination, and the table lists 0 subscribers as free | capture: sha256:7a4c852d374c6890e994167c781a02523270be5aad1d2e8a0339ab1dad72a2e6 | quote: | 0 | FREE |
+  - [2] 2026-11-19: unpaid project and subscriber data is kept for 90 days and then deleted | capture: sha256:7a4c852d374c6890e994167c781a02523270be5aad1d2e8a0339ab1dad72a2e6 | quote: your data (project, subscribers) will be kept for 90 days. Beyond this period, your data is automatically and completely deleted from our servers.
+  - [3] 2026-11-19: the sign-up form creates an account with an email address and a password | capture: sha256:7e392aa2ff72f3c3b0d2484c1a0c9c0af96bdca719f3e5565aaf4648bcebb8bb | quote: Please enter your details to create your account
+  - [3] 2026-11-19: the sign-up form asks for an email address | capture: sha256:7e392aa2ff72f3c3b0d2484c1a0c9c0af96bdca719f3e5565aaf4648bcebb8bb | quote: class="sib-input-label">Email</label>
+- sources:
+  - [1] https://www.wonderpush.com/pricing
+  - [2] https://docs.wonderpush.com/docs/billing
+  - [3] https://dashboard.wonderpush.com/account/signup
