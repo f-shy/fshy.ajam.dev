@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…",
+  "reliability_note": "Microsoft Teams Essentials is a paid product at USD 4.00 per user per month billed yearly, with a one-month free trial that requires a credit card; it includes 10 GB of cloud storage per user",
   "confidence": "reported",
   "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
@@ -54,10 +54,31 @@
       "url": "https://www.microsoft.com/en-us/microsoft-teams/free",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: 10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate abo"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/microsoft-teams/essentials",
+      "date": "2026-11-19",
+      "proved": "the first-party Essentials page lists 10 GB of cloud storage per user",
+      "capture": "sha256:11ece7f3e885269a2f35ac24a516b65a6906cded5d8e29319193c344b3dc22f6",
+      "quote": "Get 10 GB of cloud storage per user"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/microsoft-teams/essentials",
+      "date": "2026-11-19",
+      "proved": "Teams Essentials is a paid product at USD 4.00 per user per month billed yearly",
+      "capture": "sha256:11ece7f3e885269a2f35ac24a516b65a6906cded5d8e29319193c344b3dc22f6",
+      "quote": "$4.00 user/month, paid yearly (annual subscription–auto renews)1"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/microsoft-teams/essentials",
+      "date": "2026-11-19",
+      "proved": "the trial signup requires a credit card",
+      "capture": "sha256:11ece7f3e885269a2f35ac24a516b65a6906cded5d8e29319193c344b3dc22f6",
+      "quote": "A credit card is required to sign up."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:11.137Z",
   "notes": "10 GB per user (Essentials) or 1 TB per user (Business) but they are paid products - a trial at best. Only the Developer Program sandbox is actually free, and it is listed as a candidate…",
   "extras": {
     "dead_end": {

@@ -49,10 +49,24 @@
       "url": "https://www.microsoft.com/en-us/nonprofits/microsoft-365",
       "date": "2026-10-21",
       "proved": "1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/nonprofits/microsoft-365",
+      "date": "2026-11-19",
+      "proved": "the nonprofit offer is still a 75% discount on a paid license, not a free grant",
+      "capture": "sha256:9783bd9c09f2765d0c08ef4b64c7716a90998c9c13b0847aa108b3d02634f51a",
+      "quote": "now 75% off for eligible nonprofits"
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/nonprofits/microsoft-365",
+      "date": "2026-11-19",
+      "proved": "the first-party page offers a paid license at 75% off, so the historical free nonprofit grant is gone",
+      "capture": "sha256:9783bd9c09f2765d0c08ef4b64c7716a90998c9c13b0847aa108b3d02634f51a",
+      "quote": "now 75% off for eligible nonprofits"
     }
   ],
   "verdict": "dead",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:14.243Z",
   "notes": "1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the",
   "extras": {
     "dead_end": {
@@ -60,6 +74,10 @@
       "why": "1 TB OneDrive per user but these are paid licenses; the nonprofit full free grant is gone (Business Premium grant ended, Microsoft deleted nonprofit tenants' data). 25 GB per license is the",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "free-tier-removed"
     }
   },
   "binding": "none",

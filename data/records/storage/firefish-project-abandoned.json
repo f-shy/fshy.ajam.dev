@@ -5,7 +5,7 @@
   "url": "https://firefish.social/api/meta",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "none reachable: The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…",
+    "stated": "none reachable: The flagship domain firefish.social is parked and for sale; /api/meta no longer serves an instance API response.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://firefish.social/api/meta",
@@ -41,7 +41,7 @@
     "detail": null,
     "country": null
   },
-  "reliability_note": "The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…",
+  "reliability_note": "The flagship domain firefish.social is parked and for sale; /api/meta no longer serves an instance API response.",
   "confidence": "reported",
   "confidence_note": "Rejection quoted from historical research records; unverified against live endpoints.",
   "evidence": [
@@ -49,17 +49,28 @@
       "url": "https://firefish.social/api/meta",
       "date": "2026-10-21",
       "proved": "The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…"
+    },
+    {
+      "url": "https://firefish.social/api/meta",
+      "date": "2026-11-19",
+      "proved": "the first-party flagship domain is now parked for sale and returns no API metadata",
+      "capture": "sha256:469d9949e51187ab5c24e452bf3f0f6106cbfae86bc90d89698f8dfaaec89aa8",
+      "quote": "This domain is for sale"
     }
   ],
-  "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
-  "notes": "The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…",
+  "verdict": "dead",
+  "verified_at": "2026-11-19T21:13:38.131Z",
+  "notes": "The flagship domain firefish.social is parked and for sale; /api/meta no longer serves an instance API response.",
   "extras": {
     "dead_end": {
       "failure_class": "quota",
       "why": "The flagship returns an HTML shell instead of /api/meta JSON, and the wider Firefish ecosystem has been superseded by Sharkey/IceShark. Do not build against it; the API-compatible…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

@@ -54,10 +54,24 @@
       "url": "https://help.pinecast.com/article/166-service-limits",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: 48 MB per episode and only the ten most recent episodes per podcast stay available. Free forever with unlimited uploads, but the ten-episode visibility window makes it useless as storage. Pa"
+    },
+    {
+      "url": "https://help.pinecast.com/article/135-whats-included-with-the-free-plan",
+      "date": "2026-11-19",
+      "proved": "free plan caps each episode at 48MB",
+      "capture": "sha256:4ef8c6d9ac9ec2c1559604de2108aef973c3b58bb808932c906e6a6a14674efa",
+      "quote": "Upload episodes up to 48MB."
+    },
+    {
+      "url": "https://help.pinecast.com/article/135-whats-included-with-the-free-plan",
+      "date": "2026-11-19",
+      "proved": "only the ten most recent episodes stay available, a visibility window",
+      "capture": "sha256:4ef8c6d9ac9ec2c1559604de2108aef973c3b58bb808932c906e6a6a14674efa",
+      "quote": "Free forever, with unlimited uploads. Only the ten most recent episodes per podcast are available."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:56.981Z",
   "notes": "48 MB per episode and only the ten most recent episodes per podcast stay available. Free forever with unlimited uploads, but the ten-episode visibility window makes it useless as storage.…",
   "extras": {
     "dead_end": {

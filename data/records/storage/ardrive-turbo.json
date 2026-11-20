@@ -13,27 +13,27 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": "105 KiB per file (per data item). A larger file is billed.",
     "bytes": null,
     "source_url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
     "notes": "not applicable"
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": "stated-absent: the free-tier page states no retention period; it describes free uploads to the permaweb",
     "days": null,
     "source_url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": "stated-absent: the free-tier page describes upload allowances and states no download or egress terms",
     "metered": false
   },
   "interface": [
     "unknown"
   ],
-  "interface_detail": "not documented",
+  "interface_detail": "CLI via ario-deploy for uploads to the Arweave permaweb; no S3 or REST object interface stated",
   "tooling": "not documented",
-  "chaining": "not recorded",
+  "chaining": "stated-absent: the free tier meters both wallet and IP range, so multiple wallets on one network cannot be aggregated; it composes only with added Turbo credits",
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -49,10 +49,52 @@
       "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
       "date": "2026-10-21",
       "proved": "Free upload allowance is 105 KiB per file, 10 MiB lifetime per wallet AND 10 MiB lifetime per IP range — the IP-range meter makes it un-multipliable, six orders of magnitude."
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "Turbo's free upload allowance is 105 KiB per file",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "105 KiB per file"
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "the first-party docs describe an ario-deploy CLI for deploying to the permaweb",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "ario-deploy can check the wallet"
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "the page describes free uploads and states no retention period",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "Turbo uploads small files for free."
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "the first-party docs state a 105 KiB per-file cap on the free tier",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "105 KiB per file (per data item). A larger file is billed."
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "the first-party docs state a wallet cap and an IP-range cap that block multi-wallet aggregation",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "10 MiB over the lifetime of a wallet, and 10 MiB over the lifetime of an IP range. Turbo meters both, and an upload is free only while both have allowance left."
+    },
+    {
+      "url": "https://docs.ar.io/sdks/ario-deploy/free-tier/",
+      "date": "2026-11-19",
+      "proved": "the page states upload limits and no download or egress allowance",
+      "capture": "sha256:bf7febe39d5f1bb134f9ebfe7b3ef42af8f5940460c05ae3788bb0b7f32998eb",
+      "quote": "Turbo uploads small files for free. The limits are:"
     }
   ],
   "verdict": "fails-egress",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:55.371Z",
   "notes": "Free upload allowance is 105 KiB per file, 10 MiB lifetime per wallet, and 10 MiB lifetime per IP range. The IP-range meter prevents multi-account aggregation.",
   "extras": {
     "dead_end": {

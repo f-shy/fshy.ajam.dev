@@ -5,7 +5,7 @@
   "url": "https://appsumo.com/search/?q=storage",
   "category": "rejected-provider",
   "free_tier": {
-    "stated": "None reachable: No storage product exists in the catalogue. A site search for 'storage' returns 344 products and the top results are scheduling and social-media tools (TidyCal, AdaptlyPost) — AppSumo's life.",
+    "stated": "None reachable: No storage product exists in the catalogue. A site search for 'storage' now returns 379 products and the top results are AI agents, scheduling and social-media tools (DM Champ, Dialora, TidyCal), not storage.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://appsumo.com/search/?q=storage",
@@ -13,27 +13,27 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": "not stated on the AppSumo search page",
     "bytes": null,
     "source_url": "https://appsumo.com/search/?q=storage",
     "notes": "not applicable"
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": "not stated on the AppSumo search page",
     "days": null,
     "source_url": "https://appsumo.com/search/?q=storage",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": "not stated on the AppSumo search page",
     "metered": false
   },
   "interface": [
-    "unknown"
+    "browser"
   ],
-  "interface_detail": "not documented",
+  "interface_detail": "A browser-based catalogue of lifetime software deals; no storage interface is offered.",
   "tooling": "not documented",
-  "chaining": "not recorded",
+  "chaining": "A marketplace of lifetime software deals with no storage product of its own; not stated on the search page as chaining to other storage services.",
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -54,10 +54,31 @@
       "url": "https://www.dealkeep.io/blog/lifetime-cloud-storage",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: No storage product exists in the catalogue. A site search for 'storage' returns 344 products and the top results are scheduling and social-media tools (TidyCal, AdaptlyPost) — AppSumo's life"
+    },
+    {
+      "url": "https://appsumo.com/search/?q=storage",
+      "date": "2026-11-19",
+      "proved": "the current first-party search result count is 379 products, and the top results are not storage offers",
+      "capture": "sha256:8163b6a05bd55746682301ae79940e7b835df8e7cdf5d1a967305be9913f83d2",
+      "quote": "379 products"
+    },
+    {
+      "url": "https://appsumo.com/search/?q=storage",
+      "date": "2026-11-19",
+      "proved": "the AppSumo search page lists lifetime software deals and states no storage product, per-object cap, retention period, egress price or cross-service chaining",
+      "capture": "sha256:5f0cf4987252288a3fa368dd90b778af3de4f4ffa62905cf48e00e0128a255f3",
+      "quote": "Lifetime software deals"
+    },
+    {
+      "url": "https://appsumo.com/search/?q=storage",
+      "date": "2026-11-19",
+      "proved": "a top search result is TidyCal, a scheduling tool, not a storage product",
+      "capture": "sha256:5f0cf4987252288a3fa368dd90b778af3de4f4ffa62905cf48e00e0128a255f3",
+      "quote": "TidyCal"
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:54.756Z",
   "notes": "No storage product exists in the catalogue. A site search for 'storage' returns 344 products and the top results are scheduling and social-media tools (TidyCal, AdaptlyPost) — AppSumo's life.",
   "extras": {
     "dead_end": {

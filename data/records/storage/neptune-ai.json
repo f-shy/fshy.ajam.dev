@@ -54,10 +54,24 @@
       "url": "https://neptune.ai/pricing",
       "date": "2026-10-21",
       "proved": "read live: the page returned no GB/storage figure (grep for GB|TB|storage returned nothing), i.e. storage is not a priced or granted dimension"
+    },
+    {
+      "url": "https://neptune.ai/pricing",
+      "date": "2026-11-19",
+      "proved": "the vendor announced its acquisition by OpenAI on 2025-12-03 and its pricing page no longer serves a standalone price list",
+      "capture": "sha256:17d9db389c3cd7e97cffe3e9db669602532c787f941267ef129bfce58a095405",
+      "quote": "We’re excited to share that OpenAI has entered into a definitive agreement to acquire neptune.ai, strengthening the tools and infrastructure that support progress in frontier research."
+    },
+    {
+      "url": "https://neptune.ai/pricing",
+      "date": "2026-11-19",
+      "proved": "neptune.ai the standalone MLOps artifact vendor has been acquired by OpenAI and no longer offers a standalone pricing page",
+      "capture": "sha256:17d9db389c3cd7e97cffe3e9db669602532c787f941267ef129bfce58a095405",
+      "quote": "We’re excited to share that OpenAI has entered into a definitive agreement to acquire neptune.ai, strengthening the tools and infrastructure that support progress in frontier research."
     }
   ],
-  "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verdict": "dead",
+  "verified_at": "2026-11-19T21:14:48.162Z",
   "notes": "No storage allowance published. Pricing documentation specifies experiment counts, run counts, and user seats without storage capacity figures. Artifact storage is not provided as a free resource pool.",
   "extras": {
     "dead_end": {
@@ -65,6 +79,10 @@
       "why": "No storage allowance published, and the pricing page contained no GB figure at all — the metered dimensions are experiment/run counts and seats. Artifact storage is not offered as a free pool.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "acquired"
     }
   },
   "binding": "per-object-cap",

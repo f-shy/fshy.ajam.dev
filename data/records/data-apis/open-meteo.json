@@ -244,9 +244,33 @@
       "proved": "listed under Weather in the public-apis list with no auth",
       "capture": "sha256:7c0d65a75227ba9bd3f8576a39262f7af32373d3eca4190cd91e66329ca1d059",
       "quote": "| [Open-Meteo](https://open-meteo.com/) | Global weather forecast API | No | Yes | Yes |"
+    },
+    {
+      "url": "https://github.com/open-meteo/open-data",
+      "date": "2026-11-19",
+      "proved": "the vendor's open-data repository publishes a named public S3 bucket as the bulk archive",
+      "capture": "sha256:7737e07690ef0b315157cbc679cccca1c82c7ab8c804651feaa848634a2aece5",
+      "quote": "**AWS Bucket Name and Region: [s3://openmeteo](https://openmeteo.s3.amazonaws.com/index.html#data/); us-west-2; [AWS Registry](https://registry.opendata.aws/open-meteo/)**"
+    },
+    {
+      "url": "https://open-meteo.com/",
+      "date": "2026-11-19",
+      "proved": null,
+      "capture": "sha256:555c3cf35476e0f6b6f3b03cfd43cf3e16d56d6044c28ada79de2b343907b124",
+      "quote": null
+    },
+    {
+      "url": "https://github.com/open-meteo/open-data",
+      "date": "2026-11-19",
+      "proved": "the notes' bulk-path claim (s3://openmeteo read anonymously) holds; no key or paid tier",
+      "capture": "sha256:7737e07690ef0b315157cbc679cccca1c82c7ab8c804651feaa848634a2aece5",
+      "quote": "**AWS Bucket Name and Region: [s3://openmeteo](https://openmeteo.s3.amazonaws.com/index.html#data/); us-west-2; [AWS Registry](https://registry.opendata.aws/open-meteo/)**"
     }
   ],
   "verdict": "qualifies",
-  "verified_at": "2026-10-31T10:04:05.824Z",
-  "notes": "Bulk path: s3://openmeteo, read anonymously. Paid plans move the same API to customer-api.open-meteo.com with a key."
+  "verified_at": "2026-11-19T21:11:27.275Z",
+  "notes": "Bulk path: s3://openmeteo, read anonymously. Paid plans move the same API to customer-api.open-meteo.com with a key.",
+  "extras": {
+    "bulk_path": "The public AWS bucket s3://openmeteo in us-west-2, holding the model archives as .om files and listed anonymously with no key or account. Not behind a paid tier: the bucket needs no credentials."
+  }
 }

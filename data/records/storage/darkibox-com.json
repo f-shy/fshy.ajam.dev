@@ -49,10 +49,24 @@
       "url": "https://darkibox.com/",
       "date": "2026-10-21",
       "proved": "Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired."
+    },
+    {
+      "url": "probe:https://darkibox.com/",
+      "date": "2026-11-19",
+      "proved": "the host answers HTTP 410 Gone today, so the offer is gone",
+      "capture": "sha256:f8f9b2912c698f96c83394a9b904479c4e16fc2143460f243f11e337453ed400",
+      "quote": "\"status\": 410"
+    },
+    {
+      "url": "probe:https://darkibox.com/",
+      "date": "2026-11-19",
+      "proved": "the host answers HTTP 410 Gone today, so the service is gone",
+      "capture": "sha256:f8f9b2912c698f96c83394a9b904479c4e16fc2143460f243f11e337453ed400",
+      "quote": "\"status\": 410"
     }
   ],
   "verdict": "dead",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:13:43.469Z",
   "notes": "Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.",
   "extras": {
     "dead_end": {
@@ -60,6 +74,10 @@
       "why": "Returns HTTP 410 Gone on the homepage. Dataset lists a 50 GB free per-file cap; the site is retired.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

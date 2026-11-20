@@ -66,10 +66,24 @@
       "url": "https://www.techradar.com/pro/grab-1-54tb-free-cloud-storage-for-life-but-you-will-need-to-sign-up-43-services",
       "date": "2026-10-21",
       "proved": "'Icedrive, for example, has a 3GB per day limit' on free"
+    },
+    {
+      "url": "https://icedrive.net/lifetime-plans",
+      "date": "2026-11-19",
+      "proved": "the lifetime plans page no longer offers the plans this record describes",
+      "capture": "sha256:bd4c42cbbe5ad542726c82daed9b99357a9a81237964b59357c582563fea4b89",
+      "quote": "We no longer sell new Lifetime plans."
+    },
+    {
+      "url": "https://icedrive.net/lifetime-plans",
+      "date": "2026-11-19",
+      "proved": "the lifetime plans this record describes are no longer sold",
+      "capture": "sha256:bd4c42cbbe5ad542726c82daed9b99357a9a81237964b59357c582563fea4b89",
+      "quote": "We no longer sell new Lifetime plans."
     }
   ],
-  "verdict": "fails-egress",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verdict": "dead",
+  "verified_at": "2026-11-19T21:14:02.632Z",
   "notes": "Lifetime Personal 500 GB $229 (from $344); Lifetime Personal+ 2 TB $499 (from $749). One-time, 'No recurring renewal'. Live on the vendor page 2026-10-21.",
   "extras": {
     "dead_end": {
@@ -77,6 +91,10 @@
       "why": "Lifetime Personal 500 GB $229 (from $344); Lifetime Personal+ 2 TB $499 (from $749). One-time, 'No recurring renewal'. Live on the vendor page 2026-10-21.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "free-tier-removed"
     }
   },
   "binding": "retention-clamped",

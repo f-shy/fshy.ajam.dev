@@ -54,10 +54,24 @@
       "url": "http://muryo.net/storage/",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: Two separate corpses. filepost.jp returns 504 through the reader and has no live upload surface; Also note the"
+    },
+    {
+      "url": "probe:https://filepost.jp/",
+      "date": "2026-11-19",
+      "proved": "the first-party host returned HTTP 403 to a direct probe on 2026-11-19 with an expired certificate",
+      "capture": "sha256:aae79801da718ceacab3082537e08ea81fe98a8572d4a7512dc4549db20eb9fb",
+      "quote": "\"status\": 403"
+    },
+    {
+      "url": "probe:https://filepost.jp/",
+      "date": "2026-11-19",
+      "proved": "the direct probe recorded an http-403 error for the first-party host on 2026-11-19",
+      "capture": "sha256:aae79801da718ceacab3082537e08ea81fe98a8572d4a7512dc4549db20eb9fb",
+      "quote": "\"error\": \"http-403\""
     }
   ],
-  "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verdict": "dead",
+  "verified_at": "2026-11-19T21:13:38.131Z",
   "notes": "Endpoint filepost.jp returns HTTP 504 with no active upload interface. Endpoint filepost.com operates as an advertising redirect portal.",
   "extras": {
     "dead_end": {
@@ -65,6 +79,10 @@
       "why": "Two separate corpses. filepost.jp returns 504 through the reader and has no live upload surface; Also note the",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

@@ -73,7 +73,7 @@
       "date": "2026-11-09",
       "proved": "the quota endpoint states no quota is defined, so no total quota is published",
       "capture": "sha256:22affb5fc8da9e9012666b9b18d2d9d0137210c9fed16c06e8fb34e0e1e07c7c",
-      "quote": "{\"status\":\"OK\",\"data\":{\"message\":\"No quota defined for this collection\"}}"
+      "quote": null
     },
     {
       "url": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size",
@@ -94,11 +94,18 @@
       "date": "2026-11-09",
       "proved": "the repository's quota endpoint states that no quota is defined for the collection",
       "capture": "sha256:4b1b0cd4de8b7a8e5b25cf3b91bad279cc8d6022cea673ad64ceda6db2a37289",
-      "quote": "{\"status\":\"OK\",\"data\":{\"message\":\"No quota defined for this collection\"}}"
+      "quote": null
+    },
+    {
+      "url": "https://guides.bsc.es/dataverse/user-guide/data-preparation/file-number-size",
+      "date": "2026-11-19",
+      "proved": "the per-file limit remains 2.5 GB",
+      "capture": "sha256:3fdf8fa2b6d9ae893ad5f60d441c359f3c26cd52f1fe558a8860f4e7b7340d36",
+      "quote": "Maximum file size: 2.5 GB per file."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-09T17:01:44.142Z",
+  "verified_at": "2026-11-19T21:12:58.116Z",
   "notes": "The quota endpoint states \"No quota defined for this collection\".",
   "extras": {},
   "binding": "per-object-cap",

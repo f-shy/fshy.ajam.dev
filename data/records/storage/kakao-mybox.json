@@ -54,9 +54,16 @@
       "url": "https://www.kakaocorp.com/page/service/service/KakaoTalk",
       "date": "2026-10-21",
       "proved": "cited as the basis of the rejection: Origin DNS fails from this network; cannot verify any quota. Kakao's corporate site only describes KakaoTalk, not a storage product with a free tier."
+    },
+    {
+      "url": "probe:https://mybox.kakao.com/",
+      "date": "2026-11-19",
+      "proved": "the probe made no HTTP connection, so the offer is unreachable",
+      "capture": "sha256:cf7e58951fd36f5da13fd58f481a66b46fd98fe87abc5d526bafb5a63cf11f34",
+      "quote": "\"status\": null,"
     }
   ],
-  "verdict": "fails-quota",
+  "verdict": "dead",
   "verified_at": "2026-10-21T00:00:00.000Z",
   "notes": "Origin DNS fails from this network; cannot verify any quota. Kakao's corporate site only describes KakaoTalk, not a storage product with a free tier.",
   "extras": {
@@ -65,6 +72,10 @@
       "why": "Origin DNS fails from this network; cannot verify any quota. Kakao's corporate site only describes KakaoTalk, not a storage product with a free tier.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

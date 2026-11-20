@@ -13,27 +13,27 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": "not stated on the Anaconda.org FAQ page",
     "bytes": null,
     "source_url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
     "notes": "not applicable"
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": "not stated on the Anaconda.org FAQ page",
     "days": null,
     "source_url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": "not stated on the Anaconda.org FAQ page",
     "metered": false
   },
   "interface": [
-    "unknown"
+    "browser"
   ],
-  "interface_detail": "not documented",
+  "interface_detail": "Packages are uploaded to Anaconda.org as tar.bz2 or .conda files.",
   "tooling": "not documented",
-  "chaining": "not recorded",
+  "chaining": "Hosts public conda/Python packages for download by others; not stated on the FAQ as chaining to other storage services.",
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -49,10 +49,24 @@
       "url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
       "date": "2026-10-21",
       "proved": "3 GB total per account; would need ~6,800 accounts for 20 TiB."
+    },
+    {
+      "url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
+      "date": "2026-11-19",
+      "proved": "the anaconda.org free plan still provides 3 GB for public packages only",
+      "capture": "sha256:d569f7f99a5fe9bc7acf74feb1b1acbd7b31db15ad244a945b4b0b9e2d4556b3",
+      "quote": "The free plan allows you to search for, create and host public packages, and provides up to 3 GB storage space."
+    },
+    {
+      "url": "https://continuumio-docs.readthedocs-hosted.com/anacondaorg/faq/",
+      "date": "2026-11-19",
+      "proved": "packages are uploaded to Anaconda.org as tar.bz2 or .conda files",
+      "capture": "sha256:d569f7f99a5fe9bc7acf74feb1b1acbd7b31db15ad244a945b4b0b9e2d4556b3",
+      "quote": "Both `tar.bz2` and `.conda` compression files can be uploaded to Anaconda.org."
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:54.754Z",
   "notes": "3 GB total per account; would need ~6,800 accounts for 20 TiB.",
   "extras": {
     "dead_end": {

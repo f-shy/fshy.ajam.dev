@@ -49,10 +49,24 @@
       "url": "https://mixdrop.co/",
       "date": "2026-10-21",
       "proved": "Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable."
+    },
+    {
+      "url": "probe:https://mixdrop.co/",
+      "date": "2026-11-19",
+      "proved": "the probe made no HTTP connection (TLS EOF), so the canonical domain remains unreachable",
+      "capture": "sha256:03cd767344d89938b6f616adabb2b2cf4d36757f3c0a507f6808ddbc4153a3b9",
+      "quote": "\"status\": null,"
+    },
+    {
+      "url": "probe:https://mixdrop.co/",
+      "date": "2026-11-19",
+      "proved": "the canonical domain makes no HTTP connection (TLS handshake EOF), so the offer is unreachable and dead",
+      "capture": "sha256:03cd767344d89938b6f616adabb2b2cf4d36757f3c0a507f6808ddbc4153a3b9",
+      "quote": "\"status\": null,"
     }
   ],
   "verdict": "dead",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:14.243Z",
   "notes": "Returns HTTP 410 Gone on the canonical domain. Service withdrawn at this address. No limits page reachable.",
   "extras": {
     "dead_end": {
@@ -60,6 +74,10 @@
       "why": "Returns HTTP 410 Gone on the canonical domain — service withdrawn at this address. No limits page reachable.",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

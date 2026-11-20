@@ -49,6 +49,13 @@
       "url": "https://uptobox.com/",
       "date": "2026-10-21",
       "proved": "Seized and still dead. The domain answers with a Cloudflare 522 and a French/English maintenance banner ('Nous réalisons une maintenance et nous revenons très vite'), which reads like a…"
+    },
+    {
+      "url": "probe:https://uptobox.com/",
+      "date": "2026-11-19",
+      "proved": "a direct GET of uptobox.com answered HTTP 522 with no body on 2026-11-19, so the host still does not serve",
+      "capture": "sha256:7535e943073f3fd4369c4b608bd50f1565aa3310412b3446a632335c955a803f",
+      "quote": "\"status\": 522"
     }
   ],
   "verdict": "dead",
@@ -60,6 +67,10 @@
       "why": "Seized and still dead. The domain answers with a Cloudflare 522 and a French/English maintenance banner ('Nous réalisons une maintenance et nous revenons très vite'), which reads like a…",
       "retry_when": null,
       "first_recorded": "2026-10-21"
+    },
+    "death": {
+      "on": "2026-11-19",
+      "cause": "dead-service"
     }
   },
   "binding": "none",

@@ -59,10 +59,24 @@
       "url": "https://ioc.exchange/api/v1/instance",
       "date": "2026-10-21",
       "proved": "probe: GET -> 200, max_toot_chars=11000"
+    },
+    {
+      "url": "probe:https://ioc.exchange/api/v2/instance",
+      "date": "2026-11-19",
+      "proved": "the live instance API still reports a 1419430400-byte video size limit",
+      "capture": "sha256:bf0a6539ca4d6d569aad6bcd8dcfb225631efbaded057a6ef687c7135ee75886",
+      "quote": "\"video_size_limit\":1419430400"
+    },
+    {
+      "url": "probe:https://ioc.exchange/api/v2/instance",
+      "date": "2026-11-19",
+      "proved": "the live instance API still reports an 83886080-byte image size limit",
+      "capture": "sha256:bf0a6539ca4d6d569aad6bcd8dcfb225631efbaded057a6ef687c7135ee75886",
+      "quote": "\"image_size_limit\":83886080"
     }
   ],
   "verdict": "fails-quota",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:14:05.300Z",
   "notes": "Unlimited per-account; per-file video_size_limit=1419430400 (1.32 GiB), image_size_limit=83886080 (80 MiB).",
   "extras": {
     "verdict_note": null,

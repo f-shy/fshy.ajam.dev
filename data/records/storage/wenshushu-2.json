@@ -13,27 +13,27 @@
     "notes": null
   },
   "per_object_cap": {
-    "stated": "not recorded",
+    "stated": "not stated on https://www.wenshushu.cn/faq",
     "bytes": null,
     "source_url": "https://www.wenshushu.cn/faq",
     "notes": "not applicable"
   },
   "retention": {
-    "stated": "not recorded",
+    "stated": "not stated on https://www.wenshushu.cn/faq",
     "days": null,
     "source_url": "https://www.wenshushu.cn/faq",
     "notes": null
   },
   "egress": {
-    "terms": "not recorded",
+    "terms": "never throttle-limited (永不限速); no egress traffic charge is stated on https://www.wenshushu.cn/faq",
     "metered": false
   },
   "interface": [
     "unknown"
   ],
-  "interface_detail": "not documented",
+  "interface_detail": "not stated on https://www.wenshushu.cn/faq",
   "tooling": "not documented",
-  "chaining": "not recorded",
+  "chaining": "Not stated on https://www.wenshushu.cn/faq; the offer was rejected on its 40 GB quota.",
   "limits": [],
   "limits_note": null,
   "identity_cost": {
@@ -49,10 +49,24 @@
       "url": "https://www.wenshushu.cn/faq",
       "date": "2026-10-21",
       "proved": "Free space is 40 GB, explicitly: '免费提供网络硬盘空间 40GB'. Its 'never throttled' promise is real but irrelevant at this quota."
+    },
+    {
+      "url": "https://www.wenshushu.cn/faq",
+      "date": "2026-11-19",
+      "proved": "the free drive offers 40 GB with unthrottled transfer",
+      "capture": "sha256:afca019caaab40814ff9d60284c2a242a1b72754586d601723ed696e87063d32",
+      "quote": "文叔叔是一款永不限速的网盘（云盘）产品，免费提供网络硬盘空间 40GB。"
+    },
+    {
+      "url": "https://www.wenshushu.cn/faq",
+      "date": "2026-11-19",
+      "proved": "the page states only the 40 GB allowance and transfer promise; no retention period, per-object cap or chaining terms appear",
+      "capture": "sha256:afca019caaab40814ff9d60284c2a242a1b72754586d601723ed696e87063d32",
+      "quote": "文叔叔是一款永不限速的网盘（云盘）产品，免费提供网络硬盘空间 40GB。支持：传文件（发文件）、收文件（收集文件）等功能，还支持查看历史记录等高级功能。"
     }
   ],
   "verdict": "fails-egress",
-  "verified_at": "2026-10-21T00:00:00.000Z",
+  "verified_at": "2026-11-19T21:15:53.011Z",
   "notes": "Free tier offers 40 GB of cloud drive capacity. Transfer bandwidth is not throttled.",
   "extras": {
     "dead_end": {
