@@ -73,7 +73,7 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "the free trial is $0, free for 30 days, with no credit card required and 25GB of storage",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {
@@ -101,21 +101,21 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "50 KB is the minimum billed object size on the Standard plan, not a maximum",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Standard: 50 KB minimum per object. Objects under 50 KB are billed as 50 KB."
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "no expiry of stored objects is stated; an account with a $0 balance and no active storage is suspended and then deleted",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Accounts with a $0 balance at the end of a billing cycle and no active storage will be suspended and then deleted."
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "the $5 monthly minimum applies from the first billing cycle after the trial, and USDC-paying accounts are exempt",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Accounts paying with USDC are exempt from the minimum monthly fee."
     },
     {
@@ -143,28 +143,28 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-10-30",
       "proved": "the Standard plan prices storage at $7/TB per month and egress at $7/TB",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Monthly storage$7/TB"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "the trial includes 25GB of storage for 30 days; the page does not state upload and download volumes",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "Standard storage is $7/TB",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Monthly storage$7/TB"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-04",
       "proved": "the pricing page lists the free trial as free for 30 days with 25GB free storage for 30 days",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {

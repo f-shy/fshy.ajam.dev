@@ -62,7 +62,7 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-03",
       "proved": "the Storj free trial is 25GB for 30 days, free for 30 days, with no credit card required",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {
@@ -76,7 +76,7 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-19",
       "proved": "Storj's free offer is still a 30-day 25 GB trial rather than a standing free tier",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "25GB free storage for 30 days"
     },
     {
@@ -97,21 +97,21 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-19",
       "proved": "Storj Object Storage is reachable through S3-compatible applications",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Works with S3-compatible apps"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-19",
       "proved": "Storj is accessed as an S3-compatible object store",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Drop-in replacement for AWS S3"
     },
     {
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-19",
       "proved": "Storj Standard enforces a minimum 30-day retention on stored objects",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "In the Standard tier, objects have a minimum storage retention period of 30 days."
     },
     {
@@ -125,7 +125,7 @@
       "url": "https://www.storj.io/pricing",
       "date": "2026-11-19",
       "proved": "Storj charges USD 7 per TB of egress on its paid plans",
-      "capture": null,
+      "capture": "sha256:e36516d3ea0357a5cbe3f816596cf5b54ecdb0a010bcba969568bd2441a76731",
       "quote": "Egress** $7/TB"
     },
     {

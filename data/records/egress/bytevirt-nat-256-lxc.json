@@ -67,14 +67,14 @@
     {
       "url": "https://serverdeals.cc/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:74205844fcd10df773b4c9dceb9f0293e9016e911c7fa802feb8a1b72c886965",
       "quote": "###### NAT-256-LXC",
       "proved": "serverdeals lists NAT-256-LXC at USD 5.5 per year, 350 GB, a /64 IPv6 and 500Mbps"
     },
     {
       "url": "https://serverdeals.cc/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:74205844fcd10df773b4c9dceb9f0293e9016e911c7fa802feb8a1b72c886965",
       "quote": "#### USD 5.5 / year",
       "proved": "the serverdeals price line"
     },

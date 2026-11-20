@@ -63,14 +63,14 @@
     {
       "url": "https://telegram.org/faq",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:b2b47f4d10eef65f2241c8d0b8c905d5c40e0f31bcd2ba1962c5682609fd55b4",
       "quote": "Just use your main mobile phone number to log in everywhere, your cloud chats will sync instantly.",
       "proved": "a Telegram account is logged in with a mobile phone number"
     },
     {
       "url": "https://telegram.org/faq",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:b2b47f4d10eef65f2241c8d0b8c905d5c40e0f31bcd2ba1962c5682609fd55b4",
       "quote": "up to 2 GB in size each (or 4 GB with",
       "proved": "Telegram's own per-file ceiling is 2 GB, or 4 GB with Premium"
     },

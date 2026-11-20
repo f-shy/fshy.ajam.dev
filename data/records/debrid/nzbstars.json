@@ -60,14 +60,14 @@
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "No registration required. Completely free. Unlimited API calls, no RSS feeds.",
       "proved": "third-party: no registration, completely free, unlimited API calls"
     },
     {
       "url": "https://nzbhydra.com/indexers/",
       "date": "2026-11-03",
-      "capture": null,
+      "capture": "sha256:3125b505eca26d74096a6985446593dbb6eb97637bbd1d4543eaa49be6387223",
       "quote": "Approximately 1,400 days of retention",
       "proved": "third-party: the listing claims about 1,400 days of retention"
     },
