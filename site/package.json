@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "minisearch": "7.2.0",
-    "sql.js": "1.16.0"
+    "sql.js": "1.17.0"
   },
   "devDependencies": {
-    "wrangler": "4.161.0"
+    "wrangler": "4.165.0"
   }
 }
