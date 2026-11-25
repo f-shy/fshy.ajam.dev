@@ -156,6 +156,8 @@
 {"dst":"compute/deluxhost-x-0-ipv6","kind":"same-product","src":"compute/deluxhost"}
 {"dst":"compute/digitalocean-droplet-1gb","kind":"same-product","src":"compute/digitalocean-2"}
 {"dst":"compute/dockerhosting-start","kind":"same-product","src":"compute/dockerhosting-prodv"}
+{"dst":"compute/e2b","kind":"mentions","src":"compute/e2b-desktop"}
+{"dst":"compute/e2b-desktop","kind":"same-product","src":"compute/e2b"}
 {"dst":"compute/emergent-ventures","kind":"mentions","src":"compute/emergent"}
 {"dst":"compute/factory","kind":"mentions","src":"coding-subs/factory"}
 {"dst":"compute/firebase-studio","kind":"mentions","src":"compute/firebase-hosting"}
@@ -301,6 +303,7 @@
 {"dst":"compute/vdsina-windows","kind":"same-product","src":"compute/vdsina-cloud-configurator"}
 {"dst":"compute/vercel","kind":"mentions","src":"coding-subs/v0-free"}
 {"dst":"compute/virmach-black-friday-cyber-monday","kind":"same-product","src":"compute/virmach"}
+{"dst":"compute/volcengine-agentkit","kind":"mentions","src":"compute/volcengine-vci-agent-sandbox"}
 {"dst":"compute/volpabyte-ryzen-kvm-8gb","kind":"mentions","src":"ip-proxy/host-asn-field-absent"}
 {"dst":"compute/vultr","kind":"mentions","src":"compute/vultr-2"}
 {"dst":"compute/vultr-regular-1gb","kind":"same-product","src":"compute/vultr-2"}
@@ -381,6 +384,7 @@
 {"dst":"dev-services/easycron","kind":"mentions","src":"dev-services/cron-job-org-chronos"}
 {"dst":"dev-services/grafana-cloud","kind":"duplicate_of","src":"compute/grafana-cloud"}
 {"dst":"dev-services/grafana-cloud","kind":"mentions","src":"compute/grafana-cloud"}
+{"dst":"dev-services/inngest","kind":"mentions","src":"compute/inngest-sandboxes"}
 {"dst":"dev-services/inngest","kind":"mentions","src":"dev-services/inngest-server"}
 {"dst":"dev-services/inngest","kind":"mentions","src":"dev-services/n8n-community-edition"}
 {"dst":"dev-services/inngest","kind":"mentions","src":"dev-services/temporal-server"}
