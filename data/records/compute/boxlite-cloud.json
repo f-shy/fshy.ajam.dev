@@ -5,8 +5,8 @@
   "url": "https://boxlite.ai/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "No card-free credit published. 'Usage is charged to your prepaid wallet. Boxes are priced per hour, and the console shows the rate for a given size before you create it.' Starter is USD 5 a month with USD 20 of included quota; its 3-day trial needs card verification.",
-    "unit": "none",
+    "stated": "Pay as you go is usage-based, charged to a prepaid wallet, with no subscription required; Starter is $5 with a 3-day trial with card verification.",
+    "unit": "mixed",
     "metered_on": "wall-clock",
     "source_url": "https://boxlite.ai/",
     "read_on": "2026-10-24",
@@ -81,13 +81,10 @@
     },
     {
       "url": "https://boxlite.ai/",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Every box is a virtual machine with its own Linux kernel, sized when you create it — up to 4 vCPU and 32 GiB of memory. Hardware isolation, not a shared kernel.'"
-    },
-    {
-      "url": "https://boxlite.ai/",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Packages, files and environment are still there after a stop and a start, so you are not rebuilding the world on every boot.' and 'Start with $100 in free credits'"
+      "date": "2026-11-25",
+      "proved": "the page lists Pay as you go as usage-based with charges to a prepaid wallet",
+      "capture": "sha256:2c04ad1952775d73b6a46b7562aa0015e234d1ddcc73191d05efd0014e1b0f1e",
+      "quote": "Pay as you go — Usage-based. Usage charged to your prepaid wallet."
     },
     {
       "url": "https://boxlite.ai/",
@@ -99,21 +96,7 @@
     {
       "url": "https://boxlite.ai/",
       "date": "2026-11-24",
-      "proved": "there is no free grant denominated in any unit",
-      "capture": "sha256:2c04ad1952775d73b6a46b7562aa0015e234d1ddcc73191d05efd0014e1b0f1e",
-      "quote": "Usage is charged to your prepaid wallet. Boxes are priced per hour, and the console shows the rate for a given size before you create it."
-    },
-    {
-      "url": "https://boxlite.ai/",
-      "date": "2026-11-24",
       "proved": "the per-box shape ceiling is plan dependent, up to 16 vCPU / 32 GB / 100 GB on Team",
-      "capture": "sha256:2c04ad1952775d73b6a46b7562aa0015e234d1ddcc73191d05efd0014e1b0f1e",
-      "quote": "Max Box size depends on your plan: 1C · 2G · 10G on Pay as you go, 2C · 4G · 20G on Starter, and 16C · 32G · 100G on Team (CPU · memory · disk)."
-    },
-    {
-      "url": "https://boxlite.ai/",
-      "date": "2026-11-24",
-      "proved": "the largest single box is 16 vCPU / 32 GB / 100 GB, and the free-start ceiling is 1 vCPU / 2 GB / 10 GB",
       "capture": "sha256:2c04ad1952775d73b6a46b7562aa0015e234d1ddcc73191d05efd0014e1b0f1e",
       "quote": "Max Box size depends on your plan: 1C · 2G · 10G on Pay as you go, 2C · 4G · 20G on Starter, and 16C · 32G · 100G on Team (CPU · memory · disk)."
     },
@@ -154,7 +137,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T11:38:11.104Z",
+  "verified_at": "2026-11-25T15:03:54.715Z",
   "notes": "Check of the vendor's own arithmetic: 0.0504 + 0.0144 + 10 x 0.00018 = USD 0.0666/hour, which is exactly the headline 'smallest box' figure, so the rate card and the summary agree. At 730 h: 0.0666 x 730 = USD 48.62. The docs page (docs.boxlite.ai/cloud/pricing) returned a JavaScript shell on two attempts, so the plan table (Starter USD 19/month with USD 30 of quota, Pro USD 149, Max USD 499) is unverified among evaluated providers.",
   "extras": {
     "facets": {

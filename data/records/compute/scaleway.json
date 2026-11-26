@@ -5,7 +5,7 @@
   "url": "https://www.scaleway.com/en/pricing/virtual-instances/",
   "category": "cloud VM",
   "free_tier": {
-    "stated": "no free tier for Personal project accounts on Virtual Instances: instances from EUR 0.01428 an hour (STARDUST1-S EUR 0.0006 an hour), with egress and IPv6 included in the list price and storage and public IPv4 excluded; a free EUR 100 credit voucher is automatic on Corporate accounts (Enterprise, Startup, Consultant) with a valid payment method",
+    "stated": "| PLAY2-PICO | 1 vCPU | 2 GB | 100 Mbps | €0.01428 /HOUR | ~€10.42 /MONTH |",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.scaleway.com/en/pricing/virtual-instances/",
@@ -70,16 +70,6 @@
     },
     {
       "url": "https://www.scaleway.com/en/pricing/virtual-instances/",
-      "date": "2026-10-02",
-      "proved": "STARDUST1-S is 1 vCPU / 1 GiB at USD 0.000683 an hour with a 3,600-second minimum."
-    },
-    {
-      "url": "https://www.scaleway.com/en/pricing/virtual-instances/",
-      "date": "2026-10-02",
-      "proved": null
-    },
-    {
-      "url": "https://www.scaleway.com/en/pricing/virtual-instances/",
       "date": "2026-10-22",
       "proved": "'straightforward pricing without egress fees' and 'List prices include egress and IPv6 addresses. Storage (local, block) and attached public IPv4 addresses are excluded.' with the ladder from 'EUR 0.01428 /HOUR ~EUR 10.42 /MONTH', quoted"
     },
@@ -89,14 +79,16 @@
       "proved": "quoted: 'Before you can order Scaleway resources, you must add a payment method to your account. You can choose between two payment methods: credit card or SEPA mandate. Virtual and pre-paid credit cards are not accepted.'"
     },
     {
-      "url": "https://www.scaleway.com/en/docs/billing/how-to/add-payment-method/",
-      "date": "2026-10-24",
-      "proved": "quoted, the hold: 'When you register a new credit card, an authorization charge of €1 is debited from your account. This Authorization Charge is a dummy transaction made to check the validity of the card. The authorization charge will be reimbursed within 48 to 72 hours.'"
-    },
-    {
       "url": "https://www.scaleway.com/en/docs/account/setup-lifecycle/create-an-account/",
       "date": "2026-10-24",
       "proved": "quoted: 'Scaleway charges an authorization amount of €1 and automatically reimburses it within 2 days.' and 'Virtual prepaid cards are not accepted as a payment method.'"
+    },
+    {
+      "url": "https://www.scaleway.com/en/pricing/virtual-instances/",
+      "date": "2026-11-25",
+      "proved": "the pricing page lists the entry instance at EUR 0.01428 per hour, about EUR 10.42 per month",
+      "capture": "sha256:2ca1d04e663fb70a51a2e27684b66f23154b40e422ea89fe067bbd531987ddb7",
+      "quote": "| PLAY2-PICO | 1 vCPU | 2 GB | 100 Mbps | €0.01428 /HOUR | ~€10.42 /MONTH |"
     },
     {
       "url": "https://www.scaleway.com/en/docs/account/faq/",
@@ -149,7 +141,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:21:03.999Z",
+  "verified_at": "2026-11-25T15:03:55.164Z",
   "price_per_tb_month": null,
   "notes": "Two things are attached to that figure. It is stock-limited, so it is not guaranteed. And the 2 vCPU column is billed at a one-hour minimum, so a burst of thirty-minute starts costs double. This record's identity_cost was 'unverified: email is the assumed value'. It is now documented: a card is mandatory before any order, EUR 1 is authorised and reimbursed in 48 to 72 hours, and virtual and pre-paid cards are refused in writing. Debit is deliberately not claimed: the payment page says 'credit card' and never says debit.",
   "extras": {

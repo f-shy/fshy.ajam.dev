@@ -5,7 +5,7 @@
   "url": "https://aws.amazon.com/ec2/instance-types/mac/",
   "category": "macOS host",
   "free_tier": {
-    "stated": "up to USD 200 in account-wide Free Tier credit over 6 months; the Mac page states no Mac-specific free allowance",
+    "stated": "Billing for EC2 Mac instances is per second with a 24-hour minimum allocation period to comply with the Apple macOS Software License Agreement.",
     "unit": "mixed",
     "metered_on": "wall-clock",
     "source_url": "https://aws.amazon.com/ec2/instance-types/mac/",
@@ -65,6 +65,13 @@
       "proved": "the dedicated-Mac page is live and still sells EC2 Mac instances for building and signing Apple apps; it states no free allowance for a Mac instance"
     },
     {
+      "url": "https://aws.amazon.com/ec2/instance-types/mac/",
+      "date": "2026-11-25",
+      "proved": "the dedicated-Mac page states per-second billing with a 24-hour minimum and no free allowance",
+      "capture": "sha256:d8be832da4d3744e00bc1fab029d749859dedb998e6791c5894d9ab689599450",
+      "quote": "Billing for EC2 Mac instances is per second with a 24-hour minimum allocation period to comply with the Apple macOS Software License Agreement."
+    },
+    {
       "url": "https://aws.amazon.com/free/",
       "date": "2026-11-24",
       "proved": "the AWS account-wide Free Tier credit is up to USD 200 over 6 months",
@@ -89,13 +96,6 @@
       "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html",
       "date": "2026-11-24",
       "proved": "a Mac instance is reached over SSH",
-      "capture": "sha256:fcad2e2d2f93305490ab6b0693eddeeb9a1f5d03cf81055b505745a1ca3b33ef",
-      "quote": "You can connect to your Mac instance using SSH or Apple Remote Desktop (ARD)."
-    },
-    {
-      "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html",
-      "date": "2026-11-24",
-      "proved": "the Mac instance access paths are SSH and ARD",
       "capture": "sha256:fcad2e2d2f93305490ab6b0693eddeeb9a1f5d03cf81055b505745a1ca3b33ef",
       "quote": "You can connect to your Mac instance using SSH or Apple Remote Desktop (ARD)."
     },
@@ -140,17 +140,10 @@
       "proved": "the new AWS signup may still request payment information, held as a USD 1 verification hold for 3-5 days",
       "capture": "sha256:9c551fa9d91e7634131dae32021d5b18887644a423eebe3b185cc49f87d8cce0",
       "quote": "When you sign up for AWS, we might request payment information. Our verification process holds USD $1 (or equivalent) for 3-5 days to verify your account and prevent fraud."
-    },
-    {
-      "url": "https://aws.amazon.com/start-here/",
-      "date": "2026-11-24",
-      "proved": "the first-party AWS signup page states no credit card is required to start for most new customers",
-      "capture": "sha256:a1a1547884ce37eed31ea15faf82a2323ba5849c13c479da9a5910996af145f0",
-      "quote": "Fast sign up: Create an account with a sign-in method you already have, such as Google or GitHub. No credit card required to start for most new customers."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-24T18:27:26.888Z",
+  "verified_at": "2026-11-25T05:18:26.643Z",
   "price_per_tb_month": null,
   "notes": "A one-time credit inside a closing account is evaluated as a trial.",
   "extras": {

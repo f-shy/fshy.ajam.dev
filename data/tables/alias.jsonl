@@ -540,8 +540,8 @@
 {"alias":"Appbox","eid":"appbox","kind":"provider"}
 {"alias":"Appcircle","eid":"appcircle","kind":"name"}
 {"alias":"Appcircle","eid":"appcircle","kind":"provider"}
-{"alias":"Appetize.io","eid":"appetize","kind":"name"}
-{"alias":"Appetize.io","eid":"appetize","kind":"provider"}
+{"alias":"Appetize. io","eid":"appetize","kind":"name"}
+{"alias":"Appetize. io","eid":"appetize","kind":"provider"}
 {"alias":"Appish","eid":"appi","kind":"name"}
 {"alias":"Appish","eid":"appi","kind":"provider"}
 {"alias":"Apple Books (iTunes Connect / Partner)","eid":"apple","kind":"provider"}
@@ -583,7 +583,6 @@
 {"alias":"Arker","eid":"arker","kind":"name"}
 {"alias":"Arker","eid":"arker","kind":"provider"}
 {"alias":"Arm Virtual Hardware","eid":"corellium","kind":"provider"}
-{"alias":"Arm Virtual","eid":"corellium","kind":"name"}
 {"alias":"Army of Strangers","eid":"army-of-strangers","kind":"name"}
 {"alias":"Army of Strangers","eid":"army-of-strangers","kind":"provider"}
 {"alias":"Arquivo.pt","eid":"arquivo","kind":"name"}
@@ -807,6 +806,8 @@
 {"alias":"Bitport.io","eid":"bitport","kind":"name"}
 {"alias":"Bitport.io","eid":"bitport","kind":"provider"}
 {"alias":"Bitrise (mobile CI)","eid":"bitrise","kind":"provider"}
+{"alias":"Bitrise Remote Dev Environments","eid":"bitrise","kind":"provider"}
+{"alias":"Bitrise","eid":"bitrise","kind":"name"}
 {"alias":"Bitrix24 Free (Drive)","eid":"bitrix24","kind":"provider"}
 {"alias":"Bitrix24 Free","eid":"bitrix24","kind":"name"}
 {"alias":"Bittensor","eid":"bittensor","kind":"name"}
@@ -850,6 +851,8 @@
 {"alias":"Bolt","eid":"bolt","kind":"provider"}
 {"alias":"BoltzLabs","eid":"boltz","kind":"name"}
 {"alias":"BoltzLabs","eid":"boltz","kind":"provider"}
+{"alias":"BoltzLabs","eid":"boltzlabs","kind":"name"}
+{"alias":"BoltzLabs","eid":"boltzlabs","kind":"provider"}
 {"alias":"Boosty (RU)","eid":"boosty","kind":"provider"}
 {"alias":"Boosty","eid":"boosty","kind":"name"}
 {"alias":"Border0","eid":"border0","kind":"name"}
@@ -902,8 +905,8 @@
 {"alias":"BrowserAct","eid":"browseract","kind":"provider"}
 {"alias":"BrowserCloud","eid":"browsercloud","kind":"name"}
 {"alias":"BrowserCloud","eid":"browsercloud","kind":"provider"}
-{"alias":"BrowserStack","eid":"browserstack","kind":"name"}
-{"alias":"BrowserStack","eid":"browserstack","kind":"provider"}
+{"alias":"BrowserStack App Automate","eid":"browserstack","kind":"name"}
+{"alias":"BrowserStack App Automate","eid":"browserstack","kind":"provider"}
 {"alias":"Browserbase","eid":"browserbase","kind":"name"}
 {"alias":"Browserbase","eid":"browserbase","kind":"provider"}
 {"alias":"Browserless","eid":"browserless","kind":"name"}
@@ -1369,6 +1372,7 @@
 {"alias":"CoreHost","eid":"corehost","kind":"provider"}
 {"alias":"CoreWeave","eid":"coreweave","kind":"name"}
 {"alias":"CoreWeave","eid":"coreweave","kind":"provider"}
+{"alias":"Corellium","eid":"corellium","kind":"name"}
 {"alias":"Corellium","eid":"corellium","kind":"provider"}
 {"alias":"Cortecs","eid":"cortecs","kind":"name"}
 {"alias":"Cortecs","eid":"cortecs","kind":"provider"}
@@ -1471,8 +1475,7 @@
 {"alias":"DATADOI","eid":"datadoi","kind":"name"}
 {"alias":"DB-IP","eid":"db-ip","kind":"name"}
 {"alias":"DB-IP","eid":"db-ip","kind":"provider"}
-{"alias":"DCDN Sandbox (DCDN Cloud)","eid":"dcdncloud","kind":"provider"}
-{"alias":"DCDN Sandbox","eid":"dcdncloud","kind":"name"}
+{"alias":"DCDN Sandbox","eid":"alibabacloud","kind":"provider"}
 {"alias":"DDL.to","eid":"ddl","kind":"name"}
 {"alias":"DDL.to","eid":"ddl","kind":"provider"}
 {"alias":"DDLBase","eid":"ddlbase","kind":"name"}
@@ -1749,8 +1752,8 @@
 {"alias":"Doppler Team","eid":"doppler","kind":"name"}
 {"alias":"Doppler Team","eid":"doppler","kind":"provider"}
 {"alias":"Doppler","eid":"doppler","kind":"provider"}
-{"alias":"Dory (usedory.dev)","eid":"usedory","kind":"provider"}
-{"alias":"Dory","eid":"usedory","kind":"name"}
+{"alias":"Dory","eid":"augani-github-io","kind":"name"}
+{"alias":"Dory","eid":"augani-github-io","kind":"provider"}
 {"alias":"DotHoosh","eid":"dothoosh","kind":"name"}
 {"alias":"DotHoosh","eid":"dothoosh","kind":"provider"}
 {"alias":"Dothome","eid":"dothome","kind":"name"}
@@ -1793,7 +1796,8 @@
 {"alias":"DumpApp","eid":"dumpapp","kind":"provider"}
 {"alias":"Dynu","eid":"dynu","kind":"name"}
 {"alias":"Dynu","eid":"dynu","kind":"provider"}
-{"alias":"E2B","eid":"e2b","kind":"name"}
+{"alias":"E2B Desktop","eid":"e2b","kind":"name"}
+{"alias":"E2B Desktop","eid":"e2b","kind":"provider"}
 {"alias":"E2B","eid":"e2b","kind":"provider"}
 {"alias":"E2E Networks","eid":"e2enetworks","kind":"provider"}
 {"alias":"EBCloud","eid":"ebcloud","kind":"name"}
@@ -1825,8 +1829,8 @@
 {"alias":"EXPOSE","eid":"github-gaetanlhf","kind":"provider"}
 {"alias":"EZ-Homelab","eid":"ez-homelab","kind":"name"}
 {"alias":"EZ-Homelab","eid":"ez-homelab","kind":"provider"}
-{"alias":"EZTV","eid":"eztv","kind":"name"}
-{"alias":"EZTV","eid":"eztv","kind":"provider"}
+{"alias":"EZTV","eid":"eztvx","kind":"name"}
+{"alias":"EZTV","eid":"eztvx","kind":"provider"}
 {"alias":"Earnings Feed","eid":"earningsfeed","kind":"name"}
 {"alias":"Earnings Feed","eid":"earningsfeed","kind":"provider"}
 {"alias":"EasyCron","eid":"easycron","kind":"name"}
@@ -1951,7 +1955,8 @@
 {"alias":"Expanse","eid":"expanse","kind":"provider"}
 {"alias":"Expanso","eid":"expanso","kind":"name"}
 {"alias":"Expanso","eid":"expanso","kind":"provider"}
-{"alias":"Expo","eid":"expo","kind":"name"}
+{"alias":"Expo Simulators (EAS)","eid":"expo","kind":"provider"}
+{"alias":"Expo Simulators","eid":"expo","kind":"name"}
 {"alias":"Expo","eid":"expo","kind":"provider"}
 {"alias":"Expose (expose.dev managed service)","eid":"expose","kind":"provider"}
 {"alias":"Expose","eid":"expose","kind":"name"}
@@ -2270,6 +2275,7 @@
 {"alias":"GMI Cloud Inference","eid":"gmicloud","kind":"provider"}
 {"alias":"GMI Cloud SCALE","eid":"gmicloud","kind":"provider"}
 {"alias":"GMI Cloud","eid":"gmicloud","kind":"name"}
+{"alias":"GMI Cloud","eid":"gmicloud","kind":"provider"}
 {"alias":"GMX (free) — 65 GB mailbox, IMAP after opt-in, 135 MiB SMTP SIZE","eid":"gmx","kind":"provider"}
 {"alias":"GMX","eid":"gmx","kind":"name"}
 {"alias":"GNU Savannah download area (download.savannah.gnu.org / .nongnu.org)","eid":"gnu","kind":"provider"}
@@ -2319,8 +2325,8 @@
 {"alias":"Genspark SB-Box","eid":"genspark","kind":"provider"}
 {"alias":"Gensyn","eid":"gensyn","kind":"name"}
 {"alias":"Gensyn","eid":"gensyn","kind":"provider"}
-{"alias":"Genymotion","eid":"genymotion","kind":"name"}
-{"alias":"Genymotion","eid":"genymotion","kind":"provider"}
+{"alias":"Genymotion SaaS","eid":"genymotion","kind":"name"}
+{"alias":"Genymotion SaaS","eid":"genymotion","kind":"provider"}
 {"alias":"GeoJS","eid":"geojs","kind":"name"}
 {"alias":"GeoJS","eid":"geojs","kind":"provider"}
 {"alias":"Geoapify","eid":"geoapify","kind":"name"}
@@ -3784,10 +3790,10 @@
 {"alias":"MoFrp","eid":"mofrp","kind":"provider"}
 {"alias":"Moark","eid":"moark","kind":"name"}
 {"alias":"Moark","eid":"moark","kind":"provider"}
+{"alias":"MobileRun","eid":"mobilerun","kind":"name"}
+{"alias":"MobileRun","eid":"mobilerun","kind":"provider"}
 {"alias":"Mobilebox","eid":"mobilebox","kind":"name"}
 {"alias":"Mobilebox","eid":"mobilebox","kind":"provider"}
-{"alias":"Mobilerun","eid":"mobilerun","kind":"name"}
-{"alias":"Mobilerun","eid":"mobilerun","kind":"provider"}
 {"alias":"ModDB (free member file hosting)","eid":"moddb","kind":"provider"}
 {"alias":"ModDB / IndieDB (dbolical) file downloads","eid":"moddb","kind":"provider"}
 {"alias":"ModDB","eid":"moddb","kind":"name"}
@@ -3872,6 +3878,7 @@
 {"alias":"Mundo Premium","eid":"mundopremium","kind":"name"}
 {"alias":"Mundo Premium","eid":"mundopremium","kind":"provider"}
 {"alias":"Munito AI (EU)","eid":"munito","kind":"provider"}
+{"alias":"Munito AI Sandboxes","eid":"munito","kind":"provider"}
 {"alias":"Munito AI","eid":"munito","kind":"name"}
 {"alias":"Munito AI","eid":"munito","kind":"provider"}
 {"alias":"Munito","eid":"munito","kind":"provider"}
@@ -4152,8 +4159,8 @@
 {"alias":"NodeMesh","eid":"nodemesh","kind":"provider"}
 {"alias":"Nodecode","eid":"nodecode","kind":"name"}
 {"alias":"Nodecode","eid":"nodecode","kind":"provider"}
-{"alias":"Nodion","eid":"nodion","kind":"name"}
-{"alias":"Nodion","eid":"nodion","kind":"provider"}
+{"alias":"Nodion Sandboxes","eid":"nodion","kind":"name"}
+{"alias":"Nodion Sandboxes","eid":"nodion","kind":"provider"}
 {"alias":"Nodus Compute","eid":"nodus-compute","kind":"name"}
 {"alias":"Nodus Compute","eid":"nodus-compute","kind":"provider"}
 {"alias":"NolimitHost","eid":"nolimithost","kind":"name"}
@@ -4959,8 +4966,8 @@
 {"alias":"Rayline","eid":"rayline","kind":"provider"}
 {"alias":"Rayobyte","eid":"rayobyte","kind":"name"}
 {"alias":"Rayobyte","eid":"rayobyte","kind":"provider"}
-{"alias":"Rayrun","eid":"ray","kind":"name"}
-{"alias":"Rayrun","eid":"ray","kind":"provider"}
+{"alias":"Rayrun","eid":"rayrunos","kind":"name"}
+{"alias":"Rayrun","eid":"rayrunos","kind":"provider"}
 {"alias":"Ready (ready.bd)","eid":"ready","kind":"provider"}
 {"alias":"Ready","eid":"ready","kind":"name"}
 {"alias":"ReadyDedis","eid":"readydedis","kind":"name"}
@@ -5066,8 +5073,8 @@
 {"alias":"Rollgate","eid":"rollgate","kind":"provider"}
 {"alias":"Rollin Host Drive empresarial / Backup & Storage (Brazil) — flat per-TB, no request or traffic charge, Pix/boleto","eid":"rollinhost","kind":"provider"}
 {"alias":"Rollin Host Drive empresarial","eid":"rollinhost","kind":"name"}
-{"alias":"RoundFleet","eid":"roundfleet","kind":"name"}
-{"alias":"RoundFleet","eid":"roundfleet","kind":"provider"}
+{"alias":"Roundfleet","eid":"roundfleet","kind":"name"}
+{"alias":"Roundfleet","eid":"roundfleet","kind":"provider"}
 {"alias":"Route64","eid":"route64","kind":"name"}
 {"alias":"Route64","eid":"route64","kind":"provider"}
 {"alias":"Routeway","eid":"routeway","kind":"name"}
@@ -5193,8 +5200,8 @@
 {"alias":"Samsung SDS","eid":"samsungsds","kind":"name"}
 {"alias":"SandBase","eid":"sandbase","kind":"name"}
 {"alias":"SandBase","eid":"sandbase","kind":"provider"}
-{"alias":"Sandbox Router (ComputeSDK)","eid":"computesdk","kind":"provider"}
 {"alias":"Sandbox Router","eid":"computesdk","kind":"name"}
+{"alias":"Sandbox Router","eid":"computesdk","kind":"provider"}
 {"alias":"Sandbox as a Service","eid":"sandbox-as-a-service","kind":"name"}
 {"alias":"Sandbox as a Service","eid":"sandbox-as-a-service","kind":"provider"}
 {"alias":"Sandbox0","eid":"sandbox0","kind":"name"}
@@ -5312,7 +5319,7 @@
 {"alias":"Semantic Scholar Academic Graph API","eid":"semanticscholar","kind":"provider"}
 {"alias":"Semantic Scholar","eid":"semanticscholar","kind":"name"}
 {"alias":"Semantic Scholar","eid":"semanticscholar","kind":"provider"}
-{"alias":"Semaphore CI (macOS)","eid":"semaphore","kind":"provider"}
+{"alias":"Semaphore CI","eid":"semaphore","kind":"provider"}
 {"alias":"Semaphore Cloud","eid":"semaphore","kind":"name"}
 {"alias":"Semaphore Cloud","eid":"semaphore","kind":"provider"}
 {"alias":"Send Anywhere","eid":"send-anywhere","kind":"name"}
@@ -6333,8 +6340,8 @@
 {"alias":"VeloxMedia","eid":"veloxmedia","kind":"provider"}
 {"alias":"Venice AI","eid":"venice","kind":"name"}
 {"alias":"Venice AI","eid":"venice","kind":"provider"}
-{"alias":"Ventaw","eid":"mmogomedia","kind":"name"}
-{"alias":"Ventaw","eid":"mmogomedia","kind":"provider"}
+{"alias":"Ventaw","eid":"ventaw","kind":"name"}
+{"alias":"Ventaw","eid":"ventaw","kind":"provider"}
 {"alias":"Vercel AI Gateway","eid":"vercel","kind":"provider"}
 {"alias":"Vercel Blob (Hobby plan)","eid":"vercel","kind":"provider"}
 {"alias":"Vercel CI","eid":"vercel","kind":"provider"}
@@ -7358,6 +7365,7 @@
 {"alias":"audiovisual-heritage-open-heritage-3d","eid":"openheritage3d","kind":"slug"}
 {"alias":"audius-original-file-is-served-byte-for-byte","eid":"audius","kind":"slug"}
 {"alias":"audius.co","eid":"audius","kind":"domain"}
+{"alias":"augani.github.io","eid":"augani-github-io","kind":"domain"}
 {"alias":"augment-code","eid":"augmentcode","kind":"slug"}
 {"alias":"augment-code-business","eid":"augmentcode","kind":"slug"}
 {"alias":"augment-code-standard","eid":"augmentcode","kind":"slug"}
@@ -7666,10 +7674,10 @@
 {"alias":"bitiful.com","eid":"bitiful","kind":"domain"}
 {"alias":"bitport-io","eid":"bitport","kind":"slug"}
 {"alias":"bitport.io","eid":"bitport","kind":"domain"}
-{"alias":"bitrise artifacts","eid":"bitrise","kind":"name"}
 {"alias":"bitrise artifacts","eid":"bitrise","kind":"provider"}
 {"alias":"bitrise","eid":"bitrise","kind":"slug"}
 {"alias":"bitrise-artifacts","eid":"bitrise","kind":"slug"}
+{"alias":"bitrise-remote-dev-environments","eid":"bitrise","kind":"slug"}
 {"alias":"bitrise.io","eid":"bitrise","kind":"domain"}
 {"alias":"bitrix24-free","eid":"bitrix24","kind":"slug"}
 {"alias":"bitrix24.com","eid":"bitrix24","kind":"domain"}
@@ -7735,6 +7743,8 @@
 {"alias":"bolt.new","eid":"bolt","kind":"domain"}
 {"alias":"boltz-api","eid":"boltz","kind":"slug"}
 {"alias":"boltz.com","eid":"boltz","kind":"domain"}
+{"alias":"boltzlabs-sandboxes","eid":"boltzlabs","kind":"slug"}
+{"alias":"boltzlabs.cloud","eid":"boltzlabs","kind":"domain"}
 {"alias":"bonsai (managed elasticsearch/opensearch)","eid":"bonsai","kind":"provider"}
 {"alias":"bonsai","eid":"bonsai","kind":"name"}
 {"alias":"bonsai","eid":"bonsai","kind":"slug"}
@@ -8525,6 +8535,7 @@
 {"alias":"corehost","eid":"corehost","kind":"slug"}
 {"alias":"corehost.io","eid":"corehost","kind":"domain"}
 {"alias":"corellium","eid":"corellium","kind":"slug"}
+{"alias":"corellium-solo","eid":"corellium","kind":"slug"}
 {"alias":"corellium.com","eid":"corellium","kind":"domain"}
 {"alias":"coreserver-v2","eid":"coreserver","kind":"slug"}
 {"alias":"coreserver.jp","eid":"coreserver","kind":"domain"}
@@ -8913,8 +8924,7 @@
 {"alias":"daytona.io","eid":"daytona","kind":"domain"}
 {"alias":"db-ip","eid":"db-ip","kind":"slug"}
 {"alias":"db-ip.com","eid":"db-ip","kind":"domain"}
-{"alias":"dcdn-sandbox","eid":"dcdncloud","kind":"slug"}
-{"alias":"dcdncloud.com","eid":"dcdncloud","kind":"domain"}
+{"alias":"dcdn-sandbox","eid":"alibabacloud","kind":"slug"}
 {"alias":"ddl-to","eid":"ddl","kind":"slug"}
 {"alias":"ddl.to","eid":"ddl","kind":"domain"}
 {"alias":"ddlbase","eid":"ddlbase","kind":"slug"}
@@ -9226,7 +9236,7 @@
 {"alias":"doppler","eid":"doppler","kind":"slug"}
 {"alias":"doppler-team","eid":"doppler","kind":"slug"}
 {"alias":"doppler.com","eid":"doppler","kind":"domain"}
-{"alias":"dory","eid":"usedory","kind":"slug"}
+{"alias":"dory","eid":"augani-github-io","kind":"slug"}
 {"alias":"dothome","eid":"dothome","kind":"slug"}
 {"alias":"dothome.co.kr","eid":"dothome","kind":"domain"}
 {"alias":"dothoosh","eid":"dothoosh","kind":"slug"}
@@ -9580,6 +9590,7 @@
 {"alias":"expanso","eid":"expanso","kind":"slug"}
 {"alias":"expanso.io","eid":"expanso","kind":"domain"}
 {"alias":"expo","eid":"expo","kind":"slug"}
+{"alias":"expo-simulators-eas","eid":"expo","kind":"slug"}
 {"alias":"expo.dev","eid":"expo","kind":"domain"}
 {"alias":"expose","eid":"github-exposedev","kind":"name"}
 {"alias":"expose","eid":"github-exposedev","kind":"provider"}
@@ -9598,8 +9609,8 @@
 {"alias":"ez-homelab.com","eid":"ez-homelab","kind":"domain"}
 {"alias":"ezkielyna","eid":"ezkielyna","kind":"slug"}
 {"alias":"ezkielyna.store","eid":"ezkielyna","kind":"domain"}
-{"alias":"eztv","eid":"eztv","kind":"slug"}
-{"alias":"eztv.re","eid":"eztv","kind":"domain"}
+{"alias":"eztv","eid":"eztvx","kind":"slug"}
+{"alias":"eztvx.to","eid":"eztvx","kind":"domain"}
 {"alias":"f-droid","eid":"f-droid","kind":"slug"}
 {"alias":"f-droid.org","eid":"f-droid","kind":"domain"}
 {"alias":"faable","eid":"faable","kind":"slug"}
@@ -10557,6 +10568,7 @@
 {"alias":"gmail-as-bulk-storage","eid":"google","kind":"slug"}
 {"alias":"gmi-cloud-agentbox","eid":"gmicloud","kind":"slug"}
 {"alias":"gmi-cloud-inference","eid":"gmicloud","kind":"slug"}
+{"alias":"gmi-cloud-on-demand-gpu","eid":"gmicloud","kind":"slug"}
 {"alias":"gmi-cloud-scale","eid":"gmicloud","kind":"slug"}
 {"alias":"gmicloud.ai","eid":"gmicloud","kind":"domain"}
 {"alias":"gmx-65-gb-mailbox-imap-after-opt-in-135-mib-smtp-size","eid":"gmx","kind":"slug"}
@@ -10723,7 +10735,7 @@
 {"alias":"gratisvps","eid":"gratisvps","kind":"slug"}
 {"alias":"gratisvps.net","eid":"gratisvps","kind":"domain"}
 {"alias":"gravix-layer","eid":"gravixlayer","kind":"slug"}
-{"alias":"gravixlayer.ai","eid":"gravixlayer","kind":"domain"}
+{"alias":"gravixlayer.com","eid":"gravixlayer","kind":"domain"}
 {"alias":"green-compute","eid":"green-compute","kind":"slug"}
 {"alias":"green-compute.com","eid":"green-compute","kind":"domain"}
 {"alias":"green.cloud","eid":"green","kind":"domain"}
@@ -10756,7 +10768,7 @@
 {"alias":"grosfichiers","eid":"grosfichiers","kind":"slug"}
 {"alias":"grosfichiers.com","eid":"grosfichiers","kind":"domain"}
 {"alias":"groundbox","eid":"groundbox","kind":"slug"}
-{"alias":"groundbox.io","eid":"groundbox","kind":"domain"}
+{"alias":"groundbox.dev","eid":"groundbox","kind":"domain"}
 {"alias":"groups-io-free","eid":"groups","kind":"slug"}
 {"alias":"groups.io free (1 gb, and files is premium-only)","eid":"groups","kind":"provider"}
 {"alias":"groups.io free","eid":"groups","kind":"name"}
@@ -12131,6 +12143,7 @@
 {"alias":"libretranslate.com","eid":"libretranslate","kind":"domain"}
 {"alias":"librivox","eid":"librivox","kind":"slug"}
 {"alias":"librivox.org","eid":"librivox","kind":"domain"}
+{"alias":"lightcone","eid":"lightcone","kind":"slug"}
 {"alias":"lightcone-compute","eid":"lightcone","kind":"slug"}
 {"alias":"lightcone.ai","eid":"lightcone","kind":"domain"}
 {"alias":"lighthouse","eid":"lighthouse","kind":"slug"}
@@ -12323,6 +12336,7 @@
 {"alias":"luo_cloud","eid":"888644","kind":"provider"}
 {"alias":"lusovps-ipv6-free","eid":"lusovps","kind":"slug"}
 {"alias":"lusovps.com","eid":"lusovps","kind":"domain"}
+{"alias":"luxor-agent-cloud","eid":"luxor","kind":"slug"}
 {"alias":"luxor-agent-cloud-sandbox","eid":"luxor","kind":"slug"}
 {"alias":"luxor.ai","eid":"luxor","kind":"domain"}
 {"alias":"luxvps","eid":"luxvps","kind":"slug"}
@@ -12796,7 +12810,6 @@
 {"alias":"mmar","eid":"github-yusuf-musleh","kind":"name"}
 {"alias":"mmar","eid":"github-yusuf-musleh","kind":"provider"}
 {"alias":"mmar","eid":"github-yusuf-musleh","kind":"slug"}
-{"alias":"mmogomedia.com","eid":"mmogomedia","kind":"domain"}
 {"alias":"mmpan-net","eid":"mmpan","kind":"slug"}
 {"alias":"mmpan.net","eid":"mmpan","kind":"domain"}
 {"alias":"mmpan.net","eid":"mmpan","kind":"name"}
@@ -12935,12 +12948,14 @@
 {"alias":"mundopremium.com","eid":"mundopremium","kind":"domain"}
 {"alias":"munito","eid":"munito","kind":"slug"}
 {"alias":"munito-eu","eid":"munito","kind":"slug"}
+{"alias":"munito-sandboxes","eid":"munito","kind":"slug"}
 {"alias":"munito-sandboxes-trial","eid":"munito","kind":"slug"}
 {"alias":"munito.ai","eid":"munito","kind":"domain"}
 {"alias":"mux","eid":"mux","kind":"name"}
 {"alias":"mux","eid":"mux","kind":"provider"}
 {"alias":"mux","eid":"mux","kind":"slug"}
 {"alias":"mux.com","eid":"mux","kind":"domain"}
+{"alias":"my-remote-mac","eid":"myremotemac","kind":"slug"}
 {"alias":"my-remote-mac-daily-m4","eid":"myremotemac","kind":"slug"}
 {"alias":"my-seedbox","eid":"my-seedbox","kind":"slug"}
 {"alias":"my-seedbox.com","eid":"my-seedbox","kind":"domain"}
@@ -12988,6 +13003,7 @@
 {"alias":"naiss-arrhenius-disk-sens-storage-25-pb-and-10-pb-projec","eid":"naiss","kind":"slug"}
 {"alias":"naiss-pdc","eid":"kth","kind":"slug"}
 {"alias":"naiss.se","eid":"naiss","kind":"domain"}
+{"alias":"naive","eid":"usenaive","kind":"slug"}
 {"alias":"naive-free","eid":"usenaive","kind":"slug"}
 {"alias":"nakala","eid":"nakala","kind":"slug"}
 {"alias":"nakala-no-formal-size-limit-but-a-humanid-gate-and-a-con","eid":"nakala","kind":"slug"}
@@ -14474,6 +14490,7 @@
 {"alias":"quark.cn","eid":"quark","kind":"domain"}
 {"alias":"quarto-pub","eid":"quartopub","kind":"slug"}
 {"alias":"quartopub.com","eid":"quartopub","kind":"domain"}
+{"alias":"quave-one-agent-sandboxes-direct","eid":"quave","kind":"slug"}
 {"alias":"quave-one-direct","eid":"quave","kind":"slug"}
 {"alias":"quave.one","eid":"quave","kind":"domain"}
 {"alias":"quay-io-public-repositories","eid":"quay","kind":"slug"}
@@ -14587,12 +14604,12 @@
 {"alias":"raw.githack.com (CDN for GitHub/GitLab/Bitbucket raw files)","eid":"githack","kind":"provider"}
 {"alias":"raw.githack.com","eid":"githack","kind":"name"}
 {"alias":"raw.githubusercontent.com","eid":"raw","kind":"domain"}
-{"alias":"ray.run","eid":"ray","kind":"domain"}
 {"alias":"rayline","eid":"rayline","kind":"slug"}
 {"alias":"rayline.ai","eid":"rayline","kind":"domain"}
 {"alias":"rayobyte","eid":"rayobyte","kind":"slug"}
 {"alias":"rayobyte.com","eid":"rayobyte","kind":"domain"}
-{"alias":"rayrun","eid":"ray","kind":"slug"}
+{"alias":"rayrun","eid":"rayrunos","kind":"slug"}
+{"alias":"rayrunos.com","eid":"rayrunos","kind":"domain"}
 {"alias":"raysync","eid":"raysync","kind":"name"}
 {"alias":"raysync","eid":"raysync","kind":"provider"}
 {"alias":"raysync","eid":"raysync","kind":"slug"}
@@ -14946,6 +14963,7 @@
 {"alias":"saturn cloud","eid":"saturncloud","kind":"provider"}
 {"alias":"saturn-cloud","eid":"saturncloud","kind":"slug"}
 {"alias":"saturncloud.io","eid":"saturncloud","kind":"domain"}
+{"alias":"sauce-labs","eid":"saucelabs","kind":"slug"}
 {"alias":"sauce-labs-free-trial","eid":"saucelabs","kind":"slug"}
 {"alias":"saucelabs.com","eid":"saucelabs","kind":"domain"}
 {"alias":"savannaa","eid":"savannaa","kind":"slug"}
@@ -16117,6 +16135,7 @@
 {"alias":"test_collection as a staging area","eid":"test-collection-as-a-staging-area","kind":"name"}
 {"alias":"test_collection as a staging area","eid":"test-collection-as-a-staging-area","kind":"provider"}
 {"alias":"testmu-ai","eid":"testmuai","kind":"slug"}
+{"alias":"testmu-ai-real-device-automation","eid":"testmuai","kind":"slug"}
 {"alias":"testmuai.com","eid":"testmuai","kind":"domain"}
 {"alias":"tetrate-agent-router-service","eid":"tetrate","kind":"slug"}
 {"alias":"tetrate.io","eid":"tetrate","kind":"domain"}
@@ -16756,7 +16775,6 @@
 {"alias":"use.computer","eid":"use-computer","kind":"domain"}
 {"alias":"use.computer","eid":"use-computer","kind":"name"}
 {"alias":"use.computer","eid":"use-computer","kind":"provider"}
-{"alias":"usedory.dev","eid":"usedory","kind":"domain"}
 {"alias":"usegalaxy.org.au","eid":"usegalaxy","kind":"domain"}
 {"alias":"usenaive.ai","eid":"usenaive","kind":"domain"}
 {"alias":"usenet / nntp free providers","eid":"eternal-september","kind":"provider"}
@@ -16872,7 +16890,8 @@
 {"alias":"venice","eid":"venice","kind":"slug"}
 {"alias":"venice-ai","eid":"venice","kind":"slug"}
 {"alias":"venice.ai","eid":"venice","kind":"domain"}
-{"alias":"ventaw","eid":"mmogomedia","kind":"slug"}
+{"alias":"ventaw","eid":"ventaw","kind":"slug"}
+{"alias":"ventaw.com","eid":"ventaw","kind":"domain"}
 {"alias":"vercel blob","eid":"vercel","kind":"provider"}
 {"alias":"vercel edge config / global config","eid":"vercel","kind":"provider"}
 {"alias":"vercel hobby (static deployments)","eid":"vercel","kind":"provider"}
@@ -16974,6 +16993,7 @@
 {"alias":"voe-sx","eid":"voe","kind":"slug"}
 {"alias":"voe.sx","eid":"voe","kind":"domain"}
 {"alias":"void-run.com","eid":"void-run","kind":"domain"}
+{"alias":"voidrun","eid":"void-run","kind":"slug"}
 {"alias":"voidrun-sandboxes","eid":"void-run","kind":"slug"}
 {"alias":"volcengine ark files api (doubao)","eid":"volcengine","kind":"provider"}
 {"alias":"volcengine","eid":"volcengine","kind":"slug"}
@@ -17684,8 +17704,8 @@
 {"alias":"小米云服务 / Xiaomi Cloud (Mi Cloud Drive)","eid":"mi","kind":"alias"}
 {"alias":"小米云服务 / Xiaomi Cloud (Mi Cloud Drive)","eid":"mi","kind":"provider"}
 {"alias":"小米云服务 Xiaomi Cloud","eid":"mi","kind":"alias"}
-{"alias":"小雅 xiaoya","eid":"xiaoya","kind":"name"}
-{"alias":"小雅 xiaoya, the most widely published public instance (alist.xiaoya.pro)","eid":"xiaoya","kind":"provider"}
+{"alias":"小雅Alist","eid":"xiaoya","kind":"name"}
+{"alias":"小雅Alist","eid":"xiaoya","kind":"provider"}
 {"alias":"小飞机网盘 FeijiPan (feijipan.com)","eid":"feijipan","kind":"provider"}
 {"alias":"小飞机网盘 FeijiPan","eid":"feijipan","kind":"name"}
 {"alias":"小鹿乐玩iOS网盘IPA资源｜路灯网盘-iOS砸壳分享网-IPA分享网-巨魔商店IPA软件资源-后厂村路灯的网盘资源","eid":"591meta","kind":"provider"}

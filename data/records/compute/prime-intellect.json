@@ -5,11 +5,12 @@
   "url": "https://www.primeintellect.ai/sandboxes",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "no free tier: tier-free metered pricing at USD 0.02 a vCPU-hour, USD 0.0125 a GiB-hour of memory and USD 0.0002 a GiB-hour of disk, with no subscription or minimum spend; rates are stated valid through December 22",
+    "stated": "Tier-free pricing built for scale, with no subscriptions or minimum spend.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.primeintellect.ai/sandboxes",
-    "read_on": "2026-10-22"
+    "read_on": "2026-10-22",
+    "notes": "Tier-free means no pricing tiers, not that no free tier exists; the page does not state whether a free tier exists. The page also gives an estimated cost of $3.35 / hour, or $0.0335 / sandbox / hour for 1 vCPU, 1 GiB RAM, 5 GiB disk and 100 sandboxes, with prices valid through December 22."
   },
   "per_object_cap": {
     "stated": "not stated",
@@ -69,6 +70,20 @@
       "proved": "'Tier-free pricing built for scale, with no subscriptions or minimum spend' with 'vCPU $0.02 / hour', 'Memory $0.0125 / GiB / hour', 'Disk $0.0002 / GiB / hour', and '1 vCPU · 1 GiB RAM · 5 GiB disk · 100 Sandboxes $3.35 / hour = $0.0335 / sandbox / hour', quoted"
     },
     {
+      "url": "https://www.primeintellect.ai/sandboxes",
+      "date": "2026-11-25",
+      "proved": "the page states tier-free pricing with no subscriptions or minimum spend",
+      "capture": "sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c",
+      "quote": "Tier-free pricing built for scale, with no subscriptions or minimum spend."
+    },
+    {
+      "url": "https://www.primeintellect.ai/sandboxes",
+      "date": "2026-11-25",
+      "proved": "the hourly figure is an estimate for a 100-sandbox configuration",
+      "capture": "sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c",
+      "quote": "$0.0335 / sandbox / hour · 1 vCPU · 1 GiB RAM · 5 GiB disk · 100 sandboxes"
+    },
+    {
       "url": "https://docs.primeintellect.ai/sandboxes/overview.md",
       "date": "2026-11-24",
       "proved": "the metered rates have a stated validity date",
@@ -95,13 +110,6 @@
       "proved": "interactive shells and remote commands are documented on a sandbox",
       "capture": "sha256:b23baa50cab9b0d4c931741f658a4b6bc5d4d0991914258b22f6265ef864552b",
       "quote": "> One-off commands, background jobs, and interactive shells"
-    },
-    {
-      "url": "https://docs.primeintellect.ai/sandboxes/overview.md",
-      "date": "2026-11-24",
-      "proved": "the documented tooling requires an API key and a CLI login",
-      "capture": "sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce",
-      "quote": "Log in first with `prime login`, using an API key with sandbox permissions."
     },
     {
       "url": "https://app.primeintellect.ai/dashboard/sandboxes",
@@ -132,36 +140,15 @@
       "quote": "* CPU: \\$0.02 per vCPU per hour"
     },
     {
-      "url": "https://docs.primeintellect.ai/sandboxes/pause-resume.md",
-      "date": "2026-11-24",
-      "proved": "paused checkpoints have a durability window",
-      "capture": "sha256:b480ed8256e4e9b24b41b812416f0e223ef73a035e41f5a2722b629b428e9245",
-      "quote": "A pause checkpoint has no TTL, but its disk must become `DURABLE` within about 6 hours of the pause, and its memory within about 6 hours after that."
-    },
-    {
       "url": "https://www.primeintellect.ai/sandboxes",
       "date": "2026-11-24",
       "proved": "the offer has no subscription or minimum spend",
       "capture": "sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c",
       "quote": "Tier-free pricing built for scale, with no subscriptions or minimum spend."
-    },
-    {
-      "url": "https://docs.primeintellect.ai/sandboxes/overview.md",
-      "date": "2026-11-24",
-      "proved": "the CLI and an API key are required to use the sandbox",
-      "capture": "sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce",
-      "quote": "Log in first with `prime login`, using an API key with sandbox permissions."
-    },
-    {
-      "url": "https://docs.primeintellect.ai/sandboxes/network-isolation.md",
-      "date": "2026-11-24",
-      "proved": "outbound traffic controls are documented",
-      "capture": "sha256:25018f1c7197f4b1f39bc4435a491064f87b61b14921e232bca09f200ca73146",
-      "quote": "Restrict outbound traffic with an allowlist or a denylist. The two are mutually exclusive."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:21:01.722Z",
+  "verified_at": "2026-11-25T15:03:50.982Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

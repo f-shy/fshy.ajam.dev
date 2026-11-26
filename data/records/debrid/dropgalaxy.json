@@ -154,9 +154,16 @@
       "proved": "the free column is unchanged: 1 day retention, 1024 Kbytes/sec, 20 GB per day; the registered and premium columns and the plan ladder are also unchanged",
       "capture": "sha256:3ede819df217d4ebbbfa86c58067f278c18ba925e146b8aed673ffc57b3c40d5",
       "quote": "1 days after last download 1024 Kbytes/sec 20 GB in 1 days"
+    },
+    {
+      "url": "probe:https://dropgalaxy.com/?op=payments",
+      "date": "2026-11-25",
+      "proved": "a direct probe of the payment page returned no HTTP status",
+      "capture": "sha256:be3abc08385a76b325dbd42fb5b088b9d52b8f2ade59343cdea9e03703231aea",
+      "quote": "\"status\": null"
     }
   ],
-  "verdict": "fails-quota",
+  "verdict": "dead",
   "verified_at": "2026-11-03T11:28:57.800Z",
   "price_per_tb_month": "USD 30.54 per TiB at 30 days (USD 50 for 60 GB/day x 30 days = 1.64 TiB); USD 15.06 per TiB at 365 days (USD 300 for 60 GB/day x 365 days = 19.92 TiB)",
   "notes": "Two vendor surfaces disagree on the free numbers by a factor of four, which is why the verdict does not rest on them: the premium price per TiB is USD 30, five times the best host compared. At 365 days, the vendor's own 60 GB/day is 21,900 GB = 19.92 TiB, so the annual plan costs USD 15.06 per TiB-month; a figure of USD 20.6 per TiB-month implies 300 / 20.6 = 14.6 TiB. The difference is 27%, and it moves DropGalaxy from worst-in-class on the annual plan to mid-table.",
@@ -168,6 +175,10 @@
     "api": false,
     "price_30d_usd": 50.0,
     "price_ladder_reported": "USD 50 / 30 days; USD 5 / 1 day; USD 20 / 7 days; USD 100 / 90 days; USD 200 / 180 days; USD 300 / 365 days",
-    "volume_tib_month": 1.0
+    "volume_tib_month": 1.0,
+    "death": {
+      "on": "2026-11-25",
+      "cause": "dead-service"
+    }
   }
 }

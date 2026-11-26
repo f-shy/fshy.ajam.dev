@@ -15,12 +15,12 @@
   "per_object_cap": {
     "stated": null,
     "source_url": "https://www.scidb.cn/en/faq",
-    "notes": "not stated"
+    "notes": "At ScienceDB, we do not impose restrictions on the type, format, size or subject area of a data file to be uploaded."
   },
   "retention": {
     "stated": null,
     "source_url": "https://www.scidb.cn/en/faq",
-    "notes": "not stated"
+    "notes": null
   },
   "egress": {
     "terms": "Free public HTTPS download; no egress accounting in any policy page read.",
@@ -78,10 +78,38 @@
       "proved": "published data receives permanent access",
       "capture": "sha256:75c011eb50d260bdf05441d5b903884b61af4ec3debc2bae41112453e1315bbe",
       "quote": "ScienceDB provides permanent access to all data accepted for publishing on this site"
+    },
+    {
+      "url": "https://www.scidb.cn/en/help",
+      "date": "2026-11-25",
+      "proved": "no per-file format or size restriction is stated on the upload instructions",
+      "capture": "sha256:5789f6ba52272ad5675b341564cc59b5dd2cf0b51982dabe8ba150e9f3219196",
+      "quote": "At ScienceDB, we do not impose restrictions on the type, format, size or subject area of a data file to be uploaded."
+    },
+    {
+      "url": "https://www.scidb.cn/en/faq",
+      "date": "2026-11-25",
+      "proved": "accepted published data receives permanent access",
+      "capture": "sha256:3fc3548ab687af40b2489d54861707c7138d747a9c78181d61a73db5cc3eeef3",
+      "quote": null
+    },
+    {
+      "url": "https://www.scidb.cn/en/faq",
+      "date": "2026-11-25",
+      "proved": "a data package can hold multiple datasets",
+      "capture": "sha256:3fc3548ab687af40b2489d54861707c7138d747a9c78181d61a73db5cc3eeef3",
+      "quote": "ScienceDB provides “Package” mode, where a data package can contain multiple datasets."
+    },
+    {
+      "url": "https://www.scidb.cn/en/faq",
+      "date": "2026-11-25",
+      "proved": "open services are available through a programmatic API",
+      "capture": "sha256:3fc3548ab687af40b2489d54861707c7138d747a9c78181d61a73db5cc3eeef3",
+      "quote": "And the ScienceDB OPEN-API allows you to request open services programmatically."
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-19T21:15:20.588Z",
+  "verified_at": "2026-11-25T19:55:20.741Z",
   "notes": "Allowance is 1 TB per dataset and 2,000 files per dataset with no published per-user or per-account cap. The 1 TB limit is a soft threshold requiring administrator coordination for larger submissions. Data packages bundle multiple datasets under one published record.",
   "extras": {},
   "binding": "write-gated",

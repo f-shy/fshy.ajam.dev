@@ -98,7 +98,7 @@
     {
       "url": "probe:https://pan.timero.xyz/",
       "date": "2026-11-11",
-      "proved": null,
+      "proved": "the anonymous root listing hashed to this value",
       "capture": "sha256:c1836f3f9c6090eb85a22b4be8a1a0c2e7ec418c0be3b0a00959c78176751c8f",
       "quote": "\"listing_sha256\": \"4e972413\""
     },
@@ -112,13 +112,6 @@
     {
       "url": "probe:https://pan.timero.xyz/",
       "date": "2026-11-11",
-      "proved": null,
-      "capture": "sha256:c1836f3f9c6090eb85a22b4be8a1a0c2e7ec418c0be3b0a00959c78176751c8f",
-      "quote": "\"alive\": true"
-    },
-    {
-      "url": "probe:https://pan.timero.xyz/",
-      "date": "2026-11-11",
       "proved": "the root listing answered with this entry count and hash",
       "capture": "sha256:c1836f3f9c6090eb85a22b4be8a1a0c2e7ec418c0be3b0a00959c78176751c8f",
       "quote": "\"listing_note\": \"anonymous POST /api/fs/list on / returned code 200 with 200 root entries (listing sha256 4e972413)\""
@@ -126,7 +119,7 @@
     {
       "url": "probe:https://pan.timero.xyz/",
       "date": "2026-11-11",
-      "proved": null,
+      "proved": "this host answered every request of this run's probe",
       "capture": "sha256:c1836f3f9c6090eb85a22b4be8a1a0c2e7ec418c0be3b0a00959c78176751c8f",
       "quote": null
     },
@@ -147,7 +140,7 @@
     {
       "url": "probe:https://pan.timero.xyz/",
       "date": "2026-11-11",
-      "proved": null,
+      "proved": "the anonymous root listing hashed to this value",
       "capture": "sha256:bb4f25a338604f30d43ddcd769f3bfbb6e8e3d612eff8c06db1a149ff019f019",
       "quote": "\"listing_sha256\": \"780159e3\""
     },
@@ -180,22 +173,57 @@
       "quote": "\"listing_sha256\": \"4e972413\""
     },
     {
-      "url": "probe:https://pan.timero.xyz",
-      "date": "2026-11-19",
-      "proved": "the fresh root listing hash supports the changed-hash or flapping note",
-      "capture": "sha256:080a892146a9273d101aa285e089949c97f377900770f52b4d2a3edcb27c849b",
-      "quote": "\"listing_sha256\": \"4e972413\""
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the anonymous settings and mount-list requests answered at this instant",
+      "capture": "sha256:4bf82ecc9972d63b402c4747f817625f878cc640741b9bcca765619f300b2d35",
+      "quote": "\"alive\": true"
     },
     {
-      "url": "probe:https://pan.timero.xyz",
-      "date": "2026-11-19",
-      "proved": "the second fresh probe reproduced the new hash",
-      "capture": "sha256:db08ae17c6b5a2cab27b24b828386c4bfd17cc63caa98b6f5403276056288405",
-      "quote": "\"listing_sha256\": \"4e972413\""
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the probe checked this host at this instant",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"checked_at\": \"2026-11-25T01:38:34.190Z\""
+    },
+    {
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the anonymous root listing has this entry count and hash",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"listing_sha256\": \"780159e3\", ... \"root_entries\": 1724,"
+    },
+    {
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the anonymous guest session answered and the settings request returned 200, so the host is alive",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"alive\": true, ... \"status\": 200,"
+    },
+    {
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the session is an anonymous guest user",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"guest\": true, ... \"username\": \"guest\","
+    },
+    {
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the guest role has this permission bitmask, base path and advertised write flags",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"permission\": 0, ... \"base_path\": \"/onedrive/adv_lib_001\", ... \"write_advertised\": false, ... \"write_content_bypass\": null,"
+    },
+    {
+      "url": "probe:https://pan.timero.xyz/",
+      "date": "2026-11-25",
+      "proved": "the anonymous listing names this upstream provider",
+      "capture": "sha256:75cbfd2841f4188dbb73cbd8a3fc879bed3f1a878659e082261ce04e8cd55bd6",
+      "quote": "\"provider\": \"Onedrive\","
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-19T21:12:07.761Z",
+  "verified_at": "2026-11-25T21:46:10.686Z",
   "binding": "per-ip-shaping",
   "notes": "anonymous POST /api/fs/list on / returned code 200 with 1724 root entries (listing sha256 780159e3)",
   "extras": {
@@ -208,9 +236,9 @@
     "write_content_bypass": null,
     "permission_bitmask": "0",
     "base_path": "/onedrive/adv_lib_001",
-    "listing_sha256": "4e972413",
+    "listing_sha256": "780159e3",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-11-19T03:36:59.774Z",
+    "last_verified_alive": "2026-11-25T02:34:39.902Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "aliases": [

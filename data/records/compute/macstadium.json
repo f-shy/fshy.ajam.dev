@@ -5,7 +5,7 @@
   "url": "https://www.macstadium.com/pricing",
   "category": "macOS host",
   "free_tier": {
-    "stated": "no free tier: individual hosted Macs are listed at USD 109, 149, 199, 249, 349 and 449 a month with fixed monthly or annual billing; a free portal account is needed to see inventory and get a quote, and a FAQ asks whether free trials are offered",
+    "stated": "M2.S Mac mini M2 8 Core 8 GB 256 GB SSD $109",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://www.macstadium.com/pricing",
@@ -60,8 +60,27 @@
   "evidence": [
     {
       "url": "https://www.macstadium.com/pricing",
+      "date": "2026-10-02",
+      "proved": null
+    },
+    {
+      "url": "https://www.macstadium.com/pricing",
       "date": "2026-10-22",
       "proved": "'Unlimited bandwidth' and 'predictable, fixed monthly or annual billing' with 'Sign-up online', and a FAQ entry 'Do you offer free trials on individual hosted Macs?', quoted"
+    },
+    {
+      "url": "https://www.macstadium.com/pricing",
+      "date": "2026-11-25",
+      "proved": "the pricing table states the entry hosted Mac configuration and monthly price",
+      "capture": "sha256:4230d3bb3b826593f06683e2d496f2d120e47138258203259d421ffac7c8b3b4",
+      "quote": "M2.S Mac mini M2 8 Core 8 GB 256 GB SSD $109"
+    },
+    {
+      "url": "https://www.macstadium.com/pricing",
+      "date": "2026-11-25",
+      "proved": "the page describes the portal account used to see prices before buying",
+      "capture": "sha256:4230d3bb3b826593f06683e2d496f2d120e47138258203259d421ffac7c8b3b4",
+      "quote": "Create a free MacStadium portal account to see our full inventory and get an instant price quote with our pricing calculator before you buy."
     },
     {
       "url": "https://www.macstadium.com/pricing",
@@ -101,22 +120,15 @@
     {
       "url": "https://www.macstadium.com/pricing",
       "date": "2026-11-24",
-      "proved": "a 1 GB internet link is included with no usage cap",
-      "capture": "sha256:4230d3bb3b826593f06683e2d496f2d120e47138258203259d421ffac7c8b3b4",
-      "quote": "Fast 1GB internet is included. Use as much as you need without affecting your flat rate billing."
-    },
-    {
-      "url": "https://www.macstadium.com/pricing",
-      "date": "2026-11-24",
       "proved": "the pricing page still shows the included-bandwidth term",
       "capture": "sha256:4230d3bb3b826593f06683e2d496f2d120e47138258203259d421ffac7c8b3b4",
       "quote": "Unlimited bandwidth"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:20:56.541Z",
+  "verified_at": "2026-11-25T15:03:50.407Z",
   "price_per_tb_month": null,
-  "notes": "",
+  "notes": "Flexible monthly or annual pricing options. Unlimited bandwidth is included with flat-rate billing. A free MacStadium portal account is needed to see the inventory and get an instant price quote before buying. The FAQ asks whether free trials exist but gives no answer on this page.",
   "extras": {
     "keep_rate": 1.0,
     "keep_rate_basis": "always-on by contract",

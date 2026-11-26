@@ -6,7 +6,7 @@
   "category": "IPv6-only VPS",
   "tier": "MCI-N-C (IPv6 Only)",
   "free_tier": {
-    "stated": "No free tier. MCI-N-C is EUR 1.25 billed quarterly on the group page, printed 'Starting at €1.25 per quarter'; the product page shows 'In stock' and the same EUR 1.25 without naming a cycle.",
+    "stated": "No free tier. MCI-N-C (IPv6 Only) is EUR 1.25 billed quarterly, printed MCI-N-C (IPv6 Only) Starting at €1.25 per quarter.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://store.axivora.net/products/MCI-IPv6-Only",
@@ -105,6 +105,20 @@
       "url": "https://axivora.net/",
       "date": "2026-10-24",
       "proved": "quoted: 'Axivora Connect LTD' in the page metadata, with 'Cloud VPS in Amsterdam (DC01/DC02) — Edge, Node, Flex and Archive series from €2.50/month. IPv4 /32 + IPv6 /128 on every plan'"
+    },
+    {
+      "url": "https://store.axivora.net/products/MCI-IPv6-Only",
+      "date": "2026-11-25",
+      "proved": "the group page states the MCI-N-C plan at EUR 1.25 per quarter",
+      "capture": "sha256:7626bd4a12d3117bbafe3ab475d67446da7fbc5329acee686f14ac797cab343b",
+      "quote": "MCI-N-C (IPv6 Only) Starting at €1.25 per quarter"
+    },
+    {
+      "url": "https://store.axivora.net/products/MCI-IPv6-Only",
+      "date": "2026-11-25",
+      "proved": "the MCI-N-C plan is still listed at EUR 1.25 per quarter",
+      "capture": "sha256:7626bd4a12d3117bbafe3ab475d67446da7fbc5329acee686f14ac797cab343b",
+      "quote": "MCI-N-C (IPv6 Only) Starting at €1.25 per quarter"
     }
   ],
   "verdict": "qualifies-with-caveat",
@@ -154,5 +168,5 @@
     "other_plans": "MCI-N-B at EUR 1.25 per month: 1 shared vCPU, 1024 MiB RAM, 20 GB HDD, same /128 and 10 Gbps fair use, currently out of stock",
     "why_this_row_matters": "the only sub-USD-1.50 IPv6-only row whose seller appears in a state register under its trading name"
   },
-  "verified_at": "2026-10-24T06:03:49.000Z"
+  "verified_at": "2026-11-25T15:03:33.809Z"
 }

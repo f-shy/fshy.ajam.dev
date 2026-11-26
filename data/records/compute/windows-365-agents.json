@@ -5,7 +5,7 @@
   "url": "https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available",
   "category": "Windows host",
   "free_tier": {
-    "stated": "no free tier: 'For US Geography, the Windows 365 for Agents Cloud PCs are billed at $0.40 per hour for consumption', rounded up to the next full hour, plus '$5 per Cloud PC per month' for an always-available Cloud PC in addition to usage",
+    "stated": "no free tier: for US geography, pay-as-you-go Cloud PCs are billed at $0.40 per hour for consumption, with an additional fixed $5 per Cloud PC per month for an always-available Cloud PC",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available",
@@ -76,6 +76,13 @@
     },
     {
       "url": "https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available",
+      "date": "2026-11-25",
+      "proved": "the pricing page states the $0.40 hourly consumption rate for US geography",
+      "capture": "sha256:fcc744b96428bfab7d444a2173ddcd3109893c6868054d5c0210e1c43dc8faa9",
+      "quote": "For US Geography, the Windows 365 for Agents Cloud PCs are billed at $0.40 per hour for consumption."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows-365/agents/pricing-paygo-always-available",
       "date": "2026-11-24",
       "proved": "the consumption rate is USD 0.40 per hour with hourly rounding up",
       "capture": "sha256:fcc744b96428bfab7d444a2173ddcd3109893c6868054d5c0210e1c43dc8faa9",
@@ -139,7 +146,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T14:51:51.609Z",
+  "verified_at": "2026-11-25T11:17:43.458Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

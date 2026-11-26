@@ -5,7 +5,7 @@
   "url": "https://machine0.io/",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "No free tier: per-minute billing from USD 0.013 per hour for 1 vCPU, 1 GB and 25 GB; suspend freezes state and stops compute billing.",
+    "stated": "no free tier: pay-as-you-go billed per minute, CPU VMs from $0.013/hr, the smallest `small` VM being 1 vCPU, 1 GB RAM and 25 GB disk at $0.013/hr (~$9/month); suspend freezes a VM's state, stops billing and resumes later",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://machine0.io/",
@@ -76,6 +76,13 @@
     },
     {
       "url": "https://machine0.io/",
+      "date": "2026-11-25",
+      "proved": "the pricing table states the smallest paid VM's shape and per-hour price",
+      "capture": "sha256:fa017346ccce8ac1ac196a8561174ff306ab2a91f75022dbd2e5e5f6a3c920e5",
+      "quote": "| `small` | 1 vCPU | 1 GB | 25 GB | $0.013 | $9 |"
+    },
+    {
+      "url": "https://machine0.io/",
       "date": "2026-11-24",
       "proved": "the entry CPU and GPU hourly prices",
       "capture": "sha256:fa017346ccce8ac1ac196a8561174ff306ab2a91f75022dbd2e5e5f6a3c920e5",
@@ -118,7 +125,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:20:55.906Z",
+  "verified_at": "2026-11-25T11:17:40.889Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

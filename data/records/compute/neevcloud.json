@@ -5,7 +5,7 @@
   "url": "https://www.neevcloud.com/",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": "The sign-up page advertises '₹15,000 free credits — valid 7 days after you sign up' and 'No credit card required to start'; the wallet doc states 'When you sign up on NeevCloud, your account is credited with 10 free credits to help you explore and deploy your first GPU instance'. The landing page says 'Start free with credits and Sandbox minutes'.",
+    "stated": "When you sign up on NeevCloud, your account is credited with 10 free credits to help you explore and deploy your first GPU instance. As you begin using resources, credits are deducted automatically based on your instance's hourly usage until the free balance is exhausted. You can then recharge your wallet anytime to continue using services.",
     "unit": "hours",
     "metered_on": "wall-clock",
     "source_url": "https://www.neevcloud.com/",
@@ -56,6 +56,11 @@
   "confidence": "documented",
   "evidence": [
     {
+      "url": "https://www.neevcloud.com/",
+      "date": "2026-10-22",
+      "proved": "the site states 'Sign up today and claim 2,000 in FREE CPU Cloud credits, valid for 7 days', quoted, read search index because the landing page served no text to the reader"
+    },
+    {
       "url": "https://docs.ai.neevcloud.com/getting-started/billing-wallet",
       "date": "2026-10-22",
       "proved": "'When you sign up on NeevCloud, your account is credited with 10 free credits to help you explore and deploy your first GPU instance', and 'Each running instance deducts credits hourly, based on its pricing plan (On-Demand or Reserved)', quoted"
@@ -69,6 +74,13 @@
       "url": "https://www.neevcloud.com/gpu-cluster/",
       "date": "2026-10-22",
       "proved": "H100 clusters at 'USD 2.99' per GPU-hour on demand with 'Free Trial available for H100 GPU Clusters. Contact Us Now', which is a sales conversation rather than a self-serve tier, quoted"
+    },
+    {
+      "url": "https://docs.ai.neevcloud.com/getting-started/billing-wallet",
+      "date": "2026-11-25",
+      "proved": "signup grants 10 free credits for the first GPU instance",
+      "capture": "sha256:57a8ebc1ab1e8ac1ae8f6711ddddeb80167aaab2bc214ce24513116dc1e1490b",
+      "quote": "When you sign up on NeevCloud, your account is credited with 10 free credits to help you explore and deploy your first GPU instance."
     },
     {
       "url": "https://signup.neevcloud.com/",
@@ -114,7 +126,7 @@
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-11-24T13:20:58.557Z",
+  "verified_at": "2026-11-25T05:18:13.619Z",
   "notes": "India's GPU lane mostly fails on company registration, and this is the exception that still fails on arithmetic. The 10 GPU credits are the part worth watching because NeevCloud does not publish a credit-to-rupee rate on the wallet page, so the real GPU allowance is unknown until an account exists; a reader who signs up learns it in the confirmation email, which the credit-system doc says carries 'Credit amount', 'Eligible products' and 'Expiry date'. The H100 trial is a POC conversation, not a tier. Verified versus reported: the INR 2,000 figure is the vendor's own sentence, and the 10 credits are the vendor's own documentation; neither was probed.",
   "extras": {
     "facets": {

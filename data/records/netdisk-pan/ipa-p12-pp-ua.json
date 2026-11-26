@@ -72,7 +72,7 @@
     {
       "url": "probe:https://ipa.p12.pp.ua/",
       "date": "2026-11-11",
-      "proved": null,
+      "proved": "this host answered every request of this run's probe",
       "capture": "sha256:cfd4bb8412f7f4c1628289ca78a5146a81512c61646af3015a0f444b7ee304ec",
       "quote": null
     },
@@ -81,21 +81,7 @@
       "date": "2026-11-11",
       "proved": null,
       "capture": "sha256:cfd4bb8412f7f4c1628289ca78a5146a81512c61646af3015a0f444b7ee304ec",
-      "quote": "\"alive\": true"
-    },
-    {
-      "url": "probe:https://ipa.p12.pp.ua/",
-      "date": "2026-11-11",
-      "proved": null,
-      "capture": "sha256:cfd4bb8412f7f4c1628289ca78a5146a81512c61646af3015a0f444b7ee304ec",
       "quote": "\"checked_at\": \"2026-11-11T00:20:03.982Z\""
-    },
-    {
-      "url": "probe:https://ipa.p12.pp.ua/",
-      "date": "2026-11-11",
-      "proved": null,
-      "capture": "sha256:cfd4bb8412f7f4c1628289ca78a5146a81512c61646af3015a0f444b7ee304ec",
-      "quote": "\"listing_sha256\": \"e715d3d0\""
     },
     {
       "url": "probe:https://ipa.p12.pp.ua/",
@@ -110,10 +96,52 @@
       "proved": "the host answered and its listing hash stayed e715d3d0 with no failures",
       "capture": "sha256:ea0319129ac6980c680a7c0041e60c3e518cc0b52bd7ebca5860af0c86f9ea33",
       "quote": "\"checked_at\": \"2026-11-19T03:34:08.168Z\"...\"listing_sha256\": \"e715d3d0\"...\"consecutive_failures\": 0"
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "a fresh anonymous probe of ipa.p12.pp.ua answered the settings, session and mount-list requests at this timestamp",
+      "capture": "sha256:56b6a6902b7ab9550028e995b915d790afeceb681dc5e50330c17488148eae22",
+      "quote": "\"probed_at\": \"2026-11-25T02:34:34.121Z\""
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "the fresh probe completed the anonymous settings, session and mount-list requests at ipa.p12.pp.ua",
+      "capture": "sha256:56b6a6902b7ab9550028e995b915d790afeceb681dc5e50330c17488148eae22",
+      "quote": "\"alive\": true"
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "the fresh anonymous root listing of ipa.p12.pp.ua hashed to the recorded value, so the listing is unchanged",
+      "capture": "sha256:56b6a6902b7ab9550028e995b915d790afeceb681dc5e50330c17488148eae22",
+      "quote": "\"listing_sha256\": \"e715d3d0\""
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "the re-probe of this host was taken at this instant",
+      "capture": "sha256:d478f5db64ff2eff300eaaa512f003c663532dbc9e925bf0d5ccfeb85ba22336",
+      "quote": "\"checked_at\": \"2026-11-25T01:38:28.697Z\""
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "the anonymous root listing still hashes to e715d3d0 with 26 entries",
+      "capture": "sha256:d478f5db64ff2eff300eaaa512f003c663532dbc9e925bf0d5ccfeb85ba22336",
+      "quote": "\"guest\": true ... \"root_entries\": 26 ... \"listing_sha256\": \"e715d3d0\""
+    },
+    {
+      "url": "probe:https://ipa.p12.pp.ua/",
+      "date": "2026-11-25",
+      "proved": "the re-probe answered as an anonymous guest, so registration is not needed",
+      "capture": "sha256:d478f5db64ff2eff300eaaa512f003c663532dbc9e925bf0d5ccfeb85ba22336",
+      "quote": "\"guest\": true"
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-19T21:12:07.051Z",
+  "verified_at": "2026-11-25T19:55:33.831Z",
   "binding": "per-ip-shaping",
   "notes": "A hostname from the 2026 community index that serves the same 26-entry IPA corpus as the 591meta group, so the group is at least six hostnames wide.",
   "extras": {
@@ -128,7 +156,7 @@
     "base_path": "/",
     "listing_sha256": "e715d3d0",
     "first_seen": "2024-01-20",
-    "last_verified_alive": "2026-11-19T03:34:08.168Z",
+    "last_verified_alive": "2026-11-25T02:34:34.121Z",
     "last_verified_dead": null,
     "consecutive_failures": 0,
     "listing_hash_method": null

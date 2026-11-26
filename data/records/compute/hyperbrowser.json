@@ -15,14 +15,14 @@
   "limits_note": "one credit is USD 0.001, so 5,000 credits is USD 5 of usage",
   "reliability_note": "no reliability event recorded",
   "confidence": "documented",
-  "verified_at": "2026-11-24T13:20:54.186Z",
+  "verified_at": "2026-11-25T11:17:28.100Z",
   "price_per_tb_month": null,
   "slug": "hyperbrowser",
   "provider": "Hyperbrowser",
   "url": "https://www.hyperbrowser.ai/pricing",
   "category": "browser host",
   "free_tier": {
-    "stated": "5,000 credits on a free account, enough for 50 browser hours or 5,000 fetched pages at base rates; the free plan allows 1 concurrent session and 7 days of data retention",
+    "stated": "5,000 credits on a free account: 'Enough for 50 browser hours or 5,000 fetched pages at base rates.' The Free row states '$0 to start · 5,000 credits included' and 'All four products · 1 concurrent session · 7 days of data retention'. '1,000 credits = $1 in usage'.",
     "unit": "mixed",
     "metered_on": "wall-clock",
     "source_url": "https://www.hyperbrowser.ai/pricing",
@@ -65,8 +65,24 @@
     },
     {
       "url": "https://www.hyperbrowser.ai/pricing",
-      "date": "2026-10-22",
-      "proved": "Startup is USD 30 a month with USD 30 of usage and 25 concurrent sessions"
+      "date": "2026-11-25",
+      "proved": "the free account's 5,000 credits cover 50 browser hours or 5,000 fetched pages at base rates",
+      "capture": "sha256:1bfb973c1b1c91986e5cfc67107976a643399cec47118dc6c38b15c1a4d33b1b",
+      "quote": "Enough for 50 browser hours or 5,000 fetched pages at base rates."
+    },
+    {
+      "url": "https://www.hyperbrowser.ai/pricing",
+      "date": "2026-11-25",
+      "proved": "the Free plan starts at $0 with 5,000 credits, one concurrent session and seven days of data retention",
+      "capture": "sha256:1bfb973c1b1c91986e5cfc67107976a643399cec47118dc6c38b15c1a4d33b1b",
+      "quote": "$0 to start · 5,000 credits included\n\nAll four products · 1 concurrent session · 7 days of data retention"
+    },
+    {
+      "url": "https://www.hyperbrowser.ai/pricing",
+      "date": "2026-11-25",
+      "proved": "the credit-to-usage conversion rate is 1,000 credits per dollar",
+      "capture": "sha256:1bfb973c1b1c91986e5cfc67107976a643399cec47118dc6c38b15c1a4d33b1b",
+      "quote": "1,000 credits = $1 in usage"
     },
     {
       "url": "https://www.hyperbrowser.ai/pricing",
@@ -102,13 +118,6 @@
       "proved": "the documented rate is 10,000 credits or USD 10 per GB of proxy data",
       "capture": "sha256:458daa3f99ac150760e8bf53bd4219da817f8326b341dfbf0ddf8b5f4fa26e73",
       "quote": "| Proxy Data Usage | 10,000 credits / GB | \\$10 / GB |"
-    },
-    {
-      "url": "https://www.hyperbrowser.ai/pricing",
-      "date": "2026-11-24",
-      "proved": "free plan data retention is seven days",
-      "capture": "sha256:1bfb973c1b1c91986e5cfc67107976a643399cec47118dc6c38b15c1a4d33b1b",
-      "quote": "All four products · 1 concurrent session · 7 days of data retention"
     },
     {
       "url": "https://app.hyperbrowser.ai/signup",
