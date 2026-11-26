@@ -5,7 +5,7 @@
   "url": "https://docs.lium.io/pod-users/fingerprint-signup",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": "Quoted, read 2026-10-22: 'New accounts can get $5 in free credit once they add and confirm an email address or make a first paid deposit, if Lium's abuse checks pass. It expires after 14 days.' The same page documents a one-call signup quoting: 'curl -fsS -X POST https://lium.io/api/auth/signup -d {}' returning 'signup_credit_granted': true. Lium's own llms-full.txt gives the grant condition in full: 'It is false when the platform has the credit off, and when this IP already signed up once.'",
+    "stated": "Lium can create an account in one click, with no email or password.",
     "unit": "hours",
     "metered_on": "wall-clock",
     "source_url": "https://docs.lium.io/pod-users/fingerprint-signup",
@@ -164,10 +164,24 @@
       "url": "https://docs.lium.io/pod-users/broken-pods",
       "date": "2026-10-22",
       "proved": "quoted: node failure triggers a retry on another node at the same or lower price; FAILED pods are rebooted after about 30 minutes and billing resumes then; renters are advised to filter on Reliability, Uptime and Download"
+    },
+    {
+      "url": "https://docs.lium.io/pod-users/fingerprint-signup",
+      "date": "2026-11-25",
+      "proved": "signup needs no email or password, so account creation itself is anonymous",
+      "capture": "sha256:02cc0b190683781c461c4b821cd2ba164e782c86bdcbc300e83c3da860b09ad8",
+      "quote": "Lium can create an account in one click, with no email or password."
+    },
+    {
+      "url": "https://docs.lium.io/pod-users/fingerprint-signup",
+      "date": "2026-11-25",
+      "proved": "an account can be created with no email or password",
+      "capture": "sha256:02cc0b190683781c461c4b821cd2ba164e782c86bdcbc300e83c3da860b09ad8",
+      "quote": "Lium can create an account in one click, with no email or password."
     }
   ],
   "verdict": "trial-only",
-  "verified_at": "2026-10-22T00:00:00.000Z",
+  "verified_at": "2026-11-25T15:03:43.689Z",
   "notes": "The grant is not granted to an anonymous account: it requires a confirmed email address or a paid deposit, so the identity cost of the credit is at least email and is 'card' if the deposit route is used. The realistic figure is 20.8 hours at the cheapest rentable rate. What the credit does NOT cover is not established either way: the billing page charges pods, volumes and backups from the same balance, so in practice it covers all three. No first-party statement says what happens to an unused credit at 14 days beyond the expiry sentence. No third-party account of a credit being spent or clawed back was found in eight searches, so that question is open. qualifies-with-caveat via a04-decentralized. The one recorded is the better-evidenced.",
   "extras": {
     "facets": {

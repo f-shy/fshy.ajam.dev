@@ -6,7 +6,7 @@
   "category": "microVM (Kata on QEMU/KVM) sandbox",
   "tier": "nano",
   "free_tier": {
-    "stated": "no free tier: 'the nano plan starts at just $0.054/hour, billed by the second'; no credit or trial is offered for sandboxes on the pages read",
+    "stated": "the `nano` plan starts at just $0.054/hour, billed by the second",
     "unit": "none",
     "metered_on": "wall-clock",
     "source_url": "https://deepinfra.com/blog/sandboxes",
@@ -64,19 +64,16 @@
       "proved": "quoted: 'the `nano` plan starts at just $0.054/hour, billed by the second' and 'Leave one running and it auto-stops after 24 hours'"
     },
     {
-      "url": "https://deepinfra.com/blog/sandboxes",
-      "date": "2026-10-24",
-      "proved": "retention: 'Stopping just pauses it: /workspace sticks around, everything else resets to a clean image. From there you've got up to 7 days to start() it again before it's permanently deleted.'"
-    },
-    {
       "url": "https://docs.deepinfra.com/sandboxes/overview",
       "date": "2026-10-24",
       "proved": "billing: 'Billing is per-second with no minimum, and only runs while a sandbox is creating, starting, running, or stopping - a stopped sandbox costs nothing'"
     },
     {
-      "url": "https://docs.deepinfra.com/sandboxes/overview",
-      "date": "2026-10-24",
-      "proved": "no public shape/rate table: 'For current plan specs (vCPU, RAM, disk) and hourly pricing, don't hardcode numbers - check the live catalog'"
+      "url": "https://deepinfra.com/blog/sandboxes",
+      "date": "2026-11-25",
+      "proved": "the cheapest published sandbox plan is a paid nano rate billed by the second, not a free tier",
+      "capture": "sha256:15e33b0410b6694c84a12c4f60cfd60fe1df5752fd5229e6813a33d9620fd39f",
+      "quote": "the `nano` plan starts at just $0.054/hour, billed by the second"
     },
     {
       "url": "https://deepinfra.com/blog/sandboxes",
@@ -136,7 +133,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T11:38:12.988Z",
+  "verified_at": "2026-11-25T15:03:53.356Z",
   "price_per_tb_month": null,
   "notes": "Arithmetic: USD 0.054 an hour × 730 = USD 39.42 a month if the auto-stop did not exist; × 300 h = USD 16.20. The auto-stop makes the 730-hour figure hypothetical, and it is recorded as the price of the meter rather than the price of a machine. What the nano shape actually contains is unverified because the catalog is authenticated.",
   "extras": {

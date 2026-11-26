@@ -75,6 +75,27 @@
     },
     {
       "url": "https://developers.cloudflare.com/containers/platform/pricing/",
+      "date": "2026-11-25",
+      "proved": "billing is by 10ms of active running and included usage is part of the $5 USD per month Workers Paid plan",
+      "capture": "sha256:bfe8bbfd0905be6ea38480ebb82ae1c8623ff3876715eadabe453d3d73ef7f44",
+      "quote": "Containers are billed for every 10ms that they are actively running at the following rates, with included monthly usage as part of the $5 USD per month [Workers Paid plan](https://developers.cloudflare.com/workers/platform/pricing/):"
+    },
+    {
+      "url": "https://developers.cloudflare.com/containers/platform/pricing/",
+      "date": "2026-11-25",
+      "proved": "the Free plan row reads N/A for memory and CPU",
+      "capture": "sha256:bfe8bbfd0905be6ea38480ebb82ae1c8623ff3876715eadabe453d3d73ef7f44",
+      "quote": "| Free | N/A | N/A | |"
+    },
+    {
+      "url": "https://developers.cloudflare.com/containers/platform/pricing/",
+      "date": "2026-11-25",
+      "proved": "the page states the 10ms billing, the $5 Workers Paid plan gate, the N/A Free row and the three included allowances",
+      "capture": "sha256:bfe8bbfd0905be6ea38480ebb82ae1c8623ff3876715eadabe453d3d73ef7f44",
+      "quote": "Containers are billed for every 10ms that they are actively running at the following rates, with included monthly usage as part of the $5 USD per month [Workers Paid plan](https://developers.cloudflare.com/workers/platform/pricing/): | Free | N/A | N/A | | | Workers Paid | 25 GiB-hours/month included <br> +$0.0000025 per additional GiB-second | 375 vCPU-minutes/month <br>+ $0.000020 per additional vCPU-second | 200 GB-hours/month <br> +$0.00000007 per additional GB-second |"
+    },
+    {
+      "url": "https://developers.cloudflare.com/containers/platform/pricing/",
       "date": "2026-11-24",
       "proved": "the egress price per GB and the included monthly allotment are published by region",
       "capture": "sha256:582e31fb615fa622aa766613384e90fd7ce432e67d6276af5c69969962984134",
@@ -84,13 +105,6 @@
       "url": "https://developers.cloudflare.com/containers/platform/pricing/",
       "date": "2026-11-24",
       "proved": "egress has a price past the included allotment",
-      "capture": "sha256:582e31fb615fa622aa766613384e90fd7ce432e67d6276af5c69969962984134",
-      "quote": "| North America & Europe | $0.025 | 1 TB |"
-    },
-    {
-      "url": "https://developers.cloudflare.com/containers/platform/pricing/",
-      "date": "2026-11-24",
-      "proved": "1 TB a month is included in North America and Europe",
       "capture": "sha256:582e31fb615fa622aa766613384e90fd7ce432e67d6276af5c69969962984134",
       "quote": "| North America & Europe | $0.025 | 1 TB |"
     },
@@ -114,17 +128,10 @@
       "proved": "the sign-up page answered 403 to a direct probe",
       "capture": "sha256:de1f0d33a5674a306aa61441ebe212c7dcbe4ecdbfb6ec50caed599f106bbc9b",
       "quote": "\"status\": 403"
-    },
-    {
-      "url": "probe:dash.cloudflare.com/sign-up",
-      "date": "2026-11-24",
-      "proved": "the sign-up page was walled, so its registration fields are unknown",
-      "capture": "sha256:de1f0d33a5674a306aa61441ebe212c7dcbe4ecdbfb6ec50caed599f106bbc9b",
-      "quote": "\"status\": 403"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T11:38:11.670Z",
+  "verified_at": "2026-11-25T11:17:39.908Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

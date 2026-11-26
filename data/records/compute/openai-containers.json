@@ -5,7 +5,7 @@
   "url": "https://developers.openai.com/api/docs/pricing",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "no free container tier: Hosted Shell and Code Interpreter containers are priced per 20-minute session at USD 0.03 for 1 GB, USD 0.12 for 4 GB, USD 0.48 for 16 GB and USD 1.92 for 64 GB",
+    "stated": "no container tier: hosted shell and code interpreter containers are priced at 1 GB $0.03, 4 GB $0.12, 16 GB $0.48, 64 GB $1.92 per 20-minute session per container",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://developers.openai.com/api/docs/pricing",
@@ -70,6 +70,13 @@
     },
     {
       "url": "https://developers.openai.com/api/docs/pricing",
+      "date": "2026-11-25",
+      "proved": "the page publishes a paid per-20-minute-session container price for Hosted Shell and Code Interpreter",
+      "capture": "sha256:6ebbb366b72d25dbe6e77bd24ad09e5063f4872589b81b5a77b1b172d68da8d7",
+      "quote": "Containers | Hosted Shell and Code Interpreter | 1 GB $0.03, 4 GB $0.12, 16 GB $0.48, 64 GB $1.92 per 20-minute session per container"
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/pricing",
       "date": "2026-11-24",
       "proved": "the pricing page now carries a per-session container price table",
       "capture": "sha256:88f7825ffddb006fefea4d3838831bd3deaed6f72df6914ad79aefa021d51355",
@@ -116,17 +123,10 @@
       "proved": "the pricing page now carries a container product",
       "capture": "sha256:88f7825ffddb006fefea4d3838831bd3deaed6f72df6914ad79aefa021d51355",
       "quote": "Container pricing includes [Hosted Shell](https://developers.openai.com/api/docs/guides/tools-shell#hosted-shell-quickstart) and [Code Interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter)."
-    },
-    {
-      "url": "https://developers.openai.com/api/docs/pricing",
-      "date": "2026-11-24",
-      "proved": "the pricing page now carries container pricing",
-      "capture": "sha256:88f7825ffddb006fefea4d3838831bd3deaed6f72df6914ad79aefa021d51355",
-      "quote": "Container pricing includes [Hosted Shell](https://developers.openai.com/api/docs/guides/tools-shell#hosted-shell-quickstart) and [Code Interpreter](https://developers.openai.com/api/docs/guides/tools-code-interpreter)."
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:20:59.952Z",
+  "verified_at": "2026-11-25T05:18:27.432Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

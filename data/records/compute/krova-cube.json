@@ -64,16 +64,6 @@
       "proved": "quoted: 'Sandbox | 1 | 1 GB | 10 GB | - | $0.004 | $2.92' and 'Per-month estimate = hourly rate × 730 hours, running 24/7'"
     },
     {
-      "url": "https://krova.cloud/pricing/cube",
-      "date": "2026-10-24",
-      "proved": "quoted: 'vCPU $0.0010/hr per vCPU', 'RAM $0.0025/hr per GB', 'Disk $0.00005/hr per GB', 'Billed by the minute - run 5 minutes, pay 5 minutes'"
-    },
-    {
-      "url": "https://krova.cloud/pricing/cube",
-      "date": "2026-10-24",
-      "proved": "identity: 'Signing up is free, and creating an account takes no payment details. Claim $5 in free credit - one-time, per account'"
-    },
-    {
       "url": "https://krova.cloud/",
       "date": "2026-10-24",
       "proved": "egress: 'Bandwidth is unmetered: Krova Cloud does not bill per gigabyte and does not set a monthly transfer allowance', and the inbound model: 'A Cube is not reachable from outside at all until you decide it should be'"
@@ -82,16 +72,6 @@
       "url": "https://krova.cloud/docs/getting-started",
       "date": "2026-10-24",
       "proved": "access: 'You log in as ubuntu ... Run sudo su for a root shell', images Ubuntu 24.04 or Debian 13, REST API keys for automation"
-    },
-    {
-      "url": "https://krova.cloud/pricing/cube",
-      "date": "2026-10-24",
-      "proved": "quoted: 'vCPU $0.0010/hr per vCPU', 'RAM $0.0025/hr per GB', 'Disk $0.00005/hr per GB'; and 'Per-month estimate = hourly rate × 730 hours, running 24/7'"
-    },
-    {
-      "url": "https://krova.cloud/pricing/cube",
-      "date": "2026-10-24",
-      "proved": "presets quoted: 'Sandbox | 1 | 1 GB | 10 GB | - | $0.004 | $2.92' and 'Micro | 1 | 2 GB | 20 GB | - | $0.007 | $5.11'"
     },
     {
       "url": "https://krova.cloud/cube",
@@ -104,19 +84,16 @@
       "proved": "quoted: 'It has passwordless sudo, so `sudo su` gives you a root shell. Root SSH login is disabled.' and 'To expose other services, add TCP port mappings from the Cube's networking tab'"
     },
     {
-      "url": "https://krova.cloud/docs/cubes",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Outbound TCP port 25 is blocked on every Cube ... Every other outbound port is open'"
-    },
-    {
-      "url": "https://krova.cloud/docs/getting-started",
-      "date": "2026-10-24",
-      "proved": "identity, resolved: 'Top up from Billing with a card (one-time, via Stripe Checkout). Activating your account credits you $5 to start (one-time, per account) and unlocks the Welcome tier automatically — nothing is charged for it.'"
-    },
-    {
       "url": "https://krova.cloud/terms",
       "date": "2026-10-24",
       "proved": null
+    },
+    {
+      "url": "https://krova.cloud/pricing/cube",
+      "date": "2026-11-25",
+      "proved": "signup needs no payment details and the USD 5 credit is one-time per account",
+      "capture": "sha256:fe9d0a107764eb7d5789815a7a2913e4e178205448d34b5287f6234174de1c78",
+      "quote": "Signing up is free, and creating an account takes no payment details. Claim $5 in free credit - one-time, per account"
     },
     {
       "url": "https://krova.cloud/pricing/cube",
@@ -162,7 +139,7 @@
     }
   ],
   "verdict": "qualifies-with-caveat",
-  "verified_at": "2026-11-24T13:20:55.129Z",
+  "verified_at": "2026-11-25T05:18:29.251Z",
   "price_per_tb_month": null,
   "notes": "The nearest published preset, Micro at 1 / 2 / 20, is USD 5.11 and therefore over the line. 15 GiB of disk instead of 10 would be USD 4.93. Its credit is non-refundable in cash and its disk is deleted seven days after the balance hits zero, so it is a prepaid bet rather than a subscription. The domain is seven months old. Against that: a status page on UptimeRobot reports 99.996%, which is better evidence than most hosts in this price band publish.",
   "extras": {

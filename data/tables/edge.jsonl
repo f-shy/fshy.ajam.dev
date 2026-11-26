@@ -21,6 +21,7 @@
 {"dst":"ci-cd-runners/gitlab-ci","kind":"duplicate_of","src":"compute/gitlab-runners"}
 {"dst":"ci-cd-runners/gitlab-ci","kind":"variant_of","src":"compute/gitlab"}
 {"dst":"ci-cd-runners/harness-ci-free","kind":"mentions","src":"ci-cd-runners/drone-ci"}
+{"dst":"ci-cd-runners/semaphore-cloud","kind":"mentions","src":"compute/semaphore-ci-macos"}
 {"dst":"coding-subs/alibaba-cloud-model-studio-coding-plan","kind":"duplicate_of","src":"coding-subs/alibaba-coding-plan"}
 {"dst":"coding-subs/alibaba-coding-plan","kind":"variant_of","src":"coding-subs/alibaba-coding-plan-cn"}
 {"dst":"coding-subs/alibaba-token-plan","kind":"variant_of","src":"coding-subs/alibaba-token-plan-cn"}
@@ -128,6 +129,8 @@
 {"dst":"compute/contabo-windows","kind":"same-product","src":"compute/contabo"}
 {"dst":"compute/contabo-windows","kind":"same-product","src":"compute/contabo-black-friday"}
 {"dst":"compute/contabo-windows","kind":"same-product","src":"compute/contabo-cloud-vps-4"}
+{"dst":"compute/corellium","kind":"variant_of","src":"compute/corellium-solo"}
+{"dst":"compute/corellium-solo","kind":"same-product","src":"compute/corellium"}
 {"dst":"compute/cua-windows","kind":"same-product","src":"compute/cua"}
 {"dst":"compute/dagger","kind":"mentions","src":"ci-cd-runners/dagger-cloud"}
 {"dst":"compute/datadog","kind":"mentions","src":"dev-services/datadog"}
@@ -157,7 +160,6 @@
 {"dst":"compute/digitalocean-droplet-1gb","kind":"same-product","src":"compute/digitalocean-2"}
 {"dst":"compute/dockerhosting-start","kind":"same-product","src":"compute/dockerhosting-prodv"}
 {"dst":"compute/e2b","kind":"mentions","src":"compute/e2b-desktop"}
-{"dst":"compute/e2b-desktop","kind":"same-product","src":"compute/e2b"}
 {"dst":"compute/emergent-ventures","kind":"mentions","src":"compute/emergent"}
 {"dst":"compute/factory","kind":"mentions","src":"coding-subs/factory"}
 {"dst":"compute/firebase-studio","kind":"mentions","src":"compute/firebase-hosting"}
@@ -165,6 +167,7 @@
 {"dst":"compute/fossvps","kind":"mentions","src":"compute/alexhost"}
 {"dst":"compute/fossvps","kind":"mentions","src":"compute/hosteroid"}
 {"dst":"compute/gcp-windows","kind":"same-product","src":"compute/gcp-compute"}
+{"dst":"compute/gmi-cloud-scale","kind":"mentions","src":"compute/gmi-cloud-on-demand-gpu"}
 {"dst":"compute/google-cloud-free-tier","kind":"mentions","src":"ip-proxy/clouds-as-exit-sources"}
 {"dst":"compute/google-colab-paid","kind":"same-product","src":"compute/google-colab"}
 {"dst":"compute/grafana-cloud","kind":"mentions","src":"dev-services/grafana-cloud"}
@@ -225,11 +228,20 @@
 {"dst":"compute/lambda","kind":"mentions","src":"compute/zindi"}
 {"dst":"compute/lambda","kind":"mentions","src":"compute/zoltan-s-flops-gpu"}
 {"dst":"compute/layer7-windows","kind":"same-product","src":"compute/layer7"}
+{"dst":"compute/lightcone-compute","kind":"same-product","src":"compute/lightcone"}
+{"dst":"compute/lightcone-compute","kind":"variant_of","src":"compute/lightcone"}
 {"dst":"compute/linceris","kind":"mentions","src":"compute/dataforest"}
 {"dst":"compute/linveo-windows","kind":"same-product","src":"compute/linveo"}
 {"dst":"compute/little-creek-hosting","kind":"duplicate_of","src":"compute/littlecreek"}
 {"dst":"compute/lovable","kind":"mentions","src":"coding-subs/lovable"}
+{"dst":"compute/luxor-agent-cloud-sandbox","kind":"same-product","src":"compute/luxor-agent-cloud"}
+{"dst":"compute/luxor-agent-cloud-sandbox","kind":"variant_of","src":"compute/luxor-agent-cloud"}
 {"dst":"compute/manus-cloud-computer","kind":"mentions","src":"compute/manus"}
+{"dst":"compute/munito-sandboxes-trial","kind":"duplicate_of","src":"compute/munito-sandboxes"}
+{"dst":"compute/my-remote-mac-daily-m4","kind":"same-product","src":"compute/my-remote-mac"}
+{"dst":"compute/my-remote-mac-daily-m4","kind":"variant_of","src":"compute/my-remote-mac"}
+{"dst":"compute/naive-free","kind":"same-product","src":"compute/naive"}
+{"dst":"compute/naive-free","kind":"variant_of","src":"compute/naive"}
 {"dst":"compute/natkvm-nat-lxc","kind":"mentions","src":"compute/khanwebhost-fr-256mb-nat-kvm"}
 {"dst":"compute/natvps-net-nat512","kind":"mentions","src":"compute/natvps-net-kvm-512-recheck"}
 {"dst":"compute/natvps-net-nat512","kind":"same-product","src":"compute/natvps"}
@@ -250,6 +262,8 @@
 {"dst":"compute/ovhcloud-windows","kind":"same-product","src":"compute/ovhcloud-2"}
 {"dst":"compute/ovhcloud-windows","kind":"same-product","src":"compute/ovhcloud-vps-1-2027"}
 {"dst":"compute/paperspace-gradient-free-tier","kind":"same-product","src":"compute/paperspace"}
+{"dst":"compute/quave-one-direct","kind":"same-product","src":"compute/quave-one-agent-sandboxes-direct"}
+{"dst":"compute/quave-one-direct","kind":"variant_of","src":"compute/quave-one-agent-sandboxes-direct"}
 {"dst":"compute/rabisu-windows","kind":"same-product","src":"compute/rabisu"}
 {"dst":"compute/racknerd","kind":"mentions","src":"ip-proxy/host-asn-field-absent"}
 {"dst":"compute/racknerd-1gb-special","kind":"same-product","src":"compute/racknerd"}
@@ -270,6 +284,8 @@
 {"dst":"compute/sakura-cloud","kind":"mentions","src":"compute/sakura-cloud-certification"}
 {"dst":"compute/samsung-cloud","kind":"mentions","src":"compute/samsung-cloud-platform"}
 {"dst":"compute/samsung-cloud","kind":"mentions","src":"netdisk-pan/samsung-cloud-storage"}
+{"dst":"compute/sauce-labs-free-trial","kind":"duplicate_of","src":"compute/sauce-labs"}
+{"dst":"compute/sauce-labs-free-trial","kind":"same-product","src":"compute/sauce-labs"}
 {"dst":"compute/scaleway","kind":"mentions","src":"compute/scaleway-2"}
 {"dst":"compute/scaleway-black-friday","kind":"same-product","src":"compute/scaleway-2"}
 {"dst":"compute/scaleway-stardust1-s","kind":"same-product","src":"compute/scaleway-2"}
@@ -284,6 +300,8 @@
 {"dst":"compute/softshellweb-lxc-ipv6-only","kind":"same-product","src":"compute/softshellweb"}
 {"dst":"compute/tabnine","kind":"mentions","src":"coding-subs/tabnine-enterprise"}
 {"dst":"compute/tencent-lighthouse-intl","kind":"same-product","src":"compute/tencent-cloud-international"}
+{"dst":"compute/testmu-ai","kind":"variant_of","src":"compute/testmu-ai-real-device-automation"}
+{"dst":"compute/testmu-ai-real-device-automation","kind":"same-product","src":"compute/testmu-ai"}
 {"dst":"compute/tierhive-micro","kind":"same-product","src":"compute/tierhive"}
 {"dst":"compute/time4vps-linux","kind":"same-product","src":"compute/time4vps"}
 {"dst":"compute/time4vps-linux-4","kind":"same-product","src":"compute/time4vps"}
@@ -303,6 +321,8 @@
 {"dst":"compute/vdsina-windows","kind":"same-product","src":"compute/vdsina-cloud-configurator"}
 {"dst":"compute/vercel","kind":"mentions","src":"coding-subs/v0-free"}
 {"dst":"compute/virmach-black-friday-cyber-monday","kind":"same-product","src":"compute/virmach"}
+{"dst":"compute/voidrun-sandboxes","kind":"duplicate_of","src":"compute/voidrun"}
+{"dst":"compute/voidrun-sandboxes","kind":"same-product","src":"compute/voidrun"}
 {"dst":"compute/volcengine-agentkit","kind":"mentions","src":"compute/volcengine-vci-agent-sandbox"}
 {"dst":"compute/volpabyte-ryzen-kvm-8gb","kind":"mentions","src":"ip-proxy/host-asn-field-absent"}
 {"dst":"compute/vultr","kind":"mentions","src":"compute/vultr-2"}
@@ -484,6 +504,7 @@
 {"dst":"inference/mistral-la-plateforme","kind":"mentions","src":"coding-subs/mistral-vibe-code"}
 {"dst":"inference/mistral-la-plateforme","kind":"same_offer_as","src":"compute/mistral-la-plateforme"}
 {"dst":"inference/moonshotai","kind":"variant_of","src":"inference/moonshotai-cn"}
+{"dst":"inference/munito","kind":"mentions","src":"compute/munito-sandboxes"}
 {"dst":"inference/munito","kind":"same_offer_as","src":"inference/munito-eu"}
 {"dst":"inference/munito-eu","kind":"same-product","src":"inference/munito"}
 {"dst":"inference/nvidia-build-trial","kind":"same_offer_as","src":"inference/nvidia"}

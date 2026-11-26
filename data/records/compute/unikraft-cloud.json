@@ -5,7 +5,7 @@
   "url": "https://unikraft.com/pricing",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "no free tier stated: capacity with millisecond cold boots where idle infrastructure is not billed",
+    "stated": "no free tier stated: millisecond cold boots where idle infrastructure is not billed",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://unikraft.com/pricing",
@@ -69,6 +69,13 @@
       "proved": "'## Never Pay for Idle Again' and '### You don't pay for idle infrastructure' with 'Millisecond cold boots = lower overhead' and 'Whether you're testing, scaling, or deploying enterprise workloads, we've got a plan that fits.', quoted"
     },
     {
+      "url": "https://unikraft.com/pricing",
+      "date": "2026-11-25",
+      "proved": "the pricing page states that idle infrastructure is not billed, with no free tier or plan price printed",
+      "capture": "sha256:15f4ec5fdb2269a6faf116dca445a6b1cf82e61ee71e23aa3a14a4a86314f361",
+      "quote": "You don't pay for idle infrastructure"
+    },
+    {
       "url": "https://console.unikraft.cloud/auth/signin",
       "date": "2026-11-24",
       "proved": "registration uses a GitHub or Google account; no card or phone is asked for on the sign-in page",
@@ -113,20 +120,13 @@
     {
       "url": "https://unikraft.com/pricing",
       "date": "2026-11-24",
-      "proved": "the idle-not-billed pricing model is unchanged; the page still publishes no price or free tier",
-      "capture": "sha256:15f4ec5fdb2269a6faf116dca445a6b1cf82e61ee71e23aa3a14a4a86314f361",
-      "quote": "### You don't pay for idle infrastructure"
-    },
-    {
-      "url": "https://unikraft.com/pricing",
-      "date": "2026-11-24",
       "proved": "scale-to-zero remains on the pricing page",
       "capture": "sha256:15f4ec5fdb2269a6faf116dca445a6b1cf82e61ee71e23aa3a14a4a86314f361",
       "quote": "### Scale-to-zero saves real money"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:21:07.386Z",
+  "verified_at": "2026-11-25T11:17:43.457Z",
   "price_per_tb_month": null,
   "notes": "No free tier exists; the verdict is paid-only. Idle infrastructure is not billed and cold boots are milliseconds, so an intermittent workload pays only for the time it runs. The page lists Hosted, Dedicated Hosted and On-Prem lanes; the priced offer here is the hosted one. No rate, session cap, egress charge or free allowance is published.",
   "extras": {

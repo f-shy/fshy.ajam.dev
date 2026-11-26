@@ -16,14 +16,14 @@
   "limits_note": "24/7 needs auto_stop_interval=0 and no ttl_minutes; a non-ephemeral VM class defaults to a 60-minute auto-pause when auto-stop is disabled, and auto-pause and auto-stop cannot both be non-zero. The published maximum lifetime of a sandbox is absent.",
   "reliability_note": "The dashboard bundle carries an 'EMAIL_ACCESS_DENIED' path whose screen reads 'Daytona accounts need a validated work email', so a personal-domain address may be refused at sign-in.",
   "confidence": "documented",
-  "verified_at": "2026-11-24T11:38:12.288Z",
+  "verified_at": "2026-11-25T15:03:33.428Z",
   "price_per_tb_month": null,
   "slug": "daytona",
   "provider": "Daytona",
   "url": "https://www.daytona.io/pricing",
   "category": "dev environment",
   "free_tier": {
-    "stated": "USD 200 in free compute included, one time. The signup flow states 'Sign up for a free trial - no credit card required'. Free credits are 'not available for GPU sandboxes'. Tier 1 needs a verified email and gives 10 vCPU / 30 GiB storage; Tier 2 needs a linked credit card and a USD 25 top-up.",
+    "stated": "Use what you need, when you need it. $200 in free compute included.",
     "unit": "mixed",
     "metered_on": "wall-clock",
     "source_url": "https://www.daytona.io/pricing",
@@ -122,24 +122,9 @@
       "proved": "quoted: 'Tier 1 & Tier 2: Network access is restricted and cannot be overridden at the sandbox level. Organization-level network restrictions take precedence over sandbox-level settings ... Essential services remain reachable.'"
     },
     {
-      "url": "https://www.daytona.io/pricing",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Compute, vCPU, $0.0504/h, Memory, GiB, $0.0162/h, Storage, GiB, $0.000108/h' with '*Price per GiB after first 5 free'; 'Use what you need, when you need it. $200 in free compute included.'; 'Sign up for a free trial - no credit card required'; 'All billing is calculated per second.'; 'OS, Windows, $0.0858/vCPU/h'"
-    },
-    {
       "url": "https://auth.daytona.io/sign-up",
       "date": "2026-10-24",
       "proved": "No phone field, no card field."
-    },
-    {
-      "url": "https://www.daytona.io/docs/en/billing/",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Free credit balance: the amount of free credits; not available for GPU sandboxes'; 'Sandboxes are billed for the resources reserved: vCPU, RAM, and disk'; the only mention of expiry is 'Click See breakdown and expiration', with no duration anywhere in the docs"
-    },
-    {
-      "url": "https://www.daytona.io/docs/en/limits/",
-      "date": "2026-10-24",
-      "proved": "quoted Tier table: 'Tier 1 | 10 / 10GiB / 30GiB | Email verified' and 'Tier 2 | 100 / 200GiB / 300GiB | Credit card linked, $25 top-up'; the Limits table on the same page gives Tier 1 memory as 20"
     },
     {
       "url": "https://www.daytona.io/docs/en/sandboxes/",
@@ -157,14 +142,16 @@
       "proved": "quoted: 'Any process listening for HTTP traffic on ports 1 - 65535 can be previewed through a generated URL.'"
     },
     {
-      "url": "https://www.daytona.io/docs/en/network-limits/",
-      "date": "2026-10-24",
-      "proved": "quoted: 'Tier 1 & Tier 2: Network access is restricted and cannot be overridden at the sandbox level ... Essential services remain reachable.'"
-    },
-    {
       "url": "https://daytona-website-website-prod.daytona.workers.dev/docs/en/billing",
       "date": "2026-10-24",
       "proved": "a preview build of the same billing page states: 'Personal organizations receive a one-time grant of free credits when the first card is connected.' The live www.daytona.io page does not carry this sentence."
+    },
+    {
+      "url": "https://www.daytona.io/pricing",
+      "date": "2026-11-25",
+      "proved": "the pricing page states USD 200 in free compute included",
+      "capture": "sha256:c5bc35772bb47a93ee626c091b06bcf414101a6d69e995dde108eb51436d58bb",
+      "quote": "Use what you need, when you need it. $200 in free compute included."
     },
     {
       "url": "https://www.daytona.io/pricing",

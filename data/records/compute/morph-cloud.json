@@ -5,7 +5,7 @@
   "url": "https://cloud.morph.so/web/subscribe",
   "category": "container and VM sandbox",
   "free_tier": {
-    "stated": "'Starting credit allocation | 0 MCUs' on the Free Developer tier, with 'Pricing | $0 / month Purchase MCUs to use compute'. The Popular Team tier is '$40 / month' with '1000 MCUs'.",
+    "stated": "The $0 tier starts with '| Starting credit allocation | 0 MCUs | 1000 MCUs | 7500 MCUs |'; the same table prices it '| Pricing | $0 / monthPurchase MCUs to use compute | $40 / month20% Discount ($50 value) | $250 / month33% Discount ($375 value) |'.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://cloud.morph.so/web/subscribe",
@@ -77,6 +77,13 @@
     },
     {
       "url": "https://cloud.morph.so/web/subscribe",
+      "date": "2026-11-25",
+      "proved": "the subscribe table still shows 0 MCUs of starting credit on the USD 0 tier and 1000 MCUs on the USD 40 tier",
+      "capture": "sha256:26665673e6b91e2a9299b2bf3cb95108300edff972f6619faa701d2975ac4ba2",
+      "quote": "| Starting credit allocation | 0 MCUs | 1000 MCUs | 7500 MCUs |"
+    },
+    {
+      "url": "https://cloud.morph.so/web/subscribe",
       "date": "2026-11-24",
       "proved": "the subscribe page lists 0 MCUs of starting credit on the $0 Developer tier and 1000/7500 MCUs on the paid tiers",
       "capture": "sha256:26665673e6b91e2a9299b2bf3cb95108300edff972f6619faa701d2975ac4ba2",
@@ -116,17 +123,10 @@
       "proved": "the FAQ repeats the 300 free compute hours per month claim for the Developer Plan",
       "capture": "sha256:d4cda99c9254fba1e3fb95d9c82f98238b21b6bfef3f5ccd6a527643d090291b",
       "quote": "Yes! The Developer Plan provides 300 free compute hours per month with pay-as-you-go pricing after that."
-    },
-    {
-      "url": "https://cloud.morph.so/docs/documentation/setup/signing-up",
-      "date": "2026-11-24",
-      "proved": "the sign-up doc states a 300-hour monthly free allowance gated on having an invite",
-      "capture": "sha256:4950c8be6f5d8d1e90409247145c69b269e363713cc8c9a5865867340b97b88b",
-      "quote": "Once you have your invite, our $0/month Developer Plan provides 300 free compute hours per month"
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:20:58.554Z",
+  "verified_at": "2026-11-25T15:03:52.933Z",
   "price_per_tb_month": null,
   "notes": "This corrects any reading of Morph as a credit provider: the free tier starts at zero MCUs, so the USD 40 Team tier is a purchase of 1000 MCUs, not a grant. The MCU-to-dollar rate is on a different page and was not read, so this record claims no hourly price; 1000 MCUs at USD 40 would make a Medium runner 5 MCU an hour, i.e. USD 0.20, which is arithmetic on an unverified unit price and is not used in the ranking.",
   "extras": {

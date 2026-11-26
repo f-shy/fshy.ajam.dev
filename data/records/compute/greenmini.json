@@ -5,7 +5,7 @@
   "url": "https://portal.greenmini.host/checkout/order",
   "category": "macOS host",
   "free_tier": {
-    "stated": "no free tier: dedicated Apple hardware from EUR 59 a month, with M4 and M6 configurations from EUR 85",
+    "stated": "no free tier: the Dedicated Mac mini M2 configuration at EUR 69,00 a month with a EUR 50,00 setup fee, or EUR 59,00/mo paid annually (€708,00/yr), setup €0,00, Save 14%",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://portal.greenmini.host/checkout/order",
@@ -70,15 +70,15 @@
     },
     {
       "url": "https://portal.greenmini.host/checkout/order",
-      "date": "2026-11-24",
-      "proved": "the order page publishes an unlimited-bandwidth term with Fair Use",
-      "capture": "sha256:4209fbe936539e1cbeb66d91aed3d7a43fecc197007ec6373bef6de76c4e83c9",
-      "quote": "Unlimited bandwidth. Use our internet connections without limits based on Fair Use. No surprise traffic bills."
+      "date": "2026-11-25",
+      "proved": "the annual cycle at EUR 59,00 a month carries setup EUR 0,00, while the monthly cycle carries the EUR 50,00 setup fee",
+      "capture": "sha256:5313df99fb02d6abaa112774a57baf862afeb562d9fba75496deb53fa0d7648e",
+      "quote": "€59,00/mo, paid annually (€708,00/yr), setup €0,00, Save 14%"
     },
     {
       "url": "https://portal.greenmini.host/checkout/order",
       "date": "2026-11-24",
-      "proved": "the order page is the source of the egress term",
+      "proved": "the order page publishes an unlimited-bandwidth term with Fair Use",
       "capture": "sha256:4209fbe936539e1cbeb66d91aed3d7a43fecc197007ec6373bef6de76c4e83c9",
       "quote": "Unlimited bandwidth. Use our internet connections without limits based on Fair Use. No surprise traffic bills."
     },
@@ -86,13 +86,6 @@
       "url": "https://portal.greenmini.host/register",
       "date": "2026-11-24",
       "proved": "registration asks for an email address",
-      "capture": "sha256:a1b972fe5cdec64809438d14b5e95f59353cab37723402fb70a8311fb9425218",
-      "quote": "Enter your email and we will send a link to continue."
-    },
-    {
-      "url": "https://portal.greenmini.host/register",
-      "date": "2026-11-24",
-      "proved": "the registration gate is email based, with OAuth alternatives",
       "capture": "sha256:a1b972fe5cdec64809438d14b5e95f59353cab37723402fb70a8311fb9425218",
       "quote": "Enter your email and we will send a link to continue."
     },
@@ -112,7 +105,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T11:38:14.858Z",
+  "verified_at": "2026-11-25T15:03:50.015Z",
   "price_per_tb_month": null,
   "notes": "",
   "extras": {

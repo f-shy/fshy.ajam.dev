@@ -52,7 +52,6 @@
 {"a":"dead","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver","subject":"compute/dedirock-cyber-monday"}
 {"a":"dead","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver-ny-bf31","subject":"compute/dedirock-black-friday"}
 {"a":"dead","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/dedirock-promo-vps-saver-ny-bf31","subject":"compute/dedirock-cyber-monday"}
-{"a":"dead","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"debrid/hotfilepremiumstore-com","subject":"debrid/hotfilepremiumstore"}
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"data-apis/allratestoday-open","subject":"data-apis/allratestoday"}
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"data-apis/exchangerate-api-open","subject":"data-apis/exchangerate-api"}
 {"a":"email","b":"anonymous","detail":null,"field":"identity_kind","kind":"duplicate-disagrees","other":"storage/ena-webin","subject":"storage/ena"}
@@ -328,4 +327,5 @@
 {"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"domains-dns/ns1-connect-essentials","subject":"domains-dns/ns1-connect"}
 {"a":"trial-only","b":"paid-only","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"domains-dns/ns1-connect-standard","subject":"domains-dns/ns1-connect"}
 {"a":"trial-only","b":"qualifies","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/kamatera-basic","subject":"compute/kamatera"}
+{"a":"trial-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/corellium-solo","subject":"compute/corellium"}
 {"a":"trial-only","b":"qualifies-with-caveat","detail":null,"field":"verdict","kind":"duplicate-disagrees","other":"compute/killercoda-free","subject":"compute/killercoda"}

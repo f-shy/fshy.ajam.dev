@@ -5,7 +5,7 @@
   "url": "https://verda.com/pricing",
   "category": "GPU cloud",
   "free_tier": {
-    "stated": "no free tier: pay-as-you-go GPU capacity on multi-node clusters with no commitments and no minimums, priced per GPU",
+    "stated": "True pay-as-you-go pricing on multi-node clusters.",
     "unit": "none",
     "metered_on": "none",
     "source_url": "https://verda.com/pricing",
@@ -66,8 +66,10 @@
     },
     {
       "url": "https://verda.com/pricing",
-      "date": "2026-10-22",
-      "proved": "the pricing page carries only 'Price' and 'Spot price' columns, for example '1x H100 SXM5 80GB ... $4.470/h | $2.235/h'; there is no free tier, trial or signup credit on the page; the only free route is content-creation credits at https://docs.verda.com/resources/obtaining-free-credits/how-to-receive-credits/ with no published amount"
+      "date": "2026-11-25",
+      "proved": "the multi-node cluster offer is pay-as-you-go",
+      "capture": "sha256:539a0b612b63f21ff087b28bb647efcdd2e2dde0e4445c6d6b59d73ddcde6798",
+      "quote": "True pay-as-you-go pricing on multi-node clusters."
     },
     {
       "url": "https://verda.com/pricing",
@@ -96,13 +98,6 @@
       "proved": "an OpenAI-compatible inference API is published",
       "capture": "sha256:539a0b612b63f21ff087b28bb647efcdd2e2dde0e4445c6d6b59d73ddcde6798",
       "quote": "Frontier open-weight models through one OpenAI compatible API, billed per token."
-    },
-    {
-      "url": "https://verda.com/pricing",
-      "date": "2026-11-24",
-      "proved": "Terraform and SDKs are published for the API",
-      "capture": "sha256:539a0b612b63f21ff087b28bb647efcdd2e2dde0e4445c6d6b59d73ddcde6798",
-      "quote": "Provision and manage with UI console, Terraform, SDK, or API."
     },
     {
       "url": "https://verda.com/pricing",
@@ -148,7 +143,7 @@
     }
   ],
   "verdict": "paid-only",
-  "verified_at": "2026-11-24T13:21:07.389Z",
+  "verified_at": "2026-11-25T15:03:48.362Z",
   "price_per_tb_month": null,
   "notes": "Paid-only stands: the page lists no free tier, and spot is a discount off a paid meter. Content-creation credits are discretionary and publish no amount, so they are not a countable free lane. Verda now also publishes token-priced inference; the content-credit route needs a published amount from the operator.",
   "extras": {
