@@ -1,0 +1,38 @@
+# Coda
+
+> coda.io | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/coda/ | JSON https://fshy.ajam.dev/api/v1/entity/coda.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Coda / Superhuman Docs (free plan) - attachments
+
+- `storage/coda-superhuman-docs-attachments` | qualifies-with-caveat | evidence reported | binding none | category paas
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T04:14:17.955Z (live) | stale on 2026-12-10
+- url https://coda.io
+- free tier: On the Free plan, docs are limited to 1GB of attachments. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 10 MB per attachment | source: [1] | note: the Free-plan doc-limits page states no single attachment may exceed 10MB
+- retention: source: [2] | note: deleted docs remain in the trash for 7 days and are then permanently removed
+- egress: Free; attachments served from Coda's CDN with signed URLs | metered: no
+- identity: email | detail: Sign-up is by an emailed link or a password.
+- interface: rest
+- limits note: 1 GB per doc total attachments; 10 MB per single attachment; docs over 125 MB lose the API and break cross-doc sync; shared docs on Free limited to 50 objects and 1,000 rows (so the docs must stay unshared to stay unlimited); 35 time-based automations/month
+- interface detail: rest
+- tooling: Coda REST API (docs/tables/rows) can create rows with attachment values by URL; API is size-gated at 125 MB doc size
+- composes with: Per-record unlimited: 1 GB x unlimited personal docs x unlimited free workspaces. Personal (unshared) docs on Free have 'no object or row limits', so the 1 GB/doc is the only ceiling - 1,000 docs = 1 TB in one free account.
+- reliability: Sharing a doc flips it into the 50-object / 1,000-row regime and can lock it read-only after a 14-day grace period - the unlimited mode is strictly the unshared mode, which also kills public download links.
+- notes: 1 GB of attachments per doc on Free, 10 MB per individual attachment, with no cap on the number of personal docs or their objects
+- evidence note: the Free-plan doc-limits page states that no single attachment can be over 10MB
+- evidence:
+  - [2] 2026-10-21: 'Per-doc file limits (the amount of total attachments in a doc): Free plan: 1 GB per doc'; 'Individual file size limit: Free plan: 10 MB per attachment'
+  - [1] 2026-10-21: 'Personal docs, or docs that aren't shared with anyone, have no object or row limits'; 'Shared docs... up to 50 objects... and up to 1000 table rows per doc'
+  - [1] 2026-11-09: a Free-plan doc is limited to 1GB of attachments | capture: sha256:bba72d6703faa5d700d23d9f69f9a3b48830fd07fa8d1b229706fa736cbf305c | quote: On the Free plan, docs are limited to 1GB of attachments.
+  - [1] 2026-11-09: a single attachment is capped at 10MB | capture: sha256:bba72d6703faa5d700d23d9f69f9a3b48830fd07fa8d1b229706fa736cbf305c | quote: Additionally, no single attachment can be over 10MB.
+  - [3] 2026-11-09: sign-up is by an emailed link or a password | capture: sha256:0c82b67b2ee775175798a8c920d921a46ea5313287817781975933965a2441bd | quote: We'll email you a link for a password-free sign up. Or sign up with a password.
+  - [1] 2026-11-25: a single attachment on the Free plan is capped at 10MB | capture: sha256:bba72d6703faa5d700d23d9f69f9a3b48830fd07fa8d1b229706fa736cbf305c | quote: Additionally, no single attachment can be over 10MB.
+  - [4] 2026-11-25: a deleted doc is retained in the trash 7 days before permanent deletion | capture: sha256:8c1263e364b38e198ea448bdde77e0932a6a983ea406145f7d1dca92bd76eb06 | quote: Your doc will remain in the trash for 7 days before it is permanently deleted.
+  - [1] 2026-11-25: the Free-plan page still caps a single attachment at 10MB | capture: sha256:bba72d6703faa5d700d23d9f69f9a3b48830fd07fa8d1b229706fa736cbf305c | quote: Additionally, no single attachment can be over 10MB.
+- sources:
+  - [1] https://help.coda.io/hc/en-us/articles/39555798022797-Doc-limits-on-Free-plan
+  - [2] https://help.coda.io/hc/en-us/articles/39555760015757-Overview-Doc-limits
+  - [3] https://coda.io/signup
+  - [4] https://help.coda.io/hc/en-us/articles/39555867229197-Delete-and-recover-docs

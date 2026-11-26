@@ -1,0 +1,88 @@
+# Workpaper
+
+> workpaper.co | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/workpaper/ | JSON https://fshy.ajam.dev/api/v1/entity/workpaper.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Workpaper
+
+- `compute/workpaper` | qualifies-with-caveat | evidence documented | binding volume-quota | category VM sandbox | tier Pro / pay-as-you-go
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T11:55:06.271Z (live) | stale on 2026-12-26
+- url https://workpaper.co/
+- free tier: Free trial: 60 minutes on one small computer, no sign-up, no card; one hour of credit with full internet also comes with every new account. | unit: minutes | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The anonymous trial is one small computer for 60 minutes in total, counted only while it runs. One trial per device every 30 days and one new trial per internet connection per day. The free computer is kept for 3 days after last use before deletion, and a signed-in account inherits it.
+- per-object cap: A small computer has 10 GB of disk and a large one 20 GB; no larger single-disk size is published. | source: [2]
+- retention: Stopping keeps files, installed software and processes; an idle computer is stopped after an hour, and a trial computer is deleted after 3 days without use. No backup exists and files can be lost if hardware fails. | days: 3 | source: [3] | note: The 3 days apply to an unused free-trial computer; paid computers are kept until the user deletes them, with no published retention period.
+- egress: Full internet access on paid computers; the anonymous trial limits internet to code and package sites and AI model APIs. No egress allowance or per-GB price is published. | metered: no | source: [3]
+- identity: anonymous | detail: The anonymous free trial needs no sign-up and no card: the CLI starts it directly. Paid plans and keeping the computer need an account, created with Google or a 6-digit code sent to email; Pro is paid by subscription or a one-time top-up.
+- interface: cli
+- limits:
+  - volume-quota (binding): 60 minutes on one small computer for the anonymous trial; 1,500 small-VM hours a month on Pro [1]
+  - volume-quota (binding): 4 running computers per account, shared across small and large sizes [2]
+  - retention-clamped: one trial per device every 30 days and one new trial per internet connection per day [3]
+- limits note: New Pro sign-ups join a waitlist when the operator is at capacity; paying users run before free trials, and a running free computer may be stopped to make room.
+- binding note: The 60-minute anonymous trial runs out first: a single small computer at USD 0.010 an hour would cost USD 0.60 for that hour, before the 4-computer account limit or the waitlist.
+- interface detail: A CLI with run, exec, stop and auth commands drives the computers; the SDKs and the browser sign-in flow are documented. Incoming connections and hosting a website are not supported.
+- endpoint: https://workpaper.co/api
+- tooling: workpaper CLI, installed with a shell script, with SDKs for scripts and agents.
+- composes with: A CLI-driven computer can run agent tasks and keep files across stops; without incoming connections or backups, results must be copied out or kept in git.
+- reliability: Computers run on privately operated hardware in India with limited capacity and occasional 'no free computers right now' errors; no backups, no uptime guarantee, no GPUs, and no incoming connections.
+- notes: An anonymous 60-minute trial is available without an account. Pro is USD 15 a month for 1,500 small-VM hours, which is USD 0.010 an hour; pay-as-you-go is USD 5 once for 150 hours, about USD 0.033 an hour. A large VM is USD 0.020 an hour on Pro. The trial's internet is filtered and the operator runs on its own limited hardware in India, with no backups.
+- evidence note: The rate card, free-trial terms, account limits, sign-in methods and reliability caveats were read from first-party pages.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 10
+  - billing_model: per-second VM runtime, monthly plan or prepaid top-up
+  - free_tier_kind: trial-minutes
+  - term: no commitment on pay-as-you-go
+  - price_arithmetic: USD 15 / 1,500 hours = USD 0.010/hour; USD 5 / 150 hours = USD 0.033/hour
+  - status: live; Pro sign-ups may be waitlisted at capacity
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: none; incoming connections are not supported
+  - session_cap.idle_reap_s: 3600
+  - session_cap.restart_required: no
+  - session_cap.note: idle computers stop after one hour and keep their files; the trial ends after 60 running minutes
+- evidence:
+  - [1] 2026-11-25: the Pro small-VM rate is USD 0.010 an hour | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: $0.010 per small-VM hour
+  - [1] 2026-11-25: the anonymous trial is free, needs no sign-up or card and gives one hour on one computer | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: No sign-up, no card
+  - [1] 2026-11-25: the trial duration is one hour | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: 1 hour on one computer
+  - [3] 2026-11-25: the trial is limited to one per device every 30 days and one per connection per day | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: One trial per device every 30 days, and one new trial per internet connection per day.
+  - [3] 2026-11-25: trial internet is limited to code, package and AI model sites | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: Internet is limited
+  - [4] 2026-11-25: an account uses Google sign-in or a 6-digit code sent to email | capture: sha256:9131c0ca3f9fe0f1dc82d9b39ae9c62b602d4352c43b41085514560f4ce44aac | quote: Sign in with Google, or with a 6-digit code sent to your email.
+  - [2] 2026-11-25: the account limit is 4 running computers | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: 4 running computers per account
+  - [2] 2026-11-25: incoming connections are not supported | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: Incoming connections
+  - [5] 2026-11-25: the small computer is 2 vCPU, 4 GB memory and 10 GB disk | capture: sha256:40b2d63b219d08831ea0b43882dcf13a9998a9616a53ce65da040ae53420b03f | quote: Small (the default) has 2 vCPU, 4 GB of memory and 10 GB of disk
+  - [1] 2026-11-24: the landing page shows a free trial tier | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: Free trial
+  - [1] 2026-11-24: the free trial needs no signup and no card | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: No sign-up, no card
+  - [1] 2026-11-24: the free trial is one hour on one computer | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: 1 hour on one computer
+  - [1] 2026-11-24: the Pro rate is USD 0.010 per small-VM hour | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: $0.010 per small-VM hour
+  - [1] 2026-11-24: the Pro monthly fee is USD 15 | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: $15 / month
+  - [1] 2026-11-24: Pro includes 1,500 small-VM hours a month | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: 1,500 hours every month
+  - [1] 2026-11-24: an account runs at most four computers at once | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: Up to 4 running VMs per account
+  - [1] 2026-11-24: a computer can be started with 60 free minutes and no account | capture: sha256:9c5d52942dc6d900de5743190cc8853a093f02b9e60129a7ce41e36f5a75cc7d | quote: 60 free minutes, and you don't need an account
+  - [6] 2026-11-24: the default small computer has 2 vCPU, 4 GB RAM and 10 GB disk | capture: sha256:786b9ba40ea00aa2c8001baab9ec0ff9da804d21c89837952267bf922eb0313d | quote: Small (default): 2 vCPU · 4 GB · 10 GB disk
+  - [6] 2026-11-24: billing is per second while running and stops when the computer stops | capture: sha256:786b9ba40ea00aa2c8001baab9ec0ff9da804d21c89837952267bf922eb0313d | quote: Billed by the second, only while a computer is running. Stopped computers cost nothing.
+  - [6] 2026-11-24: the free trial has no fee and no card requirement | capture: sha256:786b9ba40ea00aa2c8001baab9ec0ff9da804d21c89837952267bf922eb0313d | quote: The free trial costs nothing and needs no card.
+  - [6] 2026-11-24: the PAYG pack is USD 5 once for 150 small-VM hours | capture: sha256:786b9ba40ea00aa2c8001baab9ec0ff9da804d21c89837952267bf922eb0313d | quote: Pay as you go: $5 once for 150 hours of the small size, or 75 of the large (about ₹3 or $0.033 an hour for small), with no subscription.
+  - [2] 2026-11-24: the concurrency cap is four running computers per account | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: 4 running computers per account
+  - [2] 2026-11-24: a running free computer may be displaced by a paying user | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: Paying users go before free trials.
+  - [2] 2026-11-24: inbound connections are not supported and outgoing internet works | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: Incoming connections | Not supported. You can't open a port or host a website on a computer yet; programs listening on a computer can only be reached by you, through the CLI. Outgoing internet works.
+  - [2] 2026-11-24: there are no backups and files can be lost on hardware failure | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: Backups | None. If our hardware fails, a computer's files can be lost.
+  - [2] 2026-11-24: no uptime guarantee is published | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: Uptime | No guarantee yet.
+  - [2] 2026-11-24: an idle computer pauses after one hour and keeps its files | capture: sha256:00b0bcfe5eb5c261c9d391300541a332849a58d30e9b822b520f5932a912f026 | quote: A computer pauses after an hour idle and keeps everything
+  - [3] 2026-11-24: the anonymous trial is 60 minutes of runtime in total | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: 60 minutes of runtime in total.
+  - [3] 2026-11-24: the anonymous trial limits outbound internet to code, package and model sites | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: Internet is limited to code and package sites (GitHub, npm, PyPI, Docker Hub and similar) and AI model APIs (Anthropic, OpenAI).
+  - [3] 2026-11-24: trial issuance is one per device per 30 days and one per connection per day | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: One trial per device every 30 days, and one new trial per internet connection per day.
+  - [3] 2026-11-24: the trial computer is deleted three days after last use | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: Your free computer is kept for 3 days after you last used it.
+  - [3] 2026-11-24: the trial has no forks and only one computer | capture: sha256:ff94952580652745c9da228eed088aaac8ddbc1deee747bb074c702944a18a90 | quote: No forks and no second computer.
+  - [7] 2026-11-24: an account requires a real email address | capture: sha256:8ea9512da70ce743e4c0eb794fbe8ada3b7b81f5bc3eba5bb2217c5686805e1a | quote: Give us a real email address and keep it up to date.
+  - [7] 2026-11-24: the free trial is limited to one per person | capture: sha256:8ea9512da70ce743e4c0eb794fbe8ada3b7b81f5bc3eba5bb2217c5686805e1a | quote: One free trial per person.
+- sources:
+  - [1] https://workpaper.co/
+  - [2] https://docs.workpaper.co/limits
+  - [3] https://docs.workpaper.co/free-trial
+  - [4] https://docs.workpaper.co/sign-in
+  - [5] https://docs.workpaper.co/
+  - [6] https://docs.workpaper.co/pricing
+  - [7] https://workpaper.co/terms

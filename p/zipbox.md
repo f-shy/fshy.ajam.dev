@@ -1,0 +1,87 @@
+# zipbox
+
+> zipbox.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/zipbox/ | JSON https://fshy.ajam.dev/api/v1/entity/zipbox.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## zipbox
+
+- `compute/zipbox` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and VM sandbox | tier prepaid
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T14:51:51.612Z (live) | stale on 2026-12-25
+- url https://zipbox.ai/pricing
+- price parsed USD 20/mo
+- free tier: 'Every new account gets $25 in credit after a one-time $5 top-up (card or crypto) - one grant per person', with a positive balance required to boot. Credits are prepaid and non-refundable; a card on file is not a boot condition. Not a free tier. | unit: none | metered on: none | read on: 2026-10-24 | source: [1] | note: A deposit match, not a grant: USD 5 must be paid by card first. 'Credits are prepaid and non-refundable.'
+- per-object cap: Four sizes: Tiny 1 vCPU / 2 GB RAM / 20 GB disk at $0.0068 per hour, Small 2 vCPU / 4 GB / 80 GB at $0.0137, Medium 4 vCPU / 8 GB / 160 GB at $0.0274 and Large 6 vCPU / 16 GB / 320 GB at $0.0548; the monthly column is the 24/7 price at each size. Larger XL / XXL sizes are listed as coming soon. | source: [1] | note: The per-month column is the 24/7 price at that size.
+- retention: Pausing is free and saves the disk with files, email and wallets intact; deleting removes the machine but keeps its name, email and wallets on hold. At $0 a one-hour grace window keeps running boxes alive before they are paused, and credits never expire. | source: [1]
+- egress: No egress charge or allowance is stated on the pricing or billing pages; a box can be kept off the internet in private mode and on a tailnet, and its public HTTPS URL is included at zbox.sh | metered: no | source: [1]
+- identity: email | detail: Sign in with an email address or a crypto wallet; a reachable email is a hard server-side gate and a required username follows. The USD 25 match needs a one-time USD 5 top-up by card or crypto; a card on file is not a boot condition, and credits are prepaid and non-refundable.
+- interface: rest, cli, browser
+- limits:
+  - volume-quota (binding): USD 25 credit requires a one-time USD 5 top-up [1]
+  - volume-quota (binding): Medium 4 vCPU / 8 GB / 160 GB at USD 0.0274 an hour, USD 20 a month [1]
+- limits note: The balance also pays for model and API calls made through platform keys, so compute and inference compete for the same USD 25.
+- binding note: The prepaid balance is the only limit: USD 25 at USD 0.0274 an hour is 912 hours, and nothing else in the published terms stops a box running.
+- interface detail: A desktop in the browser and on a phone, an HTTP control plane at api.tribes.xyz, TypeScript / Python / Go / Rust SDKs, a CLI and a hosted MCP server at mcp.zipbox.ai; model and API calls bill the same balance
+- tooling: web dashboard; per-box itemised model and API spend
+- composes with: a cheap 4 vCPU box whose balance also pays for model calls, so an agent and its inference share one wallet
+- reliability: 'A positive balance is what boots a machine', so a zero balance stops the box rather than billing overage.
+- notes: USD 25 at Medium's USD 0.0274 is 912 hours, so the match buys 1.25 months of a 4 vCPU / 8 GB / 160 GB machine for USD 5 out of pocket, which is the lowest cash cost for a 4 vCPU month anywhere among documented hosts. It is card-gated at signup and the balance is shared with inference, so it is not a free tier.
+- evidence note: Sizes, rates, the top-up requirement and the non-refundable term are on the pricing page read. Not established: whether the USD 25 is granted once per account or once per person, and whether a paused box is retained indefinitely.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 160
+  - billing_model: per-second from a prepaid balance
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.restart_required: no
+  - session_cap.note: no session clock published; paused boxes cost nothing and no automatic reap is stated
+  - keep_rate.value: 0.0
+  - keep_rate.basis: paused boxes cost USD 0, quoted
+  - keep_rate.source: https://zipbox.ai/pricing
+  - persistent_storage.included_gib: 80
+  - persistent_storage.price_gib_month: included
+  - persistent_storage.durability: survives pause
+  - persistent_storage.survives_stop: yes
+  - persistent_storage.max_retention: unpublished
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: unstated
+  - free_tier_kind: top-up-match
+  - m10h_usd: 8.22
+  - m24h_usd: 20.0
+  - price_arithmetic: 0.0274/h x 730 = 20.00; 25 / 0.0274 = 912.4 h
+  - price_note: Small shape, USD 0.0137 per hour, billed per second while running.
+  - price_basis: 10 h/day x 30 = 300 h; 24/7 x 30 = 730 h
+  - burst_x: 1.0
+  - term: prepaid
+  - credit_usd: 25
+  - cash_to_unlock_usd: 5
+  - credit_months_at_shape: 1.25
+  - credit_hours_at_shape: 912.4
+  - credit_expiry: not stated; credits are non-refundable
+- evidence:
+  - [1] 2026-10-22: Tiny USD 0.0068 (1 vCPU/2 GB/20 GB), Small USD 0.0137 (2/4/80), Medium USD 0.0274 (4/8/160), Large USD 0.0548 (6/16/320)
+  - [1] 2026-10-22: USD 25 in credit with a one-time USD 5 top-up; paused boxes cost USD 0; card saved for auto top-up
+  - [1] 2026-10-24: quoted: 'Every new account can get $25 in credit with a one-time $5 top-up. A positive balance is what boots a machine. Top up by card; the card is saved for auto top-up.'; 'Medium 4 vCPU · 8 GB RAM · 160 GB disk $0.0274 $20'; 'Paused boxes cost $0.'; 'Credits are prepaid and non-refundable.'
+  - [1] 2026-11-18:  | capture: sha256:0666ed0e14101ccd689671a1687204ebc0000726de25bb02c9e41720ea1d5d91 | quote: Paused boxes cost $0.
+  - [2] 2026-11-24: the USD 25 is a one-per-person match on a USD 5 top-up by card or crypto | capture: sha256:3ece9580dba514d45c48700bbf712f3ae34573bb3ba0a27bf69a9d8158b49d50 | quote: Every new account gets $25 in credit after a one-time $5 top-up (card or crypto) - one grant per person, and it lands in the same balance as a top-up
+  - [1] 2026-11-24: the pricing page still states the USD 25 match and the positive-balance boot gate | capture: sha256:0666ed0e14101ccd689671a1687204ebc0000726de25bb02c9e41720ea1d5d91 | quote: Every new account can get $25 in credit with a one-time $5 top-up. A positive balance is what boots a machine. Top up by card; the card is saved for auto top-up.
+  - [1] 2026-11-24: the Medium and Large size rows and their hourly and monthly prices are unchanged | capture: sha256:0666ed0e14101ccd689671a1687204ebc0000726de25bb02c9e41720ea1d5d91 | quote: Medium4 vCPU · 8 GB RAM · 160 GB disk$0.0274$20 Large6 vCPU · 16 GB RAM · 320 GB disk$0.0548$40
+  - [2] 2026-11-24: the Medium rate and shape match the pricing page | capture: sha256:3ece9580dba514d45c48700bbf712f3ae34573bb3ba0a27bf69a9d8158b49d50 | quote: | Medium | 4 vCPU · 8 GB RAM · 160 GB disk | $0.0274/hr | ≈ $20/mo |
+  - [3] 2026-11-24: paused disks are retained and a deleted machine keeps its identity for later reboot | capture: sha256:0e947398090005b906c529a71d6c833058da2b3b46ea201176f2f813bb87d957 | quote: Pausing is free - the machine's disk is saved and the meter stops, so you pay nothing and lose nothing. Restore boots that same disk - files, email, wallets intact. Delete removes the machine but keeps its name, email, and wallets on hold, so you can boot the same identity again later.
+  - [1] 2026-11-24: the pricing page names only machine time and metered model calls and no egress charge | capture: sha256:0666ed0e14101ccd689671a1687204ebc0000726de25bb02c9e41720ea1d5d91 | quote: LLM and API calls made through platform keys bill the same balance, itemized per box.
+  - [3] 2026-11-24: sign-in uses an email address or a crypto wallet, not a card | capture: sha256:0e947398090005b906c529a71d6c833058da2b3b46ea201176f2f813bb87d957 | quote: Open [zipbox](https://zipbox.ai/os) and sign in with an email address or a crypto wallet. Signing in sets up a secure key in your browser that later unlocks your machines - there are no machine passwords.
+  - [3] 2026-11-24: a confirmed email is a hard signup gate before a machine can be created | capture: sha256:0e947398090005b906c529a71d6c833058da2b3b46ea201176f2f813bb87d957 | quote: A reachable email. If you signed in with a wallet - or with a social login that carried no address - you add an email and confirm it with a code. You can have the code resent after a short cooldown. This is a hard gate: a machine cannot be created without it, and the check is enforced on the server, not just in the browser.
+  - [4] 2026-11-24: login is through a login provider with a wallet address identifier and an optional email | capture: sha256:0e842b34d041962cc23b0621039d373f51f15722a166daaae88712aac57e809f | quote: To use the Services you authenticate through our login provider. In doing so: - Wallet address. Logging in provisions or connects an embedded wallet. We store its public address as your account identifier. We never have custody of your private key, recovery phrase, or seed. - Email address (optional). If you sign in or receive billing notices by email, we store that address to identify your account and contact you about your account, billing, and security.
+  - [5] 2026-11-24: boxes are reachable through a hosted MCP server and a CLI | capture: sha256:c6afcdb2ca2ad0a52cea4390c3c0049fe6a807083b6df5fbc940a5ee538d62df | quote: Connect Claude, Codex, Cursor or any MCP client to your boxes - the hosted server at mcp.zipbox.ai, stdio via the CLI, and every tool.
+  - [6] 2026-11-24: the control plane is an HTTP API reached without installing anything | capture: sha256:ee903f9a8f59777a4e43243b37c30ea7a7986200bcf02669434848e45225a6ac | quote: # Nothing to install. Control plane: https://api.tribes.xyz
+  - [7] 2026-11-24: the home page names browser, phone, SDK and MCP access | capture: sha256:08d0a12e60b3ded408b8a72b78a9bfd85683925ae61184a24d54208ebabffd5e | quote: Give Claude Code, Codex or any AI agent its own cloud computer. Use it from your browser, your phone, the SDK or MCP. $25 in credit to start. No install.
+- sources:
+  - [1] https://zipbox.ai/pricing
+  - [2] https://zipbox.ai/docs/pricing
+  - [3] https://zipbox.ai/docs/quick-start
+  - [4] https://zipbox.ai/privacy
+  - [5] https://zipbox.ai/docs/mcp
+  - [6] https://zipbox.ai/docs/quickstart
+  - [7] https://zipbox.ai/

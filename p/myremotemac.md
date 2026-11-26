@@ -1,0 +1,113 @@
+# My Remote Mac
+
+> myremotemac.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/myremotemac/ | JSON https://fshy.ajam.dev/api/v1/entity/myremotemac.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## My Remote Mac (Mac mini M4 entry, monthly)
+
+- `compute/my-remote-mac` | paid-only | evidence documented | binding volume-quota | category rented Mac (bare metal) | tier Mac mini M4 entry, monthly
+- needs card yes, phone no, ID no, institution no | verified 2026-11-25T02:12:34.858Z (live) | stale on 2026-12-26
+- url https://myremotemac.com/pricing
+- free tier: No free tier and no trial are published on the pricing page: Mac mini M4 entry is 85 /mo USD, excl. tax, with a 24-hour minimum rental. Eligible free and open-source projects get 25% off every plan and add-on through our Open Source Program, in exchange for a credit and a backlink. | unit: none | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The daily rate is $14 for 24 hours, auto-renew off; the provider list's $85 a month divided by 730 hours is $0.116 an hour. The 25% open-source discount is a price reduction, not a free allowance.
+- per-object cap: not applicable: the unit is a dedicated physical Mac with a 256 GB SSD, not an object | source: [1]
+- retention: with a daily plan auto-renew off, the instance and all its data are deleted when the 24 hours paid for end; with auto-renew on, the Mac and its data are erased when a renewal payment fails, and monthly and annual plans keep a 24-hour or 3-day grace period | source: [1]
+- egress: Unmetered 1 Gbps Network: No data cap, on a 100 Gbps backbone, upgradable to 2.5 or 5 Gbps; 2.5 Gbps for +$20/mo or 5 Gbps for +$35/mo, unmetered as well | metered: no | free allowance: unmetered | source: [1]
+- identity: card | detail: the register form asks for First Name, Last Name, Email, Password and Confirm Password; the pricing FAQ states payment is by all major credit cards via Stripe, with wire transfers for enterprise accounts, and that every card goes through 3D Secure verification with a $1 hold released right away
+- interface: ssh, sftp, browser
+- limits:
+  - volume-quota (binding): 24-hour minimum rental; $14 for 24 hours, auto-renew off, or $85 a month [1]
+  - per-ip-shaping: fail2ban bans the caller IP for 1 hour after 5 failed logins within 10 minutes on SSH and VNC [2]
+- limits note: You can run one daily Mac at a time; monthly or yearly is needed for another Mac. Add-ons such as the backup disk and network upgrades are available on monthly and annual plans only, not daily plans.
+- binding note: the 24-hour minimum and the $14 daily or $85 monthly price are the first limit a caller meets; the unmetered network does not impose a byte quota.
+- interface detail: full root access via SSH and VNC; public IPv4 and IPv6 addresses; scp and SFTP for file transfer; a dashboard at app.myremotemac.com; VNC desktop on port 59010 and SSH on port 22
+- tooling: an SSH client, a VNC viewer and scp or SFTP; the GitHub Actions self-hosted runner guide sets up launchd, Xcode and caches. The user installs and runs the CI runner agent on the rented Mac; the Mac itself is the hosted offer.
+- composes with: the dedicated Mac runs a GitHub Actions, GitLab CI, Jenkins or Buildkite self-hosted runner with Xcode, and the unmetered 1 Gbps link makes it usable as a build and test host; artifacts needing durable storage should be copied to an object-storage record because the instance is deleted at the end of a daily term.
+- reliability: a daily instance and all its data are deleted when the paid 24 hours end, immediately at later renewals if a payment fails; fail2ban bans the caller IP for 1 hour after 5 failed logins in 10 minutes; the vendor states a 99.9% uptime SLA.
+- notes: No free tier is published; the entry Mac mini M4 is USD 85 a month or USD 14 for 24 hours, and the open-source program is a 25 percent price reduction in exchange for a credit and a backlink. The provider list's USD 0.116 an hour is USD 85 divided by 730 hours.
+- evidence note: prices, network terms, rental minimum, deletion behaviour and payment rails are quoted from first-party pricing and FAQ pages; the SSH/VNC ports and fail2ban rule are quoted from the vendor's docs; the signup form and payment rails were read but no rental was made.
+- extras:
+  - shape.ram_gib: 16
+  - shape.disk_gib: 256
+  - shape.gpu_class: Apple M4, 10-core CPU and 10-core GPU
+  - shape.note: dedicated physical Mac mini M4 entry configuration
+  - billing_model: daily with 24-hour minimum, monthly or annual
+  - free_tier_kind: none
+  - price_arithmetic: USD 85 / 730 hours = USD 0.116 an hour
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: SSH 22, VNC 59010
+  - network_out.static_ip: public IPv4 and IPv6 included
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: 24-hour minimum; daily instance and its data deleted at the end of the paid period
+- evidence:
+  - [1] 2026-11-25: the entry Mac mini M4 is USD 85 a month excluding tax | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: 85 /mo
+  - [1] 2026-11-25: the network is unmetered at 1 Gbps with no data cap | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: Unmetered 1 Gbps Network No data cap, on a 100 Gbps backbone, upgradable to 2.5 or 5 Gbps
+  - [1] 2026-11-25: a daily Mac with auto-renew off costs USD 14 for 24 hours | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: 24 hours One day, auto-renew off
+  - [1] 2026-11-25: payment is by major credit cards via Stripe, with wire transfers for enterprise accounts | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: All major credit cards via Stripe. Wire transfers available for enterprise accounts.
+  - [1] 2026-11-25: eligible open-source projects get 25 percent off every plan and add-on | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: eligible free and open-source projects get 25% off every plan and add-on through our Open Source Program, in exchange for a credit and a backlink
+  - [3] 2026-11-25: the register form asks for first name, last name, email and a password | capture: sha256:a67d66d8040ec471ec0f6fddc540e1dc7f10397ccbf54cf1c4faff74f06e1d43 | quote: First Name
+  - [2] 2026-11-25: SSH reaches the Mac on port 22 with a username and a password or an SSH key | capture: sha256:67d44f3016a9320854fee2d3b7412f342038f016a694719f3c71d112375865bc | quote: Terminal: OpenSSH (`ssh` in Windows Terminal/PowerShell) or PuTTY, on port `22`, authenticating with your username plus a password or an SSH key.
+  - [2] 2026-11-25: fail2ban bans the caller IP for 1 hour after 5 failed logins in 10 minutes | capture: sha256:67d44f3016a9320854fee2d3b7412f342038f016a694719f3c71d112375865bc | quote: fail2ban bans your IP for 1 hour after 5 failed logins within 10 minutes (SSH and VNC).
+- sources:
+  - [1] https://myremotemac.com/pricing
+  - [2] https://docs.myremotemac.com/connect/from-windows/
+  - [3] https://app.myremotemac.com/register
+
+## My Remote Mac (Mac mini M4, 24 hours)
+
+- `compute/my-remote-mac-daily-m4` | paid-only | evidence documented | binding volume-quota | category dedicated physical Mac rental | tier Mac mini M4, 24 hours
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T10:11:14.932Z (live) | stale on 2026-12-25
+- url https://myremotemac.com/pricing
+- free tier: The shortest lease is 24 hours at $14 for the Mac mini M4 with 16GB memory and 256GB SSD, billed in advance in USD excluding tax. No setup fees and no commitment; auto-renew is on by default and can be turned off before the order. | unit: none | metered on: none | read on: 2026-11-24 | source: [1] | note: The published entry price is $14 per 24 hours or $85 a month for the same machine; the 24-hour floor comes from Apple's macOS licence. A card with 3D Secure and a $1 hold is needed to add a payment method.
+- per-object cap: not applicable: the unit is a physical machine, not an object; the entry machine has a 256GB SSD and a backup disk is an optional add-on at 15% of the plan price
+- retention: When a plan ends the instance is permanently deleted and all data on it is destroyed; a daily Mac without auto-renew is deleted as soon as its 24 hours end. Backups, when the option is bought, are retained for seven days from deletion. | days: 7 | source: [2]
+- egress: Unmetered 1 Gbps networking with no data cap on a 100 Gbps backbone; 2.5 Gbps for +$20/mo and 5 Gbps for +$35/mo are also unmetered on monthly and annual plans only. Dedicated public IPv4 and IPv6 are included. | metered: no | free allowance: unmetered | source: [1]
+- identity: card | detail: Every card added goes through 3D Secure verification with a $1 hold released right away, and the first payment is confirmed by the bank at checkout. The account is created with a login email. Identity documents are asked for only if access is restricted for a suspected breach and KYC is required to restore it.
+- interface: ssh, browser
+- limits:
+  - volume-quota (binding): 24 hours minimum per lease; $14 for the first 24 hours of a Mac mini M4, auto-renewing every 24 hours by default [1]
+  - per-ip-shaping: fail2ban bans an IP for 1 hour after 5 failed logins within 10 minutes on both SSH and VNC [3]
+- limits note: One daily Mac at a time per account; add-ons are not available on daily plans. Monthly and annual plans give a 24-hour or 3-day grace period on a failed payment, while a daily plan has none.
+- binding note: The 24-hour minimum lease is what binds a short job: a single hour of use costs the same $14 as a full day, well before the bandwidth or login limits matter.
+- interface detail: A root-capable shell over SSH on port 22 with password or public-key authentication; a graphical macOS desktop over VNC / Apple Screen Sharing on port 59010. Instances are dedicated physical machines, allocated 1:1, never shared VMs.
+- tooling: an SSH client and a VNC viewer; Xcode, Jenkins, GitLab runners and GitHub Actions run on the machine, and an iPhone can be connected through VirtualHere or TestFlight
+- composes with: A dedicated Mac runs an iOS CI/CD or Xcode job with full root and unmetered bandwidth; because the instance and its data are deleted at the end of a paid period, artifacts that must outlive the lease need another record's storage, and the 24-hour minimum makes a short job cost a full day.
+- reliability: 99.9% monthly network and power availability under the SLA; a daily renewal that is not collected ends the contract with no grace period and the instance and its data are erased once the 24-hour minimum lease allows. A failed payment during a monthly or annual term has a 24-hour or 3-day grace period before deletion.
+- notes: The entry offer is a dedicated physical Mac mini M4 with 10c CPU, 16GB memory and 256GB SSD at $14 for 24 hours or $85 a month, USD excluding tax, with unmetered 1 Gbps networking. A hosted physical machine allocated 1:1; the user does not install the hardware or the host, though they install their own software on the Mac.
+- evidence note: The price, minimum lease, network, card and add-on terms are quoted from the vendor's pricing page read on 2026-11-24.
+- extras:
+  - shape.vcpu: 10
+  - shape.ram_gib: 16
+  - shape.disk_gib: 256
+  - shape.gpu_class: 10c GPU
+  - shape.note: Mac mini M4 entry plan; 512GB, 24GB, 48GB and 4TB variants are listed at higher prices
+  - billing_model: 24-hour prepaid lease, auto-renew by default; monthly and annual terms available
+  - free_tier_kind: paid-lease
+  - term: 24 hours minimum
+  - price_arithmetic: $14 per 24 hours or $85 per month, USD excluding tax; annual $935 gives one month free
+  - status: published paid offer
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: SSH 22, VNC 59010
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - network_out.note: unmetered 1 Gbps, 2.5 or 5 Gbps as paid options
+  - session_cap.restart_required: no
+  - session_cap.note: lease end deletes the instance and its data; no idle timeout is published
+- evidence:
+  - [1] 2026-11-24: the entry Mac mini M4 at 16GB and 256GB SSD costs $85 a month, USD excluding tax | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: 85 /mo
+  - [1] 2026-11-24: the first 24 hours of that Mac mini M4 cost $14, and a daily Mac auto-renews every 24 hours by default | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: 24 hours One day, auto-renew off | $14 | $85 | $935
+  - [1] 2026-11-24: networking is unmetered with no data cap, and faster unmetered tiers have a monthly surcharge | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: ### Unmetered 1 Gbps Network
+  - [1] 2026-11-24: each card is checked with 3D Secure and a $1 hold released immediately | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: Every card you add goes through 3D Secure verification, with a $1 hold released right away.
+  - [1] 2026-11-24: a daily plan has no payment-failure grace period and the instance and its data are erased | capture: sha256:30b6fca42e5cd640457b7c2438be71186598b8597fa03fbaddd6110ce0414955 | quote: What happens if a daily renewal payment fails?
+  - [2] 2026-11-24: data on a deleted instance is destroyed with no provider copy, and bought backups last seven days | capture: sha256:2f1921352e145c0c5165ddbf4c90a1b85ae55cdca66c5abfd1f17325aa3cb349 | quote: All data stored on the instance is permanently destroyed upon deletion, cannot be recovered, and the Provider retains no copy of it.
+  - [3] 2026-11-24: access is SSH on port 22 and VNC / Screen Sharing on port 59010 | capture: sha256:4d0aff921105f53a3f0beeedf27ac8551af6b728d35cf7781fb69a55d07cb200 | quote: SSH is on port `22` and the VNC / Screen Sharing desktop is on port `59010`
+  - [3] 2026-11-24: an IP is banned for one hour after five failed logins in ten minutes on both SSH and VNC | capture: sha256:4d0aff921105f53a3f0beeedf27ac8551af6b728d35cf7781fb69a55d07cb200 | quote: After 5 failed logins within 10 minutes, the offending IP is banned for 1 hour
+  - [4] 2026-11-24: the minimum lease is 24 hours and the machine is accessed over root SSH and VNC Screen Sharing | capture: sha256:9ebfc3eb33cf8a3be3155d21c3726629807a4f32d095778d1a6d1c5e346d63c1 | quote: Yes, 24 hours: Apple's macOS license sets a 24-hour minimum for every cloud Mac lease.
+- sources:
+  - [1] https://myremotemac.com/pricing
+  - [2] https://myremotemac.com/legal
+  - [3] https://docs.myremotemac.com/connect/overview/
+  - [4] https://myremotemac.com/faq

@@ -1,0 +1,84 @@
+# Avrea Sandboxes
+
+> avrea.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/avrea/ | JSON https://fshy.ajam.dev/api/v1/entity/avrea.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Avrea Sandboxes
+
+- `compute/avrea-sandboxes` | qualifies-with-caveat | evidence documented | binding retention-clamped | category VM sandbox | tier Pay as you go, Linux x86
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T16:38:09.929Z (live) | stale on 2026-12-26
+- url https://avrea.com/pricing
+- free tier: Pay as you go includes $12 in credit each month per organization, renewing monthly, which covers 3,000 minutes on a 2-vCPU Linux x86 runner; there are no monthly subscription or per-seat fees. Sandboxes use the same compute rates as runners and are billed for reserved time. | unit: credits | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The $12 monthly credit is the free allowance. The 2-vCPU/8 GB Linux x86 rate is $0.004 a minute, equal to $0.24 an hour; the operator's list gives Avrea Sandboxes at $0.24 an hour billed per second, while the pricing page says sandboxes are billed for reserved time and the blog says per-second billing.
+- per-object cap: not applicable: the unit is a machine, not an object. A persistent disk add-on is priced at $0.50 per GB-month and 25 GB of cache storage per repository is included. | source: [1]
+- retention: A paused sandbox is deleted with its disk 7 days after its time limit ended. Sandboxes that cannot pause, such as Windows, macOS and Linux arm64, are deleted with their disk at the limit; agent sandboxes boot once and their disk is not kept. | days: 7 | source: [2]
+- egress: Networking is included in the price without separate bandwidth metering: 'Networking is included in the price, without separate bandwidth metering.' Git Mirroring outbound clone/fetch is $0.15 per GB, a separate add-on, and a static IP is $100 per IP per month. | metered: no | source: [3]
+- identity: email | detail: The console sign-in at console.avrea.com offers 'Continue with GitHub' and 'Sign in with single sign-on (SSO)', with no email/password sign-in field rendered. The app bundle renders an email input only after the SSO option is chosen, to look up a SAML provider for a company domain ('No single sign-on is configured for that email. Continue with GitHub above.'), so the gate is GitHub or company SSO, not email. No phone or document field is shown, and no card is asked for before the $12 monthly credit is used. The exact card gate inside the console is unverified: behind a sign-up. | country: a company domain for SSO
+- interface: ssh, cli, browser
+- limits:
+  - volume-quota: $12 of credit each month per organization, covering 3,000 minutes on a 2-vCPU Linux x86 runner [1]
+  - retention-clamped (binding): without a payment method a sandbox runs at most 2 hours from creation, extensions included; with one, the default is 8 hours and the maximum is 7 days [2]
+  - retention-clamped (binding): a paused sandbox is deleted with its disk 7 days after its time limit ended [2]
+  - volume-quota: an organization can keep one paused sandbox per vCPU of its sandbox quota [2]
+- limits note: macOS sandboxes require an account-level request and have a 24-hour minimum reservation. Forking is limited to supported paused Linux amd64 sandboxes and agent sandboxes cannot be forked.
+- binding note: Without a payment method, the 2-hour cap on a sandbox ends the session first, before the $12 monthly credit is spent; a paused sandbox is then deleted after 7 days.
+- interface detail: Sandboxes are created in the console or with the Avrea CLI (avr vm create, avr vm ssh); an SSH terminal, RDP or VNC, scp/rsync via SSH config, and published HTTPS URLs are supported.
+- endpoint: https://api.avrea.com
+- tooling: the Avrea console and the avr CLI; SSH, scp and rsync through a generated SSH config; published HTTPS URLs for previews; no rclone backend is documented.
+- composes with: A sandbox can start from a connected repository with package caches, pause and fork an eligible Linux x86 VM for parallel experiments, and publish a port over HTTPS for an agent preview.
+- reliability: Without a payment method a sandbox stops after at most 2 hours, extensions included. A paused sandbox is deleted with its disk 7 days after its time limit; Windows, macOS and Linux arm64 sandboxes are always deleted with their disk. Agent sandboxes are deleted at session end and uncommitted work is lost.
+- notes: Hosted full VMs for agent and developer tasks at $0.004 a minute for 2 vCPU/8 GB Linux x86, the same rate as Avrea runners, with $12 of monthly credit per organization and $0.24 an hour on the operator's list. Without a payment method the session is capped at 2 hours and a paused sandbox is deleted after 7 days. Self-hosting is not offered; the macOS 24-hour minimum is a separate tier.
+- evidence note: Prices, the $12 monthly credit, the 2-hour no-payment cap, retention and the sign-in buttons are quoted from first-party pages read on 2026-11-25. The sign-in buttons were re-read through every available route and the app bundle, which shows the email input is for company SSO lookup only. The exact card gate inside the console and per-sandbox egress byte terms are unverified: behind a sign-up.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 8
+  - shape.note: 2 vCPU and 8 GB Linux x86 at $0.004 a minute; the operator's price list uses a 2 vCPU / 4 GB shape
+  - billing_model: reserved time at per-minute rates, with $12 monthly credit; the blog states per-second billing
+  - free_tier_kind: recurring monthly credit
+  - term: month-to-month pay as you go
+  - price_arithmetic: $0.004 per minute = $0.24 per hour; $12 monthly credit covers 3,000 minutes at that rate
+  - status: public, sandboxes listed in beta on the comparison page
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: published HTTPS URLs and port forwarding via SSH
+  - network_out.static_ip: $100 per IP per month add-on
+  - session_cap.wall_clock_min: 480
+  - session_cap.idle_reap_s: 604800
+  - session_cap.restart_required: no
+  - session_cap.note: 2 hours without a payment method; 8-hour default and 7-day maximum with one; paused sandbox deleted 7 days after its time limit
+- evidence:
+  - withheld 2026-11-25: the operator's price list gives Avrea Sandboxes at USD 0.24 per hour, billed per second | capture: sha256:4d220f8008ed2a6126e4b7f8bc4639bd9e625605ec428846fde2bdf593cc5c95 | quote: Avrea Sandboxes → $0.24/h · billed per second (new)
+  - [1] 2026-11-25: the 2-vCPU 8 GB Linux x86 rate is $0.004 a minute and sandboxes use the same rates as runners, billed for reserved time | capture: sha256:f4beb6c0ea40c66f5af9f523b199e7930160077f2242345ad086d619f89239f6 | quote: | 2 | 8 | $0.004 |
+  - [1] 2026-11-25: pay as you go includes $12 in credit each month per organization and has no monthly subscription or per-seat fee | capture: sha256:f4beb6c0ea40c66f5af9f523b199e7930160077f2242345ad086d619f89239f6 | quote: Pay as you go includes $12 in credit each month per organization. That covers 3,000 minutes on a 2-vCPU Linux x86 runner; other sizes use credit at their listed rates. The credit renews monthly.
+  - [3] 2026-11-25: sandboxes are billed by the second and networking is included without separate bandwidth metering | capture: sha256:b5e9374014f5a44532724af0283d86e14d95bd6a418ffcaf24a6b86763ebb0f7 | quote: Avrea Sandboxes are billed by the second, so you don’t need to commit to a long-running machine just to perform a short task. Networking is included in the price, without separate bandwidth metering.
+  - [2] 2026-11-25: without a payment method a sandbox runs at most 2 hours from creation; otherwise the default is 8 hours and the maximum 7 days | capture: sha256:35eba9f26d8dd1d461260e0bb3ccbd1f3579cedcb1b64f654ba0323c8dceb623 | quote: The default time limit is eight hours, with a maximum of seven days. Without a payment method, a sandbox runs for at most two hours from its creation, extensions included, and the default is two hours.
+  - [2] 2026-11-25: a paused sandbox is deleted with its disk 7 days after its time limit ended, and an organization keeps one paused sandbox per vCPU of quota | capture: sha256:35eba9f26d8dd1d461260e0bb3ccbd1f3579cedcb1b64f654ba0323c8dceb623 | quote: A paused sandbox is deleted, with its disk, 7 days after its time limit ended. Extend the time limit before then to keep your work.
+  - [1] 2026-11-25: macOS sandboxes have a 24-hour minimum reservation and then the same per-minute rate | capture: sha256:f4beb6c0ea40c66f5af9f523b199e7930160077f2242345ad086d619f89239f6 | quote: macOS has a 24-hour minimum reservation, then the same per-minute rate.
+  - [4] 2026-11-25: the console sign-in offers GitHub and company SSO, with no email/password sign-in field in the page | capture: sha256:762057445bbe655b62befce6fcad33c9fd62d6ad92f9ceca5eda5f3200ae6c35 | quote: Continue with GitHub
+  - [1] 2026-11-24: the pay-as-you-go plan includes USD 12 of monthly credit covering 3,000 minutes on a 2-vCPU Linux x86 runner, renewing monthly | capture: sha256:fcdf389cb9dcfbadc3e41e0418d342bffd7242eeae4741ab11c1beca19ffdb10 | quote: Pay as you go includes $12 in credit each month per organization. That covers 3,000 minutes on a 2-vCPU Linux x86 runner; other sizes use credit at their listed rates. The credit renews monthly.
+  - [1] 2026-11-24: the smallest Linux x86 runner rate is USD 0.002 a minute and the macOS 8-vCPU rate is USD 0.08 a minute | capture: sha256:fcdf389cb9dcfbadc3e41e0418d342bffd7242eeae4741ab11c1beca19ffdb10 | quote: | 1 | 4 | $0.002 |
+  - [1] 2026-11-24: the 8-vCPU 24 GB macOS sandbox rate is USD 0.08 a minute | capture: sha256:fcdf389cb9dcfbadc3e41e0418d342bffd7242eeae4741ab11c1beca19ffdb10 | quote: | 8 | 24 | $0.08 |
+  - [1] 2026-11-24: macOS sandboxes have a 24-hour minimum reservation at the per-minute rate | capture: sha256:fcdf389cb9dcfbadc3e41e0418d342bffd7242eeae4741ab11c1beca19ffdb10 | quote: macOS has a 24-hour minimum reservation, then the same per-minute rate.
+  - [1] 2026-11-24: runners bill by the second | capture: sha256:fcdf389cb9dcfbadc3e41e0418d342bffd7242eeae4741ab11c1beca19ffdb10 | quote: Runners are billed by the second at the per-minute rates above.
+  - [2] 2026-11-24: the default sandbox time limit is 8 hours, maximum 7 days, and is 2 hours without a payment method | capture: sha256:35eba9f26d8dd1d461260e0bb3ccbd1f3579cedcb1b64f654ba0323c8dceb623 | quote: The default time limit is eight hours, with a maximum of seven days. Without a payment method, a sandbox runs for at most two hours from its creation, extensions included, and the default is two hours.
+  - [2] 2026-11-24: a paused sandbox is deleted with its disk 7 days after its time limit ends | capture: sha256:35eba9f26d8dd1d461260e0bb3ccbd1f3579cedcb1b64f654ba0323c8dceb623 | quote: A paused sandbox is deleted, with its disk, 7 days after its time limit ended.
+  - [3] 2026-11-24: sandboxes bill by the second and networking is included without separate bandwidth metering | capture: sha256:b5e9374014f5a44532724af0283d86e14d95bd6a418ffcaf24a6b86763ebb0f7 | quote: Avrea Sandboxes are billed by the second, so you don’t need to commit to a long-running machine just to perform a short task. Networking is included in the price, without separate bandwidth metering.
+  - [5] 2026-11-24: published HTTPS URLs are reachable without signing in and are limited to 500 requests a second | capture: sha256:a8c9c69fa79ff8ee24e1fe89772d902251cd1314169dbb542ffb5ef522736b74 | quote: Sandbox URLs are public: anyone who has a URL reaches its port, without signing in.
+  - [6] 2026-11-24: organizations with no payment method are capped at 64 vCPUs, 2 hours per job and 256 queued jobs, with 2-hour sandboxes | capture: sha256:7d6486a74562d0c075828e1ebbe8e0c5336f3a300af5b62497f3922bc1289614 | quote: Organizations with no payment method on file run with lower limits: 64 vCPUs at once, 2 hours per job and 256 queued jobs.
+  - [6] 2026-11-24: free minutes are measured on a 2 vCPU Linux x86 runner and larger machines use them faster | capture: sha256:7d6486a74562d0c075828e1ebbe8e0c5336f3a300af5b62497f3922bc1289614 | quote: Free minutes are measured on a 2 vCPU Linux x86 runner.
+  - [7] 2026-11-24: CLI sign-in needs a browser approval of a printed link and code | capture: sha256:703990371e83107d5351670aa5f79490d3518e5b53e8d38fbbd6d4328810f3da | quote: Open the printed link on your laptop or phone, or scan the QR code, confirm the code and approve.
+  - [8] 2026-11-24: sign-in at the console creates or selects an Avrea organization | capture: sha256:ebd25fae654b1c7ca3e8ff20ecb94c45af0e1715992cca7addc1980c57d465da | quote: Sign in at console.avrea.com, create or select an Avrea organization
+  - [9] 2026-11-24: the subscription is paid online by payment card | capture: sha256:7c4f80b40ca25a75bf62180970d24747dc8a56ea1083d3e1d8a7e8389a0ceecc | quote: Payment for the service is made online by payment card.
+  - [4] 2026-11-25: the console sign-in offers GitHub as a self-service route alongside company SSO | capture: sha256:c02fe4744889e6f0f4a1c53114eb87ef0a32301046fe3b231f61e460894db254 | quote: Continue with GitHub
+  - [10] 2026-11-25:  | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+- sources:
+  - [1] https://avrea.com/pricing
+  - [2] https://docs.avrea.com/sandboxes/
+  - [3] https://avrea.com/blog/avrea-sandboxes-computers-should-be-forkable
+  - [4] https://console.avrea.com/
+  - [5] https://docs.avrea.com/sandboxes/https/
+  - [6] https://docs.avrea.com/billing/
+  - [7] https://docs.avrea.com/cli/
+  - [8] https://docs.avrea.com/getting-started/
+  - [9] https://avrea.com/information-for-consumers
+  - [10] https://docs.github.com/en/account-and-profile/how-tos/account-management/creating-an-account-on-github

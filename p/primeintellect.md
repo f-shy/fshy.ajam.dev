@@ -1,0 +1,142 @@
+# Prime Intellect
+
+> primeintellect.ai | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/primeintellect/ | JSON https://fshy.ajam.dev/api/v1/entity/primeintellect.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Prime Inference
+
+- `compute/prime-inference` | paid-only | evidence documented | binding volume-quota | category inference API | tier Serverless API (hosted and gateway models)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T10:11:15.004Z (live) | stale on 2026-12-25
+- url https://www.primeintellect.ai/inference
+- free tier: unverified: no first-party page read states a free inference allowance or a sign-up credit for Prime Inference, and the account dashboard behind sign-in was not opened | unit: none | metered on: unstated | read on: 2026-11-24 | source: [1] | note: The answer to 'How is inference priced?' on the vendor's inference page states only that the Serverless API, Prime Gateway included, is billed per token and that dedicated capacity is sized and priced with the team. A wallet is funded before requests succeed: the troubleshooting page shows insufficient_funds when the billed account lacks balance.
+- per-object cap: not applicable: the unit is a token request, not a stored object | note: Model context and maximum output are per-model; the API catalog lists them per model ID.
+- retention: unverified: no first-party page read states how long request content is retained | source: [1]
+- egress: no published egress allowance or price for inference requests: the pages read state per-token inference prices and prepaid-credit or card payment, but no separate charge for traffic out of the API | metered: no | source: [1]
+- identity: card | detail: Account access is documented as `prime login` and an API key generated under Settings -> API Keys; a funded wallet is required for requests, and the terms state that payment is by card or another payment method made available on the platform, with usage drawn down against prepaid credits and automatic top-up optional. The exact fields of the account-creation form (email, password or a sign-in provider) were not visible: unverified: behind a sign-up.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): requests stop with insufficient_funds when the wallet funding the API key, or the team selected by X-Prime-Team-ID, has no balance; prepaid credits expire 12 months after purchase [2]
+  - request-rate: unverified: supported parameters and limits are per model and the numeric request-rate values are published only in the account's model catalog, behind sign-in [3]
+- limits note: Pricing, limits and supported features are set per model and shown in the catalog, which was read as a paid model list without a numeric request-rate limit.
+- binding note: The billed wallet is the constraint that stops a request first: the troubleshooting page states that a request returns insufficient_funds when the account billed for it lacks balance, while no numeric request-rate value is published outside the logged-in catalog.
+- interface detail: OpenAI-compatible chat-completions REST API at https://api.pinference.ai/api/v1, with a GET /models catalog; the Prime CLI selects models and manages deployments with `prime inference`.
+- endpoint: part of interface detail
+- tooling: Any OpenAI SDK pointed at the API base URL with a Prime API key; the Prime CLI from uv (`uv tool install prime`, `prime login`) offers the same model list and deployment commands.
+- composes with: The OpenAI-compatible endpoint drops into an existing chat-completions client; team credits are selected per request with the X-Prime-Team-ID header.
+- reliability: A request with an unfunded account returns insufficient_funds; on-demand dedicated endpoints incur GPU-hour charges while serving, including idle time.
+- notes: Hosted inference with no free allowance stated in the pages read. Rates are set per model: the vendor's catalog lists USD 0.0525 per million input tokens, USD 0.25 per million output tokens and USD 0.0105 per million cached-read tokens for the hosted GLM 5.3 Flash model. The sign-up form itself was not visible, so the exact registration fields are unverified: behind a sign-up.
+- evidence note: The per-token billing shape, the API endpoint, the per-model limits and the insufficient-funds condition come from first-party pages and the vendor's JSON model catalog read on 2026-11-24. No free allowance, retention term or signup form was published in those pages.
+- evidence:
+  - [1] 2026-11-24: the serverless API bills per token and dedicated capacity is quoted by the team | capture: sha256:51a775a47f94c2421f674757e9bd87a0e77f4fa425beade22525020a03fc87b7 | quote: The Serverless API, Prime Gateway included, is billed per token. Dedicated capacity for your own models is sized and priced with our team.
+  - [1] 2026-11-24: the API is OpenAI-compatible and a team can change models by name | capture: sha256:51a775a47f94c2421f674757e9bd87a0e77f4fa425beade22525020a03fc87b7 | quote: Yes. Point any OpenAI SDK at Prime Inference's endpoint with your API key, and switch models by changing the model name.
+  - [4] 2026-11-24: pricing and limits are set per model and shown in the catalog | capture: sha256:0cf4964e6721c5927fae295115ba63e039f631ba9767bbe7dd160a90d9609181 | quote: Pricing, limits, and supported features are set per model and shown in the catalog, so check them before choosing a model, especially if where a model runs matters for your workload.
+  - [4] 2026-11-24: the chat-completions endpoint is at the published API base URL | capture: sha256:0cf4964e6721c5927fae295115ba63e039f631ba9767bbe7dd160a90d9609181 | quote: curl https://api.pinference.ai/api/v1/chat/completions \
+  - [5] 2026-11-24: the vendor's model catalog publishes hosted-model prices per million input, output and cached-read tokens; GLM 5.3 Flash is USD 0.0525 input, USD 0.25 output and USD 0.0105 cached read | capture: sha256:429da3538947e83e12738552b754de069c3532173bc8b2435af104ed90139fe0 | quote: "id":"z-ai/glm-5.3-flash","object":"model","owned_by":"","display_name":"GLM 5.3 Flash","serving":"hosted","pricing":{"input_usd_per_mtok":0.0525,"output_usd_per_mtok":0.25,"cache_read_usd_per_mtok":0.0105
+  - [3] 2026-11-24: numeric parameter limits are model-specific and not published on this page | capture: sha256:937ca99b74f97c272cc1da98202e60d12ed6cc7d871516a1d72e2e72b12b5462 | quote: Supported parameters and limits depend on the selected model.
+  - [2] 2026-11-24: an unfunded billed account stops the request with insufficient_funds | capture: sha256:8baa52aa22bfa9e39547e9f89bbe1e4d655ab0d76d6789e55fd2663c4ad0a32f | quote: Prime Inference returns this error when the account billed for the request does not have enough balance.
+  - [6] 2026-11-24: payment is by card or another platform method, and prepaid credits are drawn down at the applicable rates | capture: sha256:c81b50c2db739b119a53e0c971eb939bb49424004e63b492ccaf4e9b6ae98826 | quote: **6.2 Payment Methods; Prepaid Credits. **You may pay by card or by any other payment method that we make available on the Platform, through our third-party payment processors.
+  - [7] 2026-11-24: the CLI authenticates with prime login and accepts an API key from the configuration | capture: sha256:2f76963609bf8fab55136dd0d4996727639d1a84a03959fafb4ed6e88ea3c4f2 | quote: prime login
+  - [8] 2026-11-24: a Prime Intellect account with a funded wallet is the prerequisite for on-demand use | capture: sha256:60e961aa76c890381a9f934b90954e01d5b1d19f5ce8fe03113790fb2eafb277 | quote: A [Prime Intellect account](https://app.primeintellect.ai) with on-demand training enabled and a funded wallet, see [Billing](https://docs.primeintellect.ai/hosted-training/billing.md)
+- sources:
+  - [1] https://www.primeintellect.ai/inference
+  - [2] https://docs.primeintellect.ai/inference/troubleshooting
+  - [3] https://docs.primeintellect.ai/api-reference/inference-chat-completions
+  - [4] https://docs.primeintellect.ai/inference/overview
+  - [5] https://api.pinference.ai/api/v1/models
+  - [6] https://www.primeintellect.ai/terms-of-service
+  - [7] https://docs.primeintellect.ai/cli-reference/introduction
+  - [8] https://docs.primeintellect.ai/hosted-training/getting-started
+
+## Prime Intellect Sandboxes
+
+- `compute/prime-intellect` | paid-only | evidence documented | binding request-rate | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-11-25T15:03:50.982Z (live) | stale on 2026-12-26
+- url https://www.primeintellect.ai/sandboxes
+- free tier: Tier-free pricing built for scale, with no subscriptions or minimum spend. | unit: none | metered on: none | read on: 2026-10-22 | source: [1] | note: Tier-free means no pricing tiers, not that no free tier exists; the page does not state whether a free tier exists. The page also gives an estimated cost of $3.35 / hour, or $0.0335 / sandbox / hour for 1 vCPU, 1 GiB RAM, 5 GiB disk and 100 sandboxes, with prices valid through December 22.
+- per-object cap: not stated | source: [1]
+- retention: a paused sandbox keeps its memory and disk as a pause checkpoint with no TTL; its disk must become durable within about 6 hours and its memory within about 6 hours after that | source: [1]
+- egress: outbound traffic is allowed by default and can be restricted by a domain or CIDR allow list or deny list; no per-GB price or allowance is published | metered: no | source: [1]
+- identity: email | detail: unverified: the sign-up fields are not on any page read. CLI login needs an API key with sandbox permissions and the dashboard opens a browser sign-in; no registration form was read.
+- interface: cli
+- limits:
+  - request-rate (binding): $0.02 a vCPU-hour, $0.0125 a GiB-hour of memory and $0.0002 a GiB-hour of disk [1]
+  - request-rate (binding): 1,024 active sandboxes per account by default, 16 vCPUs / 64 GiB memory / 128 GiB disk per sandbox [1]
+- interface detail: a CLI and Python SDK, an HTTP API, interactive SSH on a running sandbox; outbound traffic is controlled by domain or CIDR allow and deny lists
+- tooling: the prime CLI and Python SDK or the sandbox REST API; an API key with sandbox permissions is required to log in
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: The sandboxes page was read on 2026-10-22 and publishes metered resource rates. The offering has no subscription tier ladder and charges metered usage.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - shape.vcpu: 1
+  - shape.ram: 1
+  - shape.disk: 5
+  - shape.note: the worked example: 1 vCPU, 1 GiB and 5 GiB of disk at $0.0335 a sandbox-hour
+  - session_cap.restart_required: no
+  - session_cap.note: every workload stays in an isolated microVM; the page states no reap
+  - free_tier_kind: none
+  - burst_x: 1.0
+  - ps.gib: 5
+  - ps.price: $0.0002 a GiB-hour
+  - ps.durability: sandbox disk
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: until deleted
+  - net.out: yes
+  - net.in: no
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Tier-free pricing built for scale, with no subscriptions or minimum spend' with 'vCPU $0.02 / hour', 'Memory $0.0125 / GiB / hour', 'Disk $0.0002 / GiB / hour', and '1 vCPU · 1 GiB RAM · 5 GiB disk · 100 Sandboxes $3.35 / hour = $0.0335 / sandbox / hour', quoted
+  - [1] 2026-11-25: the page states tier-free pricing with no subscriptions or minimum spend | capture: sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c | quote: Tier-free pricing built for scale, with no subscriptions or minimum spend.
+  - [1] 2026-11-25: the hourly figure is an estimate for a 100-sandbox configuration | capture: sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c | quote: $0.0335 / sandbox / hour · 1 vCPU · 1 GiB RAM · 5 GiB disk · 100 sandboxes
+  - [2] 2026-11-24: the metered rates have a stated validity date | capture: sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce | quote: Sandboxes are billed while running. For our new launch, these rates are valid through December 22, 2026:
+  - [2] 2026-11-24: the per-account default is 1,024 active sandboxes | capture: sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce | quote: | Active sandboxes | 1,024 |
+  - [2] 2026-11-24: the CLI is the documented way to log in and create a sandbox | capture: sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce | quote: Log in first with `prime login`, using an API key with sandbox permissions.
+  - [3] 2026-11-24: interactive shells and remote commands are documented on a sandbox | capture: sha256:b23baa50cab9b0d4c931741f658a4b6bc5d4d0991914258b22f6265ef864552b | quote: > One-off commands, background jobs, and interactive shells
+  - [4] 2026-11-24: a browser sign-in is required before a sandbox can be created | capture: sha256:5d9cd70cc992f560e9c6ee15a537698e19ae60a403d1bdb5f4872a861ea1f1d0 | quote: Complete the browser sign-in before continuing.
+  - [5] 2026-11-24: paused checkpoints have no TTL but a durability window | capture: sha256:b480ed8256e4e9b24b41b812416f0e223ef73a035e41f5a2722b629b428e9245 | quote: A pause checkpoint has no TTL, but its disk must become `DURABLE` within about 6 hours of the pause, and its memory within about 6 hours after that.
+  - [6] 2026-11-24: egress filtering is configurable; no per-GB price is stated | capture: sha256:25018f1c7197f4b1f39bc4435a491064f87b61b14921e232bca09f200ca73146 | quote: Restrict outbound traffic with an allowlist or a denylist. The two are mutually exclusive.
+  - [2] 2026-11-24: the CPU rate is USD 0.02 per vCPU-hour | capture: sha256:093060ba491df24c2263156cc8091337f97d4fa04995f229e2cf50bc0c961fce | quote: * CPU: \$0.02 per vCPU per hour
+  - [1] 2026-11-24: the offer has no subscription or minimum spend | capture: sha256:f18ce6222f2859a92d19580b52968a96cabd898133801f56c58051a1503f633c | quote: Tier-free pricing built for scale, with no subscriptions or minimum spend.
+- sources:
+  - [1] https://www.primeintellect.ai/sandboxes
+  - [2] https://docs.primeintellect.ai/sandboxes/overview.md
+  - [3] https://docs.primeintellect.ai/sandboxes/commands.md
+  - [4] https://app.primeintellect.ai/dashboard/sandboxes
+  - [5] https://docs.primeintellect.ai/sandboxes/pause-resume.md
+  - [6] https://docs.primeintellect.ai/sandboxes/network-isolation.md
+
+## Prime Intellect
+
+- `compute/prime-intellect-2` | dead | evidence documented | binding volume-quota | category GPU cloud
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.primeintellect.ai/blog/fast-compute-grants
+- free tier: The grant program is gone. Its own page now returns HTTP 404, and no signup credit exists: the docs describe a prepaid model where 'your Prime Intellect credits are deducted every minute while the Pod is active' and 'If your credits run out, your Pods will be automatically deleted'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - volume-quota (binding): Both doors fail: there is no signup credit, so the first pod needs a funded balance, and the USD 500 to USD 100,000 Fast Compute Grants program no longer has a live page. [1]
+- limits note: Both doors fail: there is no signup credit, so the first pod needs a funded balance, and the USD 500 to USD 100,000 Fast Compute Grants program no longer has a live page.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: None while the grant is closed. If it reopened it would be a real credit lane, because the platform aggregates other providers and accepts prepaid balances.
+- reliability: no reliability event recorded
+- notes: REFUTATION of a widely recirculated grant. Two figures circulate: 'USD 500 to USD 100,000 Fast Compute Grants' and 'USD 50 free compute at ICLR'. Both source pages return 404 as of 2026-10-22, and the ICLR page carried an expiry of 31 December 2024. The grant was real in 2024; it is not an offer now. Unverified: a live page on primeintellect.ai naming an amount and an application route.
+- extras:
+  - facets.class: gpu-marketplace-grant
+- evidence:
+  - [1] 2026-10-22: fetch --head returned 'HTTP/1.1 404 Not Found'; the page previously offered 'USD 500-USD 100k worth of Prime Intellect compute credits'
+  - [2] 2026-10-22: fetch --head returned 'HTTP/1.1 404 Not Found'
+  - [3] 2026-10-22: quoted: 'Your Prime Intellect credits are deducted every minute while the Pod is active. If your credits run out, your Pods will be automatically deleted'; no free tier described
+  - [4] 2026-10-22: independent check dated 2026-08-21 records that both the grants and ICLR pages returned 404 and that no live official page states either offer
+- sources:
+  - [1] https://www.primeintellect.ai/blog/fast-compute-grants
+  - [2] https://www.primeintellect.ai/grants
+  - [3] https://docs.primeintellect.ai/faq
+  - [4] https://buildaicurrent.com/credits/prime-intellect-free-credits/

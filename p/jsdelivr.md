@@ -1,0 +1,145 @@
+# jsDelivr
+
+> jsdelivr.com | Storage, Egress and tunnels; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/jsdelivr/ | JSON https://fshy.ajam.dev/api/v1/entity/jsdelivr.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## jsDelivr (npm + GitHub proxy CDN)
+
+- `storage/jsdelivr` | qualifies | evidence reported | binding per-object-cap | category registry
+- identity a placeholder: card and phone unknown | verified 2026-11-25T19:55:10.655Z (live) | stale on 2026-12-10
+- url https://www.jsdelivr.com
+- free tier: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default; a higher limit can be requested by opening an issue in the repository. | unit: MB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo. | bytes: 20000000 | source: [1] | note: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+- retention: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed. | source: [2] | note: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+- egress: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests | metered: no
+- identity: anonymous | detail: our CDN service that is publicly available without a subscription
+- interface: rest
+- limits:
+  - per-object-cap (binding): Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo. [1]
+- limits note: 150 MB per npm package, 20 MB per single GitHub file (both default, raisable via GitHub issue). Rate limiting applies to purge, not to reads. Enforcement is the technical risk, not the capability.
+- interface detail: /gh/user/repo@version/file
+- tooling: Plain GET on cdn.jsdelivr.net/npm/<pkg>@<ver>/<path> and /gh/<owner>/<repo>@<ref>/<path>. No client needed. Cache-purge API exists (email-gated).
+- composes with: jsDelivr is a free CDN for open-source files. We are tightly integrated with Github and npm, allowing us to automatically provide a reliable CDN service to almost every open-source project out there.
+- reliability: Retention is stronger than the origin: 'Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed.' Once a URL has been fetched it keeps working after you delete the npm package. That is a genuine cold-archive property. Counter-risk: a 150 MB package cap means a naive >150 MB npm tarball 403s ('Package size exceeded the configured limit of 150 MB') even though npm itself accepted it.
+- notes: the same as the free tier
+- evidence note: The jsDelivr README was read on 2026-11-09 and states the package and file size limits.
+- evidence:
+  - [3] 2026-10-21: 'no bandwidth limits or premium features and its completely free to use by anybody'
+  - [4] 2026-10-21: 'no limits on bandwidth or number of requests'; 'Previously served immutable files may be retained in permanent storage even after upstream deletion'
+  - [1] 2026-10-21: (README) — 'Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default'
+  - [5] 2026-10-21: probe: GET -> 200, Access-Control-Allow-Origin: *, Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable, Server: cloudflare
+  - [6] 2026-10-21: probe: GET -> 403, body 'Package size exceeded the configured limit of 150 MB.' (confirms the cap is real and enforced at fetch time)
+  - [1] 2026-11-09: packages larger than 150 MB and single GitHub files larger than 20 MB are not supported by default, and a higher limit can be requested by opening an issue | capture: sha256:4f8bc5367554e1ff5de00822319fde1d734b6fecb1bc391c2f07d9fa06a2ac95 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo.
+  - [2] 2026-11-09: the CDN is free with no limit on bandwidth or requests | capture: sha256:dc9dcd3b153733fe92a76fe217ebc4ba7522728dd9e612d3193bb8c066987496 | quote: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests
+  - [2] 2026-11-09: served immutable files are retained after upstream deletion and removal requests are refused | capture: sha256:dc9dcd3b153733fe92a76fe217ebc4ba7522728dd9e612d3193bb8c066987496 | quote: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed.
+  - [1] 2026-11-25: default package and GitHub file caps are 150 MB and 20 MB, with higher limits by issue | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo.
+  - [7] 2026-11-25: a jsDelivr member states the 20 MB GitHub-proxy file limit | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [1] 2026-11-25: the default per-object limits are 150 MB per package and 20 MB per GitHub file | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo.
+  - [1] 2026-11-25: GitHub-sourced files remain in permanent S3 storage after upstream deletion | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+  - [2] 2026-11-25: the CDN is free and has no bandwidth or request limits | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests
+  - [1] 2026-11-25: jsDelivr serves files sourced from GitHub and npm | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: jsDelivr is a free CDN for open-source files. We are tightly integrated with Github and npm, allowing us to automatically provide a reliable CDN service to almost every open-source project out there.
+  - [1] 2026-11-25: the GitHub proxy is addressed by a path-based URL | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: /gh/user/repo@version/file
+  - [2] 2026-11-25: the CDN is available without a subscription | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: our CDN service that is publicly available without a subscription
+  - [2] 2026-11-25: the CDN needs no subscription | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: our CDN service that is publicly available without a subscription
+  - [1] 2026-11-25: default limits are 150 MB per package and 20 MB per GitHub file | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default. We recommend removing files that are not needed from your package when possible. If you need to set a higher limit for your package, open an issue in this repo.
+  - [7] 2026-11-25: the provider states a 20 MB limit for GitHub files | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [2] 2026-11-25: served immutable files can outlive upstream deletion | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed.
+  - [1] 2026-11-25: GitHub files persist in permanent S3 storage after upstream deletion | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+  - [2] 2026-11-25: the CDN is free with no bandwidth or request limits | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests
+  - [1] 2026-11-25: the CDN serves GitHub and npm sources | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: jsDelivr is a free CDN for open-source files. We are tightly integrated with Github and npm, allowing us to automatically provide a reliable CDN service to almost every open-source project out there.
+  - [1] 2026-11-25: the GitHub proxy uses a path-based URL | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: /gh/user/repo@version/file
+- sources:
+  - [1] https://github.com/jsdelivr/jsdelivr
+  - [2] https://www.jsdelivr.com/terms/acceptable-use-policy
+  - [3] https://www.jsdelivr.com/about
+  - [4] https://github.com/jsdelivr/jsdelivr/blob/master/Terms%20of%20Use.md
+  - [5] https://cdn.jsdelivr.net/npm/left-pad@1.3.0/package.json
+  - [6] https://cdn.jsdelivr.net/npm/onnxruntime-node@1.20.1/bin/napi-v3/win32/x64/onnxruntime.dll
+  - [7] https://github.com/jsdelivr/jsdelivr/issues/18550
+
+## jsDelivr as the free CDN layer over GitHub repos
+
+- `storage/jsdelivr-as-the-free-cdn-layer-over-github-repos` | qualifies-with-caveat | evidence reported | binding per-object-cap | category paas
+- identity a placeholder: card and phone unknown | verified 2026-11-25T19:55:10.656Z (live) | stale on 2026-12-10
+- url https://www.jsdelivr.com
+- free tier: free with no limits on bandwidth or number of requests; GitHub-proxy soft limits of 10 000 actively accessed files and 100 000 files per repository | unit: objects | metered on: object-count | read on: 2026-10-30 | source: [1] | note: the file-count soft limits are not automatically enforced
+- per-object cap: We actually allow files up to 20 MB for GitHub regardless of the overall repo size | bytes: 20000000 | source: [2] | note: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+- retention: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed. | source: [1] | note: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+- egress: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests | metered: no
+- identity: anonymous | detail: our CDN service that is publicly available without a subscription
+- interface: rest
+- limits:
+  - per-object-cap (binding): We actually allow files up to 20 MB for GitHub regardless of the overall repo size [2]
+- limits note: Git repo files only — release assets are NOT served (probed: /gh/cli/cli@v2.102.1/dist/README.md -> 404). ~20 MB effective per-file ceiling for the GitHub proxy (the git-unlimited-storage README states 'jsDelivr per file | 20 MB'); hard per-file/per-package caps are undocumented and enforced at request time. Does not serve the >2 GiB release assets, so the serving path for big objects stays on GitHub's own Fastly edge.
+- interface detail: /gh/user/repo@version/file
+- tooling: URL pattern https://cdn.jsdelivr.net/gh/USER/REPO@TAG/path. No client needed, no auth, no config. Purge API exists for cache busting.
+- composes with: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+- reliability: Immutable: 'Previously served immutable files may be retained in permanent storage even after upstream deletion'. Deletion upstream does not remove it from jsDelivr. Extension blocklist exists; binaries with unusual extensions can be refused.
+- notes: Provides CDN distribution rather than origin storage. Documentation states 'there are no limits on bandwidth or number of requests' (the provider), with soft limits of 10,000 actively accessed files and 100,000 files per repository.
+- evidence:
+  - [1] 2026-10-21: 'there are no limits on bandwidth or number of requests'; soft limit '100 000' files per repository
+  - withheld 2026-10-21: probe: GET cdn.jsdelivr.net/gh/jquery/jquery@3.7.1/dist/jquery.min.js -> 200, Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable, Access-Control-Allow-Origin: *
+  - withheld 2026-10-21: probe: GET cdn.jsdelivr.net/gh/cli/cli@v2.102.1/dist/README.md -> 404 (release assets not mirrored)
+  - [1] 2026-10-30: jsDelivr CDN sets no limit on bandwidth or on the number of requests | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: there are no limits on bandwidth or number of requests
+  - [1] 2026-10-30: jsDelivr CDN is free | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: using jsDelivr CDN is free
+  - [1] 2026-10-30: the GitHub-proxy recommendation is at most 10 000 actively accessed files per repository | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: We recommend that the number of actively accessed files per repository does not exceed 10 000.
+  - [1] 2026-10-30: the GitHub-proxy soft limit is 100 000 files per repository | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: The soft limit for the number of files per repository is 100 000.
+  - [1] 2026-10-30: the soft limits are not automatically enforced | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: These limits are not automatically enforced by us, but you agree not to exceed them.
+  - [1] 2026-10-30:  | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: _Effective date: October 5, 2026_
+  - [2] 2026-10-30: a jsDelivr member states the GitHub-proxy per-file limit of 20 MB | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [1] 2026-10-30: served immutable files can outlive upstream deletion | capture: sha256:2f18e724ac81932cd47f54f153f7202a350bb363b577a1de43bb9073f2771431 | quote: Previously served immutable files may be retained in permanent storage even after upstream deletion.
+  - [1] 2026-11-09: served immutable files are retained after upstream deletion | capture: sha256:dc9dcd3b153733fe92a76fe217ebc4ba7522728dd9e612d3193bb8c066987496 | quote: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed.
+  - [1] 2026-11-09: the CDN is free with no limit on bandwidth or requests; the same page states the GitHub-proxy soft limits | capture: sha256:dc9dcd3b153733fe92a76fe217ebc4ba7522728dd9e612d3193bb8c066987496 | quote: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests
+  - [2] 2026-11-09: the GitHub proxy allows files up to 20 MB regardless of repository size | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [2] 2026-11-25: the GitHub proxy allows files up to 20 MB regardless of repository size | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [2] 2026-11-25: the provider states the GitHub-proxy per-file limit | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [2] 2026-11-25: the GitHub-proxy per-file limit is 20 MB | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [3] 2026-11-25: GitHub-sourced files remain in permanent S3 storage after upstream deletion | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+  - [1] 2026-11-25: the CDN is free with no bandwidth or request limits | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: using jsDelivr CDN is free, - there are no limits on bandwidth or number of requests
+  - [3] 2026-11-25: GitHub-sourced files persist in permanent S3 storage | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: We use a permanent S3 storage to ensure all files remain available even if GitHub goes down or a repository or a release is deleted by its author.
+  - [3] 2026-11-25: the GitHub proxy is addressed by a path-based URL | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: /gh/user/repo@version/file
+  - [1] 2026-11-25: the CDN is available without a subscription | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: our CDN service that is publicly available without a subscription
+  - [1] 2026-11-25: the CDN needs no subscription | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: our CDN service that is publicly available without a subscription
+  - [2] 2026-11-25: the GitHub-proxy per-file limit is 20 MB regardless of repository size | capture: sha256:2d9aff2fdf9921dacb7594a19f8bc87205957ed03a5a3139bb131f85f89e24c1 | quote: We actually allow files up to 20 MB for GitHub regardless of the overall repo size
+  - [1] 2026-11-25: served immutable files can outlive upstream deletion | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: Previously served immutable files may be retained in permanent storage even after upstream deletion. We do not accept removal requests simply because a package or version was unpublished, deleted upstream, or is no longer needed.
+  - [3] 2026-11-25: the GitHub proxy uses a path-based URL | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: /gh/user/repo@version/file
+- sources:
+  - [1] https://www.jsdelivr.com/terms/acceptable-use-policy
+  - [2] https://github.com/jsdelivr/jsdelivr/issues/18550
+  - [3] https://github.com/jsdelivr/jsdelivr
+
+## jsDelivr
+
+- `egress/jsdelivr` | fails-quota | evidence reported | binding per-object-cap | category CDN for package content
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T15:23:44.598Z (live) | stale on 2026-12-10
+- url https://www.jsdelivr.com/
+- free tier: free CDN for content obtained from npm, GitHub and other third-party services | unit: none | metered on: downloaded-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: packages larger than 150 MB, or single GitHub files larger than 20 MB, are not supported by default | source: [1]
+- retention: not applicable | source: [1]
+- egress: no limits on bandwidth or number of requests, free | metered: no | source: [1]
+- identity: anonymous | detail: no account to read from the CDN
+- interface: rest
+- limits:
+  - per-object-cap (binding): packages larger than 150 MB, or single GitHub files larger than 20 MB, are not supported by default [2]
+- interface detail: https://cdn.jsdelivr.net/npm/PKG@VER/FILE
+- tooling: curl
+- composes with: Serves assets published in public package registries like npm. Does not support arbitrary private backend proxying.
+- reliability: the policy page at /policy returned 404 on 2026-10-22; /terms and /about resolve
+- notes: Open-source CDN for public software packages. Serves files directly from package registries; unmetered bandwidth claims apply to open-source repository distribution.
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the CDN serves package files from its edge
+- evidence:
+  - probe:https://www.jsdelivr.com/policy 2026-10-22: 404 on 2026-10-22, so the per-file limit and the no-cap claim could not be read first-hand
+  - [3] 2026-11-25: the terms name npm, GitHub and other third-party services as sources, so npm and GitHub only is wrong | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: jsDelivr CDN delivers content obtained from npm, GitHub, and other third-party services.
+  - [2] 2026-11-25: the project documentation gives the 150 MB package and 20 MB GitHub single-file limits | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default.
+  - [2] 2026-11-25: the limit figures are on this page | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default.
+  - [2] 2026-11-25: the per-object limits are 150 MB per package and 20 MB per GitHub file | capture: sha256:2b422a33f7807efffb296128c5795069278b388d4e632ad3392fcfd348e79f89 | quote: Packages larger than 150 MB or single files larger than 20 MB (in the case of GitHub) are not supported by default.
+  - [3] 2026-11-25: the terms state no bandwidth or request limit | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: there are no limits on bandwidth or number of requests,
+  - [3] 2026-11-25: use is free with no account stated | capture: sha256:684151d92bdcab1be0d46f459a75183a5522ee017434002ae506aabf15be8709 | quote: using jsDelivr CDN is free
+- sources:
+  - [1] https://www.jsdelivr.com/
+  - [2] https://github.com/jsdelivr/jsdelivr
+  - [3] https://www.jsdelivr.com/terms/

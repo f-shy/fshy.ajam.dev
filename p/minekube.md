@@ -1,0 +1,47 @@
+# Minekube Connect
+
+> minekube.com | Egress and tunnels; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/minekube/ | JSON https://fshy.ajam.dev/api/v1/entity/minekube.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Minekube Connect
+
+- `egress/minekube-connect` | fails-egress | evidence documented | binding none | category game reverse proxy (Minecraft Java TCP and Bedrock UDP edge) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T19:55:30.547Z (live) | stale on 2026-12-26
+- url https://connect.minekube.com/
+- price USD 0
+- free tier: A global gateway to a DDoS-protected developer platform with public domains for localhost. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published on the front page.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: An account on app.minekube.com, plus a connector plugin or the Gate agent on the origin. The register form was not read. | country: None
+- interface: cli
+- limits:
+  - write-gated: reaching the network requires running a connector (plugin or Gate) on the origin [1]
+- binding note: Bedrock players reach the Connect edge on UDP 19132, a player-facing edge port.
+- interface detail: Download the Connect plugin or run the Gate connector; a dashboard at app.minekube.com issues the public domain.
+- tooling: Connect plugin or the Gate connector on the origin
+- composes with: Gives a localhost Minecraft server a public hostname over an outbound connection, so it composes with a free VM that has no inbound ports.
+- reliability: Traffic passes a shared superproxy; the origin runs a connector that holds the connection open.
+- notes: Minecraft TCP reverse proxy designed to expose local game servers via domain routing without public IP configuration.
+- evidence note: The vendor's docs describe a Bedrock path handled by the Connect edge before traffic reaches the connector.
+- extras:
+  - wg_path: none
+  - wg_detail: Java players use port 25565; Bedrock players use port 19132.
+  - ingress: tcp+udp
+  - volume_stated: No byte allowance is published on the front page.
+  - bytes_transit: yes
+  - transit_note: Minekube's superproxy carries the game traffic
+- evidence:
+  - [1] 2026-10-23: Minekube Connect is described as 'a cloud-native Minecraft TCP edge network' giving public domains for localhost, reached by a self-hosted Connector
+  - [2] 2026-11-25: Java players use port 25565 and Bedrock players use port 19132 at the Connect edge | capture: sha256:53681587bc31af26e1fff4e2deaf1ec4785c554a3e1d0f0447aa4c5b834fdb5e | quote: Java clients normally use the Java port `25565`; Bedrock clients normally use the Bedrock port `19132`.
+  - [2] 2026-11-25: Bedrock players reach a player-facing Connect edge port on UDP 19132, alongside the Java TCP path | capture: sha256:53681587bc31af26e1fff4e2deaf1ec4785c554a3e1d0f0447aa4c5b834fdb5e | quote: If you attached a custom domain to the endpoint, Bedrock players can use that custom domain with port `19132` too. This is a player-facing Connect edge port. It does not mean you need to open UDP `19132` on your home network, VPS, backend server, or connector host.
+  - [2] 2026-11-25: the edge exposes a player-facing Bedrock port 19132, a UDP ingress that needs no local UDP opening | capture: sha256:53681587bc31af26e1fff4e2deaf1ec4785c554a3e1d0f0447aa4c5b834fdb5e | quote: If you attached a custom domain to the endpoint, Bedrock players can use that custom domain with port `19132` too. This is a player-facing Connect edge port. It does not mean you need to open UDP `19132` on your home network, VPS, backend server, or connector host.
+  - [2] 2026-11-25: the Connect edge handles Bedrock for routed players before the traffic reaches the connector | capture: sha256:53681587bc31af26e1fff4e2deaf1ec4785c554a3e1d0f0447aa4c5b834fdb5e | quote: For Connect-routed players, Bedrock translation is handled by the Connect edge before traffic reaches your connector.
+  - [1] 2026-11-25: the front page states the gateway description and carries no byte allowance for the service | capture: sha256:9ef645386248807d484321d2b130790266d9cf0c2c90869b2bacacc31ff43381 | quote: A global gateway to a DDoS-protected developer platform with public domains for localhost.
+  - [3] 2026-11-25: the Free plan includes unlimited endpoints, connectors and players | capture: sha256:eec1dcba4c372a7d0a6a1adcb31940a003e22362931e3c80c67f01c5b15e3c06 | quote: | Unlimited endpoints & connectors | Included in Free | Included in Plus | | Unlimited players | Included in Free | Included in Plus |
+  - [1] 2026-11-25: the front page states the gateway description the free-tier field quotes | capture: sha256:9ef645386248807d484321d2b130790266d9cf0c2c90869b2bacacc31ff43381 | quote: A global gateway to a DDoS-protected developer platform with public domains for localhost.
+- sources:
+  - [1] https://connect.minekube.com/
+  - [2] https://connect.minekube.com/guide/bedrock.html
+  - [3] https://connect.minekube.com/plans

@@ -1,0 +1,225 @@
+# GMI Cloud
+
+> gmicloud.ai | Compute; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/gmicloud/ | JSON https://fshy.ajam.dev/api/v1/entity/gmicloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GMI Cloud Inference
+
+- `compute/gmi-cloud-inference` | qualifies-with-caveat | evidence documented | binding request-rate | category inference API | tier Serverless Inference (Model-as-a-Service)
+- needs card no, phone no, ID no, institution no | verified 2026-11-24T10:11:14.784Z (live) | stale on 2026-12-25
+- url https://www.gmicloud.ai/en/pricing
+- free tier: Free model endpoints on select open-source models, including DeepSeek R1 Distill Llama 70B and Llama 3.3 70B Instruct Turbo, after account creation with no card required; the vendor's own pricing docs put current per-model input/output rates in the console Model Hub rather than on a public page, so no free token quota is stated. | unit: tokens | metered on: request-count | read on: 2026-11-24 | source: [1] | note: The vendor blog names the free models but states no token or request allowance; the rate-limit doc states a Tier 1 default of 1,000,000 TPM for all models and ties higher tiers to credit purchases. A USD 5 instant credit is reported by third parties for adding a card, but the vendor blog describes the free endpoints as requiring no card; the credit is not the free models and is not asserted here.
+- per-object cap: not applicable: the unit is tokens served by an inference endpoint, not a stored object | source: [2] | note: Inference Storage holds inputs and outputs, but no per-object cap is published on the pages read.
+- retention: unverified: no retention window is stated for inference inputs or outputs on the pages read | source: [2] | note: Serverless endpoints scale to zero with no idle compute charge; what happens to request logs or stored artifacts after a call is not stated.
+- egress: unverified: no egress allowance, price or quota for inference response bytes is stated on the pages read; serverless billing is per token and dedicated endpoints bill per GPU-hour | metered: no | source: [2]
+- identity: email | detail: The console sign-up form asks for email and password and offers Google, GitHub and Hugging Face sign-in; the free model endpoints are stated to need no credit card, only account creation. The measured keyless GET /v1/models answered 401 API key is required, so a key from the account is needed to call the API.
+- interface: rest
+- limits:
+  - request-rate (binding): 1,000,000 TPM on Tier 1 for all models; Tier 2 3,000,000 TPM after USD 50 purchased, Tier 3 50,000,000 after USD 500, Tier 4 100,000,000 after USD 1,000; video models are limited in RPH [3]
+  - write-gated: an account and an API key are required: GET /v1/models answered 401 with {"group":"api_key","message":"API key is required."} on a keyless request probe:https://api.gmi-serving.com/v1/models
+- limits note: Rate limits are enforced at the organization level and vouchers do not count toward purchase for tier upgrades; dedicated endpoints have no rate limits, with the cap set by the hardware provisioned.
+- binding note: On the free endpoint the 1,000,000-token-per-minute Tier 1 ceiling binds before any byte quota, because no free token allowance or egress cap is published and the next tier needs a credit purchase.
+- interface detail: OpenAI-compatible REST API; GET /v1/models lists models and Bearer API-key auth is required. Dedicated endpoints are private-network deployments with no rate limits.
+- endpoint: https://api.gmi-serving.com/v1
+- tooling: OpenAI-compatible SDKs and HTTP clients; models.dev lists the provider as package @ai-sdk/openai-compatible with 17 models.
+- composes with: An OpenAI-compatible endpoint swaps in with a base-URL change; free endpoints benchmark production H100/H200 behaviour, and paid serverless uses the same API, so a workload can move from free to paid without changing code.
+- reliability: Keyless GET /v1/models returned 401 (API key is required) and GET /v1 returned 405 on 2026-11-24; rate limits are enforced per organization and tier upgrades need credit purchases, with vouchers excluded.
+- notes: Free model endpoints exist on select open-source models with no card, but neither a free token allowance nor an egress term is published; the binding limit is the Tier 1 rate cap and the account/API-key gate. The vendor's public pricing page prices GPU compute, not inference tokens, and the inference pricing doc defers rates to the console. A USD 5 card credit reported by third parties is a separate paid on-ramp and is not asserted as the free tier.
+- evidence note: The free models, no-card claim, signup fields, per-token billing, API endpoint and rate limits were read from first-party pages on 2026-11-24; a keyless probe confirmed the API-key gate, but no token allowance or egress term is published, so those fields are marked unverified.
+- extras:
+  - agent: u41
+  - shape.gpu_class: shared H100 and H200 inference infrastructure for free model endpoints
+  - shape.note: the vendor blog states free models run on the same H100 and H200 hardware as paid customers
+  - billing_model: free model endpoints; serverless per-token; dedicated per-GPU-hour
+  - identity_gate: email plus account-created API key, no card for the free endpoints
+  - network_out.allow_outbound: yes
+  - network_out.egress_terms: not published
+- evidence:
+  - [4] 2026-11-24: models.dev lists the gmicloud provider with API base https://api.gmi-serving.com/v1 and 17 models | capture: sha256:caea11b51ebbedec00b21fef95663d6e6dcd078cfab7d2e5701a388dfc0612db | quote: https://api.gmi-serving.com/v1
+  - [5] 2026-11-24: the vendor's own pricing page states an on-demand GPU rate starting at USD 2.60 per GPU-hour | capture: sha256:c5e06c9eed0a6b2286426cefdbbc1b5c92e96ad8c2dfd7f826b16f0fbfde460a | quote: from $2.60/GPU-hour
+  - [6] 2026-11-24: the vendor does not mirror inference prices on a public page; current rates live in the console Model Hub | capture: sha256:c59fde7af4e0d18f93b757770b2c9a5d998ed44e822e9cd0c6e1f862bb6501f1 | quote: Rather than mirror prices here (where they would go stale), the up-to-date rates live in the console.
+  - [1] 2026-11-24: select models are free endpoints reachable after account creation with no card and no stated token allowance | capture: sha256:f5fd8b54efe2419c0b7f3d498d4653d55381c595f19d369495bf1d965d183421 | quote: Available free models include DeepSeek R1 Distill Llama 70B and Llama 3.3 70B Instruct Turbo, accessible through an OpenAI-compatible API with no credit card required and no signup friction beyond account creation.
+  - [7] 2026-11-24: the sign-up gate asks for email and password and offers Google, GitHub and Hugging Face sign-in, with no card on the form | capture: sha256:452ec477f4c30df2d33f762c41e1284d0e909f3efd07a90176ecd7cea7fd1c8e | quote: Enter email to access your account and enjoy our services.
+  - [3] 2026-11-24: Tier 1 is the default and the rate table gives 1,000,000 TPM for all models, rising only after credit purchases | capture: sha256:ccbbb56d917667a31d21ed7473fe84c7424dd4b072deb111e4c4ba9cec57c085 | quote: | All Models | 1,000,000 | 3,000,000 | 50,000,000 | 100,000,000 | 300,000,000 |
+  - [3] 2026-11-24: organizations start at Tier 1 and rate limits are enforced at the organization level | capture: sha256:ccbbb56d917667a31d21ed7473fe84c7424dd4b072deb111e4c4ba9cec57c085 | quote: By default, organizations are assigned to Tier 1.
+  - [8] 2026-11-24: the inference API requires a Bearer API key and lists models at GET /v1/models | capture: sha256:25807ad277cf74d7cd60a996a69ae3f91d9549fb74e119073df0c5f83e9370d3 | quote: The GMI API uses API keys for authentication.
+  - [2] 2026-11-24: serverless inference bills per token with no idle compute charge | capture: sha256:e9da8b4d2f1201adff08178d3f9e45931cdc4b8b2d18cacc5579cb19bb6a4eee | quote: Per-token billing. No idle compute charges.
+  - probe:https://api.gmi-serving.com/v1/models 2026-11-24: a keyless request to the model-list endpoint is refused with HTTP 401 and an API-key-required body | capture: sha256:72f98b8e435431305dee063ece3898dc11338a40b76991e0334b302759d86ee8 | quote: "status": 401
+- sources:
+  - [1] https://www.gmicloud.ai/en/blog/best-gpu-cloud-free-trials-for-llm-inference-in-2026
+  - [2] https://docs.gmicloud.ai/inference-engine/ie-intro
+  - [3] https://docs.gmicloud.ai/inference-engine/api-reference/rate-limit
+  - [4] https://models.dev/providers/gmicloud
+  - [5] https://www.gmicloud.ai/en/pricing
+  - [6] https://docs.gmicloud.ai/inference-engine/billing/price
+  - [7] https://console.gmicloud.ai/auth/sign-up
+  - [8] https://docs.gmicloud.ai/inference-engine/api-reference/llm-api-reference
+
+## GMI Cloud
+
+- `compute/gmi-cloud-on-demand-gpu` | paid-only | evidence documented | binding volume-quota | category GPU cloud | tier On-demand NVIDIA H100
+- identity a placeholder: card and phone unknown | verified 2026-11-25T02:12:34.878Z (live) | stale on 2026-12-26
+- url https://www.gmicloud.ai/en/pricing
+- free tier: no free tier published on the GPU pricing page: NVIDIA H100 GPUs are from USD 2.60/GPU-hour, H200 from USD 3.20, B200 from USD 5.00 and GB200 from USD 8.00; the terms say prepaid Account Credits are topped up by the customer and that Free Credits are granted only at the company's discretion, with no amount published | unit: none | metered on: none | read on: 2026-11-25 | source: [1] | note: none-published; a separate cohort programme is recorded in compute/gmi-cloud-scale
+- per-object cap: not applicable: the unit is a dedicated GPU machine, not an object | source: [1]
+- retention: not published on the pricing page read: no retention period for GPU machine state is stated | source: [1]
+- egress: not published on the page read: no egress allowance or price is stated; the billing docs say storage and networking rates are shown on the relevant resource page in the console at allocation time | metered: no | source: [2]
+- identity: email | detail: unverified: the console signup page at https://console.gmicloud.ai/?auth=signup answered with a reCAPTCHA challenge on 2026-11-25 through the default read and four pinned read providers (jina, firecrawl, cfbr and browserless), so the registration fields could not be read; an account and prepaid Account Credits are required, and the terms confirm discretionary Free Credits but name no signup fields. The kind email is the nearest vocabulary term; the exact fields are unverified: behind a sign-up challenge
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): no published free GPU-hour allowance: usage deducts from Account Credits that the customer must prepay, and the docs say access may be suspended when credits are insufficient [3]
+- limits note: GB300 is pre-order and Vera Rubin NVL72 is contact-sales-only; B200 has limited availability. H100, H200 and GB200 are available on demand. The Agentbox sandbox rate is shown in the console at launch rather than on a public price page.
+- binding note: the absence of a published free allowance and the prepaid credit requirement bind first: the first GPU hour must be paid from Account Credits, and no free amount is stated.
+- interface detail: a console and a documented REST API; sandboxes are created through POST /v1/containers and Agentbox compute is billed per second while a sandbox runs
+- tooling: the GMI Cloud console and API; Agentbox runs containerized agents with a REST endpoint per instance, and the docs document an OpenAI-compatible API for models
+- composes with: dedicated H100, H200, B200 and GB200 capacity for training, fine-tuning and production inference; Agentbox adds hosted container sandboxes whose compute bills per second, with the live hourly rate shown in the console's Live Cost Estimate. This is a hosted offer, not self-hosted software. Free Credits are discretionary and unpublished, so the published entry is paid GPU time.
+- reliability: the terms allow the company to suspend or terminate access with or without cause and give no GPU uptime guarantee; a GPU pricing page claims predictable costs with no hidden fees, throttling or unexpected constraints.
+- notes: This record prices the on-demand H100 GPU capacity at USD 2.60/GPU-hour; compute/gmi-cloud-scale already exists for the separate equity-free cohort programme, which has different terms. The provider list's USD 0.17/hour Agentbox figure could not be verified: the Agentbox docs quote the rate only in the console at launch, and GMI's own worked example prices a 2 vCPU/4 GiB container at about USD 0.06/hour from a USD 432/month planning figure. The signup identity fields are behind a reCAPTCHA challenge that all tried routes could not pass.
+- evidence note: GPU rates and availability are quoted from the vendor's own pricing page read on 2026-11-25; the Agentbox per-second metering is quoted from the vendor documentation and its own blog.
+- extras:
+  - shape.gpu_class: NVIDIA H100 (also H200, B200, GB200)
+  - shape.note: dedicated NVIDIA GPUs in GMI-operated data centers; Agentbox containers are 2 vCPU, 4 GB RAM, 10 GiB ephemeral and 30 GiB data storage
+  - billing_model: on-demand GPU-hour, prepaid Account Credits; Agentbox sandbox compute per second
+  - free_tier_kind: none-published
+  - term: on-demand or reserved capacity
+  - price_arithmetic: USD 432/month ÷ (10 agents × 730 hours) = USD 0.0592 per container-hour, the planning rate GMI quotes as about USD 0.06
+  - status: H100, H200 and GB200 available; B200 limited availability; GB300 pre-order; Vera Rubin NVL72 contact sales
+  - network_out.allow_outbound: yes
+  - network_out.ports: not published
+  - session_cap.restart_required: no
+  - session_cap.note: no session cap published for dedicated GPUs; Agentbox containers bill for their full lifetime until a user calls DELETE
+- evidence:
+  - [1] 2026-11-25: the on-demand H100 rate is from USD 2.60 per GPU-hour | capture: sha256:c5e06c9eed0a6b2286426cefdbbc1b5c92e96ad8c2dfd7f826b16f0fbfde460a | quote: ### NVIDIA H100 GPU from $2.60/GPU-hour
+  - [1] 2026-11-25: H200 is USD 3.20, B200 is USD 5.00 and GB200 is USD 8.00 per GPU-hour | capture: sha256:c5e06c9eed0a6b2286426cefdbbc1b5c92e96ad8c2dfd7f826b16f0fbfde460a | quote: ### NVIDIA H200 from $3.20/GPU-hour
+  - [4] 2026-11-25: Agentbox compute bills per second while a sandbox runs and the hourly rate is shown only in the console at launch | capture: sha256:e0d4fa3e468d2a1f7fa9a5919467bbf766f7939b6f2d017d168b5eabbbdcd217 | quote: | Compute | Per second while a sandbox is running, once you launch one. The hourly rate is shown in the Live Cost Estimate when you launch. |
+  - [5] 2026-11-25: Agentbox pricing is usage-based per second of compute, with listing free to start | capture: sha256:230c5a3206805c3d3fde9aafa81d5f4801ae48b4d2b5c803d7939e8b72926f50 | quote: Pricing is usage-based: you pay per second of compute your agent uses, and listing is free to start.
+  - [6] 2026-11-25: GMI's own worked comparison prices 10 agents at 2 vCPU and 4 GiB running 730 hours at USD 432 a month, about USD 0.06 per container-hour | capture: sha256:cc7b6bd44c5635f6deb592cf72fee8a6412bbbdf204e2aaf2fc96a4af35ea864 | quote: The Agentbox page prices compute through a worked comparison: $432 a month for 10 agents at 2 vCPU and 4 GiB running 730 hours, or about $0.06 per container-hour.
+  - [3] 2026-11-25: usage deducts from prepaid Account Credits that the customer tops up | capture: sha256:08186acb5391a4d68c83936c42c6dfdd57fec5a68a868b7f212f70bff7ae1746 | quote: Client shall prepay fees by adding funds to its account balance (“Account Credits”) via the Site.
+  - [3] 2026-11-25: Free Credits are discretionary and have no published amount | capture: sha256:08186acb5391a4d68c83936c42c6dfdd57fec5a68a868b7f212f70bff7ae1746 | quote: From time to time, Company may, in its sole discretion, grant Client promotional, bonus, or complimentary credits at no charge (“Free Credits”).
+  - [7] 2026-11-25: the console signup page shows a reCAPTCHA challenge instead of its registration fields | capture: sha256:5839e80afa0245552520ca4d7326d0168236ca32f4fea812874ef6cbb230d237 | quote: Recaptcha requires verification.
+- sources:
+  - [1] https://www.gmicloud.ai/en/pricing
+  - [2] https://docs.gmicloud.ai/inference-engine/billing/price
+  - [3] https://console.gmicloud.ai/terms-of-service
+  - [4] https://docs.gmicloud.ai/agentbox-marketplace/overview
+  - [5] https://www.gmicloud.ai/en/blog/agentbox-is-live-the-whole-stack-for-production-ai-agents-in-one-place
+  - [6] https://www.gmicloud.ai/en/blog/document-processing-agents-gemini-3-8-flash-isolated-runtime
+  - [7] https://console.gmicloud.ai/?auth=signup
+
+## GMI Cloud Agentbox
+
+- `compute/gmi-cloud-agentbox` | paid-only | evidence documented | binding volume-quota | category agent sandbox | tier Host on GMI sandbox compute
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T02:12:34.751Z (live) | stale on 2026-12-26
+- url https://docs.gmicloud.ai/agentbox-marketplace/overview
+- free tier: No free sandbox allowance is published. Registering a template costs nothing until a sandbox is launched, and compute bills per second while it runs. | unit: none | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The live hourly rate is shown only in the console launch estimate; the docs pricing page declines to mirror rates. No free compute credit for Agentbox is published.
+- per-object cap: not applicable: the unit is a sandbox, not an object | note: Uploads are limited to about 500 MB each; this is a transfer limit, not a storage cap.
+- retention: A paused sandbox is kept for up to 7 days, then deleted with its disk; a sandbox uses a 24-hour default lifetime that renews automatically. | source: [2]
+- egress: Shared data center outbound IP address; some sites block cloud IPs, and GMI offers an allowlist or a dedicated egress IP. No included volume or data-out price is published. | metered: no | source: [2]
+- identity: email | detail: The console sign-up offers email and password or Google, GitHub and Hugging Face; email verification completes registration. Payment details for topping up the balance were not seen.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): about 500 MB per upload [2]
+  - retention-clamped: paused sandboxes kept for up to 7 days; default sandbox lifetime 24 hours, minimum 60 seconds [2]
+  - per-object-cap: one shell connection at a time per sandbox [2]
+  - request-rate: 429 on too many requests; exact rate not published [2]
+- limits note: Without balance or credit a sandbox can launch and then stop a few seconds after launch. A sandbox must listen on the internal port to serve external traffic.
+- binding note: The account needs a positive balance or credit before a sandbox survives launch, and the live compute rate is only disclosed in the console.
+- interface detail: Python and Go Agentbox SDKs plus a REST control plane and per-sandbox data plane: launch, pause, resume, execute commands, transfer files, open a PTY and keep durable snapshots.
+- endpoint: https://api.gmi-serving.com/v1/agents
+- tooling: The user installs the Python or Go SDK and calls the hosted GMI API; the vendor runs the sandboxes.
+- composes with: Agents registered on GMI can use GMI model inference through one key and bill together, or connect a self-hosted agent that uses GMI only for tokens.
+- reliability: A sandbox without balance stops within seconds of launch; the shared data center egress IP is blocked by some sites; Docker is not available inside a sandbox.
+- notes: Hosted agent sandboxes billed per second; the worked vendor example is $432 a month for 10 agents at 2 vCPU/4 GiB over 730 hours, about $0.06 per container-hour. No free sandbox credit is published, and the live rate is in the console.
+- evidence note: The hosted offer, per-second billing, limits and sign-in fields are quoted from first-party docs read on 2026-11-25; the live rate is console-only and the planning rate comes from a vendor blog.
+- self hosted: no
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.note: worked example 2 vCPU/4 GiB; the Agentbox page lists Sandbox SMALL/MEDIUM/LARGE instance types
+  - billing_model: per-second compute with prepaid balance
+  - free_tier_kind: none
+  - term: per-second, no free allowance published
+  - price_arithmetic: USD 432 / (10 agents × 730 hours) = USD 0.059 per container-hour; the vendor rounds this to about USD 0.06
+  - status: live
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: external HTTPS/2 mapped to internal port 8080 by default
+  - network_out.static_ip: dedicated egress IP available on request
+  - session_cap.wall_clock_min: 1440
+  - session_cap.restart_required: no
+  - session_cap.note: 24-hour default lifetime renews automatically; paused sandboxes expire after 7 days
+- evidence:
+  - [1] 2026-11-25: what Agentbox offers | capture: sha256:e0d4fa3e468d2a1f7fa9a5919467bbf766f7939b6f2d017d168b5eabbbdcd217 | quote: Register a template to run on GMI, or connect an agent you host and use GMI Models for inference. Keep it private, or list it in the Agent Marketplace so others can deploy their own copy.
+  - [1] 2026-11-25: per-second compute billing and console-only rate | capture: sha256:e0d4fa3e468d2a1f7fa9a5919467bbf766f7939b6f2d017d168b5eabbbdcd217 | quote: | Compute | Per second while a sandbox is running, once you launch one. The hourly rate is shown in the Live Cost Estimate when you launch. |
+  - [3] 2026-11-25: the vendor's worked compute price | capture: sha256:cc7b6bd44c5635f6deb592cf72fee8a6412bbbdf204e2aaf2fc96a4af35ea864 | quote: Container time. The [Agentbox page](https://www.gmicloud.ai/en/models/agentbox) prices compute through a worked comparison: $432 a month for 10 agents at 2 vCPU and 4 GiB running 730 hours, or about $0.06 per container-hour.
+  - [2] 2026-11-25: the balance gate | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: | Account balance | Without balance or credit, a sandbox stops a few seconds after launch | Top up or redeem credit |
+  - [2] 2026-11-25: paused-sandbox retention | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: | Paused sandboxes | Kept for up to 7 days, then deleted with their disk | Resume before `paused_expire_at` |
+  - [2] 2026-11-25: egress address and its limitation | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: | Outbound IP | Shared data center egress address; some sites block cloud IPs | Contact GMI for an allowlist or a dedicated egress IP |
+  - [4] 2026-11-25: the default sandbox lifetime | capture: sha256:af2a7ec8ef1325f4b757f645c3e3281ca35a13c4d8f29f4bf733a7ac1a38162b | quote: * If you omit it, the sandbox uses the platform default lifetime of 24 hours, which renews automatically.
+  - [5] 2026-11-25: the email sign-up field | capture: sha256:48f60a2debe41ed4c84180abb6a2cf3bf1bd39cb5c0daa42ee16f75c55cfc8f5 | quote: Enter email to access your account and enjoy our services.
+  - [6] 2026-11-25: one-key model access billed per token | capture: sha256:230c5a3206805c3d3fde9aafa81d5f4801ae48b4d2b5c803d7939e8b72926f50 | quote: 100+ models, one API key. Claude, GPT, Llama, DeepSeek, Qwen, and more, all on network, all through a single inference key. One key covers every provider, and routing is handled for you. Model calls bill per token through MaaS, so you pay for exactly what the agent consumes.
+  - [1] 2026-11-24: template registration costs nothing until a sandbox is launched, and compute bills per second while running | capture: sha256:e0d4fa3e468d2a1f7fa9a5919467bbf766f7939b6f2d017d168b5eabbbdcd217 | quote: Registering costs nothing until you launch a sandbox.
+  - [1] 2026-11-24: compute is billed per second while a sandbox runs and the hourly rate is shown at launch | capture: sha256:e0d4fa3e468d2a1f7fa9a5919467bbf766f7939b6f2d017d168b5eabbbdcd217 | quote: Compute | Per second while a sandbox is running, once you launch one. The hourly rate is shown in the Live Cost Estimate when you launch.
+  - [7] 2026-11-24: a sandbox without balance or credit stops seconds after launch, so no free running compute exists | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: Account balance | Without balance or credit, a sandbox stops a few seconds after launch | Top up or redeem credit
+  - [7] 2026-11-24: the default sandbox lifetime is 24 hours | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: Default lifetime | 24 hours if `timeout_seconds` is not set | Set `timeout_seconds` in tests; adjust with `set_timeout`
+  - [7] 2026-11-24: paused sandboxes are deleted with their disk after up to 7 days | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: Paused sandboxes | Kept for up to 7 days, then deleted with their disk | Resume before `paused_expire_at`
+  - [7] 2026-11-24: outbound traffic uses a shared data center IP and GMI offers an allowlist or dedicated egress IP | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: Outbound IP | Shared data center egress address; some sites block cloud IPs | Contact GMI for an allowlist or a dedicated egress IP
+  - [7] 2026-11-24: uploads are capped at about 500 MB and larger ones return 413 | capture: sha256:0e4ae80db86c5b2272fd489ea8afc7313dcfba5e00792c0267dc4a7dd2fc772e | quote: Upload size | About 500 MB per upload; larger returns 413 | Split the file, or download it from inside the sandbox
+  - [8] 2026-11-24: the SDK API root is https://api.gmi-serving.com/v1/agents and a console-created key is required | capture: sha256:b7666fb992e39b6f39c5e81e497349f8a6e2b4d135452d46da215ab826f8cec1 | quote: Defaults to `https://api.gmi-serving.com/v1/agents`.
+  - [3] 2026-11-24: hosted agents use a 2 vCPU, 4 GB RAM container tier with per-second billing | capture: sha256:cc7b6bd44c5635f6deb592cf72fee8a6412bbbdf204e2aaf2fc96a4af35ea864 | quote: Hosted agents run on the Container compute tier, "2 vCPU · 4 GB RAM · Ephemeral Storage 10 GiB · Data Storage 30 GiB," with compute billed per second
+  - [3] 2026-11-24: the vendor's worked planning figure is about USD 0.06 per container-hour from USD 432 a month for 10 agents | capture: sha256:cc7b6bd44c5635f6deb592cf72fee8a6412bbbdf204e2aaf2fc96a4af35ea864 | quote: the Agentbox page prices compute through a worked comparison: $432 a month for 10 agents at 2 vCPU and 4 GiB running 730 hours, or about $0.06 per container-hour.
+  - [5] 2026-11-24: the console account gate asks for email and password and offers social sign-in, with no card on the form | capture: sha256:452ec477f4c30df2d33f762c41e1284d0e909f3efd07a90176ecd7cea7fd1c8e | quote: Enter email to access your account and enjoy our services.
+- sources:
+  - [1] https://docs.gmicloud.ai/agentbox-marketplace/overview
+  - [2] https://docs.gmicloud.ai/agentbox-sdk/errors-and-limits.md
+  - [3] https://www.gmicloud.ai/en/blog/document-processing-agents-gemini-3-8-flash-isolated-runtime
+  - [4] https://docs.gmicloud.ai/agentbox-sdk/sandboxes.md
+  - [5] https://console.gmicloud.ai/auth/sign-up
+  - [6] https://www.gmicloud.ai/en/blog/agentbox-is-live-the-whole-stack-for-production-ai-agents-in-one-place
+  - [7] https://docs.gmicloud.ai/agentbox-sdk/errors-and-limits
+  - [8] https://docs.gmicloud.ai/agentbox-sdk/quickstart
+
+## GMI Cloud SCALE
+
+- `compute/gmi-cloud-scale` | fails-identity | evidence documented | binding write-gated | category inference API | tier SCALE startup cohort
+- needs card no, phone no, ID no, institution yes | verified 2026-11-24T11:38:14.857Z (live) | stale on 2026-12-25
+- url https://www.gmicloud.ai/en/company/scale
+- free tier: a six-week equity-free cohort for AI startups: USD 500 of model-as-a-service credits on acceptance, 1:1 credit matching up to USD 4,500 for money the team adds, 20% off dedicated endpoints for teams with steady volume, a GPU voucher after completing the program (no amount is stated on the page), and partner credits the vendor totals at 'Up to $40K from all GMI partners'. The page says Cohort 3 credit terms will be confirmed before kickoff. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: grant
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: admission is by a Google Form application to a selected cohort of AI startups; required fields are Company Name, Company Website URL, location ('Where is it based?'), Primary Contact Name and Title, Primary Contact Email and Primary Contact LinkedIn URL. No card, phone or ID document is asked for on the form.
+- interface: rest
+- limits:
+  - write-gated (binding): cohort admission is the gate: an application ('Apply to Cohort 3'), a small cohort of technical founders (the page counts 25 AI companies in Cohort 01), and a team building an AI product. The 1:1 match is USD 1 of credit for each USD 1 the team adds to MaaS, up to USD 4,500, so the headline credit is not the credit received. [1]
+- limits note: cohort admission is the gate: an application form, a selected cohort of about 25 companies a cycle, and a team that is building a product. The USD 4,500 match also requires the team to spend USD 4,500 first, so the headline credit is not the credit received.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: unverified: the page states a GPU voucher on completing the program but no amount, and says Cohort 3 credit terms will be confirmed before kickoff, so no GPU-hour figure can be derived from it.
+- reliability: no reliability event recorded
+- notes: The 1:1 match is credit given for credit the team adds to MaaS, not a grant. The partner figure aggregates credits from other vendors, so it is not GMI compute. The vendor's on-demand GPU rental is a separate paid-only offer and not part of this cohort. The page lists Cohort 01 as complete (Apr-May 2026) and Cohort 3 for Spring 2027 (Mar-May) with applications open on 2026-11-03.
+- extras:
+  - facets.class: startup-cohort
+  - facets.free_tier_kind: grant
+  - facets.shape.gpu_class: H100
+  - facets.shape.gpu_count: 1
+- evidence:
+  - [1] 2026-10-22: '6-week Equity-Free Startup Program for AI-native teams'; 'Up to $40K+ in Structured Credits'; 'Phase 1 - Onboarding Credits $500 MaaS Credits on acceptance'; '1:1 credit matching up to $4,500'; 'For every $1 you add to MaaS, GMI matches $1 in credits', quoted
+  - [2] 2026-10-22: on-demand rates 'NVIDIA H100 GPU from $2.60/GPU-hour', 'H200 from $3.20/GPU-hour', 'B200 from $5.00/GPU-hour', 'GB200 from $8.00/GPU-hour', quoted
+  - [1] 2026-11-03: the credit terms of the open Cohort 3 are not final on the page, and the page names no USD amount for the GPU voucher (the program highlight says 'earn a GPU voucher after completing the program') | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Cohort 3 credit terms will be confirmed before kickoff.
+  - [1] 2026-11-03: the GPU voucher is named without an amount | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Onboard fast with MaaS credits, unlock 1:1 matching as you scale, and earn a GPU voucher after completing the program.
+  - [1] 2026-11-03: the page counts 25 AI companies in the cohort; admission is by application | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Five weeks. 25 AI companies. Real infra, real raises, real demos.
+  - [1] 2026-11-03: the offer is the SCALE startup cohort, entered by application, and is not the vendor's on-demand GPU rental | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Apply to Cohort 3
+  - [1] 2026-11-03: Cohort 3 applications were open on the read date | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Cohort 03 applications open
+  - [1] 2026-11-03: the cohort is a selected group of founders, entered by application | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: We work with a small cohort of technical founders
+  - [1] 2026-11-03: the offer is a program entered by application to a selected cohort, so the verdict fails-identity (institution) stands | capture: sha256:1549357e8e178cef6b8b7627a50c94fe21ee8eceba4f219cb12a0b6e1d769e8b | quote: Apply to Cohort 3
+  - [1] 2026-11-24: the Cohort 3 credit terms are still provisional; no per-GPU-hour grant is stated | capture: sha256:e3bee2939ec160434750785c97a0e9580d6cd2722253a568446edf5bb8ed5331 | quote: Cohort 3 credit terms will be confirmed before kickoff.
+  - [3] 2026-11-24: the application form requires a company name, website, location, contact name/title, email and LinkedIn URL: an institution gate | capture: sha256:c6a983af719415539a4a8b1fe164f3ad2a6db7f6c8ffaa356b723cf72447833a | quote: Primary Contact Email
+  - [3] 2026-11-24: the application form asks for a contact email and company details, not a card or phone | capture: sha256:c6a983af719415539a4a8b1fe164f3ad2a6db7f6c8ffaa356b723cf72447833a | quote: Primary Contact Email
+  - [2] 2026-11-24: the vendor's on-demand GPU rate card is unchanged; this SCALE record is the cohort, not that paid offer | capture: sha256:3ba24c58553b3d0fce4874e43858abde3ec6e9ed0bba490a22769afb63828f3d | quote: from $2.60/GPU-hour
+- sources:
+  - [1] https://www.gmicloud.ai/en/company/scale
+  - [2] https://www.gmicloud.ai/en/pricing
+  - [3] https://docs.google.com/forms/d/e/1FAIpQLSf-hgFeeQwpRDLVzHfGzPhdZfjmziO1cUw7rh_MMnsoeUcBWg/viewform

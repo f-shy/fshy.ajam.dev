@@ -1,0 +1,36 @@
+# Bandcamp
+
+> bandcamp.com | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/bandcamp/ | JSON https://fshy.ajam.dev/api/v1/entity/bandcamp.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Bandcamp — free artist account
+
+- `storage/bandcamp-free-artist-account` | qualifies-with-caveat | evidence reported | binding none | category media
+- identity a placeholder: card and phone unknown | verified 2026-11-25T13:25:54.292Z (live) | stale on 2026-12-10
+- url https://bandcamp.com
+- free tier: 291 MB per track to start ('It starts out at 291MB per track .. Once you've made a few sales through Bandcamp (totaling $20 USD or more), we increase the max per-track upload size to 600 megs'), and crucially 'There is no limit on the size of albums'. So total capacity is unbounded at 291 MB x unlimited tracks. | unit: unlimited | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: 291 MB per track | source: [1] | note: 291MB per track to start; after $20 USD or more in sales the per-track cap becomes 600 megs; there is no limit on the size of albums.
+- retention: source: [1] | note: A release remains streamable or downloadable until it is permanently deleted from the artist page.
+- egress: Free streaming and free downloads to fans; Bandcamp takes 15% of sales (10% after $5k) but there is no storage or egress bill, and a $0-priced release generates none of that. | metered: no
+- identity: card
+- interface: browser
+- limits note: Audio must be 'at least 16-bit, 44.1 kHz lossless files (WAV, AIFF, or FLAC), in stereo (no mono- or multi-channel audio)'. So no MP3 uploads at all. Pro ($10/mo, not free) raises the per-track cap to 2 GB and adds video (500 MB). Free accounts can't upload video.
+- interface detail: wrapper-only
+- tooling: No public API, no bulk uploader. Web album editor only ('Click + add in the top toolbar'). This is the weakest tooling story in the slot.
+- composes with: The per-track cap becomes 600 megs after USD 20 in sales; there is no limit on the size of albums.
+- reliability: Lossless masters are kept and fans who buy get the original format; streams are transcoded mp3. The lossless-only requirement is actually a positive for this use case (nothing is lossy-transcoded on the way in), but the 'no multi-channel / no mono' rule rejects perfectly good files, and a release is public the moment it's published. There is no private/unlisted storage mode.
+- notes: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'It starts out at 291MB per track'; 'we increase the max per-track upload size to 600 megs'; 'There is no limit on the size of albums'; 'up to 2 GB by subscribing to Bandcamp Pro'
+  - [2] 2026-10-21: 'Your audio files must be at least 16-bit, 44.1 kHz lossless files (WAV, AIFF, or FLAC), in stereo (no mono- or multi-channel audio)'
+  - [3] 2026-10-21: 'The max upload size for videos is 500MB' (paid tier)
+  - [1] 2026-11-09: the help article states a 291 MB per-track upload limit to start | capture: sha256:35003fe92ef15eacc051d0ec03c85bc9c01091c4f6541ac1ae9074f25c9ef987 | quote: It starts out at 291MB per track, which is of course the exact size of “Inamorata and Narration by Conrad Roberts” from side 4 of Miles Davis’ Live-Evil (assuming we’re talking 16/44.1, which we always are).
+  - [2] 2026-11-25: the upload path is the web album editor | capture: sha256:84fede408e8ea3e2af03f3d62b226429a3df18da79f1d67444f324144f38cb9a | quote: Click + add in the top toolbar to add a new track or album.
+  - [4] 2026-11-25: a release remains available until permanent deletion | capture: sha256:6020281b049b5f906b186bfc2f1bf9c3ec86a8f58c74723cab3e2be83d794174 | quote: This will allow you to stream or download the release at any time (as long as you don't delete it permanently from your artist page).
+  - [1] 2026-11-25: the per-track cap becomes 600 megs after $20 USD in sales and album size is unlimited | capture: sha256:35003fe92ef15eacc051d0ec03c85bc9c01091c4f6541ac1ae9074f25c9ef987 | quote: Once you’ve made a few sales through Bandcamp (totaling $20 USD or more), we increase the max per-track upload size to 600 megs. There is no limit on the size of albums.
+- sources:
+  - [1] https://get.bandcamp.help/en/articles/15263336-what-s-the-maximum-upload-size
+  - [2] https://get.bandcamp.help/en/articles/15263088-how-do-i-upload-music
+  - [3] https://get.bandcamp.help/en/articles/15263341-what-is-the-maximum-video-upload-size
+  - [4] https://get.bandcamp.help/en/articles/15263149-i-lost-my-original-audio-files-can-i-download-them-from-my-bandcamp-account

@@ -1,0 +1,165 @@
+# fshy: Domains and DNS, trial
+
+> Managed DNS, free domains and certificate authorities.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/domains-dns/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## DNS Made Easy
+
+- `domains-dns/dnsmadeeasy` | trial-only | evidence documented | binding retention-clamped | category managed authoritative DNS | tier Free 30-day trial (no perpetual free tier)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T01:33:39.433Z (live) | stale on 2026-12-20
+- url https://support.dnsmadeeasy.com/hc/en-us/articles/34327085326107-How-to-Sign-Up-With-DNS-Made-Easy-Free-Trial | page https://fshy.ajam.dev/p/dnsmadeeasy.md
+- free tier: A free 30-day trial with 3 domains, 900 records, unlimited queries during the trial, 1 failover record, 5 query logs, 2FA, DNS analytics and a 100% SLA; there is no perpetual free tier and paid plans start at USD 6.25 per month | unit: seconds | metered on: wall-clock | read on: 2026-11-19 | source: [1] | note: the trial is time-boxed at 30 days rather than capacity-boxed; the 30-day length is the head-line allowance, so the unit names wall-clock time
+- per-object cap: 900 records across 3 domains on the trial and 7,500 records across 25 domains on the cheapest paid Business plan; no single-record size cap is stated | source: [2] | note: the cap is a record count, not a byte size
+- retention: the trial ends after 30 days, after which a paid plan is required to keep the zones active; no separate retention window for zones on a paid plan was read | days: 30 | source: [1] | note: 30 days is the trial length, which is the clock that decides access to the offer
+- egress: unlimited DNS queries during the 30-day trial; on the paid Business plan 10M queries per month are included and overages are invoiced | metered: yes | free allowance: unlimited queries during the 30-day trial | source: [2]
+- identity: email | detail: the trial signup guide lists username, password, confirm password, email, first name and last name, then company name, address, city, state, country, zip, phone, an optional fax, a secret question and secret answer, and an optional charity; no card is listed on the Create an Account page and Prerequisites is None, so no payment card is asked for at trial signup (https://support.dnsmadeeasy.com/hc/en-us/articles/34327085326107-How-to-Sign-Up-With-DNS-Made-Easy-Free-Trial). A phone number is requested as account information for the business
+- interface: rest
+- limits:
+  - retention-clamped (binding): the free offer is a 30-day trial; a paid plan is required afterwards [1]
+  - per-object-cap: 3 domains and 900 records on the trial; 25 domains and 7,500 records on the paid Business plan [2]
+  - request-rate: 150 REST API requests per 5 minute scrolling window per API key [3]
+  - write-gated: REST API keys are available only on Business / DNS-25 memberships or above; DNS-5 members must upgrade [4]
+- binding note: the free offer is only a 30-day trial, so the clock ends access before the record count, API rate or API-key gate binds for a free user; API access is also gated to paid tiers
+- interface detail: a REST API at https://api.dnsmadeeasy.com/V2.0/ using x-dnsme-apiKey, x-dnsme-requestDate and an HMAC-SHA1 x-dnsme-hmac header; a separate dynamic DNS update servlet at https://cp.dnsmadeeasy.com/servlet/updateip takes username, password, record id and ip. The API reference documents full record and domain CRUD, secondary DNS, failover and query-usage calls
+- endpoint: part of interface detail
+- tooling: curl with the x-dnsme-* HMAC headers, the sample dnsmeapi.pl Perl wrapper, and dynamic DNS clients such as ddclient; public SDKs and terraform providers exist from third parties
+- composes with: a managed authoritative DNS service that can serve as a primary or secondary zone and can be paired with another DNS provider for redundancy; dynamic DNS clients update A records through the update servlet
+- reliability: REST API calls with invalid credentials or an invalid request-date header receive HTTP 403, and calls arriving more than 30 seconds after the request-date and HMAC are generated are denied
+- notes: The free offer is a 30-day trial and no perpetual free tier was found. DNS Made Easy is a DigiCert brand; the dnsmadeeasy.com marketing and free-trial pages now answer 404 or serve a DigiCert UltraDNS page, while the support articles, API reference and the first-party DigiCert pricing blog remain live. The blog and the signup guide disagree on the trial record count (900 versus 1,500), so the lower guide figure is used.
+- evidence note: the free-trial signup guide, the DigiCert first-party pricing blog, the API reference, the API-key article, the add-ons article and the dynamic DNS article were read and quoted; no signup form was submitted, so the exact fields are as documented rather than measured. The marketing pricing and free-trial pages at dnsmadeeasy.com now answer 404 or serve a DigiCert UltraDNS page, so the trial terms come from the support guide and the first-party DigiCert blog
+- self hosted: no
+- evidence:
+  - [2] 2026-11-19: the free offer is a 30-day trial | capture: sha256:8748bc724bc33be38b2650dc7f69fa4a8e4023c3056fca51267d6946deffdac7 | quote: DNS Made Easy provides users with a free 30-day trial that includes our most popular features.
+  - [2] 2026-11-19: trial allowance of 3 domains, 900 records, unlimited queries, 1 failover record and 5 query logs | capture: sha256:8748bc724bc33be38b2650dc7f69fa4a8e4023c3056fca51267d6946deffdac7 | quote: - 3 domains - 900 records - Unlimited queries during the trial period - 1 Failover record - 5 query logs - 2FA - DNS analytics - 100% SLA-backed
+  - [1] 2026-11-19: the trial is free for 30 days | capture: sha256:c6fcaeab0947b4fb7fd6cedcf754c8ed6902e677a7646fe7bcf77ae87a973b7b | quote: Cost: Free for 30 days
+  - [1] 2026-11-19: the cheapest paid plan after the trial is USD 6.25 per month | capture: sha256:c6fcaeab0947b4fb7fd6cedcf754c8ed6902e677a7646fe7bcf77ae87a973b7b | quote: Cost: $6.25 mo / $75 billed annually
+  - [1] 2026-11-19: the paid Business tier counts | capture: sha256:c6fcaeab0947b4fb7fd6cedcf754c8ed6902e677a7646fe7bcf77ae87a973b7b | quote: - 25 Domains - 7,500 Records - 10M Queries /month
+  - [2] 2026-11-19: the trial signup asks for email and a name | capture: sha256:8748bc724bc33be38b2650dc7f69fa4a8e4023c3056fca51267d6946deffdac7 | quote: - Username - Password - Confirm Password - Email - First Name - Last Name
+  - [2] 2026-11-19: the signup also asks for company details and a phone number | capture: sha256:8748bc724bc33be38b2650dc7f69fa4a8e4023c3056fca51267d6946deffdac7 | quote: Next, enter the account information for your business: - Company name - Address/City/State/Country/Zip - Phone - Fax (optional) - Secret question - Secret answer - Charity (optional)
+  - [2] 2026-11-19: no prerequisite such as a card is stated for the trial | capture: sha256:8748bc724bc33be38b2650dc7f69fa4a8e4023c3056fca51267d6946deffdac7 | quote: Prerequisites - None
+  - [4] 2026-11-19: REST API keys are gated to paid memberships | capture: sha256:ce7bf5f8f7dc810d1e59d5a131cf8a891dd25226a30529de38be965be2730ff0 | quote: Only Business / DNS-25 memberships or above have access to API Keys. Small Business / DNS-5 members will need to upgrade to [Business / DNS-25](https://dnsmadeeasy.com/pricing)to take advantage of our API service.
+  - [3] 2026-11-19: the REST API is rate limited to 150 requests per 5 minute window per API key | capture: sha256:ad63eb397cbf261b07758536bb37f4eb7d47e4604743dba0a5dd5729d8479cde | quote: This limit is 150 requests per 5 minute scrolling window.
+  - [3] 2026-11-19: the REST API endpoint | capture: sha256:ad63eb397cbf261b07758536bb37f4eb7d47e4604743dba0a5dd5729d8479cde | quote: The current endpoint for API V2.0 is available at: http\[s\]://api.dnsmadeeasy.com/V2.0/
+  - [3] 2026-11-19: bad credentials or request date are refused with HTTP 403 | capture: sha256:ad63eb397cbf261b07758536bb37f4eb7d47e4604743dba0a5dd5729d8479cde
+  - [3] 2026-11-19: a skewed request date causes denial | capture: sha256:ad63eb397cbf261b07758536bb37f4eb7d47e4604743dba0a5dd5729d8479cde | quote: If too much time has passed between when the _x-dnsme-requestDate_ and _x-dnsme-hmac_ strings were created and when the request is received by the DNS Made Easy API servers, then the request will be denied.
+  - [5] 2026-11-19: a programmatic dynamic DNS update endpoint exists | capture: sha256:46acabc25245f661b6492a2ebcedfa4cc611c0e39888be89ad374d4a1676fdfd | quote: The servlet is: [https://cp.dnsmadeeasy.com/servlet/updateip](https://cp.dnsmadeeasy.com/servlet/updateip)?
+  - [5] 2026-11-19: dynamic DNS updates use username, password, record id and ip | capture: sha256:46acabc25245f661b6492a2ebcedfa4cc611c0e39888be89ad374d4a1676fdfd | quote: The four parameters are: "username", "password", "id", and "ip".
+  - [6] 2026-11-19: extra API call capacity is a paid add-on | capture: sha256:ccebf393316edf80a877464cce657bd668823e82b4b160fa49b102128fa0ee32 | quote: If additional API calls are needed for your account or a sub-user’s account, you can purchase an extra 150 API calls per 300 seconds (per user).
+- sources:
+  - [1] https://www.digicert.com/blog/how-much-does-dns-cost
+  - [2] https://support.dnsmadeeasy.com/hc/en-us/articles/34327085326107-How-to-Sign-Up-With-DNS-Made-Easy-Free-Trial
+  - [3] https://api-docs.dnsmadeeasy.com/
+  - [4] https://support.dnsmadeeasy.com/hc/en-us/articles/34326955127451-Finding-or-Generating-API-Keys-In-DNS-Made-Easy
+  - [5] https://support.dnsmadeeasy.com/hc/en-us/articles/34327262173723-Dynamic-DNS
+  - [6] https://support.dnsmadeeasy.com/hc/en-us/articles/34327053801627-How-to-Purchase-Additional-DNS-Services-and-Add-ons
+
+## DNSimple
+
+- `domains-dns/dnsimple` | trial-only | evidence documented | binding retention-clamped | category managed authoritative DNS with a REST API | tier Solo (free 30-day trial, then pay-as-you-go)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T01:28:23.303Z (live) | stale on 2026-12-20
+- url https://dnsimple.com/pricing | page https://fshy.ajam.dev/p/dnsimple.md
+- free tier: Solo has no base subscription fee and a free 30-day trial, but every hosted zone costs USD 0.50 per month and Solo includes 50,000 queries per zone per month then USD 0.80 per million; activation needs a card. No standing free allowance exists after the one-time trial | unit: none | metered on: none | read on: 2026-11-19 | source: [1]
+- per-object cap: 100 DNS records per zone on Solo, including system records; a zone on Solo cannot grow above the limit, and records above it cannot be added until some are deleted or the plan is changed | source: [2]
+- retention: zones persist while the subscription is active; the 30-day free trial is available once, and the card on file is charged when the trial ends unless the account cancels first | days: 30 | source: [3]
+- egress: the metered quantity is authoritative DNS queries, not bytes out; a zone within its included query allowance has no query fee, and volume above it is billed per million queries | metered: yes | free allowance: 50,000 queries per zone per month on Solo | source: [4]
+- identity: card | detail: the signup form asks for an email address and a password of at least 16 characters with two character types, and offers Google sign-in; an account can be created and the dashboard explored without a plan, but activation to add records needs payment details, and every self-service plan including Solo requires a credit or debit card with no alternative payment method (https://app.dnsimple.com/signup, https://support.dnsimple.com/articles/account-creation, https://support.dnsimple.com/articles/payment-methods, https://support.dnsimple.com/articles/account-activation/)
+- interface: rest, cli
+- limits:
+  - per-object-cap: 100 DNS records per zone on Solo, including system records; the zone cannot go above the limit [2]
+  - request-rate: 2,400 API requests per hour per account by default, 30 per hour per IP unauthenticated, 60 domain availability checks per hour per account [5]
+  - retention-clamped (binding): the 30-day free trial is available once; the card is charged when the trial ends unless cancelled first [3]
+- binding note: there is no standing free allowance: the 30-day trial ends once and then every active zone costs USD 0.50 per month, so the trial clock binds before the 100-record cap or the API request rate does
+- interface detail: the DNSimple API is a REST web service API that provides access to domains, zones, records and certificates, authenticated with an access token; the official DNSimple CLI is a command-line interface for that API, and a Terraform provider is published
+- tooling: the DNSimple CLI, Terraform provider dnsimple/dnsimple, and official API client libraries for Ruby, Go, Elixir, Node.js, .NET, Java, PHP, Python and Rust
+- composes with: an authoritative DNS host with a full REST API and CLI, usable as primary or secondary DNS, with DNSSEC and Anycast, that a reader scripts against via token; every active zone carries a monthly charge
+- reliability: the API returns HTTP 429 when the hourly or per-IP request limit is reached; an expired email verification link after 7 days blocks subscribing and registering until a new one is requested
+- notes: The Solo plan has no base fee but no standing free allowance: a one-time 30-day trial, then USD 0.50 per active zone per month plus query volume above 50,000 per zone. A card is required to activate even the free tier. The free tier uses unit none because there is no recurring free amount; the trial is described in retention and the limits rows. No live DNS read was probed. The CLI and Terraform provider are clients of the hosted API, not self-hosted software.
+- evidence note: the pricing page, plans, DNS query limits, DNS record limits, API rate limit, account creation, account activation, payment methods, signup form, developer documentation and CLI article were first-party pages read and quoted; the card requirement is documented on the payment and activation pages rather than at a live checkout; no live DNS read was probed
+- evidence:
+  - [6] 2026-11-19: the Solo plan has no base fee but charges USD 0.50 per hosted zone per month | capture: sha256:177468a221ac16fb82106c4c153411e60ff8ae492c7aaa560a9ba57466d49126 | quote: Free For 1 user $0.50 per hosted zone per month
+  - [1] 2026-11-19: Solo has no base subscription fee and bills by active zones | capture: sha256:06e6f1af99da3a329c63b4eb701dddaf5b32b97217baed70dabb4bc245dc6b55 | quote: No base subscription fee. You will be charged on a pay-as-you-go basis, with fees determined by the number of active zones
+  - [1] 2026-11-19: every active hosted zone costs USD 0.50 per month on self-service plans | capture: sha256:06e6f1af99da3a329c63b4eb701dddaf5b32b97217baed70dabb4bc245dc6b55 | quote: On every self-service plan, each hosted zone costs $0.50 per month.
+  - [4] 2026-11-19: the Solo plan includes 50,000 queries per zone per month and bills USD 0.80 per million above that | capture: sha256:9457cc43c27cae423fac994b6a3da5cc3efac61aef289d964a1fe4419c2b2aad | quote: Solo includes 50,000 queries per zone per month, then $0.80 per million.
+  - [2] 2026-11-19: Solo allows 100 records per zone and does not allow records above the limit | capture: sha256:41b49024a1725f1099032e16c5b95177998ba5d682a815513b4f26e872aaaeee | quote: | Solo | 100 | You cannot add records above the limit |
+  - [2] 2026-11-19: system records count toward the 100-record per-zone limit | capture: sha256:41b49024a1725f1099032e16c5b95177998ba5d682a815513b4f26e872aaaeee | quote: Every record counts toward the limit, including system records
+  - [5] 2026-11-19: the API rate limit is 2,400 requests per hour per account and 30 per hour unauthenticated | capture: sha256:8480b777b248a6d00e541122fd562546cd61c7f38f4c2672ffd2b0b8f00e2722 | quote: By default, an account can make 2,400 requests per hour, and unauthenticated requests are limited to 30 per hour.
+  - [7] 2026-11-19: the signup form asks for an email address and a password with a length and character-type rule | capture: sha256:949d2d102774fae3bc18eea23562fdf617f41c6d32e8eceedff334f243e1547c | quote: At least 16 characters, including at least 2 different character types (letters, numbers, or symbols).
+  - [7] 2026-11-19: the signup page offers a 30-day free trial | capture: sha256:949d2d102774fae3bc18eea23562fdf617f41c6d32e8eceedff334f243e1547c | quote: Sign up free for 30 days
+  - [8] 2026-11-19: signup needs an email address and a password | capture: sha256:5b101086acc0a9e9340b4aae2d36ed2dd81654760f58398f50b60e027eaf65dd | quote: Enter your email address and a password, confirm the password, and click Join DNSimple.
+  - [8] 2026-11-19: activation to add records needs payment details | capture: sha256:5b101086acc0a9e9340b4aae2d36ed2dd81654760f58398f50b60e027eaf65dd | quote: You will need to choose a plan and provide payment details to activate your account, register domains, and add records.
+  - [8] 2026-11-19: Google sign-in is an alternative identity path at signup | capture: sha256:5b101086acc0a9e9340b4aae2d36ed2dd81654760f58398f50b60e027eaf65dd | quote: On the signup page, click Sign in using Google, and you will be prompted to select your Google account.
+  - [9] 2026-11-19: even the Solo plan requires a card, with no alternative payment method | capture: sha256:390ca998206fbba3eb2008c4976f6465ae250883cb82cc3596df53b812e8cb33 | quote: Every self-service plan, including the free Solo plan, requires a card, and there is no alternative payment method on those plans.
+  - [3] 2026-11-19: the free trial is a one-time allowance, not a recurring free tier | capture: sha256:167b761ff0afcd8c9940a3d9c1a04d6327e20328a35f99d371a36f6929d582b4 | quote: The 30-day free trial is available once.
+  - [3] 2026-11-19: the card is charged after the trial unless the account cancels first | capture: sha256:167b761ff0afcd8c9940a3d9c1a04d6327e20328a35f99d371a36f6929d582b4 | quote: The card on file will not be charged until your free trial has ended.
+  - [10] 2026-11-19: a REST API reaches domains, zones and records | capture: sha256:5385c884c69fba2257c578413102c6995c833455545b13e25305dc43bbe9986d | quote: The DNSimple API is a REST web service API that provides access to domains, zones, records, SSL certificates and other entities
+  - [11] 2026-11-19: an official CLI reaches the DNSimple API | capture: sha256:ed862f1003956e9031b37df9240bee69eabb3004001b102b9f418441ef935e58 | quote: The DNSimple CLI is a command-line interface for the DNSimple API.
+  - [1] 2026-11-19: the Solo plan is a domain management platform for one user | capture: sha256:06e6f1af99da3a329c63b4eb701dddaf5b32b97217baed70dabb4bc245dc6b55 | quote: DNSimple’s Solo plan provides anyone with a domain management platform
+  - [6] 2026-11-19: Solo blocks new records at the per-zone limit | capture: sha256:177468a221ac16fb82106c4c153411e60ff8ae492c7aaa560a9ba57466d49126 | quote: On Solo, you can't add records to a zone that is at or above its limit.
+- sources:
+  - [1] https://support.dnsimple.com/articles/dnsimple-plans
+  - [2] https://support.dnsimple.com/articles/dns-record-limits
+  - [3] https://support.dnsimple.com/articles/account-activation/
+  - [4] https://support.dnsimple.com/articles/dns-query-limits
+  - [5] https://support.dnsimple.com/articles/api-rate-limit
+  - [6] https://dnsimple.com/pricing
+  - [7] https://app.dnsimple.com/signup
+  - [8] https://support.dnsimple.com/articles/account-creation
+  - [9] https://support.dnsimple.com/articles/payment-methods
+  - [10] https://developer.dnsimple.com/getting-started
+  - [11] https://support.dnsimple.com/articles/dnsimple-cli/
+
+## IBM NS1 Connect, Trial (30-day free trial)
+
+- `domains-dns/ns1-connect` | trial-only | evidence documented | binding request-rate | category managed authoritative DNS and traffic steering | tier Trial (30-day free trial)
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T02:46:19.580Z (live) | stale on 2026-12-20
+- url https://www.ibm.com/products/ns1-connect/pricing | page https://fshy.ajam.dev/p/ibm.md
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-essentials` says paid-only
+- disagrees on verdict: `domains-dns/ns1-connect` says trial-only, `domains-dns/ns1-connect-standard` says paid-only
+- free tier: a 30-day free trial with 50M DNS queries/month, 500 DNS records, 20 health check monitors, 10 traffic steering chains, 50 HTTPS redirects, Cloud Sync and zone versioning; no credit card required at sign-up | unit: requests | metered on: request-count | read on: 2026-11-19 | source: [1] | note: This is a time-boxed trial, not a recurring free allowance. The trial is the only no-charge entry; no permanent free tier was found on the pricing page.
+- per-object cap: 500 DNS records in the trial; a DNS record may hold multiple answers, and the maximum TTL on a record is 86400 seconds (24 hours), with values above that automatically adjusted to 86400 | source: [1] | note: The 86400-second TTL ceiling is from the DNS-record documentation and applies to records in all zones, not to the trial alone.
+- retention: unverified: no data-deletion or retention period after the 30-day trial ends is stated on the pages read | source: [1] | note: Zone records survive only while the account and its subscription or trial remain active; the exact post-trial deletion window is unverified.
+- egress: DNS queries are counted against a monthly allowance (50M DNS queries/month on the trial); no per-GB traffic price is published, since DNS is priced by query count rather than by bytes out | metered: yes | free allowance: 50M DNS queries/month on the trial | source: [1]
+- identity: email | detail: the trial sign-up page asks for a business email address, first name, last name, country and password to create an IBMid; Company is a required field in the form metadata; no credit card is required ('Create your account. No credit card required.'); a phone number and an ID document are not requested on the form read (https://www.ibm.com/account/reg/signup?formid=urx-54055)
+- interface: rest, browser
+- limits:
+  - request-rate (binding): 50M DNS queries/month (trial) [1]
+  - per-object-cap: 500 DNS records (trial); TTL capped at 86400 seconds (24 hours) [1]
+  - volume-quota: 20 health check monitors and 10 traffic steering chains (trial) [1]
+- binding note: the 50M DNS queries/month trial allowance is the first quantity an active zone consumes; the 500-record and 20-monitor caps are far above a single zone's needs
+- interface detail: a REST API at https://api.nsone.net/v1 (legacy) and https://api.nsone.net/{category}/v1 (newer) returning JSON over HTTPS, authenticated with an API key secret in the X-NSONE-Key header; the first key must be created in the NS1 Connect portal; a web portal manages zones and records
+- tooling: REST API through curl or any HTTP client with an X-NSONE-Key API key; the NS1 Terraform provider (ns1-terraform/ns1) is the documented infrastructure-as-code path; Ansible integration is listed on the product page
+- composes with: managed authoritative DNS with real-time traffic steering, health-check monitors and HTTPS redirects; Cloud Sync synchronises zones with Amazon Route 53 as a paid add-on, and a Terraform toolkit keeps zones in step with other providers
+- reliability: the API requires HTTPS and rejects plain HTTP or unauthenticated requests; the Terraform provider documentation warns that 429 rate-limit responses occur and recommends rate_limit_parallelism 60; no outage history was read
+- notes: The 30-day trial is a time-boxed offer, not a recurring free allowance. No permanent free tier is stated on the pricing page. Prices shown on the page are indicative and may vary by country and by product-offering availability in a locale.
+- evidence note: first-party pricing, signup, product, API, Terraform and DNS-record pages were read and quoted; every value is at documented rung, with no live trial measurement of post-trial behaviour
+- evidence:
+  - [1] 2026-11-19: the entry offer is a 30-day free trial | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 30 day Free Trial
+  - [1] 2026-11-19: the trial allows 50 million DNS queries per month | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 50M DNS queries/month
+  - [1] 2026-11-19: the trial allows 500 DNS records | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 500 DNS records
+  - [1] 2026-11-19: the trial allows 20 health check monitors | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 20 health check monitor
+  - [1] 2026-11-19: the trial allows 10 traffic steering chains | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 10 traffic steering chains
+  - [1] 2026-11-19: the trial allows 50 HTTPS redirects | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: 50 HTTPS redirects
+  - [1] 2026-11-19: Cloud Sync is a listed trial feature | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Cloud Sync
+  - [1] 2026-11-19: zone versioning is a listed trial feature | capture: sha256:3c813d4f5b2cc4375864b7944fc9d4e9f5f65ee3c0ff378df81028fae0e95e02 | quote: Zone versioning
+  - [2] 2026-11-19: the trial sign-up needs no payment card | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Create your account. No credit card required.
+  - [2] 2026-11-19: the trial sign-up requires a business email address | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Business email is required
+  - [2] 2026-11-19: the trial form requires a company name | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Company is required
+  - [2] 2026-11-19: the trial form requires a country | capture: sha256:e5a50c811758b012f6f80d57f7f4c93b8703f07d224b2b3a5a5ec6328afe3ec0 | quote: Country is required
+  - [3] 2026-11-19: the service exposes a REST API | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: This REST API returns JSON responses and uses standard HTTP methods (GET, PUT, POST, DELETE) to perform operations on resources.
+  - [3] 2026-11-19: API access is authenticated by an API key secret | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: The NS1 Connect API uses API key secrets to authenticate requests.
+  - [3] 2026-11-19: the legacy REST base URL | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: Legacy endpoints: `https://api.nsone.net/v1`
+  - [3] 2026-11-19: plain HTTP and unauthenticated requests are rejected | capture: sha256:3ebe8dceac1bb4e077f0696bc3c8ca60d0f2a80f76626debe092535f56ad2d2f | quote: All API requests must be made over HTTPS. Requests made over plain HTTP or without authentication will fail.
+  - [4] 2026-11-19: a Terraform toolkit manages zones and records as infrastructure as code | capture: sha256:cb25cc8477f2d51739065fa79ea48bec287070eda6d412ec1ab3a183895c4295 | quote: The NS1 Connect + Terraform toolkit provides the tools needed to sync DNS zones and records across all of your DNS providers to create a single source of truth and to centralize resource management.
+  - [5] 2026-11-19: a DNS record's TTL is capped at 86400 seconds | capture: sha256:3810c116152a11b9f0a4c802dcc5217d2a4fbac0b85873f7e442931321a1bf7b | quote: In NS1 Connect, the maximum TTL value you can set for a DNS record is 86400 seconds or 24 hours. Values exceeding this limit are automatically adjusted to 86400 seconds.
+  - [6] 2026-11-19: the anycast network has 26+ points of presence | capture: sha256:6eea5d2ab831bd1f0341e141f5f92aad2317ff0a3b43f346c67cf548ec5cf87f | quote: Reduce latency worldwide with 26+ points of presence across six continents
+  - [6] 2026-11-19: Terraform, Ansible and CI/CD integration are documented | capture: sha256:6eea5d2ab831bd1f0341e141f5f92aad2317ff0a3b43f346c67cf548ec5cf87f | quote: Integrate with Terraform®, Ansible® and CI/CD workflows
+- sources:
+  - [1] https://www.ibm.com/products/ns1-connect/pricing
+  - [2] https://www.ibm.com/account/reg/signup?formid=urx-54055
+  - [3] https://www.ibm.com/docs/en/ns1-connect?topic=introduction-using-api
+  - [4] https://www.ibm.com/docs/en/ns1-connect?topic=toolkits-terraform-toolkit-ns1-connect
+  - [5] https://www.ibm.com/docs/en/ns1-connect?topic=answers-create-dns-record
+  - [6] https://www.ibm.com/products/ns1-connect

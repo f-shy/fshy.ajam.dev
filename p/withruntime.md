@@ -1,0 +1,91 @@
+# Runtime
+
+> withruntime.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/withruntime/ | JSON https://fshy.ajam.dev/api/v1/entity/withruntime.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Runtime (withruntime.com)
+
+- `compute/withruntime` | trial-only | evidence documented | binding per-ip-shaping | category container and VM sandbox | tier 1 GiB machine at the idle CPU floor
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T14:51:51.610Z (live) | stale on 2026-12-25
+- url https://withruntime.com/pricing
+- price parsed USD 6.39/mo
+- free tier: No free plan. A 7-day Pro trial gives $5 of usage and starts when a card is added at the first sandbox; signing up takes no card. Redeeming the trial needs a card on file. | unit: credits | metered on: none | read on: 2026-10-24 | source: [1] | note: a seven-day card-gated trial with USD 5 of usage credit
+- per-object cap: A Pro machine goes to 8 vCPU and 32 GB memory with 500 GB of fast storage; Growth goes to 16 vCPU, 64 GB and 2 TB; Scale goes to 32 vCPU, 96 GB and 5 TB.
+- retention: A paused machine pays only for storage at USD 0.18 per GiB-month; a deleted machine costs nothing. After cancel or unpaid charge, machines pause and their disks, snapshots and volumes are deleted 30 days later. | source: [1]
+- egress: No outbound traffic is free: every GB sent costs USD 0.03, charged from the plan's included usage; inbound traffic is free. Outbound traffic has no plan limit: each machine gets a fair share of its server's link by size. | metered: yes | free allowance: none | source: [1]
+- identity: card | detail: Signing up takes no card, but creating a sandbox requires one: until a card is added, calls answer the quoted error code `card_required`. Adding the card starts the seven-day Pro trial with USD 5 of usage; no hold amount is stated.
+- interface: rest, cli, ssh
+- limits:
+  - request-rate: CPU $0.03 per active vCPU-hour, billed on core-microseconds with a floor of 0.1 vCPU while running; memory $0.008 per GiB-hour [2]
+  - write-gated: signup takes no card but every call that creates or changes a sandbox answers 402 card_required until a card is added; the card starts the 7-day Pro trial [3]
+  - per-ip-shaping (binding): a WireGuard tunnel costs $5 a month for 16 devices; a paid sandbox with a kept top-up uploads at up to 500 Mbit/s with a 200 Mbit/s sustained rate after the first 10 GiB, while a sandbox without credit uploads at up to 10 Mbit/s and moves 1 GiB a day for the whole account [4]
+- limits note: There is no free plan and no published session clock: the trial is seven days with USD 5 of usage. A paused machine pays storage; data is deleted 30 days after pausing.
+- binding note: The first thing that fails for this use is ingress: a public address is a USD 5/month add-on, which alone equals the whole budget.
+- interface detail: HTTP API at api.withruntime.com with TypeScript, Python, Ruby and Go SDKs, a CLI installed with npm install --global withruntime, an MCP server, SSH to a sandbox, and a browser account console
+- tooling: not stated
+- composes with: not established
+- reliability: Compute has no one-minute minimum and memory bills only while compute runs; waiting is charged at a 50-millicore CPU floor.
+- notes: The arithmetic at 24/7 for 1 GiB sitting idle: 0.05 vCPU x 0.025 + 1 GiB x 0.0075 = USD 0.00875/hour x 730 = USD 6.39. Busy at 1 vCPU: 0.025 + 0.0075 = USD 0.0325/hour x 730 = USD 23.73. Either way over USD 5, and the free tier is 100 hours, not a month. Egress: USD 0.02/GB x 1000 = USD 20 per TB beyond the 100 GiB allowance. Note the vendor's own framing (42% to 88% cheaper) is measured against agents that wait on a model, not against an always-on box, which is why the 730-hour figure is the one that decides.
+- evidence note: Both usage rates, the idle floor, the free allowance, the add-on prices and the paused-sandbox rate are quoted from the pricing page read. What would raise it: the exact bill for a machine kept running with no work, which the vendor models but does not publish.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: per-second
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.note: 1 GiB with the 50-millicore default CPU floor while waiting
+  - session_cap.restart_required: no
+  - session_cap.note: no session clock published; a sandbox can be paused for up to 3 months with storage billed
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: no
+  - network_out.ports: no public address by default; a dedicated IPv4 is USD 5/month and a managed WireGuard tunnel (16 peers) is USD 5/month
+  - network_out.static_ip: no
+  - free_tier_kind: hours
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - net.out: yes
+  - net.in: yes
+  - net.allowance: 100 GiB a month free, then $0.02 a GB
+  - term: usage, no commitment
+  - m10h_usd: 2.63
+  - m24h_usd: 6.39
+  - price_arithmetic: Idle 1 GiB: (0.05 x 0.025 + 1 x 0.0075) = USD 0.00875/hour x 730 = USD 6.39; x 300 = USD 2.63. Busy at 1 vCPU: (0.025 + 0.0075) x 730 = USD 23.73. Add USD 5/month for a dedicated IPv4 or a WireGuard tunnel.
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: 'Free usage: 100 free hours of a 1 GB machine in your first 30 days, no card' with '$0.025 per active vCPU-hour', '$0.0075 per reserved GiB-hour', 'Outbound traffic: 100 GiB a month free, then $0.02 per GB', 'Compute has no one-minute minimum, and memory is billed while compute runs', and the measured comparison '1,000 one-minute runs of 2 vCPU, 4 GiB: Runtime $0.64 against Fly Machines $1.53', quoted
+  - [1] 2026-10-24: quoted: 'Active CPU | $0.025 per active vCPU-hour'; 'Memory | $0.0075 per reserved GiB-hour'; '100 free hours of a 1 GB machine in your first 30 days, no card'
+  - [1] 2026-10-24: quoted: 'Waiting means memory plus the default CPU floor of 50 millicores, a twentieth of a vCPU.'
+  - [1] 2026-10-24: quoted: 'Dedicated IPv4 address | $5 per 30-day month'; 'WireGuard tunnel, up to 16 peers | $5 per 30-day month'
+  - [1] 2026-11-03: the first 100 GiB out a month is free per account | capture: sha256:199df88f30189af6c4c0060d99c86039d0a6b8df1daf260b28ab4e5812e9b506 | quote: | Outbound traffic, first 100 GiB a month per account | Free |
+  - [1] 2026-11-03: outbound traffic past 100 GiB a month costs USD 0.02 per decimal GB | capture: sha256:199df88f30189af6c4c0060d99c86039d0a6b8df1daf260b28ab4e5812e9b506 | quote: | Outbound traffic past that | $0.02 per decimal GB |
+  - [5] 2026-11-03: an HTTP API exists | capture: sha256:83d9b647cfa7acb60e1a54f962c1cfe0db3d28854e0c05740a80a644d17d6e4a | quote: One API for every Runtime Cloud product, at https://api.withruntime.com.
+  - [6] 2026-11-03: a CLI exists | capture: sha256:b021ceb59c82216e9dbafb8d170b148810b7c9da66ce5a51b6917a28872c7427 | quote: The CLI runs every Runtime Cloud product from a terminal or a script.
+  - [5] 2026-11-03: SSH login to a sandbox exists | capture: sha256:83d9b647cfa7acb60e1a54f962c1cfe0db3d28854e0c05740a80a644d17d6e4a | quote: Log in to a sandbox over SSH, open it in VS Code or a JetBrains IDE
+  - [1] 2026-11-18:  | capture: sha256:a87d139f807f15ea212eab58574d8b3ecca651aa32822aedfa3a49db3cef660b | quote: Pause for up to 3 months with no plan fee: your data is kept, storage is billed at its tier, and your sandboxes wait paused.
+  - [1] 2026-11-24: the free offer is a seven-day card-gated trial with USD 5 of usage, not 100 free hours | capture: sha256:c9dc226c198c13994dbe2f4562b3e1b7f480f9a467c6384c7211410dc0e6ec5e | quote: Pro is $0 for 7 days, with $5 of usage. Signing up takes no card; the card is asked at your first sandbox. Usage past $5 never stops your work: it is added to one charge on day 8 with Pro's first $25, and a reminder comes on day 5. Cancel in one click.
+  - [2] 2026-11-24: the pricing reference confirms the seven-day USD 5 trial | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: A new account starts on a 7-day Pro trial with $5 of usage. During the trial, at most 5 new machines start a second.
+  - [2] 2026-11-24: the trial grants USD 5 of usage credit, not a fixed number of hours | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: A new account starts on a 7-day Pro trial with $5 of usage.
+  - [2] 2026-11-24: there is no metered free-hour allowance on the current price card | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: A new account starts on a 7-day Pro trial with $5 of usage.
+  - [1] 2026-11-24: the offer is redeemed as USD 5 of usage credit | capture: sha256:c9dc226c198c13994dbe2f4562b3e1b7f480f9a467c6384c7211410dc0e6ec5e | quote: Redeem $5 free usage
+  - [1] 2026-11-24: the per-plan machine ceiling is 8, 16 or 32 vCPU with 32, 64 or 96 GB memory | capture: sha256:c9dc226c198c13994dbe2f4562b3e1b7f480f9a467c6384c7211410dc0e6ec5e | quote: | Largest machine | 8 vCPU, 32 GB memory | 16 vCPU, 64 GB memory | 32 vCPU, 96 GB memory | Dedicated servers |
+  - [7] 2026-11-24: paused data is deleted 30 days after pausing with notice on day 23 and day 29 | capture: sha256:34e31bd5762dd5f07e2c8dccbe500410587da9699e64cc4d19dd4edea865991d | quote: When you cancel, or a charge stays unpaid, your machines pause. 30 days after they pause, once that day has ended in every time zone, their data is deleted: disks, snapshots and volumes. An email comes on day 23 and day 29 before it is.
+  - [2] 2026-11-24: the pricing reference charges USD 0.03 per GB sent | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: | Outbound traffic | $0.03 per GB | Bytes sent |
+  - [7] 2026-11-24: there is no free outbound byte allowance and inbound is free | capture: sha256:34e31bd5762dd5f07e2c8dccbe500410587da9699e64cc4d19dd4edea865991d | quote: No outbound traffic is free. Every GB a machine sends out is billed at $0.03 per GB, from the plan's included usage like every other charge. Inbound traffic is free.
+  - [2] 2026-11-24: compute bills at USD 0.03 per active vCPU-hour and USD 0.008 per GiB-hour with a 0.1 vCPU floor | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: | CPU | $0.03 per active vCPU-hour | Core-microseconds used, no less than 0.1 vCPU while running | | Memory | $0.008 per GiB-hour | MiB reserved |
+  - [7] 2026-11-24: there is no free plan and cancellation pauses machines | capture: sha256:34e31bd5762dd5f07e2c8dccbe500410587da9699e64cc4d19dd4edea865991d | quote: There is no free plan. When you cancel, or a charge stays unpaid, your machines pause.
+  - [3] 2026-11-24: no card is needed to sign up but a card is required before any sandbox can be created | capture: sha256:6e5c569dc6ac5df777175ec2d031ae49ac295f9f435e580639fda31d9b5ee5eb | quote: Signing up takes no card. Creating a sandbox needs one: until a card is added at withruntime.com/account/start, every call that creates or changes a sandbox answers `402` with the error code `card_required`. Adding the card starts the 7-day Pro trial with $5 of usage.
+  - [1] 2026-11-24: the trial is redeemed from the sign-in link | capture: sha256:c9dc226c198c13994dbe2f4562b3e1b7f480f9a467c6384c7211410dc0e6ec5e | quote: Redeem $5 free usage
+  - [3] 2026-11-24: signup is card-free but the first sandbox is card-gated | capture: sha256:6e5c569dc6ac5df777175ec2d031ae49ac295f9f435e580639fda31d9b5ee5eb | quote: Signing up takes no card. Creating a sandbox needs one: until a card is added at withruntime.com/account/start, every call that creates or changes a sandbox answers `402` with the error code `card_required`.
+  - [2] 2026-11-24: the pricing reference restates the card-gated trial | capture: sha256:8e0898d7e6319a345e4205222835cb470653557d433fa7e0f1cb03a492f144b3 | quote: Signing up takes no card. Your first sandbox asks for one, and the trial starts then. Or paste the setup prompt into your agent.
+  - [6] 2026-11-24: the CLI is installed from npm and runs every product call | capture: sha256:62354937ce4c849bbf84233dc31dd311d9d792330f4972f388c6ef23e1c10d87 | quote: | CLI | `npm install --global withruntime` | `runtime <product> <call>` |
+  - [6] 2026-11-24: SDKs, CLI and MCP tools all expose the API | capture: sha256:62354937ce4c849bbf84233dc31dd311d9d792330f4972f388c6ef23e1c10d87 | quote: Every SDK, the CLI and the MCP tools are generated from the same spec as the API, so each one has every call, with the same names and fields.
+  - [4] 2026-11-24: upload shaping differs between a paid sandbox and one without credit | capture: sha256:ca6bfdd20f9dc461a13a6419a81076e72c0ef26cc1a808d5d8a226dd0d61bac2 | quote: A paid sandbox uploads at up to 500 Mbit/s. Its sustained rate is 200 Mbit/s, after its first 10 GiB. It moves 500 GiB a day. A sandbox without credit uploads at up to 10 Mbit/s. It moves 1 GiB a day for the whole account.
+  - [1] 2026-11-24: the only free offer is a one-time seven-day trial with USD 5 of usage | capture: sha256:c9dc226c198c13994dbe2f4562b3e1b7f480f9a467c6384c7211410dc0e6ec5e | quote: Pro is $0 for 7 days, with $5 of usage. Signing up takes no card; the card is asked at your first sandbox.
+- sources:
+  - [1] https://withruntime.com/pricing
+  - [2] https://withruntime.com/docs/reference/pricing
+  - [3] https://withruntime.com/docs/start
+  - [4] https://withruntime.com/docs/security
+  - [5] https://withruntime.com/docs
+  - [6] https://withruntime.com/docs/cli
+  - [7] https://withruntime.com/docs/plans

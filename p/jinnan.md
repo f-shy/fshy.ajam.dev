@@ -1,0 +1,59 @@
+# 槿南盘
+
+> jinnan.top | Netdisk and pan; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/jinnan/ | JSON https://fshy.ajam.dev/api/v1/entity/jinnan.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 槿南盘
+
+- `netdisk-pan/pan-jinnan-top` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T21:46:10.684Z (live) | stale on 2026-12-17
+- url https://pan.jinnan.top/
+- free tier: anonymous guest read of 6 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through cloudflare; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.jinnan.top/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only despite the directory name. The guest-upload folder is the single clearest example of the gap between an instance's intent and what it actually permits
+- reliability: The cleanest illustration of the write-flag lie: its root listing contains a directory named 05 游客上传, every mount advertises write:true, and every PUT returns permission denied inside an HTTP 200. The operator intended guest upload and the permission never reached the guest role.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: 139Yun
+  - fronting_cdn: cloudflare
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 5b758cf9
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-11-25T02:34:38.482Z
+  - consecutive_failures: 0
+  - aliases: 槿南盘 (pan.jinnan.top) — public OpenList with a literal '05 游客上传' guest-upload directory
+- evidence:
+  - probe:https://pan.jinnan.top/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '槿南盘'
+  - probe:https://pan.jinnan.top/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 6 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.jinnan.top/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+  - probe:https://pan.jinnan.top/ 2026-11-11:  | capture: sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760 | quote: "checked_at": "2026-11-11T00:20:08.962Z"
+  - probe:https://pan.jinnan.top/ 2026-11-11: the anonymous root listing hashed to this value | capture: sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760 | quote: "listing_sha256": "5b758cf9"
+  - probe:https://pan.jinnan.top/ 2026-11-11:  | capture: sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760
+  - probe:https://pan.jinnan.top/ 2026-11-11: this host answered every request of this run's probe | capture: sha256:c5c130c3d7bc9cc6bc6ce461f8f2d1f6a5d0be5c439ecaeaa706ddcadb9c8760
+  - probe:https://pan.jinnan.top 2026-11-19: the probe's checked_at instant is the fresh last-alive verification time | capture: sha256:1d49c5010861ef510e479ac51fc4b3b6aa57608b9b363d91acf751e1aede146e | quote: "checked_at": "2026-11-19T03:36:47.301Z"
+  - probe:https://pan.jinnan.top 2026-11-19: the anonymous guest session answered and the root listing returned entries | capture: sha256:1d49c5010861ef510e479ac51fc4b3b6aa57608b9b363d91acf751e1aede146e | quote: "alive": true
+  - probe:https://pan.jinnan.top 2026-11-19: the /api/public/settings request answered HTTP 200 | capture: sha256:1d49c5010861ef510e479ac51fc4b3b6aa57608b9b363d91acf751e1aede146e | quote: "status": 200
+  - probe:https://pan.jinnan.top/ 2026-11-25: the anonymous settings and mount-list requests answered at this instant | capture: sha256:d01852121b4851b0e5b274dbd7f20ab473936a124a2da3bd01931f228f266009 | quote: "alive": true
+  - probe:https://pan.jinnan.top/ 2026-11-25: the probe checked this host at this instant | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "checked_at": "2026-11-25T01:38:31.756Z"
+  - probe:https://pan.jinnan.top/ 2026-11-25: the anonymous guest session answered and the settings request returned 200, so the host is alive | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "alive": true, ... "status": 200,
+  - probe:https://pan.jinnan.top/ 2026-11-25: the anonymous root listing has this entry count and hash | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "listing_sha256": "5b758cf9", ... "root_entries": 6,
+  - probe:https://pan.jinnan.top/ 2026-11-25: the session is an anonymous guest user | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "guest": true, ... "username": "guest",
+  - probe:https://pan.jinnan.top/ 2026-11-25: the guest role has this permission bitmask, base path and advertised write flags | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "permission": 0, ... "base_path": "/", ... "write_advertised": true, ... "write_content_bypass": false,
+  - probe:https://pan.jinnan.top/ 2026-11-25: the anonymous listing names this upstream provider | capture: sha256:bbd2413b5fc62b767f8c52b2e8bc3ed38272cb2681cc91fa5c19714401cae5bb | quote: "provider": "139Yun",
+  - probe:https://pan.jinnan.top/api/fs/list 2026-11-25: the root listing's provider field names 139Yun as the upstream storage provider | capture: sha256:ba8f4f727f1648346bcf9846a6f3e2324a40b66a5f783bc53d8f11dbc5372654 | quote: "provider":"139Yun"
+- sources:
+  - [1] https://pan.jinnan.top/

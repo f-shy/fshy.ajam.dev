@@ -1,0 +1,120 @@
+# Sail Research
+
+> sailresearch.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/sailresearch/ | JSON https://fshy.ajam.dev/api/v1/entity/sailresearch.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Sailboxes
+
+- `compute/sailboxes` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and VM sandbox | tier pay-as-you-go, 1 vCPU / 1 GiB, active metering
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T13:21:03.220Z (live) | stale on 2026-12-25
+- url https://www.sailresearch.com/sailboxes
+- price parsed USD 16.79/mo
+- free tier: A USD 5 monthly credit is stated on the vendor's own Free plan when a payment method is attached; no other free allowance is stated. | unit: mixed | metered on: wall-clock | read on: 2026-11-24 | source: [1] | note: a monthly credit that requires an attached payment method
+- per-object cap: sandbox sizes S, M and L with a per-creation fee on the free plan (USD 0.005 / 0.01 / 0.012); the per-size ceilings were not readable first party
+- retention: Independent disks and persistent state; snapshots go to S3 every few minutes; volume storage bills for each hour the volume exists even while the attached Sailbox sleeps. | source: [2]
+- egress: No egress price or transfer allowance is published. A Sailbox can reach any host by default; a saved egress policy can restrict the destinations it may connect to. | metered: no | free allowance: not stated | source: [2]
+- identity: card | detail: The first-party marketing page states '$5 in free credits every month when you attach a payment method'; card type and any hold are unverified.
+- interface: rest, cli, ssh
+- limits:
+  - volume-quota (binding): USD 0.015 per active vCPU-hour and USD 0.008 per active GB-hour; a free-plan creation fee of USD 0.005 to USD 0.012 [1]
+- limits note: The smallest Sailbox holds 16 GiB of RAM, and RAM bills whether or not it is touched, so the floor is USD 0.128 per hour before a single vCPU-second is used; USD 5 of monthly credit buys about 39 hours of that.
+- binding note: Active-CPU metering is the wall in both directions: a busy box costs USD 16.79 a month, and the disk keeps billing even while the box sleeps.
+- interface detail: HTTPS API at sailbox-api.sailresearch.com, SDKs (Python, TypeScript), the sail CLI and SSH to devboxes
+- tooling: the `sail` CLI, the Python SDK (`import sail`) and the TypeScript SDK `@sailresearch/sdk`, all built on the public HTTPS API
+- composes with: A Sailbox is a full VM that never has to be torn down: the sleeping state is free, so a long-horizon agent keeps its filesystem, packages and running processes across days and pays only for the seconds it works. Pairing the USD 5 monthly credit with a sleeping box converts the credit into about 39 hours of active compute a month, which is an hour and a quarter a day.
+- reliability: In-flight work survives pause and resume, and open connections survive pauses up to 10 minutes; the runtime column on the marketing page says Unlimited.
+- notes: Arithmetic at 1 vCPU / 1 GiB fully active for 730 h: 0.015 x 730 = USD 10.95 + 0.008 x 730 = USD 5.84 = USD 16.79. The metering is on ACTIVE CPU, so a mostly idle box is cheaper: at 5% average CPU the compute line is USD 0.55 and the memory line USD 5.84, which is USD 6.39 and still over the line because memory is charged while the box runs. This is the provider whose pricing model most rewards idling, and it still cannot reach USD 5 at 1 GiB. The 'no runtime limits' claim is the vendor's own and was not tested.
+- evidence note: The full-VM description, 'no runtime limits', root access and the two active rates are quoted from the vendor's own page read. Volume storage and the plan/credit table come from the vendor docs and an aggregator respectively, and are marked in notes.
+- extras:
+  - facets.class: updates-existing-record
+  - facets.free_tier_kind: recurring-credit
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 16
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - billing_model: per-second
+  - term: usage, no commitment
+  - m10h_usd: 6.9
+  - m24h_usd: 16.79
+  - price_arithmetic: (0.015 + 0.008) = USD 0.023/hour at full activity x 730 h = USD 16.79; x 300 h = USD 6.90. At 5% average CPU the compute line falls to USD 0.55 and the total to USD 6.39. Volume storage adds 0.000411/GiB-hour = USD 0.30/GiB-month.
+  - free_tier_kind: credit
+  - network_out.allow_outbound: yes
+  - network_out.ports: not stated on the marketing page
+  - session_cap.restart_required: no
+  - session_cap.note: no runtime limit published; sleeping, paused and checkpointing time is not billed
+- evidence:
+  - [3] 2026-10-22: USD 0.015 per used vCPU-hour, USD 0.008 per GiB-hour of RAM, USD 0.0007 per GiB-hour of NVMe, USD 0.000411 per GiB-hour of volume storage, creation fees USD 0.005 to USD 0.012 on Free and waived on Pro
+  - [4] 2026-10-22: sizes: s is 1 vCPU with 16 GiB (up to 64 GiB), m is 4 vCPU with 32 GiB (up to 128 GiB), l is 8 vCPU with 64 GiB (up to 256 GiB), m is the default; you are charged only for observed usage, so a 4 vCPU ceiling using 0.01 vCPU bills 0.01 vCPU
+  - [4] 2026-10-22: 'Sleeping, paused, checkpointing, and cold-starting time is not billed'; when credits run out Sail pauses running and sleeping Sailboxes and blocks creation, resume and run, and nothing is terminated
+  - [5] 2026-10-22: '$5 in free credits every month when you attach a payment method' and 'Get started with $5 free credit'
+  - [6] 2026-10-22: 'Full VMs that can run for infinite time, only bill for actively used resources'
+  - [2] 2026-10-24: quoted: 'A full, kernel-isolated Linux VM with root access. Independent disks, persistent state, Docker support, and local NVMe.'; 'No runtime limits. Agents can live for days, weeks, or forever without losing state.'
+  - [2] 2026-10-24: quoted table: 'Sail | $0.015 active vCPU·h | $0.008 active GB·h'
+  - [3] 2026-10-24: reported via search index of the vendor docs: 'Volume storage (GiB)/hour $0.000411' and 'Volume storage is billed separately for each hour the volume exists, even when attached Sailboxes are sleeping, until it's deleted.'
+  - [7] 2026-11-03: Sailboxes accept SSH | capture: sha256:7ec5cea0b6dbb4851fd1398de5ceef0b11946b1c6b7fb90b23e3cc9d38601e4c | quote: * sets up SSH, so your editor and other SSH tools can connect;
+  - [8] 2026-11-03: a REST API exists | capture: sha256:456ceaaa16df2bd346c15a4310a7c50f6dc8d5e8976aab5017c5c1e543542d24 | quote: Sailboxes have a public HTTPS API.
+  - [3] 2026-11-03: the rate table lists vCPU, RAM, NVMe, volume and creation charges and no transfer or egress dimension | capture: sha256:1177c514afdae86260156c4bd616f39776fedb5c3a58d9351d4f71a00fddfc3b | quote: Volume storage is billed separately for each hour the volume exists, even
+  - [9] 2026-11-04: the TypeScript SDK is @sailresearch/sdk; the same page shows a Python import sail | capture: sha256:8839467e0806b805df3453201dcae1b12f12d03af90f69bb77e604a09c1607bb | quote: import { App, Sailbox } from "@sailresearch/sdk";
+  - [8] 2026-11-04: the HTTPS API underlies the SDKs and the CLI | capture: sha256:456ceaaa16df2bd346c15a4310a7c50f6dc8d5e8976aab5017c5c1e543542d24 | quote: Sailboxes have a public HTTPS API. The SDKs and the CLI are built on it
+  - [10] 2026-11-24: volume storage bills each hour the volume exists, including while a Sailbox sleeps | capture: sha256:3b2391a05a08707646d28438ccb9f7547e4e99363fa44311924aac3bd669814e | quote: Volume storage is billed separately for each hour the volume exists, even when attached Sailboxes are sleeping, until it's deleted.
+  - [9] 2026-11-24: egress policy controls which hosts a Sailbox may reach | capture: sha256:7f5b23616af1cb87503d72450ddd8b7015dd106a8491ad00a126cb7702d462c2 | quote: Which hosts the Sailbox may connect to: a saved `EgressPolicy` (or its id), or a policy document such as `EgressPolicy.allow_only(...)`. Without one the Sailbox can reach any host.
+  - [2] 2026-11-24: the Free plan is a USD 5 monthly credit tied to a payment method | capture: sha256:06305c80c3939287dea30f84de3f753f19c4e0201b14d6fee8acc806d23c3e56 | quote: $5 in free credits every month when you attach a payment method
+  - [2] 2026-11-24: open connections survive pauses up to 10 minutes | capture: sha256:06305c80c3939287dea30f84de3f753f19c4e0201b14d6fee8acc806d23c3e56 | quote: Open connections survive pauses up to 10 minutes, reducing reconnects when agents resume.
+  - [2] 2026-11-24: the Free plan allows 200 reserved vCPUs | capture: sha256:06305c80c3939287dea30f84de3f753f19c4e0201b14d6fee8acc806d23c3e56 | quote: Up to 200 reserved vCPUs across active Sailboxes
+  - [2] 2026-11-24: the Pro plan is USD 250 per month | capture: sha256:06305c80c3939287dea30f84de3f753f19c4e0201b14d6fee8acc806d23c3e56 | quote: $250 / month
+  - [2] 2026-11-24: the runtime column says Unlimited | capture: sha256:06305c80c3939287dea30f84de3f753f19c4e0201b14d6fee8acc806d23c3e56 | quote: Runtime | Unlimited
+  - [3] 2026-11-24: the used vCPU-hour rate is USD 0.015 | capture: sha256:9d4ea4e6ccc4c0611370a5c89f13b3cb2e06e39a12ebb8ab102fbb17cc68906f | quote: Used vCPU/hour (CPU time of the Sailbox's virtual CPUs) | \$0.015
+  - [3] 2026-11-24: usage is sampled per second and not rounded up to whole minutes | capture: sha256:9d4ea4e6ccc4c0611370a5c89f13b3cb2e06e39a12ebb8ab102fbb17cc68906f | quote: Usage is not rounded up to whole minutes.
+  - [7] 2026-11-24: devboxes set up SSH | capture: sha256:d2f01a607b56d40f5cdd724500239ff20f09b158890d2c1bfaaf697d11225ca2 | quote: * sets up SSH, so your editor and other SSH tools can connect;
+  - [8] 2026-11-24: the public HTTPS API underlies the SDKs and CLI | capture: sha256:4bd4857f4e1903c0d120d7244d68c0d85dbb8375babd160e753ac04ebfff9533 | quote: Sailboxes have a public HTTPS API. The SDKs and the CLI are built on it, and you can call it directly from any language, or from `curl`.
+  - [9] 2026-11-24: the TypeScript SDK is @sailresearch/sdk | capture: sha256:7f5b23616af1cb87503d72450ddd8b7015dd106a8491ad00a126cb7702d462c2 | quote: import { App, Sailbox } from "@sailresearch/sdk";
+- sources:
+  - [1] https://www.sailresearch.com/sailboxes
+  - [2] https://sailresearchs.com/sailboxes
+  - [3] https://docs.sailresearch.com/sailboxes-pricing
+  - [4] https://docs.sailresearch.com/sailboxes-billing
+  - [5] https://sailresearch.com/
+  - [6] https://app.sailresearch.com/sign-up
+  - [7] https://docs.sailresearch.com/sailboxes-devboxes
+  - [8] https://docs.sailresearch.com/sailboxes-http-api
+  - [9] https://docs.sailresearch.com/sailbox-sdk.md
+  - [10] https://docs.sailresearch.com/pricing.md
+
+## Sail Research (Sailboxes)
+
+- `compute/sail` | paid-only | evidence documented | binding write-gated | category container and VM sandbox
+- identity a placeholder: card and phone unknown | verified 2026-11-25T15:03:51.316Z (live) | stale on 2026-12-26
+- url https://docs.sailresearch.com/pricing
+- free tier: $5/month in free credits when you attach a payment method | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not published | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - request-rate: per million input and output tokens, from $0.05 an input MTok on the cheapest tier [1]
+  - per-ip-shaping: the three tiers trade latency for price: ASAP at $2.50, Balanced at $2.00 and Flex at $1.25 on the same model [1]
+- interface detail: Access interface not documented in published terms.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: The USD 250 a month is a surcharge floor, not a minimum bill; the metered bill is a separate, lower figure.
+- evidence note: the pricing documentation was read on 2026-10-22 and carries per-token model rates in three latency tiers. There is no machine and no free compute allowance on it, so the record's USD 5 credit is not established and the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: an inference API answers tokens; there is no machine and no session
+  - price_note: The USD 250 is a plan floor that this workload never reaches
+  - free_tier_kind: none
+  - granularity.min_billed_s: 0
+  - burst_x: 1.4604
+  - burst_bill: $0.01 per start
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the pricing page was read on 2026-10-22 and is a per-million-token model ladder with three service tiers: 'Kimi K3 Default (ASAP) $2.50 / $0.25 / $12.50', 'Balanced $2.00', 'Flex $1.25', and 'GLM-5.3-Flash from $0.05 to $0.11'
+  - [1] 2026-11-25: the pricing page offers USD 5 per month in free credits on attaching a payment method | capture: sha256:c5125bcfc29cc6637231617204f70c7506a734cea4c4c3bd05e319b29e9d5e50 | quote: $5/month in free credits when you attach a payment method
+  - [1] 2026-11-25: the free-credit offer is unchanged | capture: sha256:c5125bcfc29cc6637231617204f70c7506a734cea4c4c3bd05e319b29e9d5e50 | quote: $5/month in free credits when you attach a payment method
+- sources:
+  - [1] https://docs.sailresearch.com/pricing

@@ -1,0 +1,67 @@
+# Cloudish
+
+> cloudish.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cloudish/ | JSON https://fshy.ajam.dev/api/v1/entity/cloudish.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Cloudish
+
+- `compute/cloudish` | qualifies-with-caveat | evidence documented | binding volume-quota | category container and vm sandbox | tier Pay as you go
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T11:55:06.371Z (live) | stale on 2026-12-26
+- url https://www.cloudish.ai/
+- free tier: Every new Cloudish API key starts with 0.1 credits (one credit is one US dollar), subject to availability, with no signup form, no email verification and no card; claiming the key to a human account is optional. | unit: credits | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The operator list's '1.0 h free (one time)' matches 0.1 credits at the $0.1007/hour large size. The grant is one time per key, not a recurring monthly allowance; a child key minted under an existing key gets no free grant of its own.
+- per-object cap: not applicable: the metered unit is a running container, not a stored object; persistent volumes are offered at 1, 5 or 20 GB per project and are not billed | source: [1]
+- retention: A sleeping app's volume, with its data, is kept when credits run out; no day count is published. Unverified: retention period not stated. | source: [1]
+- egress: Each app gets a public https:// subdomain with managed TLS; the pricing page states no separate egress volume allowance or per-GB traffic price. Active custom domains cost 0.01 credits a day. | metered: no | source: [1]
+- identity: anonymous | detail: One unauthenticated POST https://cloudish.ai/api/v1/keys returns a key with 0.1 credits: 'There is no browser, signup form, card, or approval step anywhere on that path.' Claiming the key later needs a sign-in with an identity provider Auth0 offers, but claiming is optional.
+- interface: rest, browser
+- limits:
+  - volume-quota (binding): 0.1 free credits one time per new key; credits are prepaid and a key never spends past its balance [2]
+  - request-rate: Containers bill per second only while running; an app left without requests sleeps after 15 minutes unless configured always on [1]
+- limits note: Instance prices per hour: shared $0.0107 (0.1 reserved vCPU, 0.2 GB, burst to 1 vCPU/1 GB), small $0.0297 (0.5 vCPU, 1 GB), medium $0.0533 (1 vCPU, 2 GB), large $0.1007 (2 vCPU, 4 GB); always-on monthly: $7.84 / $21.66 / $38.93 / $73.48. The operator list's $0.101/h is the large size rounded.
+- binding note: Prepaid credits are what run out first: the agent cannot overspend, and at zero credits new builds and deploys get a 402 and running containers stop within a minute.
+- interface detail: An agent mints a key with one unauthenticated POST /api/v1/keys and deploys a Dockerfile or image with POST /api/v1/projects; no local Docker daemon is needed. A dashboard is optional.
+- endpoint: https://cloudish.ai/api/v1
+- tooling: The user calls the REST API from an agent or installs the generated skill.md into a coding agent; builds run server-side.
+- composes with: A prepaid, capped Cloudish key lets an agent deploy and keep running the apps another provider's model builds, with credit transfers to child keys so each sub-agent's spend is bounded.
+- reliability: At zero balance, new builds and deploys answer 402 and running containers stop within a minute; volumes and their data are kept. The shared size can be restarted when memory runs short on a busy host; small and larger sizes are fully reserved.
+- notes: Cloudish is a hosted container platform whose initial key is fully anonymous. The 0.1-credit grant is subject to availability and the shared tier can restart under memory pressure. Egress is not separately priced on the pages read; that is a gap rather than a claim of free unlimited traffic.
+- evidence note: The instance price table, free credit grant, per-second billing, zero-credit behaviour and unauthenticated key creation are quoted from the first-party home page and API skill page read on 2026-11-25. Retention days and egress volumes are not published.
+- extras:
+  - shape.vcpu: 0.1
+  - shape.ram_gib: 0.2
+  - shape.gpu_class: NVIDIA RTX 4060
+  - shape.gpu_count: 1
+  - shape.note: shared is billed at 0.1 CPU and 0.2 GB and may use up to 1 CPU and 1 GB when spare; GPU is a separate exclusive size at $2.73/hour
+  - billing_model: prepaid credits metered by the second, one credit = one US dollar
+  - free_tier_kind: one-time grant on an anonymous key
+  - term: pay as you go, no invoice and no card on file
+  - price_arithmetic: shared $0.0107/hour, about $7.84 for 730 hours always on; 0.1 credits / $0.0107 per hour = about 9.35 hours of always-on shared time
+  - status: live in New York (do.cloudish.ai); Seattle testing
+  - datacenters: do.cloudish.ai New York live; seattle.cloudish.ai testing
+- evidence:
+  - [1] 2026-11-25: new keys start with a free credit grant and no card | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: No credit card. New keys start with a small free credit grant.
+  - [1] 2026-11-25: the large 2 vCPU / 4 GB instance is $0.1007 per hour, matching the list's $0.101/h | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: | `large` | Yes | 2 | 4 GB | $0.1007 | $73.48 | $3.83 |
+  - [1] 2026-11-25: the smallest shared instance is $0.0107 per hour, billed per second while the container runs | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: | `shared` | No | 1 | 1 GB | $0.0107 | $7.84 | $0.41 |
+  - [1] 2026-11-25: containers bill per second only while running and idle apps sleep after 15 minutes | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: Billed per second, only while the container runs: an always-on app around the clock, any other until it sleeps, 15 minutes without requests unless it chooses its own time.
+  - [1] 2026-11-25: new keys start with 0.1 credits and no signup, card or approval step | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: No. Credits are prepaid, like a gift card: one credit is one US dollar, there is no card on file and no invoice after the fact. New keys start with 0.1 credits, subject to availability.
+  - [1] 2026-11-25: at zero credits apps stop within a minute and volumes are kept | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: When the credits run out, new builds and deploys stop, running apps are stopped within a minute, and data on a volume is kept. Add credits and the app starts again on its next request.
+  - [2] 2026-11-25: minting a key needs no credential and new keys include 0.1 credits | capture: sha256:285641d9e6db46f90d98fdd5572f0d84f09c5ed3fa202c52a8fa1f648b9325c3 | quote: Creating a key itself needs no credential — every other call below authenticates with the key it returns (`Authorization: Bearer $CLOUDISH_API_KEY`). New keys include 0.1 credits to start, subject to availability.
+  - [3] 2026-11-25: claiming an optional key uses an Auth0 identity provider | capture: sha256:a561c72d8a651201c099256101d6e5d4a54a6c962e0f3f26437293c068bae867 | quote: Sign in with any identity provider Auth0 offers. A fresh Cloudish API key is created for you, with a small free credit grant.
+  - [1] 2026-11-24: new keys start free with no card or signup | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: No credit card. New keys start with a small free credit grant.
+  - [1] 2026-11-24: the shared container is billed for 0.1 vCPU and 0.2 GB with a $0.0107 hourly rate and $7.84 monthly rate | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: | `shared` | No | 1 | 1 GB | $0.0107 | $7.84 | $0.41 |
+  - [1] 2026-11-24: the homepage states the free credit grant is 0.1 credits subject to availability | capture: sha256:eb685df7e386fda8b29e17859e31a7b6480b1ad173910cd80ce677ebbb91506f | quote: New keys start with 0.1 credits, subject to availability.
+  - [4] 2026-11-24: minting an API key needs no credential and new keys include 0.1 credits subject to availability | capture: sha256:3c5ec7941c3cf8b735c14e486e747c403991bcf4d5d232330242d56b5c1e6072 | quote: Creating a key itself needs no credential
+  - [4] 2026-11-24: the exact free grant is 0.1 credits subject to availability | capture: sha256:3c5ec7941c3cf8b735c14e486e747c403991bcf4d5d232330242d56b5c1e6072 | quote: New keys include 0.1 credits to start, subject to availability.
+  - [5] 2026-11-24: the shared instance bills $0.00000298 per second and $7.84 per month, with CPU, memory and a flat fee component | capture: sha256:caaf3565f2aacee852c82d08c5cf4570baf54f2982934064f8dce81a9155f945 | quote: | `shared` (default) | `"cpuCores": 0.1, "memoryGb": 0.2` | 0.1–1 | 0.2–1 GB | $0.00000298 | $0.0107 | $7.84 | $94.03 |
+  - [6] 2026-11-24: a key never goes below zero and usage past the balance is never owed | capture: sha256:664ddec7984fd12d473473554c012687f97d0a4bb623ad96e3854ebc85ece79b | quote: A key never goes below zero. Usage is charged only up to the balance the key holds, and whatever runs past it is never owed, so credits added after a key runs out all land: a key at `0` that adds 10 credits has 10.
+  - [7] 2026-11-24: the platform adds only X-Forwarded-* request headers and HSTS on responses | capture: sha256:733c69effea2f42ffea3cd19577fd1a52efd27332e9743d15d66f9490047e00c | quote: Requests reach the app with `X-Forwarded-For`, `-Host` and `-Proto` headers set by the proxy.
+  - [7] 2026-11-24: the page establishes the offer and its constraints but no public read path was probed, so the verdict keeps its caveat | capture: sha256:733c69effea2f42ffea3cd19577fd1a52efd27332e9743d15d66f9490047e00c | quote: Requests reach the app with `X-Forwarded-For`, `-Host` and `-Proto` headers set by the proxy.
+- sources:
+  - [1] https://www.cloudish.ai/
+  - [2] https://www.cloudish.ai/skill.md
+  - [3] https://www.cloudish.ai/claim
+  - [4] https://cloudish.ai/skill.md
+  - [5] https://cloudish.ai/instances.md
+  - [6] https://cloudish.ai/credits.md
+  - [7] https://cloudish.ai/container.md

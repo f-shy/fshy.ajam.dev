@@ -1,0 +1,142 @@
+# TrumVPS
+
+> trumvps.vn | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/trumvps/ | JSON https://fshy.ajam.dev/api/v1/entity/trumvps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## TrumVPS (VN-1A)
+
+- `compute/trumvps` | paid-only | evidence reported | binding volume-quota | category cloud VM | tier VN-1A
+- identity a placeholder: card and phone unknown | verified 2026-10-28T04:25:21.642Z (live) | stale on 2026-11-12
+- url https://support.trumvps.vn/cart/vps-ssd-vietnam-/?id=782
+- price parsed USD 1.54/mo
+- disagrees on identity_kind: `compute/trumvps` says email, `compute/trumvps-global` says any-phone
+- free tier: No free tier. Cheapest offer read: VN-1A KVM VPS in Hanoi, Vietnam, 1 vCPU, 1 GB RAM, 20 GB SSD, 1 TB monthly traffic, 200 Mbps port, 1 dedicated IPv4, USD 18.50 per year at the regular price, or USD 14.80 per year with coupon LOWEND20. The cart page lists a monthly billing cycle of VND 60,000 without naming the plan it applies to. | unit: none | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: the cart page also lists VN-2 (1 vCore, 2 GB, 25 GB, 2 TB), VN3 (2 vCore, 2 GB, 25 GB, 5 TB) and larger plans up to VN-128; their prices were not shown
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: the unit is a machine, not stored bytes; the vendor states a 7-day money-back period on VN-1A | source: [2] | note: a machine record: what is lost is the running process and its disk
+- egress: 1 TB of monthly traffic on VN-1A over a 200 Mbps port; the vendor's home page also states that its VPS services have unlimited data transfer, which the 1 TB plan figure contradicts | metered: yes | free allowance: 1 TB a month on VN-1A | source: [1]
+- identity: email | detail: unverified: the sign-up form was not read; the /register.php path returned 404. The vendor's forum post lists credit or debit cards, PayPal and cryptocurrency as payment methods.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1 TB of monthly traffic on VN-1A [1]
+  - per-ip-shaping: 200 Mbps network port on VN-1A [2]
+  - per-object-cap: 20 GB of SSD on VN-1A [1]
+- limits note: The vendor's home page states unlimited data transfer for all its VPS services, while the plan page and the vendor's forum post both state 1 TB for VN-1A; the plan figure is the one recorded.
+- binding note: 1 TB a month on a 200 Mbps port is the number that runs out first on this plan.
+- interface detail: a management panel with start, stop, reboot, password reset and reinstall, and a VNC console; no API was read
+- tooling: panel and VNC console; the vendor lists Linux and Windows images; no API or CLI was read
+- composes with: USD 18.50 per year buys 1 vCPU, 1 GB RAM and 20 GB of SSD with 1 TB of monthly traffic in Hanoi, Vietnam.
+- reliability: unverified: no outage history was read; trumvps.com returned HTTP 530; documented sites are trumvps.vn and support.trumvps.vn.
+- notes: Vietnamese VPS seller with the sites trumvps.vn and support.trumvps.vn; the vendor's banner also advertises a Vietnam line with a 15% coupon for 3 to 12 month terms and an international line, whose prices were not read. USD 18.50 per year is USD 1.54 per month (18.50 / 12).
+- evidence note: Shape comes from the vendor's cart page; the USD price and the Hanoi location come from the vendor's own forum post, because the cart page shows no USD price and no location. Reading a plan page with prices would raise this to documented.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 20
+  - billing_model: allocated
+  - monthly_usd: 1.54
+  - price_arithmetic: USD 18.50 / 12 months = USD 1.54 per month
+  - price.amount: 18.5
+  - price.currency: USD
+  - price.term: year
+  - price.promo_amount: 14.8
+  - price.promo_code: LOWEND20
+  - location: Hanoi, Vietnam
+  - payment_methods.card: credit or debit, listed
+  - payment_methods.paypal: listed
+  - payment_methods.crypto: listed
+  - payment_methods.source_url: https://lowendtalk.com/discussion/219721/trumvps-vietnam-vps-20-off-with-lowend20-starting-at-14-80-year-bonus-for-let-members
+  - payment_methods.read_on: 2026-10-28
+  - free_tier_kind: none
+- evidence:
+  - [1] 2026-10-28: the vendor's cart page lists VN-1A as 1 vCore, 1 GB RAM, 20 GB SSD and 1 TB bandwidth | capture: sha256:12628ee11c9f7f8e560d236ce229b25a7599e55590bdfab29875526e8857dea3 | quote: #### VPS VN-1A vCPU 1 vCore RAM 1 GB SSD Enterprise 20 GB Băng Thông 1 TB
+  - [1] 2026-10-28: the cart page shows a one-month billing cycle of VND 60,000, without naming the plan | capture: sha256:12628ee11c9f7f8e560d236ce229b25a7599e55590bdfab29875526e8857dea3 | quote: 60,000 đ 01 tháng
+  - [1] 2026-10-28: VAT applies to the order | capture: sha256:12628ee11c9f7f8e560d236ce229b25a7599e55590bdfab29875526e8857dea3 | quote: Thuế VAT có áp dụng cho đơn hàng này
+  - [2] 2026-10-28: the vendor's own post gives a regular price of USD 18.50 per year for VN-1A | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: Regular Price: $18.50/year
+  - [2] 2026-10-28: with coupon LOWEND20 the price is USD 14.80 per year | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: ✅ Final Price: $14.80/year (20% OFF)
+  - [2] 2026-10-28: the location is Hanoi, Vietnam | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: - Location: Hanoi, Vietnam 🇻🇳
+  - [2] 2026-10-28: the post gives the VN-1A shape, a 200 Mbps port, 1 dedicated IPv4 and KVM | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: - 1 vCPU - 1 GB RAM - 20 GB SSD Storage - 1 TB Monthly Traffic - 200 Mbps Network Port - 1 Dedicated IPv4 - KVM Virtualization - Full Root Access - Instant Provisioning
+  - [2] 2026-10-28: accepted payments are cards, PayPal and cryptocurrency | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: - Credit/Debit Cards - PayPal - Cryptocurrency
+  - [2] 2026-10-28: VN-1A carries a 7-day money-back period | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: We offer a 7-day money-back guarantee for the VN-1A plan.
+  - [3] 2026-10-28: the home page claims unlimited data transfer on all its VPS services | capture: sha256:ca59b0766157b1838c8a40b62e082348349d1f8206166ce03d67585b9394b162 | quote: Các dịch vụ VPS Server tại TRUMVPS đều không giới hạn Data Transfer
+  - [4] 2026-10-28: the vendor's banner lists an international VPS line with a 10% coupon from a 1-month term | capture: sha256:3e50e4b227fe65dc42625a9a40ff7be3f8da1acaf87603c7760d70edc0900093 | quote: Nhập mã `QT10` giảm 10% cho đơn hàng VPS QUỐC TẾ từ 1 tháng .
+  - [5] 2026-10-28: the offers feed lists the current VN-1A promotion | capture: sha256:a81634ee720527577633ad596d622494e62345d37e8729b0246a1522923386f6 | quote: [TrumVPS | Vietnam VPS | 20% OFF with LOWEND20 | Starting at $14.80/Year | Bonus for LET Members]
+- sources:
+  - [1] https://support.trumvps.vn/cart/vps-ssd-vietnam-/?id=782
+  - [2] https://lowendtalk.com/discussion/219721/trumvps-vietnam-vps-20-off-with-lowend20-starting-at-14-80-year-bonus-for-let-members
+  - [3] https://trumvps.vn/
+  - [4] https://support.trumvps.vn/register.php
+  - [5] https://lowendtalk.com/categories/offers
+
+## TrumVPS (Global VPS)
+
+- `compute/trumvps-global` | paid-only | evidence reported | binding volume-quota | category cloud VM | tier Global VPS
+- needs card no, phone yes, ID no, institution no | verified 2026-11-06T16:59:07.539Z (live) | stale on 2026-11-21
+- url https://support.trumvps.vn/cart/vps-quoc-te/
+- price parsed USD 4.92/mo
+- disagrees on identity_kind: `compute/trumvps` says email, `compute/trumvps-global` says any-phone
+- free tier: No free tier. The international line's entry plan is 2 vCPU, 4 GB RAM, 30 GB SSD, 1 TB of monthly traffic, a 200 Mbps port and 1 dedicated IPv4, at VND 220,000 a month or VND 1,900,000 a year, with VAT added at checkout (the page shows VND 242,000 due today for the monthly cycle); the vendor's own forum post gives USD 59 a year at the regular price and 30% off with coupon LOWEND30. | unit: none | metered on: wall-clock | read on: 2026-11-06 | source: [1] | note: the entry plan on the Germany page is VPS DE-4; the same 4 GB entry shape was read on the Hong Kong, Indonesia, Malaysia, UK, Australia, France, Italy and Netherlands pages, and the USA pages carry 3 TB of traffic instead of 1 TB
+- per-object cap: not applicable | source: [1]
+- retention: not applicable: the unit is a machine, not stored bytes; the vendor states a 7-day money-back guarantee subject to its refund policy | source: [2] | note: a machine record: what is lost is the running process and its disk
+- egress: 1 TB of monthly traffic on the entry plan over a 200 Mbps port; the vendor's forum post states the same figure, and the cart page for the USA entry plan states 3 TB | metered: yes | free allowance: 1 TB a month on the entry plan | source: [1]
+- identity: any-phone | detail: the sign-up form marks an email address, a password, a first and last name, an address, a country and a phone number as required, plus a captcha; no card is asked for at sign-up, and the payment methods listed are credit or debit card, PayPal and cryptocurrency.
+- interface: unknown
+- limits:
+  - volume-quota (binding): 1 TB of monthly traffic on the entry plan [1]
+  - per-ip-shaping: 200 Mbps network port on the entry plan [2]
+  - per-object-cap: 30 GB of SSD on the entry plan [1]
+- limits note: the 1 TB traffic figure is the entry plan's; the USA pages of the same line state 3 TB and the Canada page 2 TB
+- binding note: 1 TB a month on a 200 Mbps port is the number that runs out first on this plan.
+- interface detail: a management panel with start, stop, reboot, password reset and reinstall, and a VNC console; no API was read
+- tooling: panel and VNC console; the vendor lists Linux and Windows images; no API or CLI was read
+- composes with: USD 59 a year buys 2 vCPU, 4 GB RAM and 30 GB of SSD with 1 TB of monthly traffic in 18+ locations, against VN-1A's 1 vCPU, 1 GB and 20 GB in Hanoi for USD 18.50 a year, so VN-1A is the cheaper entry point and this line is the one to take when 4 GB of RAM is the floor.
+- reliability: a 7-day money-back guarantee applies, subject to the vendor's refund policy; no outage history was read.
+- notes: The international line is not cheaper than VN-1A: USD 59 a year against USD 18.50 a year. Every other TrumVPS line read costs more per year than VN-1A: the Vietnam long-term promotion starts at VND 700,000 a year, the Vietnam residential-IP line at VND 1,640,000 a year and the Vietnam EPYC line at VND 4,500,000 a year, against VND 480,000 a year for VN-1A. The cart's VND prices and the vendor's USD prices do not reconcile at one rate: VND 480,000 a year for VN-1A is USD 18.50, while VND 1,900,000 a year for the entry international plan is USD 59. USD 59 / 12 months = USD 4.92 per month; USD 59 x 0.70 = USD 41.30 with LOWEND30.
+- evidence note: the shape, the VND prices and the identity gate come from the vendor's own cart and sign-up pages; the USD price comes from the vendor's own forum post, because the cart's USD currency switch is a POST form that a plain read does not submit. A cart page read in USD would raise this to documented.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 30
+  - billing_model: allocated
+  - monthly_usd: 4.92
+  - price_arithmetic: USD 59 / 12 months = USD 4.92 per month
+  - price.amount: 59
+  - price.currency: USD
+  - price.term: year
+  - price.promo_amount: 41.3
+  - price.promo_code: LOWEND30
+  - location: 18+ locations; the vendor's post names USA, Netherlands, Vietnam, Singapore, Hong Kong, Japan, United Kingdom, Germany, Canada, South Korea, Indonesia, Malaysia, Australia, Thailand, France and Italy
+  - payment_methods.card: credit or debit, listed
+  - payment_methods.paypal: listed
+  - payment_methods.crypto: listed
+  - payment_methods.source_url: https://lowendtalk.com/discussion/220366/
+  - payment_methods.read_on: 2026-11-06
+  - free_tier_kind: none
+- evidence:
+  - [3] 2026-11-06: the international line is a separate product category starting at VND 220,000, against VND 60,000 for the Vietnam line | capture: sha256:1a01400491a238cf874c6fab1f9fbdfcdac2b2f1c6a259830be647091bd5992c | quote: [VPS quốc tê](https://support.trumvps.vn/products/cart/vps-quoc-te/) Từ 220,000 đ
+  - [1] 2026-11-06: the entry plan is VPS DE-4 with 2 vCore, 4 GB RAM, 30 GB SSD and 1 TB of traffic | capture: sha256:1e2ff77229dd024d1d330367fd49ff854da485dae335e65881341c1e80046f6e | quote: #### VPS DE-4 vCPU 2 vCore RAM 4 GB SSD NVME 30 GB TRAFFIC 1 TB
+  - [1] 2026-11-06: the entry plan bills at VND 220,000 a month or VND 1,900,000 a year | capture: sha256:cb776a219e8d8d968c2e3b4728f2ae671f83820437aece677ddd0c47a660aa50 | quote: <option value="a" >1,900,000 đ 01 năm
+  - [1] 2026-11-06: the monthly cycle of the same entry plan is VND 220,000 | capture: sha256:cb776a219e8d8d968c2e3b4728f2ae671f83820437aece677ddd0c47a660aa50 | quote: <option value="m" selected="selected">220,000 đ 01 tháng
+  - [1] 2026-11-06: the monthly cycle is VND 220,000 and VAT is added, so the page shows VND 242,000 due today | capture: sha256:1e2ff77229dd024d1d330367fd49ff854da485dae335e65881341c1e80046f6e | quote: 242,000 đ 01 tháng
+  - [1] 2026-11-06: VAT applies to the order | capture: sha256:1e2ff77229dd024d1d330367fd49ff854da485dae335e65881341c1e80046f6e | quote: Thuế VAT có áp dụng cho đơn hàng này
+  - [2] 2026-11-06: the vendor's own post gives a regular price of USD 59 a year for the international line | capture: sha256:4c08c790b300ef29cec00b0d603530493f8a953ba15ee3386c376384edcade13 | quote: Regular price: $59/year
+  - [2] 2026-11-06: the entry plan is 2 vCPU, 4 GB RAM, 30 GB NVMe, 1 TB of monthly traffic, a 200 Mbps port and 1 dedicated IPv4 | capture: sha256:4c08c790b300ef29cec00b0d603530493f8a953ba15ee3386c376384edcade13 | quote: 2 vCPU 4 GB RAM 30 GB Enterprise NVMe SSD 1 TB Monthly Traffic 200 Mbps Network Port 1 Dedicated IPv4
+  - [2] 2026-11-06: the line is sold in multiple locations, and the post's title claims 18+ | capture: sha256:4c08c790b300ef29cec00b0d603530493f8a953ba15ee3386c376384edcade13 | quote: We currently offer VPS in multiple locations around the world:
+  - [2] 2026-11-06: the post states a 7-day money-back guarantee subject to the refund policy | capture: sha256:4c08c790b300ef29cec00b0d603530493f8a953ba15ee3386c376384edcade13 | quote: We offer a 7-day money-back guarantee, subject to our refund policy.
+  - [2] 2026-11-06: the accepted payment methods are cards, PayPal and cryptocurrency | capture: sha256:4c08c790b300ef29cec00b0d603530493f8a953ba15ee3386c376384edcade13 | quote: Credit / Debit Cards PayPal Cryptocurrency
+  - [4] 2026-11-06: the sign-up form marks the phone number as a required field | capture: sha256:20c34b4ca32799de36bdb3dca016c771f42d95f8df87428919314b77c7e56626 | quote: Điện thoại \*
+  - [5] 2026-11-06: the Vietnam line's VN-1A plan is USD 18.50 a year at the regular price, the figure the international line is compared with | capture: sha256:0a8f2cc32afa4bc52e917d977c9fac97c7999afa7bc4621e5ed6edcad9496f74 | quote: Regular Price: $18.50/year
+  - [6] 2026-11-06: VN-1A bills at VND 480,000 a year, the cheapest Vietnam cycle read | capture: sha256:ebb789c8fee74ab207d14f8d17135d7796caff7da5508cdb983810a416fc47bc | quote: <option value="a" >480,000 đ 01 năm
+  - [7] 2026-11-06: the Vietnam long-term promotion's smallest plan bills at VND 700,000 a year, more than VN-1A | capture: sha256:f5ee4cfd1bcd8be92f8a777eb122c92d92b0faf91da74c40d603b66c796ffaab | quote: <option value="a" selected="selected">700,000 đ 01 năm
+  - [8] 2026-11-06: the Vietnam residential-IP line's smallest plan bills at VND 1,640,000 a year, more than VN-1A | capture: sha256:485f5f2745ffd7f2de7f2d5e4e1f61564295d13d967ccaefd922cc9c451357e1 | quote: <option value="a" >1,640,000 đ 01 năm
+  - [9] 2026-11-06: the Vietnam EPYC line's smallest plan bills at VND 4,500,000 a year, more than VN-1A | capture: sha256:6d252c3a244361cd7d9f36e5803095ab6757c0466f6e0502f10c1072e7e7aed1 | quote: <option value="a" >4,500,000 đ 01 năm
+- sources:
+  - [1] https://support.trumvps.vn/cart/vps-germany/
+  - [2] https://lowendtalk.com/discussion/220366/
+  - [3] https://support.trumvps.vn/cart/
+  - [4] https://support.trumvps.vn/signup/
+  - [5] https://lowendtalk.com/discussion/219721/trumvps-vietnam-vps-20-off-with-lowend20-starting-at-14-80-year-bonus-for-let-members
+  - [6] https://support.trumvps.vn/cart/vps-ssd-vietnam-/?id=782
+  - [7] https://support.trumvps.vn/cart/vps-viet-nam-km/
+  - [8] https://support.trumvps.vn/cart/vps-ip-dancu/
+  - [9] https://support.trumvps.vn/cart/vps-epyc-amd-viet-nam/

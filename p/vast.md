@@ -1,0 +1,130 @@
+# Vast.ai listing
+
+> vast.ai | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/vast/ | JSON https://fshy.ajam.dev/api/v1/entity/vast.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Vast.ai
+
+- `compute/vast-ai` | paid-only | evidence documented | binding retention-clamped | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T13:21:07.388Z (live) | stale on 2026-12-25
+- url https://vast.ai/pricing
+- free tier: no free tier; prices are set by supply and demand across 40 or more data centres, and the pricing page loads its per-card prices live, so it prints no hourly figure for any card. Billing is per second with no minimum hours and no rounding up. The public offer endpoint read with rentable true, one GPU and a card filter on 2026-11-03 gave these on-demand rates per whole card (gpu_frac 1.0), as dph_base in USD an hour: H100 SXM 2.20 (one offer), A100 SXM4 with 80 GB 1.08 (one offer), RTX 4090 0.1336 and L4 0.0933. The L40S result held fractions only, the cheapest a half card at 0.4333. Interruptible rates were not read. The rates move with host supply. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: interruptible instances are stated as 50% or more cheaper and may be reclaimed
+- per-object cap: not applicable
+- retention: a stopped instance keeps its disk for a period the host sets, not Vast | note: the disk is on a third party's machine
+- egress: Host-set bandwidth charges cover both upload and download traffic and apply per byte transferred; each offer card shows its hourly rate plus bandwidth. No fixed allowance or price per TB is published. | metered: yes | source: [2]
+- identity: card | detail: Create an account, verify an email address, and prepay credits by credit card through Stripe or crypto through BitPay or Crypto.com; the minimum deposit is USD 5 and a card can be saved for autobilling.
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): interruptible instances use bidding, are often 50%+ cheaper than on-demand, and may be paused if outbid; data is preserved while paused but the instance is not functional [1]
+  - request-rate: no per-account concurrency number is published on the pricing page [1]
+- limits note: prices are set by the host, so the rate for a card changes with supply
+- binding note: interruptible instances are reclaimable, so preemption is the clock and the discount is its price
+- interface detail: REST API, CLI and a web console; SSH into an instance with an uploaded public key and mapped ports
+- tooling: the Vast CLI and API, SSH, Docker images
+- composes with: the cheapest GPU hour in the market and the least reliable: the host is a third party
+- reliability: no reliability event recorded
+- notes: The pricing page renders live card prices client-side, but the marketplace API does not: a probe of https://console.vast.ai/api/v0/bundles/ returned HTTP 200 and 177,005 bytes with 64 offers, including GTX 1660 S at USD 0.021 per GPU-hour, RTX 3090 at USD 0.109, RTX 4090 at USD 0.120 and RTX 5090 at USD 0.213. The earlier note said no rate was recorded; that was true of the pricing page and false of the API, which is the better source. The rates are read from one snapshot on one day and move with host supply.
+- extras:
+  - billing_model: allocated
+  - granularity.min_billed_s: 1
+  - granularity.rounding_s: 1
+  - session_cap.restart_required: no
+  - session_cap.note: interruptible instances can be reclaimed at any moment
+  - keep_rate.basis: not established; disk is on the host machine
+  - keep_rate.source: https://vast.ai/pricing
+  - persistent_storage.durability: host disk
+  - persistent_storage.survives_destroy: no
+  - persistent_storage.max_retention: set by the host
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: SSH and mapped ports
+  - free_tier_kind: none
+  - gap: the pricing page is client-rendered; the API at console.vast.ai/api/v0/bundles/ returns the live offers and was probed 2026-10-22, so the rate gap is closed and the snapshot date is…
+  - rate_snapshot.source: https://console.vast.ai/api/v0/bundles/?q=%7B%7D
+  - rate_snapshot.date: 2026-10-22
+  - rate_snapshot.note: 64 offers; cheapest consumer cards quoted in notes; a marketplace rate moves with host supply
+- evidence:
+  - [1] 2026-10-22: three tiers: on-demand with per-second billing, interruptible at 50% or more cheaper, and reserved on 1, 3 or 6 month terms
+  - [1] 2026-10-22: prices are set by supply and demand across 40 or more data centres; 68 or more GPU types from RTX 3060 to B200
+  - [3] 2026-10-22: quoted: 'Is there a free trial? - Not currently'; 'Do I need a credit card to try it? - Yes - but you can start with just USD 5 in credits'
+  - [4] 2026-10-22: quoted: 'The minimum deposit amount on Vast.ai is USD 5'; 'When your balance reaches zero, your running instances will automatically stop'
+  - [5] 2026-10-22: quoted: 'Reliability score - A measure of a machine's historical uptime and health. New machines start at 60% and climb as they demonstrate availability. Higher reliability matters more the longer your rental.'
+  - [5] 2026-10-22: three rental kinds: on-demand fixed and guaranteed until max duration, reserved, and 'Interruptible, bidding-based, lowest cost, may be paused when outbid or when on-demand demand spikes'
+  - [6] 2026-10-22: probe recorded HTTP 200, 177,005 bytes, sha256 14ae21ac30941206b38860c6107be97bdf05a59132e289ec0b25d6bca7241f78, 64 offers, no challenge; parsing the JSON gives cheapest per-GPU rates of USD 0.021 for a GTX 1660 S, 0.109 for an RTX 3090, 0.120 for an RTX 4090 and 0.213 for an RTX 5090
+  - [7] 2026-10-22: interruptible instances are 'often 50%+ cheaper than on-demand', may be paused if outbid, and 'Data preserved when paused but instance not functional', quoted
+  - [8] 2026-10-22: billing is by the second for actual usage and the marketplace sets rates per host, so no fixed per-card spot price exists
+  - [9] 2026-10-22: The vendor's own unauthenticated search endpoint returned 200 with 64 rows sorted ascending by dph_total. The cheapest row with gpu_frac 1.0 is gpu_name 'GTX TITAN X', dph_total 0.042222222222222223, min_bid 0.03333333333333333, gpu_total_ram 12288, geolocation 'South Korea, KR', reliability2 0.9849486, host_id 154621, verification 'unverified'.
+  - [9] 2026-10-22: The same 64 rows carry gpu_frac values of 0.125, 0.142857, 0.166667, 0.2, 0.25, 0.333333, 0.5 and 1.0, counted as 7, 4, 5, 2, 9, 1, 18 and 18 rows. The cheapest row is gpu_name 'Quadro P2000' at gpu_frac 0.125 with dph_total 0.02962962962962963, geolocation 'Nevada, US', host_id 90577, and its gpu_ram and gpu_total_ram both read 5120 MB, which is the whole 5 GB card, not the slice.
+  - [10] 2026-10-22: The interruptible query returned 200 with 64 rows on 56 distinct host_ids. The cheapest whole card is gpu_name 'GTX 1060' at dph_total 0.03338889222222222, geolocation 'Vietnam, VN', host_id 172022. The same host 154621 and the same whole Titan X appear at dph_total 0.0356 against 0.0422 on the on-demand query, and min_bid over dph_total across the 64 on-demand rows has a median of 0.825.
+  - [11] 2026-10-22: Sorted by card count descending, the largest single offer is gpu_name 'RTX 5090' with num_gpus 16, gpu_total_ram 521712 MB, dph_total 14.296, geolocation 'Taiwan, TW', host_id 51010. The num_gpus distribution in the response is 8x35, 4x11, 6x7, 7x4, 5x2, and one each of 9, 10, 12, 14 and 16.
+  - [12] 2026-10-22: The listing page rendered without login and priced each offer in the same form, for example 'Type #46832290', 'Quebec, CA', '16 GB VRAM', '$0.195/hr plus bandwidth'; 'Type #28418865' shows '2x H200 NVL' at '$8.032/hr plus bandwidth'; 'Type #53243440' shows '1x RTX 6000Ada' at '$0.645/hr plus bandwidth'. Every one of its offer cards ends in the words 'plus bandwidth'.
+  - [1] 2026-10-22: '68+ GPU Types' and 'From RTX 3060 to B200' and 'Prices set by supply and demand across 40+ data centers.' The interruptible tier is described as '50%+ cheaper. Best for batch training.' and reserved as 'Up to 50% Off' with '1, 3, or 6 month terms'. The page contains no price and no rate: the live table it advertises did not render into the extracted text.
+  - probe:vast-h100-sxm-on-demand 2026-11-03: the one whole-card (gpu_frac 1.0) rentable on-demand H100 SXM offer on 2026-11-03 costs USD 2.20 an hour | capture: sha256:0ded1b2ba910a4a49dcc1e8041acb993812813129140db5173a91dd0514e666c | quote: "dph_base": 2.1999999999999997, "dph_total": 2.202222222222222
+  - probe:vast-a100-80gb-whole-on-demand 2026-11-03: the one whole-card rentable on-demand A100 offer with 81920 MB of memory costs USD 1.08 an hour | capture: sha256:012096cd4b0e1750b63dd8484f3c5dc74ec80a30ebe873e50f1a6984d8f6c448 | quote: "dph_base": 1.08, "dph_total": 1.0822222222222222
+  - probe:vast-rtx4090-on-demand 2026-11-03: the cheapest whole-card rentable on-demand RTX 4090 offer costs USD 0.1336 an hour | capture: sha256:e1539c7a65b428774d8f3176ba30bdfbdbb8495a2f77514e9007bae7a3c95368 | quote: "dph_base": 0.13364533333333334, "dph_total": 0.1351268148148148
+  - probe:vast-l4-on-demand 2026-11-03: the cheapest whole-card rentable on-demand L4 offers cost USD 0.0933 an hour | capture: sha256:f65a105ab7963e2ea4c115ca27ac8942f9dd9cbf5662a80b8794d773d66f5cd9 | quote: "dph_base": 0.09333333333333334, "dph_total": 0.10444444444444445
+  - probe:vast-l40s-on-demand 2026-11-03: the cheapest rentable on-demand L40S offer is a half card at USD 0.4333 an hour; the result holds no whole-card L40S | capture: sha256:82ec8dfd909e70ab63e48a32fadb5c03ba3fb647f9ba804078353e29f9a4f5ec | quote: "dph_base": 0.43333333333333335, "dph_total": 0.4362962962962963
+  - [1] 2026-11-03: billing is per second with no minimum and no rounding | capture: sha256:af1a7777bcfd7e9a06553c56ef43eacd24d774207b8b6350ea5e75098d65524e | quote: Pay only for what you use, down to the second. No minimum hours, no rounding up, no surprise charges.
+  - [1] 2026-11-03: the pricing page loads card prices live, so the static page lists no per-card hourly figure | capture: sha256:af1a7777bcfd7e9a06553c56ef43eacd24d774207b8b6350ea5e75098d65524e | quote: Real-time pricing from across the Vast.ai platform. Click any card for detailed specs and history.
+  - [2] 2026-11-24: bandwidth is metered per byte at host-set rates | capture: sha256:589cd84f9b986177f573970d52c4ad472d68ab9e9ad2b76a62a7795e25b175f7 | quote: Data transfer costs vary by host and include both upload and download traffic. Charges apply per byte transferred.
+  - [4] 2026-11-24: a USD 5 prepaid deposit is required before renting | capture: sha256:50b440496002cf69bbfded7e6ab1136314db09915e293c2b455a13737334f17b | quote: The minimum deposit amount on Vast.ai is \$5.
+  - [4] 2026-11-24: SSH with an uploaded public key is the instance access path | capture: sha256:50b440496002cf69bbfded7e6ab1136314db09915e293c2b455a13737334f17b | quote: For SSH access: generate an SSH key pair
+  - [7] 2026-11-24: preemption is the binding clock for interruptible capacity | capture: sha256:d91bf2a43b4bd6dec1e12b59a27f5be6e8dcbbd7482eddcee80bfb3c5649cb38 | quote: * May be paused if outbid or if on-demand requested
+  - [1] 2026-11-24: market-set pricing and no free tier are unchanged | capture: sha256:63fcfcdffbf9e15d1ade8344aa004ebb50ba3b2c0f6fd37564ef847134999b64 | quote: Prices set by supply and demand across 40+ data centers.
+  - [1] 2026-11-24: per-second billing with no minimum is unchanged | capture: sha256:63fcfcdffbf9e15d1ade8344aa004ebb50ba3b2c0f6fd37564ef847134999b64 | quote: Pay only for what you use, down to the second. No minimum hours, no rounding up, no surprise charges.
+  - [13] 2026-11-24: rental needs prepaid credits | capture: sha256:1adb2d1bfaaa666321409ae816dd74af8668e5049e5eedaeda5540545c6ae607 | quote: Vast requires pre-payment of credits for GPU rentals.
+- sources:
+  - [1] https://vast.ai/pricing
+  - [2] https://docs.vast.ai/guides/instances/pricing.md
+  - [3] https://vast.ai/launch-your-gpu
+  - [4] https://docs.vast.ai/guides/get-started/quickstart
+  - [5] https://docs.vast.ai/guides/concepts
+  - [6] https://console.vast.ai/api/v0/bundles/?q=%7B%7D
+  - [7] https://docs.vast.ai/guides/instances/choosing/instance-types.md
+  - [8] https://docs.vast.ai/pricing
+  - [9] https://console.vast.ai/api/v0/bundles/?q=%7B%22rentable%22%3A%7B%22eq%22%3Atrue%7D%2C%22num_gpus%22%3A%7B%22eq%22%3A1%7D%2C%22type%22%3A%22on-demand%22%2C%22order%22%3A%5B%5B%22dph_total%22%2C%22asc%22%5D%5D%2C%22limit%22%3A1000%7D
+  - [10] https://console.vast.ai/api/v0/bundles/?q=%7B%22rentable%22%3A%7B%22eq%22%3Atrue%7D%2C%22num_gpus%22%3A%7B%22eq%22%3A1%7D%2C%22type%22%3A%22bid%22%2C%22order%22%3A%5B%5B%22dph_total%22%2C%22asc%22%5D%5D%2C%22limit%22%3A1000%7D
+  - [11] https://console.vast.ai/api/v0/bundles/?q=%7B%22rentable%22%3A%7B%22eq%22%3Atrue%7D%2C%22type%22%3A%22on-demand%22%2C%22order%22%3A%5B%5B%22num_gpus%22%2C%22desc%22%5D%5D%2C%22limit%22%3A1000%7D
+  - [12] https://cloud.vast.ai/create/
+  - [13] https://docs.vast.ai/guides/reference/billing.md
+
+## Vast.ai listing structure
+
+- `compute/vast-ai-listing-structure` | paid-only | evidence measured | binding retention-clamped | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-12-07
+- url https://console.vast.ai/api/v0/bundles/
+- free tier: The public offer endpoint answers without authentication and returns a 64-offer page of 176,798 bytes as application/json on 2026-10-22, so the marketplace prices can be read without an account. What that page contains is not what it appears to be: only 3 of the 64 offers carry rentable true, none is an interruptible bid, and several prices are for a fraction of a card. The cheapest listing is an RTX 3090 at USD 0.0881 an hour at a GPU fraction of 0.5, which is USD 0.175 for a whole card, and the cheapest RTX 4090 is listed at USD 0.1215 at a fraction of 0.125, which is USD 0.972 for a whole card. Whole-card equivalents from this page: RTX 5070 Ti USD 0.101, RTX 4080S USD 0.109, RTX 3090 USD 0.175, RTX 5090 USD 0.213, A100 PCIe USD 0.536, RTX 4090 USD 0.802. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: The existing record's fact holds and is what binds: interruptible instances may be reclaimed at any time, and that is the discount rather than a defect. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: card | detail: Unchanged from the existing record: a card and a USD 5 minimum deposit.
+- interface: rest
+- limits:
+  - retention-clamped (binding): The existing record's fact holds and is what binds: interruptible instances may be reclaimed at any time, and that is the discount rather than a defect. [1]
+- limits note: The existing record's fact holds and is what binds: interruptible instances may be reclaimed at any time, and that is the discount rather than a defect.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Because the endpoint needs no key, a nightly script can record the whole-card floor for a card class over time and detect when a rate moves, which is the only price history among documented hosts that does not depend on a third-party tracker.
+- reliability: no reliability event recorded
+- notes: Supplies the reason the existing vast-ai.json record carries no rate, and refutes the naive reading of this endpoint: a session that took dph_total at face value would record a 3090 hour at USD 0.088 and a 4090 hour at USD 0.122, both of which are 1/2 and 1/8 of a card. The evidence cannot separate them, so no floor is published.
+- extras:
+  - facets.class: gpu-marketplace
+  - facets.free_tier_kind: none
+  - facets.shape.gpu_class: RTX 3090
+  - facets.shape.gpu_count: 1
+  - facets.shape.vram_gib: 24
+- evidence:
+  - [1] 2026-10-22: probe record: HTTP 200, 176798 bytes, sha256 5b76c6ed15fd5854ccbeb98b0637827464cbe90016c1f14fed517e278672ca89, content-type application/json, full body, no challenge, no false 200
+  - [1] 2026-10-22: 64 offers across 16 GPU models, of which 3 carry rentable true and 0 carry is_bid true; the response sets truncated false
+  - [1] 2026-10-22: cheapest row is gpu_name RTX 3090 at dph_total 0.0881 with gpu_frac 0.5, and the cheapest RTX 4090 row is dph_total 0.1215 with gpu_frac 0.125, so both listed prices buy a slice rather than a card
+  - [2] 2026-10-22: a query string asking for rentable whole-GPU offers returned 0 offers, which establishes either that the query syntax is wrong or that no such offer is on the default page; the two cannot be separated from this evidence
+  - [3] 2026-10-22: GET returned 64 offers; the three cheapest 8 GB-VRAM rows were RTX 3060 Ti at dph_total 0.0287 (reliability 0.811), 0.0289 (reliability 0.999) and Tesla P100 16 GB at 0.0296
+  - [3] 2026-10-22: cheapest rows by VRAM: 24 GB at 0.0689 (GTX TITAN X) and 0.0708 (RTX A2000); 32 GB at 0.0563 (Tesla P100); 64 GB at 0.1096 (Tesla P100 pair)
+  - [4] 2026-10-22: 'Pay only for what you use, down to the second. No minimum hours, no rounding up, no surprise charges', quoted
+- sources:
+  - [1] https://console.vast.ai/api/v0/bundles/
+  - [2] https://console.vast.ai/api/v0/bundles/?q=%7B%22rentable%22%3Atrue%2C%22gpu_frac%22%3A%7B%22eq%22%3A1.0%7D%2C%22limit%22%3A64%7D
+  - [3] https://cloud.vast.ai/api/v0/bundles/?q=%7B%22limit%22%3A500%2C%22order%22%3A%5B%5B%22dph_total%22%2C%22asc%22%5D%5D%7D
+  - [4] https://vast.ai/pricing

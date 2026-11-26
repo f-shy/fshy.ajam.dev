@@ -1,0 +1,69 @@
+# Xiaomi MiMo API Open Platform
+
+> xiaomimimo.com | Inference; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/xiaomimimo/ | JSON https://fshy.ajam.dev/api/v1/entity/xiaomimimo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Xiaomi MiMo API Open Platform
+
+- `inference/xiaomi-mimo-api` | trial-only | evidence documented | binding volume-quota | category inference API, one-time free credit
+- needs card no, phone yes, ID no, institution no | verified 2026-11-18T05:36:15.025Z (live) | stale on 2026-12-19
+- url https://platform.xiaomimimo.com/
+- free tier: One-time free credits for all new and existing users, collected on the console Balance page, announced with the start of billing. No vendor page read states the amount of this credit. The promotions FAQ states that bonus credit from new user registration or Refer & Earn is currently valid for 40 days; the expiry of the January 2026 one-time credit itself is not stated. Calls deduct the complimentary free quota first and then the recharged balance, and an account with insufficient balance cannot use the API | unit: mixed | metered on: unstated | read on: 2026-10-28 | source: [1] | note: one-time-credit
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: overseas users register a Xiaomi account by email or by Google or Facebook sign-in; mainland users by mobile number or third-party sign-in. Real-name authentication applies to mainland users before recharging or buying a package, and overseas users recharge without it
+- interface: rest
+- limits:
+  - volume-quota (binding): unverified: no vendor page read states the amount of the one-time free credit or the expiry of the January 2026 grant (one news site reports a figure received by one user); after the credit is used the account needs a recharged balance [1]
+- binding note: the one-time credit is the only free allowance and its size is unpublished on the page read
+- interface detail: The platform is served by the first-party Xiaomi MiMo inference API, compatible with OpenAI Chat Completions and Anthropic Messages formats; chat at POST https://api.xiaomimimo.com/v1/chat/completions, models at GET https://api.xiaomimimo.com/v1/models, Anthropic messages at POST https://api.xiaomimimo.com/anthropic/v1/messages; auth is api-key: $MIMO_API_KEY or Authorization: Bearer $MIMO_API_KEY, with a pay-as-you-go key of format sk-xxxxx created on the Console - API Keys page after sign-in. Token Plan uses token-plan-cn.xiaomimimo.com/v1 and Batch Inference uses batch-api-cn.xiaomimimo.com/v1, and regional base URLs and keys are not interoperable.
+- endpoint: https://api.xiaomimimo.com/v1 (OpenAI-compatible); https://api.xiaomimimo.com/anthropic (Anthropic-compatible)
+- tooling: OpenAI Python SDK (pip install -U openai) with base_url="https://api.xiaomimimo.com/v1", Anthropic Python SDK with base_url="https://api.xiaomimimo.com/anthropic", or curl against POST https://api.xiaomimimo.com/v1/chat/completions with the api-key header.
+- composes with: mainland and overseas accounts have separate base URLs and keys, so usage and credit do not aggregate across regions
+- reliability: an automatic keyword-based protection mechanism can block an account as abnormal usage until the vendor reviews it on request
+- notes: overseas first-recharge bonus: USD 0.72 once per account on a first top-up of any amount, valid 40 days; it needs a payment so it is not a card-free credit. The first-party inference endpoint is https://api.xiaomimimo.com/v1 (OpenAI) and https://api.xiaomimimo.com/anthropic (Anthropic), confirmed by keyless probes on 2026-11-18; Token Plan and Batch use separate purchase-gated base URLs; the endpoint finding does not change the free-credit verdict. On 2026-11-18 two keyless POSTs returned HTTP 401 Invalid API Key, so the OpenAI-compatible route is live.
+- evidence note: the endpoint, routes, method and auth scheme are documented on first-party pages and confirmed by keyless probes on 2026-11-18; the probe raises confidence in endpoint liveness only, not in the credit amount or the key value.
+- probe:
+  - records[0].probe_id: xiaomi-mimo-api-20261118
+  - records[0].target: https://api.xiaomimimo.com/v1/chat/completions
+  - records[0].runs[0].label: run1
+  - records[0].runs[0].probed_at: 2026-11-18T05:26:28.409Z
+  - records[0].runs[0].status: 401
+  - records[0].runs[0].completion: no
+  - records[0].runs[0].capture: sha256:386cfc95a4682b7546507a3f05291f47312f3eb70181ad70fb1d9ac53fed7407
+  - records[0].runs[1].label: run2
+  - records[0].runs[1].probed_at: 2026-11-18T05:36:15.025Z
+  - records[0].runs[1].status: 401
+  - records[0].runs[1].completion: no
+  - records[0].runs[1].capture: sha256:09153b98b614aac55a091ab8e7c2c21eea3d607133626601717de80160e42903
+- evidence:
+  - [1] 2026-10-28: free credits are offered to all new and existing users | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: To thank you for your support, we have prepared exclusive free credits for all new and existing users.
+  - [1] 2026-10-28: only mainland users need real-name authentication before recharging | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: Other users can recharge directly without real-name authentication.
+  - [1] 2026-10-28: overseas mimo-v2-flash list price in USD per million tokens | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: Overseas: Input $0.1 / 1M tokens, Input (Cache Hit) $0.01 / 1M tokens, Output $0.3 / 1M tokens
+  - [2] 2026-10-28: the FAQ lists a separate registration method for overseas users | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: Registration Methods for Overseas Users
+  - [2] 2026-10-28: mainland and overseas accounts use separate base URLs and keys | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: Return different Base URLs + Keys based on the region where the account is located, which are not interoperable.
+  - [2] 2026-10-28: accounts can be blocked by an automatic protection mechanism | capture: sha256:960d475c24eb3523f528bc71d293fba23867a91fd97a88e0fc9056a651ee8550 | quote: It may be because the system captured certain keywords during detection, triggering the automatic protection mechanism.
+  - [3] 2026-11-03: bonus credit from new user registration or Refer & Earn is currently valid for 40 days | capture: sha256:b319d04aee7715f584de56d12ec585532eb2d508e5443a0afb86ede888614faf | quote: Bonus credit is currently valid for 40 days and expires after that.
+  - [1] 2026-11-03: the vendor notice offers free credits to all new and existing users and states no amount | capture: sha256:9392eb0712c5b3455e09d728879f6d28fe01811197058b4c2500964a8304b276 | quote: To thank you for your support, we have prepared exclusive free credits for all new and existing users.
+  - [4] 2026-11-03: overseas first-recharge bonus is USD 0.72 and needs a first top-up | capture: sha256:29005f456884c666ce06d96f2bedbe5b5a26f279e52ed4f2b99c4a26b784359c | quote: Overseas users who make their first recharge of any amount on the Xiaomi MiMo Open Platform will receive an additional $0.72 bonus, which will be credited to their account in real time.
+  - [5] 2026-11-03: a news site reports a user received 20 yuan of the free balance; not stated by the vendor | capture: sha256:0af7bd06ac21e6162ff3790250eafd595b8f40c95ea6b82354ef9b7b00da7835 | quote: 有IT之家小伙伴已经领取到了 20 元赠送余额
+  - [6] 2026-11-18: first-party quickstart states the platform is compatible with OpenAI and Anthropic API formats | capture: sha256:4ab9961eedf7733f7a27f4b61e0d74c401a8549e153280be630a967161e2d0d4 | quote: Xiaomi MiMo API Open Platform is compatible with OpenAI API and Anthropic API formats. You can use existing SDKs to access model inference services.
+  - [7] 2026-11-18: the first-party chat request address | capture: sha256:4c58cbc6b10dc6751d9ad81cca9df073920fbd015cf97d2690d638d65216a68a | quote: https://api.xiaomimimo.com/v1/chat/completions
+  - [8] 2026-11-18: the first-party model-list request address | capture: sha256:6b0cede614cab4012766622b73f412d5f173196e5688db3e7b748c4c65511cf7 | quote: https://api.xiaomimimo.com/v1/models
+  - [9] 2026-11-18: the first-party Anthropic messages address | capture: sha256:ef0e181796c3d33a6e88d718a726d68f0acb2cc77a9dfc37ede5a20663d75c0a | quote: https://api.xiaomimimo.com/anthropic/v1/messages
+  - [10] 2026-11-18: the two accepted auth header forms and the key gate | capture: sha256:b8fef2a3efa97b5fa262ac35bf6d0ca701686882b6f05a600c67b4e8eba14c61 | quote: When using the model via API, please include your API Key in the request header:`api-key: $MIMO_API_KEY` or `Authorization: Bearer $MIMO_API_KEY`.
+  - probe:https://api.xiaomimimo.com/v1/chat/completions 2026-11-18: a keyless POST to https://api.xiaomimimo.com/v1/chat/completions for mimo-v2-flash returned HTTP 401 with body { 'error': { 'message': 'Invalid API Key', 'param': 'Please provide valid API Key', 'code': '401', 'type': 'in and no completion in 1670 ms Probe start 2026-11-18T05:26:28.409Z. | capture: sha256:386cfc95a4682b7546507a3f05291f47312f3eb70181ad70fb1d9ac53fed7407 | quote: a keyless POST to https://api.xiaomimimo.com/v1/chat/completions for mimo-v2-flash returned HTTP 401 with body { 'error': { 'message': 'Invalid API Key', 'param': 'Please provide valid API Key', 'code': '401', 'type': 'in and no completion in 1670 ms
+  - probe:https://api.xiaomimimo.com/v1/chat/completions 2026-11-18: a keyless POST to https://api.xiaomimimo.com/v1/chat/completions for mimo-v2-flash returned HTTP 401 with body { 'error': { 'message': 'Invalid API Key', 'param': 'Please provide valid API Key', 'code': '401', 'type': 'in and no completion in 1104 ms Probe start 2026-11-18T05:36:15.025Z. | capture: sha256:09153b98b614aac55a091ab8e7c2c21eea3d607133626601717de80160e42903 | quote: a keyless POST to https://api.xiaomimimo.com/v1/chat/completions for mimo-v2-flash returned HTTP 401 with body { 'error': { 'message': 'Invalid API Key', 'param': 'Please provide valid API Key', 'code': '401', 'type': 'in and no completion in 1104 ms
+- sources:
+  - [1] https://mimo.mi.com/docs/en-US/news/previous-news/billing
+  - [2] https://mimo.mi.com/docs/quick-start/faq/account
+  - [3] https://mimo.mi.com/docs/en-US/quick-start/faq/promotions
+  - [4] https://mimo.mi.com/docs/en-US/quick-start/promotions/Welcome%20Bonus
+  - [5] https://www.ithome.com/0/914/844.htm
+  - [6] https://mimo.mi.com/docs/en-US/quick-start/summary/first-api-call
+  - [7] https://mimo.mi.com/docs/en-US/api/chat/openai-api-post
+  - [8] https://mimo.mi.com/docs/en-US/api/model/list-models-get
+  - [9] https://mimo.mi.com/docs/en-US/api/chat/anthropic-api-post
+  - [10] https://mimo.mi.com/docs/en-US/quick-start/faq/api-integration

@@ -1,0 +1,129 @@
+# Semaphore Cloud
+
+> semaphore.io | Compute, CI runners; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/semaphore/ | JSON https://fshy.ajam.dev/api/v1/entity/semaphore.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Semaphore CI
+
+- `compute/semaphore-ci-macos` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner (hosted macOS) | tier macOS a2-standard-4, pay-as-you-go
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T16:38:14.023Z (live) | stale on 2026-12-26
+- url https://semaphore.io/pricing
+- free tier: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services. The macOS a2-standard-4 machine is priced at $0.09 a minute; the $15 credit at $0.09 a minute is about 167 macOS minutes, which is an arithmetic conversion and not a stated macOS allowance. | unit: credits | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The monthly credit is stated in USD and denominated in Ubuntu minutes; no macOS-specific free minute allowance is published. The existing ci-cd-runners/semaphore-cloud record prices the same credit on Ubuntu machines.
+- per-object cap: not applicable: the unit is a CI machine, not an object; no artifact size cap was found in the pages read | source: [1]
+- retention: the macOS job agent and every file on it are discarded when the job ends; no separate macOS artifact retention was stated on the pages read | source: [1]
+- egress: Free up to 20 GB/month egress and 100 GB/month storage. Additional usage: $0.35/GB egress and $0.07/GB storage. This is the general artifact allowance; no macOS-specific egress term is stated. | metered: yes | free allowance: 20 GB/month egress | source: [1]
+- identity: email | detail: the signup page offers Signup with GitHub, Signup with Bitbucket and Signup with GitLab, each asking for the identity and email scope of that provider; the pricing page links Start free to id.semaphoreci.com/signup. No card is asked for at signup on the pages read.
+- interface: git, cli
+- limits:
+  - volume-quota (binding): $15 of credit a month shared across machines; on the macOS a2-standard-4 at $0.09 a minute that is about 167 minutes, derived from USD 15 / USD 0.09 per minute [1]
+  - request-rate: 20 concurrent jobs by default; higher limits on request [1]
+- limits note: the machine is an a2-standard-4 with 4 virtual CPUs, Apple Silicon, 8 GB memory and 150 GB disk, paired with macOS Xcode26 or Xcode27
+- binding note: the shared USD 15 monthly credit is what runs out first at $0.09 a macOS minute, well before the 20 concurrent jobs; the monthly dollar pool is recorded as volume-quota as in the other hosted CI records.
+- interface detail: a pipeline YAML in a GitHub, Bitbucket or GitLab repository; the sem CLI opens an SSH session into a running job
+- tooling: pipeline YAML (.semaphore/semaphore.yml) with the a2-standard-4 machine and a macOS Xcode image; the sem CLI and the visual workflow editor. The Semaphore Community Edition is software the user installs and runs on a rented or free machine, listed here after the hosted macOS runner.
+- composes with: the shared USD 15 monthly credit also spends on macOS a2-standard-4 minutes at $0.09 a minute, so the credit buys fewer macOS minutes than Linux minutes; artifacts leave free to 20 GB a month.
+- reliability: the macOS job runs on an ephemeral agent destroyed when the job ends; the pricing page states no macOS-specific SLA
+- notes: The provider list prices the macOS runner at $5.40 an hour billed per minute, which is 60 times the $0.09 a minute quoted on the first-party pricing page read on 2026-11-25. This record prices the macOS tier separately from ci-cd-runners/semaphore-cloud, which covers the same USD 15 credit on Ubuntu machines.
+- evidence note: the macOS machine price, the shared credit, the concurrency, the egress terms and the signup providers are quoted from first-party pages read on 2026-11-25; no job was run.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 150
+  - shape.note: a2-standard-4 Apple Silicon machine, macOS Xcode26 or Xcode27 image
+  - billing_model: per-minute macOS runner billed against a shared monthly USD credit
+  - free_tier_kind: monthly credit
+  - price_arithmetic: USD 15 / USD 0.09 per minute = about 167 macOS minutes
+  - network_out.allow_outbound: yes
+  - network_out.ports: not stated
+  - session_cap.restart_required: no
+  - session_cap.note: the job agent and its files are discarded when the job ends
+- evidence:
+  - [1] 2026-11-25: the hosted macOS machine is 4 vCPU at USD 0.09 a minute | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: MacOS $0.09 /min 4vCPU
+  - [1] 2026-11-25: every organization gets USD 15 of free credit a month across available services | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Get $15 free credits per month
+  - [1] 2026-11-25: 20 concurrent jobs by default | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-11-25: artifact egress is free to 20 GB a month and storage to 100 GB, then USD 0.35 and USD 0.07 per GB | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Free up to 20 GB/month egress and 100 GB/month storage. Additional usage: $0.35/GB egress and $0.07/GB storage.
+  - [2] 2026-11-25: the a2-standard-4 Apple Silicon machine has 4 vCPU, 8 GB memory and 150 GB disk | capture: sha256:b6caa5ecd06c930cc98f1969747b634930e253f111b7161c520746112f4dd6a4 | quote: | `a2-standard-4` | 4 | Apple Silicon | [macOS Xcode26](https://docs.semaphore.io/reference/os-apple#mac-26) | 8 | 150 |
+  - [3] 2026-11-25: signup uses a GitHub, Bitbucket or GitLab account | capture: sha256:7384d6cc67b9ee4a6cf639017e379168dd48a142d0e3f61db46133a9b9ca57ee | quote: Signup with GitHub
+  - [1] 2026-11-24: the published macOS rate is USD 0.09 a minute for a 4-vCPU machine, alongside USD 0.003 ARM and USD 0.0075 x64 | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: MacOS $0.09 /min 4vCPU
+  - [1] 2026-11-24: every organization gets USD 15 of credit a month, about 2,000 Ubuntu x64 2-vCPU minutes, usable across services | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [1] 2026-11-24: 20 concurrent jobs are included by default | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-11-24: 20 GB a month of artifact egress and 100 GB of storage are free, then egress is USD 0.35 a GB and storage USD 0.07 a GB | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: Free up to 20 GB/month egress and 100 GB/month storage. Additional usage: $0.35/GB egress and $0.07/GB storage.
+  - [1] 2026-11-24: each project has 9.6 GB of cache storage and the priced add-ons offer 10 Gbps with 400 GB storage | capture: sha256:39995496c75c6792afb4dc282924b88de661d29525202203c9985164a06782af | quote: $400/month for 10 Gbps bandwidth and 400 GB storage.
+  - [3] 2026-11-24: sign-up is through a GitHub, Bitbucket or GitLab account | capture: sha256:389beb8abc2ff7f81f481cca197ee5f51bfb5997362922644a8e35cb63599135 | quote: Signup with GitHub
+  - [4] 2026-11-24: workflow and job artifacts are kept at most 400 days | capture: sha256:242a2b7c305a96009dc71d5985767eae80cf637bf233c7b7ae80c00f4800a05d | quote: all artifacts on the workflow and job namespaces/scopes have a maximum retention of 400 days
+  - [5] 2026-11-25: first-party sign-up docs state that registration requires a GitHub or BitBucket account and that no credit card is required | capture: sha256:9dfa56435511c2f000b11f03af28dca4149a41d52578337e1c4eb25e29b2aecf | quote: To create your Semaphore account you need a [GitHub](https://github/) or [BitBucket](https://bitbucket.org/) account.
+  - [6] 2026-11-25: the GitHub OAuth gate named by Semaphore's sign-up docs carries a verified email address, so email is the identity required at registration and no phone, ID document or card gate is stated | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [5] 2026-11-25: first-party sign-up docs state that no payment card is required to register, so the gate is the OAuth account's email rather than a card | capture: sha256:9dfa56435511c2f000b11f03af28dca4149a41d52578337e1c4eb25e29b2aecf | quote: You can test one of the paid plans (no credit card required) or sign up with a free plan forever.
+- sources:
+  - [1] https://semaphore.io/pricing
+  - [2] https://docs.semaphore.io/reference/machine-types
+  - [3] https://id.semaphoreci.com/signup
+  - [4] https://docs.semaphore.io/using-semaphore/artifacts
+  - [5] https://docs.semaphore.io/getting-started/tour/sign-up
+  - [6] https://docs.github.com/en/account-and-profile/how-tos/account-management/creating-an-account-on-github
+
+## Semaphore Cloud
+
+- `ci-cd-runners/semaphore-cloud` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner | tier free monthly credit
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:39.388Z (live) | stale on 2026-12-05
+- url https://semaphore.io/pricing
+- free tier: USD 15 of free credits per month for every organization, about 2,000 Ubuntu x64 2-vCPU minutes; 20 concurrent jobs by default; no card | unit: credits | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the credit is US dollars spent per minute at each machine's rate: f1-standard-2 (x64) USD 0.0075, r1-standard-2 (ARM) USD 0.003, a2-standard-4 (macOS) USD 0.09; a job under one minute is billed as one minute
+- per-object cap: execution_time_limit is 1 hour by default and at most 24 hours (1,440 minutes); jobs are terminated at the limit, and a block or job limit longer than its pipeline's is rejected | source: [2] | note: no per-artifact size cap was found in the pages read
+- retention: artifacts in the workflow and job namespaces are kept at most 400 days; project artifacts have no age limit; the agent and every file on it are discarded when the job ends | days: 400 | source: [3]
+- egress: artifact egress is free up to 20 GB a month with 100 GB a month of artifact storage; beyond it USD 0.35 per GB of egress and USD 0.07 per GB of storage | metered: yes | free allowance: 20 GB of artifact egress a month | source: [1]
+- identity: email | detail: Sign-up needs a GitHub or Bitbucket account; the free usage is advertised as 'Start free — $15/mo, no card'; the flow then asks for an organization name and a short survey.
+- interface: git, cli
+- limits:
+  - request-rate (binding): USD 15 of credit a month: about 2,000 minutes on f1-standard-2 (2 vCPU, 8 GB RAM, 45 GB disk) at USD 0.0075 a minute; USD 15 / USD 0.003 = 5,000 minutes on r1-standard-2 (ARM, 2 vCPU, 4 GB RAM) [1]
+  - request-rate (binding): 20 concurrent jobs by default; higher limits on request [1]
+  - per-object-cap: 1 hour per pipeline by default, at most 24 hours (1,440 minutes) [2]
+  - volume-quota: 20 GB a month of artifact egress and 100 GB a month of artifact storage free; then USD 0.35 per GB egress and USD 0.07 per GB storage [1]
+  - retention-clamped: workflow and job artifacts are deleted after at most 400 days [3]
+- limits note: 9.6 GB of cache storage per project; time spent queued for a concurrency slot is not billed; the FAQ states that open-source and free plans cannot create private projects
+- binding note: the USD 15 credit is spent at about 2,000 f1-standard-2 minutes a month, long before 20 concurrent jobs or the 24-hour job ceiling bind; a monthly minute pool has no kind of its own and sits under request-rate as in the other hosted CI records
+- interface detail: a pipeline YAML such as .semaphore/semaphore.yml in a GitHub or Bitbucket repository, or the visual workflow editor; the sem CLI opens an SSH session into a running job
+- tooling: Ubuntu 22.04 and 24.04 images on F1 x86_64 machines with Docker environments, Ubuntu 24.04 on R1 ARM machines, macOS Xcode images on A2 machines; the toolbox commands checkout, cache, artifact, sem-version and sem-service; the sem-ai CLI and an MCP server. The Community Edition is Apache-2.0 software the user installs and runs on a rented or free machine, after every hosted offer
+- composes with: a monthly dollar credit rather than a minute count, so the R1 ARM machine at USD 0.003 a minute stretches it furthest; artifacts leave free up to 20 GB a month, and the project artifact namespace has no age limit
+- reliability: a job runs on an ephemeral agent destroyed at the end of the job; a shared runner address can already be at the Docker Hub anonymous pull limit
+- notes: The pricing page names one free allowance, USD 15 a month for every organization. The Cloud page FAQ says Linux and macOS open-source projects get free parallel CI and gives no number, so any open-source allowance beyond the USD 15 is unverified. The Community Edition (Apache-2.0) is software the user installs and runs, the last resort after every hosted offer.
+- evidence note: pricing, billing, machine-type, pipeline-YAML, artifact, FAQ and sign-up pages were read and quoted on 2026-10-30; no job was run. Raised to measured by a probe of a job on f1-standard-2.
+- evidence:
+  - [1] 2026-10-30: every organization gets USD 15 of credit a month, about 2,000 minutes on the 2-vCPU x64 machine | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [1] 2026-10-30: 20 concurrent jobs by default | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-10-30: artifact egress free to 20 GB a month and storage to 100 GB a month, then USD 0.35 and USD 0.07 per GB | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Free up to 20 GB/month egress and 100 GB/month storage. Additional usage: $0.35/GB egress and $0.07/GB storage.
+  - [1] 2026-10-30: 9.6 GB of cache storage per project | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Each project includes 9.6 GB of cache storage to speed up builds and dependency installs.
+  - [4] 2026-10-30: f1-standard-2 costs USD 0.0075 a minute and f1-standard-4 USD 0.015 | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: | F1 (Linux) | $0.0075 | $0.015 |
+  - [4] 2026-10-30: r1-standard-2 (ARM) costs USD 0.003 a minute | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: | R1 (ARM) | $0.003 | $0.006 |
+  - [4] 2026-10-30: a job under one minute is billed as a full minute | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: Jobs that take less than one minute to complete will be rounded up to a full minute for billing purposes.
+  - [5] 2026-10-30: f1-standard-2 is 2 vCPU, 8 GB RAM and 45 GB disk | capture: sha256:b6caa5ecd06c930cc98f1969747b634930e253f111b7161c520746112f4dd6a4 | quote: | `f1-standard-2` | 2 | 8 | 45 |
+  - [5] 2026-10-30: r1-standard-2 (ARM) is 2 vCPU, 4 GB RAM and 50 GB disk | capture: sha256:b6caa5ecd06c930cc98f1969747b634930e253f111b7161c520746112f4dd6a4 | quote: | `r1-standard-2` | 2 | 4 | 50 |
+  - [2] 2026-10-30: the default execution time limit is 1 hour | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: Jobs are forcibly terminated once the time limit is reached. The default value is 1 hour.
+  - [2] 2026-10-30: the execution time limit is at most 24 hours | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: `hours`: time limit expressed in hours. Maximum value is 24
+  - [3] 2026-10-30: workflow and job artifacts are kept at most 400 days | capture: sha256:242a2b7c305a96009dc71d5985767eae80cf637bf233c7b7ae80c00f4800a05d | quote: all artifacts on the workflow and job namespaces/scopes have a maximum retention of 400 days
+  - [6] 2026-10-30: the agent and its files are discarded after each job | capture: sha256:7d482af06c1c18ebb3d65799a0c1bdef932b4e0503268cd7ba4ebf6e8ed3f2d8
+  - [7] 2026-10-30: sign-up needs a GitHub or Bitbucket account | capture: sha256:9dfa56435511c2f000b11f03af28dca4149a41d52578337e1c4eb25e29b2aecf | quote: To create your Semaphore account you need a GitHub or BitBucket account.
+  - [8] 2026-10-30: the USD 15 monthly free usage needs no card | capture: sha256:9ffd78ab1d589bc914cbcdd403c37a9b3f12ce058a20c4868e98a994125ccfdd | quote: Start free — $15/mo, no card
+  - [8] 2026-10-30: a self-hostable free Community Edition exists beside the hosted service | capture: sha256:9ffd78ab1d589bc914cbcdd403c37a9b3f12ce058a20c4868e98a994125ccfdd | quote: use fully managed Semaphore Cloud, self-host the free Community Edition, or deploy Enterprise behind your firewall.
+  - [9] 2026-10-30: free and open-source plans cannot create private projects | capture: sha256:b7b409007a99311272c0f0be949c2e342e0883369c51f5ce939a9414634a20fe | quote: Open-source and free plans cannot create private projects.
+  - [9] 2026-10-30: a runner address can already be rate-limited by Docker Hub | capture: sha256:b7b409007a99311272c0f0be949c2e342e0883369c51f5ce939a9414634a20fe | quote: The machine you are running your jobs on may have been provisioned for another user, resulting in that particular IP being rate-limited.
+  - [10] 2026-10-30: open-source projects are said to get free parallel CI, with no number stated | capture: sha256:2fab7c3ea2782bcb6705f4e949ac00cf3fcadf05e988f9daa17b19bf33a65e80 | quote: Linux and macOS open-source projects get free parallel CI on Semaphore.
+  - [11] 2026-11-02: the Open Source page covers the self-hosted editions and lists no hosted open-source allowance | capture: sha256:478c9e14df04737e7dcfc17c292532bf793453d61294cdfd1316049aa5f11131 | quote: Cloud and Enterprise add features like hosted runners, premium support, SSO/SCIM, governance tools, and advanced insights.
+  - [1] 2026-11-02: the pricing page still names USD 15 a month as the free allowance | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [10] 2026-11-03: the current Cloud page FAQ promises free parallel CI for open-source projects with no number | capture: sha256:2fab7c3ea2782bcb6705f4e949ac00cf3fcadf05e988f9daa17b19bf33a65e80 | quote: Linux and macOS open-source projects get free parallel CI on Semaphore.
+  - [1] 2026-11-03: the pricing page still names USD 15 a month as the free allowance | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [1] 2026-11-04: 20 concurrent jobs by default, higher on request | capture: sha256:8e55db0233139260eb6d4d3c55a77add2b884460d485015fe5ebc7f0693e4b29 | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-11-04: USD 15 of free credits a month | capture: sha256:8e55db0233139260eb6d4d3c55a77add2b884460d485015fe5ebc7f0693e4b29 | quote: Get $15 free credits per month
+  - [2] 2026-11-04: default job time limit 1 hour | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: Jobs are forcibly terminated once the time limit is reached. The default value is 1 hour.
+- sources:
+  - [1] https://semaphore.io/pricing
+  - [2] https://docs.semaphore.io/reference/pipeline-yaml
+  - [3] https://docs.semaphore.io/using-semaphore/artifacts
+  - [4] https://docs.semaphore.io/using-semaphore/billing
+  - [5] https://docs.semaphore.io/reference/machine-types
+  - [6] https://docs.semaphore.io/using-semaphore/jobs
+  - [7] https://docs.semaphore.io/getting-started/tour/sign-up
+  - [8] https://semaphore.io/semaphore-vs-circleci
+  - [9] https://docs.semaphore.io/getting-started/faq
+  - [10] https://semaphore.io/cloud
+  - [11] https://semaphore.io/open-source

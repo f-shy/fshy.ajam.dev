@@ -1,0 +1,123 @@
+# fshy: Inference, self-hosted, the last resort
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/inference/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Atomic Chat
+
+- `inference/atomic-chat` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category local desktop inference app (self-hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:45:48.000Z (live) | stale on 2026-12-19
+- url https://atomic.chat | page https://fshy.ajam.dev/p/atomic.md
+- free tier: the app is free and local: unlimited messages, no rate limits, no subscription, no cloud, 0 bytes of data leave the device; it runs on the user's own hardware | unit: unlimited | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no account is needed; the app is downloaded and runs locally
+- interface: rest
+- limits note: no rate limits, no caps, no subscription; runs fully offline on the device
+- binding note: no hosted quota binds; the constraint is hardware the reader supplies
+- endpoint: http://127.0.0.1:1337/v1
+- tooling: a local desktop app (macOS, Windows, Linux, iOS, Android) exposing a 127.0.0.1 OpenAI-compatible endpoint
+- composes with: pairs with an agent through the local endpoint only; the scarce link is the user's own hardware, not a hosted service
+- reliability: fully offline; no vendor-side suspension or throttling applies to the local app
+- notes: record for the Atomic Chat offer; verdict qualifies-with-caveat, confidence documented
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-18: unlimited local messages, no rate limits, no subscription, no cloud | capture: sha256:08df26411edc09a479211e60b65d59f71b2781a3f621c8a4964f9af32c450320 | quote: messages, no rate limits, no caps
+- sources:
+  - [1] https://atomic.chat
+
+## LMStudio
+
+- `inference/lmstudio` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category local inference app (self-hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:45:48.000Z (live) | stale on 2026-12-19
+- url https://lmstudio.ai | page https://fshy.ajam.dev/p/lmstudio.md
+- free tier: the app downloads and runs local models on the user's own hardware; the local endpoint serves them free of per-token charges; LM Studio also lists 9 cloud models on its catalog but those are separate paid offers | unit: none | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no account is needed for local models; the app is downloaded and runs on the user's machine
+- interface: rest
+- binding note: local inference has no hosted quota; the constraint is the user's machine
+- endpoint: http://127.0.0.1:1234/v1
+- tooling: the LM Studio desktop app (Bionic agent) and a local OpenAI-compatible endpoint at 127.0.0.1:1234/v1
+- composes with: pairs with an agent through the local endpoint only; the scarce link is the hardware the reader supplies
+- reliability: no reliability event recorded
+- notes: record for the LMStudio offer; verdict qualifies-with-caveat, confidence documented
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-18: the app is local and natively runs open models | capture: sha256:20aad08c91f54b2a7fea6cd5af8193e1ef08f1b9405efaffa5034efb653a8511 | quote: Natively local. Built for creativity, work, and code.
+- sources:
+  - [1] https://lmstudio.ai
+
+## Lynkr
+
+- `inference/lynkr` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category self-hosted LLM gateway/proxy (self-hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:45:48.000Z (live) | stale on 2026-12-19
+- url https://github.com/Fast-Editor/Lynkr | page https://fshy.ajam.dev/p/github-fast-editor.md
+- free tier: the gateway is free and open-source (Apache 2.0) and installs locally via npm; it routes simple requests to the user's own free local backends (Ollama, llama.cpp, LM Studio, vLLM), but serves no hosted capacity of its own | unit: none | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no account; the gateway is installed locally from npm
+- interface: rest
+- binding note: the proxy itself has no hosted quota; capacity comes from backends the reader supplies
+- endpoint: http://127.0.0.1:8081/v1
+- tooling: npm install -g lynkr; a local OpenAI-compatible endpoint at 127.0.0.1:8081/v1
+- composes with: pairs with a coding agent through the local gateway; the scarce link is the user's own local models or subscriptions it routes to
+- reliability: no reliability event recorded
+- notes: self-hosted last resort: a free routing proxy with no hosted inference capacity of its own.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-18: free local backends provide 100% offline free usage through the gateway | capture: sha256:470cfeac31230a720ce4e4274a3507683382db99bf148346c894d7277297c98b | quote: 4 local providers for 100% offline, free usage. 14+ cloud providers for scale.
+- sources:
+  - [1] https://github.com/Fast-Editor/Lynkr
+
+## QVAC
+
+- `inference/qvac` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category local-first P2P AI runtime provider (self-hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:45:48.000Z (live) | stale on 2026-12-19
+- url https://www.npmjs.com/package/@qvac/ai-sdk-provider | page https://fshy.ajam.dev/p/npmjs-package.md
+- free tier: QVAC is an open-source local-first peer-to-peer AI runtime; models run on the user's own hardware through qvac serve --openai; no hosted inference is offered and no per-token charge applies, but the reader supplies the hardware | unit: none | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no account; the runtime is installed and run locally on the user's machine
+- interface: rest
+- binding note: no hosted quota; the constraint is local hardware
+- tooling: the @qvac/ai-sdk-provider package, qvAC CLI and a local qvac serve --openai endpoint
+- composes with: pairs with the Vercel AI SDK against a local runtime; the scarce link is the user's own hardware, not a hosted service
+- reliability: no reliability event recorded
+- notes: self-hosted last resort: a local-first P2P runtime with no hosted inference capacity of its own.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-18: QVAC is a local-first peer-to-peer runtime running on the user's hardware | capture: sha256:50448042c4c9e3333082954ea93a982e0590e1155ee6937f8f68a59e4937c27f | quote: QVAC is an open-source, cross-platform ecosystem for local-first, peer-to-peer AI — LLMs, embeddings, transcription, translation, speech, OCR, and image generation, all running on the user's own hardware.
+- sources:
+  - [1] https://www.npmjs.com/package/@qvac/ai-sdk-provider
+
+## FrogBot
+
+- `inference/frogbot` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category self-hosted inference gateway, BYOK
+- needs card no, phone no, ID no, institution yes | verified 2026-11-18T13:00:00.000Z (live) | stale on 2026-12-19
+- url https://docs.frogbot.ai/gateway/overview.md | page https://fshy.ajam.dev/p/frogbot.md
+- free tier: The gateway holds upstream keys and does not authenticate callers itself. | unit: none | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: institution | detail: the operator must supply upstream provider API keys to route any model call
+- interface: rest
+- limits:
+  - volume-quota (binding): no FrogBot-hosted free allowance stated [1]
+- endpoint: https://app.frogbot.ai/api/v1
+- tooling: an OpenAI-compatible key where offered, otherwise the vendor's own client
+- composes with: the software is self-hosted and the user supplies all inference credentials; no free hosted inference is published
+- reliability: the gateway does not authenticate callers on its own; abuse protection must be added by the operator
+- notes: self-hosted: the free part serves no inference itself; it routes to the operator's paid provider keys.
+- self hosted: yes
+- evidence:
+  - [1] 2026-11-18: the gateway holds upstream keys and does not authenticate callers | capture: sha256:b5c8b1cc3295245755faa7874d61b13c051aba42220e26f0607478a23645f389 | quote: the gateway does not authenticate callers on its own
+- sources:
+  - [1] https://docs.frogbot.ai/gateway/overview.md

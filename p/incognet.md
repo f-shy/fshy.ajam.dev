@@ -1,0 +1,48 @@
+# IncogNET
+
+> incognet.io | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/incognet/ | JSON https://fshy.ajam.dev/api/v1/entity/incognet.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## IncogNET
+
+- `compute/incognet` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T08:51:30.909Z (live) | stale on 2026-12-08
+- url https://incognet.io/kvm-vps
+- price parsed USD 4.62/mo
+- free tier: 512 MB plan at USD 4.62/month billed USD 27.75 semi-annually: 1 vCPU, 512 MB RAM, 15 GB NVMe, 5 TB transfer, 1.5 Gbps port, IPv4 + IPv6. The page lists six locations across the United States and Europe (Liberty Lake WA, Kansas City MO, Valley Forge PA, Amsterdam NL, Sofia BG, Stockholm SE) without pairing cities to individual plans. It is sold out: the page states "Stock last updated: October 20th, 2026 - More stock soon." and every plan block reads "Out of stock in all locations"; the next size up, 1 GB at USD 7.60/month (USD 22.80 quarterly, 1 vCPU, 20 GB NVMe, 6 TB, 1.5 Gbps), carries the same line. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: 5 TB a month on the 512 MB plan, 6 TB on the 1 GB plan, rising with the plan; no overage price published on the page read | metered: yes | free allowance: 5 TB per month on the 512 MB plan | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 5 TB a month on a 1.5 Gbps port is 170 GB a day, 17 percent of the 1 TB daily transfer ceiling; the binding constraint today is stock rather than bytes, since the plan is out of stock in every location. [1]
+- limits note: 5 TB a month on a 1.5 Gbps port is 170 GB a day, 17 percent of the 1 TB daily transfer ceiling; the binding constraint today is stock rather than bytes, since the plan is out of stock in every location.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM with root and NVMe storage, six POPs across the US and Europe, sold through the vendor's own site; no API documented on the page read. The vendor's description states the service is sold with "no personal information required" and accepts cryptocurrency payments, which is a claim about registration that evaluated providers did not verify against a signup form.
+- composes with: A 1.5 Gbps port and 5 TB a month on three European POPs makes this the best-shaped egress box among evaluated providers after Hosting Int., and 512 MB with 15 GB of NVMe runs a tunnel or a DNS node; the plan cannot be ordered today, and the 1 GB at USD 7.60 is the nearest thing to a substitute inside the same provider.
+- reliability: the 512 MB plan is stated out of stock in all locations, with stock last updated 2026-10-20 and the page promising more soon; that is a stockout, not a withdrawal, so the provider is not dead. IncogNET describes itself as running since 2020 across 10 POPs.
+- notes: The provider is not dead and the plan is not withdrawn, so no dead verdict: the page says out of stock with a restock promise, which is availability and not discontinuation. The tracker and the vendor disagree by USD 0.12 on the same plan (USD 4.50 against USD 4.62), which is the difference between a rounded month and a semi-annual divided by six; the vendor figure is recorded. verification criteria: a re-read to catch the restock, and a read of the signup page to test the no-personal-information claim.
+- extras:
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 0.5
+  - facets.shape.disk_gib: 15
+  - term: semi-annually USD 27.75; the page prints no monthly or annual cycle
+  - monthly_usd: 4.62
+  - renewal_usd: not published: no renewal price is printed on the order page
+  - stock: out of stock in all locations
+- evidence:
+  - [1] 2026-10-22: the cheapest plan quoted with its stock line: "512MB RAM" / "$4.62 /mo" / "($27.75/semi-annually)" / "1 vCPU" / "15GB NVMe" / "5TB" / "1.5Gbps" / "Select Location" / "Out of stock in all locations"
+  - [1] 2026-10-22: "Stock last updated: October 20th, 2026 - More stock soon."; the ladder above: "1GB RAM" / "$7.60 /month" / "($22.80/quarterly)" / "1 vCPU" / "20GB NVMe" / "6TB" / "1.5Gbps", then 2 GB at $12/month, 4 GB at $20, 6 GB at $28, 8 GB at $36, 10 GB at $50
+  - [2] 2026-10-22: the tracker row quoted: "IncogNET - $4.50 / month" / "cpu 1 Epyc Cores (shared)" / "ram 512 MB RAM" / "disk 15 GB NVMe" / "bandwidth 5,120 GB/month bandwidth" / "rj45 1.5 Gbps port speed" / "city Sofia Bulgaria", with identical rows for Stockholm and Amsterdam, under "starting at $4.50 per month"
+  - [1] 2026-11-07: the 512 MB plan is priced USD 4.62 a month, USD 27.75 semi-annually, and is out of stock in all locations | capture: sha256:844dbed32940280e6ce76ea3bcca69267e036f7b453e8acacdf4169fb23d930f | quote: 512MB RAM $4.62 /mo ($27.75/semi-annually)
+  - [1] 2026-11-07: the page offers six locations across the United States and Europe and its plan blocks read out of stock in all locations | capture: sha256:844dbed32940280e6ce76ea3bcca69267e036f7b453e8acacdf4169fb23d930f | quote: Choose from six locations across the United States and Europe ... Out of stock in all locations
+  - [1] 2026-11-07: the 1 GB plan block carries the same out-of-stock line, so the next size up is also sold out | capture: sha256:844dbed32940280e6ce76ea3bcca69267e036f7b453e8acacdf4169fb23d930f | quote: 1GB RAM...$7.60...Out of stock in all locations
+  - [1] 2026-11-07: the page FAQ states registration requests only an email address, no name or phone | capture: sha256:844dbed32940280e6ce76ea3bcca69267e036f7b453e8acacdf4169fb23d930f | quote: We only request an email address
+  - [1] 2026-11-07: the 2026-11-07 read carries the same stock line the record states | capture: sha256:844dbed32940280e6ce76ea3bcca69267e036f7b453e8acacdf4169fb23d930f | quote: Stock last updated: October 20th, 2026 - More stock soon.
+- sources:
+  - [1] https://incognet.io/kvm-vps
+  - [2] https://vpspricetracker.com/provider/IncogNET/vps

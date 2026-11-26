@@ -1,0 +1,169 @@
+# GreenCloudVPS
+
+> greencloudvps.com | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/greencloudvps/ | JSON https://fshy.ajam.dev/api/v1/entity/greencloudvps.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GreenCloudVPS, BudgetKVM*-3 (8 GiB rung, 23 locations)
+
+- `compute/greencloud-budget-kvm-8gb` | qualifies-with-caveat | evidence documented | binding volume-quota | category VPS | tier BudgetKVM*-3 (8 GiB rung, 23 locations)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-07T07:56:25.263Z (live) | stale on 2026-12-08
+- url https://greencloudvps.com/billing/store/budget-kvm-sale?language=english
+- price parsed USD 3.75/mo
+- disagrees on verdict: `compute/greencloud-budget-kvm-8gb` says qualifies-with-caveat, `compute/greencloudvps` says paid-only
+- free tier: no free tier; the sale's smallest rung is the 4 GB at USD 25.00 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: annual prepay; the card carries 'No refund/Money back on this plan'
+- egress: per plan card: '8TB Bandwidth' on 17 of the 22 8 GiB cards; '1500GB Bandwidth' on the 5 APAC cards (Singapore DC1, Singapore DC2, Japan IIJ, Japan Softbank, Hong Kong DC2); every card states '10Gbps Port' | metered: yes | free allowance: 8TB | source: [1]
+- identity: card | detail: the store is a WHMCS cart; no ID document and no company are stated on the sale page. Card hold not stated: unverified rather than none. Payment methods were not readable because the order page redirects to the category listing.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 8 TB a month of bandwidth on 17 of the 22 8 GiB cards; 1500 GB a month on the 5 APAC cards (Singapore DC1, Singapore DC2, Japan IIJ, Japan Softbank, Hong Kong DC2) [1]
+- binding note: the published transfer ceiling is 8 TB a month on 17 of the 22 8 GiB cards and 1500 GB on the 5 APAC cards; the real binding constraint on this row is stock, because the 8 GiB rung sells out per location.
+- interface detail: root SSH on a KVM guest, with the Virtfusion control panel for console, reinstall and one free backup/snapshot
+- tooling: any SSH client; Virtfusion panel; no vendor CLI read on 2026-11-07.
+- composes with: the always-on box that runs daemons, a small database and a WireGuard endpoint, bought once a year
+- reliability: the card states 'No refund/Money back on this plan', so a failed deploy is not recoverable by refund
+- notes: USD 45.00 a year for 4 cores / 8192 MB RAM / 60 GB disk, one payment of USD 45.00, which is USD 3.75 a month (USD 45.00 / 12). The rung varies by location (sale page captured 2026-11-07): the disk reads '60GB SSD RAID-10' on 12 of the 22 cards and '60GB NVMe RAID-10' on 10; 12 cards carry an E5-family Xeon (v3 or v4), 8 carry EPYC Rome, 1 EPYC Milan, 1 Intel Platinum Gen 2; only BudgetKVMRO-3 (Bucharest) pairs NVMe with E5v3. Transfer is 8 TB a month on 17 of the 22 cards and 1500 GB on the 5 APAC cards (Singapore DC1, Singapore DC2, Japan IIJ, Japan Softbank, Hong Kong DC2), every card on a 10Gbps port. Stock is per location and moves: on 2026-11-07 7 of the 22 cards held units (MO 10, CUK 8, JAX 6, IL2 5, NY 5, RO 5, IL1 3 = 42 units) and 15 read 0 Available. Every card reads 'No refund/Money back on this plan' and every card is priced Annually only; the page contains no 'renew' or 'recurring' string, so the month-13 charge is not published.
+- evidence note: shape, the USD 45.00 annual price, the per-location stock counters and the absence of a published renewal rate are quoted from the vendor's store page read on 2026-11-04; the year-2 rate is not printed anywhere on the page.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 8
+  - shape.disk_gib: 60
+  - billing_model: annual prepay
+  - term: 12 months
+  - m10h_usd: 3.75
+  - m24h_usd: 3.75
+  - price_arithmetic: USD 45.00 a year / 12 = USD 3.75 a month; one payment of USD 45.00. It is a VPS, so no 730-hour multiplication. The page sells no monthly term on this rung, so there is no monthly comparison to make.
+  - out_of_pocket_usd: 45.0
+  - renewal_usd: not published
+  - renewal_note: not published. Every 8 GiB card prices '$45.00 USD Annually' and the page read at https://greencloudvps.com/billing/store/budget-kvm-sale?language=english prints no renewal and no recurring rate, so no year-2 charge is stated anywhere a buyer can reach it.
+  - promo: no
+  - stock: in stock in 7 of the 22 8 GiB location cards on 2026-11-07: BudgetKVMMO-3 10 Available, BudgetKVMCUK-3 8 Available, BudgetKVMJAX-3 6 Available, BudgetKVMIL2-3 5 Available, BudgetKVMNY-3 5 Available, BudgetKVMRO-3 5 Available, BudgetKVMIL1-3 3 Available = 42 units; the other 15 8 GiB cards read 0 Available
+  - port_mbps: 10000
+  - ipv4_included: yes
+  - ipv6: /112 in RO, /64 in CUK
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: terms-of-service.php section 3 'Prices'
+  - list_price_for_shape_usd_month: 40.0
+  - renewal_exposure_note: The vendor's own product page prices the identical shape (60GB SSD, 4 cores, 8 GB, 8 TB, 10Gbps) as SSDKVM-4 at $40/mo = USD 480/yr. The clearance card is USD 45/yr, which is 9.4% of that list price. Month 13 is therefore unknown and its worst published case is 10.7x the clearance rate.
+  - signup_url: https://greencloudvps.com/billing/store/budget-kvm-sale?language=english
+  - cart_url: https://greencloudvps.com/billing/store/budget-kvm-sale/budgetkvmro-3
+  - worst_case_note: not computable: the renewal is not published. The exposure is the unknown, not a number, and that is why the verdict carries the caveat.
+  - payment_methods: not read: the product URL redirects to the category listing and cart.php?a=add&pid=2927 does the same, so no payment selector was reachable. unverified
+  - stock_by_location.BudgetKVMMO-3: 10 available
+  - stock_by_location.BudgetKVMIL2-3: 9 available
+  - stock_by_location.BudgetKVMJAX-3: 9 available
+  - stock_by_location.BudgetKVMRO-3: 8 available
+  - stock_by_location.BudgetKVMCUK-3: 0 available
+  - stock_by_location.BudgetKVMDE-3: 0 available
+  - stock_by_location.BudgetKVMNYC-3: 0 available
+  - vat: prices are quoted in USD with no VAT line on the sale page
+  - price_on_page: USD 45.00/yr
+  - annual_usd: 45.0
+  - monthly_usd: 3.75
+  - price_in_cart: not read: the product route answered HTTP 403 to a live read, and the archived copy of the plan page from 2026-10-25 answered that orders are suspended for want of stock
+  - cart_works: no: the product route answered HTTP 403 to a live read, and the archived copy of the plan page from 2026-10-25 rendered Out of Stock with orders suspended
+- evidence:
+  - [1] 2026-10-24: quoted from the Bucharest card: 'BudgetKVMRO-3 | 8 Available | 8192MB RAM | 60GB NVMe RAID-10 | 4 cores @ E5v3 | 1 IPv4 | /112 IPv6 | 8TB Bandwidth | 10Gbps Port | Bucharest, RO | $45.00 USD Annually'
+  - [1] 2026-10-24: quoted from the UK card: 'BudgetKVMCUK-3 | 8 Available | 8192MB RAM | 60GB SSD RAID-10 | 4 cores @ Intel E5v4 | 1 IPv4 | /64 IPv6 | 8TB Bandwidth | 10Gbps Port | Coventry, UK | $45.00 USD Annually'
+  - [1] 2026-10-24: the other two in-stock cards: 'BudgetKVMMO-3 | 3 Available ... Kansas City, MO' and 'BudgetKVMJAX-3 | 2 Available ... Jacksonville, FL'; the remaining sixteen 8 GiB locations show '0 Available'
+  - [1] 2026-10-24: the 4 GiB rung on the same page: 'BudgetKVM*-2 ... 4096MB RAM ... 35GB ... $25.00 USD Annually'
+  - [2] 2026-10-24: quoted: 'Payments made via multiple PayPal or credit card subscriptions are credited to the account' and 'Cryptocurrency payments are non-refundable'
+  - [2] 2026-10-24: quoted: 'Prices valid for new orders only: Prices listed on our website, in special offers, or provided as quotes apply only to new orders and may not be applied to existing orders due to inventory and stock management.'
+  - [2] 2026-10-24: quoted: 'Price Changes: GreenCloud may adjust prices at the start of a customer’s next billing cycle due to changes in software licenses, power, space, labor, regulations, taxes, or other business costs. Customers will be notified of price changes.'
+  - [3] 2026-10-24: quoted from the rendered pricing table, the row for the same shape as BudgetKVM*-3: '| SSDKVM-4 | 60GB SSD | 4 cores | 8 GB | 8 TB | 10Gbps Port | Linux | 24/7/365 | $40/mo |'
+  - [1] 2026-10-24: counted on the 320,626 raw bytes: 44 occurrences of Annually, zero of renew and zero of recurring. The 8 GiB card price renders as '$45.00 USD Annually' and each card carries 'No refund/Money back on this plan'; the twenty 8 GiB location cards hold 21 units in four locations.
+  - [1] 2026-10-24: quoted verbatim from the Bucharest card: 'BudgetKVMRO-3 8 Available No refund/Money back on this plan 8192MB RAM 60GB NVMe RAID-10 Hard drive 4 cores @ E5v3 CPU' with 'Bucharest, RO Location Virtfusion Control Panel' and '$45.00 USD Annually'
+  - [1] 2026-10-24: quoted verbatim from the UK card: 'BudgetKVMCUK-3 8 Available No refund/Money back on this plan 8192MB RAM 60GB SSD RAID-10 Hard drive 4 cores @ Intel E5v4 CPU' with 'Coventry, UK Location Virtfusion Control Panel' and '$45.00 USD Annually'
+  - [1] 2026-10-24: quoted verbatim, the other two cards in stock: 'BudgetKVMMO-3 3 Available' and 'BudgetKVMJAX-3 2 Available'; the remaining sixteen 8 GiB location cards read 0 Available, so the 8 GiB rung is 21 units in four of twenty locations
+  - [1] 2026-10-24: quoted verbatim, the 4 GiB rung on the same page: 'BudgetKVMNYC-2 0 Available No refund/Money back on this plan 4096MB RAM 35GB NVMe RAID-10 Hard drive 2 cores @ EPYC Rome CPU' at '$25.00 USD Annually'
+  - [2] 2026-10-24: average usage is limited to 30%, with bursts to 100% for 10 minutes every 24 hours; use of 100% or more of system resources for longer than 10 minutes exceeds the limit
+  - [1] 2026-10-24: quoted from the Bucharest card: 'BudgetKVMRO-3 / 8 Available / 8192MB RAM / 60GB NVMe RAID-10 Hard drive / 4 cores @ E5v3 CPU / 1 IPv4 / /112 IPv6 / 8TB Bandwidth / 10Gbps Port / Bucharest, RO Location / Virtfusion Control Panel / 1 Free Backup/Snapshot' with '$45.00 USD Annually'
+  - [1] 2026-10-24: quoted from the Coventry card: 'BudgetKVMCUK-3 / 8 Available / 8192MB RAM / 60GB SSD RAID-10 Hard drive / 4 cores @ Intel E5v4 CPU / 8TB Bandwidth / 10Gbps Port / Coventry, UK' with '$45.00 USD Annually'
+  - [1] 2026-10-24: the German 8 GiB rung reads 'BudgetKVMDE-3 / 0 Available', and the New York rung 'BudgetKVMNYC-3 / 0 Available': stock is counted per location and some are empty
+  - [1] 2026-10-24: a full fetch of 320,626 bytes contains zero occurrences of 'renew' or 'recurring'; the only price form on every card is '$45.00 USD Annually'
+  - [1] 2026-11-04: the Kansas City 8 GiB card carries 10 available units | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: BudgetKVMMO-3 ... 10 Available
+  - [1] 2026-11-04: the Coventry UK 8 GiB card is sold out | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: BudgetKVMCUK-3 ... 0 Available
+  - [1] 2026-11-04: every card prices the plan annually, with no renewal rate printed | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: Annually
+  - [1] 2026-11-04: the 8 GiB card's price label is USD 45.00, sold annually | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: $45.00 USD
+  - probe:https://greencloudvps.com/billing/store/budget-kvm-sale/budgetkvmro-3 2026-11-04: the product route answered HTTP 403 to a live cart read | capture: sha256:c3eed47913914998ee6241b7108b3689991b3ce802d2c750bb5649dde5386990 | quote: "status": 403
+  - probe:https://greencloudvps.com/billing/store/budget-kvm-sale/budgetkvmro-3 2026-11-04: a live cart read of the product route answered HTTP 403, so the cart could not price the plan | capture: sha256:c3eed47913914998ee6241b7108b3689991b3ce802d2c750bb5649dde5386990 | quote: "status": 403
+  - [1] 2026-11-04: the Bucharest 8 GiB card carries 8 available units | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: BudgetKVMRO-3 ... 8 Available
+  - [1] 2026-11-07: the 8 GiB Bucharest card is priced $45.00 USD, sold Annually; all 22 8 GiB cards on the capture carry the same price and term | capture: sha256:a9e7c3a5fe22563f06fd00bf526683f18febde1dd7427fae8dc7d428048c3962 | quote: BudgetKVMRO-3 ... $45.00 USD ... Annually
+  - [1] 2026-11-07: the Singapore DC1 8 GiB card carries 1500GB of monthly bandwidth, not 8 TB; 5 of the 22 cards do | capture: sha256:a9e7c3a5fe22563f06fd00bf526683f18febde1dd7427fae8dc7d428048c3962 | quote: BudgetKVMSGDC1-3 ... 1500GB
+  - [1] 2026-11-07: stock is per location and moves: MO holds 10 units on 2026-11-07; 7 of the 22 cards hold 42 units, 15 read 0 | capture: sha256:a9e7c3a5fe22563f06fd00bf526683f18febde1dd7427fae8dc7d428048c3962 | quote: BudgetKVMMO-3 ... 10 Available
+  - [1] 2026-11-07: the Coventry 8 GiB card's disk is 60GB SSD RAID-10; 12 of the 22 cards read SSD, 10 read NVMe | capture: sha256:a9e7c3a5fe22563f06fd00bf526683f18febde1dd7427fae8dc7d428048c3962 | quote: BudgetKVMCUK-3 ... 60GB SSD RAID-10
+  - [1] 2026-11-07: the Los Angeles 8 GiB card carries an EPYC Rome CPU; 10 of the 22 cards carry a CPU that is not E5 v3/v4 | capture: sha256:a9e7c3a5fe22563f06fd00bf526683f18febde1dd7427fae8dc7d428048c3962 | quote: BudgetKVMLA-3 ... EPYC Rome
+- sources:
+  - [1] https://greencloudvps.com/billing/store/budget-kvm-sale?language=english
+  - [2] https://greencloudvps.com/terms-of-service.php
+  - [3] https://greencloudvps.com/budget-kvm-vps.php
+
+## GreenCloudVPS (compute/greencloudvps)
+
+- `compute/greencloudvps` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T18:45:35.794Z (live) | stale on 2026-12-05
+- url https://greencloudvps.com/billing/store/budget-kvm-sale?language=english
+- price parsed USD 2.08/mo
+- disagrees on verdict: `compute/greencloud-budget-kvm-8gb` says qualifies-with-caveat, `compute/greencloudvps` says paid-only
+- free tier: Budget KVM Sale: 22 of the 44 order lines are USD 25.00 annually (USD 2.08 a month) for 4096 MB RAM, 2 cores, 35 GB of disk and 4 TB of transfer on a 10 Gbps port, with 1 IPv4 plus IPv6 and 1 free snapshot, and 750 GB of transfer on the Singapore, Tokyo and Hong Kong cards; the other 22 are USD 45.00 annually (USD 3.75 a month) for 8192 MB RAM, 4 cores and 60 GB of disk with 8 TB, and 1500 GB on the Singapore, Tokyo and Hong Kong cards. Four 4 GiB cards and four 8 GiB cards carry stock; the terms state that listed prices 'apply only to new orders'. Every card reads 'No refund/Money back on this plan'. | unit: none | metered on: none | read on: 2026-11-04 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: the USD 25 line lists 4096MB RAM, 35GB NVMe RAID-10, 2 cores @ EPYC Rome CPU, 4TB Bandwidth, 10Gbps Port, 1 IPv4, /64 IPv6, 1 Free Backup/Snapshot, quoted | metered: no | source: [1]
+- identity: card
+- interface: unknown
+- limits:
+  - volume-quota (binding): 4 TB a month on a 10 Gbps port is exhausted in under an hour of saturation, so the transfer allowance binds long before the port does [1]
+- limits note: 4 TB a month on a 10 Gbps port is exhausted in under an hour of saturation, so the transfer allowance binds long before the port does
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 4 GiB for USD 2.08 with a 10 Gbps port is the best per-GiB floor among evaluated providers; it composes with a free inference key, holding the queue and the dataset while the GPU runs elsewhere.
+- reliability: no reliability event recorded
+- notes: The Budget KVM Sale lists 44 location-specific plans, 22 at USD 25.00 a year (4096 MB RAM, 2 cores, 35 GB of disk, 4 TB of transfer, a 10 Gbps port, 1 IPv4 and IPv6, 1 free snapshot) and 22 at USD 45.00 a year (8192 MB, 4 cores, 60 GB, 8 TB), and the Singapore, Tokyo and Hong Kong cards carry 750 GB or 1500 GB instead of 4 TB or 8 TB. Stock is the gate: eight of the 44 cards carry units and the other 36 read 0 Available. Every card reads "No refund/Money back on this plan", and no renewal rate is printed.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 2
+  - facets.shape.ram_gib: 4
+  - facets.shape.disk_gib: 35
+  - benchmark[0].plan: BudgetKVMNL-3 (4 vCPU / 8 GiB)
+  - benchmark[0].cpu_model: AMD EPYC 7702P 64-Core Processor
+  - benchmark[0].dedicated_or_shared: not stated
+  - benchmark[0].gb6_single: 992
+  - benchmark[0].gb6_multi: 2782
+  - benchmark[0].source_url: https://www.vpsbenchmarks.com/yabs/greencloud_llc-4c-8gb-20251023-940163
+  - benchmark[0].source_date: 2025-10-23
+  - benchmark[0].rung: reported
+  - benchmark[0].note: EPYC 7702P at 2.00 GHz. Cheapest 4 vCPU row and the best multi-core per dollar among rows whose price matches the measured plan.
+  - refund: 7 days on a first VPS; promos, crypto and over-10%-bandwidth excluded, and every sale SKU order page says "No refund/Money back on this plan"
+  - monthly_usd: 2.08
+  - annual_usd: 25.0
+  - term: 12 months
+  - renewal_usd: not published
+  - renewal_note: not published: every card prices its rung annually and the page prints no renewal or recurring rate, and the terms state only that listed prices apply to new orders and that the vendor may adjust prices at the start of a billing cycle.
+  - stock: four 4 GiB cards carry stock on 2026-11-04 (BudgetKVMJAX-2 10 Available, BudgetKVMIL2-2 8 Available, BudgetKVMMO-2 8 Available, BudgetKVMRO-2 8 Available) and four 8 GiB cards do; the other 36 of the 44 cards read 0 Available
+  - price_on_page: USD 25.00/yr and USD 45.00/yr
+  - cart_works: no: the product route answered HTTP 403 to a live read, and the archived copy of the plan page from 2026-10-25 rendered Out of Stock with orders suspended
+  - cart_url: https://greencloudvps.com/billing/store/budget-kvm-sale/budgetkvmro-2
+- evidence:
+  - [1] 2026-10-22: counted from the raw HTML: 21 order lines at 25.00 USD Annually and 21 at 45.00 USD Annually, 42 'Annually' labels in total
+  - [1] 2026-10-22: the USD 25 line lists 4096MB RAM, 35GB NVMe RAID-10, 2 cores @ EPYC Rome CPU, 4TB Bandwidth, 10Gbps Port, 1 IPv4, /64 IPv6, 1 Free Backup/Snapshot, quoted
+  - [1] 2026-10-22: the USD 45 line lists 8192MB RAM, 60GB NVMe, 4 cores, 8TB Bandwidth, 10Gbps Port; every line repeats 'No refund/Money back on this plan'
+  - [1] 2026-11-04: the 4 GiB card price label on the same sale page is USD 25.00, sold annually | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: $25.00 USD
+  - [1] 2026-11-04: the 8 GiB card's price label is USD 45.00, sold annually | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: $45.00 USD
+  - [1] 2026-11-04: every card prices the plan annually, with no renewal rate printed | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: Annually
+  - [2] 2026-11-04: listed prices apply only to new orders | capture: sha256:71ff7714cadc9eaead89470f4e6d5da109db1a1e699d64465a338afcf6331b19 | quote: Prices valid for new orders only
+  - [1] 2026-11-04: the Bucharest 8 GiB card carries 8 available units | capture: sha256:bd251a39c1b0ac84429632182614cbc1c43a4fdfd11f2d24d01d4727f313523a | quote: BudgetKVMRO-3 ... 8 Available
+  - probe:https://greencloudvps.com/billing/store/budget-kvm-sale/budgetkvmro-3 2026-11-04: the product route answered HTTP 403 to a live cart read | capture: sha256:c3eed47913914998ee6241b7108b3689991b3ce802d2c750bb5649dde5386990 | quote: "status": 403
+- sources:
+  - [1] https://greencloudvps.com/billing/store/budget-kvm-sale?language=english
+  - [2] https://greencloudvps.com/terms-of-service.php

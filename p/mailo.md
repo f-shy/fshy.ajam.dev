@@ -1,0 +1,109 @@
+# Mailo
+
+> mailo.com | Email; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mailo/ | JSON https://fshy.ajam.dev/api/v1/entity/mailo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Mailo
+
+- `email/mailo` | paid-only | evidence documented | binding volume-quota | category custom-domain email hosting | tier Premium
+- needs card yes, phone no, ID no, institution no | verified 2026-11-04T05:33:22.976Z (live) | stale on 2026-12-05
+- url https://www.mailo.com/mailo/en/premium-offer.php
+- free tier: no free custom-domain mailbox: Mailo Free has a 1 GB mailbox and no customized domain names; Premium has customized domain names, a 20 GB mailbox and 5 GB of cloud storage | unit: none | metered on: none | read on: 2026-11-02 | source: [1] | note: Premium is EUR 1.50 per month and is bought for 1 to 5 years. The 4-month Discovery offer, chosen at signup or later in the account, is a single payment of EUR 6 that gives the Premium plan for 4 months and keeps the address for life; it is paid, not free. The features table lists customized domain names under Premium. Family is EUR 3 per month for up to 5 Premium accounts in a Family space, and Pro Start EUR 3.60 per month with tax for 2 accounts sharing 50 GB. Declaring an external domain is free; a domain bought at Mailo starts at EUR 15 per year with tax.
+- per-object cap: 50 MB of attachments per message on Premium, 25 MB on Free; larger files are sent as download links, up to 1 GB on Premium and 500 MB on Free | source: [2]
+- retention: a 20 GB mailbox on Premium; a full mailbox refuses new mail; a Premium account is never deleted for inactivity, a Free account after 365 days without access | source: [2]
+- egress: not applicable: a mailbox; unverified: no hourly or daily sending cap is published on the captured pages | metered: no | source: [2]
+- identity: card | detail: signup asks for a last name, a first name and a date of birth, all compulsory, a gender, a security question or rescue email address, and a computed proof-of-work check, with no phone field; accounts are for ages 13 and above. A subscription is paid online by bank card or PayPal, or by a surcharged phone call billed by the caller's telephone operator, which buys or renews Premium for 2 months according to the usage conditions page and for 1 month according to the subscriptions page; the 4-month Discovery offer costs a single payment of EUR 6. The numbers and networks that call needs are not published on the captured pages.
+- interface: unknown, webdav
+- limits:
+  - request-rate: unverified: no hourly or daily sending cap is published; the SMTP relay is subject to technical limitations whose numbers are not published [2]
+  - volume-quota (binding): 20 GB mailbox and 5 GB cloud storage on Premium [3]
+  - per-object-cap: 50 MB of attachments per message on Premium [2]
+- binding note: the 20 GB Premium mailbox binds: when it is full, new mail is refused; no hourly or daily sending cap is published, so whether one binds sooner is unverified.
+- interface detail: IMAP at mail.mailo.com (993, SSL/TLS; 143 answers with an IMAP4rev1 banner offering STARTTLS) and SMTP at mail.mailo.com (465, SSL/TLS; 587 also answers); POP3 on subscribed accounts only; ActiveSync; CalDAV, CardDAV and WebDAV
+- tooling: any IMAP or SMTP client, with the full address as username; application passwords are supported
+- composes with: a domain registered elsewhere is declared in a Mailo space free of charge, with its DNS records changed at the registrar, or a domain is bought at Mailo from EUR 15 per year with tax; a single mailbox on that domain then takes the Premium offer.
+- reliability: a full mailbox refuses new mail and the sender receives a non-delivery notice
+- notes: No free custom-domain mailbox: Mailo Free has IMAP but no custom domain. Premium is €1.50 per month for one mailbox; per mailbox, Family at €3 per month for up to 5 Premium accounts costs less.
+- evidence note: plans and prices read from the vendor pages; mail.mailo.com:143 answered with an IMAP4rev1 banner and mail.mailo.com:587 with an ESMTP banner; no login or send was made
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [3] 2026-10-31: Premium costs €1.50 per month | capture: sha256:9c2014b036fdcb52ee712cd04039b171f03b11d67326b4fb0bddbbaefe346a50 | quote: With the Premium offer, for €1.50 per month, you benefit from more storage space, an address for life and a webmail without advertising.
+  - [3] 2026-10-31: Premium has a 20 GB mailbox | capture: sha256:9c2014b036fdcb52ee712cd04039b171f03b11d67326b4fb0bddbbaefe346a50 | quote: a mailbox expanded to 20 GB
+  - [3] 2026-10-31: Premium includes POP3 and IMAP4 | capture: sha256:9c2014b036fdcb52ee712cd04039b171f03b11d67326b4fb0bddbbaefe346a50 | quote: POP3 or IMAP4 access
+  - [3] 2026-10-31: Premium is bought for 1 to 5 years | capture: sha256:9c2014b036fdcb52ee712cd04039b171f03b11d67326b4fb0bddbbaefe346a50 | quote: This offer can be activated for 1 to 5 years.
+  - [4] 2026-10-30: the features table leaves the Mailo Free cell empty for custom domain names | capture: sha256:2fa71e676e759de4877dbe6cc95f4cbcc3bfe6d67b11a37f5009ac4cdec3c9d3 | quote: Noms de domaine personnalisés</th><td class="ea_generics__table_cell ea_generics__table_tbody_cell ea_generics__table_tbody_td" aria-label="Cellule vide"></td>
+  - [5] 2026-10-30: a single custom-domain mailbox is served by the Premium offer | capture: sha256:69ffdda8f7c5fd2b31276d893308b58b6f7a46893e5f06365ae4b0d11ffc7852 | quote: Si vous n’avez besoin que d’une seule boîte, vous pouvez bien entendu souscrire à l’offre Premium
+  - [5] 2026-10-30: a domain bought at Mailo starts at €15 per year with tax | capture: sha256:69ffdda8f7c5fd2b31276d893308b58b6f7a46893e5f06365ae4b0d11ffc7852 | quote: vous pouvez l’acheter à partir de 15 € TTC par an
+  - [5] 2026-10-30: declaring an external domain is free | capture: sha256:69ffdda8f7c5fd2b31276d893308b58b6f7a46893e5f06365ae4b0d11ffc7852 | quote: Ce service est gratuit.
+  - [6] 2026-10-30: Premium is one account with 20 GB of mail and 5 GB of cloud at €1.50 per month | capture: sha256:4b772ddbb92f56142e80dd5c497cddea6b22e642f4f359502ea9d48a033a4f5a | quote: offre Premium à 1.50 € / mois : 1 compte Premium avec 20 Go de capacité pour le mail et 5 Go pour le cloud.
+  - [6] 2026-10-30: Family is up to 5 Premium accounts at €3 per month | capture: sha256:4b772ddbb92f56142e80dd5c497cddea6b22e642f4f359502ea9d48a033a4f5a | quote: offre Family à 3 € / mois : jusqu’à 5 comptes Premium avec chacun 20 Go de capacité pour le mail et 5 Go pour le cloud
+  - [6] 2026-10-30: payment is by bank card or PayPal | capture: sha256:4b772ddbb92f56142e80dd5c497cddea6b22e642f4f359502ea9d48a033a4f5a | quote: vous pouvez acheter en ligne par carte bancaire ou par Paypal jusqu’à 5 années d’abonnement.
+  - [7] 2026-10-30: every Mailo space, Family included, can use custom domain names | capture: sha256:3de7a950277e474b2b616928659d617246676068da953ad1f774e7bd02889456 | quote: Chaque espace Mailo permet d’utiliser des noms de domaine personnalisés pour les adresses e-mail
+  - [8] 2026-10-30: Pro Start is up to 2 accounts and 50 GB at €3.60 per month with tax | capture: sha256:16ab9adf1c9e129fa2f6c6786a62fb722baedc9c19b7b35ce7bd306a77cc4896 | quote: Pro Start - Jusqu'à 2 comptes - 50 Go de stockage - 3,00 € HT 3,60 € TTC
+  - [9] 2026-10-30: signup runs a computed proof-of-work check | capture: sha256:361ec5f083a8601b3610f916e3c128915af681ec3b8c7f3c9d0fbc563edefa86 | quote: data-contract="workers.proofOfWork"
+  - [10] 2026-10-30: ActiveSync is available | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | ActiveSync synchronization | Yes | Yes |
+  - [10] 2026-10-30: application passwords are available | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | Application passwords | Yes | Yes |
+  - [11] 2026-10-30: the username is the full address | capture: sha256:ceef136ade1b43b2c3348a519cdcd90168b77dec8906006eedf0915010a32ade | quote: Nom d’utilisateur (username) : votre adresse e-mail Mailo complète
+  - [9] 2026-10-30: signup offers a 4-month trial without commitment | capture: sha256:361ec5f083a8601b3610f916e3c128915af681ec3b8c7f3c9d0fbc563edefa86 | quote: To discover the service, you will be able to select the trial offer (4 months without commitment).
+  - [9] 2026-10-30: signup asks for a date of birth | capture: sha256:361ec5f083a8601b3610f916e3c128915af681ec3b8c7f3c9d0fbc563edefa86 | quote: Date of birth:
+  - [9] 2026-10-30: accounts are for ages 13 and above | capture: sha256:361ec5f083a8601b3610f916e3c128915af681ec3b8c7f3c9d0fbc563edefa86 | quote: The creation of Mailo accounts is reserved to persons aged 13 and above.
+  - [9] 2026-10-30: signup offers a rescue email address field | capture: sha256:361ec5f083a8601b3610f916e3c128915af681ec3b8c7f3c9d0fbc563edefa86 | quote: Rescue e-mail address:
+  - [10] 2026-10-30: Free has a 1 GB mailbox and Premium 20 GB | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | Mailbox | 1 GB | 20 GB up to 500 GB with the Premium+ offers |
+  - [10] 2026-10-30: IMAP is available on Free and Premium | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | IMAP4 / IMAP4S access | Yes except third-party collect | Yes |
+  - [10] 2026-10-30: POP3 is Premium only | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | POP3 / POP3S access | No | Yes |
+  - [10] 2026-10-30: CalDAV, CardDAV and WebDAV are available | capture: sha256:fa82c7594ae7782e3efb6f10c5fe1b343d532d2efd18e7143de17725ab2b1402 | quote: | CalDAV, CardDAV and WebDAV access | Yes | Yes |
+  - [2] 2026-10-30: IMAP4 and SMTP are provided | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: Mailo provides the User the IMAP4 protocol to receive and synchronize messages and the SMTP protocol to send messages, so that they can use their Mailbox from a compatible software or application.
+  - [2] 2026-10-30: attachments are capped at 50 MB on Premium and 25 MB on Free | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: When sending an email, the maximum total size of email attachments is limited to 50 MB for Mailo Premium and Mailo Pro accounts. It is limited to 25 MB for Mailo Free accounts.
+  - [2] 2026-10-30: files up to 1 GB go as links on Premium | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: The maximum size of files sent by link is 1 GB for Mailo Premium and Mailo Pro accounts and 500 MB for Mailo Free accounts.
+  - [2] 2026-10-30: a full mailbox refuses new mail | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: When the maximum capacity is reached, no more messages can be stored and new emails are refused.
+  - [2] 2026-10-30: a Free account is deleted after 365 days without access | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: If a Mailo Free account is not accessed (via the web or a synchronization protocol) for more than one year (365 days), it will be deleted.
+  - [2] 2026-10-30: Premium accounts are not deleted for inactivity | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: However, no Mailo Premium account or formerly Mailo Premium account and no Mailo Pro account will be deleted for inactivity.
+  - [11] 2026-10-30: IMAP is at mail.mailo.com on port 993 | capture: sha256:ceef136ade1b43b2c3348a519cdcd90168b77dec8906006eedf0915010a32ade | quote: Courrier entrant IMAP – Serveur : mail.mailo.com – Port : 993
+  - [11] 2026-10-30: SMTP is at mail.mailo.com on port 465 | capture: sha256:ceef136ade1b43b2c3348a519cdcd90168b77dec8906006eedf0915010a32ade | quote: Courrier sortant SMTP – Serveur : mail.mailo.com – Port : 465
+  - probe:mail.mailo.com:143 2026-10-30: mail.mailo.com:143 answered with an IMAP4rev1 banner | capture: sha256:8a68544ff6318163aae8cf9ff380dbb8c2cfdd853b453539537fe314fe0fad1e | quote: * OK [CAPABILITY IMAP4rev1 ID LITERAL+ AUTH=LOGIN AUTH=PLAIN STARTTLS] IMAP4rev1 MAILO Ready
+  - probe:mail.mailo.com:587 2026-10-30: mail.mailo.com:587 answered with an ESMTP banner | capture: sha256:8a68544ff6318163aae8cf9ff380dbb8c2cfdd853b453539537fe314fe0fad1e | quote: 220 be1-1.in.mailobj.net ESMTP Server ready
+  - [2] 2026-10-31: the SMTP relay is subject to technical limitations, and the page gives no number for them | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: the technical limitations necessary for the security and the quality of the Service
+  - [2] 2026-10-31: a Premium account has a 20 GB mailbox | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: The Premium subscription provides a Mailo Premium account with a capacity of 20 GB for email and 5 GB for the Virtual disk
+  - [2] 2026-10-31: a full mailbox refuses new mail | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: When the maximum capacity is reached, no more messages can be stored and new emails are refused.
+  - [5] 2026-10-31: a single mailbox on one's own domain, added in a Mailo space, is served by the Premium offer | capture: sha256:69ffdda8f7c5fd2b31276d893308b58b6f7a46893e5f06365ae4b0d11ffc7852 | quote: Si vous n’avez besoin que d’une seule boîte, vous pouvez bien entendu souscrire à l’offre Premium
+  - [5] 2026-10-31: a domain registered elsewhere is declared by changing its DNS records at the registrar, following the configuration Mailo gives | capture: sha256:69ffdda8f7c5fd2b31276d893308b58b6f7a46893e5f06365ae4b0d11ffc7852 | quote: En pratique, après avoir indiqué le nom de domaine, vous devrez modifier les enregistrements DNS dans le service où vous avez acheté le nom de domaine, en suivant la configuration que Mailo vous fournira.
+  - [2] 2026-10-31: files sent as links are capped at 1 GB on Premium and Pro and 500 MB on Free | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: The maximum size of files sent by link is 1 GB for Mailo Premium and Mailo Pro accounts and 500 MB for Mailo Free accounts.
+  - [2] 2026-10-31: the sender of a message refused by a full mailbox receives a notification of non-receipt | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: In this case, the sender of the message receives a notification of non-receipt.
+  - [2] 2026-10-31: the terms page is unchanged: a Premium account is never deleted for inactivity | capture: sha256:01a4ddd0f74ff2cfd64578b5e2399eaa7733fa5fec64ffec2d47a5768b6a5425 | quote: However, no Mailo Premium account or formerly Mailo Premium account and no Mailo Pro account will be deleted for inactivity.
+  - [12] 2026-11-02: the Discovery offer is a single payment of EUR 6 chosen when the account is created | capture: sha256:8d558c8ea1f7e853d0981c67c397a24566d2399df4fd30c5acff02cc4a61ee88 | quote: Lors de la création du compte, vous avez également la possibilité de souscrire à l’offre Découverte pour 6 € (paiement unique).
+  - [12] 2026-11-02: the Discovery offer gives 4 months of Mailo Premium and keeps the address for life even without a later subscription | capture: sha256:8d558c8ea1f7e853d0981c67c397a24566d2399df4fd30c5acff02cc4a61ee88 | quote: La souscription de cette offre permet non seulement de tester Mailo Premium pendant 4 mois mais vous assure également de conserver définitivement votre adresse, même si vous n’optez pas par la suite pour un abonnement.
+  - [12] 2026-11-02: Premium is EUR 1.50 per month with a 20 GB mailbox, up to 100 aliases and 5 GB of cloud storage | capture: sha256:8d558c8ea1f7e853d0981c67c397a24566d2399df4fd30c5acff02cc4a61ee88 | quote: opter par exemple pour le pack Premium à 1.50 € par mois : 1 compte avec une capacité de 20 Go, jusqu’à 100 alias, 5 Go de cloud
+  - [12] 2026-11-02: the plan can be chosen when the account is created or afterwards from the account | capture: sha256:8d558c8ea1f7e853d0981c67c397a24566d2399df4fd30c5acff02cc4a61ee88 | quote: Vous pouvez choisir votre formule lors de la création du compte mais aussi une fois que le compte est créé.
+  - [12] 2026-11-02: the Discovery offer of 4 months is one of the durations offered for the Premium pack | capture: sha256:8d558c8ea1f7e853d0981c67c397a24566d2399df4fd30c5acff02cc4a61ee88 | quote: Dans les durées proposées, vous pouvez sélectionner la durée de votre choix ou l’option Offre découverte – 4 mois
+  - [13] 2026-11-02: the Discovery offer at a single payment of EUR 6 gives 4 months of Mailo Premium | capture: sha256:546f3065c8f60365874e510373f659f3e586e63def5c98abeee08dba452b0112 | quote: Vous pouvez même opter si vous le désirez pour l’offre Découverte à 6 € (paiement unique) qui vous permet de bénéficier de 4 mois de Mailo Premium.
+  - [14] 2026-11-02: a Premium subscription can be bought or renewed by a surcharged phone call for a period of 2 months | capture: sha256:d4c7011036e5a9a37ad64b54602653aa1cbac412f7337957dba96cd6c57b01de | quote: L'Utilisateur peut utiliser la solution de paiement par appel surtaxé (ci-après "Appel surtaxé") pour acheter ou renouveler un abonnement Premium pour une période de 2 mois.
+  - [15] 2026-11-02: the subscriptions page lists a surcharged phone call as a payment method for 1 month of the Premium offer | capture: sha256:fdbbacd0bbad27a9d52ab6b3e690d16564827abfa36161ad6500a76e43ac5b81 | quote: by surcharged phone call (for 1 month of the Premium offer)
+  - [14] 2026-11-02: amounts due for a surcharged call are billed and collected by the caller's telephone operator | capture: sha256:d4c7011036e5a9a37ad64b54602653aa1cbac412f7337957dba96cd6c57b01de | quote: Les sommes dues au titre des communications sur les numéros surtaxés sont facturées et recouvrées par l'opérateur téléphonique de l'Utilisateur.
+  - [1] 2026-11-02: the features table leaves the Mailo Free cell empty and marks the Mailo Premium cell Yes for customized domain names | capture: sha256:bd264053a27e3f9c9f084a9434b3a6e63db9b88a9a64c46d34b15b0049ce1862 | quote: Customized domain names</th><td class="ea_generics__table_cell ea_generics__table_tbody_cell ea_generics__table_tbody_td" aria-label="Empty cell"></td><td class="ea_generics__table_cell ea_generics__table_tbody_cell ea_generics__table_tbody_td"><svg class="ea_generics__icon ea_utilities__icon ea_generics__icon_success" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Yes">
+  - [1] 2026-11-02: the features table lists a 1 GB mailbox on Free and a 20 GB mailbox on Premium | capture: sha256:87c978ea7947d5bfd9989550483e3b06d8eafc516931e6d2a4f51bcb97464311 | quote: | Mailbox | 1 GB | 20 GB up to 500 GB with the Premium+ offers |
+  - [1] 2026-11-02: the features table lists 500 MB of cloud storage on Free and 5 GB on Premium | capture: sha256:87c978ea7947d5bfd9989550483e3b06d8eafc516931e6d2a4f51bcb97464311 | quote: | Cloud | 500 MB | 5 GB up to 500 GB with the Premium+ offers |
+  - [14] 2026-11-02: the SMTP relay is still described as subject to technical limitations, and the page gives no number for them | capture: sha256:d4c7011036e5a9a37ad64b54602653aa1cbac412f7337957dba96cd6c57b01de | quote: aux limitations techniques nécessaires à la sécurité et à la qualité du Service
+  - [3] 2026-11-04: Premium is still EUR 1.50 per month | capture: sha256:ccb2f34356bce71cab02646b12704f746acef61cdf27e6a238582e728130e366 | quote: With the Premium offer, for €1.50 per month, you benefit from more storage space, an address for life and a webmail without advertising.
+  - [3] 2026-11-04: Premium mailbox is 20 GB | capture: sha256:ccb2f34356bce71cab02646b12704f746acef61cdf27e6a238582e728130e366 | quote: a mailbox expanded to 20 GB
+  - [3] 2026-11-04: Premium includes POP3 and IMAP4 access | capture: sha256:ccb2f34356bce71cab02646b12704f746acef61cdf27e6a238582e728130e366 | quote: POP3 or IMAP4 access
+  - [3] 2026-11-04: Premium allows up to 100 aliases on its one mailbox | capture: sha256:ccb2f34356bce71cab02646b12704f746acef61cdf27e6a238582e728130e366 | quote: up to 100 aliases
+  - [3] 2026-11-04: Premium includes custom domain names | capture: sha256:ccb2f34356bce71cab02646b12704f746acef61cdf27e6a238582e728130e366 | quote: the possibility to use exclusive domain names for your e-mail addresses
+  - probe:mail.mailo.com:993 2026-11-04: mail.mailo.com:993 accepted a TCP connection on 2026-11-04 | capture: sha256:81ff44d190e3b07be4a69d165fbade6868232ab74d42c1d369a98b65bd480826 | quote: "port": 993
+- sources:
+  - [1] https://www.mailo.com/mailo/en/features.php
+  - [2] https://www.mailo.com/mailo/en/terms-of-use.php
+  - [3] https://www.mailo.com/mailo/en/premium-offer.php
+  - [4] https://www.mailo.com/mailo/fr/fonctionnalites.php
+  - [5] https://faq.mailo.com/compte/creer-des-adresses-avec-mon-propre-nom-de-domaine.htm
+  - [6] https://faq.mailo.com/offre/s-abonner-a-mailo.htm
+  - [7] https://blog.mailo.com/blog/nouveaux-espaces-mailo.htm
+  - [8] https://pro.mailo.com/
+  - [9] https://www.mailo.com/mailo/auth/create.php?language=en&premium=1
+  - [10] https://www.mailo.com/mailo/auth/create.php
+  - [11] https://faq.mailo.com/synchronisation/configurer-mailo-dans-mailspring.htm
+  - [12] https://faq.mailo.com/compte/suppression-compte-mailo-free-inactif.htm
+  - [13] https://faq.mailo.com/offre/tester-mailo-free-puis-s-abonner.htm
+  - [14] https://www.mailo.com/mailo/fr/conditions-d-utilisation.php
+  - [15] https://www.mailo.com/mailo/en/subscriptions.php

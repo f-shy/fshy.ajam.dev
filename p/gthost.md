@@ -1,0 +1,44 @@
+# GTHost
+
+> gthost.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/gthost/ | JSON https://fshy.ajam.dev/api/v1/entity/gthost.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## GTHost
+
+- `compute/gthost` | paid-only | evidence documented | binding volume-quota | category cloud VM
+- identity a placeholder: card and phone unknown | verified 2026-11-07T14:17:07.272Z (live) | stale on 2026-12-08
+- url https://gthost.com/vps
+- price parsed USD 4/mo
+- free tier: VPS-4, the first row of the vendor's own live VPS table: 1 vCPU, 1 GB RAM, 20 GB storage, 8 TB of traffic, USD 4 per month. The rest of the table is VPS-5 at USD 5 (1 vCPU, 2 GB, 20 GB, 8 TB), VPS-10 at USD 10 (2 vCPU, 4 GB, 40 GB, 8 TB), VPS-12T at USD 12 (1 vCPU, 1 GB, 20 GB, 24 TB), VPS-15 at USD 15 (2 vCPU, 8 GB, 80 GB, 16 TB), VPS-20 at USD 20 (4 vCPU, 8 GB, 160 GB, 16 TB), VPS-22T at USD 22 (1 vCPU, 2 GB, 20 GB, 36 TB), VPS-25 at USD 25 (4 vCPU, 16 GB, 240 GB, 16 TB), VPS-30T at USD 30 (1 vCPU, 2 GB, 20 GB, 48 TB), VPS-35 at USD 35 (8 vCPU, 16 GB, 240 GB, 24 TB) and VPS-50 at USD 50 (16 vCPU, 32 GB, 360 GB, 32 TB). The page states 19 locations and gives the filter range, but the row itself does not name a location. The tracker lists the USD 4.00 plan in Dallas, Phoenix and Toronto on a 1 Gbps port. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: monthly traffic allowance stated per row; the page does not state whether it counts inbound, outbound or both, and publishes no overage rate | metered: yes | free allowance: 8 TB a month on VPS-4 | source: [1]
+- identity: email | detail: not stated
+- interface: rest
+- limits:
+  - volume-quota (binding): 8 TB of traffic against 20 GB of disk and 1 GB of RAM; the VPS-12T row at USD 12 shows the same 1 vCPU and 1 GB with 24 TB, so for a pure egress node the traffic-to-price ratio triples at three times the price [1]
+- limits note: 8 TB of traffic against 20 GB of disk and 1 GB of RAM; the VPS-12T row at USD 12 shows the same 1 vCPU and 1 GB with 24 TB, so for a pure egress node the traffic-to-price ratio triples at three times the price
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: KVM with full root and a control panel; the vendor also sells bare metal and hybrid dedicated. The VPS table is rendered client-side, so a text-only fetch of the page returns placeholder rows and no prices
+- composes with: the VPS-12T, VPS-22T and VPS-30T rows are evaluated providers's cheapest per terabyte: 24 TB for USD 12 and 48 TB for USD 30 with only 1 vCPU and 2 GB, which is exactly the shape of an egress relay that streams bytes and stores almost nothing.
+- reliability: no reliability event recorded
+- notes: This is the one vendor page in evaluated offerings that could not be read by a fetch: automated retrieval returned 200 with 184 KB of HTML whose table rows are all 'Loading..', and the same is true of the regional pages. The table above was read from the rendered DOM in a browser, so the numbers are observed rather than extracted from markup. The 19-location line and the filter ranges are the page's own. verification criteria: which location the USD 4 row actually provisions and what the port speed is, both of which need the order form.
+- extras:
+  - facets.class: price-floor
+  - facets.free_tier_kind: none
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 20
+  - price_on_page: USD 4/month for VPS-4
+  - renewal_note: not published; the vendor's VPS page prices monthly terms only and the order page requires login before it shows a price
+- evidence:
+  - [1] 2026-10-22: rendered table row quoted: 'VPS-4 vCPU: 1', '1GB', '20GB', '8TB', '4 USD', 'BUY'
+  - [1] 2026-10-22: 'VPS-12T vCPU: 1', '1GB', '20GB', '24TB', '12 USD' and 'VPS-30T vCPU: 1', '2GB', '20GB', '48TB', '30 USD', quoted from the same table
+  - [2] 2026-10-22: row quoted from the Cheapest VPSs table: '$4.00 / month', '1 Intel Cores (shared)', '1,024 MB RAM', '20 GB NVMe', '8,192 GB/month bandwidth', '1 Gbps port speed', 'Dallas Texas U.S.A.'
+  - [1] 2026-11-07: the vendor's live VPS table prices the VPS-4 row at 4 USD a month | capture: sha256:3d94987fd414fe523d5dec53e5ae1c3b8749ed9491520ac78c0cb59f4fc4d05e | quote: 4 USD
+  - [1] 2026-11-07: the live table row is as the record states | capture: sha256:3d94987fd414fe523d5dec53e5ae1c3b8749ed9491520ac78c0cb59f4fc4d05e | quote: 4 USD
+- sources:
+  - [1] https://gthost.com/vps
+  - [2] https://vpspricetracker.com/provider/GTHost/vps

@@ -1,0 +1,22 @@
+# fshy: Debrid in full
+
+> A debrid service downloads files from many file hosts through one account, at full speed. Also premium-link generators, usenet and retrieval services.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 2,718 KB, about 735K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-1.txt): 47 records, 1fichier (qualifies) to 夸搜搜 (kuasoso.com) (qualifies); 257 KB, about 69K tokens
+- [Usable part 2 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-2.txt): 42 records, 无忧下 (wuyouxia.net) (qualifies) to debrid.web.id Telegram bot (@debridwebidBot) (qualifies-with-caveat); 261 KB, about 71K tokens
+- [Usable part 3 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-3.txt): 48 records, DebridHub (qualifies-with-caveat) to FindNZB (qualifies-with-caveat); 257 KB, about 69K tokens
+- [Usable part 4 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-4.txt): 50 records, Fireload (qualifies-with-caveat) to NZBGrabit (qualifies-with-caveat); 261 KB, about 70K tokens
+- [Usable part 5 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-5.txt): 53 records, NzbNoob (qualifies-with-caveat) to TempSend (qualifies-with-caveat); 259 KB, about 70K tokens
+- [Usable part 6 of 6](https://fshy.ajam.dev/t/debrid/llms-full-usable-6.txt): 53 records, The Hive (qualifies-with-caveat) to 镜芯 API (api2.wer.plus) (qualifies-with-caveat); 258 KB, about 70K tokens
+- [Trial](https://fshy.ajam.dev/t/debrid/llms-full-trial.txt): 19 records; 95 KB, about 26K tokens
+- [Paid only part 1 of 2](https://fshy.ajam.dev/t/debrid/llms-full-paid-1.txt): 45 records, AnonyNews (paid-only) to NewsgroupDirect (paid-only); 250 KB, about 68K tokens
+- [Paid only part 2 of 2](https://fshy.ajam.dev/t/debrid/llms-full-paid-2.txt): 43 records, Newshosting (paid-only) to Zevera (paid-only); 255 KB, about 69K tokens
+- [Rejected](https://fshy.ajam.dev/t/debrid/llms-full-rejected.txt): 47 records; 263 KB, about 71K tokens
+- [Dead](https://fshy.ajam.dev/t/debrid/llms-full-dead.txt): 61 records; 233 KB, about 63K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/debrid/llms-full-self-hosted.txt): 18 records; 76 KB, about 21K tokens

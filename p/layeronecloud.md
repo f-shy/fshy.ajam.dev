@@ -1,0 +1,82 @@
+# LayerOne
+
+> layeronecloud.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/layeronecloud/ | JSON https://fshy.ajam.dev/api/v1/entity/layeronecloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## LayerOne
+
+- `compute/layerone` | paid-only | evidence documented | binding volume-quota | category cloud VM | tier gc.pico (General Compute, smallest plan)
+- needs card no, phone no, ID no, institution no | verified 2026-10-28T04:25:21.504Z (live) | stale on 2026-11-28
+- url https://layeronecloud.com/pricing/
+- price parsed USD 2.5/mo
+- free tier: no free tier; the cheapest plan, gc.pico, is USD 2.50/mo (USD 0.0034 per hour): 1 vCPU, 512 MB RAM, 20 GB disk, 2.5 Gbps port, 2 TB transfer; new accounts add one month of credit up front and servers then bill by the hour from that credit | unit: none | metered on: wall-clock | read on: 2026-10-28 | source: [1] | note: the monthly figure is a 730-hour equivalent of the hourly rate; billing is against prepaid credit that has no expiry
+- per-object cap: not applicable
+- retention: a server runs and bills hourly from prepaid credit until it is destroyed; stopping it keeps the CPU, RAM and disk reserved and keeps the charge; credit has no expiry | source: [2] | note: behaviour when the credit balance reaches zero: unverified, not stated on the pages captured
+- egress: 2 TB account transfer pool per UTC calendar month, plus each server's plan allowance (2 TB on gc.pico) earned prorated by time provisioned and shared across the account; beyond the pool, USD 3.00 per TB | metered: yes | free allowance: 2 TB per account per UTC calendar month plus the plan allowance (2 TB on gc.pico), prorated by time provisioned | price per TB: USD 3.00 | source: [1]
+- identity: email | detail: registration takes an email address and a password; first name, last name and business name are optional; the form shows no phone or ID document field; deployment needs prepaid credit (a single top-up is USD 3.00 to USD 1,000.00) or a saved card, and payment is accepted by card, wallet (Apple Pay, Google Pay, Cash App Pay, Amazon Pay, Alipay), USDC stablecoin or US bank transfer (ACH); whether a payment or fraud check asks for more is unverified
+- interface: ssh
+- limits:
+  - volume-quota (binding): 2 TB per account per UTC calendar month plus 2 TB for gc.pico, prorated by time provisioned; USD 3.00 per TB beyond [1]
+  - per-ip-shaping: 2.5 Gbps port on General Compute [1]
+- limits note: IPv6 is not available; one region (Tampa, Florida); no object storage and no attachable block volumes
+- binding note: the pooled transfer is the first byte ceiling: 2 TB per account plus the plan allowance, then USD 3.00 per TB
+- interface detail: root SSH credentials are issued when the server is provisioned; a browser VNC console is included; the portal Settings page lists API keys, and the API reference is unverified
+- tooling: SSH to a KVM guest with root; Debian, Ubuntu, Rocky Linux, AlmaLinux, Alpine Linux, FreeBSD, Windows (BYOL) and pfSense templates at checkout
+- composes with: Always-on KVM guest with a dedicated IPv4 and a pooled monthly transfer allowance, payable without a card by USDC stablecoin, Alipay or ACH.
+- reliability: single site: all servers and the optional backups are in Tampa, Florida, and backups live on the same cluster as the guest; a 99.9% SLA is stated; unverified: no incident or status history captured
+- notes: Hourly metering against prepaid credit; the monthly figure on the pricing page is a 730-hour equivalent of the hourly rate. A single region, Tampa, Florida.
+- evidence note: price, shape, location, billing and the registration form are read from first-party pages and quoted; the pricing FAQ and the add-credit page disagree on PayPal, one saying it is accepted for one-time credit purchases and the other saying it is not accepted; any phone or ID check beyond the form is unverified
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_mb: 512
+  - shape.disk_gb: 20
+  - billing_model: hourly-prepaid-credit
+  - term: hourly; the monthly figure is a 730-hour equivalent
+  - monthly_usd: 2.5
+  - hourly_usd: 0.0034
+  - setup_fee_usd: 0
+  - port: 2.5 Gbps
+  - traffic: 2 TB per plan plus a 2 TB account pool per UTC calendar month
+  - location: Tampa, Florida, US
+  - ipv4_included: yes
+  - ipv6_included: no
+  - min_topup_usd: 3.0
+  - payment_methods: Visa; Mastercard; American Express; Discover; Apple Pay; Google Pay; Cash App Pay; Amazon Pay; Alipay; USDC; ACH
+  - signup.url: https://layeronecloud.com/account/register/
+  - signup.form_fields: email address; password (at least 8 characters); first name (optional); last name (optional); business name (optional)
+  - signup.phone_field_on_form: no
+  - signup.id_document_field_on_form: no
+  - signup.source_url: https://layeronecloud.com/account/register/
+  - signup.read_on: 2026-10-28
+  - page_conflict: the pricing FAQ says PayPal is available for one-time credit purchases; the add-credit page says PayPal is not accepted
+- evidence:
+  - [1] 2026-10-28: gc.pico is the smallest plan: 1 vCPU, 512 MB RAM, 20 GB disk, 2.5 Gbps port, 2 TB transfer | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: gc.pico 1 vCPU · 512 MB RAM · 20 GB disk · 2.5 Gbps · 2 TB transfer The lightest bots, probes, and tiny Linux services.
+  - [1] 2026-10-28: gc.pico costs $2.50 a month and $0.0034 an hour | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: 2 TB $2.50/mo $0.0034 / hr
+  - [1] 2026-10-28: new accounts add one month of credit up front and servers then bill hourly from that credit | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: New accounts add one month of credit up front; servers then bill by the hour from that credit.
+  - [1] 2026-10-28: no setup fee and no minimum contract | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: No setup fees and no minimum contract.
+  - [1] 2026-10-28: transfer beyond the pool is USD 3.00 per TB | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: Transfer beyond your pool bills at the same $3.00/TB.
+  - [1] 2026-10-28: the transfer pool is 2 TB per account per UTC calendar month plus each server's plan allowance, prorated and shared | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: Transfer starts with 2 TB included per account each UTC calendar month. Each server then earns its plan's transfer allowance over the month, prorated by time provisioned and shared across every server.
+  - [1] 2026-10-28: every plan states a 99.9% SLA, root access and DDoS protection | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: Every plan includes DDoS, root access, and the 99.9% SLA.
+  - [1] 2026-10-28: the pricing FAQ states that PayPal is available for one-time credit purchases and monthly credit subscriptions | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: PayPal is available for one-time credit purchases and monthly credit subscriptions.
+  - [1] 2026-10-28: the server provisions automatically and root SSH credentials are issued on completion of the order | capture: sha256:633b4d96ba70a7edfaadb74a5daad4eb9b8ed06847d9baeb1bbed01e6d27d57c | quote: Once your order completes, the VPS provisions automatically and you get root SSH credentials immediately.
+  - [2] 2026-10-28: the only region is Tampa, Florida, on KVM with Xeon Scalable CPUs and NVMe storage | capture: sha256:959238bdb2dca4bde8cca206ac13e85d66eb8db136a2e7cc8311cabe41c67ede | quote: Everything deploys in Tampa, Florida, on KVM, on Intel Xeon Scalable CPUs with Enterprise NVMe SSD storage.
+  - [2] 2026-10-28: no IPv6, no load balancer, no object storage and no attachable block volumes | capture: sha256:959238bdb2dca4bde8cca206ac13e85d66eb8db136a2e7cc8311cabe41c67ede | quote: Plan around these current product boundaries: there is no IPv6, no load balancer product, no object storage, and no block storage volumes you can attach and detach.
+  - [2] 2026-10-28: a stopped server keeps its reservation and its charge; only destroying it stops billing | capture: sha256:959238bdb2dca4bde8cca206ac13e85d66eb8db136a2e7cc8311cabe41c67ede | quote: Stopping it does not help, because the CPU, RAM and disk stay reserved for you. Destroying it is what stops the charge.
+  - [2] 2026-10-28: the monthly figure on the pricing page is a 730-hour equivalent of the hourly rate | capture: sha256:959238bdb2dca4bde8cca206ac13e85d66eb8db136a2e7cc8311cabe41c67ede | quote: The monthly figure on the pricing page is a 730 hour equivalent, published so you can compare plans against other hosts.
+  - [2] 2026-10-28: snapshots and backups live on the same cluster as the guest | capture: sha256:959238bdb2dca4bde8cca206ac13e85d66eb8db136a2e7cc8311cabe41c67ede | quote: They live on the same cluster as the guest.
+  - [3] 2026-10-28: the account is identified by an email address alone, with no username | capture: sha256:e7e6ec26f139bb4ba49bbc3894caceb71397474351e10616cc1fbe86c7ac17b7 | quote: There is no username: the account is the email address, so use the one you want receipts, provisioning credentials and support replies to reach.
+  - [3] 2026-10-28: the portal Settings page lists API keys among its entries | capture: sha256:e7e6ec26f139bb4ba49bbc3894caceb71397474351e10616cc1fbe86c7ac17b7 | quote: | Settings | Organization, members, workspaces, single sign-on, API keys, profile, appearance, privacy, password, two-factor, and sessions |
+  - [4] 2026-10-28: the registration form asks for an email address and a password; first name, last name and business name are optional; no phone or ID field is shown | capture: sha256:6f3a0a36943e0b0998ad64f557493bc4ef7d26ba8e8101d64c0e5fa41e7fd26f | quote: Email address Password At least 8 characters First name (optional) Last name (optional) Business name (optional)
+  - [5] 2026-10-28: a single credit top-up is between USD 3.00 and USD 1,000.00 | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: A single top-up is between $3.00 and $1,000.00.
+  - [5] 2026-10-28: credit can be added before deploying, or a card saved, in which case deployment charges one month of the plan before the server is queued | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: You can add that credit before you deploy, or save a usable card: with no available credit, deployment charges one month of credit for the selected plan before the server is queued.
+  - [5] 2026-10-28: credit can be paid by card, wallets including Alipay, or US bank transfer (ACH) | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: Cards and wallets: Visa, Mastercard, American Express, Discover, Apple Pay, Google Pay, Cash App Pay, Amazon Pay, and Alipay. US bank transfer (ACH) is available for credit top-ups.
+  - [5] 2026-10-28: USDC stablecoin is accepted on Ethereum, Solana, Polygon, Base and Tempo | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: - USDC on Ethereum, Solana, Polygon, Base, and Tempo
+  - [5] 2026-10-28: the add-credit page states PayPal is not accepted, contradicting the pricing FAQ | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: We do not accept PayPal, and crypto checkout settles the three stablecoins above and nothing else.
+  - [5] 2026-10-28: credit has no expiry and there is no monthly minimum | capture: sha256:149509489dd943e18d1054017be573f6e0d4f31ad686a8b5535cf62c11b1e541 | quote: There is no expiry on credit and no monthly minimum.
+- sources:
+  - [1] https://layeronecloud.com/pricing/
+  - [2] https://layeronecloud.com/docs/getting-started/platform-overview/
+  - [3] https://layeronecloud.com/docs/getting-started/create-an-account/
+  - [4] https://layeronecloud.com/account/register/
+  - [5] https://layeronecloud.com/docs/getting-started/add-credit/

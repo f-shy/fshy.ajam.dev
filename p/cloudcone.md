@@ -1,0 +1,312 @@
+# CloudCone
+
+> cloudcone.com | Compute; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/cloudcone/ | JSON https://fshy.ajam.dev/api/v1/entity/cloudcone.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## CloudCone (SSD VPS 1)
+
+- `compute/cloudcone-ssd-vps-1` | qualifies | evidence documented | binding volume-quota | category VPS | tier SSD VPS 1
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:42:09.297Z (live) | stale on 2026-12-07
+- url https://cloudcone.com/vps/
+- price parsed USD 2.33/mo
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-ssd-vps-1` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-ssd-vps-1` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-1` says qualifies
+- disagrees on verdict: `compute/cloudcone-ssd-vps-1` says qualifies, `compute/cloudcone-windows` says paid-only
+- free tier: no free tier; SSD VPS 1 is USD 2.33 a month billed USD 28 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the VPS persists while the annual term is paid; the plan page states no deletion clock | source: [1] | note: annual billing is the headline; whether a monthly cycle exists on this plan was not shown
+- egress: 4 TB a month at 1 Gb/s | metered: yes | free allowance: 4 TB a month | source: [1]
+- identity: card | detail: a card on the billing profile, verified with a USD 1 authorisation: 'When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.' Charged or verified: the card is verified by that refunded fee, then the plan is charged in full: 'If you choose a VPS plan that is billed yearly, semi-annually, quarterly or monthly, the full cost will be charged upfront at the time of deployment, as listed on the order page.' Prepaid and virtual cards: not published on the help-centre articles or https://cloudcone.com/policies/terms/. Phone: not published; the sign-up page https://app.cloudcone.com/signup and the terms name no phone field. Payment instruments: PayPal, AliPay, a card on file and promotional codes, and all major credit and debit cards.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 4 TB a month of transfer [1]
+  - per-object-cap: 30 GB of SSD on RAID-10 [1]
+  - per-ip-shaping: 1 Gb/s port [1]
+- binding note: 4 TB a month is generous for a personal tunnel and is the only metered thing on the plan; the disk and the 1 GiB of RAM do not bind.
+- interface detail: root SSH on a KVM VPS with 1 IPv4 and 3 IPv6 addresses
+- tooling: any SSH client; the deploy endpoint is a per-plan app URL
+- composes with: the cheapest fully dual-stack VPS with its own IPv4 and no port tricks, so a WireGuard endpoint needs no vendor cooperation
+- reliability: no reliability event recorded
+- notes: USD 28 a year divided by 12 is USD 2.33 a month, which is the vendor's own figure, and USD 28 is the money out of pocket. This is above the USD 1 line and is recorded because it is the cheapest verified machine that needs no shared address and no port forwarding at all. A WireGuard listener on UDP 51820 works on any port here because the IPv4 is dedicated. Payment: the USD 1 authorisation is real and first-party, but it is a card-verification fee placed when a card is added, not a signup deposit, and it is refunded automatically within 7 days rather than on request. The money actually spent on the plan is non-refundable. Whether the signup flow itself requires a card was not established: the account creation form was not opened, and the help-centre articles describe the billing profile after an account exists. RENEWAL PASS 2026-10-24: the annual figure is the standing product price, not a promo, so the renewal is the same USD 28 absent a notified increase. the provider do permit that increase at the start of a renewal term on 45 days' notice, and the agreement auto-renews for the same term unless cancelled at least one day before expiry. The two SSD VPS records now carry the same renewal treatment; the SSD VPS 1 record previously left renewal_usd null while SSD VPS 2 carried it, although both are priced the same way on the same page.
+- evidence note: price, shape, bandwidth and address count quoted from the plan page read; the payment rails, the debit acceptance and the USD 1 authorisation hold are quoted from three first-party help-centre articles read. The account creation form was not read, so whether the signup itself demands a card is unverified.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 1
+  - shape.disk_gib: 30
+  - billing_model: annual
+  - term: annual prepay
+  - m10h_usd: 2.33
+  - m24h_usd: 2.33
+  - price_arithmetic: USD 28 a year divided by 12 = USD 2.33 a month, annual prepay; a VPS bills whether it runs, so 10 h/day and 24/7 are the same bill
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all; the IPv4 is dedicated
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - ipv6_prefix: 3 IPv6 addresses, not a stated routed prefix; whether one of them is a /64 is not stated on the plan page
+  - renewal_usd: 2.33
+  - renewal_note: the page prices the plan as 'Billed $28 per year', a standing annual rate rather than a discount off a higher monthly list, so the same USD 2.33 is the recurring charge. It is not locked: the provider let CloudCone raise the fee at the start of any renewal term on 45 days' notice, and silence is deemed acceptance.
+  - payment_rails: credit and debit cards, PayPal, AliPay; adding a card places an authorization fee of usually about USD 1, automatically refunded within 7 days
+  - card_hold: USD 1 authorisation when a card is added to the billing profile, refunded automatically within 7 days
+  - minimum_topup: not published on any page read
+  - renewal_evidence: cloudcone.com/policies/terms/ fee-increase and auto-renewal clauses
+  - price_risk: bounded only by a 45-day notice; the renewal term auto-renews at the same length unless cancelled at least 1 day before expiry
+  - price_on_page: USD 28/yr (USD 2.33/mo)
+  - price_in_cart: USD 28/yr for Los Angeles DC4; St. Louis DC1 USD 26/yr is disabled (Out of Stock)
+  - cart_works: yes
+  - cart_url: https://app.cloudcone.com/vps/516/create?token=ssd-vps-1
+  - signup_url: https://app.cloudcone.com/vps/516/create?token=ssd-vps-1
+  - cart_evidence: create page renders 'SSD-VPS-1 ... Datacenter Los Angeles, CA - DC4, $28/yr ... St. Louis, MO - DC1, $26/yr (Out of Stock)' and a period line 'Every 12 months'
+  - needs_account_first: yes
+  - payment_methods: credit and debit cards, PayPal, AliPay, card on file and promotional codes; adding a card places a USD 1 authorization fee that is refunded; no other hold or deposit is published
+- evidence:
+  - [1] 2026-10-24: quoted: 'SSD VPS 1 $2.33 /MO Billed $28 per year, USD' with '2 vCPU Cores', '1 GB Dedicated RAM', '30 GB Pure SSD Disk', '4 TB/Mo Bandwidth at 1 Gb/s', '1x IPv4 and 3x IPv6', 'Virtualization: KVM'
+  - [1] 2026-10-24: quoted: 'Datacenters in USA' on every plan on the page, so the endpoint is US-only at this tier
+  - [2] 2026-10-24: the authorisation hold, quoted: 'When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.'
+  - [3] 2026-10-24: debit acceptance, quoted: 'As parts of our payment methods, we support all major credit and debit cards available to date.' and the hold restated: 'Once we verify the card via a $1 authorization fee, the card will be added and ready for future payments'
+  - [4] 2026-10-24: the rails, quoted: 'Add funds to your account by using 4 methods: PayPal, AliPay, Card on file or Promotional Codes.' with sections for PayPal, AliPay, Card on file and Promotional codes; no minimum top-up amount is stated on the article
+  - [5] 2026-10-24: the charge itself is not refundable, quoted: 'All payments for VPS and promotional servers are non-refundable', with a refund in cloud credits only for 'a verified technical issue on our side ... within the first 7 days of deployment'
+  - [6] 2026-10-24: quoted: 'CloudCone may increase its fees for services effective the first day of a renewal term by giving notice to the customer of the new fees at least forty-five (45) days prior to the beginning of the renewal term, and if the customer does not give a notice of non-renewal as provided in Section 2 above, the customer shall be deemed to have accepted the new fee for that renewal term and any subsequent renewal terms'
+  - [6] 2026-10-24: quoted: 'Upon expiration of the initial term, this agreement shall automatically renew for the same length as the initial term unless CloudCone or the customer provides the other with written notice of non-renewal at least one (1) days prior to the expiration of the initial term'
+  - [1] 2026-10-24: quoted: 'SSD VPS 1 $2.33 /MO Billed $28 per year, USD' and 'SSD VPS 2 $3.83 /MO Billed $46 per year, USD'; neither card carries a strike-through, a promo code or a renewal rate
+  - [5] 2026-11-02: the plan is charged in full at deploy, while the card itself is only verified by the authorization fee | capture: sha256:b0993bba7deaae6338de5b59a0a42951a4077c7d3e6d5e4599b777722df42870 | quote: the full cost will be charged upfront at the time of deployment
+  - [2] 2026-11-02: the USD 1 fee verifies the card and is refunded, so the card is verified rather than charged | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+  - [3] 2026-11-02: the fee is the card verification step, taken when a card is added | capture: sha256:a1fae87cec01273d70ca9b437c0b2024c3736e0d1ef291e2372231838447a7e5 | quote: Once we verify the card via a $1 authorization fee, the card will be added and ready for future payments
+  - [4] 2026-11-02: a card is not the only funding route: PayPal, AliPay and a promotional code need none | capture: sha256:4c551ce96ffd221f65849d15bcb9c73122d5d66d5c705fc878bfc50e71d28825 | quote: Add funds to your account by using 4 methods: PayPal, AliPay, Card on file or Promotional Codes.
+  - [2] 2026-11-02: the card hold is still about USD 1 and still a verification | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: an authorization fee of usually about $1 USD, will be placed against your card
+  - [2] 2026-11-06: adding a card places a USD 1 authorisation that is refunded within 7 days | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+  - [5] 2026-11-06: the plan is charged in full at deploy, after the card is verified | capture: sha256:b0993bba7deaae6338de5b59a0a42951a4077c7d3e6d5e4599b777722df42870 | quote: If you choose a VPS plan that is billed yearly, semi-annually, quarterly or monthly, the full cost will be charged upfront at the time of deployment, as listed on the order page.
+  - [4] 2026-11-06: the funding routes are PayPal, AliPay, a card on file and promotional codes | capture: sha256:4c551ce96ffd221f65849d15bcb9c73122d5d66d5c705fc878bfc50e71d28825 | quote: Add funds to your account by using 4 methods: PayPal, AliPay, Card on file or Promotional Codes.
+  - [2] 2026-11-06: the card is verified by a refunded USD 1 authorisation | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+- sources:
+  - [1] https://cloudcone.com/vps/
+  - [2] https://help.cloudcone.com/en-us/article/i-was-charged-when-adding-a-card-to-the-system-99n9q7/
+  - [3] https://help.cloudcone.com/en-us/article/how-to-link-a-credit-or-debit-card-to-my-account-6khv9z/
+  - [4] https://help.cloudcone.com/en-us/article/how-to-add-funds-to-your-account-1n6vknv/
+  - [5] https://help.cloudcone.com/en-us/article/how-billing-works-for-promotional-plans-and-virtual-private-servers-19bj5lr/
+  - [6] https://cloudcone.com/policies/terms/
+
+## CloudCone (SSD VPS 2)
+
+- `compute/cloudcone-ssd-vps-2` | qualifies | evidence documented | binding volume-quota | category VPS | tier SSD VPS 2
+- needs card yes, phone no, ID no, institution no | verified 2026-11-06T17:42:09.298Z (live) | stale on 2026-12-07
+- url https://cloudcone.com/vps/
+- price parsed USD 3.83/mo
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-ssd-vps-2` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-ssd-vps-2` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-2` says qualifies
+- disagrees on verdict: `compute/cloudcone-ssd-vps-2` says qualifies, `compute/cloudcone-windows` says paid-only
+- free tier: no free tier; the smallest plan is 'SSD VPS 1' at USD 2.33 a month billed USD 28 a year | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; billed annually on this page
+- egress: 7 TB/Mo Bandwidth at 1 Gb/s | metered: yes | free allowance: 7 TB | source: [1]
+- identity: card | detail: a card on the billing profile, verified with a USD 1 authorisation: 'When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.' Charged or verified: the card is verified by that refunded fee, then the plan is charged in full: 'If you choose a VPS plan that is billed yearly, semi-annually, quarterly or monthly, the full cost will be charged upfront at the time of deployment, as listed on the order page.' Prepaid and virtual cards: not published on the help-centre articles or https://cloudcone.com/policies/terms/. Phone: not published; the sign-up page https://app.cloudcone.com/signup and the terms name no phone field. Payment instruments: PayPal, AliPay, a card on file and promotional codes, and all major credit and debit cards.
+- interface: ssh
+- limits:
+  - volume-quota (binding): 7 TB a month of bandwidth [1]
+- binding note: 2 GiB of RAM fails before the 7 TB does on almost any workload, but as a published ceiling the bandwidth quota is the number the vendor enforces.
+- interface detail: root SSH on KVM, with the vendor's panel for rebuild and console
+- tooling: any SSH client
+- composes with: the cheapest way to buy four vCPU cores; useful for a compile or crawl worker where RAM is secondary
+- reliability: no reliability event recorded
+- notes: Four vCPU for USD 3.83 a month is the best core count under the line, but only 2 GiB of RAM, so it ranks below every 4 GiB row on evaluated offerings's RAM-first metric. The displayed monthly figure is the annual total divided by twelve, which is the vendor's own arithmetic. RENEWAL PASS 2026-10-24: the annual figure is the standing product price, not a promo, so the renewal is the same USD 46 absent a notified increase. the provider do permit that increase at the start of a renewal term on 45 days' notice, and the agreement auto-renews for the same term unless cancelled at least one day before expiry. The two SSD VPS records now carry the same renewal treatment; the SSD VPS 1 record previously left renewal_usd null while SSD VPS 2 carried it, although both are priced the same way on the same page.
+- evidence note: shape, price and billing period are quoted from the plan cards read; payment and renewal are not.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 2
+  - shape.disk_gib: 60
+  - billing_model: annual prepay
+  - term: 12 months
+  - m10h_usd: 3.83
+  - m24h_usd: 3.83
+  - price_arithmetic: USD 46.00 per year / 12 = USD 3.83 per month; one payment of USD 46.00
+  - out_of_pocket_usd: 46.0
+  - renewal_usd: 3.83
+  - renewal_note: the page prices the plan as 'Billed $46 per year', a standing annual rate rather than a discount off a higher monthly list, so the same USD 3.83 is the recurring charge. It is not locked: the provider let CloudCone raise the fee at the start of any renewal term on 45 days' notice, and silence is deemed acceptance.
+  - promo: no
+  - port_mbps: 1000
+  - ipv4_included: yes
+  - ipv6: 3 addresses
+  - free_tier_kind: none
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: all
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - renewal_evidence: cloudcone.com/policies/terms/ fee-increase and auto-renewal clauses
+  - price_risk: bounded only by a 45-day notice; the renewal term auto-renews at the same length unless cancelled at least 1 day before expiry
+  - card_hold: USD 1 authorisation when a card is added to the billing profile, refunded automatically within 7 days
+  - payment_rails: credit and debit cards, PayPal, AliPay, card on file and promotional codes; adding a card places a refunded authorization fee
+  - payment_methods: credit and debit cards, PayPal, AliPay, card on file and promotional codes; adding a card places a USD 1 authorization fee that is refunded; no other hold or deposit is published
+- evidence:
+  - [1] 2026-10-24: quoted: 'SSD VPS 2 $3.83 /MO Billed $46 per year, USD', '4 vCPU Cores', '2 GB Dedicated RAM', '60 GB Pure SSD Disk', '7 TB/Mo Bandwidth at 1 Gb/s', '1x IPv4 and 3x IPv6'
+  - [1] 2026-10-24: quoted for the next rung: 'SSD VPS 3 $5.75 /MO Billed $69 per year'
+  - [2] 2026-10-24: quoted: 'CloudCone may increase its fees for services effective the first day of a renewal term by giving notice to the customer of the new fees at least forty-five (45) days prior to the beginning of the renewal term, and if the customer does not give a notice of non-renewal as provided in Section 2 above, the customer shall be deemed to have accepted the new fee for that renewal term and any subsequent renewal terms'
+  - [2] 2026-10-24: quoted: 'Upon expiration of the initial term, this agreement shall automatically renew for the same length as the initial term unless CloudCone or the customer provides the other with written notice of non-renewal at least one (1) days prior to the expiration of the initial term'
+  - [1] 2026-10-24: quoted: 'SSD VPS 1 $2.33 /MO Billed $28 per year, USD' and 'SSD VPS 2 $3.83 /MO Billed $46 per year, USD'; neither card carries a strike-through, a promo code or a renewal rate
+  - [3] 2026-11-02: the card is verified by a refunded USD 1 authorization fee | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+  - [3] 2026-11-02: the hold is about USD 1 and is refunded within 7 days | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: an authorization fee of usually about $1 USD, will be placed against your card
+  - [4] 2026-11-02: the rails are PayPal, AliPay and a card on file | capture: sha256:4c551ce96ffd221f65849d15bcb9c73122d5d66d5c705fc878bfc50e71d28825 | quote: Add funds to your account by using 4 methods: PayPal, AliPay, Card on file or Promotional Codes.
+  - [5] 2026-11-02: the rails are unchanged on the plan page's own FAQ | capture: sha256:91323e1cf4e3f92696dc4abe606634cc58a8c40587b4608e5a2abd7dc7124f1b | quote: We currently support all major credit and debit cards, plus PayPal and Alipay.
+  - [3] 2026-11-06: adding a card places a USD 1 authorisation that is refunded within 7 days | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+  - [6] 2026-11-06: the plan is charged in full at deploy, after the card is verified | capture: sha256:b0993bba7deaae6338de5b59a0a42951a4077c7d3e6d5e4599b777722df42870 | quote: If you choose a VPS plan that is billed yearly, semi-annually, quarterly or monthly, the full cost will be charged upfront at the time of deployment, as listed on the order page.
+  - [4] 2026-11-06: the funding routes are PayPal, AliPay, a card on file and promotional codes | capture: sha256:4c551ce96ffd221f65849d15bcb9c73122d5d66d5c705fc878bfc50e71d28825 | quote: Add funds to your account by using 4 methods: PayPal, AliPay, Card on file or Promotional Codes.
+  - [3] 2026-11-06: the card is verified by a refunded USD 1 authorisation | capture: sha256:f9057f8df7e929feb0dbdb036129487cd1c1792433f03ef9890531ad531a943e | quote: When you add a debit/credit card under your billing profile, an authorization fee of usually about $1 USD, will be placed against your card. This fee is placed in order to verify the card being used. This fee will be automatically refunded within 7 days.
+- sources:
+  - [1] https://cloudcone.com/vps/
+  - [2] https://cloudcone.com/policies/terms/
+  - [3] https://help.cloudcone.com/en-us/article/i-was-charged-when-adding-a-card-to-the-system-99n9q7/
+  - [4] https://help.cloudcone.com/en-us/article/how-to-add-funds-to-your-account-1n6vknv/
+  - [5] https://hello.cloudcone.com/ssd-vps-plans/
+  - [6] https://help.cloudcone.com/en-us/article/how-billing-works-for-promotional-plans-and-virtual-private-servers-19bj5lr/
+
+## CloudCone (compute/cloudcone)
+
+- `compute/cloudcone` | qualifies-with-caveat | evidence reported | binding none | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-11-04T11:01:15.545Z (live) | stale on 2026-11-19
+- url https://app.cloudcone.com/
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-black-friday` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-black-friday` says dead
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-ssd-vps-1` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-ssd-vps-1` says qualifies
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-ssd-vps-2` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-ssd-vps-2` says qualifies
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-windows` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-windows` says paid-only
+- free tier: Still trading, but the reason to record it is a data-loss incident rather than a price: several Los Angeles host nodes were compromised through a Virtualizor vulnerability, the boot sectors of affected guest disks were overwritten with a ransom note, and the vendor states that the data on those disks cannot be recovered. The vendor's own wording, reposted in the forum: 攻击者损坏了与VPS相关的磁盘，磁盘上的数据无法恢复. | unit: GiB | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: The paid SSD VPS plans include 4 TB (SSD VPS 1) to 25 TB (SSD VPS 6) of bandwidth a month at 1 Gb/s; no overage price is published on the plan page. | metered: no | free allowance: none free; 4 TB/Mo at 1 Gb/s included in the paid SSD VPS 1 plan | price per TB: not published: the plan page states no overage price | source: [1]
+- identity: institution | detail: The signup route was not read; the record is about the incident, not the account door.
+- interface: rest, ssh
+- limits note: What fails is durability: a hypervisor-level compromise destroyed guest disks across several nodes and the vendor confirmed non-recovery, so a snapshot kept on the same provider is not a backup.
+- binding note: the same as limits note
+- interface detail: REST API and SSH, per the CloudCone API page: "CloudCone REST API allows you to access most of the features available at app.cloudcone.com", and per the VPS page: "Use the recovery mode to gain direct access via SSH."
+- tooling: language bindings, per the CloudCone API page: "We have language bindings in some programming languages."
+- composes with: This is the reason any free or cheap host among evaluated providers needs a second copy elsewhere: the composition that survives an incident is two providers plus an object store, not one provider plus its own snapshots.
+- reliability: no reliability event recorded
+- notes: The only existing record is storage/cloudcone-storage-vps, which covers the storage line at daniao.org and says nothing about the Los Angeles VPS product or this incident, so this entry adds the compute side rather than repeating it. The threads read do not carry a post date in the extracted snippet, so the incident date is not stated here rather than guessed; the read date is 2026-10-22 and the thread identifiers run from 600738 to 606125. The one recorded is the better-evidenced.
+- extras:
+  - facets.class: enforcement
+  - facets.free_tier_kind: none
+  - refund: none: prepaid is non-refundable including annual
+- evidence:
+  - [2] 2026-10-22: the vendor letter is reposted: 我们使用的平台（Virtualizor）存在一个漏洞，攻击者获得了...节点的访问权限...磁盘上的数据无法恢复, quoted from the snippet
+  - [3] 2026-10-22: a write-up states the boot sector of affected virtual machines was overwritten with a ransom note and that recovery proceeded by inspecting raw block devices and rebuilding partition tables
+  - [4] 2026-10-22: a summary states CloudCone subsequently confirmed 数据已遭不可逆损毁 (the data was irreversibly destroyed) and that the ransom demand recovered nothing, quoted
+  - [5] 2026-10-22: SSD VPS 1 at '$2.33 /MO' with 'Billed $28 per year', 2 vCPU, 1 GB dedicated RAM, 30 GB SSD, 4 TB/Mo at 1 Gb/s, quoted from the plan card
+  - [5] 2026-10-22: SSD VPS 2 at USD 46 per year with 4 vCPU, 2 GB, 60 GB SSD, 7 TB/Mo; SSD VPS 3 at USD 69 per year with 6 vCPU, 3 GB, 90 GB, 8.5 TB
+  - [5] 2026-11-03: SSD VPS 1 includes 4 TB a month of bandwidth | capture: sha256:62c85fbc5616ce5c053be79e002d0b9f36c8bcca10efed4fa1e853ca48821cfd | quote: - 4 TB/Mo Bandwidth at 1 Gb/s
+  - [6] 2026-11-03: a REST API exists | capture: sha256:c7fc13145930a45f94952d5d5d2a620c86a4c49c977ab6a3da18d6fa33c0cb10 | quote: CloudCone REST API allows you to access most of the features available at app.cloudcone.com
+  - [5] 2026-11-03: the VPS plans give SSH access (recovery mode) and a dashboard | capture: sha256:62c85fbc5616ce5c053be79e002d0b9f36c8bcca10efed4fa1e853ca48821cfd | quote: Lost access to your server, or it doesn't boot up as usual due to some unknown reason? Use the recovery mode to gain direct access via SSH.
+  - [6] 2026-11-04: the API page names a REST API | capture: sha256:c7fc13145930a45f94952d5d5d2a620c86a4c49c977ab6a3da18d6fa33c0cb10 | quote: CloudCone REST API allows you to access most of the features available at app.cloudcone.com
+  - [6] 2026-11-04: the API page names language bindings | capture: sha256:c7fc13145930a45f94952d5d5d2a620c86a4c49c977ab6a3da18d6fa33c0cb10 | quote: We have language bindings in some programming languages.
+  - [5] 2026-11-04: the VPS page names SSH access in recovery mode | capture: sha256:62c85fbc5616ce5c053be79e002d0b9f36c8bcca10efed4fa1e853ca48821cfd | quote: Use the recovery mode to gain direct access via SSH.
+- sources:
+  - [1] https://app.cloudcone.com/
+  - [2] https://www.nodeseek.com/post-604538-1
+  - [3] https://www.nodeseek.com/post-601737-1
+  - [4] https://www.nodeseek.com/post-602525-1
+  - [5] https://cloudcone.com/vps/
+  - [6] https://api.cloudcone.com/
+
+## CloudCone, WC2-3 (Windows Cloud Compute)
+
+- `compute/cloudcone-windows` | paid-only | evidence documented | binding volume-quota | category Windows VPS | tier WC2-3 (Windows Cloud Compute)
+- needs card yes, phone no, ID no, institution no | verified 2026-10-26T11:33:32.317Z (live) | stale on 2026-11-26
+- url https://cloudcone.com/windows-cloud-servers/
+- price parsed USD 62.75/mo
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-windows` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-windows` says paid-only
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-windows` says paid-only
+- disagrees on verdict: `compute/cloudcone-ssd-vps-1` says qualifies, `compute/cloudcone-windows` says paid-only
+- disagrees on verdict: `compute/cloudcone-ssd-vps-2` says qualifies, `compute/cloudcone-windows` says paid-only
+- free tier: no free tier; WC2-3 is USD 62.75/month, and the Windows Cloud Compute range starts at WC2-1 | unit: none | metered on: none | read on: 2026-10-26 | source: [1]
+- per-object cap: not applicable
+- retention: the disk persists while the plan is paid; the page states no deletion clock
+- egress: 8 TB of bandwidth a month on a 1 Gbps network; no overage price or post-allowance throttle is stated | metered: yes | free allowance: 8 TB per month | source: [1]
+- identity: card | detail: an account and a payment method at order; the order flow is account-gated and its instrument list was not read
+- interface: unknown
+- limits:
+  - volume-quota (binding): 8 TB of bandwidth a month [1]
+  - per-ip-shaping: 1 Gbps network [1]
+- limits note: the page states 'Full RDP administrator access' and does not mention BYOL or a trial licence; no sentence says 'licence included'
+- binding note: 8 TB a month is the first byte ceiling; the 1 Gbps port is second.
+- interface detail: RDP with full administrator access, stated on the page; no public API is documented for this product
+- tooling: any RDP client; the provider's control panel
+- composes with: 4 vCPU and 16 GiB for USD 62.75 a month, which is the third-cheapest qualifying row when the licence is treated as supplied
+- reliability: no reliability event observed; the page states RAID-10 SSD and a fully redundant network.
+- notes: The page sells a Windows product with RDP and administrator access, so the operating system is part of the SKU; the word licence does not appear. The row is ranked below Contabo and OVH, whose licence lines are printed, and above STRATO on the monthly rate.
+- evidence note: the shape, the price and the RDP statement are printed on the Windows page read. The licence is supplied as part of a product called Windows Cloud Compute, but the page does not print a licence sentence and does not state BYOL.
+- extras:
+  - shape.vcpu: 4
+  - shape.ram_gib: 16
+  - shape.disk_gib: 240
+  - billing_model: monthly
+  - term: monthly
+  - monthly_usd: 62.75
+  - first_month_usd: 62.75
+  - setup_fee_usd: 0.0
+  - renewal_usd: 62.75
+  - windows_licence: supplied as part of the Windows Cloud Compute SKU; no licence sentence on the page
+  - ipv4_included: yes
+  - ipv6_included: yes
+  - port_mbps: 1000
+  - traffic: 8 TB/month
+  - stock: listed; no stock counter
+  - cart_url: https://cloudcone.com/windows-cloud-servers/
+- evidence:
+  - [1] 2026-10-26: quoted: 'WC2-3 ... $ 62.75 ... Per Month, USD ... 4 vCPU Cores ... 16 GB RAM ... 240 GB RAID-10 SSD ... 1 x IPv4 + 3 x IPv6 ... 8 TB Bandwidth ... 1 GBps Network'
+  - [1] 2026-10-26: quoted: 'Choose our Windows Cloud Compute (WC2) & easily connect with RDP' and 'Full RDP administrator access giving you complete freedom to manage your server'
+- sources:
+  - [1] https://cloudcone.com/windows-cloud-servers/
+
+## CloudCone (black friday)
+
+- `compute/cloudcone-black-friday` | dead | evidence documented | binding volume-quota | category VPS | tier none; the URL now serves a 2021 blog post
+- needs card yes, phone no, ID no, institution no | verified 2026-10-24T06:20:13.000Z (live) | stale on 2026-11-24
+- url https://cloudcone.com/black-friday/
+- disagrees on identity_kind: `compute/cloudcone` says institution, `compute/cloudcone-black-friday` says card
+- disagrees on verdict: `compute/cloudcone` says qualifies-with-caveat, `compute/cloudcone-black-friday` says dead
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-1` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-ssd-vps-2` says qualifies
+- disagrees on verdict: `compute/cloudcone-black-friday` says dead, `compute/cloudcone-windows` says paid-only
+- free tier: no offer: the URL resolves to an editorial post dated 2021-11-24, not a sale page | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable; there is no sale page
+- egress: not applicable; no offer is served at this URL | metered: no
+- identity: card | detail: not applicable; no offer is reachable at this URL
+- interface: ssh
+- binding note: There is no cart. Every order link on the 2021 post points at hello.cloudcone.com or app.cloudcone.com paths that 404.
+- interface detail: not applicable
+- tooling: the same as interface detail
+- composes with: Nothing to chain: the URL is a blog post about a sale that ended in 2021.
+- reliability: no reliability event recorded
+- notes: A fossil with no cart at all. /black-friday/ is a 2021 buyer's guide, and the two destinations it promotes - the hourly deals page at app.cloudcone.com/blackfriday and the welcome page at hello.cloudcone.com - are a 404 served with HTTP 200 and a plain 404 respectively. Note the HTTP 200 trap: app.cloudcone.com/blackfriday answers 200 and the bytes are a 404 page. The current VPS price is USD 28 a year, so a 2021 seasonal price would have been worth finding; it is not there.
+- evidence note: Both the landing URL and the app path were read, and both are quoted.
+- extras:
+  - billing_model: none
+  - term: none
+  - price_arithmetic: no live price on this URL
+  - free_tier_kind: none
+  - session_cap.restart_required: no
+  - session_cap.note: not applicable
+  - sale_page_year: 2021
+- evidence:
+  - [1] 2026-10-24: redirects (x-web-final-url) to '/black-friday-2021-cloudcone-buyers-guide-hourly-plans-insane-discounts-vps-scalable-clouds-scalable-dedicated-servers-and-so-much-more/'; the page is dated 'November 24, 2021' and reads 'Black Friday 2021 is coming up!'
+  - [2] 2026-10-24: HTTP 200 with a 7,168-byte body titled 'Stack Error - 404 Not found! - CLOUDCONE'; the hourly-deals page the 2021 post links is gone
+  - [3] 2026-10-24: HTTP 404
+  - [4] 2026-10-24: the live product page sells from '$2.33 /MO Billed $28 per year', so CloudCone trades but no seasonal price is offered
+  - [2] 2026-10-24: HTTP 200 with a 7,168-byte body titled 'Stack Error - 404 Not found! — CLOUDCONE'; the hourly-deals page the 2021 post links is gone
+- sources:
+  - [1] https://cloudcone.com/black-friday/
+  - [2] https://app.cloudcone.com/blackfriday
+  - [3] https://hello.cloudcone.com/welcome-to-the-black-friday-mega-sale-2021/
+  - [4] https://cloudcone.com/vps/

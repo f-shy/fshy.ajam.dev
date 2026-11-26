@@ -1,0 +1,1214 @@
+# fshy: Email, usable
+
+> Sending, receiving, forwarding and inbox APIs.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/email/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Amazon SES
+
+- `email/amazon-ses` | qualifies-with-caveat | evidence documented | binding write-gated | category transactional sender and relay
+- needs card yes, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://aws.amazon.com/ses/pricing/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: 3,000 message charges/month for the first 12 months, or $200 of AWS credits over 6 months for new accounts | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: card | detail: an AWS account with a payment method
+- interface: rest
+- limits:
+  - request-rate: 3,000 message charges per month for 12 months from first use [1]
+  - write-gated (binding): the account starts in the sandbox and sends only to verified identities until a quota-increase request is approved [1]
+- binding note: the sandbox blocks arbitrary recipients from the first send; the 3,000/month is second.
+- interface detail: https://email.REGION.amazonaws.com, and the SES SMTP endpoint
+- tooling: aws-cli, any SMTP client
+- composes with: the cheapest real bulk rate in the topic, USD 0.10 per 1,000, behind a sandbox that every new account starts in. It composes with Plunk self-host as the paid chain.
+- reliability: the sandbox is a write gate on every new account and the quota increase is a support request
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Receive up to 3,000 message charges for free each month for the first 12 months after you start using SES', and the sandbox restriction
+  - [1] 2026-10-22: 'Starting July 15, 2025, new AWS customers will receive up to $200 in AWS Free Tier credits' with a 6-month free plan
+- sources:
+  - [1] https://aws.amazon.com/ses/faqs/
+  - [2] https://aws.amazon.com/ses/pricing/
+
+## Brevo
+
+- `email/brevo` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone unknown, ID no, institution no | verified 2026-10-30T09:26:49.193Z (live) | stale on 2026-11-30
+- url https://www.brevo.com/pricing/ | page https://fshy.ajam.dev/p/brevo.md
+- free tier: 300 email sends per day with no time limit; 100,000 contacts stored | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: Every email sent from the Free plan carries the Sent with Brevo sticker; up to 2,000 unique contacts can enter active automations; one user. Once the 300 daily sends are used, no campaign can be scheduled for the next day. The Free plan's limits page names no restriction on recipients.
+- per-object cap: not applicable: a send count rather than an object
+- retention: unused sends do not roll over | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: Signup asks for an email and a password, or a Google or Apple sign-in, with no card; the account then verifies the email and asks for basic business information. Whether a mobile phone number with an SMS code is also required is unverified: behind a sign-up; users on the vendor's community forum report a phone number and SMS code step during registration. A sender on a free domain such as gmail.com cannot be authenticated, and the vendor states that mail from a free address is rejected or filtered to spam, so delivery needs a domain the sender controls.
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 300 sends per day, resetting daily, with no carry-over [2]
+  - request-rate (binding): a campaign to more than 300 recipients delivers to 300 that day and needs a manual requeue, so the daily send counter is the campaign's limit too [2]
+  - write-gated: transactional sending over SMTP or the API needs a separate activation by the vendor, requested by a support ticket from the account, before the first send; the time it takes is unverified: behind a sign-up [3]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 100,000 contacts stored on the free plan. The campaign entry is a rate: the same 300-a-day counter is what a campaign meets, so it stays request-rate
+- binding note: 300/day. The campaign path is the trap: a 1,000-contact list takes four days.
+- interface detail: the SMTP relay and the transactional API; SMTP is the documented path
+- tooling: any SMTP client, or the Brevo API
+- composes with: the highest card-free daily cap found: 300/day, which is three times Resend's. It is the outbound half of the inbound-plus-outbound chain and its scarce link is the day.
+- reliability: once the daily limit is hit, up to 1,000 transactional emails are held in a retry queue and anything beyond that is not delivered
+- notes: The help page states the campaign behaviour explicitly, which is why the 300/day figure is not the whole answer for a marketing send.
+- evidence note: no message was sent, so no delivery is proved. The submission path was probed: smtp-relay.brevo.com:587 answered 250, STARTTLS completed against the system trust store, and AUTH LOGIN returned 334
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [2] 2026-10-22: 'The Free plan includes 300 email sends per day', unused sends do not roll over, and a campaign above 300 recipients needs the Requeue option on successive days
+  - [4] 2026-10-22: 'Send 300 emails a day with the best free SMTP server'
+  - probe:smtp://smtp-relay.brevo.com:587 2026-10-22: banner 250, EHLO advertises SIZE and 8BITMIME, STARTTLS completed against the system trust store, and AUTH LOGIN returned 334. The submission endpoint answers; no message was sent
+  - [5] 2026-10-30: the registration form asks for an email and a password, or a Google or Apple sign-in, and no card | capture: sha256:bedc35b85d45d43681738cde4c72b43117fecf4e79f99f97ab88ab4fb50e3e25 | quote: Create your account. No credit card needed.
+  - [6] 2026-10-30: after the first form the account verifies the email and asks for basic business information | capture: sha256:3c5192e4e2aeca6304cd39ca6348e5176ad3cbfdd2c9fa7cbf10a9c8863f59ec | quote: You'll be asked to verify your email address and provide some basic information about your business.
+  - [7] 2026-10-30: users report a phone number and SMS code step during registration; a user report, not a vendor statement | capture: sha256:a98f4edd332ee21c38fb1e8d0dd629c004f7f037092c3d1cbcca54d049f79993 | quote: In the process of new account registration, the website ask the phone number to setup a two-factor authentication.
+  - [8] 2026-10-30: a sender on a free domain such as gmail.com cannot be authenticated | capture: sha256:ec6f9ed0807b65d5f3d18e584de375ff3237a22a25b62d09350c4b4baa1ec7bb | quote: Note that free sender domains cannot be authenticated, so you’ll need to purchase your own domain.
+  - [9] 2026-10-30: mail from a free address is rejected or filtered to spam, so the sender needs its own domain | capture: sha256:01c5435176f2f412aee54bf35d4ea30bf964188b5c508d7703d505818b765e10 | quote: Sending from a free email address (@gmail.com, @yahoo.com, @outlook.com, etc.) will cause your emails to be rejected or filtered to spam.
+  - [2] 2026-10-30: the Free plan always adds the Sent with Brevo sticker; the same page gives the 2,000-contact automation cap, the single user and the scheduling rule, and lists no recipient restriction | capture: sha256:6132ddcef8072155da48c608bcc35b052d473ab446b40d8a7d6e6f328b33801f | quote: Emails sent from the Free plan always include the Sent with Brevo sticker.
+  - [3] 2026-10-30: a new account cannot send transactional mail until the vendor activates the transactional platform on request | capture: sha256:a37ed440dff04247ef626ecd7ed36bb1de4347642cd9db2e0aa556993a8f20d2 | quote: Transactional email sending requires a separate activation step from Brevo. If you've never sent transactional emails from your account, contact our support team by creating a ticket from your account to request activation.
+  - [1] 2026-10-30: the Free plan has no time limit and needs no card | capture: sha256:95abab98e579e97f6793282adc571780d960b8cc35c1af70f4289ae8b1bfdbf5 | quote: Free forever, no credit card needed
+  - [10] 2026-10-30: the Free plan is 300 sends per day and up to 100,000 contacts | capture: sha256:739ecab960d07828b325802a7d7a83a9b90ae46c86a939d6492ab1e601a46c9d | quote: The Free plan includes 300 daily email sends and storage for up to 100,000 contacts.
+  - [2] 2026-10-30: past the daily limit up to 1,000 transactional emails wait in a retry queue and the rest are not delivered | capture: sha256:6132ddcef8072155da48c608bcc35b052d473ab446b40d8a7d6e6f328b33801f | quote: once you reach your daily limit, up to 1,000 additional emails are held in a retry queue. Emails beyond this queue are not delivered.
+  - [2] 2026-10-30: the Free plan is still 300 sends per day with no carry-over | capture: sha256:6132ddcef8072155da48c608bcc35b052d473ab446b40d8a7d6e6f328b33801f | quote: The Free plan includes 300 email sends per day. The daily limit resets every day, and unused emails do not roll over to the next day.
+- sources:
+  - [1] https://www.brevo.com/pricing/
+  - [2] https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan
+  - [3] https://help.brevo.com/hc/en-us/articles/115000188150-Troubleshooting-Issues-with-Brevo-SMTP
+  - [4] https://www.brevo.com/free-smtp-server/
+  - [5] https://onboarding.brevo.com/account/register
+  - [6] https://www.brevo.com/blog/wp-mail-smtp/
+  - [7] https://community.brevo.com/t/sms-does-not-arrive-upon-registration/567
+  - [8] https://help.brevo.com/hc/en-us/articles/208836149-Create-a-new-sender-From-name-and-From-email
+  - [9] https://help.brevo.com/hc/en-us/articles/14925263522578-Comply-with-Gmail-Yahoo-and-Microsoft-s-requirements-for-email-senders
+  - [10] https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans
+
+## Buttondown
+
+- `email/buttondown` | qualifies-with-caveat | evidence documented | binding request-rate | category newsletter sender with a REST API | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-02T10:00:26.325Z (live) | stale on 2026-12-03
+- url https://buttondown.com/pricing | page https://fshy.ajam.dev/p/buttondown.md
+- free tier: free for the first 100 subscribers, with the price assuming at most one email a day to the whole subscriber base; API included, no card | unit: users | metered on: identity-count | read on: 2026-10-30 | source: [1] | note: The quota counts subscribers, not messages. Sending from a custom domain is free; without one, mail goes out from the account's username at buttondown.email. Attachments, tagging and segmentation, automations and archives on a custom domain are paid add-ons. Subscribers are confirmed by double opt-in unless created through the API with type regular.
+- per-object cap: not applicable: email attachments are a paid add-on
+- retention: not stated
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: The register page asks for a username, an email address and a password, or Apple or Google sign-in, and states that no card is needed. Every new account is reviewed before it can send, and a verification form asks what the newsletter is about, who its audience is, where imported subscribers came from, and details of the person or organization. No domain is needed: mail goes out from the username at buttondown.email by default. A custom sending domain is free, set up either by delegating a subdomain with two NS records (managed) or by adding the records shown in settings (manual).
+- interface: rest
+- limits:
+  - request-rate (binding): the free price assumes at most one email a day to the whole subscriber base; more needs a contact with the vendor [1]
+  - request-rate (binding): 600 API requests per minute on every endpoint, and 100 subscriber creations per day through POST /v1/subscribers [2]
+  - write-gated: every new account is reviewed before it can send, most reviews within one to three business days [3]
+  - request-rate (binding): new senders are capped per hour until they reach a baseline of engagement and reputation; the figure is not stated [4]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 100 subscribers on the free plan.
+- binding note: one email a day to at most 100 subscribers: the subscriber ceiling caps the recipients and the daily assumption caps the sends.
+- interface detail: the REST API at https://api.buttondown.com/v1 with an OpenAPI spec: POST /v1/emails creates an email for the subscriber base; POST /v1/subscribers/{id_or_email}/emails/{email_id} takes no request body and sends an existing finalized email to one subscriber, and a draft is refused with a 400 whose code is email_invalid_status; POST /v1/emails/{id}/send-draft delivers a draft to the subscriber ids and email addresses named in its body, the documented route for sending drafts for review
+- tooling: curl or any HTTP client; there is no official SDK, and typed clients are generated from the OpenAPI spec
+- composes with: a list sender rather than a transactional relay: every recipient is a subscriber, so it carries a newsletter or a notification list of up to 100 people, and per-message transactional mail belongs on a relay.
+- reliability: sending is disabled temporarily when unsubscribes, complaints or hard bounces run high on a new sender
+- notes: The vendor's summary file (llms.txt) lists API access and custom domains under a USD 9 Basic plan, while the API page, the plan badge on the API guides and the January 2025 pricing post place API access on the free plan, and the sending-domain page and the pricing page place custom-domain sending there; the summary file is out of date.
+- evidence note: no message was sent and no authenticated request was made; the free plan, the API on the free plan, the finalized-only rule of the per-subscriber send endpoint and the rate limits are documented, while the response a free account's key gets from that endpoint, whether an email can reach a final status without a send to the list, and the account review with its verification form are unverified: behind a sign-up.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-30: the free plan covers the first 100 subscribers | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Absolutely nothing for your first 100 subscribers.
+  - [1] 2026-10-30: the free price assumes at most one email a day to the whole list | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: All of these prices assume that you're sending at most one email a day to your entire subscriber base.
+  - [1] 2026-10-30: tagging and segmentation is listed among the add-ons at 9 per month | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Tagging & [segmentation](/features/analytics)
+  - [1] 2026-10-30: email attachments are listed among the add-ons at 9 per month | capture: sha256:1ddcae945707d0d198b6187ff2bb96d2da5558bc26fa6f79ef4292a00bd44dc4 | quote: Email [attachments](/features/attachments)
+  - [5] 2026-10-30: the free tier is up to 100 subscribers with no stated email count | capture: sha256:ad99d6be5570e7badcfba48189bbb928d493d4007d3208d941a9275e7d5cad81 | quote: Free tier: Up to 100 subscribers, unlimited emails
+  - [5] 2026-10-30: the summary file lists API access and custom domains under the 9 per month Basic plan | capture: sha256:ad99d6be5570e7badcfba48189bbb928d493d4007d3208d941a9275e7d5cad81 | quote: Basic ($9/month): Custom domains, API access, automations, remove Buttondown branding
+  - [6] 2026-10-30: the API is on the free plan | capture: sha256:dc81a6188a4ba68abb21b19b23645614e2dcd5e7d5ba2e97f3bdc404549a4ed7 | quote: Yes. The API is available on all plans, including free.
+  - [2] 2026-10-30: every API endpoint allows 600 requests per minute | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | All API endpoints | 600 requests per minute |
+  - [2] 2026-10-30: subscriber creation through the API is limited to 100 a day | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | [`POST /v1/subscribers`](/api-subscribers-create) | 100 requests per day |
+  - [7] 2026-10-30: registration needs no card | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Get started for free. No credit card required.
+  - [7] 2026-10-30: the register form asks for a username, an email address and a password, beside Apple and Google sign-in | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Username Email address Password
+  - [3] 2026-10-30: every new account is reviewed before it can send | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: All new accounts go through an initial review before they can start sending.
+  - [3] 2026-10-30: most reviews finish within one to three business days | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: Most reviews are completed within one to three business days.
+  - [3] 2026-10-30: the verification form asks about the newsletter, its audience, imported subscribers and the person or organization | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: A few details about you or your organization
+  - [8] 2026-10-30: without a custom domain, mail goes out from the username at buttondown.email | capture: sha256:8ad50d57a7588d85121651c4f55a84d74f222e98eeda57a1e90305414b3a3753 | quote: Your username at buttondown.email (the default)
+  - [4] 2026-10-30: a custom sending domain is free | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: Sending from a custom domain is available to everyone
+  - [4] 2026-10-30: the managed domain setup delegates a subdomain with two NS records | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: 2. Add the two `NS` type records that are shown to you in Settings.
+  - [4] 2026-10-30: new senders are capped per hour | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: We cap the number of emails a newsletter can send in a given hour until you've reached a baseline level of engagement and reputation for your content.
+  - [4] 2026-10-30: sending is disabled temporarily on high unsubscribes, complaints or hard bounces | capture: sha256:803e3a4ae952be2311c9d28ba3601cea0aad016e2bc189e56487459570089e1b | quote: we will temporarily disable your sending capability and reach out to help resolve the issue.
+  - [9] 2026-10-30: subscribers are confirmed by double opt-in by default | capture: sha256:510e8cbce4ce6df0f948e74fc9ad1b9219e7fb3c2e83cc6143d75137c67e089f | quote: Buttondown requires double opt-in for all newsletters by default.
+  - [10] 2026-10-30: a subscriber created through the API with type regular skips the confirmation | capture: sha256:38e96c74ef9e594f97cfc1f05b74e9dcd6516b4302076e8115e97d0079ab22b2 | quote: You can't disable this behavior globally, but you can disable it on a per-subscriber basis by providing a `type` of `regular` in the request body.
+  - [11] 2026-10-31: the API sends a specific email to a specific subscriber | capture: sha256:9ca7959104eb65645ce333a1dcf4ff50fafd086456221ad9d01d3dbbe5a3d0e0 | quote: "description": "Send a specific email to a specific subscriber",
+  - [12] 2026-10-30: the first API send of a key needs a one-time confirmation header | capture: sha256:b702da17bdbc53f0dcf821a521dd00b88ac3c277f6e6c717f6f46c69a09b9cc7 | quote: To confirm, pass the `X-Buttondown-Live-Dangerously: true` header.
+  - [13] 2026-11-02: the January 2025 pricing post states that API access became available to everyone, down from USD 9 a month | capture: sha256:0f81ff98c20737498b7035b463ad479eb088c8307bfabdaee23c57579eb37057 | quote: API access is now available to everyone (down from $9/month).
+  - [14] 2026-11-02: a draft sent through the per-subscriber endpoint is refused with the error code email_invalid_status | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: "code": "email_invalid_status",
+  - [15] 2026-11-02: the endpoint guide limits the per-subscriber endpoint to finalized emails and names the send-draft endpoint for drafts | capture: sha256:a57fc72936221e7a7440a476ccca47a3f12e7c6111bac5a245097cb8c7cd5249 | quote: This endpoint should only be used for sending finalized emails. If you're interested in programmatically sending drafts for review, you'll want to use the [send-drafts endpoint](https://docs.buttondown.com/api-emails-send-draft) instead.
+  - [1] 2026-11-02: the pricing page still prices the first 100 subscribers at nothing | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: Absolutely nothing for your first 100 subscribers.
+  - [6] 2026-11-02: the API page answers that the API is available on all plans, including free | capture: sha256:dc81a6188a4ba68abb21b19b23645614e2dcd5e7d5ba2e97f3bdc404549a4ed7 | quote: Yes. The API is available on all plans, including free.
+  - [16] 2026-11-02: the API guide for drafting emails carries the plan badge Available on the Free plan | capture: sha256:48aa7de169f4422fecf02ae5932ec5f34918467fdea478ff108db3613e55398a | quote: Available on the[Free plan.](https://buttondown.com/pricing?plan=free)
+  - [17] 2026-11-02: the vendor's update dated February 10, 2025 states that everyone on the free plan has API access | capture: sha256:d8b9302620e396cbaa86d851cd25c9dbd25a2096a0b6fb54f0e05ef4c5fa3a20 | quote: Starting this month, everyone on the free plan has [API access](https://docs.buttondown.com/api-introduction?utm_source=buttondown&utm_medium=email&utm_campaign=updates-from-january-9711).
+  - [1] 2026-11-02: the prices assume at most one email a day to the whole subscriber base, and a higher volume needs a contact with the vendor | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: All of these prices assume that you're sending at most one email a day to your entire subscriber base. If you're sending more than that, you'll need to contact us and we can talk about what usage-based pricing would look like for you.
+  - [1] 2026-11-02: sending from a custom domain is listed in what the free price includes | capture: sha256:598ba854174e927b3d17aa847a05f64d8dad25b3db3634c456f6ff564b99b387 | quote: Send from a [custom domain](https://docs.buttondown.com/sending-from-a-custom-domain)
+  - [7] 2026-11-02: registration needs no card | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Get started for free. No credit card required.
+  - [7] 2026-11-02: the register form asks for a username, an email address and a password, beside Apple and Google sign-in | capture: sha256:319469292117f32f51ec42446aa16d8ef4c099496e12d61b25e16fe202a3cc76 | quote: Username Email address Password
+  - [11] 2026-11-02: the OpenAPI spec names https://api.buttondown.com/v1 as the API server | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "url": "https://api.buttondown.com/v1"
+  - [11] 2026-11-02: the spec describes POST /emails as creating a new email | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Create a new email",
+  - [11] 2026-11-02: the spec describes POST /subscribers/{id_or_email}/emails/{email_id} as sending a specific email to a specific subscriber | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Send a specific email to a specific subscriber",
+  - [11] 2026-11-02: the spec describes POST /emails/{id}/send-draft as sending a draft email to specific recipients | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "Send a draft email to specific recipients",
+  - [11] 2026-11-02: the send-draft body takes a list of subscriber ids | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "A list of subscriber ids to which to send the email.",
+  - [11] 2026-11-02: the send-draft body takes a list of email addresses | capture: sha256:24ccbf67753739ad4dc85b28b14b03ff7ed1151122d057ea193464509f59a0c8 | quote: "description": "A list of email addresses to send the email to.",
+  - [15] 2026-11-02: the sample request for the per-subscriber endpoint sends no request body | capture: sha256:a57fc72936221e7a7440a476ccca47a3f12e7c6111bac5a245097cb8c7cd5249 | quote: response = requests.request("POST", url, headers=headers)
+  - [14] 2026-11-02: the per-subscriber endpoint no longer sends non-final emails such as drafts | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: Breaking change: we've removed the ability to send non-final emails like [drafts](https://docs.buttondown.com/api-emails-introduction#EmailStatus-draft) from [`/v1/subscribers/{id}/emails`](https://docs.buttondown.com/api-subscribers-send-email).
+  - [14] 2026-11-02: a draft sent through the per-subscriber endpoint gets a 400 response | capture: sha256:ccaafca5a299ba88c273890d5001b07b716e8a30d9bb94c3946a955f1caf16f5 | quote: This is a breaking change, and apologies if you suddenly started getting 400s as a result of it
+  - [2] 2026-11-02: every API endpoint allows 600 requests per minute | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | All API endpoints | 600 requests per minute |
+  - [2] 2026-11-02: subscriber creation through the API is limited to 100 requests a day | capture: sha256:ce39f02c145e304063c49d8e5b65377339e73627009a93da2828dfa497f595d9 | quote: | [`POST /v1/subscribers`](/api-subscribers-create) | 100 requests per day |
+  - [3] 2026-11-02: every new account is reviewed before it can send | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: All new accounts go through an initial review before they can start sending.
+  - [3] 2026-11-02: most reviews finish within one to three business days | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: Most reviews are completed within one to three business days.
+  - [3] 2026-11-02: an account under review cannot send emails, though it can draft them | capture: sha256:2e3878ae8596a4a369331493adf11f659ec5619859c44d361fcbae475dd79d68 | quote: | Send emails | No |
+- sources:
+  - [1] https://buttondown.com/pricing
+  - [2] https://docs.buttondown.com/api-rate-limits
+  - [3] https://docs.buttondown.com/account-review
+  - [4] https://docs.buttondown.com/sending-from-a-custom-domain
+  - [5] https://buttondown.com/llms.txt
+  - [6] https://buttondown.com/features/api
+  - [7] https://buttondown.com/register
+  - [8] https://buttondown.com/blog/sending-email-address
+  - [9] https://docs.buttondown.com/double-opt-in
+  - [10] https://docs.buttondown.com/api-subscribers-create
+  - [11] https://docs.buttondown.com/openapi.json
+  - [12] https://buttondown.com/blog/safer-email-api-defaults
+  - [13] https://buttondown.com/blog/2025-pricing-update
+  - [14] https://buttondown.com/blog/api-send-draft-status
+  - [15] https://docs.buttondown.com/api-subscribers-send-email
+  - [16] https://docs.buttondown.com/drafting-emails-via-the-api
+  - [17] https://buttondown.com/buttondown/archive/updates-from-january-9711/
+
+## Cloudflare Email Routing
+
+- `email/cloudflare-email-routing` | qualifies-with-caveat | evidence documented | binding none | category inbound routing
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://developers.cloudflare.com/email-service/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: unlimited inbound email on Workers Free and Paid; 200 destination addresses, 200 rules per domain, 30 domains per zone | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MiB inbound message; larger messages are rejected | bytes: 26214400 | source: [2]
+- retention: not applicable: messages are forwarded, not stored | source: [2]
+- egress: not applicable: inbound only on the free plan | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account with the domain delegated to Cloudflare nameservers
+- interface: rest
+- limits:
+  - per-object-cap: 25 MiB inbound message; larger messages are rejected [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 200 destination addresses per account, shared across every domain; 200 routing rules per domain and 30 domains per zone
+- binding note: nothing in the vocabulary binds the volume: inbound is unlimited and the 25 MiB message cap bounds a single message rather than a day. What actually caps the shape is the 200 destination addresses per account, which is a count and not one of the six kinds
+- interface detail: MX records on the zone, with rules mapping a pattern to a destination or a Worker
+- tooling: the Cloudflare dashboard, wrangler for Worker handlers
+- composes with: the inbound half of the free mail chain and the only unmetered thing in this topic: unlimited inbound on a domain already held, forwarded to a mailbox. Its scarce link is the 200 verified destinations at the account level.
+- reliability: a routing rule maps one pattern to one destination; a fan-out to several destinations needs a Worker
+- notes: Inbound is genuinely unmetered and is the one unlimited thing in this topic. The 200-destination cap is the quiet one.
+- evidence note: no probe: the inbound path could not be exercised from this host. route1, route2 and route3.mx.cloudflare.net answered 550 on the sender's IPv6 reverse lookup, and TCP 25 was reset over IPv4, so no SMTP-level evidence was obtained either way
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Inbound emails (Email Routing) | Unlimited | Unlimited' across Workers Free and Paid, while outbound is 'Not available' on Workers Free
+  - [2] 2026-10-22: 200 routing rules per domain, 200 destination addresses per account, and a 25 MiB inbound message limit
+- sources:
+  - [1] https://developers.cloudflare.com/email-service/platform/pricing/
+  - [2] https://developers.cloudflare.com/email-service/platform/limits/
+
+## Elastic Email
+
+- `email/elastic-email` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender and SMTP relay | tier free
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T10:00:24.469Z (live) | stale on 2026-12-03
+- url https://elasticemail.com/email-api | page https://fshy.ajam.dev/p/elasticemail.md
+- free tier: 100 emails per day and 3,000 emails per month on the Email API Free plan, up to 1,000 contacts, at USD 0 with no card | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: The daily limit resets every day and unused sends do not carry over. Each attachment counts as one more email against the daily limit, so a message with one attachment uses 2 of the 100. The Free plan keeps 3 days of logs and allows single address verification only. Email API and Email Marketing are separate accounts. The cheapest paid Email API plan is USD 19 per month for 50,000 emails, and paid plans have no daily limit.
+- per-object cap: 20 MB for the entire message with its attachments, as stated for the API
+- retention: 3 days of log history on the Free plan, against 7 days on Pro | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: email | detail: The Email API signup form asks for an email, a password, a first and last name and a field labelled Address, behind a reCAPTCHA, and offers Google sign-in; it has no card field, and the email is confirmed. A profile survey then asks for accurate information about the primary person and organization behind the account, and the account must be verified before it can send; whether that verification asks for a phone number is unverified: behind a sign-up. A domain the sender owns must be verified from the start (SPF mandatory, DKIM encouraged, a tracking CNAME and DMARC recommended); domains of free providers such as gmail.com cannot be verified, and on the Free plan an added domain cannot be removed from the account.
+- interface: rest
+- limits:
+  - request-rate (binding): 100 emails per day, resetting daily with no carry-over; each attachment counts as one more email [1]
+  - request-rate (binding): 3,000 emails per month [2]
+  - write-gated: the account must be verified before it can send, and a verified domain set as the default sender is required from the start [3]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1,000 contacts on the Free plan. SMTP accepts 20 concurrent requests from a single IP.
+- binding note: 100 per day rather than 3,000 per month: the monthly figure is the daily cap summed over 30 days.
+- interface detail: SMTP at smtp.elasticemail.com on ports 25, 2525, 587 and 465 with TLS 1.2, and the HTTP REST API; the interface vocabulary has no smtp term
+- tooling: any SMTP client, or curl and the official API libraries against the REST API
+- composes with: an outbound sender at 100 a day that pairs with an inbound router such as Cloudflare Email Routing for the receiving half; the daily count is the scarce link.
+- reliability: an account placed Under Review has delivery paused; mail submitted meanwhile is queued and sent if the account is reactivated
+- notes: The 3,000 a month is the 100 a day summed over 30 days, so the monthly figure cannot be spent in a burst.
+- evidence note: no message was sent, so no delivery is proved; smtp.elasticemail.com answered a 220 banner on ports 587 and 2525. The account verification step and any phone check are behind a sign-up.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-30: the Free plan sends to any recipient, 100 emails per day, resetting daily with no carry-over | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Emails: Ability to send emails to everyone, with a limit of 100 emails per day. The limit resets every day, and unused emails do not carry over to the next day.
+  - [2] 2026-10-30: the Email API Free plan offers 3,000 emails per month | capture: sha256:9481f82e19670472c5a05642ec18485afca63a76ae48c80cd87772ebf1e09c92 | quote: There is also a Free plan available, offering 3,000 emails per month.
+  - [1] 2026-10-30: each attachment counts as one more email against the 100 per day | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Attachments: each attachment counts as one email towards the daily limit of 100 emails.
+  - [1] 2026-10-30: the Free plan holds up to 1,000 contacts | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Contacts: Support for up to 1000 contacts.
+  - [1] 2026-10-30: the Free plan keeps 3 days of logs | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Logs: 3 days of log history.
+  - [1] 2026-10-30: Pro plans keep 7 days of logs against 3 | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: 7 days of log history instead of 3.
+  - [1] 2026-10-30: the cheapest paid Email API plan is 19 per month for 50,000 emails | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: The Pricing Plan starts at $19 and includes 50,000 emails per month.
+  - [1] 2026-10-30: the daily limit applies to the Free plan only | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Paid plans have no daily sending limit, only the monthly limit of your plan.
+  - [4] 2026-10-31: prices are in USD | capture: sha256:81688ffd8e48d35843bf92921a0d3c69a88f300ed058f7e3c3d56870db0aa244 | quote: We accept Visa, Mastercard, American Express, and PayPal. All prices are in USD.
+  - [5] 2026-10-31: the Free plan phase needs no upfront payment | capture: sha256:3cd8893f3386e7c8a1a5dc3179070e67b98b93b51a25a52419251a4d1fd06191 | quote: This allows you to test the platform without any upfront costs.
+  - [5] 2026-10-31: a Free account must be verified before it can send | capture: sha256:3cd8893f3386e7c8a1a5dc3179070e67b98b93b51a25a52419251a4d1fd06191 | quote: You need to verify your account before you can send.
+  - [6] 2026-10-31: registration is a short form and an email confirmation | capture: sha256:d0aa9a46b967d1f03b019e1937f78eba279f3f4d350652dfcc680fbd6ca1a771 | quote: You will need to pick a product you wish to use, fill out a short registration form and confirm your email.
+  - [7] 2026-10-31: the Email API signup offers Google sign-in beside the form | capture: sha256:17b2630f71bdfbbdaed516772e4513648cca853d6f2910186b4436ae4e357fef | quote: Sign in with GoogleSign in with Google.
+  - [7] 2026-10-31: the signup form asks for email, password, a field labelled Address, first and last name, with no card field | capture: sha256:17b2630f71bdfbbdaed516772e4513648cca853d6f2910186b4436ae4e357fef | quote: Caps Lock is on Address First name Last name
+  - [7] 2026-10-31: the signup form is behind a reCAPTCHA | capture: sha256:17b2630f71bdfbbdaed516772e4513648cca853d6f2910186b4436ae4e357fef | quote: Recaptcha requires verification.
+  - [3] 2026-10-30: a profile survey asks for the person and organization behind the account | capture: sha256:c75a1ea73676212c38d7d53dcd6ff8773c7ee86680558ffdf2dfb816ec85c0aa | quote: Elastic Email requires that you provide accurate information about the primary person and organization that controls and uses the account.
+  - [3] 2026-10-30: a verified domain set as default sender is required from the start | capture: sha256:c75a1ea73676212c38d7d53dcd6ff8773c7ee86680558ffdf2dfb816ec85c0aa | quote: From the start, we require you to add and verify at least one domain on your account, including setting it as the default sender.
+  - [8] 2026-10-30: a free-provider domain cannot be verified, so sending needs a domain the sender owns | capture: sha256:b4c38fc0b7f6f2757c14a7b14facc815685b2fc9144e61809c4210a8af68879d | quote: You cannot verify domains that belong to free email providers, such as gmail.com, yahoo.com, or outlook.com, because only the owner of a domain can add DNS records to it.
+  - [8] 2026-10-30: SPF is mandatory and DKIM encouraged in the domain steps | capture: sha256:b4c38fc0b7f6f2757c14a7b14facc815685b2fc9144e61809c4210a8af68879d | quote: SPF is mandatory if you expect to experience good email deliverability. We also encourage you to verify DKIM.
+  - [8] 2026-10-30: the SPF record value to publish | capture: sha256:b4c38fc0b7f6f2757c14a7b14facc815685b2fc9144e61809c4210a8af68879d | quote: v=spf1 a mx include:_spf.elasticemail.com ~all
+  - [8] 2026-10-30: on the Free plan an added domain cannot be removed from the account | capture: sha256:b4c38fc0b7f6f2757c14a7b14facc815685b2fc9144e61809c4210a8af68879d | quote: On Free plans, a domain cannot be removed from the account once it has been added, so contact our support team in that case too.
+  - [9] 2026-10-30: SMTP at smtp.elasticemail.com accepts ports 25, 2525, 587 and 465 | capture: sha256:836a3e858c013377180f6c4c8079c122cebf033d13b3ed36aba4d554af653ada | quote: 25, 2525, 587, 465
+  - [9] 2026-10-30: SMTP accepts 20 concurrent requests from one IP | capture: sha256:836a3e858c013377180f6c4c8079c122cebf033d13b3ed36aba4d554af653ada | quote: 20 concurrent requests from single IP
+  - [10] 2026-10-30: an account under review has delivery paused | capture: sha256:1f1f9bd967f865883e7283c4404607f112ac229f2111872a5c157648196e30c7 | quote: While an account is Under Review, email delivery is paused and credit cannot be purchased.
+  - probe:smtp.elasticemail.com:587 2026-10-30: smtp.elasticemail.com answered a 220 banner on ports 587 and 2525; no message was sent | capture: sha256:5e44b6f44e88fde74d914661ed180286ff2ca6110ec11a32210a7f256792785b | quote: "banner": "220 smtp.elasticemail.com ESMTP"
+  - [1] 2026-11-02: the Free plan limit is 100 emails per day, resetting daily with no carry-over, and each attachment counts as one email | capture: sha256:ff937b7e74cd7545e3dced437c482bbfa98cfe3f0ba37893b624476950844b40 | quote: Emails: Ability to send emails to everyone, with a limit of 100 emails per day. The limit resets every day, and unused emails do not carry over to the next day. - Attachments: each attachment counts as one email towards the daily limit of 100 emails.
+  - [2] 2026-11-02: the Email API page states a Free plan of 3,000 emails per month | capture: sha256:9481f82e19670472c5a05642ec18485afca63a76ae48c80cd87772ebf1e09c92 | quote: There is also a Free plan available, offering 3,000 emails per month.
+  - [11] 2026-11-02: the API library page states that the entire message with its attachments cannot exceed 20 MB | capture: sha256:e155872e1d88623ff3dfbbf33f8e3c90f45d9829786211869ba155b62ad14eb7 | quote: The maximum email size of your entire message or message + attachment cannot exceed 20MB.
+  - [12] 2026-11-02: the legacy API reference lists the phone number as an optional field of the account profile update | capture: sha256:be44ed936d8ffc5759c7294bd752006777c2d5b0ad854a1906267409528cc44a | quote: | phone | string | No | null | Phone number |
+  - [12] 2026-11-02: the legacy API reference lists the first address line as a required field of the account profile update | capture: sha256:be44ed936d8ffc5759c7294bd752006777c2d5b0ad854a1906267409528cc44a | quote: | address1 | string | Yes | | First line of address. |
+  - [13] 2026-11-02: each account must have a completed account profile | capture: sha256:a688cb2c5ffd6aa88c604634fd9e705bdff50448bb3707b53d45c093f2f5433f | quote: To help identify senders, Elastic Email requires that each account has a completed account profile.
+  - [10] 2026-11-02: an Active account that is fully set up has a default verified domain and a verified profile, and no restrictions | capture: sha256:1f1f9bd967f865883e7283c4404607f112ac229f2111872a5c157648196e30c7 | quote: As long as the account is fully setup (has a default verified domain and verified profile) there are no restrictions or limitations while an account is in an Active status.
+  - [14] 2026-11-02: a third-party setup guide lists the first onboarding survey screen as the industry and the number of employees | capture: sha256:87d089d1dfd88d9df844b8ec808ea197bbc35a80367071103eefca7fb95e81b7 | quote: Select the industry that best describes your business, then choose the number of employees in your organization.
+  - [14] 2026-11-02: a third-party setup guide lists the second onboarding survey screen as how the user heard of the service and why they chose it | capture: sha256:87d089d1dfd88d9df844b8ec808ea197bbc35a80367071103eefca7fb95e81b7 | quote: Elastic Email will now ask how you heard about their service and what made you choose it.
+  - [14] 2026-11-02: a third-party setup guide lists the final onboarding survey screen as goals, experience level and any earlier provider | capture: sha256:87d089d1dfd88d9df844b8ec808ea197bbc35a80367071103eefca7fb95e81b7 | quote: Elastic Email will ask a few final questions about your goals, your experience with email marketing, and whether you have used another email marketing provider before.
+  - [15] 2026-11-02: a third-party setup guide reports a phone number verification step on the onboarding page | capture: sha256:2ab02e2f1ddcf61ee79c46fcf2f850edb2a47edb9f4b60c3cb6d3b60a9b428c7 | quote: The most important step is verifying your phone number, which happens from the “Start/Onboarding” page (linked in left menu).
+  - [15] 2026-11-02: the same third-party guide says the send error may mention verifying a phone number while no phone verification screen is shown | capture: sha256:2ab02e2f1ddcf61ee79c46fcf2f850edb2a47edb9f4b60c3cb6d3b60a9b428c7 | quote: New Elastic Email accounts can’t send (or connect over SMTP) until Elastic Email activates them — the error may mention verifying a phone number, but there’s no phone verification screen to find.
+- sources:
+  - [1] https://help.elasticemail.com/en/articles/3331811-elastic-email-pricing-plans
+  - [2] https://elasticemail.com/email-api
+  - [3] https://help.elasticemail.com/en/articles/2361393-how-to-get-started
+  - [4] https://elasticemail.com/email-marketing-pricing
+  - [5] https://help.elasticemail.com/en/articles/2446055-what-are-sending-limits-for-new-accounts
+  - [6] https://elasticemail.com/getting-started
+  - [7] https://app.elasticemail.com/api/create-account
+  - [8] https://help.elasticemail.com/en/articles/4934400-how-to-verify-your-domain
+  - [9] https://help.elasticemail.com/en/articles/4803409-smtp-settings
+  - [10] https://help.elasticemail.com/en/articles/2361427-what-is-your-elastic-email-account-s-status
+  - [11] https://elasticemail.com/developers/api-libraries/php
+  - [12] https://api.elasticemail.com/public/help/legacy
+  - [13] https://elasticemail.com/resources/usage-policies/anti-spam-policy
+  - [14] https://codemasterhub.com/doc/deliverykit-smtp-documentation/elastic-email-smtp-setup/
+  - [15] https://cybermail9000.com/docs/elastic-email-setup
+
+## EmailLabs
+
+- `email/emaillabs` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender and SMTP relay | tier Startup
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T01:47:12.731Z (live) | stale on 2026-12-20
+- url https://emaillabs.io/en/plan-comparison/ | page https://fshy.ajam.dev/p/emaillabs.md
+- free tier: Startup plan: up to 9 000 emails per month, 300 emails per day, 0 EUR per month, on a shared IP with 1 day of log retention | unit: requests | metered on: request-count | read on: 2026-11-19 | source: [1] | note: On the Startup plan the sender can only send the messages the plan offers, so sending stops at the plan volume instead of incurring an overage charge. Unused messages do not transfer to the next billing month. The Email RESTful API, SMTP relay, email templates and basic analytics are included. Mail goes out from a shared IP. The card requirement for the Startup plan is not stated on the public pricing pages.
+- per-object cap: 15 MB maximum size of an email with an attachment; oversized mail is rejected | source: [2] | note: Oversized mail is rejected with SMTP error 552 or API error 413. The figure is a message weight in MB, so it is not a single binary object cap.
+- retention: 1 day of log retention on the Startup plan | days: 1 | source: [1] | note: The plan comparison lists 1 day for Startup, 7 days for Essential and 15 days for Pro and Enterprise.
+- egress: not applicable: an outbound sender | metered: no | source: [3]
+- identity: any-phone | detail: Registration asks for an email address, a login and a password of at least 12 characters with an uppercase letter, a lowercase letter, a number and a special character, and acceptance of the terms. The address must be activated by a link in a message. Phone number verification by SMS code is a mandatory step and also activates two factor authentication. A three step survey then asks for company details including Tax ID and website address, the services of interest, and the size and source of the contact database. The account is then sent for verification by the EmailLabs team. Card requirement for the free Startup plan is unverified: not stated on the public pricing pages.
+- interface: rest
+- limits:
+  - request-rate (binding): 300 emails per day and 9 000 emails per month on the Startup plan; mail beyond the plan volume is not delivered [1]
+  - per-object-cap: 15 MB maximum email size with an attachment; oversized mail is rejected [2]
+  - retention-clamped: 1 day of log retention on the Startup plan [1]
+  - write-gated: the account is verified by the EmailLabs team at registration; a sandbox domain is assigned for testing, and production sending needs a plan and an authorized sending domain with SPF, DKIM and DMARC records [4]
+- limits note: counts of messages and a message weight, not shaped rates; the daily and monthly ceilings are the volume counts that bind on the free plan.
+- binding note: the 300 per day and 9 000 per month ceiling on Startup is the first hard ceiling at sustained sending scale, since mail beyond the plan volume is not delivered; a one time team verification and domain authorization gate production sending before that ceiling applies.
+- interface detail: The Email RESTful API follows JSONAPI and is described by an OpenAPI 3.0.2 file. Cloud SMTP relay is at smtp-relay.emaillabs.net.pl on ports 587, 2525 and 25 with STARTTLS, or 465 with SSL. The interface vocabulary has no SMTP term.
+- tooling: any SMTP client, or the REST API using the Application-Key and Authorization keys generated in the panel under Account, Settings, API
+- composes with: a 300 per day relay with a 9 000 per month ceiling and a 15 MB message weight cap; the monthly volume does not carry over and the 1 day log retention needs prompt failure checking
+- reliability: Startup mail stops at the plan volume rather than incurring an overage charge, unused messages do not carry to the next month, oversized mail is rejected, and 1 day of log retention leaves little time to inspect failures
+- notes: Card requirement for the free Startup plan is not stated on the public pricing pages; No probe was run, so delivery is not verified. The price comparison page and the current pricing page carry the same Startup figures.
+- evidence note: all values come from first party pricing, plan comparison, documentation and onboarding pages captured and quoted on 2026-11-19; no probe was run, so delivery and the account gate were not measured
+- evidence:
+  - [1] 2026-11-19: the Startup plan has a daily sending limit of 300, while paid plans have none | capture: sha256:ae028c3e97e0c75590de288dc607da1ce378cd39c8bf1befab1c2d2de14d26c1 | quote: | Daily sending limits | 300 | none | none | none |
+  - [1] 2026-11-19: the Startup plan has a monthly sending limit of 9 000 emails | capture: sha256:ae028c3e97e0c75590de288dc607da1ce378cd39c8bf1befab1c2d2de14d26c1 | quote: | Monthly sending limit | 9 000 | 30 000/100 000 | none | none |
+  - [1] 2026-11-19: the Startup plan monthly fee is 0 EUR | capture: sha256:ae028c3e97e0c75590de288dc607da1ce378cd39c8bf1befab1c2d2de14d26c1 | quote: | Monthly fee | ** 0 EUR** | ** 29-68 EUR** | ** 69-440 EUR** | ** Contact us** |
+  - [1] 2026-11-19: the Startup plan keeps logs for 1 day, against 7 on Essential and 15 on Pro and Enterprise | capture: sha256:ae028c3e97e0c75590de288dc607da1ce378cd39c8bf1befab1c2d2de14d26c1 | quote: | Logs retention | 1 day | 7 days | 15 days | 15 days |
+  - [5] 2026-11-19: sending on Startup stops at the plan volume instead of incurring an overage charge | capture: sha256:1960aafd896ba15aef686f0507649623993559f90b98e273321280585f730ab9 | quote: For the Startup, and Essential Plan, you can only send messages that they offer.
+  - [5] 2026-11-19: unused messages do not carry over to the next month | capture: sha256:1960aafd896ba15aef686f0507649623993559f90b98e273321280585f730ab9 | quote: If you do not use all messages in your plan, they will not transfer to the next billing month.
+  - [5] 2026-11-19: the separate sales approved trial needs no card | capture: sha256:1960aafd896ba15aef686f0507649623993559f90b98e273321280585f730ab9 | quote: You can enjoy a free trial period without the need to provide your credit card details
+  - [5] 2026-11-19:  | capture: sha256:1960aafd896ba15aef686f0507649623993559f90b98e273321280585f730ab9 | quote: During the trial period, you should use test addresses to send emails, you cannot perform sends in a production environment.
+  - [4] 2026-11-19: registration asks for email, login, a strong password and acceptance of the terms | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e
+  - [4] 2026-11-19: phone number verification by SMS code is mandatory at registration | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e | quote: Phone number verification: A mandatory registration step. Enter the code from the SMS message.
+  - [4] 2026-11-19: registration asks for company details including Tax ID and website address | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e | quote: Survey (3 steps): Fill in your company details (including Tax ID and website address)
+  - [4] 2026-11-19: the account is verified by the EmailLabs team before sending is unlocked | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e | quote: Confirmation screen: The account is sent for verification by the EmailLabs team.
+  - [4] 2026-11-19: production sending needs an authorized domain with SPF, DKIM and DMARC | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e | quote: Authorize the sending domain: Add SPF, DKIM, and DMARC records to your DNS settings.
+  - [4] 2026-11-19: a sandbox domain allows testing over API or SMTP before the sender has DNS records | capture: sha256:2f50d17723adae52b6c066155f243567e43c582677f20ee9fa988af1c794820e | quote: It allows for immediate testing of the integration via API or SMTP without the need to configure your own DNS records.
+  - [6] 2026-11-19: the REST API uses two keys for authentication | capture: sha256:8dd407d5652183ed20a0a32dacfbac7536e407e55e67dac312880fc80d92bcc0 | quote: The EmailLabs API requires authentication using two keys:
+  - [7] 2026-11-19: the SMTP relay host is smtp-relay.emaillabs.net.pl | capture: sha256:e3dfc431a054368abbc4068b3dbf34b9e80e1186c7719cffafa56e4e8ee278cd | quote: Server name: smtp-relay.emaillabs.net.pl
+  - [7] 2026-11-19: the SMTP relay accepts STARTTLS on ports 587, 2525 and 25 | capture: sha256:e3dfc431a054368abbc4068b3dbf34b9e80e1186c7719cffafa56e4e8ee278cd | quote: option 1: TLS/STARTTLS; ports: 587, 2525, 25
+  - [2] 2026-11-19: the platform caps an email with an attachment at 15 MB | capture: sha256:71ebb2a18af8acb2c5a9ccf221e1032d30973a1cbd714b6e7f2d61b050b25dd6 | quote: From May 1st this year, the maximum size of an email with an attachment on our platform will be limited to 15MB.
+  - [2] 2026-11-19: mail beyond the size cap is rejected rather than queued | capture: sha256:71ebb2a18af8acb2c5a9ccf221e1032d30973a1cbd714b6e7f2d61b050b25dd6 | quote: Emails exceeding the 15MB limit will be rejected
+- sources:
+  - [1] https://emaillabs.io/en/plan-comparison/
+  - [2] https://emaillabs.io/en/email-size-change-with-attachment-to-15mb/
+  - [3] https://emaillabs.io/en/pricing-v2/
+  - [4] https://docs.emaillabs.io/en/emaillabs-panel/first-steps.md
+  - [5] https://emaillabs.io/en/pricing
+  - [6] https://docs.emaillabs.io/en/integrations/api.md
+  - [7] https://docs.emaillabs.io/en/integrations/smtp.md
+
+## Forward Email
+
+- `email/forward-email` | qualifies-with-caveat | evidence documented | binding retention-clamped | category inbound forwarding
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://forwardemail.net/en/pricing | page https://fshy.ajam.dev/p/forwardemail.md
+- free tier: unlimited domains, unlimited aliases, unlimited inbound email, 50 MB attachments, forward-only | unit: unlimited | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 50 MB attachment limit per message | source: [1]
+- retention: the free tier stores nothing; it forwards and keeps no mailbox | source: [1]
+- egress: not applicable: the free tier cannot send | metered: no | source: [1]
+- identity: email | detail: an account with the domain delegated
+- interface: rest
+- limits:
+  - retention-clamped (binding): the free tier is forwarding only: no sending and no mailbox storage [1]
+  - per-object-cap: 50 MB attachment limit [1]
+- interface detail: MX records on the domain, plus an API
+- tooling: the Forward Email API
+- composes with: the widest receiving offer found: unlimited inbound across unlimited domains, forwarded into a mailbox. It composes with any sender and cannot send itself.
+- reliability: sending requires the USD 3/month Enhanced Protection tier
+- notes: A feature removed rather than a volume capped. Unlimited inbound across unlimited domains is the widest receiving offer found; the cost is that nothing can send.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Unlimited inbound email', '50 MB attachment limit', and 'Limitations: Email forwarding only, which means you cannot send mail'
+- sources:
+  - [1] https://forwardemail.net/en/pricing
+
+## ImprovMX
+
+- `email/improvmx` | qualifies-with-caveat | evidence documented | binding request-rate | category inbound forwarding
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://improvmx.com/pricing/ | page https://fshy.ajam.dev/p/improvmx.md
+- free tier: 1 domain, 25 aliases, 500 forwards/day, 7-day logs, API access | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: 7 days of logs | source: [1]
+- egress: not applicable: inbound only | metered: no | source: [1]
+- identity: email | detail: an account
+- interface: rest
+- limits:
+  - request-rate (binding): 500 forwards per day [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1 domain and 25 aliases on the free plan
+- interface detail: MX records on the domain, plus a management API
+- tooling: the ImprovMX API
+- composes with: 500 forwards a day into one mailbox, so it composes with a catch-all and not with a high-volume address.
+- reliability: the free plan forwards only; it does not provide a mailbox
+- notes: The 500/day figure is the inbound analogue of the outbound daily cap and is the number to check before pointing a busy address at it.
+- evidence note: no probe: the inbound path needs a domain delegated to ImprovMX, and no domain was delegated for this record
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 1 domain, 25 aliases, 500 forwards/day, 7-day logs and API access on the free plan
+- sources:
+  - [1] https://improvmx.com/pricing/
+
+## Loops
+
+- `email/loops` | qualifies-with-caveat | evidence documented | binding request-rate | category marketing and transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://loops.so/pricing | page https://fshy.ajam.dev/p/loops.md
+- free tier: 4,000 sends per rolling 30 days, 1,000 contacts, marketing and transactional combined | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not stated | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account
+- interface: rest
+- limits:
+  - request-rate (binding): 4,000 sends per rolling 30 days [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1,000 contacts, which makes 4,000 sends unreachable for a 4,000-person list
+- binding note: the 1,000-contact ceiling binds, not the 4,000 sends.
+- interface detail: the Loops transactional API
+- tooling: curl, any HTTP client
+- composes with: 4,000 sends against 1,000 contacts, so the contact ceiling decides and a list of 1,000 can receive four messages a month.
+- reliability: sends and contacts are separate caps, so the smaller one decides
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [2] 2026-10-22: the machine-readable pricing file states 4,000 sends per rolling 30 days and a 1,000-contact ceiling
+- sources:
+  - [1] https://loops.so/pricing
+  - [2] https://loops.so/.well-known/pricing.txt
+
+## mail.lesin.org (TempMail)
+
+- `email/mail-lesin-org` | qualifies-with-caveat | evidence documented | binding retention-clamped | category disposable inbox with a separate paid developer API | tier free disposable inbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:49:45.930Z (live) | stale on 2026-12-20
+- url https://mail.lesin.org/ | page https://fshy.ajam.dev/p/lesin.md
+- free tier: Free disposable inbox, no registration and no personal details; the developer email API is a separate paid offer at USD 5/month; no numeric storage quota is published | unit: mixed | metered on: unstated | read on: 2026-11-19 | source: [1] | note: mixed is used because the free disposable inbox carries no published numeric quota. The live host mail.lesin.org has no current A or AAAA record, so the first-party pages were read from Wayback snapshots captured 2026-03-27.
+- per-object cap: unverified: no per-message size cap is published on the first-party pages | source: [1] | note: No message size figure appears on the main page, about, terms, privacy or blog pages.
+- retention: All temporary emails and addresses are automatically deleted after 24 hours; the inbox offers manual auto-delete timers of 10 minutes, 30 minutes, 1 hour, 6 hours and 24 hours | days: 24 | source: [2] | note: The 24-hour figure is stated on both the terms and the privacy page.
+- egress: not applicable: a receive-only disposable inbox; mail is delivered in via SMTP and read back over the web UI or the retrieval API | metered: no | source: [1]
+- identity: anonymous | detail: TempMail is a free temporary email service that allows you to receive emails without registration. No registration, no personal information required. The paid API asks for an account and payment, but the free disposable inbox needs no key, email or card.
+- interface: rest
+- limits:
+  - retention-clamped (binding): all temporary emails and addresses are deleted after 24 hours [2]
+  - per-object-cap: unverified: no per-message size cap is published on first-party pages [1]
+- binding note: the 24-hour automatic deletion caps how long a verification code can be read; no message size cap or published rate limit binds earlier
+- interface detail: The free disposable inbox is a web UI with an outbound webhook that POSTs JSON on arrival. A separate paid private REST API exposes inbox, HTML view and code-retrieval endpoints for scripts.
+- tooling: any HTTP client for the paid private REST API; a web browser for the free disposable inbox
+- composes with: verification-code sink: create an inbox with no key, let a service deliver a code to it, then read the message back over the paid retrieval API; the scarce links are the 24-hour deletion and the unpublished message cap
+- reliability: messages and addresses are deleted after 24 hours, so a code must be read inside that window; the operator states that emails may be delayed or lost; the live host has no current DNS record, so availability is unverified
+- notes: Inbox size and per-message size cap are unverified: no first-party page publishes figures. The seven domains on the captured page are iopia.org, karsus.org, kvarra.org, aatrox.org, ambes.org, angues.org and ayuta.org. The live host mail.lesin.org has no current A or AAAA record; the first-party pages were read from Wayback snapshots captured 2026-03-27. The free disposable inbox is hosted; the developer API is a separate paid offer, not software the reader installs.
+- evidence note: all figures come from first-party pages captured from Wayback snapshots of 2026-03-27; the live host did not resolve, and no probe was run, so the rung stays documented
+- evidence:
+  - [3] 2026-11-19: the service is free and an inbox is created without registration | capture: sha256:dfbdc31eca092f5b2bb2fce8c7c8b2cb1e74381ee63bb942ebaad80182a122f8 | quote: TempMail is a free temporary email service that allows you to receive emails without registration.
+  - [3] 2026-11-19: inbox creation is anonymous: no registration and no personal details | capture: sha256:dfbdc31eca092f5b2bb2fce8c7c8b2cb1e74381ee63bb942ebaad80182a122f8 | quote: No registration, no personal information required.
+  - [1] 2026-11-19: the developer email API is a separate paid offer at USD 5 per month | capture: sha256:1923132044cd5606da10cdcf5784cc8996e025b3efe91a70abf1638ab36f253b | quote: Get your own dedicated domain · Receive unlimited emails · Extract codes instantly via API · IP protected · $5/month
+  - [1] 2026-11-19: an inbox supports up to five aliases feeding the same mailbox | capture: sha256:1923132044cd5606da10cdcf5784cc8996e025b3efe91a70abf1638ab36f253b | quote: Create up to 5 aliases. All emails go to your main inbox.
+  - [1] 2026-11-19: a webhook delivers a JSON POST to a caller URL when mail arrives | capture: sha256:1923132044cd5606da10cdcf5784cc8996e025b3efe91a70abf1638ab36f253b | quote: We'll POST JSON data to this URL when emails arrive
+  - [1] 2026-11-19: the inbox offers a user-set automatic deletion timer | capture: sha256:1923132044cd5606da10cdcf5784cc8996e025b3efe91a70abf1638ab36f253b | quote: Automatically delete this inbox after a set time.
+  - [1] 2026-11-19: the custom-email selector lists seven domains: iopia.org, karsus.org, kvarra.org, aatrox.org, ambes.org, angues.org, ayuta.org | capture: sha256:1923132044cd5606da10cdcf5784cc8996e025b3efe91a70abf1638ab36f253b | quote: DomainRandomiopia.orgkarsus.orgkvarra.orgaatrox.orgambes.organgues.orgayuta.org
+  - [2] 2026-11-19: messages are deleted after 24 hours | capture: sha256:a039cde79b24227158c7db9ed36056ac0c0275a88c9f68741bb730fada338153 | quote: All temporary emails are automatically deleted after 24 hours
+  - [4] 2026-11-19: both addresses and messages have a 24-hour deletion window | capture: sha256:bb2f3b4c4d736507f7a2d39d73605d36ae5f01ac5d8774fea1c802ee9de48bad | quote: All emails and temporary addresses are automatically deleted after 24 hours. We do not store personal information or email content permanently.
+- sources:
+  - [1] https://mail.lesin.org/
+  - [2] https://mail.lesin.org/terms
+  - [3] https://mail.lesin.org/about
+  - [4] https://mail.lesin.org/privacy
+
+## mail.tm
+
+- `email/mail-tm` | qualifies-with-caveat | evidence measured | binding per-object-cap | category disposable inbox API
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T03:34:18.381Z (live) | stale on 2027-02-18
+- url https://api.mail.tm/ | page https://fshy.ajam.dev/p/mail-3.md
+- free tier: a disposable inbox with a 40 MB quota, created and read over a keyless REST API | unit: MB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 40 MB quota per inbox, reported by the account object | source: [1]
+- retention: incoming messages are stored for 7 days only, then deleted | days: 7 | source: [1]
+- egress: not applicable: receive-only | metered: no | source: [1]
+- identity: anonymous | detail: no key, no email verification and no card; measured by creating an account
+- interface: rest
+- limits:
+  - request-rate: 8 queries per second (QPS) per IP address general quota limit [1]
+  - per-object-cap (binding): 40 MB quota per inbox, reported by the account object probe
+- interface detail: /domains, /accounts, /token and /messages on api.mail.tm; SMTP delivery to in.mail.tm
+- tooling: curl, any HTTP client
+- composes with: the verification-code sink, measured end to end: create an inbox with no key, let a service deliver over SMTP, read the message back over the API. The scarce link is the 40 MB quota and the single shared domain.
+- reliability: one active domain; a domain change would invalidate every address a script had recorded
+- notes: Four requests and one SMTP message proved the whole chain. 25 MiB per message against a 40 MB inbox is the practical ceiling, so one inbox holds one message.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - probe:https://api.mail.tm/domains 2026-10-22: 200, one active domain maxxspace.com (id 6aa6b995482bea6f4a97f585, isActive true), read with no key
+  - probe:https://api.mail.tm/accounts 2026-10-22: 201, a fresh account with quota 40000000, used 0, isDisabled false; no email verification and no card
+  - probe:https://api.mail.tm/token 2026-10-22: 200, a 360-character JWT for the new account
+  - probe:smtp://in.mail.tm:25 2026-10-22: EHLO returned 250 and an SMTP message to the created address was accepted; sendmail returned no refusal
+  - probe:https://api.mail.tm/messages 2026-10-22: 200, the message listed with its subject and sender, then GET /messages/{id} returned 200 with subject, from, a text part and an html part
+  - probe:https://mail.tm/en/faq 2026-11-19: incoming messages are deleted after 7 days | capture: sha256:4b82905ece2a56e358e089453ccb5b9da7994966b63a984530b212019e98040d | quote: We store messages for 7 days only. Sorry, we can't keep them indefinitely.
+  - probe:https://docs.mail.tm/ 2026-11-19: the general rate limit is 8 QPS per IP address | capture: sha256:6b41150c4f73604163141ced7039795a5e4e87a66976c1fd325e5703e6dca831 | quote: The general quota limit is 8 queries per second (QPS) per IP address.
+  - probe:https://api.mail.tm/domains 2026-11-19: one active domain is published, with hostname euploading.com | capture: sha256:776b6377c55784f7474d93b7099f991292a3967e651d3ae804c2c959db880393
+  - probe:https://docs.mail.tm/ 2026-11-19: no key, no signup and no payment are needed to use the API | capture: sha256:6b41150c4f73604163141ced7039795a5e4e87a66976c1fd325e5703e6dca831 | quote: Completely free. No API key, no signup, no paid tiers.
+- sources:
+  - [1] https://api.mail.tm/
+
+## Mailazy
+
+- `email/mailazy` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted newsletter and automation sender, bring-your-own-SMTP | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T01:46:40.588Z (live) | stale on 2026-12-20
+- url https://mailazy.com/pricing/ | page https://fshy.ajam.dev/p/mailazy.md
+- free tier: Free: $0/month, Free forever, 1 team member, 1,000 contacts, 5,000 emails a month, Newsletters and 1 automation, Docs and community help | unit: mixed | metered on: request-count | read on: 2026-11-19 | source: [1] | note: The headline is two quotas in different units: 5,000 emails a month and 1,000 contacts. Emails are counted per send and contacts per stored address. The schema has no emails unit, so the unit is mixed.
+- per-object cap: not applicable: an outbound email sender with no stated per-object storage cap | source: [2]
+- retention: Account and customer data are kept while the account is active; after the account is closed the data is deleted or anonymized within a reasonable period, except records the law requires to be kept, such as billing | source: [3] | note: Logs can be filtered over the last 24 hours, 7 days, 30 days or a custom range; no fixed log retention window is stated.
+- egress: Contacts are exportable by CSV and readable through GET /contacts/export; send logs are readable through GET /logs. No per-GB egress charge or quota is stated. | metered: no | source: [2]
+- identity: email | detail: The live sign-in at portal.mailazy.com asks only for an email address and continues with a link: 'Enter your email to continue to Mailazy.' No card or phone is asked at that step. Further signup fields are unverified: the account was not created.
+- interface: rest, browser
+- limits:
+  - volume-quota (binding): 5,000 emails a month on Free; at the limit all sending stops and does not resume until usage resets on the billing day or the plan is upgraded [4]
+  - volume-quota (binding): 1,000 contacts on Free; at the limit new contacts are not added [4]
+  - write-gated: Behavioral email rules and AI writing are on Pro and up; on Free their API paths answer 402 and one automation is allowed [4]
+- binding note: The 5,000 emails a month cap stops all sending until the billing-day reset, before the 1,000-contact cap or the Pro-gated features bind for a sender.
+- interface detail: REST HTTP API under https://api.mailazy.com/api/v1 using X-API-Key and X-API-Secret headers; dashboard at portal.mailazy.com
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client with an API key pair; the dashboard for lists, templates and schedules
+- composes with: A bring-your-own-SMTP sender: the Free plan holds contacts, newsletters and one automation, while delivery goes through a separate SMTP provider the reader connects and pays directly, so the SMTP provider's own sending limits also apply.
+- reliability: Mailazy does not run mail servers; email leaves through the SMTP provider the reader connects. Logs store one row per delivery attempt, retries appear as separate rows, and test sends are not logged.
+- notes: A hosted send manager with a real free tier of 5,000 emails and 1,000 contacts per month and a REST API. The caveat is structural: the reader must connect and pay a separate SMTP provider for delivery, and the free caps and Pro-gated features bind early.
+- evidence note: Free tier, limits, API and sign-in step are stated on first-party pages and quoted; delivery and the post-email signup fields remain unverified.
+- evidence:
+  - [1] 2026-11-19: Free plan allows 1,000 contacts and 5,000 emails a month | capture: sha256:f0b927967e42aa33d68a025a6eb0879cd7bf7d98a5bd24e737d588e2c01dd07f | quote: Free covers 1,000 contacts and 5,000 emails a month, Pro 25,000 and 100,000.
+  - [1] 2026-11-19: delivery goes through an SMTP provider the reader supplies and pays directly | capture: sha256:f0b927967e42aa33d68a025a6eb0879cd7bf7d98a5bd24e737d588e2c01dd07f | quote: Your own SMTP provider, such as Amazon SES, SendGrid, Mailgun, Postmark or Cloudflare. You add its credentials in Settings. You pay that provider directly, at their rates.
+  - [1] 2026-11-19: Free plan allows one automation and one team member | capture: sha256:f0b927967e42aa33d68a025a6eb0879cd7bf7d98a5bd24e737d588e2c01dd07f | quote: Free is for newsletters, with one automation and one team member.
+  - [5] 2026-11-19: the plan meters Mailazy sends while the reader's SMTP provider handles delivery | capture: sha256:a71632a082ceed727e7de8bd7e0f4df08f3ef7a9f8963975622b6656c7fc3619 | quote: Emails go through your own sending service (SMTP). You pay that provider for delivery, at their rates; the plan sets how many Mailazy sends for you each month.
+  - [5] 2026-11-19: monthly email usage resets on the billing day | capture: sha256:a71632a082ceed727e7de8bd7e0f4df08f3ef7a9f8963975622b6656c7fc3619 | quote: Monthly counts (emails, AI credits, AI assistant calls) start again on your billing day
+  - [4] 2026-11-19: all sending stops at the monthly email cap and does not resume automatically | capture: sha256:2a5d0253c1bb43c5a1cb1e6badac1709b9862022f626debbdcef8d2cda972ae0 | quote: The monthly email limit stops sending. Your API calls are still accepted, but once the month's emails are used, every email fails in Logs with `Monthly email limit of your plan reached` until usage resets or an upgrade.
+  - [4] 2026-11-19: plan-limit and feature errors answer 402 and only clear on upgrade or reset | capture: sha256:2a5d0253c1bb43c5a1cb1e6badac1709b9862022f626debbdcef8d2cda972ae0 | quote: Don't retry a 402. It changes only when someone upgrades, or, for monthly limits, when usage resets on the billing day.
+  - [6] 2026-11-19: API calls beyond the plan limits are refused with 402 | capture: sha256:6662f7933e1571f2c3a09e5e7c5edb7cd063c8e61e72cb9d0038f1c9f8350333 | quote: 402 means the plan stops it. Limits belong to the organization's [plan](https://mailazy.com/docs/guide/plans-and-billing).
+  - [7] 2026-11-19: the live sign-in asks for an email address only, with no card or phone at that step | capture: sha256:85d7f95caa9c1ab6135a1846c3ceb4ea38a28dc46b3944f979c1e4ac8a8643b0 | quote: Enter your email to continue to Mailazy.
+  - [2] 2026-11-19: a REST API is available under a documented base URL | capture: sha256:7dfb905271ddb1f6523df7b0f1403c8079ca7c1d28fbba6d5da538f7c479db66 | quote: The HTTP API your app uses to talk to Mailazy. Every endpoint lives under `https://api.mailazy.com/api/v1`.
+  - [8] 2026-11-19: delivery requires an external SMTP provider | capture: sha256:ecbf6a4c6869309888b52c35a9b5e97015e3d659675052c6f70bbe5001ba4ec7 | quote: Mailazy does not run mail servers. It hands your email to one you already pay for — Amazon SES, SendGrid, Postmark, Mailgun, your own relay.
+  - [9] 2026-11-19: logs are readable and filterable by time window | capture: sha256:c808aa3d8c3b4e26633f7a23fe0d0e539ffa62b159b3577b63739d9edeece0ee | quote: Filter by contact, by result, or by time (last 24 hours, 7 days, 30 days, or a custom range), or page through.
+  - [3] 2026-11-19: customer data is kept while the account is active and cleared after closure with a billing exception | capture: sha256:927fc6a81214e287bc18ede329fb48a18d92a5afbbce1db04caa4ca6d7348122 | quote: After you close your account, we delete or anonymize your data within a reasonable period, except records the law makes us keep, such as billing.
+- sources:
+  - [1] https://mailazy.com/pricing/
+  - [2] https://mailazy.com/docs/api/
+  - [3] https://mailazy.com/dpa
+  - [4] https://mailazy.com/docs/developer/plan-limits
+  - [5] https://mailazy.com/docs/guide/plans-and-billing
+  - [6] https://mailazy.com/docs/developer/getting-started
+  - [7] https://portal.mailazy.com/
+  - [8] https://mailazy.com/docs/guide/account-setup
+  - [9] https://mailazy.com/docs/guide/logs-opens-and-clicks
+
+## Mailercloud
+
+- `email/mailercloud` | qualifies-with-caveat | evidence documented | binding volume-quota | category email marketing sender and campaign API
+- needs card no, phone yes, ID no, institution no | verified 2026-11-19T00:19:24.838Z (live) | stale on 2026-12-20
+- url https://www.mailercloud.com/pricing | page https://fshy.ajam.dev/p/mailercloud.md
+- free tier: Free forever: 12,000 emails per month to 1,000 contacts, no credit card required | unit: requests | metered on: request-count | read on: 2026-11-19 | source: [1] | note: This is the Marketing Platform free plan. The platform also sells a separate Email API for transactional sending from USD 10/month, opened by a 14-day free trial with 100 emails per signup and no card; the two products are billed separately.
+- per-object cap: not applicable: an outbound email sender
+- retention: unverified: the free Marketing Platform plan's activity retention period is not stated on the first-party pricing page | source: [1] | note: The paid Email API states 7 days of activity retention on Basic and 30 days on Pro, but no retention figure is published for the free Marketing Platform plan.
+- egress: not applicable: an outbound email sender; the free tier's 12,000 monthly sends are counted, not billed per GB | metered: no | source: [1]
+- identity: any-phone | detail: The signup form asks for first name, last name, email, a phone number with a country selector, and a password; Google and Microsoft single sign-on are offered as alternatives. No card is required at signup. Sending needs a verified sender domain.
+- interface: rest
+- limits:
+  - volume-quota (binding): 12,000 emails per month on the free Marketing Platform plan [1]
+  - volume-quota (binding): 1,000 contacts on the free Marketing Platform plan [1]
+  - per-ip-shaping: 50 requests per second per client IP, sliding one-second window, on the Marketing API [2]
+- binding note: 12,000 sends a month to 1,000 contacts is the first ceiling a free sender reaches; the 50 request-per-second per-IP shaping then binds on the Marketing API
+- interface detail: the Marketing API at cloudapi.mailercloud.com/v1 (campaigns, contacts, lists, segments, webhooks, automations), plus the web app; a separate Email API at email-api.mailercloud.com handles transactional sends on paid plans
+- endpoint: https://cloudapi.mailercloud.com/v1
+- tooling: any HTTP client against the Marketing API with an API key in the Authorization header; the web app sends campaigns and automations
+- composes with: a 12,000-send monthly free sender driven from the Marketing API or web app, with a 50 request per second per-IP shaping on the API; pair it with the paid Email API when transactional sends are needed
+- reliability: The Marketing API shapes requests per client IP; exceeding 50 per second returns HTTP 429 with no Retry-After header, so clients must back off on their own. No public read path exists for an outbound sender, so no probe was run.
+- notes: A free-forever Marketing Platform sender with a 12,000 monthly send ceiling and a 50 request-per-second per-IP shaping on its REST API. The separate transactional Email API is a 14-day trial with 100 emails, not a free-forever tier. Free-plan activity retention is not published.
+- evidence note: Quota, identity, interface and limits come from first-party pricing, signup and API pages. No send was made, so delivery is not measured; a measured rung would need an account and a send.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-11-19: the free Marketing Platform plan is free forever, allows 12,000 emails a month to 1,000 contacts, and needs no card | capture: sha256:139da042366cc4d8a66552c5ed40127fb3aae525f4c86eb90991c265ae9e3709 | quote: Yes. The Free plan is free forever with 12,000 emails a month to 1,000 contacts, and no credit card is required to start.
+  - [1] 2026-11-19: the comparison table confirms the 12,000 monthly send ceiling on the free plan | capture: sha256:139da042366cc4d8a66552c5ed40127fb3aae525f4c86eb90991c265ae9e3709 | quote: | Emails per month | 12,000 | Unlimited | Unlimited |
+  - [1] 2026-11-19: the comparison table confirms the 1,000 contact ceiling on the free plan | capture: sha256:139da042366cc4d8a66552c5ed40127fb3aae525f4c86eb90991c265ae9e3709 | quote: | Contacts | 1,000 | 1,000 | Custom |
+  - [2] 2026-11-19: the Marketing API shapes requests per client IP at 50 per second in a sliding one-second window | capture: sha256:5f95d5833960bf9b7f784f11b125d6ec289f28e4b15a4b894e002b43fb487546 | quote: Requests are rate-limited per client IP using a sliding one-second window of 50 requests per second (higher limits can be arranged for specific IPs — contact support).
+  - [2] 2026-11-19: a 429 carries no server-provided retry time, so clients must implement their own backoff | capture: sha256:5f95d5833960bf9b7f784f11b125d6ec289f28e4b15a4b894e002b43fb487546 | quote: The API does not currently send `X-RateLimit-*` or `Retry-After` headers. Clients — especially AI agents doing batch work — should treat any `429` as a signal to back off exponentially rather than expecting a server-provided retry time.
+  - [3] 2026-11-19: the signup form requires first name, last name, email and a phone number; no card field is present | capture: sha256:540379204b160a9bdbc9a6228d60fc4895b3819a16a64838ec877bb1d2e5dea3 | quote: Or Sign up in with email First name\* Last name\* Email\* Phone\*
+  - [4] 2026-11-19: a documented REST Marketing API is the programmatic access path | capture: sha256:5f0725a4993e1aa2e8ae30d5e75136d657361827e8f137314c7c35dff120e32c | quote: | Marketing API — campaigns, contacts, lists, segments, webhooks, automations | `https://cloudapi.mailercloud.com/v1` | [Marketing API](https://apidoc.mailercloud.com/api-reference) |
+  - [5] 2026-11-19: the API needs an API key in the Authorization header | capture: sha256:8d00ce377438461c58b7779cc766a54db048ec47dc985c12a7417f9cc4c60b17 | quote: To use this API, you need an API key for authentication.
+  - [6] 2026-11-19: the separate transactional Email API is opened by a 14-day trial with 100 emails and no card | capture: sha256:3a24e1e17dc7163e63553d929fbeaf1a6afd5c77158b4261b222d73620f6dd52 | quote: No card required. Every plan starts with a 14-day free trial, and each signup includes 100 emails to test your integration before you commit.
+- sources:
+  - [1] https://www.mailercloud.com/pricing
+  - [2] https://apidoc.mailercloud.com/rate-limits.md
+  - [3] https://app.mailercloud.com/register
+  - [4] https://apidoc.mailercloud.com/
+  - [5] https://help.mailercloud.com/en/articles/155-mailercloud-email-api-help-guide
+  - [6] https://www.mailercloud.com/pricing/api
+
+## MailerLite
+
+- `email/mailerlite` | qualifies-with-caveat | evidence documented | binding request-rate | category marketing sender
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:33:30.050Z (live) | stale on 2026-12-05
+- url https://www.mailerlite.com/pricing | page https://fshy.ajam.dev/p/mailerlite.md
+- free tier: 2,500 emails/month, 250 subscribers, 2 user seats | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not stated | source: [1]
+- egress: not applicable: an outbound sender. On Free, sending runs from the web app; the API and MCP server cannot send | metered: no | source: [1]
+- identity: email | detail: company or organization, name, email address and a password at signup, then email verification
+- interface: rest
+- limits:
+  - request-rate (binding): 2,500 emails per month [1]
+  - write-gated: API and MCP sending is available on paid plans only; on Free the API is read-limited [1]
+  - write-gated: a new account completes its profile and requests approval before it is validated [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: a 250-active-subscriber ceiling, past which campaigns and automations are locked, and 2 user seats
+- binding note: 2,500 sends a month binds first for a sender; the 250-active-subscriber ceiling, which locks sending when passed, is a count no limits kind names
+- interface detail: the MailerLite API, which on the free plan is read-limited and cannot send
+- tooling: the MailerLite web app sends campaigns and automations on Free; the MailerLite API and MCP server are limited on Free and cannot send, so programmatic sending needs a driver for the web app or a paid plan
+- composes with: on Free it composes only through the web app, since the API and MCP server cannot send; a paid plan opens API sending
+- reliability: the free plan adds MailerLite branding to messages
+- notes: API and MCP sending is a paid feature; the Free plan sends campaigns and automations from the web app, so the 2,500 monthly emails are reachable by driving the web app.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Email sending via the API and MCP server is available on paid plans. On Free, API and MCP access is limited and doesn't include sending'
+  - [1] 2026-10-30: the Free plan sends 2,500 emails a month | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Free includes 2,500 emails per month.
+  - [1] 2026-10-30: on Free the API and MCP server cannot send | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Email sending via the API and MCP server is available on paid plans. On Free, API and MCP access is limited and doesn't include sending.
+  - [1] 2026-10-30: API sending is a paid-plan feature | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Email sending via the API and MCP server is available on paid plans. On Free, API and MCP access is limited and doesn't include sending.
+  - [1] 2026-10-30: on Free the API cannot send, so the allowance is reached through the web app | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Email sending via the API and MCP server is available on paid plans. On Free, API and MCP access is limited and doesn't include sending.
+  - [1] 2026-10-30: the Free plan is capped at 2,500 emails a month | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Free includes 2,500 emails per month.
+  - [1] 2026-10-30: sending locks when active subscribers pass 250 | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: For free accounts, when the number of active subscribers exceeds the 250 active subscriber limit, sendings will be locked (campaigns + automation).
+  - [2] 2026-10-30: a new account is validated only after profile completion and an approval request | capture: sha256:9580e699f17664e1eaf0ef0556f6795a1341e247e81fa1d58acf7c9602f076e8 | quote: After creating a MailerLite account, you’ll need to complete two steps to validate your account: (i) Complete your profile; (ii) Request approval.
+  - [1] 2026-10-30: sending locks past 250 active subscribers | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: For free accounts, when the number of active subscribers exceeds the 250 active subscriber limit, sendings will be locked (campaigns + automation).
+  - [3] 2026-10-30: signup asks for company or organization, name, email address and password | capture: sha256:4312e1d503b146b35279f7433508f9faffc434c2bca67f434f5bf59d05229037 | quote: Fill out the information requested, such as Company/Organization, Name, Email address, and create a Password.
+  - [1] 2026-10-30: the Free plan signup asks for no card | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: No credit card required.
+  - [1] 2026-10-30: the Free plan gives 250 subscribers, 2 seats and 2,500 emails a month | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: You get up to 250 subscribers, 2 user seats, and 2,500 monthly emails, plus campaigns, automations, a website, a landing page, and signup forms
+  - [1] 2026-11-04: the Free plan is 2,500 emails a month, unchanged | capture: sha256:ea4036b4dfffbeb546cdf4f396fd5e4ef31e796f8d5ab7fd8b6341a48095db9b | quote: Free includes 2,500 emails per month.
+- sources:
+  - [1] https://www.mailerlite.com/pricing
+  - [2] https://www.mailerlite.com/legal/terms-of-service
+  - [3] https://www.mailerlite.com/help/how-to-get-approved
+
+## Maileroo
+
+- `email/maileroo` | qualifies-with-caveat | evidence documented | binding write-gated | category transactional sender and SMTP relay | tier free
+- needs card no, phone unknown, ID no, institution no | verified 2026-11-02T10:00:24.470Z (live) | stale on 2026-12-03
+- url https://maileroo.com/pricing | page https://fshy.ajam.dev/p/maileroo.md
+- free tier: 3,000 outbound emails per month with no daily cap, 1,000 inbound emails per month, 2 custom sending domains, at USD 0 with no card | unit: requests | metered on: request-count | read on: 2026-10-30 | source: [1] | note: Hourly sending limits apply to every account and on the free plan stay below the paid ones; mail sent beyond the hourly limit is dropped, not queued. The free plan gets no 12% overage buffer. A new account starts in Test Mode, 100 emails in total to at most 7 unique recipients, until a domain is added and an account verification form is approved. SMTP, the REST API, webhooks, inbound routing and 14 days of searchable logs are on the free plan, with 100 test emails a month. The next plan is USD 10 per month for 25,000 emails.
+- per-object cap: 24 MB maximum message size over SMTP | source: [2]
+- retention: 14 days of searchable logs on the free plan | days: 14 | source: [3]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: The signup form asks for a name, an email address and a password of at least 8 characters behind a Cloudflare Turnstile check, with no card. Registration and login through a VPN or proxy are refused. Leaving Test Mode needs a domain and an account verification form, reviewed typically within 12 business hours, that declares transactional or marketing use; the verification checks for a valid website associated with the account. Whether a phone number is asked is unverified: behind a sign-up. The compulsory DNS records are SPF (v=spf1 include:_spf.maileroo.com -all) and a DKIM TXT record; DMARC is optional.
+- interface: rest
+- limits:
+  - request-rate: 3,000 outbound emails per month; past the quota nothing more is sent until the month resets, and the free plan has no overage buffer [4]
+  - request-rate: an hourly sending limit that grows over time and stays below the paid plans; mail beyond it is dropped. The free-plan figure is unverified: behind a sign-up [5]
+  - write-gated (binding): Test Mode until a domain is added and an account verification form is approved, typically within 12 business hours: 100 emails in total to at most 7 unique recipients [6]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 2 custom sending domains on the free plan, plus a sandbox domain that sends to up to 7 approved test recipients; 1,000 inbound emails per month.
+- binding note: Test Mode allows 100 emails in total to 7 recipients until a manual account verification, which checks for a website, is approved; after it, 3,000 a month with no daily cap and an unstated hourly limit.
+- interface detail: SMTP at smtp.maileroo.com on port 465 with SSL or 587 and 2525 with STARTTLS, and the REST email API; the interface vocabulary has no smtp term
+- tooling: any SMTP client, or the REST API and the vendor's SDKs; a one-click Cloudflare integration writes the DNS records
+- composes with: 3,000 a month with no daily cap, so a month can be spent in a burst within the hourly limit; pairs with its own inbound routing at 1,000 a month or with Cloudflare Email Routing for receiving.
+- reliability: mail beyond the hourly limit is dropped rather than queued
+- notes: The side-project page says sends past 3,000 wait until the quota resets, while the limits help page says mail beyond the limits is dropped rather than queued.
+- evidence note: no message was sent; smtp.maileroo.com answered a 220 banner on ports 587 and 2525. The free-plan hourly limit and the questions of the verification form are behind a sign-up.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-30: the free plan sends 3,000 emails a month with no card | capture: sha256:1074a31faea8c4ecff6843f9a9c3390a26a16e8039f37a133e881abb3f1e49c7 | quote: Kick off with our free plan, send up to 3,000 emails/month at no cost. No credit card required.
+  - [5] 2026-10-30: the free plan is 3,000 outbound and 1,000 inbound a month, lower hourly caps and 2 custom domains | capture: sha256:4334f08baa09620f1e7f1f94a23faf3a8b622a4158b50748fab818989799a1e7 | quote: Maileroo’s free plan includes all features, up to 3,000 outbound and 1,000 inbound emails monthly, lower hourly caps, and 2 custom domains.
+  - [5] 2026-10-30: the free-plan hourly limit grows over time and stays below the paid plans | capture: sha256:4334f08baa09620f1e7f1f94a23faf3a8b622a4158b50748fab818989799a1e7 | quote: Your hourly sending limits grow proportionally over time, but remain capped below the higher hourly limits available on paid plans.
+  - [3] 2026-10-30: the free plan has no daily cap and stops sending at 3,000 a month | capture: sha256:5a3ad80b6b0113ad5e09b6350c2e59c24b3ef3a22582c237d10e48f8e22c36e8 | quote: On the free plan, once you hit 3,000 emails in the month, further sends wait until the quota resets or you upgrade. There is no daily cap.
+  - [4] 2026-10-30: mail beyond the hourly limit is dropped | capture: sha256:69e09d5cb9fb4766db8f7bfeb2b403b41523108f727dcf25b9d0178b02d7a01d | quote: Emails sent beyond your hourly limit are automatically dropped by our system and will not be delivered.
+  - [4] 2026-10-30: the free plan has no 12% overage buffer | capture: sha256:69e09d5cb9fb4766db8f7bfeb2b403b41523108f727dcf25b9d0178b02d7a01d | quote: Free accounts are limited to 3,000 emails per month and won't be subject to this buffer system.
+  - [4] 2026-10-30: mail past the limits is not queued | capture: sha256:69e09d5cb9fb4766db8f7bfeb2b403b41523108f727dcf25b9d0178b02d7a01d | quote: Our system does not queue emails until your limit resets or is upgraded.
+  - [6] 2026-10-30: Test Mode allows 100 emails in total | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: You can send a maximum of 100 emails in total.
+  - [6] 2026-10-30: Test Mode allows 7 unique recipients | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: You can send emails to a maximum of 7 unique recipients.
+  - [6] 2026-10-30: leaving Test Mode starts by adding a domain | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: Firstly, add a domain to your Maileroo account.
+  - [6] 2026-10-30: the account verification form is reviewed within about 12 business hours | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: Once submitted, the verification process typically takes up to 12 business hours.
+  - [3] 2026-10-30: the verification form declares transactional or marketing use | capture: sha256:5a3ad80b6b0113ad5e09b6350c2e59c24b3ef3a22582c237d10e48f8e22c36e8 | quote: During verification you tell us whether you plan to send transactional email, marketing email, or both.
+  - [7] 2026-10-30: account verification checks for a valid website | capture: sha256:abd8b3961ebb4d368d7381ab2968220f892e6061e90b0fda53b054488bba36cf | quote: Verifying the presence of a valid website associated with user accounts promotes transparency and accountability, discouraging fraudulent activities.
+  - [8] 2026-10-30: registration and login through a VPN or proxy are refused | capture: sha256:036a51c3b29e8315b4773ff0bc520966f0a3512069cbad6dd642fea7a2527e6a | quote: We do not allow users to log in or register while using VPNs or proxies.
+  - [9] 2026-10-30: the signup form asks for name, email address and an 8-character password behind Turnstile, with no card field | capture: sha256:9021eca734b28855ec5976b381cf8e6fd19c8b60ed9bcc4feb660135c38e7490 | quote: Must be at least 8 characters.
+  - [10] 2026-10-30: SPF and DKIM are the compulsory DNS records | capture: sha256:6407e617b0faaaa57803d325076c19b093bc3948a074a820accd6f3513aba9b0 | quote: To use Maileroo with your domain, add an SPF record authorizing its servers and publish the DKIM public key generated in Maileroo.
+  - [10] 2026-10-30: the SPF record value to publish | capture: sha256:6407e617b0faaaa57803d325076c19b093bc3948a074a820accd6f3513aba9b0 | quote: v=spf1 include:_spf.maileroo.com -all
+  - [10] 2026-10-30: DMARC is optional | capture: sha256:6407e617b0faaaa57803d325076c19b093bc3948a074a820accd6f3513aba9b0 | quote: A DMARC record is optional but can further strengthen email security.
+  - [3] 2026-10-30: a one-click Cloudflare integration writes the DNS records | capture: sha256:5a3ad80b6b0113ad5e09b6350c2e59c24b3ef3a22582c237d10e48f8e22c36e8 | quote: Use our one-click Cloudflare integration for a quick setup or manually add the DNS records to your domain.
+  - [11] 2026-10-30: the sandbox domain sends to up to seven test recipients | capture: sha256:4d60371619939f6ec857014920943cf023de102da1394891f9d1511a7690fec9 | quote: You can add up to seven recipients for testing outbound email delivery through Maileroo.
+  - [2] 2026-10-30: SMTP accepts messages up to 24 MB | capture: sha256:088e5adb25607231337ef4302e0727bc4a6389febdcfc6e831a64c84957a83c2 | quote: The maximum message size is 24 MB.
+  - [2] 2026-10-30: SMTP ports 587 and 2525 with STARTTLS, 465 with SSL | capture: sha256:088e5adb25607231337ef4302e0727bc4a6389febdcfc6e831a64c84957a83c2 | quote: Please use STARTTLS for port `587` and `2525`. Use SSL for port `465`.
+  - [3] 2026-10-30: the free plan has SMTP, the REST API, webhooks and 14 days of logs | capture: sha256:5a3ad80b6b0113ad5e09b6350c2e59c24b3ef3a22582c237d10e48f8e22c36e8 | quote: You get SMTP, the REST API, webhooks, analytics and 14 days of searchable logs on the same production infrastructure as paid plans.
+  - [3] 2026-10-30: the next plan is 10 a month for 25,000 emails | capture: sha256:5a3ad80b6b0113ad5e09b6350c2e59c24b3ef3a22582c237d10e48f8e22c36e8 | quote: The cheapest paid plan is $10 a month for 25,000 emails, with a 12% buffer on paid plans so a spike does not stop the queue.
+  - probe:smtp.maileroo.com:587 2026-10-30: smtp.maileroo.com answered a 220 banner on ports 587 and 2525; no message was sent | capture: sha256:5ca241f4fddce68691fa76ef6d839b353602d4ec596fb1b41000d8c1634c9b4a | quote: "banner": "220 ErbSMTP3 ready at smtp.maileroo.com"
+  - [6] 2026-11-02: a new account starts in Test Mode with 100 emails in total to 7 unique recipients until a domain is added and the account verification form is approved, typically within 12 business hours | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: New Maileroo accounts begin in Test Mode, limited to 100 total emails and 7 unique recipients. To move to Production mode, add a domain and submit the account verification form. Reviews typically take up to 12 business hours, and compliance with the Spam Policy is required.
+  - [2] 2026-11-02: the SMTP relay server configuration page states a maximum message size of 24 MB | capture: sha256:088e5adb25607231337ef4302e0727bc4a6389febdcfc6e831a64c84957a83c2 | quote: The maximum message size is 24 MB.
+  - [4] 2026-11-02: every new account is assigned an hourly sending limit that gradually increases with use | capture: sha256:69e09d5cb9fb4766db8f7bfeb2b403b41523108f727dcf25b9d0178b02d7a01d | quote: At Maileroo, all new accounts are assigned an hourly sending limit that gradually increases as you use our services.
+  - [4] 2026-11-02: reputable senders may receive 2 to 3 burst tokens a day that allow temporary overage of up to 200% of the hourly limit | capture: sha256:69e09d5cb9fb4766db8f7bfeb2b403b41523108f727dcf25b9d0178b02d7a01d | quote: Emails beyond Maileroo’s hourly sending limit are dropped, though reputable senders may receive 2–3 daily burst tokens allowing temporary overages of up to 200%.
+  - [12] 2026-11-02: a higher hourly limit is requested through the Change Hourly Limit form in the dashboard, which the team reviews | capture: sha256:8947af078de9d5cdef3f486cd266e104ec49480fc85a95c00b7b6035d36a5aa5 | quote: You can also request a change in your hourly limits by navigating to your dashboard and in the bottom left you will see 'Change Hourly Limit', where clicking on this you will see a form that you can fill out for our team to review.
+  - [6] 2026-11-02: the account verification form is reached from Change Hourly Limit in the dashboard | capture: sha256:ea0bd869596b84e31d46f45b5d31ec12bd29ba5ae74c861adae84978115a2861 | quote: Complete and submit the verification form. This can be found by clicking on 'Change Hourly Limit' in the bottom left corner of your dashboard.
+  - [13] 2026-11-02: every user states the intended email use, transactional or marketing, during the verification process | capture: sha256:adcce5222103310eb01acdc3bfb6f094216526cf03b68ff7cf2233c7e783ab60 | quote: All users must specify their intended email use (transactional or marketing) during the verification process
+  - [14] 2026-11-02: marketing email over SMTP must be declared in the verification form | capture: sha256:67073e60f1d3fc1c6e261c6355372e87b4d7bdbf59252cae873c9021b01f58af | quote: Users are permitted to send marketing emails via SMTP, but you must disclose your intention to do so in your verification form.
+  - [15] 2026-11-02: a third-party hands-on review reports an initial hourly limit of 30 emails, raised to 150 per hour on request | capture: sha256:aa534464d3a5ffcb71b8dcedc25357f0cfab655c7b218b686388543d8a6a21a5 | quote: Initial hourly limits are strict (30 emails/hour), but you can request a bump. We had ours raised to 150/hour within just a few hours of signing up.
+- sources:
+  - [1] https://maileroo.com/pricing
+  - [2] https://maileroo.com/docs/smtp-relay/server-configuration
+  - [3] https://maileroo.com/for/side-projects
+  - [4] https://maileroo.com/help/what-happens-if-i-go-over-my-emailing-limits
+  - [5] https://maileroo.com/help/what-are-differences-between-free-paid-plans
+  - [6] https://maileroo.com/help/what-is-test-mode-how-can-i-send-emails-without-any-limitations
+  - [7] https://maileroo.com/help/why-does-maileroo-have-account-verification-process
+  - [8] https://maileroo.com/help/the-use-of-vpns-proxies-on-maileroo/
+  - [9] https://app.maileroo.com/account/sign-up
+  - [10] https://maileroo.com/help/what-dns-records-are-compulsory-create-so-that-i-can-use-maileroo
+  - [11] https://maileroo.com/help/is-there-sandbox-test-environment-testing-maileroo
+  - [12] https://maileroo.com/help/how-can-i-increase-my-hourly-limits
+  - [13] https://maileroo.com/email-policy
+  - [14] https://maileroo.com/help/what-kind-emails-can-i-send-maileroo
+  - [15] https://www.emailtooltester.com/en/blog/free-smtp-servers/
+
+## Mailgun
+
+- `email/mailgun` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone yes, ID no, institution no | verified 2026-10-30T09:26:49.193Z (live) | stale on 2026-11-30
+- url https://www.mailgun.com/pricing/ | page https://fshy.ajam.dev/p/mailgun.md
+- free tier: 100 messages/day, 1 custom domain, 1 inbound route, 2 API keys, 1-day log retention | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: Without a card on file the Free plan sends from the sandbox domain only to authorized recipients: up to 5 addresses, each verified when its owner clicks an invitation link. A card on file allows custom domains, which send to any recipient; a custom domain must be verified through DNS before it sends.
+- per-object cap: not applicable
+- retention: logs and the Events API keep 1 day | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: card | detail: Signup asks for a work email, a full name and a company; every account is then activated by an email link and a mobile phone number verified by an SMS one-time password, and VoIP, virtual and landline numbers are refused. No card is needed to open a Free plan account, but without a card on file it sends only to authorized recipients; a card on file unlocks custom domains, which send to any recipient.
+- interface: rest
+- limits:
+  - request-rate (binding): 100 messages per day [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1 custom domain and 1 inbound route per account
+- interface detail: https://api.mailgun.net/v3/DOMAIN/messages
+- tooling: curl, any HTTP client
+- composes with: 100/day out with one domain and one inbound route, so it composes with one domain and with no fan-out.
+- reliability: phone verification refuses VoIP, virtual and landline numbers, and repeated code requests can place a temporary hold on the account
+- notes: One domain and one inbound route cap the shape rather than the volume.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: '100 messages per day', 1 custom domain, 1 day of data retention, 1 inbound route and 2 API keys; the page returned 403 to the reader but the body extracted
+  - [3] 2026-10-30: a Free plan account without a card on file sends only to authorized recipients, so the stated free tier with a custom domain needs a card on file | capture: sha256:a61d8f5e7973d82fdeb914770c587ba67b08ee54076920d2335297a52202d9d4 | quote: If you're on the Free plan without credit card information present or using your sandbox domain for testing, you're restricted to sending just to Authorized Recipients.
+  - [4] 2026-10-30: every account is activated by verifying an email address and a phone number by SMS | capture: sha256:3fbb0789add7e163ce7c6a40b0b4ee4ec51db67e18cba13526d910fe279a2a75 | quote: This involves verifying both your email address and a phone number.
+  - [4] 2026-10-30: the SMS verification needs a standard mobile number; VoIP, virtual and landline numbers are refused | capture: sha256:3fbb0789add7e163ce7c6a40b0b4ee4ec51db67e18cba13526d910fe279a2a75 | quote: Voice over IP (VoIP), virtual numbers, and landlines cannot be used.
+  - [5] 2026-10-30: the free signup form asks for Work Email, Full Name and Company and opens an account without a card, limited to 100 messages per day | capture: sha256:27374037a9d01cfcbd9bf96a06cc50e2728db335d7f8cd0a1008bbafc4535a64 | quote: Free accounts without a credit card are limited to 100 messages per day.
+  - [3] 2026-10-30: adding a card allows custom domains, and a custom domain sends to any recipient | capture: sha256:a61d8f5e7973d82fdeb914770c587ba67b08ee54076920d2335297a52202d9d4 | quote: From custom domains, you can send to whomever you like!
+  - [3] 2026-10-30: a card-free Free plan account reaches at most 5 authorized recipients, each verified by an activation link | capture: sha256:a61d8f5e7973d82fdeb914770c587ba67b08ee54076920d2335297a52202d9d4 | quote: Up to 5 Authorized Recipients can be added.
+  - [6] 2026-10-30: the sandbox domain every account receives sends only to authorized recipients | capture: sha256:571abd44e434b6241764daaf94c4d7b48843af9b76a3460d2654660e36460204 | quote: Sandbox domains can only send to authorized recipients.
+  - [7] 2026-10-30: sending to any recipient needs a custom domain the sender controls, verified through DNS | capture: sha256:5a85fdedd9d74349f5540939e74407c8e0f57f517f337ba8c1161b0d49b9180e | quote: To use Mailgun for production, you must create and verify your custom domain(s) with Mailgun to ensure proper authentication and deliverability.
+  - [4] 2026-10-30: repeated SMS code requests can place a temporary hold on the account | capture: sha256:3fbb0789add7e163ce7c6a40b0b4ee4ec51db67e18cba13526d910fe279a2a75 | quote: If you've tried multiple times, a temporary hold may be placed on your account.
+  - [1] 2026-10-30: the Free plan keeps logs and Events API data for 1 day | capture: sha256:b0043f6547d5a26c1ba38432b4c155e5fc5bb51a7699216a70241ac44a7c9765 | quote: 1 day of data retention for Logs and the Events API
+  - [8] 2026-10-30: messages are sent with a POST to api.mailgun.net/v3/DOMAIN/messages | capture: sha256:15ab0f046eb692dc94b8e20ea5f1b1c720413d1987205b5243ab347e9c3befc6 | quote: https://api.mailgun.net/v3/YOUR_SANDBOX_DOMAIN/messages
+  - [2] 2026-10-30: the Free plan is still 100 emails per day with 1 custom sending domain, 2 API keys, 1 day log retention and 1 inbound route | capture: sha256:67f330109776d29835b27a7ffcfe9932c7855e9e97119778decd86a7850f7f37 | quote: 100 emails per day
+- sources:
+  - [1] https://help.mailgun.com/hc/en-us/articles/203068914-What-does-the-Free-plan-offer
+  - [2] https://www.mailgun.com/pricing/
+  - [3] https://help.mailgun.com/hc/en-us/articles/217531258-Authorized-Recipients
+  - [4] https://help.mailgun.com/hc/en-us/articles/37182933150491-Account-Activation
+  - [5] https://signup.mailgun.com/new/signup?plan_name=dev_free&currency=USD
+  - [6] https://documentation.mailgun.com/docs/mailgun/user-manual/domains/domains-sandbox
+  - [7] https://documentation.mailgun.com/docs/mailgun/user-manual/domains/domains-custom
+  - [8] https://documentation.mailgun.com/docs/mailgun/quickstart
+
+## Mailjet
+
+- `email/mailjet` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.mailjet.com/pricing/ | page https://fshy.ajam.dev/p/mailjet.md
+- free tier: 6,000 emails/month, 200/day, 1,000 contacts | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: over-quota mail is queued for 3 days then discarded | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account; the page states no credit card is required at signup
+- interface: rest
+- limits:
+  - request-rate (binding): 200 emails per day [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1,000 contacts stored on the free plan
+- interface detail: https://api.mailjet.com/v3.1/send
+- tooling: curl, any HTTP client
+- composes with: the largest monthly figure in the free sender set at 6,000, cut down to 200/day. It composes with the same domain as Brevo and Resend, which is where the reputation problem starts.
+- reliability: over-quota mail is reported to be queued for three days and then discarded, which makes an overrun silent data loss. That sentence is reported and not documented: the knowledge-base article it came from, documentation.mailjet.com article 360043048393, returns 404 on 2026-10-22, and the pricing page does not state it
+- notes: The 30:1 monthly-to-daily ratio is the same shape as Resend's. The queue-and-discard behaviour is the technical fact a reader needs before pointing a campaign at it.
+- evidence note: no message was sent, so no delivery is proved. The submission path was probed: in-v3.mailjet.com:587 answered 250, STARTTLS completed, and AUTH LOGIN returned 334
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: '6,000 emails/month', '200 emails per day', '1,000 contacts', and 'there is no credit card required for the free plan at sign up'
+  - probe:smtp://in-v3.mailjet.com:587 2026-10-22: banner 250, EHLO advertises SIZE and 8BITMIME, STARTTLS completed, and AUTH LOGIN returned 334. The submission endpoint answers; no message was sent
+- sources:
+  - [1] https://www.mailjet.com/pricing/
+
+## Mailtrap
+
+- `email/mailtrap` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://mailtrap.io/pricing/ | page https://fshy.ajam.dev/p/mailtrap.md
+- free tier: 4,000 emails per month and 150 emails per day on the free tier, 1 user, 1 domain, 3 days of logs | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: 3 days of email logs on the free plan | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account
+- interface: rest
+- limits:
+  - request-rate (binding): 150 emails per day [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 1 user and 1 domain. The pricing page states 4,000 emails per month and 150 per day on the Email API/SMTP free tab. A footnote adds that the email limit is per month and 'Shares quota between sending and receiving'. The page carries no separate sending sub-allowance. The 1,000 that circulates is the sandbox message-store column and the per-1,000 overage price. It is not a send cap.
+- interface detail: the Mailtrap Email API and SMTP, on the Email API tab
+- tooling: curl, any SMTP client
+- composes with: 150/day out with 4,000 in the pool, so it composes with a domain and with a launch that spikes for one day and then stops.
+- reliability: the 4,000 is a sandbox-and-send pool; the pricing page presents the two tabs separately
+- notes: The 4,000 headline is the trap: the free tier splits sending from sandbox testing and 150/day is what a launch meets.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the Free column reads '4,000 emails', '150 emails/day', '1 user', '3 days of email logs' and '1 domain'
+- sources:
+  - [1] https://mailtrap.io/pricing/
+
+## MTempMail
+
+- `email/mtempmail` | qualifies-with-caveat | evidence documented | binding retention-clamped | category disposable inbox and read API
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:37:19.395Z (live) | stale on 2026-12-20
+- url https://mtempmail.com/ | page https://fshy.ajam.dev/p/mtempmail.md
+- free tier: a free disposable inbox created anonymously with no signup; the homepage states unlimited creation of new addresses and a 24-hour lifespan per address | unit: unlimited | metered on: none | read on: 2026-11-19 | source: [1] | note: 10 active domains including EDU-style .edu.pl domains, stated on the homepage. A private API key with dedicated rate limits is available in an account, but no account is needed for the public key.
+- per-object cap: unverified: no first-party page states an inbox size or a per-message size cap | note: Attachment reception is stated on the help page without a size figure; no byte cap was found on the homepage, the API page or the help page.
+- retention: Every MTempMail address and its messages are deleted automatically 24 hours after the address is created. | source: [1] | note: The help page repeats the 24-hour purge and states that messages deleted by it cannot be restored.
+- egress: inbound receive-only; sending and replying are deliberately not allowed | metered: no | source: [2]
+- identity: anonymous | detail: No email, name, password, or credit card needed. The API page states the offer needs no registration or credit card and publishes a public key.
+- interface: rest
+- limits:
+  - retention-clamped (binding): 24 hours before an address and its messages are deleted [1]
+  - request-rate: about 120 requests per minute per IP for the free public key [3]
+  - request-rate: 60 requests per minute per IP for the standard free tier [2]
+- binding note: the 24-hour purge deletes the message a caller is polling for, so it ends a workflow before either published per-IP request rate is reached
+- interface detail: REST API at mtempmail.com/api for creating addresses, listing domains and reading messages with a published public key; a web inbox, a Telegram bot and mobile apps are also offered.
+- endpoint: https://mtempmail.com/api
+- tooling: curl, Python requests, Node.js fetch or PHP against the REST API; the public key is printed on the API page
+- composes with: the verification-code sink: create an address with the public key, let a service deliver to it, then read the message back over REST; the 24-hour purge and the per-IP limit on the shared key decide how long and how often a test can poll
+- reliability: the free public key is shared and rate-limited per IP; the help page states 60 requests per minute per IP while the API page states about 120. An inbox is not password-protected, so anyone who knows the exact address can open it.
+- notes: Inbox size and per-message size cap are unverified: no first-party page publishes a number. The 10-domain figure and the 24-hour lifespan are stated on the homepage. The free public key is shared, and the two first-party rate figures conflict.
+- evidence note: Anonymous creation, retention, domain count, receive-only behaviour, identity and API access are stated on first-party pages. Inbox size and the per-message size cap are unverified because no first-party page publishes a number.
+- evidence:
+  - [1] 2026-11-19: each address and its messages expire 24 hours after creation | capture: sha256:e590e6066e962c1803114ed456d120f329de7d5f889717128ee8c30f27fecd9d | quote: Every MTempMail address and its messages are deleted automatically 24 hours after the address is created.
+  - [1] 2026-11-19: 10 active domains including EDU-style ones, and a 24-hour address lifespan | capture: sha256:e590e6066e962c1803114ed456d120f329de7d5f889717128ee8c30f27fecd9d | quote: MTempMail keeps each address for 24 hours, generates non-guessable addresses, lets you choose your own name across 10 domains including EDU-style ones, and delivers attachments to keep their main inboxes clean.
+  - [1] 2026-11-19: no identity document, contact detail or card is asked for | capture: sha256:e590e6066e962c1803114ed456d120f329de7d5f889717128ee8c30f27fecd9d | quote: No email, name, password, or credit card needed.
+  - [3] 2026-11-19: the API page sets a per-IP request rate of about 120 per minute for the public key | capture: sha256:38b7ff93e18e4ab1ac5bd8b7f7cb052c37232c6ccff14596ee6b6527b4dc6658 | quote: The free public key is rate-limited to about 120 requests per minute per IP.
+  - [3] 2026-11-19: the API is open without an account or a card | capture: sha256:38b7ff93e18e4ab1ac5bd8b7f7cb052c37232c6ccff14596ee6b6527b4dc6658 | quote: It is free, needs no registration or credit card, and works from any programming language, script, or AI agent.
+  - [2] 2026-11-19: the help page sets a per-IP request rate of 60 per minute on the free tier | capture: sha256:eb7597232a0e99d5003409f2a53e8322e2144e8edb8f9c023497d9693f654710 | quote: Standard free tier requests are rate-limited to 60 requests per minute per IP, which is plenty for automated QA test suites.
+  - [2] 2026-11-19: the service receives mail only and does not allow sending | capture: sha256:eb7597232a0e99d5003409f2a53e8322e2144e8edb8f9c023497d9693f654710 | quote: Free Edu & .COM Temporary Mails is strictly an inbound receive-only service. We deliberately do not allow sending or replying, to prevent spammers from abusing our mail servers.
+  - [2] 2026-11-19: no identity detail or card is required, and messages are purged after 24 hours | capture: sha256:eb7597232a0e99d5003409f2a53e8322e2144e8edb8f9c023497d9693f654710 | quote: We do not require your real name, physical location, or credit card for free disposable email generation, and all incoming emails are deleted automatically after 24 hours.
+  - [2] 2026-11-19: the help page confirms the 24-hour message purge | capture: sha256:eb7597232a0e99d5003409f2a53e8322e2144e8edb8f9c023497d9693f654710 | quote: Incoming messages are automatically deleted after 24 hours to safeguard your privacy and maintain optimal server performance.
+- sources:
+  - [1] https://mtempmail.com/
+  - [2] https://www.mtempmail.com/help
+  - [3] https://mtempmail.com/page/api
+
+## NenzMail
+
+- `email/nenzmail` | qualifies-with-caveat | evidence documented | binding retention-clamped | category disposable inbox API
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:18:04.184Z (live) | stale on 2026-12-20
+- url https://nenzmail.com/api-docs | page https://fshy.ajam.dev/p/nenzmail.md
+- free tier: free disposable inbox with a keyless REST API; no signup and no stated byte quota; unlimited inbox count | unit: unlimited | metered on: identity-count | read on: 2026-11-19 | source: [1] | note: The FAQ states 100% free with no limits and unlimited inboxes. No per-inbox byte quota is stated on the first-party pages reviewed.
+- per-object cap: no message or object byte cap is stated on the first-party API docs, FAQ, home page or official SDK pages | source: [2] | note: unverified: no per-message size number appears on any first-party NenzMail page reviewed
+- retention: Inboxes auto-delete after 1 hour (3600 seconds); on expiry or manual delete all emails are permanently removed and cannot be recovered | source: [2] | note: Retention is one hour, below a day. days is null because no day count is stated.
+- egress: inbound messages are received at no charge; free outbound send through POST /api/send, rate limited to 20 emails per inbox per hour; no egress metering or traffic price is stated | metered: no | source: [2]
+- identity: anonymous | detail: No signup, no phone number, no personal information required; the API needs no key, token or account: 'No API key, no token, no signup.'
+- interface: rest
+- limits:
+  - retention-clamped (binding): Inboxes auto-delete after 1 hour (3600 seconds); emails are permanently removed on expiry [2]
+  - request-rate: outbound send rate limited to 20 emails per inbox per hour [3]
+  - request-rate: Rate limits may apply for abuse prevention; no numeric request cap is published on the API docs [2]
+- binding note: the 1-hour auto-delete removes an unread message before any request-rate or send cap is reached, so the retention window decides what a chain can do
+- interface detail: Keyless REST API on api.nenzmail.com: POST /api/inbox/create, GET /api/inbox/:address/emails, GET /api/email/:id, POST /api/send, DELETE /api/inbox/:address; all responses JSON, CORS enabled.
+- endpoint: https://api.nenzmail.com
+- tooling: curl or any HTTP client; official SDK packages nenzmail on PyPI (Python) and nenzmail on npm (Node.js)
+- composes with: Create a disposable inbox with a keyless POST, let a service deliver a verification email over SMTP, poll GET /api/inbox/:address/emails, read the full message through GET /api/email/:id, then delete the inbox. The 1-hour auto-delete clamps the whole chain, and outbound send is capped at 20 emails per inbox per hour.
+- reliability: The live host nenzmail.com returned HTTP 502 at review; the pages used here are Wayback snapshots dated 2026-10-28. A deleted or expired inbox cannot be recovered. No numeric message-size cap was stated on the first-party pages reviewed.
+- notes: Domain count and domain names come from the official SDK pages; the web and API pages use nenzmail.com while the SDK defaults to nenzmail.xyz. Per-inbox byte size and per-message byte cap are unverified: no first-party page states a number.
+- evidence note: values from first-party API docs, FAQ, home page and official SDK pages; the vendor site was read from archive after the live host returned 502; no probe was run, so the rung is documented and not measured
+- evidence:
+  - [4] 2026-11-19: inbox creation and API access are anonymous and keyless, and retention is one hour | capture: sha256:47722301ad22da15b1df405e079c9bb3aca324042530754df573a5e6cd80a668 | quote: NenzMail is free and open. No API key, no token, no signup. Just use your inbox address to read and send emails. Inboxes auto-delete after 1 hour.
+  - [4] 2026-11-19: the retention clamp is one hour, expressed in seconds | capture: sha256:47722301ad22da15b1df405e079c9bb3aca324042530754df573a5e6cd80a668 | quote: Inboxes auto-delete after 1 hour (3600 seconds)
+  - [4] 2026-11-19: the API docs warn of rate limiting without publishing a numeric request cap | capture: sha256:47722301ad22da15b1df405e079c9bb3aca324042530754df573a5e6cd80a668 | quote: Rate limits may apply for abuse prevention
+  - [5] 2026-11-19: the free tier has no stated byte quota and the inbox count is unlimited | capture: sha256:a5ee0ab1b892a6732e2c2610e609c9366320c8721af7f4085085fb2832deb369 | quote: Yes, 100% free with no limits. Create as many temporary inboxes as you need.
+  - [5] 2026-11-19: a free REST API covers inbox creation, listing and reading | capture: sha256:a5ee0ab1b892a6732e2c2610e609c9366320c8721af7f4085085fb2832deb369 | quote: NenzMail provides a free REST API for creating inboxes, listing emails, and reading email content.
+  - [6] 2026-11-19: registration needs no email, phone, card or identity document | capture: sha256:0882a9101fcc3c8cac9ad719f2c72cd360f4e5f503fc64eebd360383293f1953 | quote: No signup, no phone number, no personal information required.
+  - [3] 2026-11-19: the official SDK exposes three selectable inbox domains | capture: sha256:8efc71b073daa51885b986536d78a8539f03774961f9c2e922b5a4b92b13c324 | quote: `domain` — `nenzmail.xyz` (default), `nzmail.xyz`, or `zlkcyber.xyz`
+  - [3] 2026-11-19: outbound send is capped at 20 emails per inbox per hour | capture: sha256:8efc71b073daa51885b986536d78a8539f03774961f9c2e922b5a4b92b13c324 | quote: Send an email from your inbox to any address. Rate limited: 20/hr per inbox.
+- sources:
+  - [1] https://nenzmail.com/faq
+  - [2] https://nenzmail.com/api-docs
+  - [3] https://pypi.org/project/nenzmail/
+  - [4] https://web.archive.org/web/20261028190313/https://nenzmail.com/api-docs?provider=wayback
+  - [5] https://web.archive.org/web/20261028190538/https://nenzmail.com/faq?provider=wayback
+  - [6] https://web.archive.org/web/20261028190608/https://nenzmail.com/?provider=wayback
+
+## OVH MX Plan
+
+- `email/ovh-mx-plan` | qualifies-with-caveat | evidence documented | binding write-gated | category mailbox
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T21:12:36.070Z (live) | stale on 2026-12-20
+- url https://www.ovhcloud.com/en/emails/ | page https://fshy.ajam.dev/p/ovhcloud.md
+- free tier: 5 GB mailbox per account, free 100 MB web hosting with a domain, no database | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 5 GB per mailbox | source: [1]
+- retention: 5 GB per mailbox | source: [1]
+- egress: not applicable | metered: no | source: [2]
+- identity: card | detail: an OVH account with a payment method. Activation also needs a domain at OVH, which is a second gate and is recorded in the limits rather than in the identity kind, because identity_cost carries one value
+- interface: unknown, rest, browser
+- limits:
+  - write-gated (binding): one mailbox per domain on the free activation, with regional variation [1]
+- limits note: the 5 GB is a mailbox storage volume and not an object size, so no kind in the six-value vocabulary names it. One mailbox per domain is the count that shapes the tier
+- interface detail: IMAP, POP and SMTP are documented on the MX Plan: incoming IMAP at imap.mail.ovh.net or ssl0.ovh.net (port 993, SSL/TLS), incoming POP at pop.mail.ovh.net or ssl0.ovh.net (port 995, SSL/TLS) and outgoing SMTP at smtp.mail.ovh.net or ssl0.ovh.net (port 465, SSL/TLS). Webmail is available from a browser (Roundcube, Zimbra or OWA, depending on the service). OVHcloud also publishes a first-party REST management API for MX Plan at /v1/email/mxplan/{service}/account with Bearer-token authentication, covering listing, creating, updating and deleting mailboxes and changing passwords; it manages the service and is not a message-access protocol. No JMAP endpoint or JMAP support is listed on the first-party MX Plan guides, the email FAQ or the developer reference pages read. The interface vocabulary has no term for IMAP, POP, SMTP or JMAP, so unknown is kept as the nearest term for those protocols.
+- tooling: any IMAP client, per the MX Plan documentation
+- composes with: the cheapest route to a real mailbox with a custom domain, at the cost of a domain and a hosting plan at OVH.
+- reliability: the free activation depends on a domain and a hosting plan at OVH, with regional variation
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the free Mail MX activation bundled with a Start 10M hosting plan
+  - [3] 2026-11-02: MX Plan mail is used through webmail or an email client, with IMAP, POP and SMTP settings given for a user, for which the schema has no term, and the guide documents no WebDAV access | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Once you have created your email addresses, you can start using them. There are two ways of doing this: using webmail from a browser, or using an email client.
+  - [3] 2026-11-02: IMAP is at imap.mail.ovh.net or ssl0.ovh.net for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): imap.mail.ovh.net or ssl0.ovh.net.
+  - [3] 2026-11-02: an MX Plan mailbox is read over IMAP, or over POP | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: When you choose your account type, we recommend using IMAP to receive emails. However, you can select POP as well.
+  - [3] 2026-11-02: IMAP uses port 993 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): imap.mail.ovh.net or ssl0.ovh.net. - Port: 993. - Security type: SSL/TLS.
+  - [3] 2026-11-02: POP is at pop.mail.ovh.net or ssl0.ovh.net on port 995 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (incoming): pop.mail.ovh.net or ssl0.ovh.net. - Port: 995. - Security type: SSL/TLS.
+  - [3] 2026-11-02: SMTP uses port 465 with SSL/TLS for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net. - Port: 465. - Security type: SSL/TLS.
+  - [3] 2026-11-02: SMTP is at smtp.mail.ovh.net or ssl0.ovh.net for the Europe and Africa zone | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net.
+  - [3] 2026-11-02: the MX Plan guide was captured on 2026-11-02 and gives the IMAP and POP settings | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: When you choose your account type, we recommend using IMAP to receive emails. However, you can select POP as well.
+  - [3] 2026-11-02: the MX Plan guide still documents IMAP, POP and SMTP client access | capture: sha256:e6357369a3badaff39d6a69e8c245b4010c2f002bdc2e090a3c8b5364ef07eb4 | quote: Server (outgoing): smtp.mail.ovh.net or ssl0.ovh.net.
+  - [4] 2026-11-19: OVHcloud publishes a first-party REST API for MX Plan that lists and manages email accounts | capture: sha256:08c0be90ef5148c4bb78bf12ed0bfe061c0b97a13063ad81d34cd2b11bb8e79f | quote: List email accounts. Returns the email addresses of the email accounts of the service. Filter them by `primaryEmailAddress` or `id`.
+  - [5] 2026-11-19: the first-party MX Plan guide states the outgoing SMTP port on this plan | capture: sha256:d774b3e561782fcc2b4fad253eacdd922fa35c84ef578db4c87540d8942f25f4 | quote: Port: 465.
+  - [6] 2026-11-19: the first-party MX Plan landing page still lists IMAP client access | capture: sha256:bf2e11212ac5f598e12d0656fa5e36b5128d87bd89a8eec51eabaf7b76e2d1f0 | quote: | Incoming — IMAP | `imap.mail.ovh.net` or `ssl0.ovh.net` | SSL/TLS | 993 |
+  - [7] 2026-11-19: the first-party guide still confirms configuration in any email client | capture: sha256:917940d683b8c38dae7579f6bc561afe70dcc1184d6d196b1ff72a0cc676d9df | quote: You can configure your email account on an email client such as Outlook, Thunderbird, Mac Mail, etc.
+- sources:
+  - [1] https://docs.ovhcloud.com/en/guides/web-cloud/web-hosting/activate-start10m.md
+  - [2] https://www.ovhcloud.com/en/emails/
+  - [3] https://docs.ovhcloud.com/en/guides/web-cloud/email-and-collaborative-solutions/mx-plan/email-generalities.md
+  - [4] https://developers.eu.ovhcloud.com/reference/web-cloud/email-and-collaborative-solutions/mx-plan/zimbra-platform/accounts
+  - [5] https://docs.ovhcloud.com/en/guides/web-cloud/email-and-collaborative-solutions/mx-plan/email-creation
+  - [6] https://docs.ovhcloud.com/en/guides/web-cloud/email-and-collaborative-solutions/mx-plan/landing-page-mx-plan
+  - [7] https://docs.ovhcloud.com/en/guides/web-cloud/email-and-collaborative-solutions/mx-plan/email-generalities
+
+## Plunk (hosted)
+
+- `email/plunk-hosted` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.useplunk.com/ | page https://fshy.ajam.dev/p/useplunk.md
+- free tier: 1,000 emails/month with unlimited contacts | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not stated | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: email | detail: an account
+- interface: rest
+- limits:
+  - request-rate (binding): 1,000 emails per month [1]
+  - request-rate (binding): an attachment costs 2 credits and inbound counts against the same allowance [1]
+- interface detail: the Plunk API
+- tooling: curl, any HTTP client
+- composes with: 1,000/month with unlimited contacts, so a large list is possible and the month is the cap.
+- reliability: attachments are double-charged against the monthly allowance
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the hosted free plan is 1,000 emails/month; the 3,000 figure in circulation is older
+- sources:
+  - [1] https://docs.useplunk.com/concepts/billing
+  - [2] https://www.useplunk.com/
+
+## Resend
+
+- `email/resend` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://resend.com/pricing | page https://fshy.ajam.dev/p/resend.md
+- free tier: 3,000 emails/month and 100/day, 3 domains, 3 inboxes, 30-day retention | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: a message count rather than an object
+- retention: logs kept 30 days; inbound messages count against the same quota | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account and a verified sending domain; no card on the free plan
+- interface: rest
+- limits:
+  - request-rate (binding): 100 emails per UTC calendar day, resetting at 00:00 UTC [2]
+  - request-rate (binding): 10 requests per second per account [2]
+  - request-rate (binding): received email counts against both the daily and the monthly quota [2]
+- binding note: 100/day rather than 3,000/month: the 30:1 ratio means the monthly figure cannot be spent in a burst, and the page states the UTC boundary explicitly.
+- interface detail: https://api.resend.com/emails
+- tooling: curl, any HTTP client
+- composes with: the outbound half of the free mail chain: unlimited inbound from Cloudflare Email Routing or Forward Email, then 100 messages a day out through Resend. The daily cap is the scarce link.
+- reliability: sending pauses above a 4% bounce rate, which is a reputation cap rather than a volume cap
+- notes: A spike at 23:50 UTC gets 100 more at midnight, which is the one burst the boundary allows.
+- evidence note: no message was sent, so no delivery is proved. The submission path was probed: smtp.resend.com:587 answered 250, STARTTLS completed, and AUTH LOGIN returned 334
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [2] 2026-10-22: 'daily email quota of 100 emails/day and 3,000 emails/month', a UTC calendar day rather than a rolling window, multiple recipients counting separately, 10 requests per second, and received mail counting against the quota
+  - probe:smtp://smtp.resend.com:587 2026-10-22: banner 250, EHLO advertises SIZE and 8BITMIME, STARTTLS completed, and AUTH LOGIN returned 334. The submission endpoint answers; no message was sent
+- sources:
+  - [1] https://resend.com/pricing
+  - [2] https://resend.com/docs/knowledge-base/resend-sending-limits
+
+## Scaleway Transactional Email
+
+- `email/scaleway-tem` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.scaleway.com/en/transactional-email-tem/ | page https://fshy.ajam.dev/p/scaleway.md
+- free tier: 300 emails/month per organisation, 5 domains, then EUR 0.25 per 1,000 | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: 10 recipients per email and 10 attachments, both stated as defaults | source: [2]
+- retention: not stated | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [3]
+- identity: email | detail: an account; a card is required to raise the limits
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 300 emails per month per organisation [1]
+  - write-gated: new accounts face stricter initial limits set by support, with no number published [2]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 10 recipients per email and 10 attachments, stated as defaults
+- binding note: 300/month on the pricing page against 10,000/month on the capabilities page; the conservative figure is recorded and the disagreement kept.
+- interface detail: the TEM API and SMTP
+- tooling: curl, any SMTP client
+- composes with: 300/month is the smallest recurring allowance in the set; it composes with a domain and with nothing that needs a month of traffic.
+- reliability: two Scaleway pages state different monthly figures for the same service
+- notes: The disagreement is recorded rather than resolved. The pricing page's 300 carries the 'Free tier' label; the capabilities page's 10,000 is the service default that a paid organisation gets.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: '300 per organization (Free tier)' for Transactional Email, then EUR 0.25 per 1,000
+  - [2] 2026-10-22: the service quota table says 10,000 emails/month as the default and that new users face stricter initial limits; the two pages disagree
+- sources:
+  - [1] https://www.scaleway.com/en/pricing/managed-services/
+  - [2] https://www.scaleway.com/en/docs/transactional-email/reference-content/tem-capabilities-and-limits/
+  - [3] https://www.scaleway.com/en/transactional-email-tem/
+
+## Sender
+
+- `email/sender-net` | qualifies-with-caveat | evidence documented | binding request-rate | category marketing sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.sender.net/pricing/ | page https://fshy.ajam.dev/p/sender.md
+- free tier: up to 2,500 subscribers and 15,000 emails per month, never expires | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not stated | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account; 'no credit card, nothing to activate'
+- interface: rest
+- limits:
+  - request-rate (binding): 15,000 emails per month [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 2,500 subscribers
+- interface detail: the Sender API and SMTP relay
+- tooling: curl, any SMTP client
+- composes with: 15,000/month against a 2,500-subscriber list, so the list is the smaller cap and the send count is hard to exhaust.
+- reliability: free-plan messages carry Sender's branding in the footer
+- notes: The same 15,000 emails a month as SendPulse, and the same missing daily cap. The vendor page states the monthly figure, so it is documented; 15,000 in one day is not established.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'The Free Forever plan includes up to 2,500 subscribers and 15,000 emails per month, never expires', and 'No credit card, nothing to activate'
+- sources:
+  - [1] https://www.sender.net/pricing/
+
+## SendPulse
+
+- `email/sendpulse` | qualifies-with-caveat | evidence documented | binding request-rate | category marketing and transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://sendpulse.com/pricing | page https://fshy.ajam.dev/p/sendpulse.md
+- free tier: up to 15,000 emails per month, 3 sender addresses, 250 MB of image storage | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not stated | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account
+- interface: rest
+- limits:
+  - request-rate (binding): 15,000 emails per month on the free tariff [1]
+- limits note: counts of things, not rates, so no vocabulary kind names them: 3 sender email addresses
+- interface detail: the SendPulse API and SMTP relay
+- tooling: curl, any SMTP client
+- composes with: 15,000/month with no stated daily cap, so it is the only free sender here that could in principle burst; whether it does is not established.
+- reliability: the free tariff is marketing-shaped and a per-day cap is not stated on the pricing table
+- notes: The vendor table states it, so it is documented. No daily cap appears, which is the gap: 15,000 in one day is not established.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Emails | Up to 15,000 per month' in the FREE column, plus 3 sender addresses and 250 MB of image storage
+- sources:
+  - [1] https://sendpulse.com/pricing
+
+## SMTP2GO
+
+- `email/smtp2go` | qualifies-with-caveat | evidence documented | binding request-rate | category transactional sender and SMTP relay
+- needs card no, phone yes, ID no, institution no | verified 2026-10-30T09:26:49.192Z (live) | stale on 2026-11-30
+- url https://www.smtp2go.com/pricing/ | page https://fshy.ajam.dev/p/smtp2go.md
+- free tier: 1,000 emails/month, 200/day, and 25/hour until a sender domain is verified | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1] | note: Sends above the daily limit are queued and released as the daily quota allows; past 1,000 in a month further sends are rejected. Up to 5 sender domains or single sender emails can be verified, and while no sender domain is verified the account is held to 25 per hour. A send from an unverified sender is rejected and still counts toward the monthly quota. Reporting covers the past 5 days, and support is ticket-only after 14 days. The free plan's page names no restriction on recipients.
+- per-object cap: not applicable
+- retention: 5 days of reporting on the free plan, against 30 on paid | source: [2]
+- egress: not applicable: an outbound sender | metered: no | source: [2]
+- identity: any-phone | detail: The free-plan signup asks for a work email at a private domain (addresses at public domains such as Gmail and Yahoo are refused), a full name, a company, a password and a contact phone number verified by a 5 digit SMS code; no card. Sending needs a verified sender domain or a verified single sender email, and a Gmail address cannot be verified as a single sender, so in practice the account needs a domain the sender controls.
+- interface: rest, cli
+- limits:
+  - request-rate (binding): 200 emails per day [1]
+  - request-rate (binding): 25 per hour while no sender domain is verified [1]
+  - request-rate (binding): 1,000 emails per month [1]
+- binding note: 25/hour is 600/day if sustained and is the first ceiling a new signup meets, before the 200/day or the 1,000/month.
+- interface detail: SMTP and the SMTP2GO API
+- tooling: any SMTP client
+- composes with: a 200/day relay with an hourly floor, so it composes with a sender that bursts rather than one that schedules.
+- reliability: new paid accounts are held at 1,000/day during a one-time review
+- notes: Three stacked caps on one product, and the hourly one is on the developer page but not on the pricing table.
+- evidence note: no message was sent, so no delivery is proved. The submission path was probed: mail.smtp2go.com:2525 answered 250, STARTTLS completed, and AUTH LOGIN returned 334
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'The free plan allows 1,000 emails per month and has a limit of 200 emails per day (a 25-per-hour limitation also applies if no sender domains are verified)'
+  - [2] 2026-10-22: 'Try SMTP2GO free for as long as you like' and 'over 1,000 emails/month' for paid
+  - probe:smtp://mail.smtp2go.com:2525 2026-10-22: banner 250 on port 2525, EHLO advertises SIZE and 8BITMIME, STARTTLS completed, and AUTH LOGIN returned 334. The submission endpoint answers; no message was sent
+  - [2] 2026-10-30: the free-account signup form asks for a contact phone number and verifies it with an SMS code | capture: sha256:ff3eb98627168feecf66bd3d54bd2c82d2ee0d7e5f423b5e105523faafbf33ab | quote: We'll send you a 5 digit code via SMS to verify your account.
+  - [2] 2026-10-30: the free-account signup refuses an email at a public domain; the same form asks for full name, company, password and a contact phone number with an SMS code | capture: sha256:ff3eb98627168feecf66bd3d54bd2c82d2ee0d7e5f423b5e105523faafbf33ab | quote: Sorry, we don’t allow email addresses at public domains such as Gmail and Yahoo.
+  - [3] 2026-10-30: the free plan is opened without a credit card | capture: sha256:948071dde3f95bc7fc158b04e8a69e8ea997bec26dac6647deba14511bb3bc5a | quote: Start free (1,000 emails/month, no credit card)
+  - [4] 2026-10-30: an account needs an address at a domain of its own; shared domains such as Gmail, Outlook and Yahoo are not accepted | capture: sha256:66fb8ee707b2e739e920ecaa9b29fe8350e253c771cbdcf0c5aa71c8fff6cbd0 | quote: If you do not have a domain, you will need to purchase one to use with SMTP2GO
+  - [4] 2026-10-30: sending is authorised only from a verified sender domain or a verified single sender email | capture: sha256:66fb8ee707b2e739e920ecaa9b29fe8350e253c771cbdcf0c5aa71c8fff6cbd0 | quote: Verifying your senders is mandatory and the way to authorize sending via the account.
+  - [5] 2026-10-30: a Gmail address cannot be verified as a single sender email | capture: sha256:a553e1991e8a4f21396fa1876b51536a1d2eccd4015d1472d18e49c9806b159c | quote: Note that this excludes Gmail, due to their DMARC record, which prevents third-party servers from sending emails on their behalf.
+  - [6] 2026-10-30: the free plan verifies up to 5 senders; the same page gives the daily queue, the monthly rejection, the 25-per-hour hold, 5 days of reporting and ticket-only support after 14 days, and lists no recipient restriction | capture: sha256:ecac928fdac69dab71085bca3aa45b4cb9f2f9391f8710e68503dbbbcaddf4e6 | quote: The free plan allows up to 5 sender domains or single sender email addresses to be added (paid plans do not have a limit).
+  - [5] 2026-10-30: a send from an unverified sender is rejected and counts toward the monthly quota | capture: sha256:a553e1991e8a4f21396fa1876b51536a1d2eccd4015d1472d18e49c9806b159c | quote: It’s important to note that rejected attempts will still count toward the account’s monthly email quota.
+  - [6] 2026-10-30: free-plan reporting covers 5 days against 30 on paid plans | capture: sha256:ecac928fdac69dab71085bca3aa45b4cb9f2f9391f8710e68503dbbbcaddf4e6 | quote: Customers on the free plan can access reporting on the Activity page for the past 5 days and paying customers can access reporting for 30 days
+  - [1] 2026-10-30: new paid accounts are held at 1,000 per day until the one-time review completes | capture: sha256:7ffa4fdc442a3debb2e3e7dc551a733fcef1d83ebca17124b96e3ee90a1e4604 | quote: The initial sending quota for all new paid accounts is temporarily 1,000 emails per day.
+  - [4] 2026-10-30: the account sends over SMTP at mail.smtp2go.com or through the API | capture: sha256:66fb8ee707b2e739e920ecaa9b29fe8350e253c771cbdcf0c5aa71c8fff6cbd0 | quote: The most common form of sending is using SMTP in your existing application.
+  - [1] 2026-10-30: the free plan is still 1,000 per month, 200 per day and 25 per hour until a sender domain is verified | capture: sha256:7ffa4fdc442a3debb2e3e7dc551a733fcef1d83ebca17124b96e3ee90a1e4604 | quote: The free plan allows 1,000 emails per month and has a limit of 200 emails per day (a 25-per-hour limitation also applies if no sender domains are verified).
+- sources:
+  - [1] https://developers.smtp2go.com/docs/rate-limiting
+  - [2] https://www.smtp2go.com/pricing/
+  - [3] https://www.smtp2go.com/blog/know-your-sending-limits
+  - [4] https://support.smtp2go.com/hc/en-gb/articles/12747932085145-Quick-Start-Guide
+  - [5] https://www.smtp2go.com/blog/registering-a-verified-sender-is-now-a-required-action/
+  - [6] https://support.smtp2go.com/hc/en-gb/articles/223087947-Free-Plan
+
+## TempsMail
+
+- `email/tempsmail` | qualifies-with-caveat | evidence documented | binding request-rate | category disposable inbox API
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://tempsmail.org/page/api | page https://fshy.ajam.dev/p/tempsmail.md
+- free tier: a disposable inbox and read API, free with an account key | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated on the API page
+- retention: messages expire; the period is not stated on the API page | source: [1]
+- egress: not applicable: receive-only | metered: no | source: [1]
+- identity: email | detail: a free account with a verified address, to obtain the API key
+- interface: rest
+- limits:
+  - request-rate (binding): 100 requests/minute per IP across the API [1]
+  - request-rate (binding): 30 address creations/minute per IP [1]
+- limits note: the inbox is bound to the IP and client that created it, which is a lock rather than a rate and none of the six kinds names it
+- interface detail: POST /api/extension/emails/{apiKey} and the read endpoints
+- tooling: curl, any HTTP client
+- composes with: the same verification-code sink as mail.tm with one extra gate: an account key, and an inbox bound to the IP that created it.
+- reliability: the inbox is bound to the creating IP, so it cannot be read from a second machine
+- notes: The page requires an account and a personal key, and it binds the inbox to the IP and client that created it. Both facts change what a chain can do with the service, and neither is a no-key API.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: 'Free with an account', '100 requests / minute per IP', '30 address creations / minute per IP', and the IP binding of a created inbox
+- sources:
+  - [1] https://tempsmail.org/page/api
+
+## ZeptoMail (Zoho)
+
+- `email/zeptomail` | qualifies-with-caveat | evidence documented | binding write-gated | category transactional sender
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://www.zoho.com/zeptomail/pricing.html | page https://fshy.ajam.dev/p/zoho.md
+- free tier: 1 free credit worth 10,000 emails, valid 6 months; 100/day until the account is validated | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: credits expire 6 months after purchase and do not refill | source: [1]
+- egress: not applicable: an outbound sender | metered: no | source: [1]
+- identity: email | detail: an account and a validated sending domain
+- interface: rest
+- limits:
+  - write-gated (binding): the 100/day ceiling lifts only after Zoho validates the account [2]
+  - request-rate: 10,000 emails in total from the single free credit [1]
+- binding note: account validation gates the 100/day ceiling, and then the credit is finite.
+- interface detail: the ZeptoMail API and SMTP relay
+- tooling: curl, any SMTP client
+- composes with: 10,000 emails once, not a rate; it composes with a domain and does not compose with a schedule.
+- reliability: the credit is one-time; there is no recurring monthly allowance
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [2] 2026-10-22: the announcement of the free credit and the 100/day pre-validation cap
+  - [1] 2026-10-22: the pricing page now redirects to a CPaaS credit model; the credit framing holds
+- sources:
+  - [1] https://www.zoho.com/zeptomail/pricing.html
+  - [2] https://www.zoho.com/blog/cpaas/announcing-quick-transition.html
+
+## Zoho Mail
+
+- `email/zoho-mail` | qualifies-with-caveat | evidence documented | binding retention-clamped | category mailbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:12:37.126Z (live) | stale on 2026-12-20
+- url https://www.zoho.com/mail/zohomail-pricing.html | page https://fshy.ajam.dev/p/zoho.md
+- free tier: 5 users, 5 GB each, 1 custom domain, 25 MB attachment limit | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 25 MB attachment limit, 5 GB per mailbox | bytes: 26214400 | source: [1]
+- retention: 5 GB per mailbox | source: [1]
+- egress: not applicable | metered: no | source: [1]
+- identity: email | detail: an account with the domain's MX records pointed at Zoho
+- interface: unknown
+- limits:
+  - retention-clamped (binding): no IMAP, POP or ActiveSync on the free edition, so no programmatic mailbox read [1]
+  - per-object-cap: 25 MB per attachment [1]
+- limits note: the 5 GB is a mailbox storage volume and not an object size, so no kind in the six-value vocabulary names it. The 25 MB attachment is a per-object cap and stays in limits. What binds the verdict is the removal of IMAP, POP and ActiveSync, which is recorded as retention-clamped because the server withholds the data rather than the bytes
+- binding note: a removed feature, not a capped volume; the hard filter is programmatic access.
+- interface detail: IMAP, POP and Active Sync are listed as not included on the free plan, so no programmatic mailbox protocol is offered on this plan.
+- tooling: none: no IMAP or POP on the free edition
+- composes with: a real mailbox with a custom domain for five users, and it breaks the obvious chain because the free edition cannot be read over IMAP.
+- reliability: the free edition is region-limited; the page title reads 'Free for 5 Users in select regions'
+- notes: This kills the obvious 'free mailbox plus IMAP fetch' chain, which is why it is recorded rather than skipped.
+- extras:
+  - stale_after_days: 90
+- evidence:
+  - [1] 2026-10-22: the free edition is 5 users at 5 GB each with 1 custom domain, and the protocol support table excludes IMAP, POP and ActiveSync from the free edition
+  - [1] 2026-11-02: the Mail Free plan is listed as email hosting for one domain, up to 5 users and 5 GB per user with no IMAP, POP or Active Sync, and the page names no WebDAV or other protocol, so no interface term fits its webmail and app access | capture: sha256:d03c095d97ede4a458a5d3e10f18b9f48a7b5e1f887e459f6d06c4077bc2c283 | quote: Email hosting for one domain for up to 5 users 5 GB Mail storage per user IMAP/ POP/ Active Sync not included.
+  - [1] 2026-11-02: the pricing page was captured on 2026-11-02 and lists the Mail Free plan without IMAP, POP or Active Sync | capture: sha256:d03c095d97ede4a458a5d3e10f18b9f48a7b5e1f887e459f6d06c4077bc2c283 | quote: Email hosting for one domain for up to 5 users 5 GB Mail storage per user IMAP/ POP/ Active Sync not included.
+  - [1] 2026-11-02: the Mail Free plan still excludes IMAP, POP and Active Sync, so the free edition has no programmatic mailbox read | capture: sha256:d03c095d97ede4a458a5d3e10f18b9f48a7b5e1f887e459f6d06c4077bc2c283 | quote: Email hosting for one domain for up to 5 users 5 GB Mail storage per user IMAP/ POP/ Active Sync not included.
+  - [1] 2026-11-19: the free plan lists IMAP, POP and Active Sync as not included, leaving no programmatic mailbox protocol on that plan | capture: sha256:e724250e727e1aa9790cdb75c90dd2c2cf818080a17432aa60df1779f6395e36 | quote: IMAP/ POP/ Active Sync not included.
+  - [1] 2026-11-19: the free plan still lists IMAP, POP and Active Sync as not included | capture: sha256:e724250e727e1aa9790cdb75c90dd2c2cf818080a17432aa60df1779f6395e36 | quote: IMAP/ POP/ Active Sync not included.
+  - [2] 2026-11-19: the vendor restricts POP and IMAP configuration to paid-plan subscribers | capture: sha256:ee23ceadb8d2b0698d4bfd3f2ba7481d1c2833a1430f3c2bf9aa4d659b81e2a9 | quote: POP and IMAP configuration is only available to users who have subscribed to one of our paid plans.
+  - [3] 2026-11-19: newly signed-up free plan users do not get IMAP access | capture: sha256:f24d1c90377f8c76e0bded9d6dd3820b9484a16c3f6e64e8813aed5e15c02f5c | quote: For newly signed-up users (Free plan), the IMAP Access feature will not be available.
+  - [4] 2026-11-19: the free plan is described as web-only access | capture: sha256:22f73d6c5d5471545a390fa8cdd02965f9286c7b3e166cf867903f6db2dac760 | quote: In Zoho Mail Free plan, you can add up to 5 users to an organization, and host one domain for free with web-only access.
+  - [5] 2026-11-19: outgoing SMTP settings are documented for personal and free organization users | capture: sha256:568cc3e09fc6c6fa783669e43939d6e91c3d9d8a016ba37888e2627aad2ee25f | quote: Outgoing Server Settings: (Personal users with an email address as [address removed] and and Free Organization users):
+  - [6] 2026-11-19: Zoho Mail documents a REST API | capture: sha256:20a66a7f723d6df0f9296b9e30ca032bdd404f1b8aceb7756278ea63b49c261d | quote: Zoho Mail offers RESTful APIs, making it language-independent.
+  - [6] 2026-11-19: REST API availability depends on the plan and the account permissions | capture: sha256:20a66a7f723d6df0f9296b9e30ca032bdd404f1b8aceb7756278ea63b49c261d | quote: The individual plans and permissions for admin and user accounts, following their mail policies, determine the availability of the API.
+- sources:
+  - [1] https://www.zoho.com/mail/zohomail-pricing.html
+  - [2] https://www.zoho.com/mail/help/pop-access.html
+  - [3] https://www.zoho.com/mail/help/imap-access.html
+  - [4] https://www.zoho.com/mail/help/adminconsole/subscription.html
+  - [5] https://www.zoho.com/mail/help/zoho-smtp.html
+  - [6] https://www.zoho.com/mail/help/api/overview.html

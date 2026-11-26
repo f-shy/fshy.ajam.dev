@@ -1,0 +1,32 @@
+# data.europa.eu
+
+> data.europa.eu | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/data-europa-eu/ | JSON https://fshy.ajam.dev/api/v1/entity/data-europa-eu.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## data.europa.eu
+
+- `storage/data-europa-eu` | fails-quota | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-10-21 (inherited) | stale on 2026-11-05
+- url https://data.europa.eu/en/publishing-data
+- free tier: none reachable: Aggregator of national portals and open-data directives, not a host. Listing requires being an authorised representative of a European institution or a national/regional portal; there is no | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: unverified: https://data.europa.eu/en/publishing-data answered HTTP 404 on 2026-11-19
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Aggregator of national portals and open-data directives, not a host. Listing requires being an authorised representative of a European institution or a national/regional portal; there is no
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Aggregator of national portals and open-data directives, not a host. Listing requires being an authorised representative of a European institution or a national/regional portal; there is no
+  - probe:https://data.europa.eu/en/publishing-data 2026-11-19: the first-party publishing page answered HTTP 404 | capture: sha256:2fa6bcb1cf45da277338c3f36d9747966a1586766c3a0cec97123a0f63b9ea91 | quote: "status": 404
+- sources:
+  - [1] https://data.europa.eu/en/publishing-data

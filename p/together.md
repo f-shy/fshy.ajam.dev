@@ -1,0 +1,248 @@
+# Together AI
+
+> together.ai | Inference, Compute, Storage; 6 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/together/ | JSON https://fshy.ajam.dev/api/v1/entity/together.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Together AI (togetherai)
+
+- `inference/togetherai` | qualifies-with-caveat | evidence documented | binding none | category inference gateway, free model plus paid per-token
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:45:48.000Z (live) | stale on 2026-12-19
+- url https://docs.together.ai/docs/serverless/models
+- disagrees on identity_kind: `inference/together` says card, `inference/togetherai` says email
+- disagrees on verdict: `inference/together` says paid-only, `inference/togetherai` says qualifies-with-caveat
+- free tier: one serverless chat model is listed at USD 0 input and USD 0 output per million tokens, Prism-ML/Ternary-Bonsai-27B (262,144 context); all other models are paid per token and no separate free-token quota is published | unit: tokens | metered on: none | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an API key from the Together AI console is required; signup fields not stated on the docs pages read
+- interface: rest
+- limits:
+  - volume-quota: Ternary Bonsai 27B is Free input and Free output per 1M tokens; serverless performance is best-effort [1]
+- binding note: the free model has no published rate ceiling, so nothing binds above the working scale for it
+- tooling: an OpenAI-compatible key at api.together.xyz and the Together CLI/SDKs
+- composes with: pairs with an OpenAI-compatible agent through the one free model; the scarce link is that a single small model is free and service is best-effort
+- reliability: serverless performance is best-effort; 429 and 503 responses can occur at high demand and a model in high demand may get custom access restrictions
+- notes: a genuine $0 model is in the first-party catalog; only one model is free and no free allowance quota for it is published.
+- evidence:
+  - [1] 2026-11-18: a free chat model at USD 0 input and output per million tokens | capture: sha256:8ca605e5a4053d970c741fa3040a957b31567e6280fc0d18ccb69f432875f2fe | quote: | Prism ML | Ternary Bonsai 27B | Prism-ML/Ternary-Bonsai-27B | 262144 | Free | - | Free | - | Yes | Yes |
+- sources:
+  - [1] https://docs.together.ai/docs/serverless/models
+
+## CodeSandbox SDK
+
+- `compute/codesandbox-sdk` | trial-only | evidence documented | binding retention-clamped | category container and VM sandbox
+- needs card no, phone no, ID no, institution no | verified 2026-11-24T11:38:12.285Z (live) | stale on 2026-12-25
+- url https://docs.together.ai/docs/together-code-sandbox-legacy
+- free tier: the Build plan is free and allows 10 concurrent VMs | unit: mixed | metered on: wall-clock | read on: 2026-10-02 | source: [1] | note: Together recommends its successor for new integrations
+- per-object cap: not applicable
+- retention: hibernation stops compute billing; the disk term was not read
+- egress: not published: https://docs.together.ai/docs/together-code-sandbox-legacy states no egress allowance or overage price; the legacy offer is sold on custom plans | metered: no | source: [1]
+- identity: email | detail: an account; the tier gate was not read
+- interface: cli
+- limits:
+  - request-rate: Build allows 10 concurrent VMs
+  - retention-clamped (binding): the published rates are labelled legacy [1]
+- limits note: 10, 20 and 40 VM credits an hour at USD 0.01486 each on the legacy card
+- binding note: the rate card is labelled legacy and Together points at a successor, so the product's own future ends the offer before any quota does
+- interface detail: the @codesandbox/sdk JavaScript SDK with an API token, and a CLI to build templates; no REST or SSH interface is documented
+- tooling: the CodeSandbox SDK, now legacy under Together
+- composes with: none for new work: the rates are legacy and the product has a successor
+- reliability: no reliability event recorded
+- notes: Documented so a reader does not build on a legacy rate card. The credit is real and the product is being replaced.
+- evidence note: re-read live on 2026-10-22 for the free-tier and limit figures
+- extras:
+  - billing_model: allocated
+  - session_cap.note: no session clock published; the sandbox hibernates after a timeout with no published value
+  - free_tier_kind: one-time-credit
+  - granularity.min_billed_s: 60
+  - burst_x: 1.0
+- evidence:
+  - [1] 2026-10-02: the rate card is labelled legacy and Together recommends its successor for new integrations
+  - [1] 2026-10-22: read live: the rate card is deprecated and a successor SDK is named
+  - [1] 2026-11-03: the legacy offer is sold on custom plans; no egress allowance or price is published | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: The legacy code sandbox is available on Together's [custom plans](https://www.together.ai/contact-sales).
+  - [1] 2026-11-03: the SDK is an npm package | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: npm install @codesandbox/sdk
+  - [1] 2026-11-18:  | capture: sha256:44a3e4164e6ff40ca3b7f7e707b520926304a519bbd73e147bd2328796a052f0 | quote: Disconnecting the session ends the session and automatically hibernates the sandbox after a timeout.
+  - [1] 2026-11-24: the legacy documentation names a free Build plan with 10 concurrent VMs | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: * Build (free) plan: 10 concurrent VMs.
+  - [1] 2026-11-24: the free Build plan allows 10 concurrent VMs | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: * Build (free) plan: 10 concurrent VMs.
+  - [1] 2026-11-24: the legacy SDK is deprecated and a successor is named | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: This page covers the deprecated code sandbox SDK. Use the [`together-sandbox` SDK](https://docs.together.ai/docs/together-code-sandbox) for new integrations.
+  - [1] 2026-11-24: the legacy rate is USD 0.01486 per VM credit | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: VM credits follow a pay-as-you-go approach and are priced at $0.01486 per credit.
+  - [1] 2026-11-24: the legacy offer is driven by an npm SDK | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: npm install @codesandbox/sdk
+  - [1] 2026-11-24: the self-serve legacy offer needs an account | capture: sha256:7fd68d6cac5980e8f20797e49e200f268336807cad10b8fd54846f70bba98f37 | quote: A self-serve option is available by creating an account with [CodeSandbox](https://codesandbox.io/pricing).
+- sources:
+  - [1] https://docs.together.ai/docs/together-code-sandbox-legacy
+
+## Together AI (gpu)
+
+- `compute/together-gpu` | paid-only | evidence documented | binding request-rate | category GPU cloud
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T13:21:06.618Z (live) | stale on 2026-12-25
+- url https://www.together.ai/pricing
+- free tier: No free GPU allowance: GPU Clusters price the NVIDIA HGX H100 at $1.99 preemptible, $3.99 on demand and $3.69 reserved for 3-30 days per GPU per hour; the current table shows the first three as sold out and quotes the 91+ day term by request. Dedicated Inference lists the H100 at $5.49 per GPU-hour on demand. Post-training bills per minute for each active model resource. The platform requires a minimum $15 first credit purchase. | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: The pricing and billing pages read publish no outbound-transfer allowance or per-GB price for GPU clusters. | metered: no | source: [1]
+- identity: card | detail: Access requires a minimum $15 first credit purchase through a default payment method and there is no free trial.
+- interface: ssh, cli
+- limits:
+  - request-rate (binding): GPU clusters are priced per GPU per hour, with preemptible, on-demand and reserved capacity; reserved terms run 3 to 180 days [1]
+  - request-rate (binding): Post-training GPUs bill per minute for each active model resource; GPU clusters bill per GPU per hour [1]
+- limits note: Session cap, idle-reap and network policy are not documented. GPU only.
+- interface detail: GPU clusters offer Kubernetes access with kubectl and the Together CLI, or Slurm clusters reached by SSH into a login node; the platform API uses an API key.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and its GPU section prices per GPU per hour. It publishes no free GPU allowance, so the record's free-tier claim is not established and the verdict moves to paid-only
+- extras:
+  - keep_rate_basis: no field in the source
+  - billing_model: unclassified
+  - shape.note: priced per GPU per hour with on-demand and reserved rates
+  - session_cap.restart_required: no
+  - session_cap.note: a GPU instance bills per hour; the page states no reap
+  - free_tier_kind: none
+  - ps.price: managed storage is a separate section
+  - ps.durability: managed storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the volume exists
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the pricing page was read on 2026-10-22 and its GPU section states 'All prices are per GPU per hour' with on-demand and reserved columns, alongside per-million-token model rates from 'Ternary Bonsai 27B $0.00' to 'Kimi K3 $3.00 / $15.00'
+  - [1] 2026-11-03: GPU Clusters H100 per GPU per hour: preemptible 1.99, on-demand 3.99, reserved 3.69 (3-30 days), 3.45 (31-90), 3.19 (91-180), 181+ by quote | capture: sha256:b2c1ae6ef7e72332b9b273c6c99361612d9068716caa47324a236909b42794af | quote: | NVIDIA HGX H100 | $1.99 | $3.99 | $3.69 | $3.45 | $3.19 | [Contact us](https://www.together.ai/gpu-cluster-request) |
+  - [1] 2026-11-03: column order of the GPU clusters rate table | capture: sha256:b2c1ae6ef7e72332b9b273c6c99361612d9068716caa47324a236909b42794af | quote: | Hardware | Preemptible Compute | ON-Demand | Reserved | | | |
+  - [1] 2026-11-03: Dedicated Inference lists an H100 at 5.49 per GPU per hour on demand | capture: sha256:b2c1ae6ef7e72332b9b273c6c99361612d9068716caa47324a236909b42794af | quote: | NVIDIA HGX H100 | $5.49 | [Contact sales](https://www.together.ai/monthly-reserved) |
+  - [1] 2026-11-03: the on-demand GPU clusters are described as hourly pay as you go | capture: sha256:b2c1ae6ef7e72332b9b273c6c99361612d9068716caa47324a236909b42794af | quote: Pay as you go GPU capacity on an hourly basis.
+  - [1] 2026-11-03: post-training GPUs bill per minute; the cluster and dedicated tables state no granularity | capture: sha256:b2c1ae6ef7e72332b9b273c6c99361612d9068716caa47324a236909b42794af | quote: On-demand training infrastructure, billed per minute for each active model resource.
+  - [2] 2026-11-03: the platform needs a USD 15 first credit purchase and offers no trial | capture: sha256:142dd66fe6b27a1f44b33ac810b94bd4a8de55101eac54c618b5d911b65f65fb | quote: Together AI does not currently offer free trials. Access to the Together platform requires a minimum \$15 credit purchase.
+  - [1] 2026-11-24: the H100 GPU cluster rates are listed per GPU per hour | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: | NVIDIA HGX H100 | $1.99<br>Sold Out | $3.99<br>Sold Out | $3.69<br>Sold Out | $3.45 | [Request Capacity](https://www.together.ai/gpu-cluster-request) |
+  - [1] 2026-11-24: the GPU rate tables are priced per GPU per hour | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: All prices are per GPU per hour.
+  - [3] 2026-11-24: GPU cluster reservations run from 3 to 180 days at discounted rates | capture: sha256:51b6e0e90d8ea2cd12090bd60a21588416bb0bd9eef485a7d2e5e4e85d420f78 | quote: Reserve capacity upfront for 3 to 180 days at discounted rates, pay hourly for on-demand capacity with no commitment, or draw from a project capacity pool for a scheduled window.
+  - [1] 2026-11-24: post-training infrastructure bills per minute | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: On-demand training infrastructure, billed per minute for each active model resource.
+  - [2] 2026-11-24: the credit purchase uses a default payment method | capture: sha256:6b0e6abe68fc167e4a0ea8b9c5be8e139563c1299afd43c7729e3337726e4955 | quote: The purchase uses your [default payment method](https://docs.together.ai/docs/billing-payment-methods.md).
+  - [2] 2026-11-24: there is no free trial and a minimum USD 15 credit purchase is required | capture: sha256:6b0e6abe68fc167e4a0ea8b9c5be8e139563c1299afd43c7729e3337726e4955 | quote: Together AI doesn't currently offer free trials. To use the platform, you must purchase at least \$15 of credits.
+  - [3] 2026-11-24: GPU clusters are reached with kubectl and standard Kubernetes tooling | capture: sha256:51b6e0e90d8ea2cd12090bd60a21588416bb0bd9eef485a7d2e5e4e85d420f78 | quote: You reach it with `kubectl` and standard Kubernetes tooling.
+  - [1] 2026-11-24: the pricing page has a GPU Clusters section with no egress line | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: ## GPU Clusters
+- sources:
+  - [1] https://www.together.ai/pricing
+  - [2] https://docs.together.ai/docs/billing
+  - [3] https://docs.together.ai/docs/gpu-clusters-overview.md
+
+## Together AI (inference/together)
+
+- `inference/together` | paid-only | evidence documented | binding none | category inference endpoint
+- needs card yes, phone no, ID no, institution no | verified 2026-10-28T09:47:54.947Z (live) | stale on 2026-11-28
+- url https://docs.together.ai/docs/billing
+- disagrees on identity_kind: `inference/together` says card, `inference/togetherai` says email
+- disagrees on verdict: `inference/together` says paid-only, `inference/togetherai` says qualifies-with-caveat
+- free tier: No free trial: 'Together AI does not currently offer free trials. Access to the Together platform requires a minimum $15 credit purchase.' | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: card | detail: an account, then a credit purchase of at least USD 15 with a default payment method (a credit or debit card, or a US bank account via ACH); the platform is fully prepaid and API access is suspended at a zero balance
+- interface: rest
+- limits note: no numeric rate limit is published: serverless performance is best-effort, a 429 or 503 response may be returned when demand is high, and Together may apply custom rate limits to a model in high demand; Enterprise and Scale contracts carry purchased rate limits
+- binding note: no numeric rate limit or quota is published for serverless inference; rate limiting may occasionally occur with high request volumes or large bursts of traffic
+- tooling: any OpenAI-compatible client
+- composes with: no free lane: the platform requires a minimum USD 15 purchase, so there is no trial credit to pair with an agent
+- reliability: No reliability events were recorded. API keys were not provisioned during testing on 2026-10-28.
+- notes: The compute topic also carries this provider under separate slugs. The vendor denies a free trial in its own billing documentation, so the record is paid-only.
+- evidence note: the billing documentation was read on 2026-10-23 and states that Together offers no free trial and requires a USD 15 minimum purchase. The unauthenticated 401 probe from 2026-10-22 establishes only that the endpoint exists and gates on a key
+- evidence:
+  - probe:https://api.together.xyz/v1/chat/completions 2026-10-22: an unauthenticated POST returned 401 with a 372-byte body, {"error":{"message":"Missing API key..."}}. The endpoint exists and gates on a key; no key existed here, so no quota was read
+  - [2] 2026-10-22: the rate-limits page returned 200 with 388051 bytes and describes dynamic per-model limits and throughput guarantees; no free-tier allowance was found in the served text
+  - [1] 2026-10-23: 'Together AI does not currently offer free trials. Access to the Together platform requires a minimum $15 credit purchase.', quoted
+  - [2] 2026-10-28: the rate-limits page publishes no numeric limit and says serverless inference is usually used without encountering rate limits | capture: sha256:57afde9c3b47356f54f3ebcc80dfce32d4b7d9d54d7d525b76bc4dc17fbe9586 | quote: In most cases, you can use Together AI [serverless inference](https://docs.together.ai/docs/serverless/overview.md) without encountering rate limits. Rate limiting may occasionally occur with high request volumes or large bursts of traffic.
+  - [2] 2026-10-28: no numeric limit is published; demand-based limiting returns 429 or 503 | capture: sha256:57afde9c3b47356f54f3ebcc80dfce32d4b7d9d54d7d525b76bc4dc17fbe9586 | quote: When demand is high, Together may limit requests to maintain these performance goals. You may receive a `429 Too Many Requests` or `503 Service Unavailable` response.
+  - [1] 2026-10-28: the platform is fully prepaid and a positive balance is needed before API calls | capture: sha256:142dd66fe6b27a1f44b33ac810b94bd4a8de55101eac54c618b5d911b65f65fb | quote: Together AI is fully prepaid. You need a positive credit balance to use the platform. Add credits from your [billing settings](https://api.together.ai/settings/organization/~current/billing) before making API calls.
+  - [1] 2026-10-28: no free trial; access needs a minimum USD 15 credit purchase | capture: sha256:142dd66fe6b27a1f44b33ac810b94bd4a8de55101eac54c618b5d911b65f65fb | quote: Together AI does not currently offer free trials. Access to the Together platform requires a minimum \$15 credit purchase.
+- sources:
+  - [1] https://docs.together.ai/docs/billing
+  - [2] https://docs.together.ai/docs/rate-limits
+
+## Together Code Sandbox
+
+- `compute/together-code-sandbox` | paid-only | evidence documented | binding request-rate | category container and VM sandbox
+- needs card yes, phone no, ID no, institution no | verified 2026-11-24T13:21:06.618Z (live) | stale on 2026-12-25
+- url https://www.together.ai/pricing
+- free tier: No free sandbox allowance: the Code Sandbox prices compute at $0.0446 per vCPU-hour and $0.0149 per GiB RAM-hour, and the Code Interpreter at $0.03 for a 60-minute session. The platform has no free trial and requires a minimum $15 credit purchase. | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: The pricing and billing pages read publish no outbound-transfer allowance or per-GB price for the sandbox. | metered: no | source: [1]
+- identity: card | detail: Access requires a minimum $15 first credit purchase through a default payment method; the sandbox SDK and CLI additionally require the organization to be enabled by sales.
+- interface: rest, cli
+- limits:
+  - request-rate (binding): Code Sandbox compute is $0.0446 per vCPU-hour and $0.0149 per GiB RAM-hour; Code Interpreter is $0.03 per 60-minute session [1]
+  - per-object-cap: The sandbox size is set at creation: each sandbox gets 1 vCPU and 2 GiB of memory by default, with cpu from 0.1 to 16 cores and memory from 1 to 8 GB per CPU [1]
+- interface detail: The sandbox offers a Python SDK, a TypeScript SDK and a CLI, all authenticated with a Together API key; the platform API uses an Authorization header.
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- evidence note: the pricing page was read on 2026-10-22 and carries model and audio rates. It publishes no sandbox-specific free allowance, so the record's free-tier claim is not established and the verdict moves to paid-only
+- extras:
+  - keep_rate: 1.0
+  - billing_model: unclassified
+  - session_cap.restart_required: no
+  - session_cap.note: a sandbox draws on the same token and audio meters; the page states no sandbox clock
+  - free_tier_kind: none
+  - granularity.min_billed_s: 60
+  - burst_x: 2.0
+  - burst_bill: min 1 h
+  - net.out: yes
+  - net.in: yes
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: the pricing page was read on 2026-10-22 and is a per-million-token model table with 'Kimi K3 $3.00 input, $15.00 output', 'GLM-5.3 $1.40 / $4.40', 'Ternary Bonsai 27B $0.00', and 'Price per audio minute'; the sandbox product is billed through the same meters
+  - [1] 2026-11-24: the Code Interpreter is USD 0.03 for a 60-minute session | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: | Session (60 minutes) | $0.03 |
+  - [1] 2026-11-24: the Code Sandbox vCPU rate is USD 0.0446 per hour | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: | Per vCPU | $0.0446 |
+  - [2] 2026-11-24: the sandbox default and configurable size limits | capture: sha256:171d6e41d4fe702a1fe5f719063d873db83d0a1fae33d6281afc25753926fc27 | quote: Each sandbox gets 1 vCPU and 2 GiB of memory by default. Set `cpu` (0.1 to 16 cores) and `memory_bytes` or `memoryBytes` (1 to 8 GB per CPU) at creation to size it differently.
+  - [3] 2026-11-24: the credit purchase uses a default payment method | capture: sha256:6b0e6abe68fc167e4a0ea8b9c5be8e139563c1299afd43c7729e3337726e4955 | quote: The purchase uses your [default payment method](https://docs.together.ai/docs/billing-payment-methods.md).
+  - [3] 2026-11-24: there is no free trial and a minimum USD 15 credit purchase is required | capture: sha256:6b0e6abe68fc167e4a0ea8b9c5be8e139563c1299afd43c7729e3337726e4955 | quote: Together AI doesn't currently offer free trials. To use the platform, you must purchase at least \$15 of credits.
+  - [2] 2026-11-24: the sandbox SDK and CLI authenticate with a Together API key | capture: sha256:171d6e41d4fe702a1fe5f719063d873db83d0a1fae33d6281afc25753926fc27 | quote: To authenticate the `together-sandbox` SDKs and CLI, set your Together API key in the `TOGETHER_API_KEY` environment variable:
+  - [4] 2026-11-24: the REST API authenticates with an API key | capture: sha256:78c47a44848ef1c62a11183374bea126cdfda027279f604a85c20f0bc097a0f2 | quote: Together AI uses API keys to authenticate requests.
+  - [1] 2026-11-24: the pricing page has a Storage section but no egress line | capture: sha256:ee7f15787629a5edc1981fbcd594f10a74ccb6cf1689847714a955836e4e2b84 | quote: ## Storage
+- sources:
+  - [1] https://www.together.ai/pricing
+  - [2] https://docs.together.ai/docs/together-code-sandbox.md
+  - [3] https://docs.together.ai/docs/billing
+  - [4] https://docs.together.ai/docs/api-keys-authentication.md
+
+## Together AI Files API (with 100 GB fine-tune objects)
+
+- `storage/together-ai-files-api` | fails-identity | evidence reported | binding none | category LLM provider /v1/files
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T21:15:24.518Z (live) | stale on 2026-12-04
+- url https://docs.together.ai/docs/fine-tuning/data-preparation
+- price $163.84 (Managed Storage at $0.16/GiB/mo) — 40-80x the cheap-paid floor; egress free | parsed USD 149.01/TB-mo
+- free tier: 100 GB per training file (JSONL or Parquet); SDK constant MAX_FILE_SIZE_GB = 50.1 and MULTIPART_THRESHOLD_GB = 5.0. No published total-storage quota. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: per-object-cap 100 GB | bytes: 100000000000 | source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: No egress fee on the Files API. Their separate Managed Storage product is explicitly advertised with 'zero egress fees'. | metered: no
+- identity: card | detail: card
+- interface: unknown
+- limits:
+  - per-object-cap: per-object-cap 100 GB [1]
+- limits note: per-object-cap 100 GB. Multipart kicks in above 5 GB; per-part upload timeout 300 s. A client-side check (`check_file`) validates JSONL structure before upload, which is a soft write gate for the fine-tune purpose.
+- interface detail: POST https://api.together.xyz/v1/files/upload (and /v1/files/{id}/content); OpenAI-ish, `purpose` in {fine-tune, calibration, eval, batch-api}
+- tooling: together-python (`tg files upload`), curl multipart
+- composes with: 100 GB single objects are the largest per-object cap found in the entire LLM-provider lane — 200x OpenAI's 512 MB. Unverified.
+- reliability: Together has no free tier — 'no free trials', $5 minimum prepaid credit required. That already fails the constraint. Read path unverified: /v1/files/{id}/content exists but every probe returns 401.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 100 GB per training file (JSONL or Parquet); SDK constant MAX_FILE_SIZE_GB = 50.1 and MULTIPART_THRESHOLD_GB = 5.0. No published total-storage quota.
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $163.84 (Managed Storage at $0.16/GiB/mo) — 40-80x the cheap-paid floor; egress free
+- evidence:
+  - [1] 2026-10-21: 'The file size limit for either format is 100 GB.'
+  - [2] 2026-10-21: 'MAX_FILE_SIZE_GB = 50.1', 'MULTIPART_THRESHOLD_GB = 5.0', 'MULTIPART_UPLOAD_TIMEOUT = 300'
+  - [3] 2026-10-21: 'Object storage and parallel filesystems optimized for AI, provisioned and fully managed … with zero egress fees'
+  - [4] 2026-10-21: 'storage ($0.16/GiB/month for the parallel filesystem used by GPU Clusters)'
+  - [5] 2026-10-21: 'Together AI does not currently offer free trials … minimum $5 purchase'
+  - [6] 2026-10-21: PROBE: curl -D - -> 401, Content-Length 148, {"error":{"message":"No API key provided…"}}; /v1/files/abc/content -> 401/148
+  - [1] 2026-11-19: the per-file and per-object limit is still 100 GB | capture: sha256:c743e268652edde0e3bc7dbdc3cbfc5291d12f3e1d7bde4b4e8e978af98a197e | quote: The file size limit for either format is 100 GB.
+  - [3] 2026-11-19: Managed Storage is still advertised with zero egress fees | capture: sha256:c205ab9b2fc3e80247ca963c42832d1c5de337b155c446fa15732a79b3ac8068 | quote: Object storage and parallel filesystems optimized for AI. Provisioned and fully managed, tuned to keep GPUs fed, with zero egress fees.
+- sources:
+  - [1] https://docs.together.ai/docs/fine-tuning/data-preparation
+  - [2] https://github.com/togethercomputer/together-python/blob/main/src/together/constants.py
+  - [3] https://www.together.ai/managed-storage
+  - [4] https://markaicode.com/pricing/together-ai-pricing/
+  - [5] https://www.flowtools.co/alternatives/openrouter
+  - [6] https://api.together.xyz/v1/files

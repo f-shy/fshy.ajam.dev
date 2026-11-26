@@ -1,0 +1,183 @@
+# PikPak
+
+> mypikpak.com | Storage, Debrid, Netdisk and pan; 4 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mypikpak/ | JSON https://fshy.ajam.dev/api/v1/entity/mypikpak.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## PikPak
+
+- `storage/pikpak` | qualifies-with-caveat | evidence reported | binding write-gated | category private cloud drive
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T19:55:15.332Z (live) | stale on 2026-12-10
+- url https://mypikpak.com/
+- price $0.50/TB/mo on US Premium ($4.99/mo for 10 TB); $1.00/TB/mo on Global Premium ($9.99/mo) — but capped at 5 GB/day of egress through rclone, which dominates the economics | parsed USD 0.5/TB-mo
+- free tier: Free accounts include 6 GB of storage, and Premium includes 10 TB. | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: unverified: the storage help page states 6 GB free and 10 TB Premium; no per-file size limit is stated there.
+- retention: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process. | source: [2] | note: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+- egress: Metered twice over. Free accounts have a daily downstream quota; every account, free or paid, has a monthly Basic Transfer Quota, and 'Connected Apps share 25% of this daily allowance — up to 5 GB per day for all Connected Apps combined'. Downstream counts playback and previews, not just downloads. | metered: yes
+- identity: email | detail: email
+- interface: rest, rclone
+- limits:
+  - per-ip-shaping: 20 GB/day [1]
+  - per-ip-shaping: 5 GB/day [1]
+  - write-gated (binding): reviews and online playback burn downstream quota, so scrape-style read patterns drain [1]
+- limits note: per-ip-shaping / pull-count hybrid: 20 GB/day downstream on free, 5 GB/day for all Connected Apps combined, monthly transfer quota on top. Free tier 6 GB storage. This provider is the cleanest illustration that quota and egress must be scored separately.
+- interface detail: rest
+- tooling: Tier 1 rclone backend since v1.62, read-only for uploads? No. Backend supports read and write per rclone's table (ModTime R, hash md5). This is the crucial detail: rclone is classified as a 'Connected App', so it inherits the 5 GB/day cap.
+- composes with: Free PikPak accounts have a daily downstream limit of 20 GB, resetting at 0:00 Singapore Time. Connected Apps share 25% of this daily allowance — up to 5 GB per day for all Connected Apps combined.
+- reliability: Transfer accounting is aggressive: previews and online playback burn downstream quota, so scrape-style read patterns drain it without any download. Price differs by region (US $4.99/mo Premium, Japan JPY 700, 'Global Premium' $9.99/mo).
+- notes: 6 GB free. Premium includes 10 TB base storage (expandable for purchase). No free route to >=500 GB: the free tier is 6 GB flat.
+- extras:
+  - price_verbatim: $0.50/TB/mo on US Premium ($4.99/mo for 10 TB); $1.00/TB/mo on Global Premium ($9.99/mo) — but capped at 5 GB/day of egress through rclone, which dominates the economics
+- evidence:
+  - [1] 2026-10-21: 'Free accounts include 6 GB of storage, and Premium includes 10 TB'
+  - [3] 2026-10-21: 'Premium includes 10 TB of base storage. You can purchase additional storage on PikPak Web'
+  - [4] 2026-10-21: 'a daily downstream limit of 20 GB... Apps share 25% of this daily allowance — up to 5 GB per day for all Connected Apps combined'
+  - [5] 2026-10-21: 'Downstream quota covers all data delivered from PikPak to your device or Connected Apps, including online playback, previews, and file downloads'; separate 'Monthly Basic Transfer Quota'
+  - [6] 2026-10-21: native backend, added v1.62, Tier 1
+  - [7] 2026-10-21: Premium monthly USD 4.99 US; Global Premium USD 9.99 per apppriceatlas.com
+  - [8] 2026-10-21: 'started for free with 6GB of storage... An email address for registration and verification... No credit card'
+  - [1] 2026-11-11: the help centre states 6 GB free and 10 TB on Premium | capture: sha256:a790447bc7de52f1a0c040919c971ec1fd1f9510dae2311a1ca99181fd3552e1 | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - [1] 2026-11-19: the help centre still states 6 GB free and 10 TB on Premium | capture: sha256:910871a0b7f303e43a9dc5a23a8fda1b78879b508fbe866db5d604a0652bff3a | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - [2] 2026-11-25: a free account can be deleted after 12 consecutive months without login | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+  - [2] 2026-11-25: free-account retention is bounded by the inactivity deletion rule | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+  - [2] 2026-11-25: the FAQ states the retention rule | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+  - [1] 2026-11-25: the storage page states account quotas but no per-file size clause | capture: sha256:910871a0b7f303e43a9dc5a23a8fda1b78879b508fbe866db5d604a0652bff3a | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - [1] 2026-11-25: the headline storage quotas are unchanged | capture: sha256:910871a0b7f303e43a9dc5a23a8fda1b78879b508fbe866db5d604a0652bff3a | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - [4] 2026-11-25: the free daily downstream quota and the Connected Apps share are stated | capture: sha256:35a31147eb0859ef38ed2b3656d053e1f3165e2bce65162907def6e067815f41 | quote: Free PikPak accounts have a daily downstream limit of 20 GB, resetting at 0:00 Singapore Time. Connected Apps share 25% of this daily allowance — up to 5 GB per day for all Connected Apps combined.
+  - [4] 2026-11-25: Connected Apps share a 5 GB per day downstream allowance | capture: sha256:35a31147eb0859ef38ed2b3656d053e1f3165e2bce65162907def6e067815f41 | quote: Free PikPak accounts have a daily downstream limit of 20 GB, resetting at 0:00 Singapore Time. Connected Apps share 25% of this daily allowance — up to 5 GB per day for all Connected Apps combined.
+  - [5] 2026-11-25: playback and previews consume downstream quota | capture: sha256:77a30ded6ed93ef8ed20caa548cfee25ac41e4b435d2f9adabb3619b410c23c9 | quote: Downstream quota covers all data delivered from PikPak to your device or Connected Apps, including online playback, previews, and file downloads. It is not limited to files you download manually.
+- sources:
+  - [1] https://mypikpak.com/en-US/help-center/file_management/space/insufficient_cloud_storage_space
+  - [2] https://mypikpak.com/en-US/faq
+  - [3] https://mypikpak.com/en-US/help-center/premium/premium_features/space_expansion
+  - [4] https://mypikpak.com/en-US/connect-apps-faq
+  - [5] https://mypikpak.com/en-US/help-center/transfer_quota/transfer_quota_basics/why-limit
+  - [6] https://rclone.org/pikpak/
+  - [7] https://apppricelens.com/app/pikpak-cloud-storage-saver-1616861537
+  - [8] https://pikpak.jp/en/blog-free-trial.html
+
+## PikPak - free account (cloud download plus downstream)
+
+- `debrid/pikpak-free-download` | qualifies-with-caveat | evidence documented | binding volume-quota | category private cloud drive with a cloud-download engine | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T09:47:00.873Z (live) | stale on 2026-12-26
+- url https://mypikpak.com/en-US/faq
+- price USD 0
+- free tier: 'Free accounts include 6 GB of storage, and Premium includes 10 TB.' Downstream is metered on every account: 'Free PikPak accounts have a daily Downstream limit of 20 GB, which resets at 0:00 Singapore Time. All Connected Apps together can use up to 25% of this daily limit, or 5 GB per day.' | unit: GB | metered on: downloaded-bytes | read on: 2026-10-23 | source: [1] | note: Two counters, not one: 20 GB/day for the official apps and 5 GB/day for anything programmatic (WebDAV, CLI, MCP, personal access tokens). The 6 GB store is what the downloaded bytes must pass through, exactly as CloudPipe's 450 GB must pass through a 15 GB Google Drive.
+- per-object cap: not stated. No per-object number is published; the limits that bite on a free account are the 6 GB store and three Cloud Download tasks a day. | source: [1] | note: A 20 GiB object cannot be held in a 6 GB store at all, so the object cap is the store, not a published file limit.
+- retention: files stay in the account until deleted, and the free account holds 6 GB, so retention is bounded by capacity rather than by a day count. Non-Premium accounts with no login for 12 consecutive months may be deleted. | source: [1]
+- egress: Metered in three dimensions per calendar month: cloud download 40 TB, downstream 4 TB, upload 1 TB, then a separate free-account daily downstream cap of 20 GB. 'All Connected Apps together can use up to 25% of this daily limit, or 5 GB per day.' Over the limit 'Downstream traffic slows to about 100 KB/s' and 'New Cloud Download tasks are blocked'. | metered: yes | free allowance: 20 GB/day downstream in the official apps; 5 GB/day for Connected Apps | source: [1]
+- identity: email | detail: Registration is by email. No card and no phone is named on the help-centre pages read; the signup form itself was not opened, so this is the published gate rather than an observed one.
+- interface: webdav, cli, rest
+- limits:
+  - volume-quota (binding): 6 GB of storage on a free account [2]
+  - volume-quota (binding): 20 GB/day downstream for the whole free account, resets at 0:00 Singapore Time [1]
+  - volume-quota (binding): 5 GB/day downstream for all Connected Apps together (25% of the daily cap) [1]
+  - request-rate: three Cloud Download tasks a day on a free account [1]
+- limits note: The monthly 4 TB downstream quota is not the binding number for a free account; the daily cap is, by a factor of 120.
+- binding note: At 5 GB/day a programmatic client gets 150 GB/month and at 20 GB/day an app-only client gets 600 GB/month. Both are below every other group-1 step except Bitport, and both require deleting through a 6 GB store.
+- interface detail: official apps plus WebDAV, an official CLI, an MCP server and personal access tokens, all grouped by the vendor as 'Connected Apps' and all subject to the 5 GB/day cap
+- tooling: rclone over WebDAV or the CLI; both land in the Connected Apps bucket and take the quarter allowance
+- composes with: Adds 150 GB a month to a no-card ladder for one email address, making it the largest per-signup free step that is not CloudPipe. Its counter resets daily, so it repeats in month two.
+- reliability: Over the daily cap downstream slows to about 100 KB/s and new cloud-download tasks are blocked while running ones continue; a free account with no login for 12 months may be deleted.
+- notes: The number that matters to the ladder is 150 GB/month programmatic, not 600: the service is driven with a script, and the vendor caps every programmatic path at 25% of the daily allowance.
+- evidence note: Both counters are vendor sentences read.
+- extras:
+  - gb_month_programmatic: 150
+  - gb_month_app_only: 600
+  - daily_reset_sentence: yes
+  - existing_records: netdisk-pan/pikpak; storage/pikpak; scratch (removed)
+- evidence:
+  - [1] 2026-10-23: 'Free PikPak accounts have a daily Downstream limit of 20 GB, which resets at 0:00 Singapore Time. All Connected Apps together can use up to 25% of this daily limit, or 5 GB per day.' Also the 40 TB / 4 TB / 1 TB monthly tab and the 12-month inactivity deletion.
+  - [2] 2026-10-23: 'Free accounts include 6 GB of storage, and Premium includes 10 TB.'
+  - [1] 2026-11-25: The free daily downstream cap and the Connected Apps share remain 20 GB and 5 GB | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: Free PikPak accounts have a daily Downstream limit of 20 GB, which resets at 0:00 Singapore Time. All Connected Apps together can use up to 25% of this daily limit, or 5 GB per day.
+  - [2] 2026-11-25: The free storage allowance is still 6 GB | capture: sha256:910871a0b7f303e43a9dc5a23a8fda1b78879b508fbe866db5d604a0652bff3a | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - [1] 2026-11-25: A free account with 12 consecutive months of inactivity may be deleted | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+  - [1] 2026-11-25: CLI, MCP, personal access tokens and WebDAV are all classified as Connected Apps | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: Connected Apps are tools and services that access your PikPak account outside the official PikPak apps. They include PikPak CLI, PikPak MCP for AI tools such as Claude or ChatGPT, Personal Access Tokens, WebDAV clients, and other integrations.
+- sources:
+  - [1] https://mypikpak.com/en-US/faq
+  - [2] https://mypikpak.com/en-US/help-center/file_management/space/insufficient_cloud_storage_space
+
+## PikPak Global Premium (10 TB)
+
+- `storage/pikpak-global-premium` | fails-egress | evidence reported | binding per-ip-shaping | category cloud drive / BT saver
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T21:14:39.876Z (live) | stale on 2026-12-04
+- url https://mypikpak.com/drive/payment
+- price $0.833/TB/mo at 10 TB ($99.99/yr Global Premium). Usable programmatic egress is 1 TB/month (25% × 4 TB downstream). Effective cost per TB actually retrievable per month is fine, but the ceiling makes it unusable for serving… | parsed USD 0.833/TB-mo
+- free tier: 10 TB storage on Premium; additional storage purchasable | unit: TB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: source: [1] | note: not stated
+- egress: HARD METERED, and worse for programmatic use. Verbatim from help centre: base quotas are 'Cloud Download: 40 TB per month. Downstream: 4 TB per month, including playback, previews, and downloads. Upload: 1 TB per month.' And 'Connected Apps share a combined transfer quota limit equal to 25% of your monthly Transfer Quota, across all three traffic dimensions.' So rclone/WebDAV/CLI. The only programmatic paths. Get 25% of 4 TB = 1 TB/month downstream. | metered: yes | free allowance: 40 TB per month
+- identity: card | detail: email + card (or App Store IAP)
+- interface: webdav, rclone, cli
+- limits:
+  - per-ip-shaping (binding): 20 GB/day [1]
+  - per-ip-shaping (binding): 33 GB/day [1]
+- limits note: Connected-Apps cap = 25% of monthly quota; free accounts also have a 20 GB/day downstream limit
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: WebDAV (read-only, premium-only, 'experimental'), official CLI, rclone backend
+- tooling: rclone 'pikpak' backend exists; WebDAV is read-only and flagged incomplete by the vendor
+- composes with: rclone; CLI; NOT a general object store
+- reliability: The storage price is a decoy; the product is a BT/magnet cache.
+- notes: the same as the free tier
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 10 TB storage on Premium; additional storage purchasable
+  - dead_end.first_recorded: 2026-10-21
+  - price_verbatim: $0.833/TB/mo at 10 TB ($99.99/yr Global Premium). Usable programmatic egress is 1 TB/month (25% × 4 TB downstream). Effective cost per TB actually retrievable per month is fine, but the ceiling makes it unusable for serving or bulk restore. Reject on egress, not on price.
+- evidence:
+  - [2] 2026-10-21: 'Cloud Download: 40 TB per month. Downstream: 4 TB per month, including playback, previews, and downloads. Upload: 1 TB per month.'
+  - [3] 2026-10-21: 'Connected Apps share a combined transfer quota limit equal to 25% of your monthly Transfer Quota, across all three traffic dimensions … When your Connected Apps reach this limit, their requests will be throttled'; 'Free PikPak accounts have a daily downstream limit of 20 GB'
+  - [4] 2026-10-21: 'Global Premium Yearly … $99.99 per year'
+  - [5] 2026-10-21: PikPak's WebDAV is read-only and premium-only
+  - [1] 2026-11-19: the Premium tier states 10 TB of cloud storage, unchanged | capture: sha256:7c13b525e5f2e2755b184ee750d53814499c74254a708fcaa0c3b54c309c69ca | quote: 10TB Cloud Storage
+  - [2] 2026-11-19: the base Cloud Download transfer quota is 40 TB per month | capture: sha256:d3a44fa738b297ab2c39c2912799fb64a2de9e41b9fc4d879c1a0469720a1ce5 | quote: - Cloud Download: 40 TB per month.
+  - [3] 2026-11-19: Connected Apps are capped at 25% of the monthly transfer quota | capture: sha256:35a31147eb0859ef38ed2b3656d053e1f3165e2bce65162907def6e067815f41 | quote: Connected Apps share a combined transfer quota limit equal to 25% of your monthly Transfer Quota, across all three traffic dimensions (Cloud Download, Downstream, Upload).
+  - [1] 2026-11-19: Premium purchase accepts a card, so identity_cost.kind card is unchanged | capture: sha256:7c13b525e5f2e2755b184ee750d53814499c74254a708fcaa0c3b54c309c69ca | quote: Credit card
+- sources:
+  - [1] https://mypikpak.com/drive/payment
+  - [2] https://mypikpak.com/en-US/help-center/play_and_download/transfer_quota/meaning
+  - [3] https://mypikpak.com/en-US/connect-apps-faq
+  - [4] https://apppriceatlas.com/subscriptions/pikpak-cloud-storage-saver-global-premium-yearly-yearly/countries/us/
+  - [5] https://blog.hentioe.dev/posts/pikpak-webdav-rclone.html
+
+## PikPak (mypikpak.com)
+
+- `netdisk-pan/pikpak` | fails-quota | evidence unverified | binding per-object-cap | category consumer-pan
+- needs card no, phone no, ID no, institution no | verified 2026-11-26T02:15:15.158Z (live) | stale on 2026-12-11
+- url https://mypikpak.com/
+- free tier: Free accounts include 6 GB of storage and Premium includes 10 TB, per the first-party help center; the landing page itself publishes no quota figure | unit: GB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: unverified: no maximum object size is published in the first-party help pages read; the former pricing path now answers HTTP 404 | source: [2]
+- retention: A non-Premium account with no login activity for 12 consecutive months may initiate the account deletion process; the first-party help center also states deletion 15 to 30 days after storage exceeds its limit | source: [2]
+- egress: not established; recorded as metered:false because no per-GB price or cap was found, which is an absence of evidence and not evidence of absence | metered: no | source: [2]
+- identity: email | detail: an email address for registration and verification; no credit card is needed for the basic free plan, per a vendor regional page
+- interface: rest
+- limits:
+  - per-object-cap (binding): not established [2]
+- binding note: Nothing numeric could be established first-hand, so the record names the cap as the thing that would decide and records it as unestablished.
+- tooling: unofficial drivers only: an rclone pikpak backend (username and password) and an OpenList PikPak driver that can simulate the Android client; both mount a personal drive, and download links are bound to the requesting address. The product's value is server-side torrent and magnet download into the drive
+- composes with: a cloud-download engine rather than a store: it fetches a magnet to its own disk, which is useful for acquiring a corpus and not for holding one
+- reliability: The former pricing path answers HTTP 404 after all read routes failed; the first-party help center now carries the current quota and over-limit terms.
+- notes: The landing page advertises cloud transfer to drive storage. The first-party help center throttles over-limit storage to 100 KB/s and states deletion 15 to 30 days after exceeding the limit.
+- extras:
+  - access_mode: registration-gated
+  - blocked: pricing page served as a binary body
+- evidence:
+  - [2] 2026-10-22: the landing page describes a private cloud drive with a cloud-download server and claims 'more than 80% of the files can be downloaded to your PikPak private Cloud Drive within a few seconds'; it states no storage quota
+  - [3] 2026-10-22: the page reader refused the page as 'not-html:binary' and a second fetch returned a compressed binary body, so the plan table could not be read
+  - [4] 2026-11-03: the OpenList PikPak driver emulates the Android client, so a reverse-engineered client reaches the drive | capture: sha256:64460cf2ca973ca80ee1a67708c30c97e0f847d929bda7835af441d8c3a3a325 | quote: If you choose `android`, it will simulate the Android client for access.
+  - [1] 2026-11-25: the first-party help center now states the free and Premium storage figures | capture: sha256:910871a0b7f303e43a9dc5a23a8fda1b78879b508fbe866db5d604a0652bff3a | quote: Free accounts include 6 GB of storage, and Premium includes 10 TB.
+  - probe:https://mypikpak.com/en/price 2026-11-25: the former pricing path no longer answers with a plan table | capture: sha256:50393a3d41f210ce69448f64dd5ed2a64839f37572b6ce901065d1ea269e8338 | quote: "status": 404
+  - [5] 2026-11-25: the first-party FAQ states the 12-month inactivity deletion rule | capture: sha256:a707e17c6aa38d4ee7dbe6d64b0688191f0852c5c2bfd5c15f49635a00b6e17a | quote: If you are a non-Premium user and have no login activity for 12 consecutive months, PikPak may initiate the account deletion process.
+  - [6] 2026-11-25: a vendor regional page states the signup asks for an email address | capture: sha256:2ea69e3dddb8f83c4b278a1032fdd3d53763bd16278151df1d23442335b8e1cc | quote: - An email address for registration and verification.
+  - [7] 2026-11-25: the first-party help center states the over-limit download throttle | capture: sha256:de4ae7dfef5cd3f1e29e3908abc6d04864ea31e4fc910fe263c0c507f4bc934a | quote: 100 KB/s
+  - [2] 2026-11-25: the landing page still presents the cloud-download engine | capture: sha256:c55007ea80a45eb5252af47ecbd6a33e6aeccdef21c251cc5177c6b9da8d3d92 | quote: Torrent · Magnet · URL
+  - [8] 2026-11-26: the help page names the sign-in email address as the account identifier | capture: sha256:f5d90c52e399c02c94a477d28045549e9bfc6eeb9d44f0bad0f22f8cda3e3c6b | quote: your PikPak account identifier, which is usually your sign-in email address
+- sources:
+  - [1] https://mypikpak.com/en-US/help-center/file_management/space/insufficient_cloud_storage_space
+  - [2] https://mypikpak.com/
+  - [3] https://mypikpak.com/en/price
+  - [4] https://doc.oplist.org/guide/drivers/pikpak
+  - [5] https://mypikpak.com/en-US/faq
+  - [6] https://pikpak.jp/en/blog-free-trial.html
+  - [7] https://mypikpak.com/en-US/help-center/file_management/space/exceed_limit
+  - [8] https://mypikpak.com/en-US/help-center/premium/payment_and_billing/premium_not_activated

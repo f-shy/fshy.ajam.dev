@@ -1,0 +1,82 @@
+# CrockyHost
+
+> crocky.host | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/crocky/ | JSON https://fshy.ajam.dev/api/v1/entity/crocky.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## CrockyHost (CROCKY S.R.L.)
+
+- `compute/crockyhost-nvps-micro` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier NVPS Micro
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:38.785Z (live) | stale on 2026-12-03
+- url https://crocky.host/nat-vps
+- price parsed USD 0.75/mo
+- free tier: No free tier. NVPS Micro is EUR 7.99 excluding VAT for one year, which the page prints as 'EUR 0,67 Monthly = EUR 7,99 EUR for one year'. A 7-day free trial is offered on NVPS Micro, NVPS 1, NVPS 2 and NVPS 4. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: billed annually on the entry plan; the page states of the trial 'When the 7 days end, the service is suspended unless the invoice is paid; pay it and it stays active'. No deletion interval after non-payment was published on any page read. | source: [1]
+- egress: 500 GB monthly traffic on NVPS Micro, in the vendor's decimal unit | metered: yes | free allowance: 500 GB a month | source: [1]
+- identity: card | detail: a WHMCS account; the registration form asks first name, last name, email, phone, street address, city, postcode and a password, and also offers a GitHub, Steam or Discord sign-in. Payment is a card through the checkout: 'Bank card (Visa, Mastercard and others), processed through Stripe and/or Mollie', with SEPA, PayPal, Klarna and paysafecard through Mollie, bank transfer, and 'Account credit, topped up in advance.' No authorisation hold and no prepaid or virtual card rule are published: the terms state only that a risk-flagged order may be held for manual review and that the buyer may be asked for 'confirmation of ownership of the payment instrument'. Card details are kept tokenised: 'The Provider stores only tokenised identifiers and the last four digits of the card.' Prices exclude VAT; the Romanian VAT rate is 21 percent.
+- interface: ssh
+- limits:
+  - volume-quota: 500 GB of monthly traffic on the entry plan [1]
+  - per-ip-shaping (binding): 20 consecutive ports on the node's shared public IPv4, each forwarded to the same port number inside the guest, allocated by hand through a ticket [1]
+- binding note: ports 80 and 443 cannot be obtained at all, because the vendor states those 'cannot be given to a single customer', so an IPv4-reachable web service is impossible and the 20-port window is the whole inbound budget.
+- interface detail: full root over SSH plus a console in the browser; unprivileged LXC on Proxmox VE, 11 Linux images
+- tooling: any SSH client; no API documented on the pages read
+- composes with: the largest shape under USD 1.50 a month found among evaluated providers at 1 GB of RAM, with a real public IPv6 address that answers on any port and 20 forwarded IPv4 ports for the services that must be reachable from IPv4.
+- reliability: no reliability event observed; no uptime figure and no SLA published on the pages read.
+- notes: Two things make it a caveat rather than a clean qualify. First, stock is unknown: the cart route could not price any product, and the control with an invalid pid behaved identically, so nothing about availability was established either way. Second, the plan is annual-only, so the money out of pocket is EUR 7.99 plus VAT, not EUR 0.67. The 20 IPv4 ports are allocated by hand through a ticket and 80/443 are explicitly refused, which is a harder limit than sellers that hand out a port range automatically. The public IPv6 is the strong half: any port, no request, which makes it a usable WireGuard endpoint and a usable web origin for IPv6 clients. What is not established: whether the 20 forwarded ports carry UDP, because no page read states a protocol for them; the accepted card types and any authorisation hold; whether stock exists on any plan; and whether the entity is actually trading beyond its own claim, since the Romanian trade register was not queried. Not verified: the 'trading' question for CROCKY S.R.L.
+- evidence note: price ladder, shape, traffic allowance, port rule, IPv6 delivery and trial terms are quoted from the vendor's own NAT page read; the VAT treatment is quoted from the same page; the legal entity and its Romanian registration number are quoted from the vendor's own footer and about page. The cart could not be priced: every cart.php and /store/nat-vps/<slug> route through automated retrieval resolved to the cPanel group, and a deliberately invalid pid resolved to the same place, so the redirect is a property of the route and not evidence about this product. Stock is therefore unknown.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: annual
+  - term: annual only on the entry plan
+  - m10h_usd: 0.75
+  - m24h_usd: 0.75
+  - price_arithmetic: EUR 7.99 a year excluding VAT / 12 = EUR 0.6658 a month, printed by the vendor as EUR 0.67. Converted at the ECB reference rate read on 2026-10-23 from api.frankfurter.app, EUR 0.89342 per USD, that is USD 0.7453 a month; the money out of pocket is EUR 7.99 = USD 8.94 once a year plus the buyer's VAT. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 8.94
+  - renewal_usd: EUR 7.99 a year at the same rate; the page states the price is not promotional and the ladder shows no separate renewal column
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 20 consecutive forwarded ports on the shared public IPv4, allocated by ticket, with 80 and 443 explicitly unavailable; the public IPv6 answers on any port
+  - network_out.static_ip: no
+  - network_out.ipv6: yes
+  - udp: not stated: no page read states whether the 20 forwarded IPv4 ports carry UDP. The IPv6 address is unrestricted and would carry UDP.
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: bank card (Visa, Mastercard and others) through Stripe and/or Mollie; SEPA Direct Debit, PayPal, Klarna and paysafecard through Mollie; bank transfer; account credit topped up in advance
+  - card_hold: not published: no authorisation amount appears in the terms or on the plan page; the only hold described is a manual review of a risk-flagged order
+  - checkout_fields: first name, last name and email are required on the WHMCS registration form; phone, address, city, postcode and company are present but not marked required
+  - stock: unknown: the cart route resolved to the cPanel group for every pid tried, including a deliberately invalid one
+  - cart_works: unknown
+  - product_url: https://crocky.host/nat-vps
+  - signup_url: https://crocky.host/register.php
+  - cart_url_note: the button on the page targets https://crocky.host/cart.php?a=add&pid=86&billingcycle=annually, but that route did not price the product: it returned the cPanel group.
+  - other_plans: NVPS 1 EUR 16.00 a year for 1 GB RAM plus 1 GB swap and 20 GB SSD; NVPS 2 EUR 25.00 a year for 2 GB RAM plus 1 GB swap and 40 GB SSD; NVPS 4 EUR 35.00 a year for 3 GB RAM plus 1 GB swap and 60 GB SSD. NVPS 1, 2 and 4 can also be paid quarterly from EUR 4.50, 7.50 and 10.00; NVPS 6 and NVPS 8 can be paid monthly.
+  - fx: EUR 0.89342 per USD, api.frankfurter.app/latest read 2026-10-24, rate date 2026-10-23
+- evidence:
+  - [1] 2026-10-24: quoted price card: 'NVPS Micro ... EUR 0,67 EUR Monthly = EUR 7,99 EUR for one year ... 1 vCore processor, 1 GB memory (512 MB RAM + 512 MB swap), 10 GB SSD storage, 500 GB monthly traffic, Public IPv6 address, yours alone, 20 IPv4 ports over NAT, on request, Full root access over SSH, Unprivileged LXC on Proxmox VE'
+  - [1] 2026-10-24: quoted: 'A public IPv6 address of your own Your server gets its own public IPv6 address, reachable directly from the internet. SSH, web apps or APIs answer on it on any port, for anyone with IPv6 connectivity, with nothing to request.'
+  - [1] 2026-10-24: quoted: 'You get 20 consecutive ports on the node's public IPv4 address, each forwarded to the same port number inside your server: with ports 20001-20020, a connection to port 20001 on the node reaches port 20001 on your VPS. Request them through a ticket to Technical Support, and our technical team allocates them by hand.'
+  - [1] 2026-10-24: quoted: 'Visitors who only have IPv4 cannot reach it on the usual ports 80 and 443, though, because those cannot be given to a single customer.'
+  - [1] 2026-10-24: quoted: 'Prices exclude VAT. VAT is worked out in the cart for your country (21% in Romania), and you see the total before you pay.'
+  - [1] 2026-10-24: quoted trial terms: 'Yes, on NVPS Micro, NVPS 1, NVPS 2 and NVPS 4: 7 days free, once per plan and at most three trials per account. You choose the trial at checkout, as the payment method, and pay nothing now.'
+  - [2] 2026-10-24: quoted: 'CrockyHost is the brand of CROCKY S.R.L., a company registered in Romania in September 2024 (VAT RO50515950).'
+  - [3] 2026-10-24: quoted: 'In September 2024 it became CROCKY S.R.L. Today it runs cPanel hosting on NVMe with LiteSpeed and CloudLinux, NAT VPS on Proxmox VE, dedicated servers and website development'
+  - [4] 2026-10-24: the 404 page carries the registered identity in its footer: 'CROCKY S.R.L., VAT RO50515950, Trade Register J2024020698007, Str. Dragaica nr. 5, Balasan, Baileti, Dolj county, 205101, Romania'
+  - [5] 2026-10-24: the route did not price the product: the response was HTTP 200 with final URL https://crocky.host/store/cpanel-web-hosting and title 'cPanel Web Hosting - CrockyHost'. A control request to cart.php?a=add&pid=999999 resolved to the same URL, so this is a property of the route, not evidence that NVPS Micro is out of stock.
+  - [6] 2026-11-02: the terms name the card rails, the Mollie rails, bank transfer and account credit, and state the 21 percent VAT rate and the tokenised storage | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: Bank card (Visa, Mastercard and others), processed through Stripe and/or Mollie
+  - [6] 2026-11-02: the only hold the terms describe is a manual review of a flagged order, not a money hold | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: Where an Order is flagged as high risk, the Provider may: (a) hold the Order for manual review;
+  - [6] 2026-11-02: a flagged order may require proof that the buyer owns the card used | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: confirmation of ownership of the payment instrument
+  - [1] 2026-11-02: the trial is chosen at checkout as the payment method and charges nothing | capture: sha256:ca77276a3f9cfcaae69052cc0c75e14581cc575d519a022202a2d2d86c1eb93d | quote: you pick the trial at checkout, as the payment method
+  - [6] 2026-11-02: the terms describe charging on the due date and a manual review, and state no authorisation amount | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: By saving a payment method and enabling automatic payment, the Client authorises the Provider to automatically charge renewal Invoices on the due date.
+  - [6] 2026-11-02: the Mollie rails are named beside the card rails | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: SEPA Direct Debit, PayPal, Klarna, paysafecard and other local methods, processed through Mollie
+  - [6] 2026-11-02: the payment-method clause is unchanged and still lists card, Mollie rails, bank transfer and account credit | capture: sha256:6bda3c9187f17d7c6b6002a2f63163f26362949870830c8cacff8d710eeb3068 | quote: Payment may be made by the following methods, depending on availability and Account currency:
+- sources:
+  - [1] https://crocky.host/nat-vps
+  - [2] https://crocky.host/
+  - [3] https://crocky.host/about-us
+  - [4] https://crocky.host/terms
+  - [5] https://crocky.host/cart.php?a=add&pid=86&billingcycle=annually
+  - [6] https://crocky.host/legal/terms-and-conditions

@@ -1,0 +1,112 @@
+# Lightcone
+
+> lightcone.ai | Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/lightcone/ | JSON https://fshy.ajam.dev/api/v1/entity/lightcone.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Lightcone (compute/lightcone)
+
+- `compute/lightcone` | paid-only | evidence documented | binding retention-clamped | category sandbox | tier Hosted cloud computers (browser and desktop), per-second compute
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T16:38:11.556Z (live) | stale on 2026-12-26
+- url https://docs.lightcone.ai/guides/pricing/
+- free tier: unverified: no free tier, free credit or trial is stated on the pricing page read on 2026-11-25; the page says 'No setup fees, no monthly minimums. Pay only for what you use.' Compute is $0.38 per core-hour and $0.095 per GiB-hour, billed per second, and a normal browser workload runs at roughly $0.075/hour | unit: none | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The provider list's '$1.14/h' and '4.5 h free (one time)' figures are not on any first-party page read and are not asserted here. The hosted API also bills model tokens separately: northstar-cua-fast-1.6 is $0.50/M input and $1.50/M output, with about 1,974 fixed extra input tokens per computer-use step.
+- per-object cap: uploads to a desktop session go to /workspace/uploads, up to 512 MB per file, transferred in 8 MB chunks; no account-wide file cap is stated | bytes: 536870912 | source: [2]
+- retention: unverified: no workspace-file retention period after a session terminates is stated on the pages read; screenshot URLs are presigned and expire after about 7 days; sessions can be saved with persistent=True and restored | source: [2]
+- egress: not published as a per-GB price: compute bills at $0.38/core-hour of actual core usage and $0.095/GiB-hour of actual memory used; no outbound byte allowance or price per GB is stated on the pages read. Google domains and chrome:// URLs are blocked in browser sessions, and browser downloads are disabled. | metered: no | source: [1]
+- identity: email | detail: The hosted sign-in at login.tzafon.ai (WorkOS AuthKit) asks for 'Email' with 'Continue with email', and offers 'Continue with Google', 'Continue with GitHub' and 'Continue with Apple'; a probe of the sign-in page captured the form on 2026-11-25. No card, phone or ID is asked for on that page; whether a card is needed before a paid computer can start is unverified: behind a sign-up.
+- interface: rest, cli
+- limits:
+  - retention-clamped (binding): sessions terminate after inactivity_timeout_seconds and a hard max_lifetime_seconds always applies regardless of activity [2]
+  - volume-quota: concurrent computers are plan-dependent; exceeding the limit returns 429 'Concurrent limit reached' [2]
+  - per-object-cap: 512 MB per uploaded file, transferred in 8 MB chunks, to /workspace/uploads [2]
+- limits note: Compute bills per second, minimum 0.125 cores per container; desktop uploads have no download action, so small files are returned via shell stdout. Browser sessions allow at most 5 tabs, block Google domains and chrome:// URLs, and deny downloads.
+- binding note: A session's inactivity timeout and hard max lifetime end the billed computer before a plan-level concurrent limit or the 512 MB upload cap is reached in a normal computer-use task.
+- interface detail: An HTTP API and Python/TypeScript SDKs (pip install tzafon) for tasks, computers and Responses/Chat Completions, plus a CLI. A computer session is a sandboxed browser or desktop that Northstar operates; a live view exists at https://lightcone.ai/c/{computer_id}.
+- endpoint: https://api.lightcone.ai/v1
+- tooling: A hosted API and Python/TypeScript SDKs; a CLI for tasks and computers. The northstar-cua-fast model weights are Apache 2.0 and can be run by the user on their own machine, and lightcone.ai/platform offers VPC, on-prem and self-hosted deployment; these are listed last and are not the hosted offer priced here.
+- composes with: A hosted computer session can run a browser or desktop at roughly $0.075/hour of compute plus model tokens, so a computer-use agent pays per step; files that must outlive a session are saved with persistent=True, and a self-hosted model on the user's own machine is the last-resort alternative when no hosted run is wanted.
+- reliability: Sessions are reaped after an inactivity timeout and a hard lifetime cap; concurrent computers are plan-dependent with a 429 on overrun; browser sessions block Google domains and chrome:// URLs and deny downloads; screenshot links expire after about 7 days.
+- notes: Hosted computer-use infrastructure: an API drives a browser or desktop that Northstar operates. Compute is $0.38/core-hour and $0.095/GiB-hour billed per second (minimum 0.125 cores per container), about $0.075/hour for a typical browser workload, plus model tokens. No free tier, setup fee or minimum is published. The self-hosted Northstar weights and the VPC/on-prem deployment are the last-resort alternative, not the offer priced here.
+- evidence note: Compute rates, token rates, no-fee statement and file/session limits are quoted from the first-party docs.lightcone.ai pricing and limits pages read on 2026-11-25; the identity gate was read from a probe of the WorkOS sign-in page reached from lightcone.ai/dashboard.
+- extras:
+  - shape.note: a sandboxed browser or desktop computer; compute is metered by actual core and memory use with a 0.125-core minimum per container
+  - billing_model: per-second compute plus per-token model use, no plan or minimum
+  - free_tier_kind: none
+  - term: no monthly minimum; sessions end on inactivity and a hard lifetime cap
+  - price_arithmetic: $0.38 per core-hour and $0.095 per GiB-hour; typical browser workload about $0.075/hour
+  - status: hosted and priced; dashboard behind a sign-in
+  - network_out.allow_outbound: yes
+  - network_out.ports: browser sessions block Google domains and chrome:// URLs and deny downloads
+  - session_cap.restart_required: no
+  - session_cap.note: inactivity timeout and hard max_lifetime_seconds; a live view at /c/{computer_id}; screenshot URLs expire after about 7 days
+- evidence:
+  - [1] 2026-11-25: hosted compute bills $0.38 per core-hour and $0.095 per GiB-hour, per second | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: | CPU | $0.38 / core-hour |
+  - [1] 2026-11-25: a normal browser workload costs roughly $0.075 an hour | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: A normal browser workload runs at roughly $0.075 / hour.
+  - [1] 2026-11-25: there are no setup fees or monthly minimums and payment is per use | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: Are there setup fees? No setup fees, no monthly minimums. Pay only for what you use.
+  - [1] 2026-11-25: the northstar-cua-fast model bills $0.50 per million input tokens and $1.50 per million output tokens | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: | `tzafon.northstar-cua-fast-1.6` | Our latest computer-use model. Recommended; pin this version in production. | $0.50/M tokens | $1.50/M tokens |
+  - [2] 2026-11-25: sessions are reaped after inactivity and a hard maximum lifetime always applies | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: Hard lifetime cap
+  - [2] 2026-11-25: concurrent computers are plan-dependent and overrun returns a 429 | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: The number of simultaneously running computers is plan-dependent; exceeding it returns a 429 with “Concurrent limit reached”
+  - [2] 2026-11-25: desktop uploads are capped at 512 MB per file and land in /workspace/uploads | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: Uploads land in `/workspace/uploads`
+  - [3] 2026-11-25: the platform also offers self-hosted deployment of open-weight models, listed last and not the hosted offer priced here | capture: sha256:81f7ef19ac7ecd585a810745244fa86d51b9de92e06ad91020346d41ee481310 | quote: Northstar is a vision-language model for computer use. Lightcone is the platform to deploy it — cloud, VPC, on-prem, or fully self-hosted.
+  - probe:https://login.tzafon.ai/ 2026-11-25: the WorkOS sign-in page reached from lightcone.ai asks for a required email address | capture: sha256:3820b2c6709784703e9bd1bd8b6ad103897a92dc42fc8206974d6a60c97b773a | quote: type="email" placeholder="Your email address" required=""
+- sources:
+  - [1] https://docs.lightcone.ai/guides/pricing/
+  - [2] https://docs.lightcone.ai/guides/limits-and-behaviors/
+  - [3] https://lightcone.ai/platform
+
+## Lightcone, Pay-as-you-go (no published free tier)
+
+- `compute/lightcone-compute` | paid-only | evidence documented | binding volume-quota | category computer-use cloud desktop and browser | tier Pay-as-you-go (no published free tier)
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-24T10:11:14.878Z (live) | stale on 2026-12-25
+- url https://docs.lightcone.ai/guides/pricing/index.md
+- free tier: unverified: the pricing page states no free allowance, free credits or trial; it says 'No setup fees, no monthly minimums. Pay only for what you use.' | unit: none | metered on: wall-clock | read on: 2026-11-24 | source: [1] | note: No free tier is published on the pricing page; model and compute rates apply from first use. The dashboard and signup are behind an API key and were not read as an account.
+- per-object cap: File uploads to a desktop are capped at 512 MB per file, transferred in 8 MB chunks; browser downloads are disabled. | source: [2] | note: The unit is a cloud computer, not an object store; the 512 MB figure is the only published per-file ceiling.
+- retention: A computer is destroyed on termination or timeout with its filesystem, unless created with persistent: true; screenshot URLs are presigned and expire after roughly 7 days. | source: [3] | note: Persistent session state is retained until deleted.
+- egress: not published: the pricing page lists token, CPU, memory and disk rates with no outbound transfer allowance or per-GB price; browser sessions support a residential proxy option, desktop sessions do not | metered: no | source: [1]
+- identity: email | detail: The signup page presents an email field ('Your email address') and Continue with Google, GitHub and Apple; the quickstart says to sign up at lightcone.ai and copy an API key from the dashboard. No card, phone or ID is shown on signup, and the dashboard is behind a login wall, so any card requirement after signup is unverified: behind a sign-up.
+- interface: rest, cli, chat, browser, ssh
+- limits:
+  - volume-quota (binding): CPU $0.38 per core-hour and memory $0.095 per GiB-hour, billed per second with a minimum of 0.125 cores per container [1]
+  - retention-clamped: sessions terminate after inactivity_timeout_seconds of no activity; max_lifetime_seconds always applies regardless of activity [2]
+  - per-object-cap: max 512 MB per file upload to a desktop session [2]
+  - request-rate: 10 failed authentication attempts in 10 minutes block the source IP; concurrent computers are plan-dependent and a 429 is returned at the limit [4]
+- limits note: Browser sessions allow at most 5 tabs, block downloads and Google domains, and cache html() for about 2 seconds; desktop session actions are serialized one at a time.
+- binding note: No free allowance is published, so the meter starts at first use: a typical browser workload is about $0.075 an hour and a 10-20-step task lands between a few cents and about $0.50.
+- interface detail: Tasks, Responses API and Chat Completions over REST, a `lightcone` CLI and MCP server, a chat interface, cloud browsers driven through CDP/Playwright, and shell commands on a desktop session; the SDKs are Python (`tzafon`) and TypeScript (`@tzafon/lightcone`).
+- endpoint: https://api.tzafon.ai
+- tooling: pip install tzafon, npm install @tzafon/lightcone, the lightcone CLI and MCP server; Playwright or Puppeteer can attach to browser sessions over CDP.
+- composes with: Runs Northstar computer-use tasks on a managed cloud desktop or browser and returns screenshots and HTML to the caller; hosted only, with an on-device Mac option named last in the platform docs and no own hardware required.
+- reliability: Idle sessions are reaped and a hard lifetime cap applies regardless of activity; exceeding the concurrent computer limit returns 429; 10 failed authentication attempts in 10 minutes block the source IP. The API and SDK are in beta and behavior can change.
+- notes: No free tier or trial is published: billing starts at first use at $0.38 per core-hour and $0.095 per GiB-hour. Signup takes an email or a Google/GitHub/Apple account; the dashboard is behind a login wall, so any card requirement after signup is unverified. Egress carries no published allowance or rate.
+- evidence note: The rates, no-minimum statement, caps, timeouts and signup fields are quoted from first-party documentation read on 2026-11-24; the absence of a published free tier is on the pricing page, and the dashboard was a login wall.
+- extras:
+  - shape.note: browser and desktop computers; machine size is not published on the pricing page
+  - billing_model: per-second usage at published core-hour, GiB-hour and token rates
+  - free_tier_kind: none-published
+  - term: no monthly minimum, no setup fee
+  - price_arithmetic: $0.38 per core-hour + $0.095 per GiB-hour; a normal browser workload is stated at about $0.075/hour
+  - status: API and SDK in beta
+  - network_out.allow_outbound: yes
+  - network_out.ports: not stated
+  - session_cap.restart_required: no
+  - session_cap.note: inactivity_timeout_seconds and max_lifetime_seconds are plan-dependent; both reap the session
+- evidence:
+  - [1] 2026-11-24: compute is charged per second at $0.38 per core-hour and $0.095 per GiB-hour | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: | CPU | $0.38 / core-hour | | Memory | $0.095 / GiB-hour |
+  - [1] 2026-11-24: billing granularity is per second with a minimum of 0.125 cores per container | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: - Granularity. Per-second billing, minimum 0.125 cores per container
+  - [1] 2026-11-24: a normal browser workload costs roughly $0.075 an hour | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: A normal browser workload runs at roughly $0.075 / hour.
+  - [1] 2026-11-24: there are no setup fees or monthly minimums and use is pay-as-you-go | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: Are there setup fees? No setup fees, no monthly minimums. Pay only for what you use.
+  - [1] 2026-11-24: a typical 10-20-step task costs a few cents to about $0.50 | capture: sha256:66aadd7c3dae1e7eb2e420835a67755667dec4d2086cf99fe58bbe2e4846a679 | quote: In practice, a typical 10–20-step task lands between a few cents and \~$0.50, driven mostly by how much context accumulates over the run.
+  - [2] 2026-11-24: sessions are reaped after the inactivity timeout and the hard lifetime cap always applies | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: | Idle reaping | Sessions terminate after `inactivity_timeout_seconds` with no activity. Any executed action (screenshots included) or a `keepalive` call resets the clock, but if you pause between calls longer than the idle window, the session is reaped
+  - [2] 2026-11-24: desktop uploads are capped at 512 MB per file | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: | Uploads land in `/workspace/uploads` | File uploads go there; max 512 MB per file, transferred in 8 MB chunks
+  - [2] 2026-11-24: exceeding the plan-dependent concurrent computer limit returns 429 | capture: sha256:380423ae233c1d3ae15f12455e58fd000258338f48f9ed5eb3593eaa41a5ae28 | quote: | Concurrent computer limit | The number of simultaneously running computers is plan-dependent; exceeding it returns a 429 with “Concurrent limit reached”
+  - [4] 2026-11-24: 10 failed authentication attempts in 10 minutes block the source IP | capture: sha256:608dba03c25c233d62494e7753648e44e7fb89d35f0f14e4376497b7dc0cfec6 | quote: - 10 failed authentication attempts in 10 minutes will block your IP
+  - [5] 2026-11-24: the sign-up page asks for an email address and offers Google, GitHub and Apple sign-in | capture: sha256:2d3357ea094f6794cfc166d9878afe09df34fe0fa84b37ce499fe042987d58b5 | quote: placeholder="Your email address" required=""
+  - [3] 2026-11-24: a computer is destroyed with its filesystem unless persistent: true, and screenshot URLs expire after roughly 7 days | capture: sha256:6061b7ba40a33a120675832aec56d777c872a96ac04affdc2f4fce9a034a8c10 | quote: When a computer is deleted, explicitly or by timeout, the VM is destroyed along with its filesystem, unless the session was created with `persistent: true`
+  - [6] 2026-11-24: the hosted offer operates a cloud browser or desktop, with a self-hosted option named separately | capture: sha256:47a32e7fa260e4f1b9dbd6a79f9e8e9d5eff716823b195bafc5a4b6df380831a | quote: Give it an instruction and it operates a cloud browser or desktop to carry it out:
+- sources:
+  - [1] https://docs.lightcone.ai/guides/pricing/index.md
+  - [2] https://docs.lightcone.ai/guides/limits-and-behaviors/index.md
+  - [3] https://docs.lightcone.ai/guides/security/index.md
+  - [4] https://docs.lightcone.ai/guides/authentication/index.md
+  - [5] https://lightcone.ai/signup
+  - [6] https://docs.lightcone.ai/

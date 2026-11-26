@@ -1,0 +1,1855 @@
+# fshy: Egress and tunnels, self-hosted, the last resort, part 1 of 2
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/egress/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## BastionRoute
+
+- `egress/bastionroute` | self-hosted, last resort | verdict qualifies-with-caveat | evidence reported | binding volume-quota | category udp relay | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:10:52.576Z (live) | stale on 2026-12-04
+- url https://bastionroute.io/ | page https://fshy.ajam.dev/p/bastionroute.md
+- price USD 0
+- free tier: A deliberately minimal forwarding fabric for WireGuard endpoints operating behind CGNAT, mobile networks and other NAT environments. No price, plan or allowance is published; the repository is v0.1.0-alpha. | unit: unlimited | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published. The relay is described as seeing connections, timing, traffic volume, frame sizes and connection state, but no cap is named.; ingress: udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: The README defines no authentication or accounts: BastionRoute intentionally does not define encryption, authentication, authorization, payload schemas, or application semantics. | country: None
+- interface: cli, unknown
+- limits:
+  - volume-quota (binding): unverified: no first-party per-user rate or byte cap is published; the README distributes source only and says performance results are workload- and environment-dependent and not guaranteed [1]
+- binding note: With no meter published and an alpha relay, the first failure at 1 TiB/month would be relay capacity or availability, not a stated cap.
+- interface detail: Relay plus shim binaries; the README describes a multi-shim architecture with no command reference.
+- tooling: Shim plus relay from GitHub; no packaged client.
+- composes with: Run the relay on a free VM and the shim next to the WireGuard endpoint; the free VM gets a UDP path it would not otherwise have.
+- reliability: Alpha, single author, no authentication layer; the site itself says a hostile relay can drop, delay or disrupt traffic.
+- notes: Open-source UDP relay designed to forward WireGuard connections from behind CGNAT. Open-source software with no commercial hosted service; deployment requires a virtual machine.
+- evidence note: Only the project's own README, site and a Show HN post exist; no hosted signup and no pricing page were found. Running the relay would move this to measured.
+- self hosted: yes
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: Its stated purpose is to carry WireGuard: the endpoint establishes an outbound WebSocket connection; the relay forwards opaque traffic; WireGuard remains the endpoint-to-endpoint security layer. The relay carries UDP datagrams as binary WebSocket frames.
+  - ingress: udp
+  - volume_stated: No allowance is published. The relay is described as seeing connections, timing, traffic volume, frame sizes and connection state, but no cap is named.
+  - bytes_transit: yes
+  - transit_note: A self-run or third-party relay forwards opaque frames between peers.
+- evidence:
+  - [1] 2026-10-23: A forwarding fabric for WireGuard endpoints behind CGNAT: outbound WebSocket, opaque forwarding, WireGuard as the trust boundary; no price or plan.
+  - [2] 2026-10-23: v0.1.0-alpha; relays UDP datagram streams between outbound-connected peers over WebSocket; defines no authentication.
+  - [3] 2026-10-23: Show HN submission for an outbound-initiated WebSocket relay fabric for UDP; the item's own timestamp could not be retrieved from the HN API.
+  - [4] 2026-11-19: the vendor publishes no guaranteed rate or capacity figure for the relay | capture: sha256:c7465e7681b7b4314d8f09fab9cf8a0bcb0615d37901254a0ebbc440000d1475 | quote: Results are workload and environment-dependent and are not guaranteed.
+  - [4] 2026-11-19: the offer is distributed as source with no hosted tier and no published allowance | capture: sha256:c7465e7681b7b4314d8f09fab9cf8a0bcb0615d37901254a0ebbc440000d1475 | quote: BastionRoute is distributed as source code only. The project does not distribute precompiled .exe, .dll, installers, or other binary packages.
+- sources:
+  - [1] https://bastionroute.io/
+  - [2] https://github.com/klauscam/BastionRoute/blob/main/README.md
+  - [3] https://news.ycombinator.com/item?id=48856767
+  - [4] https://raw.githubusercontent.com/klauscam/BastionRoute/main/README.md
+
+## Holesail
+
+- `egress/holesail` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category p2p tunnel | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:10:53.813Z (live) | stale on 2026-12-04
+- url https://holesail.io/ | page https://fshy.ajam.dev/p/holesail.md
+- price USD 0
+- free tier: Holesail is the world's first truly peer-to-peer proxy for TCP and UDP ports. No port forwarding, servers or configuration required. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance exists: the bytes travel between the two peers, and the public DHT only coordinates the holepunch.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: No account, email or card: the connection string is a public key derived from a keypair generated locally. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping: no quota: the vendor documentation lists 'Unlimited bandwidth' with 'No artificial limits or throttling'; throughput is whatever the two peers' paths allow [3]
+- binding note: Nothing meters the bytes, so at 1 TiB/month the limit is the peer's uplink and NAT behaviour, not a vendor counter.
+- interface detail: npm i holesail -g; holesail --live 3000 prints an hs:// connection string.
+- tooling: npm i holesail -g; holesail --live <port> then holesail <connection-string>.
+- composes with: Carries a WireGuard handshake between a free VM and a laptop without opening a port on either, at the cost of installing a client on both ends.
+- reliability: Depends on public HyperDHT bootstrap nodes; symmetric NAT defeats the holepunch and falls back to TCP, which breaks UDP-only protocols. A harness verified the server side and public-DHT peer discovery on 2026-11-05; the end-to-end data path was not testable in that sandbox.
+- notes: Not a hosted ingress: a third party cannot connect unless they run holesail with the connection string. It qualifies as free UDP capacity between two machines under one control, which covers a WireGuard endpoint only if the far side also runs it. A sandbox verified the server side and public-DHT peer discovery on 2026-11-05 but could not test the data path.
+- evidence note: A measured transfer between two peers behind different NATs would show the real throughput and whether the DHT path holds; that is the missing rung.
+- self hosted: yes
+- extras:
+  - wg_path: inside-udp
+  - wg_detail: The transport after holepunching is UDX, a custom UDP protocol, with a TCP fallback. A WireGuard datagram can ride that path between two peers running holesail.
+  - ingress: tcp+udp
+  - volume_stated: No allowance exists: the bytes travel between the two peers, and the public DHT only coordinates the holepunch.
+  - bytes_transit: overlay-only
+  - transit_note: Bytes go peer to peer after holepunching; only coordination metadata crosses the public DHT.
+- evidence:
+  - [1] 2026-10-23: Peer-to-peer proxy for TCP and UDP; npm install; connection string replaces a public address.
+  - [4] 2025-12-03: Launch post: no port forwarding, no VPNs, no servers in the middle, supports both UDP and TCP.
+  - [5] 2026-10-23: Mechanism: peers announce to HyperDHT, DHT nodes coordinate a UDP holepunch, then UDX carries the data; TCP fallback exists.
+  - [3] 2026-11-03: the vendor documentation lists unlimited bandwidth with no artificial limits or throttling | capture: sha256:10ec45d6e66d73e4c6a673e2696fa8f7dfa48a6cab0ffe58118c2ac38faf40e4 | quote: No artificial limits or throttling.
+  - [3] 2026-11-04: the documentation lists unlimited bandwidth with no artificial limits or throttling | capture: sha256:10ec45d6e66d73e4c6a673e2696fa8f7dfa48a6cab0ffe58118c2ac38faf40e4 | quote: No artificial limits or throttling.
+  - probe:holesail 2026-11-05: peer discovery on the public DHT worked from a capability-free sandbox | capture: sha256:33995b2eba9c39ca4f812c06c82d3d09bcdcd82d897be7778ea1c4a907ac1627 | quote: peer discovery on the public DHT works from this network
+  - [3] 2026-11-19: the documentation states unlimited bandwidth with no artificial limits or throttling, so no vendor counter binds this offer | capture: sha256:10ec45d6e66d73e4c6a673e2696fa8f7dfa48a6cab0ffe58118c2ac38faf40e4 | quote: No artificial limits or throttling.
+- sources:
+  - [1] https://github.com/holesail/holesail
+  - [2] https://holesail.io/
+  - [3] https://docs.holesail.io/
+  - [4] https://news.ycombinator.com/item?id=46131627
+  - [5] https://news.ycombinator.com/item?id=46172495
+
+## usque
+
+- `egress/usque` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/Diniboy1123/usque | page https://fshy.ajam.dev/p/github-diniboy1123.md
+- price USD 0
+- free tier: no service and no account; "an open-source reimplementation of the Cloudflare WARP client's MASQUE mode" | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated by this tool; the traffic reaches Cloudflare WARP; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; registration is performed by the tool | country: None
+- interface: cli
+- binding note: it adds no quota; its value is that it reaches WARP over TCP or HTTP/2 where WireGuard over UDP fails
+- interface detail: usque register / enroll / native-tun / socks5 / http-proxy / l4-proxy / port-forward
+- tooling: single Go binary; SOCKS5, HTTP, native TUN and port-forward modes
+- composes with: composes with any free compute host that blocks WireGuard but allows QUIC or TCP 443, and with the cloudflare-warp record.
+- reliability: the README says only the Linux amd64 binary was tested; userspace QUIC is slower than kernel WireGuard by the author's own statement
+- notes: Client tool proxying WireGuard over MASQUE (HTTP/3 or HTTP/2) directly to Cloudflare edge infrastructure. Replaces UDP egress from local clients without requiring a self-hosted remote relay server.
+- evidence note: a probe through the native tunnel or the SOCKS5 mode would raise it
+- self hosted: yes
+- extras:
+  - wg_path: registration-api
+  - wg_detail: it registers its own WARP device and then carries traffic over MASQUE (Connect-IP, RFC 9484) instead of WireGuard, so there is no .conf and no UDP
+  - ingress: none
+  - volume_stated: not stated by this tool; the traffic reaches Cloudflare WARP
+  - bytes_transit: yes
+  - transit_note: through Cloudflare's MASQUE endpoint
+  - hosting_requirement: none; runs on the device and dials Cloudflare's edge
+  - last_release: v4.2.1 2026-07-20
+  - stars: 1493
+- evidence:
+  - [1] 2026-10-23: "leverages the Connect-IP (RFC 9484) protocol" with native tunnel, SOCKS5, HTTP and L4 proxy modes
+  - [1] 2026-10-23: "reports that WARP+ doesn't work anymore over WireGuard arose lately" citing wgcf issue 459, and "certain networks block WireGuard, but don't block QUIC"
+  - [1] 2026-10-23: release v4.2.1 published 2026-07-20; last push 2026-07-20; 1493 stars
+  - [1] 2026-10-23: "MASQUE is userspace, and so is QUIC, the underlying protocol, making the implementation slower"
+- sources:
+  - [1] https://github.com/Diniboy1123/usque
+
+## warp-plus
+
+- `egress/warp-plus` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/bepass-org/warp-plus | page https://fshy.ajam.dev/p/github-bepass-org.md
+- price USD 0
+- free tier: no service and no account; "an open-source implementation of Cloudflare's Warp, enhanced with Psiphon integration" | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated by this tool; the traffic reaches Cloudflare WARP and Psiphon, neither of which it prices; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; WARP registration is created by the tool | country: None
+- interface: cli
+- binding note: the tool adds no quota of its own; the WARP record carries the allowance
+- interface detail: warp-plus -b 127.0.0.1:8086
+- tooling: single binary; SOCKS5 listener
+- composes with: feeds a SOCKS5 consumer, so it composes with a proxy-aware client rather than with a router.
+- reliability: SOCKS5 in, not a tunnel interface; behaviour depends on Cloudflare and Psiphon endpoints the tool does not control
+- notes: Its unique feature is chaining WARP through Psiphon, which reaches a different exit than WARP alone. Maintenance is slower than wgcf: one release in the last 18 months.
+- evidence note: a probe through the SOCKS5 listener would raise it
+- self hosted: yes
+- extras:
+  - wg_path: registration-api
+  - wg_detail: it registers its own WARP identity and exposes a local SOCKS5 listener (default 127.0.0.1:8086) rather than emitting a .conf
+  - ingress: none
+  - volume_stated: not stated by this tool; the traffic reaches Cloudflare WARP and Psiphon, neither of which it prices
+  - bytes_transit: yes
+  - transit_note: through Cloudflare WARP, optionally then Psiphon
+  - hosting_requirement: none; runs on the device, exposes SOCKS5 only
+  - last_release: v1.2.6 2025-06-04
+  - stars: 1975
+- evidence:
+  - [1] 2026-10-23: the feature list: Warp integration, Psiphon chaining, warp-in-warp, SOCKS5 proxy
+  - [1] 2026-10-23: the -b flag: "socks bind address (default: 127.0.0.1:8086)"; no .conf output
+  - [1] 2026-10-23: release v1.2.6 published 2025-06-04; last push 2025-12-15; 1975 stars
+- sources:
+  - [1] https://github.com/bepass-org/warp-plus
+
+## wgcf
+
+- `egress/wgcf` | self-hosted, last resort | verdict qualifies-with-caveat | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/ViRb3/wgcf | page https://fshy.ajam.dev/p/github-virb3.md
+- price USD 0
+- free tier: no service and no account; a CLI that registers with Cloudflare and writes a profile | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated by this tool; the profile reaches Cloudflare WARP, whose allowance is recorded at egress/cloudflare-warp as no published cap; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account and no card; "wgcf register" creates the Cloudflare device registration from the CLI | country: None
+- interface: cli
+- binding note: the tool adds no limit; the limit that matters is whatever WARP applies, and its record carries none published
+- interface detail: wgcf register / generate / status / trace
+- tooling: single static binary; outputs a wg-quick profile
+- composes with: generates the .conf that cloudflare-warp's record describes, and the profile can then be fed to a router, gluetun, or a kernel interface.
+- reliability: usque reports that WARP+ over WireGuard stopped working for some accounts (wgcf issue 459); the generated MTU of 1280 is conservative and can be raised
+- notes: Cross-platform CLI tool generating standard WireGuard configuration files for Cloudflare WARP. Output .conf files run on standard WireGuard clients, requiring outbound UDP access to Cloudflare endpoints.
+- evidence note: a probe that brings the generated profile up and moves bytes would raise it to measured
+- self hosted: yes
+- extras:
+  - wg_path: registration-api
+  - wg_detail: "wgcf register" saves wgcf-account.toml and "wgcf generate" writes wgcf-profile.conf, which is a standard WireGuard profile with MTU 1280
+  - ingress: none
+  - volume_stated: not stated by this tool; the profile reaches Cloudflare WARP, whose allowance is recorded at egress/cloudflare-warp as no published cap
+  - bytes_transit: yes
+  - transit_note: traffic exits through Cloudflare's network once the profile is up
+  - hosting_requirement: none; runs on the device and emits a .conf
+  - last_release: v2.3.1 2026-10-11
+  - stars: 8826
+- evidence:
+  - [1] 2026-10-23: the register / generate / license-key feature list and the wgcf-profile.conf output
+  - [1] 2026-10-23: "To ensure maximum compatibility, the generated profile will have a MTU of 1280" and --keepalive adds PersistentKeepalive
+  - [1] 2026-10-23: release v2.3.1 published 2026-10-11; last push 2026-10-20; 8826 stars
+  - [1] 2026-10-23: the Warp+ binding is capped: "there is a limit of 5 maximum devices linked at a time"
+- sources:
+  - [1] https://github.com/ViRb3/wgcf
+
+## arena-tunnel
+
+- `egress/arena-tunnel` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/dc-holdings-spa/arena-tunnel | page https://fshy.ajam.dev/p/github-dc-holdings-spa.md
+- price USD 0
+- free tier: no service and no account; AGPL-3.0 source with static binaries, described as "Free public ingress through any CDN" | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the tunnel's ceiling is the CDN's, and the README states none; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account for the DIY path; the vendor's own deployment adds a browser pairing flow with a signed-in identity | country: None
+- interface: cli
+- binding note: the constraint is a WireGuard server host plus a way to publish an HTTP port, which is the same host requirement as every other wrapper
+- interface detail: arena-tunnel client and arena-tunnel-server
+- tooling: single Go binary per platform, cloudflared or any HTTP publisher in front
+- composes with: the intended composition is cloudflare-tunnel Free in front of arena-tunnel-server, which makes an HTTP-only hosted tunnel carry WireGuard for the first time without a paid plan.
+- reliability: new and lightly used; client needs root for the TUN device; one WebSocket per session means a dropped TCP connection restarts the tunnel
+- notes: The clearest statement's central problem: "Most free CDNs (Cloudflare Free, Fastly, Bunny) only proxy HTTP/WS", so WireGuard has to be framed into WebSocket to use them. Released two days before this read, four stars, single purpose. It still needs the WireGuard server host, so its claim of no VPS rental assumes the reader already has somewhere to put the server half. Frame-per-datagram framing avoids putting a length-prefixed stream in the datagram path, but the websocket still rides TCP.
+- evidence note: Software design documented. Live throughput over WebSocket tunnels through Cloudflare remains unmeasured.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "encapsulating each WireGuard UDP datagram inside one binary WebSocket frame"; a user runs wireguard-go locally and the server hands frames to a local WireGuard interface
+  - ingress: tcp
+  - volume_stated: not applicable; the tunnel's ceiling is the CDN's, and the README states none
+  - bytes_transit: yes
+  - transit_note: through cloudflared and Cloudflare's edge, then to the server half
+  - hosting_requirement: a WireGuard server host plus cloudflared or another HTTP publisher; a user half needs root for a TUN device
+  - last_release: v1.2.1 2026-10-21
+  - stars: 4
+- evidence:
+  - [1] 2026-10-23: "punches a WireGuard VPN through any HTTP/HTTPS path - including a free Cloudflare Tunnel. No VPS rental" and "one WS binary frame <-> one UDP datagram"
+  - [1] 2026-10-23: the DIY section: "Requires a running WireGuard server on the same host and a way to publish your HTTP port (cloudflared tunnel, ngrok, etc.)"
+  - [1] 2026-10-23: "Latency cost: ~80-150 ms one-way through a free CF tunnel from most of LATAM" - the author's own figure, not reproduced
+  - [1] 2026-10-23: release v1.2.1 published 2026-10-21; last push 2026-10-23; 4 stars
+- sources:
+  - [1] https://github.com/dc-holdings-spa/arena-tunnel
+
+## frp
+
+- `egress/frp` | self-hosted, last resort | verdict paid-only | evidence measured | binding volume-quota | category tunnel (self-hosted software)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-12-22
+- url https://github.com/fatedier/frp | page https://fshy.ajam.dev/p/github-fatedier.md
+- free tier: Apache-2.0 client and server; no hosted free tier found | unit: none | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [1]
+- egress: Self-hosted deployment: traffic is governed by host network terms. | metered: no | source: [1]
+- identity: anonymous | detail: the software needs no account
+- interface: cli
+- binding note: the software imposes no limit, so what runs out first is the monthly egress allowance of the host it runs on, and that host is a separate provider with its own bill
+- interface detail: frpc against your own frps
+- tooling: frp
+- composes with: composes only with a server that a user pays for, so it is self-hosted software, not a free service.
+- reliability: no credible free public frps was found; every 'free frp server' lead was a VPS advertisement
+- notes: Open-source reverse proxy software for publishing local services behind NAT or firewalls. Self-hosted tool requiring deployment on external server infrastructure.
+- evidence note: frps and frpc 0.71.1 ran on this host: a 4,194,304-byte object read back through the TCP proxy byte-identically, sha256 46386cf4dbccceb80f80148d46d37f1a30d72912089cfbe4b3e51d9d55a79747, 42.91 MiB/s against a 38.73 MiB/s direct baseline. No hosted free tier exists, so this measures the software and not a service
+- self hosted: yes
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: self-hosted
+  - transit_note: no hosted free tier exists; the 4 MiB probe ran against a local frps and the bytes transited this host
+  - hosting_requirement: a rented or free compute service with a public address; no local machine is assumed
+- evidence:
+  - [1] 2026-10-22: Apache-2.0 client and server
+  - probe:frp-local://127.0.0.1:18080/blob4m.bin 2026-10-22: frps and frpc 0.71.1 on one host with a tcp proxy: GET /blob4m.bin returned 200 with 4,194,304 bytes, sha256 46386cf4dbccceb80f80148d46d37f1a30d72912089cfbe4b3e51d9d55a79747 matching the source, 0.093 s, 42.91 MiB/s against 38.73 MiB/s direct
+- sources:
+  - [1] https://github.com/fatedier/frp
+
+## gluetun
+
+- `egress/gluetun` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution yes | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/passteque/gluetun | page https://fshy.ajam.dev/p/github-passteque.md
+- price USD 0
+- free tier: no service and no account; a Docker container that connects to a VPN provider the operator has an account with | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the volume is the provider's, not the container's; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: institution | detail: a subscription with one of the listed VPN providers is what it exists to consume; the custom provider path needs no gluetun account but the endpoint still needs one | country: None
+- interface: cli
+- binding note: gluetun adds no limit and no path: it is a consumer of somebody else's tunnel, so the binding constraint lives in the provider record
+- interface detail: Docker environment variables, plus built-in SOCKS5, Shadowsocks and HTTP proxies
+- tooling: Docker image qmcgaw/gluetun; compose or docker run
+- composes with: takes a .conf from any provider record in this topic and republishes it as SOCKS5 or Shadowsocks inside a Docker network.
+- reliability: the built-in firewall kill switch blocks traffic when the tunnel drops, by design
+- notes: VPN client container routing network traffic through OpenVPN and WireGuard connections, providing local SOCKS5 and Shadowsocks proxies. Operates as a routing container rather than an external transport encapsulation service.
+- evidence note: nothing here is about gluetun's own numbers; the rung that matters belongs to the provider it dials
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: "For custom Wireguard configurations using the custom provider", so an ordinary .conf is its input
+  - ingress: none
+  - volume_stated: not applicable; the volume is the provider's, not the container's
+  - bytes_transit: yes
+  - transit_note: through whichever VPN provider is configured
+  - hosting_requirement: a Docker host; the tunnel itself is the provider's
+  - last_release: v3.41.3 2026-07-30
+  - stars: 15857
+- evidence:
+  - [1] 2026-10-23: "For custom Wireguard configurations using the custom provider" and "Supports Wireguard both kernelspace and userspace"
+  - [1] 2026-10-23: built-in Shadowsocks, SOCKS5 and HTTP proxies that tunnel through the VPN
+  - [1] 2026-10-23: release v3.41.3 published 2026-07-30; last push 2026-10-21; 15857 stars; repo moved to passteque/gluetun
+  - [1] 2026-10-23: "Choose the vpn network protocol, udp or tcp"
+- sources:
+  - [1] https://github.com/passteque/gluetun
+
+## Headscale
+
+- `egress/headscale` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category mesh control plane (self-hosted)
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/juanfont/headscale | page https://fshy.ajam.dev/p/github-juanfont.md
+- free tier: BSD-3 control server for Tailscale clients, with no node cap | unit: unlimited | metered on: identity-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [1]
+- egress: signalling only once peers connect directly; DERP relay only when they do not | metered: no | source: [1]
+- identity: anonymous | detail: the software needs no account
+- interface: cli
+- binding note: the software imposes no byte meter; what runs out is the monthly egress allowance of the host it runs on, and that host is a separate provider
+- interface detail: tailscale up --login-server against your own headscale
+- tooling: tailscale clients against headscale
+- composes with: signalling for a private mesh: it composes with a private set of machines and carries no bytes once they hole-punch.
+- reliability: the control server's uptime is the constraint
+- notes: 2026-10-23: public instances exist and carry no ingress. One public control server, headscale.kf8edq.dev, publishes join keys and shows 'Active Nodes 4 / 5 total', so the free public instance is a 5-node control plane with no public listener of any kind. A control plane distributes keys and endpoints; the payload never touches it, which is why headscale cannot satisfy ingress test at any size. Re-graded 2026-10-23: the software is free and the path is not, because it needs a host. The finding is the host.
+- evidence note: Control server architecture and mesh coordination specifications are documented in official project documentation.
+- self hosted: yes
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: no
+  - transit_note: a control server for Tailscale clients: it distributes keys and endpoints and sees no payload
+  - hosting_requirement: a rented or free compute service; no local machine is assumed
+- evidence:
+  - [1] 2026-10-22: BSD-3 control server with no node limit stated
+  - [2] 2026-10-23: a public headscale instance advertising 'Active Nodes 4 / 5 total' and an authkey join flow, with no service-publishing feature, read through the search index
+- sources:
+  - [1] https://github.com/juanfont/headscale
+  - [2] https://kf8edq.dev/
+
+## Pritunl
+
+- `egress/pritunl` | self-hosted, last resort | verdict paid-only | evidence unverified | binding none | category vpn server software | tier paid
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T12:11:59.479Z (live) | stale on 2026-11-19
+- url https://pritunl.com/ | page https://fshy.ajam.dev/p/pritunl.md
+- price paid cloud
+- free tier: The open-source server is free: 'Get started immediately with no registration or credit card required.' No hosted free tier is stated. | unit: none | metered on: none | read on: 2026-11-04 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No bandwidth allowance or price is published on the page read, which presents Pritunl as a self-hosted platform; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: the open-source server needs no registration or credit card; the page presents Pritunl as a self-hosted platform, and no hosted cloud is named on it. | country: None
+- interface: cli, rest
+- binding note: There is no vendor-supplied endpoint to exhaust: the server would be run locally, which puts the byte limit on whichever VM hosts it.
+- interface detail: Web console and API.
+- tooling: The user installs and runs the Pritunl server on a rented or free machine, with the Pritunl client or any OpenVPN client.
+- composes with: Needs a host.
+- reliability: Self-operated.
+- notes: Open-source enterprise VPN server software. Provides self-hosted WireGuard and OpenVPN management.
+- evidence note: pritunl.com/pricing answers 404; the home page links Premium and Enterprise checkout pages whose text no reader returned, so paid-tier prices are unverified.
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: Pritunl is a server that terminates WireGuard and OpenVPN itself; a .conf is generated by the deployment that is run, not by a vendor endpoint.
+  - ingress: tcp+udp
+  - volume_stated: No bandwidth allowance or price is published on the page read, which presents Pritunl as a self-hosted platform.
+  - bytes_transit: overlay-only
+  - transit_note: a locally run server
+- evidence:
+  - [1] 2026-10-23: product page describes OpenVPN, WireGuard and IPSec support; no plan or price
+  - [2] 2026-10-23: 'OpenVPN, WireGuard, and IPSec support' (third party)
+  - [1] 2026-11-04: the vendor page says the open-source server is free and needs no registration or credit card | capture: sha256:d7cec794b3501cf520b899f6265a2569ea706ec6788156655fbceca5fa7592c6 | quote: Free and open source alternative to commercial VPN products such as Aviatrix, Pulse Secure and AnyConnect. Get started immediately with no registration or credit card required.
+  - [1] 2026-11-04: the vendor describes Pritunl as a self-hosted platform | capture: sha256:d7cec794b3501cf520b899f6265a2569ea706ec6788156655fbceca5fa7592c6 | quote: A self hosted VPN platform with over 10 years of proven reliability and security, trusted by thousands of organizations worldwide.
+  - probe:pritunl.com/pricing 2026-11-04: the pricing path answers 404 | capture: sha256:31b0abf03c5c37716ad422e8583d20ef9efe138a1526123a40a1c42ee534126b | quote: "status": 404
+  - [1] 2026-11-04: the page presents Pritunl as a self-hosted platform and does not name a hosted offer with an allowance | capture: sha256:d7cec794b3501cf520b899f6265a2569ea706ec6788156655fbceca5fa7592c6 | quote: A self hosted VPN platform with over 10 years of proven reliability and security, trusted by thousands of organizations worldwide.
+- sources:
+  - [1] https://pritunl.com/
+  - [2] https://github.com/anderspitman/awesome-tunneling
+
+## proxyguard
+
+- `egress/proxyguard` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://codeberg.org/eduVPN/proxyguard | page https://fshy.ajam.dev/p/codeberg-org-eduvpn.md
+- price USD 0
+- free tier: no service and no account; MIT-licensed client and server, packaged in the eduVPN server repository | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account for the tool; the eduVPN ecosystem around it issues accounts separately | country: None
+- interface: cli
+- binding note: the constraint is a server host, mitigated by the fact that it is designed to sit behind a reverse proxy on an existing HTTPS port
+- interface detail: proxyguard-client --to http://host ; proxyguard-server --listen --to
+- tooling: make install adds systemd units; DEB and RPM packages in the eduVPN repo
+- composes with: rides any HTTPS reverse proxy, so it composes with a host that already serves a website and with a CDN that passes an Upgrade header.
+- reliability: client requires TLS 1.3 or newer; on Linux --fwmark may be needed to avoid a routing loop, and that flag needs root or CAP_NET_ADMIN
+- notes: Reverse proxy software wrapping WireGuard over TCP, maintained for eduVPN deployments. Shares port 443 with HTTPS web servers via HTTP Upgrade headers.
+- evidence note: a measured run through an nginx or HAProxy front would raise it; eduVPN publishes deployment docs but no throughput figure
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: client listens on 127.0.0.1:51821 and the WireGuard config sets Endpoint = 127.0.0.1:51821; server runs 'proxyguard-server --listen 0.0.0.0:51821 --to 127.0.0.1:51820'
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: through the server half, which forwards to the local WireGuard port
+  - hosting_requirement: a server host with an HTTP listener, preferably behind a reverse proxy on 443; a user half runs on the device
+  - last_release: 2.1.1 2026-08-26
+- evidence:
+  - [2] 2026-10-23: "proxy UDP connections over HTTP(s). The main use case is to proxy WireGuard packets" and "This proxy thus needs to run for every client and for a server"
+  - [2] 2026-10-23: "This project started with a UDP to TCP approach, but later moved to HTTP for use behind a reverse proxy"
+  - [3] 2026-10-23: release 2.1.1 published 2026-08-26
+  - [2] 2026-10-23: "The goal of this project is NOT to work around intentional state/organizational network blocks/censorship"
+- sources:
+  - [1] https://codeberg.org/eduVPN/proxyguard
+  - [2] https://codeberg.org/eduVPN/proxyguard/raw/branch/main/README.md
+  - [3] https://codeberg.org/eduVPN/proxyguard/releases
+
+## tunelo
+
+- `egress/tunelo` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/mehdieidi/tunelo | page https://fshy.ajam.dev/p/github-mehdieidi.md
+- price USD 0
+- free tier: no service and no account; two Go programs built from source | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account required. Requires a Linux server with NAT rules and local deployment alongside a VPN endpoint. | country: None
+- interface: cli
+- binding note: the constraint is a Linux server with IP forwarding and MASQUERADE, outside the vocabulary
+- interface detail: tunelo-server and tunelo-client
+- tooling: go build; server needs iptables and ip_forward
+- composes with: websocket mode rides the same class of forwarder as wstunnel; the server must sit on a host with a public address.
+- reliability: client skips certificate verification in utls mode, stated in the README; last tagged build is from 2023
+- notes: Open-source transport proxy using uTLS client hello shaping to bypass network inspection. Client and relay run as self-hosted components.
+- evidence note: a measured run would raise it; the repository publishes no benchmark
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "tunelo encrypts and tunnels UDP traffic (e.g. WireGuard) over a transport protocol like websocket or TCP"; server/ and client/ are separate binaries, both defaulting to websocket
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - hosting_requirement: a Linux server with a public address, IP forwarding and a NAT rule, plus the client binary on the device
+  - last_release: v0.4.0 2023-09-10
+  - stars: 16
+- evidence:
+  - [1] 2026-10-23: the description sentence, the two-binary layout, and the server requirements (WireGuard, Go, NAT rules, IP forwarding)
+  - [1] 2026-10-23: "The current client skips certificate verification" in utls mode
+  - [1] 2026-10-23: release v0.4.0 published 2023-09-10; last push 2026-09-27; 16 stars
+- sources:
+  - [1] https://github.com/mehdieidi/tunelo
+
+## udp-over-tcp (mullvad)
+
+- `egress/mullvad-udp-over-tcp` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/mullvad/udp-over-tcp | page https://fshy.ajam.dev/p/github-mullvad.md
+- price USD 0
+- free tier: no service and no account; a Rust library with two binaries, udp2tcp and tcp2udp | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: the constraint is the server half, which is why Mullvad itself can offer the feature and a client cannot get it for free
+- interface detail: udp2tcp and tcp2udp binaries, or the Rust crate
+- tooling: cargo; two binaries, embeddable as a library
+- composes with: composes with a server host; the Mullvad deployment of it is a paid provider feature recorded elsewhere.
+- reliability: one udp2tcp instance handles one peer only; the server spawns a UDP socket per TCP connection
+- notes: Included because it is the production-grade reference for the technique and the ancestor proxyguard names. Its existence also explains why the wrapper question is a hosting question: Mullvad can offer WireGuard over TCP because it owns the server half. A library alone cannot give the same thing without a server to run it. The 16-bit length prefix caps a datagram at 65535 bytes, which is not a real constraint for WireGuard's MTU.
+- evidence note: its behaviour inside the Mullvad app is not testable without a subscription; the library's own protocol is documented
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: tcp2udp runs on the server and forwards to 127.0.0.1:51820; udp2tcp runs on a user beside the WireGuard interface
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: through the tcp2udp server, which owns the UDP socket to WireGuard
+  - hosting_requirement: a server host running tcp2udp; the client binary goes beside the WireGuard interface
+  - last_release: no GitHub releases; last push 2026-08-17
+  - stars: 588
+- evidence:
+  - [1] 2026-10-23: "A library (and binaries) for tunneling UDP datagrams over a TCP stream"; tcp2udp example forwarding 10.0.0.0:5001/TCP to 127.0.0.1:51820/UDP
+  - [1] 2026-10-23: the wire format: "Each datagram is preceded with a 16 bit unsigned integer in big endian byte order"
+  - [1] 2026-10-23: 588 stars, no GitHub releases, last push 2026-08-17
+  - [2] 2026-10-23: Mullvad deploys WireGuard over TCP on its own servers and switches to it with 'mullvad relay set tunnel wireguard --protocol tcp'
+- sources:
+  - [1] https://github.com/mullvad/udp-over-tcp
+  - [2] https://mullvad.net/en/blog/introducing-wireguard-over-tcp-and-ipv6
+
+## udp2raw
+
+- `egress/udp2raw` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/wangyu-/udp2raw | page https://fshy.ajam.dev/p/github-wangyu.md
+- price USD 0
+- free tier: no service and no account; source and pre-built static binaries | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; both ends are hosts the operator controls | country: None
+- interface: cli
+- binding note: the constraint is a root Linux host with raw socket access at both ends, outside the seven-kind vocabulary
+- interface detail: udp2raw_amd64 -s / -c
+- tooling: static binaries for x86, ARM, Android and some OpenWrt routers
+- composes with: only composes with a host rented or obtained free, such as a free-tier VM, and adds nothing to a hosted tunnel.
+- reliability: needs root and iptables rules (-a), which is a common silent failure; the README states it survives reconnects and keeps UDP conversations valid
+- notes: Encapsulates UDP traffic over fake TCP or raw ICMP headers to bypass firewall throttling. Operates via raw socket manipulation; incompatible with standard Layer 7 reverse proxies or CDNs, requiring a dedicated remote server running udp2raw.
+- evidence note: a measured run through a named path would raise it; no throughput number is published
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "A Tunnel which turns UDP Traffic into Encrypted FakeTCP/UDP/ICMP Traffic by using Raw Socket"; WireGuard rides inside it because WireGuard is the UDP traffic
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: the bytes cross both hosts, with the far host forwarding to the WireGuard listener
+  - hosting_requirement: two root Linux hosts, one of them publicly reachable; fake-TCP needs raw sockets at both ends and cannot pass a managed HTTP forwarder
+  - last_release: 20230206.0 2023-02-07
+  - stars: 8577
+- evidence:
+  - [1] 2026-10-23: "turns UDP Traffic into Encrypted FakeTCP/UDP/ICMP Traffic by using Raw Socket" and "Linux host ... with root access"
+  - [1] 2026-10-23: the two-sided invocation: server '-s -l0.0.0.0:4096 -r 127.0.0.1:7777 --raw-mode faketcp' and client '-c -l0.0.0.0:3333 -r44.55.66.77:4096'
+  - [1] 2026-10-23: release 20230206.0 published 2023-02-07; last push 2025-10-12; 8577 stars
+  - [2] 2026-10-23: WireGuard names udp2raw as one of the projects that can transform its UDP packets into TCP
+- sources:
+  - [1] https://github.com/wangyu-/udp2raw
+  - [2] https://www.wireguard.com/known-limitations/
+
+## udptunnel (rfc1036)
+
+- `egress/udptunnel` | self-hosted, last resort | verdict paid-only | evidence reported | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/rfc1036/udptunnel | page https://fshy.ajam.dev/p/github-rfc1036.md
+- price USD 0
+- free tier: no service and no account; a small C program | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: Requires dedicated server endpoints at both ends of the tunnel.
+- interface detail: udptunnel -s / -c
+- tooling: C, built from source
+- composes with: composes with a host at each end and nothing else.
+- reliability: unauthenticated by design; predates WireGuard and inherits none of its protections at the transport layer
+- notes: Legacy tunnel utility wrapping UDP packets over TCP connections without TLS or authentication. Operates point-to-point between two hosts.
+- evidence note: the repository README was not read; the description and the WireGuard limitations page are the evidence, so a read of the source would raise it to documented
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "Tunnel UDP packets in a TCP connection"; one side listens for TCP, the other for UDP, and WireGuard's endpoint points at the UDP side
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: through the server half to the UDP listener
+  - hosting_requirement: two hosts, one listening on TCP and one forwarding to the local UDP port
+  - last_release: no releases; last push 2024-04-22
+  - stars: 222
+- evidence:
+  - [1] 2026-10-23: repository description "Tunnel UDP packets in a TCP connection"; 222 stars; last push 2024-04-22; no releases
+  - [2] 2026-10-23: WireGuard names udptunnel alongside udp2raw as a project that can transform its UDP packets into TCP
+- sources:
+  - [1] https://github.com/rfc1036/udptunnel
+  - [2] https://www.wireguard.com/known-limitations/
+
+## wg-tcp-tunnel (arkq)
+
+- `egress/wg-tcp-tunnel` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/arkq/wg-tcp-tunnel | page https://fshy.ajam.dev/p/github-arkq.md
+- price USD 0
+- free tier: no service and no account; source under MIT | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; a public-IP server and a client | country: None
+- interface: cli
+- binding note: the constraint is a public-IP server at the far end, outside the vocabulary; the build can also reach the far end through ngrok
+- interface detail: wg-tcp-tunnel --src-tcp/--dst-udp on one end, --src-udp/--dst-tcp on the other
+- tooling: cmake plus Boost.Asio; systemd and Termux runit units in tree
+- composes with: composes with any TCP forwarder that hands over a raw stream, including an ngrok TCP endpoint, and with a plain public-IP host.
+- reliability: source-built only; no release artefacts; the ngrok path inherits ngrok's connection accounting
+- notes: Tunnel client encapsulating WireGuard over TCP, with built-in support for dialing ngrok TCP endpoints (-DENABLE_NGROK=ON). Requires compiling from source with Boost and CMake.
+- evidence note: a measured run through the ngrok path would raise it, and would be the first measurement of a hosted tunnel carrying WireGuard
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "This project is a simple UDP-over-TCP tunneling. The main purpose of it is to allow WireGuard to work over TCP"; server '--src-tcp=0.0.0.0:51820 --dst-udp=127.0.0.1:51820', client '--src-udp=127.0.0.1:51822 --dst-tcp=<SERVER-IP>:51820' with Endpoint = 127.0.0.1:51822
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: the far end forwards into the local WireGuard listener
+  - hosting_requirement: a host on a public address running the server half, or an ngrok TCP endpoint in its place
+  - last_release: v1.1.2 tag, no release object, last commit 2026-08-28
+  - stars: 38
+- evidence:
+  - [1] 2026-10-23: the purpose sentence, both invocations, and the Endpoint rewrite
+  - [1] 2026-10-23: "-DENABLE_NGROK=ON ... --ngrok-api-key=KEY --ngrok-dst-tcp-endpoint=ENDPOINT"; the tunnel can use an NGROK endpoint as its destination
+  - [1] 2026-10-23: tags v1.1.2 latest, no GitHub release objects, last commit 2026-08-28; 38 stars
+  - [1] 2026-10-23: build options -DENABLE_WEBSOCKET and -DENABLE_RUNIT (Termux service)
+- sources:
+  - [1] https://github.com/arkq/wg-tcp-tunnel
+
+## WGTCP
+
+- `egress/wgtcp` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/secwest/WGTCP | page https://fshy.ajam.dev/p/github-secwest.md
+- price USD 0
+- free tier: no service and no account; a patch to the Linux kernel WireGuard module with Ubuntu 24.04 binaries | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: both peers must run the patched kernel module, which means two hosts with module build or install rights; that is outside the vocabulary
+- interface detail: wg and wg-quick unchanged
+- tooling: Ubuntu 24.04 amd64 and arm64 archives, or build from source
+- composes with: composes only with hosts where the operator controls the kernel, so a free-tier VM works and a managed tunnel does not.
+- reliability: out-of-tree kernel patch for a specific kernel and distro; both peers must match
+- notes: Kernel-level WireGuard implementation supporting TCP encapsulation directly within the kernel module. Requires running matching patched kernel modules on both endpoints.
+- evidence note: a measured A/B against UDP WireGuard on a named path would raise it; the repository publishes its own comparison numbers, which are reported rather than reproduced here
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: "Keep the usual keys, peers, AllowedIPs, preshared keys, keepalives, wg, and wg-quick workflow" - the standard configuration drives it, with the transport swapped underneath
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: directly between the two patched peers, with no intermediary process
+  - hosting_requirement: two hosts that can install the patched kernel module, one of them publicly reachable
+  - last_release: no GitHub releases; last push 2026-08-04
+  - stars: 27
+- evidence:
+  - [1] 2026-10-23: "adds a high-performance TCP transport patch to the Linux WireGuard kernel module" and the wg / wg-quick compatibility claim
+  - [1] 2026-10-23: "It has not been approved, endorsed, or adopted by the WireGuard project"
+  - [1] 2026-10-23: no GitHub releases, last push 2026-08-04, 27 stars
+  - [1] 2026-10-23: the author reports 512 comparison cells and CPU reductions of 6.7-10.9 percent for clean-LAN bulk transfer; reported, not measured here
+- sources:
+  - [1] https://github.com/secwest/WGTCP
+
+## Wiredoor
+
+- `egress/wiredoor` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category self-hosted WireGuard ingress | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.wiredoor.net/ | page https://fshy.ajam.dev/p/wiredoor.md
+- price USD 0
+- free tier: 'Expose HTTP, TCP, and UDP services from private networks through outbound WireGuard tunnels. Keep control of your public endpoint, routing, certificates, and access policies.' The software is self-hosted; no vendor plan and no vendor quota. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published because there is no vendor in the path: the server's NIC and its hosting bill are the limit.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: Self-hosted: the only account is the local admin the installer creates ('username: admin@example.com'). No vendor registration. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): the software imposes no byte meter; what runs out is the monthly allowance of the host it runs on, and that host is a separate provider [1]
+- binding note: the software imposes no byte meter; what runs out is the monthly allowance of the host it runs on, and that host is a separate provider
+- interface detail: 'wiredoor http first-app --domain app.example.com --port 3000'
+- tooling: wiredoor CLI, Docker, the server dashboard
+- composes with: runs on the same free-tier VPS as Pangolin or Wireport, so the three are alternatives rather than additions; the VPS egress is the shared ceiling
+- reliability: the public endpoint is the operator's; its uptime, certificate renewal and firewall are all local work
+- notes: The second half of the ingress chain is missing: Wiredoor Server must sit on a host with a public IP. It is software, not a service, so the free tier is the VPS, not Wiredoor. The FAQ page was read through the search index rather than a direct fetch, which is why its evidence row is weaker than the home page.
+- evidence note: WireGuard tunnel proxy architecture and relay routing are documented in repository specifications.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: 'Remote nodes connect outward to Wiredoor Server, and forwarded traffic crosses the encrypted tunnel.' The wiredoor CLI or the dashboard token holds the tunnel; no .conf export is documented.
+  - ingress: tcp+udp
+  - volume_stated: No allowance is published because there is no vendor in the path: the server's NIC and its hosting bill are the limit.
+  - bytes_transit: yes
+  - transit_note: the server receives on its public port and forwards down the outbound WireGuard tunnel to the private node
+- evidence:
+  - [1] 2026-10-23: 'Expose HTTP, TCP, and UDP services from private networks through outbound WireGuard tunnels'; 'Route web applications by domain or path and TCP or UDP services by an approved public port'
+  - [2] 2026-10-23: 'Wiredoor assign unused port automatically in the range defined by TCP_SERVICES_PORT_RANGE', via the search index snippet
+- sources:
+  - [1] https://www.wiredoor.net/
+  - [2] https://www.wiredoor.net/documentation/faq
+
+## wireguard-over-wss (jnsgruk)
+
+- `egress/wireguard-over-wss` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/jnsgruk/wireguard-over-wss | page https://fshy.ajam.dev/p/github-jnsgruk.md
+- price USD 0
+- free tier: no service and no account; it is a configuration recipe plus a shell script | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the recipe states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; the server is a droplet the recipe assumes the reader already has | country: None
+- interface: cli
+- binding note: the constraint is the same host as wstunnel, since this project adds no code of its own; the recipe says 'droplet'
+- interface detail: wstunnel plus /etc/wireguard/wss.wstunnel
+- tooling: wstunnel binary, wg-quick, wstunnel.sh
+- composes with: identical to wstunnel: needs a server host, then rides a websocket-capable forwarder.
+- reliability: the client script edits /etc/hosts and reloads dnsmasq; a stale entry survives a failed tunnel start
+- notes: Automated deployment script wrapping WireGuard over WebSocket using wstunnel. Configures systemd unit files and endpoint resolution scripts.
+- evidence note: nothing to raise: it is a recipe whose only executable part is wstunnel, which is recorded on its own rung
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "Wireguard VPN connection to be tunnelled over a secure websockets connection"; the recipe runs wstunnel, not new software: 'wstunnel server wss://0.0.0.0:443 --restrict-to 127.0.0.1:51820'
+  - ingress: tcp
+  - volume_stated: not applicable; the recipe states no volume
+  - bytes_transit: yes
+  - transit_note: the same bytes as wstunnel, through a host the reader is assumed to rent
+  - hosting_requirement: a server host with wstunnel and the WireGuard listener, described in the recipe as a droplet
+  - last_release: none; last push 2024-07-01
+  - stars: 220
+- evidence:
+  - [1] 2026-10-23: "No modifications need to be made to the Wireguard server configuration itself, but wstunnel needs to be installed", and the systemd unit with --restrict-to 127.0.0.1:51820
+  - [1] 2026-10-23: 220 stars, no releases, last push 2024-07-01
+- sources:
+  - [1] https://github.com/jnsgruk/wireguard-over-wss
+
+## wireguard-proxy (moparisthebest)
+
+- `egress/wireguard-proxy` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/moparisthebest/wireguard-proxy | page https://fshy.ajam.dev/p/github-moparisthebest.md
+- price USD 0
+- free tier: no service and no account; source and static builds | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account; a server-side daemon and a client-side daemon on hosts the operator controls | country: None
+- interface: cli
+- binding note: the constraint is a server-side host, plus an unmaintained codebase, neither of which the vocabulary covers
+- interface detail: wireguard-proxy -tt / -th daemons
+- tooling: cargo, static builds in releases, AUR package
+- composes with: plain TCP or TLS, so it can ride a TCP forwarder that hands over a raw stream; it cannot ride an HTTP-only CDN because it never speaks an HTTP upgrade.
+- reliability: unmaintained; --tls without --pinnedpubkey authenticates nothing
+- notes: Functionally the cleanest of the plain TCP wrappers and the only one whose TLS warning is honest about doing nothing by default. Five years without a commit makes it a reference implementation, not a recommendation. TLS mode needs a certificate at the server end.
+- evidence note: nothing would raise the maintenance rung; the last code change was 2020 and the last release tag is 'beta' from 2021
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: "Proxy wireguard UDP packets over TCP/TLS"; client mode listens on 127.0.0.1:51820 by default and the WireGuard peer points at it
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: server daemon pipes to the local WireGuard UDP port
+  - hosting_requirement: a publicly reachable host running the server daemon, plus the client daemon on the device
+  - last_release: beta 2021-05-22
+  - stars: 96
+- evidence:
+  - [1] 2026-10-23: the two modes and the -uh default of 127.0.0.1:51820 in client mode
+  - [1] 2026-10-23: release tag 'beta' published 2021-05-22; last push 2020-11-27; 96 stars
+  - [1] 2026-10-23: "--tls WARNING: authenticates/verifies nothing without --pinnedpubkey below!!"
+- sources:
+  - [1] https://github.com/moparisthebest/wireguard-proxy
+
+## wireguard-ws
+
+- `egress/wireguard-ws` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/n0madic/wireguard-ws | page https://fshy.ajam.dev/p/github-n0madic.md
+- price USD 0
+- free tier: no service and no account; a fork of wireguard-go with a WebSocket transport | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: both ends must run the fork and the server needs a TLS certificate; there is no hosted service to attach to
+- interface detail: wireguard-ws wg0 with WG_WS=1
+- tooling: go build; TLS certificates for the server side
+- composes with: composes with any host where the operator can run the forked binary at both ends; no CDN is documented as tested.
+- reliability: client defaults to skipping certificate verification (WG_WS_INSECURE=1); no releases, one author
+- notes: The interesting property is that the transport change happens inside the WireGuard implementation, so the interface and the configuration stay standard: this is the closest thing to a wrapper that a .conf-only router could accept, if the router ran the fork. It does not, so in practice the fork must run on a Linux host at both ends. Zero stars and no releases make it a reference for the approach rather than a deployment.
+- evidence note: the repository has no releases and no stars, so the rung cannot rise without a build and a measured run
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: "Fully compatible with standard wg and wg-quick tools"; WG_WS=1 switches the transport and the peer endpoint stays host:port
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: over a websocket between two hosts running the fork
+  - hosting_requirement: two hosts running the fork, the server one with a TLS certificate
+  - last_release: none; last push 2026-06-12
+  - stars: 0
+- evidence:
+  - [1] 2026-10-23: "a fork of wireguard-go with added WebSocket transport support ... Fully compatible with standard wg and wg-quick tools"
+  - [2] 2026-10-23: WG_WS=1 with WG_WS_CERT_FILE on the server and WG_WS_INSECURE=1 on a user; clients connect to wss://host:port/ws
+  - [1] 2026-10-23: 0 stars, no releases, last push 2026-06-12
+- sources:
+  - [1] https://github.com/n0madic/wireguard-ws
+  - [2] https://raw.githubusercontent.com/n0madic/wireguard-ws/master/README.md
+
+## Wireport
+
+- `egress/wireport` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category self-hosted WireGuard ingress | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/MultionLabs/wireport | page https://fshy.ajam.dev/p/github-multionlabs.md
+- price USD 0
+- free tier: 'Self-hosted ingress proxy & VPN tunnel. Securely exposes private local & Docker-based services to the Internet, with free, automatically renewable SSL certificates.' MIT licensed; no vendor quota. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance is published; the gateway host's own egress is the limit.; ingress: tcp+udp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: Self-hosted open-source software: no vendor account at all. | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): the software imposes no byte meter; what runs out is the monthly allowance of the host it runs on, and that host is a separate provider [1]
+- binding note: the software imposes no byte meter; what runs out is the monthly allowance of the host it runs on, and that host is a separate provider
+- interface detail: 'wireport service publish --local http://10.0.0.2:3000 --public https://demo.example.com:443'
+- tooling: wireport CLI, Docker, docker labels
+- composes with: the same free-tier VPS shape as Pangolin and Wiredoor: one host, one WireGuard mesh, public ports bound on the host
+- reliability: the gateway is a single public Linux host; losing it loses every published service
+- notes: Found by the required search 'wireguard ingress public', not on the supplied list. The README body carries the L4 TCP/UDP claim; the gateway port list came from the search index snippet, so that row is one rung weaker than the rest.
+- evidence note: A published UDP service through a real gateway would raise this to measured.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: 'Powered by WireGuard, CoreDNS and Caddy'. The CLI or Docker labels drive the tunnel; no .conf export is documented.
+  - ingress: tcp+udp
+  - volume_stated: No allowance is published; the gateway host's own egress is the limit.
+  - bytes_transit: yes
+  - transit_note: the gateway terminates and relays; the bytes cross its public NIC both ways
+- evidence:
+  - [1] 2026-10-23: 'Reverse proxy with support for HTTP(S) 1/2/3, WebSocket, gRPC (over HTTP/2) and TCP/UDP (Layer-4)'; 'Powered by WireGuard, CoreDNS and Caddy'
+  - [2] 2026-10-23: the gateway is 'a Linux-based machine with Docker installed, a public IP address, and the following open ports: 80/tcp, 443/tcp, 4060/tcp, 51820/udp and 32420-32421/tcp+udp', via the search index snippet of the README
+- sources:
+  - [1] https://github.com/MultionLabs/wireport
+  - [2] https://github.com/MultionLabs/wireport/
+
+## wormhole-vpn
+
+- `egress/wormhole-vpn` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category tool (wireguard transport) | tier paid
+- needs card yes, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/ciamshrek/wormhole-vpn | page https://fshy.ajam.dev/p/github-ciamshrek.md
+- price USD 5 per month, Workers paid plan | parsed USD 5/mo
+- free tier: no free tier: the README requires "Cloudflare account (Workers paid plan, $5/mo)" | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the Worker plan is priced per month, not per byte, and the README states no transfer figure; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: card | detail: a Cloudflare account on the Workers paid plan at $5/mo, which needs a payment method | country: None
+- interface: cli
+- limits:
+  - volume-quota (binding): no figure stated; the Workers paid plan is billed per request and duration beyond the included allowance [1]
+- binding note: the Worker sits in the data path and every datagram becomes Worker work, so the plan's request and duration billing is what fails first at sustained volume; the README states no figure for it
+- interface detail: wrangler deploy plus a 12 MB Go bridge
+- tooling: Go bridge plus pnpm and wrangler; a CA certificate must be installed on each device
+- composes with: composes with a Cloudflare account and a paid Workers plan, and with cloudflare-tunnel only if the Worker is fronted by one.
+- reliability: the Worker terminates and re-originates TLS, so every upstream connection is intercepted by design; single maintainer, no releases
+- notes: Experimental proxy design routing WireGuard connections through Cloudflare Workers. Requires paid Cloudflare Workers subscriptions for WebSocket and network routing.
+- evidence note: Workers-based proxy architecture and WebSocket encapsulation are documented in project source code.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: device runs a stock WireGuard client against localhost:51820, a Go bridge (wireguard-go plus gvisor netstack) forwards over one WebSocket to a Cloudflare Durable Object
+  - ingress: tcp
+  - volume_stated: not applicable; the Worker plan is priced per month, not per byte, and the README states no transfer figure
+  - bytes_transit: yes
+  - transit_note: through a Cloudflare Durable Object, which sees the plaintext of every intercepted connection
+  - hosting_requirement: no locally owned host, but a Cloudflare Workers paid plan at $5/mo, and a device able to run the Go bridge
+  - last_release: none; last push 2026-04-06
+  - stars: 2
+- evidence:
+  - [1] 2026-10-23: "Cloudflare account (Workers paid plan, $5/mo)" in the prerequisites
+  - [1] 2026-10-23: the architecture line: stock WireGuard client, Go bridge over a single WebSocket, Durable Object, TLS MITM, then fetch() upstream
+  - [1] 2026-10-23: 2 stars, no releases, last push 2026-04-06; the description calls it "Very rough"
+- sources:
+  - [1] https://github.com/ciamshrek/wormhole-vpn
+
+## wstunnel
+
+- `egress/wstunnel` | self-hosted, last resort | verdict paid-only | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/erebe/wstunnel | page https://fshy.ajam.dev/p/github-erebe.md
+- price USD 0
+- free tier: no service and no account; the software is a static binary released under an open licence | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume, and the tunnel's ceiling is whatever the host and the network in between allow; ingress: tcp | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account required. The client connects to an independently operated wstunnel server. | country: None
+- interface: cli
+- binding note: Requires an external server host running wstunnel with a public IP address.
+- interface detail: wstunnel client / wstunnel server subcommands
+- tooling: static binary per platform; a systemd unit is the documented server form
+- composes with: a websocket upgrade passes through any TCP or HTTP forwarder that does not buffer, so a free HTTP-only hosted tunnel plus a wstunnel server converts a TCP-only path into a WireGuard path; the wstunnel server still has to run somewhere controlled locally.
+- reliability: the udp tunnel auto-closes after 30 s idle unless timeout_sec=0; the client sends websocket pings every 30 s by default; MTU must drop to about 1300 or packets fragment
+- notes: Tunneling software forwarding TCP and UDP over WebSocket or HTTP/2. Designed to traverse firewalls and reverse proxies; WebSocket mode supports traversal through CDNs.
+- evidence note: measured throughput on a named path would raise it; the README carries only a benchmark image with no numbers in text
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: the README ships a WireGuard recipe: server 'wstunnel server --restrict-to localhost:51820 wss://[::]:443' and client "wstunnel client -L 'udp://51820:localhost:51820?timeout_sec=0' wss://my.server.com:443", with the WireGuard peer Endpoint changed to localhost:51820
+  - ingress: tcp
+  - volume_stated: not applicable; the software states no volume, and the tunnel's ceiling is whatever the host and the network in between allow
+  - bytes_transit: yes
+  - transit_note: the bytes cross the wstunnel server, then any CDN or forwarder in front of it
+  - hosting_requirement: a host with a public address running wstunnel server; a user half runs on the device
+  - last_release: v11.1.0 2026-10-19
+  - stars: 7122
+- evidence:
+  - [1] 2026-10-23: the WireGuard recipe, the udp:// forward with timeout_sec, and the server --restrict-to flag
+  - [1] 2026-10-23: release v11.1.0 published 2026-10-19, 7122 stars, last push 2026-10-19
+  - [2] 2026-10-23: "If you see some throughput issue, be sure to lower the MTU of your wireguard interface ... to something like 1300 or you will endup fragmenting udp packet (due to overhead of other layer)"
+- sources:
+  - [1] https://github.com/erebe/wstunnel
+  - [2] https://raw.githubusercontent.com/erebe/wstunnel/master/README.md
+
+## zrok (self-hosted)
+
+- `egress/zrok-selfhost` | self-hosted, last resort | verdict paid-only | evidence documented | binding volume-quota | category tunnel (self-hosted software)
+- needs card no, phone no, ID no, institution no | verified 2026-10-22T03:20:00.000Z (live) | stale on 2026-11-22
+- url https://github.com/openziti/zrok | page https://fshy.ajam.dev/p/github-openziti.md
+- free tier: Apache-2.0; no limit imposed by the software | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable | source: [2]
+- egress: whatever the host's NIC and the hosting bill allow | metered: no | source: [1]
+- identity: anonymous | detail: the software needs no account
+- interface: cli
+- binding note: the software imposes no byte meter; what runs out is the monthly egress allowance of the host it runs on, and that host is a separate provider
+- interface detail: zrok share public against your own controller
+- tooling: part of interface detail
+- composes with: the front half of the self-hosted tunnel chain: your controller, your frontend, and then a plain VPS bill. The relay software is free and the egress is not.
+- reliability: Self-hosted deployment requires managing control plane uptime and host egress bandwidth.
+- notes: The hosted limits are NetFoundry's policy; a default self-hosted controller has no bandwidth journal configured. Re-graded 2026-10-23: the software is free and the path is not, because it needs a host. The finding is the host.
+- evidence note: Architecture and self-hosting deployment requirements are documented in official zrok manuals.
+- self hosted: yes
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: self-hosted
+  - transit_note: the software runs on the operator's host and the bytes transit that host's NIC
+  - hosting_requirement: a rented or free compute service; no local machine is assumed
+- evidence:
+  - [1] 2026-10-22: 'Run Zrok on your own infrastructure with no limits'
+  - [2] 2026-10-22: Apache-2.0 repository; docs/current/ holds the bandwidth-limit journal and relax cycle, so the hosted limits are controller policy rather than protocol
+- sources:
+  - [1] https://zrok.io/pricing/
+  - [2] https://github.com/openziti/zrok
+
+## Anywherelan
+
+- `egress/anywherelan` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.398Z (live) | stale on 2026-12-20
+- url https://github.com/anywherelan/awl | page https://fshy.ajam.dev/p/github-anywherelan.md
+- price USD 0
+- free tier: Layer 3 peer-to-peer VPN. Fully mesh, with and an open-source . Built on the libp2p networking stack (QUIC, TCP). Has NAT traversal and relaying support. Its workflow and GUI are similar to , but for networking rather than file transfers. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. libp2p mesh with community coordination servers.
+- interface detail: not established
+- tooling: The user installs and runs the awl binary; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: libp2p mesh with community coordination servers. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it states the tool is a peer-to-peer mesh VPN with no coordination server, account or control plane and no hosted endpoint; no allowance is published. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Layer 3 peer-to-peer VPN. Fully mesh, with and an open-source . Built on the libp2p networking stack (QUIC, TCP). Has NAT traversal and relaying support. Its wo
+  - [2] 2026-11-19: the tool is a self-hosted peer-to-peer VPN with no hosted endpoint, account or control plane | capture: sha256:296bbb4b6ad6ca92f732979f49d7640dfc25da50dcd180f59ee7b8a1ed6d83a3 | quote: awl is fully decentralized: no coordination server, no account, no control plane. There is nothing to pay for, nothing to sign up for, nothing that can be shut down from the outside. Everything awl needs is in this repository, under an open-source license.
+  - [2] 2026-11-19: all components are in the repository and are installed and run by the user | capture: sha256:296bbb4b6ad6ca92f732979f49d7640dfc25da50dcd180f59ee7b8a1ed6d83a3 | quote: Everything awl needs is in this repository, under an open-source license.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:296bbb4b6ad6ca92f732979f49d7640dfc25da50dcd180f59ee7b8a1ed6d83a3 | quote: awl is fully decentralized: no coordination server, no account, no control plane. There is nothing to pay for, nothing to sign up for, nothing that can be shut down from the outside. Everything awl needs is in this repository, under an open-source license.
+  - [2] 2026-11-19: the software is installed and run by the user and offers no hosted endpoint | capture: sha256:296bbb4b6ad6ca92f732979f49d7640dfc25da50dcd180f59ee7b8a1ed6d83a3 | quote: awl is fully decentralized: no coordination server, no account, no control plane. There is nothing to pay for, nothing to sign up for, nothing that can be shut down from the outside. Everything awl needs is in this repository, under an open-source license.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/anywherelan/awl
+
+## BedrockTogether
+
+- `egress/bedrocktogether` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category console LAN proxy (phone app) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://bedrocktogether.net/ | page https://fshy.ajam.dev/p/bedrocktogether.md
+- price USD 0
+- free tier: BedrockTogether lets you join any Bedrock Edition server from Minecraft on Xbox, PlayStation and Nintendo Switch - no PC and no DNS changes required. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance is published and none applies: the app runs on the player's phone and the vendor carries nothing.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account: an App Store or Play Store install. | country: None
+- interface: unknown
+- binding note: The app is a LAN bridge on the player's phone, so no host gets a public endpoint and no quota is ever met.
+- interface detail: A mobile app with a three-step join flow.
+- tooling: iOS and Android app
+- composes with: Sits in front of whatever UDP path the host already has; adds none.
+- reliability: The phone must stay on the same network as the console for the LAN method; the Switch needs the Xbox Live broadcast method instead.
+- notes: Mobile proxy application that connects to remote Minecraft Bedrock servers and re-broadcasts them as local LAN games. Operates client-side on local devices rather than providing a hosted public UDP endpoint.
+- evidence note: The page states the mechanism plainly; whether the app also offers a hosted relay mode is not stated and was not tested.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard; the app proxies on the player's own network.
+  - ingress: none
+  - volume_stated: No byte allowance is published and none applies: the app runs on the player's phone and the vendor carries nothing.
+  - bytes_transit: overlay-only
+  - transit_note: Player traffic goes phone to server; the app is a local relay on the player side.
+- evidence:
+  - [1] 2026-10-23: 'BedrockTogether runs on your phone and puts any Bedrock server in front of your console - no PC, no DNS rerouting, no router settings.'
+  - [1] 2026-10-23: 'BedrockTogether makes any Minecraft Bedrock Edition server appear as a LAN game on Xbox, PlayStation & Nintendo Switch.'
+- sources:
+  - [1] https://bedrocktogether.net/
+
+## bifrost
+
+- `egress/bifrost` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.398Z (live) | stale on 2026-12-20
+- url https://github.com/aperturerobotics/bifrost | page https://fshy.ajam.dev/p/github-aperturerobotics.md
+- price USD 0
+- free tier: Bifrost is a peer-to-peer communications engine with pluggable transports. It supports dynamic configuration of transports, listeners, forwarding rules, and can tunnel other protocols over WebRTC and Quic. Apache 2.0 License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. P2P engine tunnelling over WebRTC and QUIC.
+- interface detail: not established
+- tooling: The user installs and runs the Spacewave application; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: P2P engine tunnelling over WebRTC and QUIC. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party repository read; the project now presents as Spacewave, self-hosted software with no servers; no hosted endpoint or allowance is published. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Bifrost is a peer-to-peer communications engine with pluggable transports. It supports dynamic configuration of transports, listeners, forwarding rules, and can
+  - [2] 2026-11-19: the first-party repository now presents self-hosted software with no servers and no hosted endpoint | capture: sha256:44358314e77ba49a2d9607954df7c7e5663e8e875473a78b549c74a789c8d9ee | quote: Spacewave runs in your browser with no servers: a private, encrypted workspace running entirely on your own machine: no account, no setup, no server to run.
+  - [2] 2026-11-19: the software runs on the user's own machine | capture: sha256:44358314e77ba49a2d9607954df7c7e5663e8e875473a78b549c74a789c8d9ee | quote: Spacewave runs in your browser with no servers: a private, encrypted workspace running entirely on your own machine: no account, no setup, no server to run.
+  - [2] 2026-11-19: the first-party repository replaces the list sentence as the basis for the egress finding | capture: sha256:44358314e77ba49a2d9607954df7c7e5663e8e875473a78b549c74a789c8d9ee | quote: Spacewave runs in your browser with no servers: a private, encrypted workspace running entirely on your own machine: no account, no setup, no server to run.
+  - [2] 2026-11-19: the software runs on the user's own machine and offers no hosted endpoint | capture: sha256:44358314e77ba49a2d9607954df7c7e5663e8e875473a78b549c74a789c8d9ee | quote: Spacewave runs in your browser with no servers: a private, encrypted workspace running entirely on your own machine: no account, no setup, no server to run.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/aperturerobotics/bifrost
+
+## BitBang
+
+- `egress/bitbang` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.398Z (live) | stale on 2026-12-20
+- url https://github.com/richlegrand/bitbang-cli | page https://fshy.ajam.dev/p/github-richlegrand.md
+- price USD 0
+- free tier: Turn your machine into a URL. Your computer and browser connect peer-to-peer over WebRTC. Whoever opens the link needs no account and nothing installed. Shell, file sharing, and HTTP/WebSocket proxy over a single URL. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. WebRTC P2P with an HTTP/WebSocket proxy.
+- interface detail: not established
+- tooling: The user installs and runs the bitbang binary; the bitba.ng server only introduces the two ends.
+- reliability: the same as interface detail
+- notes: WebRTC P2P with an HTTP/WebSocket proxy. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it states the connection is peer-to-peer, the bitba.ng server only introduces the two ends and steps aside, and forwarding reaches hosts the listener can reach; no hosted byte allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Turn your machine into a URL. Your computer and browser connect peer-to-peer over WebRTC. Whoever opens the link needs no account and nothing installed. Shell,
+  - [2] 2026-11-19: the hosted server only introduces the two ends and carries no user bytes, so no hosted byte allowance is published | capture: sha256:5a4556f7ace0c0d93b841700d26425ad286939d9511011e4b8084af7d1f73fa9 | quote: The connection is end-to-end encrypted and peer-to-peer; the bitba.ng server introduces the two ends, then steps aside.
+  - [2] 2026-11-19: the user installs and runs the binary while the server only introduces the ends | capture: sha256:5a4556f7ace0c0d93b841700d26425ad286939d9511011e4b8084af7d1f73fa9 | quote: The connection is end-to-end encrypted and peer-to-peer; the bitba.ng server introduces the two ends, then steps aside.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:5a4556f7ace0c0d93b841700d26425ad286939d9511011e4b8084af7d1f73fa9 | quote: The connection is end-to-end encrypted and peer-to-peer; the bitba.ng server introduces the two ends, then steps aside.
+  - [2] 2026-11-19: the server carries no user bytes and the binary is installed and run by the user | capture: sha256:5a4556f7ace0c0d93b841700d26425ad286939d9511011e4b8084af7d1f73fa9 | quote: The connection is end-to-end encrypted and peer-to-peer; the bitba.ng server introduces the two ends, then steps aside.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/richlegrand/bitbang-cli
+
+## boringproxy
+
+- `egress/boringproxy` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category overlay network or advanced tunnel tool | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.399Z (live) | stale on 2026-12-04
+- url https://boringproxy.io/ | page https://fshy.ajam.dev/p/boringproxy.md
+- price USD 0
+- free tier: Designed to be very easy to use. No config files. Clients can be remote-controlled through a simple WebUI and/or REST API on the server. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: unverified: no hosted allowance is published; the hosted site redirects to a parked domain on 2026-11-19; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. Reverse proxy with a WebUI; HTTP.
+- interface detail: not established
+- tooling: The user builds and runs the boringproxy server and client; no hosted endpoint is published.
+- composes with: Needs an account before any capacity is visible.
+- reliability: Hosted site redirects to a parked domain and answers HTTP 403 under a challenge on 2026-11-19; first-party repo describes a self-hosted server.
+- notes: Reverse proxy with a WebUI; HTTP. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Hosted site unreachable: boringproxy.io redirects to a parked domain and answers HTTP 403 under a challenge on 2026-11-19; the first-party GitHub README describes building and running the server from source.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Designed to be very easy to use. No config files. Clients can be remote-controlled through a simple WebUI and/or REST API on the server.
+  - probe:https://boringproxy.io/ 2026-11-19: the hosted site redirects to a parked domain | capture: sha256:a82f36af502c2a16c332121c349f18005590385e97f8a0fca31ce53bd622f084 | quote: "final_url": "https://rlcinvest.hk.com/"
+  - [3] 2026-11-19: the first-party README describes software the user builds and runs | capture: sha256:23f0e35b97d07b6c84b1864854b145ab7581aa63d565ce02908615ec63eb0832 | quote: The information in this README is just for building from source.
+  - [3] 2026-11-19: the software is built and run by the user | capture: sha256:23f0e35b97d07b6c84b1864854b145ab7581aa63d565ce02908615ec63eb0832 | quote: The information in this README is just for building from source.
+  - probe:https://boringproxy.io/ 2026-11-19: the hosted site answered HTTP 403 on 2026-11-19 | capture: sha256:a82f36af502c2a16c332121c349f18005590385e97f8a0fca31ce53bd622f084 | quote: "status": 403
+  - [3] 2026-11-19: the first-party README describes self-hosted software with no hosted endpoint | capture: sha256:23f0e35b97d07b6c84b1864854b145ab7581aa63d565ce02908615ec63eb0832 | quote: The information in this README is just for building from source.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://boringproxy.io/
+  - [3] https://github.com/boringproxy/boringproxy
+
+## boringtun
+
+- `egress/boringtun` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/cloudflare/boringtun | page https://fshy.ajam.dev/p/github-cloudflare.md
+- price USD 0
+- free tier: no service and no account; a Rust library and the boringtun-cli binary | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: boringtun adds no path of its own: it encrypts and decapsulates over UDP exactly as the protocol specifies, so a UDP block stops it
+- interface detail: boringtun-cli, cargo, crates.io
+- tooling: cargo install boringtun-cli; Rust library for embedding
+- composes with: sits under a WARP client or under a wrapper; it composes with cloudflare-warp and adds nothing to a hosted tunnel by itself.
+- reliability: README warns the master branch is mid-restructure; use the crates.io releases
+- notes: Userspace WireGuard implementation in Rust. Operates as a protocol implementation and network interface, not as a transport encapsulation proxy or hosted service. Used in Cloudflare WARP client software.
+- evidence note: the verdict is about egress, not quality: boringtun is load-bearing inside the official Cloudflare WARP apps, and is the substrate a wrapper needs
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: boringtun-cli is a userspace WireGuard executable that takes the standard interface configuration, so a normal .conf drives it
+  - ingress: none
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: carries a user's own traffic to whatever peer it is configured against
+  - hosting_requirement: none beyond the device, but no far end either: it needs a WireGuard peer and speaks only UDP to it
+  - last_release: boringtun-cli-0.5.2 2022-07-20
+  - stars: 7230
+- evidence:
+  - [1] 2026-10-23: "an implementation of the WireGuard protocol designed for portability and speed", deployed on millions of iOS and Android consumer devices
+  - [1] 2026-10-23: "It implements the underlying WireGuard protocol, without the network or tunnel stacks" - the library half does no I/O at all
+  - [1] 2026-10-23: release boringtun-cli-0.5.2 published 2022-07-20; last push 2026-06-29; 7230 stars
+  - [1] 2026-10-23: "Boringtun is currently undergoing a restructuring. You should probably not rely on or link to the master branch right now"
+- sources:
+  - [1] https://github.com/cloudflare/boringtun
+
+## cactus-tunnel
+
+- `egress/cactus-tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.399Z (live) | stale on 2026-12-20
+- url https://github.com/jeffreytse/cactus-tunnel | page https://fshy.ajam.dev/p/github-jeffreytse.md
+- price USD 0
+- free tier: A charming TCP tunnel over WebSocket and Browser. Written in TypeScript. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. TCP over WebSocket.
+- interface detail: not established
+- tooling: The user installs and runs the cactus-tunnel package and a tunnel server; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: TCP over WebSocket. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it documents a tunnel server the user supplies (default 7800) and a client pointed at that server URL; no hosted endpoint or allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A charming TCP tunnel over WebSocket and Browser. Written in TypeScript.
+  - [2] 2026-11-19:  | capture: sha256:1bc8fdefaff477f302cf95e4e7397451a7d1d2b4b9011a50a44dbdd794a9184c | quote: tunnel server url, empty is bridge mode, e.g. ws://your-tunnel-server:7800
+  - [2] 2026-11-19: the user installs the package and runs the server and client | capture: sha256:1bc8fdefaff477f302cf95e4e7397451a7d1d2b4b9011a50a44dbdd794a9184c | quote: npm install -g cactus-tunnel
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:1bc8fdefaff477f302cf95e4e7397451a7d1d2b4b9011a50a44dbdd794a9184c | quote: tunnel server url, empty is bridge mode, e.g. ws://your-tunnel-server:7800
+  - [2] 2026-11-19: the user supplies the tunnel server, so there is no hosted endpoint | capture: sha256:1bc8fdefaff477f302cf95e4e7397451a7d1d2b4b9011a50a44dbdd794a9184c | quote: tunnel server url, empty is bridge mode, e.g. ws://your-tunnel-server:7800
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/jeffreytse/cactus-tunnel
+
+## chisel
+
+- `egress/chisel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.878Z (live) | stale on 2026-12-20
+- url https://github.com/jpillora/chisel | page https://fshy.ajam.dev/p/github-jpillora.md
+- price USD 0
+- free tier: SSH under the hood, but still uses a custom client binary. Supports auto certs from LetsEncrypt. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. SSH over a custom client; TCP only.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: SSH over a custom client; TCP only. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: SSH under the hood, but still uses a custom client binary. Supports auto certs from LetsEncrypt. Written in Go.
+  - [2] 2026-11-19: the project README says the demo server must be run by the user and the former free hosted demo is gone; no hosted egress allowance is offered | capture: sha256:e76585520c190d874f292d5c98e5da4c0afabc6c500d14b3f789866ec8c913a8 | quote: You can run your own demo server in minutes (the old Heroku demo went away with Heroku's free tier).
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/jpillora/chisel
+
+## chisel-operator
+
+- `egress/chisel-operator` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.878Z (live) | stale on 2026-12-20
+- url https://github.com/FyraLabs/chisel-operator/ | page https://fshy.ajam.dev/p/github-fyralabs.md
+- price USD 0
+- free tier: Kubernetes integration for Chisel. Similar functionality to inlets. MIT License. Written in Rust. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Kubernetes integration for Chisel.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Kubernetes integration for Chisel. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Kubernetes integration for Chisel. Similar functionality to inlets. MIT License. Written in Rust.
+  - [2] 2026-11-19: the project README says an exit node must be a VPS or other machine supplied by the user; no hosted egress allowance is offered | capture: sha256:c9b799a05d8f91c72b5d982a263c178c60f720b0e2d048ac42a024b9229c0a2c | quote: Use a VPS (or any other machine) as a reverse proxy for your Kubernetes cluster, without paying the extra 25$ a month!
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/FyraLabs/chisel-operator/
+
+## chiSSL
+
+- `egress/chissl` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.879Z (live) | stale on 2026-12-20
+- url https://github.com/NextChapterSoftware/chissl | page https://fshy.ajam.dev/p/github-nextchaptersoftware.md
+- price USD 0
+- free tier: Lightweight version of Chisel that allows you to expose local servers running on your development machine to the internet with valid SSL certificates. MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Chisel with automatic TLS.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Chisel with automatic TLS. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Lightweight version of Chisel that allows you to expose local servers running on your development machine to the internet with valid SSL certificates. MIT Licen
+  - [2] 2026-11-19: the project README describes installing the chissl server binary on a machine the user supplies; no hosted egress allowance is offered | capture: sha256:662bfd1298ac69de8d44402c65fb7eb1dc7280dd7a08d296ba4bae8b1c118a14 | quote: This will install the chissl server binary and start it with:
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/NextChapterSoftware/chissl
+
+## connet
+
+- `egress/connet` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.879Z (live) | stale on 2026-12-20
+- url https://github.com/connet-dev/connet | page https://fshy.ajam.dev/p/github-connet-dev.md
+- price USD 0
+- free tier: connet is a p2p reverse proxy with NAT traversal. Uses QUIC as a protocol and is written in Go. Apache 2.0 License. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. P2P reverse proxy over QUIC.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: P2P reverse proxy over QUIC. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: connet is a p2p reverse proxy with NAT traversal. Uses QUIC as a protocol and is written in Go. Apache 2.0 License.
+  - [2] 2026-11-19: the project README says the connet server runs on a VPS supplied by the user; no hosted egress allowance is offered | capture: sha256:80e48e9aa9aa3132466575131dd1d4f2cdaa312c9e0fcd8a83d19fba25a43644 | quote: Server which your clients can communicate with. In most cases, this server will have a public IP and be directly accessible by clients. A VPS instance at one of the many cloud providers goes a long way here.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/connet-dev/connet
+
+## Crowbar
+
+- `egress/crowbar` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.879Z (live) | stale on 2026-12-20
+- url https://github.com/q3k/crowbar | page https://fshy.ajam.dev/p/github-q3k.md
+- price USD 0
+- free tier: Tunnels TCP connections over HTTP GET and POST requests. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. TCP over HTTP GET/POST.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: TCP over HTTP GET/POST. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Tunnels TCP connections over HTTP GET and POST requests.
+  - [2] 2026-11-19: the project README gives server setup steps for a host the user runs; no hosted egress allowance is offered | capture: sha256:bcddae56143e9beff15e23658f96e31689f0a3ab8041a63febaa160201663311 | quote: Set up an iptables rule to forward traffic from the :80 port to :8080, where the server will be running. Replace eth0 with your public network interface.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/q3k/crowbar
+
+## Defguard
+
+- `egress/defguard` | self-hosted, last resort | verdict fails-egress | evidence documented | binding request-rate | category WireGuard management (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://defguard.net/pricing/ | page https://fshy.ajam.dev/p/defguard.md
+- price USD 0
+- free tier: Open Source: 'Always free', 'Unlimited users and locations - core features.' Business: 'free up to 10 users and 1 location.' | unit: users | metered on: identity-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance anywhere in the plan table; the plans meter users and locations.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: self-hosted: the Open Source plan needs no vendor account; the Business plan is a hosted or licensed deployment with its own admin | country: None
+- interface: cli
+- limits:
+  - request-rate (binding): The published caps are users and locations, for which the vocabulary has no token; request-rate is the nearest. Nothing counts bytes, and there is no public listener to spend them through. [1]
+- binding note: The published caps are users and locations, for which the vocabulary has no token; request-rate is the nearest. Nothing counts bytes, and there is no public listener to spend them through.
+- interface detail: web admin plus the desktop client
+- tooling: defguard server, defguard desktop client, standard WireGuard configs
+- composes with: a control plane for a private WireGuard mesh; it composes with a public ingress on the same VPS
+- reliability: the Open Source plan is self-run, so uptime and key rotation are local work
+- notes: Open-source WireGuard VPN management platform. Provides VPN client configurations for private network access; does not provide a public reverse proxy service.
+- evidence note: Reading the gateway documentation would establish whether Defguard's own gateway can bind a public port; the VPN-server model suggests not.
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: Defguard provisions a user's tunnel: 'Zero-touch Desktop Client Provisioning' and 'Client configuration update based on tokens'. The product is a WireGuard control plane, which is the one place where a standard client config is the deliverable.
+  - ingress: none
+  - volume_stated: No byte allowance anywhere in the plan table; the plans meter users and locations.
+  - bytes_transit: overlay-only
+  - transit_note: peers reach each other over the WireGuard tunnels Defguard configures; the server sees handshakes, not payload
+- evidence:
+  - [1] 2026-10-23: Open Source is 'Always free' with 'Unlimited users and locations'; Business is 'free up to 10 users and 1 location'
+  - [1] 2026-10-23: 'Zero-touch Desktop Client Provisioning' and 'Client configuration update based on tokens', the mechanism that issues WireGuard configs
+- sources:
+  - [1] https://defguard.net/pricing/
+
+## docker-tunnel
+
+- `egress/docker-tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:01.879Z (live) | stale on 2026-12-20
+- url https://github.com/vitobotta/docker-tunnel | page https://fshy.ajam.dev/p/github-vitobotta.md
+- price USD 0
+- free tier: Simple Docker-based nginx+SSH solution. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. nginx plus SSH.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: nginx plus SSH. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Simple Docker-based nginx+SSH solution.
+  - [2] 2026-11-19: the project README labels the tool self-hosted and describes running the proxy on a host the user supplies; no hosted egress allowance is offered | capture: sha256:d900cdbb09e9a8873dbf226b2d7ade69c8759f3b5b87c71acb5f855ecec34abf | quote: This is a Docker-based, self hosted alternative to [Ngrok](https://ngrok.com/).
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/vitobotta/docker-tunnel
+
+## docker-wireguard-tunnel
+
+- `egress/docker-wireguard-tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.217Z (live) | stale on 2026-12-20
+- url https://github.com/DigitallyRefined/docker-wireguard-tunnel | page https://fshy.ajam.dev/p/github-digitallyrefined.md
+- price USD 0
+- free tier: Connect two or more Docker servers together sharing container ports between them via a WireGuard tunnel. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. WireGuard between Docker hosts.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: WireGuard between Docker hosts. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Connect two or more Docker servers together sharing container ports between them via a WireGuard tunnel.
+  - [2] 2026-11-19: the project README describes a tunnel between two Docker servers, one with a public IP, both supplied by the user; no hosted egress allowance is offered | capture: sha256:a7ec8f156a6a34e2579414c51a7d023524676d33780ead5fac64d9f0f3f45ae9 | quote: For example a Docker server without a public IP address behind a NAT can expose container ports to another Docker server that has a public IP address to allow incoming connections.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/DigitallyRefined/docker-wireguard-tunnel
+
+## DockFlare
+
+- `egress/dockflare` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.217Z (live) | stale on 2026-12-20
+- url https://github.com/ChrispyBacon-dev/DockFlare | page https://fshy.ajam.dev/p/github-chrispybacon-dev.md
+- price USD 0
+- free tier: Self-hosted control plane that automates Cloudflare Tunnel, DNS, and Zero Trust Access from Docker labels and a web UI. GPL-3.0. Requires a Cloudflare account and API token. Website: | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Cloudflare Tunnel control plane for Docker.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Cloudflare Tunnel control plane for Docker. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hosted control plane that automates Cloudflare Tunnel, DNS, and Zero Trust Access from Docker labels and a web UI. GPL-3.0. Requires a Cloudflare account a
+  - [2] 2026-11-19: the project README labels DockFlare a self-hosted control plane that the user installs and runs; no hosted egress allowance is offered | capture: sha256:0ea07173ad012c389a8e7c77e97ec5b3230934766fed62a382458338ed33277b | quote: DockFlare is a self-hosted ingress and access-control plane for Cloudflare Tunnel environments.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/ChrispyBacon-dev/DockFlare
+
+## EdgeVPN
+
+- `egress/edgevpn` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.217Z (live) | stale on 2026-12-20
+- url https://github.com/mudler/edgevpn | page https://fshy.ajam.dev/p/github-mudler.md
+- price USD 0
+- free tier: Fully decentralized, statically built P2P VPN on libp2p. No central server; peers discover each other via DHT. Supports file transfer and sharing TCP services between peers without a VPN interface. Apache 2.0 License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. libp2p P2P VPN over a DHT.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: libp2p P2P VPN over a DHT. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Fully decentralized, statically built P2P VPN on libp2p. No central server; peers discover each other via DHT. Supports file transfer and sharing TCP services b
+  - [2] 2026-11-19: the project README describes a decentralized P2P VPN the user installs and runs with no central server; no hosted egress allowance is offered | capture: sha256:dc57ab5f3056a60005e29a583c1a835e1ea26af256cea6ba932255d672f551d3 | quote: Every token is unique and identifies the network, no central server setup, or specifying hosts ip is required.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/mudler/edgevpn
+
+## ephemeral-hidden-service
+
+- `egress/ephemeral-hidden-service` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.217Z (live) | stale on 2026-12-20
+- url https://github.com/aurelg/ephemeral-hidden-service | page https://fshy.ajam.dev/p/github-aurelg.md
+- price USD 0
+- free tier: Create ephemeral Tor hidden services from the command line. Written in Python. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Tor hidden services.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Tor hidden services. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Create ephemeral Tor hidden services from the command line. Written in Python.
+  - [2] 2026-11-19: the project README requires the user to install and run Tor locally, so the tool runs on a user-supplied machine; no hosted egress allowance is offered | capture: sha256:c1f8574aeb92d55bde83aa8891415003d555707fe7c8695abb25bac9ad181019 | quote: Tor must be installed and running on your machine. Its controller port must be accessible.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/aurelg/ephemeral-hidden-service
+
+## expose
+
+- `egress/expose-php` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.217Z (live) | stale on 2026-12-20
+- url https://github.com/exposedev/expose | page https://fshy.ajam.dev/p/github-exposedev.md
+- price USD 0
+- free tier: ngrok alternative written in PHP. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. PHP ngrok alternative, HTTP.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: PHP ngrok alternative, HTTP. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: ngrok alternative written in PHP.
+  - [3] 2026-11-19: the official product page states the managed Expose service carries no UDP, so the fails-egress verdict still holds | capture: sha256:ff6fa85704b3675c18e158201dd68cee075389af4b126c485f121eaa99592536 | quote: Expose doesn't tunnel UDP, so it can't host a game server or a WireGuard endpoint.
+  - [2] 2026-11-19: the first-party repository README now advertises a managed hosted tier and a free EU test server | capture: sha256:73df19b340c16060ce00de8cd3e54c16c54bbae0094a34e5be5983e74f047e2d | quote: You can use a managed version with our proprietary platform and our free (EU) test server at the official website.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/exposedev/expose
+  - [3] https://expose.dev
+
+## frp-operator
+
+- `egress/frp-operator` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.567Z (live) | stale on 2026-12-20
+- url https://github.com/zufardhiyaulhaq/frp-operator | page https://fshy.ajam.dev/p/github-zufardhiyaulhaq.md
+- price USD 0
+- free tier: Kubernetes integration for . MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Kubernetes integration for frp.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Kubernetes integration for frp. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Kubernetes integration for . MIT License. Written in Go.
+  - [2] 2026-11-19: the project README says a public machine running an FRP server must be supplied by the user; no hosted egress allowance is offered | capture: sha256:5ea8c70c1c855be428c393cc681c902f9e1047da92a55aca0825003087db07ed | quote: Currently the operator doesn't have capability to spine a new machine on cloud providers, but this can be setup in a minute.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/zufardhiyaulhaq/frp-operator
+
+## go-http-tunnel
+
+- `egress/go-http-tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.567Z (live) | stale on 2026-12-20
+- url https://github.com/mmatczuk/go-http-tunnel | page https://fshy.ajam.dev/p/github-mmatczuk.md
+- price USD 0
+- free tier: Uses a single HTTP/2 connection for muxing. Need to manually generate certs for server and clients. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP/2 muxing.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: HTTP/2 muxing. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Uses a single HTTP/2 connection for muxing. Need to manually generate certs for server and clients.
+  - [2] 2026-11-19: the project README says the tunnel server runs on a publicly available host the user supplies; no hosted egress allowance is offered | capture: sha256:e8daab2e31ba67a0678d9e2650fe0aa8656c523fdaceb04b18442eefc21b08d5 | quote: - `tunneld` - the tunnel server, to be run on publicly available host like AWS or GCE
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/mmatczuk/go-http-tunnel
+
+## gost
+
+- `egress/gost` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category overlay network or advanced tunnel tool | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.568Z (live) | stale on 2026-12-20
+- url https://latest.gost.run/en/ | page https://fshy.ajam.dev/p/gost.md
+- price USD 0
+- free tier: Looks like a comprehensive option. TCP and UDP tunneling. TAP/TUN devices. Load balancing. Web API. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. TCP/UDP forwarding.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: the same as interface detail
+- notes: TCP/UDP forwarding. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: A vendor page read would raise this to documented; only the aggregator was read for this name.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Looks like a comprehensive option. TCP and UDP tunneling. TAP/TUN devices. Load balancing. Web API. Written in Go.
+  - [2] 2026-11-19: the vendor page gives only source and binary install steps for a user-run tunnel; no hosted egress allowance is published | capture: sha256:765683d7df0a5eb62b80142245666ddfd2ac9fe133261a79e9ffaeeee443d2b1 | quote: git clone https://github.com/go-gost/gost.git
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://latest.gost.run/en/
+
+## gt
+
+- `egress/gt` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.568Z (live) | stale on 2026-12-20
+- url https://github.com/ao-space/gt | page https://fshy.ajam.dev/p/github-ao-space.md
+- price USD 0
+- free tier: Supports peer-to-peer direct connection (P2P) and Internet relay. Focus on performance. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. P2P and relay, performance focused.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: P2P and relay, performance focused. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Supports peer-to-peer direct connection (P2P) and Internet relay. Focus on performance. Written in Go.
+  - [3] 2026-11-19: the project README gives download and self-run steps for the GT relay server and client; no hosted egress allowance is offered | capture: sha256:5e06c0c88fb9e5363db87ded07518ad99dea2c938fad5aeef287fdfa95b7a1b2 | quote: Choose the appropriate version to download from https://github.com/ao-space/gt/releases.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/ao-space/gt
+  - [3] https://github.com/ao-space/gt/blob/dev/README.en.md
+
+## h2tunnel
+
+- `egress/h2tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.568Z (live) | stale on 2026-12-20
+- url https://github.com/boronine/h2tunnel | page https://fshy.ajam.dev/p/github-boronine.md
+- price USD 0
+- free tier: A pure Node.js TCP tunnel with zero dependencies in less than 500 LOC. Supports IPv4 and IPv6, half-open / half-closed connections, encrypted using TLS. Uses HTTP2 under the hood for multiplexing. MIT License. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. TCP over HTTP/2.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: TCP over HTTP/2. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A pure Node.js TCP tunnel with zero dependencies in less than 500 LOC. Supports IPv4 and IPv6, half-open / half-closed connections, encrypted using TLS. Uses HT
+  - [2] 2026-11-19: the project README gives a local install command and describes a user-run public server; no hosted egress allowance is offered | capture: sha256:cdf1f7209622d0a8a9dbe92f22ad138eba1748e66e3dbe9bfcd609146ea06070 | quote: npm install -g h2tunnel
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/boronine/h2tunnel
+
+## Headwire
+
+- `egress/headwire` | self-hosted, last resort | verdict fails-egress | evidence documented | binding per-ip-shaping | category wireguard mesh | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/brofranks/headwire | page https://fshy.ajam.dev/p/github-brofranks.md
+- price USD 0
+- free tier: Headwire statically configures WireGuard peers with support for NAT traversal using DERP relays. It is experimental. No hosted service and no price are offered. | unit: none | metered on: unstated | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance: relays rely on self-hosted DERP servers or Tailscale free rate-limited relays.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: No account required. Self-hosted DERP servers or rate-limited Tailscale DERP relays provide relay infrastructure. | country: None
+- interface: cli
+- limits:
+  - per-ip-shaping (binding): Tailscale's DERP relays are described as free rate-limited relays [1]
+- binding note: There is no ingress to meter. If Tailscale's DERP relays are borrowed, the rate limit on those relays is the first thing to bite, and it applies to the relay path only.
+- interface detail: headwire ping 100.64.0.2; config file with [DERPRegion] and [Interface].
+- tooling: headwire CLI plus a macOS app; config file with DERPRegion and Interface sections.
+- composes with: Gives a free VM a private WireGuard path to a laptop; to expose it publicly you still need a tunnel or a public relay.
+- reliability: Experimental and dependency-heavy: it reuses Tailscale data-plane libraries and needs a DERP server or Tailscale's rate-limited relays.
+- notes: Launched 2026-09-24. A one-person experimental project that composes WireGuard with Tailscale's open-source data plane. It is a way to reach your own machines, not to publish a port.
+- evidence note: Mesh networking topology is documented. Operates as a private WireGuard overlay without public ingress endpoints.
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: Configuration is a standard WireGuard-plus-DERP file: a [DERPRegion] block with ID and Nodes, then an [Interface] block. The tool writes peers directly rather than calling an API.
+  - ingress: none
+  - volume_stated: No allowance: the relays are a user's own DERP servers or Tailscale's free rate-limited relays.
+  - bytes_transit: overlay-only
+  - transit_note: Direct WireGuard where NAT allows, DERP relay otherwise.
+- evidence:
+  - [1] 2026-10-23: Statically configures WireGuard peers with DERP relay fallback, upgrades to a direct path; config uses a [DERPRegion] block and an [Interface] block; experimental.
+  - [2] 2026-09-24: Show HN launch date and description: WireGuard with NAT traversal via Tailscale's magicsock.
+- sources:
+  - [1] https://github.com/brofranks/headwire
+  - [2] https://news.ycombinator.com/item?id=49834349
+
+## hsync
+
+- `egress/hsync` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.939Z (live) | stale on 2026-12-20
+- url https://github.com/monteslu/hsync | page https://fshy.ajam.dev/p/github-monteslu.md
+- price USD 0
+- free tier: Works in Node.js and browsers. Any two instances can easily pair and make a peer-to-peer WebRTC connection to forward TCP/UDP ports (even in browser). No additional signaling server needed. Written in JavaScript. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: A default hosted hsync.tech server exists but publishes no byte allowance and limits a connection to 4 hours; no free hosted allowance reaches the volume bar. Forwards TCP/UDP ports between two hsync instances, and a user can also run a private hsync-server.
+- interface detail: not established
+- tooling: The user installs and runs the hsync software (npm i -g hsync, npx hsync, or a browser script); a default hosted hsync.tech server exists and a user can point the software at a self-hosted hsync-server.
+- reliability: The default hosted hsync.tech server answered HTTP 502 on 2026-11-19.
+- notes: Forwards TCP/UDP ports between two hsync instances. The first-party README was read on 2026-11-19; it names a default hosted hsync.tech server with a 4-hour connection limit and no published byte allowance, and allows a self-hosted hsync-server.
+- evidence note: First-party project README read on 2026-11-19; it names a hosted default server with a 4-hour connection limit, no published byte allowance and a self-host option. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Works in Node.js and browsers. Any two instances can easily pair and make a peer-to-peer WebRTC connection to forward TCP/UDP ports (even in browser). No additi
+  - [2] 2026-11-19: the first-party README names a default hosted server with a 4-hour connection limit and no published byte allowance | capture: sha256:466dcd59344de357a1c87d79c1d23fe9004125869bf1e25ef94bdebd3623556d | quote: by default hsync will connect to the default hsync.tech server and allow a connection for up to 4 hours.
+  - [2] 2026-11-19: the first-party README describes a user-installed client that connects to an hsync-server, with a hosted default and a self-hostable option | capture: sha256:466dcd59344de357a1c87d79c1d23fe9004125869bf1e25ef94bdebd3623556d | quote: hsync is a [reverse-proxy](https://en.wikipedia.org/wiki/Reverse_proxy) client for node.js and browsers that connects to an [hsync-server](https://github.com/monteslu/hsync-server).
+  - [2] 2026-11-19: the hosted default has a 4-hour limit and no published byte allowance | capture: sha256:466dcd59344de357a1c87d79c1d23fe9004125869bf1e25ef94bdebd3623556d | quote: by default hsync will connect to the default hsync.tech server and allow a connection for up to 4 hours.
+  - [2] 2026-11-19: the first-party README establishes the hosted default and its limit | capture: sha256:466dcd59344de357a1c87d79c1d23fe9004125869bf1e25ef94bdebd3623556d | quote: by default hsync will connect to the default hsync.tech server and allow a connection for up to 4 hours.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis | capture: sha256:466dcd59344de357a1c87d79c1d23fe9004125869bf1e25ef94bdebd3623556d | quote: by default hsync will connect to the default hsync.tech server and allow a connection for up to 4 hours.
+  - probe:https://hsync.tech 2026-11-19: the default hosted server answered HTTP 502 on 2026-11-19 | capture: sha256:a9964801ac61b043d66ebc8d739266348cf915b945faaff6d78ab49c1cdad1e9 | quote: "status": 502
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/monteslu/hsync
+
+## Hysteria
+
+- `egress/hysteria` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.939Z (live) | stale on 2026-12-20
+- url https://github.com/apernet/hysteria | page https://fshy.ajam.dev/p/github-apernet.md
+- price USD 0
+- free tier: QUIC-based censorship-resistant proxy and relay (SOCKS5/HTTP, TCP/UDP forwarding, TUN/TProxy) with NAT traversal for hosting the server behind NAT (Realms). MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. QUIC proxy with TCP/UDP forwarding and TUN; egress proxy, not ingress.
+- interface detail: not established
+- tooling: The user builds and runs the Hysteria server and client on a host the user supplies; no hosted endpoint is published.
+- reliability: the same as interface detail
+- notes: QUIC proxy with TCP/UDP forwarding and TUN; egress proxy, not ingress. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read on 2026-11-19; it describes a QUIC proxy with SOCKS5, HTTP, TCP/UDP forwarding and TUN that the user deploys, with no hosted endpoint or published byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: QUIC-based censorship-resistant proxy and relay (SOCKS5/HTTP, TCP/UDP forwarding, TUN/TProxy) with NAT traversal for hosting the server behind NAT (Realms). MIT
+  - [2] 2026-11-19: the first-party README describes user-deployed software with no hosted endpoint or byte allowance | capture: sha256:2b6521b41c6067bd338c47fd490387ad6d68c8ed6d650429d804df5b42c703bc | quote: We have builds for every major platform and architecture. Deploy anywhere & use everywhere.
+  - [2] 2026-11-19: the first-party README says the user deploys the software | capture: sha256:2b6521b41c6067bd338c47fd490387ad6d68c8ed6d650429d804df5b42c703bc | quote: We have builds for every major platform and architecture. Deploy anywhere & use everywhere.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis | capture: sha256:2b6521b41c6067bd338c47fd490387ad6d68c8ed6d650429d804df5b42c703bc | quote: Hysteria is a powerful, lightning-fast, and censorship-resistant proxy.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/apernet/hysteria
+
+## Innernet
+
+- `egress/innernet` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category WireGuard overlay (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/tonarino/innernet | page https://fshy.ajam.dev/p/github-tonarino.md
+- price USD 0
+- free tier: 'A private network system that uses WireGuard under the hood.' MIT licensed and self-hosted; no quota of any kind. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance exists: the coordination server is the operator's.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: self-hosted; peers are invited by an admin running 'innernet-server add-peer', so identity is a key handed out locally | country: None
+- interface: cli
+- binding note: Nothing counts bytes. At 1 TiB/month only the host's own link binds, and there is no public listener through which a reader could spend it.
+- interface detail: innernet-server and the innernet client
+- tooling: innernet and innernet-server
+- composes with: a private mesh control plane; composes with a public ingress but adds none
+- reliability: 'should be considered experimental software'; the coordination server's uptime is the constraint
+- notes: Self-described as similar in goal to nebula and Tailscale. The README's own warning - 'This has not received an independent security audit' - is a technical reliability fact, not a reason to exclude it.
+- evidence note: Point-to-point WireGuard mesh network. Overlay coordination and peer configuration are documented in repository manuals.
+- self hosted: yes
+- extras:
+  - wg_path: unknown
+  - wg_detail: The README states WireGuard under the hood and a coordination server that 'manages peers and provide endpoint information so peers can directly connect', but no page read documents a .conf export.
+  - ingress: none
+  - volume_stated: No allowance exists: the coordination server is the operator's.
+  - bytes_transit: overlay-only
+  - transit_note: peers connect directly; the coordination server hands out endpoints and sees no payload
+- evidence:
+  - [1] 2026-10-23: 'A private network system that uses WireGuard under the hood'; 'Every innernet network needs a coordination server to manage peers and provide endpoint information so peers can directly connect to each other'
+- sources:
+  - [1] https://github.com/tonarino/innernet

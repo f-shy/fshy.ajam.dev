@@ -1,0 +1,83 @@
+# Runloop
+
+> runloop.ai | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/runloop/ | JSON https://fshy.ajam.dev/api/v1/entity/runloop.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Runloop
+
+- `compute/runloop` | trial-only | evidence documented | binding volume-quota | category container and VM sandbox | tier Free Pro trial
+- needs card no, phone no, ID no, institution no | verified 2026-11-24T13:21:03.218Z (live) | stale on 2026-12-25
+- url https://www.runloop.ai/pricing
+- price parsed USD 231.26/mo
+- free tier: 'New accounts start with $50 in usage credits and full Pro feature access. No credit card is required.' Trial sandbox limits: '3 Running Devboxes'. The Basic plan is a 'free subscription with usage billed based on what you use'. The pricing page read on 2026-11-24 states no storage allowance and no first-month-free term. | unit: mixed | metered on: wall-clock | read on: 2026-10-24 | source: [1] | note: A one-time USD 50 credit attached to a trial, not a standing free tier.
+- per-object cap: The pricing page states a standard 2-CPU / 4 GB devbox and prices compute at 2 x $0.108 per CPU-hour + 4 x $0.0252 per GB-hour; no devbox object-size ceiling is published. | source: [1] | note: Three concurrent devboxes on the trial.
+- retention: Suspension stops CPU and memory charges while storage charges continue; the page read on 2026-11-24 states no storage allowance, per-GB-hour storage rate or snapshot retention period. | source: [1]
+- egress: No egress price or transfer allowance is stated on the pricing page; per-devbox network egress policies are documented. | metered: no | source: [1]
+- identity: email | detail: 'No credit card required' twice on the page, including on the trial call to action, and no payment method is taken, so no hold exists. unverified: no signup form was read, so an email address is the expected gate rather than an observed field.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): USD 50 usage credit on a free Pro trial [1]
+  - volume-quota (binding): 3 running devboxes during the trial [1]
+  - volume-quota (binding): USD 0.108 per CPU-hour and USD 0.0252 per GB-hour [1]
+- limits note: 'Trial sandbox limits (lifted on upgrade)' means the devbox count is a trial restriction rather than a platform ceiling.
+- binding note: The credit and the rate: at USD 0.108 a CPU-hour a two-CPU box burns USD 0.3168 an hour, so USD 50 is 158 hours, and the credit is a trial that ends.
+- interface detail: REST API, Python and TypeScript SDKs, and the rl-cli command line tool
+- tooling: pip install runloop-api-client (Python SDK), npm install @runloop/api-client (TypeScript SDK), and the rl-cli terminal tool
+- composes with: not established
+- reliability: The trial ends and the limits lift only on upgrade; a devbox on the trial is capped by the credit rather than by a runtime limit.
+- notes: At 2 vCPU / 4 GiB the hour is USD 0.216 + USD 0.1008 = USD 0.3168, so USD 50 is 158 hours, five and a half days. Boat's comparison table independently prices Runloop at 'USD 0.634' an hour for a 4 vCPU / 8 GB machine, which is exactly double this figure and consistent with the same rate card.
+- evidence note: The credit, the no-card statement, the trial concurrency and the rate card are first-party. The per-hour figure is arithmetic on a 2 vCPU / 4 GiB shape the page does not name, so the shape is the category's assumption and is labelled as such.
+- extras:
+  - keep_rate: 1.0
+  - billing_model: per-second
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - session_cap.wall_clock_min: 60
+  - session_cap.restart_required: no
+  - session_cap.note: the default maximum lifetime is 1 hour and is configurable; idle handling is off by default
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: unstated
+  - free_tier_kind: trial-credit
+  - granularity.min_billed_s: 0
+  - burst_x: 1.0
+  - ps.gib: 100
+  - ps.price: 1 TB on the paid tier
+  - ps.durability: storage
+  - ps.on_stop: yes
+  - ps.on_destroy: no
+  - ps.retention: while the account exists
+  - crosscheck.boat_compare_2026-09-26: USD 0.634/h at 4 vCPU / 8 GB
+  - term: one-time trial credit
+  - m10h_usd: 95.04
+  - m24h_usd: 231.26
+  - price_arithmetic: 2 x 0.108 + 4 x 0.0252 = 0.3168/h; x 730 = 231.26; 50 / 0.3168 = 157.8 h
+  - credit_usd: 50
+  - credit_months_at_shape: 0.22
+  - credit_hours_at_shape: 157.8
+  - credit_expiry: trial; the page does not state a date
+- evidence:
+  - [1] 2026-10-02: 
+  - [1] 2026-10-22: '### Try Our Pro Plan for Free!' with '$50 Usage Credit', 'No credit card required', 'Trial sandbox limits (lifted on upgrade)' and '100 GB Free Storage', against '1 TB Free Storage' on the paid tier, quoted
+  - [2] 2026-10-22: a competitor's comparison table lists Runloop at USD 0.634 per hour for a 4 vCPU / 8 GB / 50 GB machine, with list prices dated 2026-09-26; this is a reported rate about a third party and not a reading of the vendor's own page
+  - [1] 2026-10-24: quoted: 'No credit card required', '$50 Usage Credit', 'Trial sandbox limits (lifted on upgrade): 3 Running Devboxes', 'Devbox CPU $0.108 / CPU-hr', 'Devbox Memory $0.0252 / GB-hr', 'Devbox Storage $0.00034236 / GB-hr', '100 GB Free Storage'.
+  - [3] 2026-11-03: Runloop publishes a CLI, rl-cli | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: [CLI (`rl-cli`)](https://docs.runloop.ai/docs/tools/rl-cli): Use in terminal environments where you can install tools.
+  - [1] 2026-11-03: a REST API and Python and TypeScript SDKs exist | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: Integration is straightforward through Runloop's Python and TypeScript SDKs and REST API.
+  - [3] 2026-11-03: the Python SDK install command | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: - [Python SDK](https://github.com/runloopai/api-client-python): `pip install runloop-api-client`
+  - [4] 2026-11-18:  | capture: sha256:5346cd3811e4ba936e938004895742256ebde6d4fa047b29baf61fc2e1e4f145 | quote: The default lifetime is 1 hour, but this can be configured when you create the Devbox / By default, Runloop will do nothing if your Devbox is idle.
+  - [1] 2026-11-24: the trial credit, no-card statement, Basic free subscription and no automatic charge at trial end | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: New accounts start with $50 in usage credits and full Pro feature access. No credit card is required. Once the trial usage limit is reached, you’ll be prompted to choose how to continue: switch to the Basic plan (free subscription with usage billed based on what you use), or upgrade to a paid Pro or Enterprise plan. There is no automatic charge when the trial ends—you decide how to proceed.
+  - [1] 2026-11-24: the CPU and memory rates and a standard 2-CPU / 4 GB shape | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: A standard 2-CPU / 4 GB devbox running 8 active hours per day costs approximately $2.73/day in compute (2 x $0.108 + 4 x $0.0252, multiplied by 8 hours). At 22 working days per month that is roughly $60 in compute plus the $250 Pro base.
+  - [1] 2026-11-24: suspension stops CPU and RAM charges while storage charges continue | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: No. Suspended devboxes do not accrue compute or memory charges. Billing for CPU and RAM stops the moment suspension begins. Storage charges continue while a devbox is suspended, but compute billing stops entirely.
+  - [1] 2026-11-24: per-devbox egress policies are available | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: Runloop provides microVM-level hardware isolation between tenants, SOC2 Type II certification, Credential Gateway for opaque token injection (agents never see raw secrets), network egress policies per devbox, and VPC deployment for teams that need infrastructure inside their own cloud account.
+  - [5] 2026-11-24: account creation at the Runloop signup page | capture: sha256:87615748b8a9bc5f3ac838a2de524f32226b12c9f8e10a6522477a556865dcb2 | quote: Visit the [Runloop signup page](https://platform.runloop.ai/auth/register) to create an account.
+  - [3] 2026-11-24: the rl-cli terminal tool | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: [CLI (`rl-cli`)](https://docs.runloop.ai/docs/tools/rl-cli): Use in terminal environments where you can install tools.
+  - [3] 2026-11-24: the Python SDK install command | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: - [Python SDK](https://github.com/runloopai/api-client-python): `pip install runloop-api-client`
+  - [1] 2026-11-24: REST API and Python and TypeScript SDKs | capture: sha256:7ddc63767a868b75a4190915393627d573d66b81db6fa01657ce8121f36583af | quote: Integration is straightforward through Runloop's Python and TypeScript SDKs and REST API.
+  - [3] 2026-11-24: SSH and scp/rsync access to a devbox | capture: sha256:8ec8be1532739d25c05c43a27c4698e258f611904df656ce263c10339447408d | quote: Connect with rli devbox ssh <devbox-id>; file transfer via rli devbox scp / rsync
+- sources:
+  - [1] https://www.runloop.ai/pricing
+  - [2] https://boat.dev/compare
+  - [3] https://docs.runloop.ai/llms.txt
+  - [4] https://docs.runloop.ai/docs/devboxes/start-stop
+  - [5] https://docs.runloop.ai/docs/tutorials/quickstart

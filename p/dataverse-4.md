@@ -1,0 +1,39 @@
+# DataverseLV
+
+> dataverse.lv | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/dataverse-4/ | JSON https://fshy.ajam.dev/api/v1/entity/dataverse-4.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## DataverseLV (Latvian national Dataverse)
+
+- `storage/dataverselv` | qualifies-with-caveat | evidence reported | binding none | category academic repository / Dataverse 6.11
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T09:54:58.645Z (live) | stale on 2026-12-10
+- url https://dv.dataverse.lv
+- free tier: No quota defined for this collection | unit: none | metered on: unstated | read on: 2026-10-21 | source: [1] | note: The quota endpoint returns "No quota defined for this collection": no numeric quota, unit or metering basis is published.
+- per-object cap: source: [1] | note: No per-object cap is stated on the homepage, the signup terms page or the quota endpoint; the quota endpoint reports no quota defined for the root collection.
+- retention: source: [1] | note: The terms page states long-term preservation of datasets and metadata but gives no retention period; the quota endpoint reports no quota defined for the root collection.
+- egress: Cloudflare-fronted; the apex dataverse.lv is Cloudflare-challenged but dv.dataverse.lv answers the API cleanly. | metered: no
+- identity: email | detail: email
+- interface: rest
+- limits note: the same as the free tier
+- interface detail: REST (native Dataverse API v1)
+- tooling: curl / DVUploader
+- composes with: National instance, open local signup, no quota object.
+- reliability: Apex domain serves a Cloudflare interstitial; use the dv. hostname for API work.
+- notes: The quota endpoint states "No quota defined for this collection".
+- evidence:
+  - [2] 2026-10-21: 6.11, build master-dd1859d
+  - [1] 2026-10-21: 'No quota defined for this collection'
+  - [3] 2026-10-21: HTTP 200 (native signup form present)
+  - [1] 2026-11-09: the repository's quota endpoint states no quota is defined, so no numeric quota is published | capture: sha256:4e6b7acfb388a3c3ae8e318134efbee7b4a8bf236976f8b32f189458a64cb17f | quote: No quota defined for this collection
+  - [1] 2026-11-09: the repository's quota endpoint states that no quota is defined for the collection | capture: sha256:5e766b7c3a45c26b8b5d1fb53a6a107e37c378dcd3ecd29ecfeb52d36b321b92
+  - [1] 2026-11-19: the repository's quota endpoint still reports no quota defined for the collection | capture: sha256:92e8a23f8d2593525bb2e79bf51735a708c6e24f2801ac21bc162790ca0e0aa5 | quote: No quota defined for this collection
+  - [1] 2026-11-25: the quota endpoint reports no defined quota, so no unit is denominated; it does not claim unlimited storage | capture: sha256:bca45d449b68d59b709824583491cffade884f31957e9f2aaeba9b6237087105
+  - [1] 2026-11-25: the endpoint returns the exact message No quota defined for this collection | capture: sha256:bca45d449b68d59b709824583491cffade884f31957e9f2aaeba9b6237087105
+  - [3] 2026-11-25: the terms page lists free browsing, download and reuse conditions and states no per-object cap | capture: sha256:559e3a09522c7d70221e8208570f196579298a9ef31a68d096500f0d467afe5c | quote: 4.2.1. izmantot Repozitoriju bez maksas datu kopu pārlūkošanai, lejupielādei un atkārtotai izmantošanai saskaņā ar metadatu un licenču nosacījumiem;
+  - [3] 2026-11-25: the terms page lists long-term preservation of datasets as a service but states no retention period | capture: sha256:559e3a09522c7d70221e8208570f196579298a9ef31a68d096500f0d467afe5c | quote: 2.3.2. datu kopu ilgtermiņa saglabāšana;
+  - [1] 2026-11-25: the root collection quota endpoint still reports no quota defined | capture: sha256:bca45d449b68d59b709824583491cffade884f31957e9f2aaeba9b6237087105
+- sources:
+  - [1] https://dv.dataverse.lv/api/dataverses/:root/storage/quota?showInherited=true
+  - [2] https://dv.dataverse.lv/api/info/version
+  - [3] https://dv.dataverse.lv/dataverseuser.xhtml?editMode=CREATE

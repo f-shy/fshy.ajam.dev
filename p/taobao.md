@@ -1,0 +1,39 @@
+# 淘宝 代下 listings
+
+> taobao.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/taobao/ | JSON https://fshy.ajam.dev/api/v1/entity/taobao.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 淘宝 代下 listings (Taobao)
+
+- `debrid/taobao-daixia` | qualifies-with-caveat | evidence reported | binding request-rate | category retail 代下 marketplace | tier per-order
+- needs card no, phone yes, ID no, institution no | verified 2026-11-25T09:47:01.821Z (live) | stale on 2026-12-10
+- url https://www.taobao.com/list/product/%E5%85%8B%E7%BD%91%E7%9B%98%E4%BB%A3%E4%B8%8B.htm
+- price CNY 2 per file (observed); about CNY 0.2/GB for a 10 GB file
+- free tier: No free tier: each order is a per-file or per-job purchase, ¥0.5 to ¥6.99 in the listings read. | unit: none | metered on: request-count | read on: 2026-10-23 | source: [1]
+- per-object cap: Not published. Listings price '一件' (one item), not a byte count, so the per-file size ceiling is whatever the seller will accept. | source: [1]
+- retention: Not applicable: the seller returns a link or an upload, nothing is stored for the buyer. | source: [1]
+- egress: Priced per file or per job, not per byte. Observed: 百度网盘代下转直连 ¥0.98; 夸克网盘代下 ¥2; 115网盘代下 ¥2; UC网盘代下 ¥3; 城通网盘代下 ¥3; 谷歌云盘代下 ¥0.88; 116pan/蘑菇/77file/yifile/anyfile 代下 ¥0.5. | metered: yes | free allowance: none; per-order pricing | source: [1]
+- identity: country-phone | detail: Buying requires a Taobao account, which is bound to a mainland mobile number, and 支付宝 real-name for payment. The seller side needs 实名 too. This is the +86 wall in its plainest form. | country: 86
+- interface: chat
+- limits:
+  - request-rate (binding): human turnaround per order; no published SLA [1]
+  - per-object-cap: not published; sellers advertise '超大文件发邮箱' and '啥都能下' [1]
+- binding note: Nothing here meters bytes and nothing here has a programmatic rate; one human order buys one file, which is the constraint the vocabulary can name. The constraint that actually excludes it is identity - a Taobao account needs a +86 number - and the seven-value vocabulary has no kind for it, so it is carried in identity_cost and not here.
+- interface detail: A marketplace, not an API: the buyer messages a seller inside Taobao and receives a link or a file. No programmatic path exists.
+- tooling: Taobao app or web. Delivery is a chat message containing a URL or a pan share.
+- composes with: The retail end of 代下: for a single 10 GB file at ¥2 the effective price is ¥0.2/GB, a fifth of the specialist 中转 sites, but it is one order per file and a human on the other side.
+- reliability: A marketplace of individuals: a listing can vanish, and the guarantee is Taobao's dispute process, not a service level. Prices are per order, so cost does not scale with bytes.
+- notes: This is the finding the sector was asked for: Chinese retail 代下 prices per file (¥0.5 to ¥3), not per GB, which makes it 3 to 6x cheaper per byte than the specialist 中转 sites - and it is the least automatable and most identity-bound route in the market. No programmatic path found: A marketplace, not an API: the buyer messages a seller inside Taobao and receives a link or a file. No programmatic path exists.
+- evidence note: Prices are the listing prices on the Taobao category page returned. No order was placed, so turnaround and per-file limits are unmeasured.
+- extras:
+  - observed_range_cny: 0.5; 6.99
+  - priced_per: file
+- evidence:
+  - [1] 2026-10-23: the listing page's prices: '百度网盘代下转直连下载 ¥0.98', '夸克网盘代下 ¥2', '115网盘代下 ¥2', 'UC网盘代下 ¥3', '城通网盘代下 ¥3', '谷歌云盘代下 ¥0.88', 'anyfile 蘑菇 ssdwp 77file yifile 116pan ¥0.5', '视频代下载 ¥3.58', '广东省电子基础性作业 ¥6.99'; title claims 'Top 50件', roughly 20 rows were rendered
+  - probe:https://www.taobao.com/list/product/%E5%85%8B%E7%BD%91%E7%9B%98%E4%BB%A3%E4%B8%8B.htm 2026-11-25: the 百度网盘代下 listing is priced at CNY 0.98 per order, not the concatenated 0.984.8 shown in rendered text | capture: sha256:50e8cb798de653f7ce1f0bbe49c542f79d023a2d0925dfde0e6c1a1e4f030a47 | quote: "discntPriceYuan":0.98,"discntType":"","freeShipping":false,"itemId":1011237428123
+  - [2] 2026-11-25: a personal Taobao account is registered through a mobile number | capture: sha256:0d790abe79caaeed0e947db82cec15c3294b548dbb3600b8478c11e85829fd2f | quote: ①个人店铺需要注册个人淘宝账号，只能通过手机号注册；
+  - [1] 2026-11-25: the listing page still shows per-order prices, with a concatenated rating beside the price | capture: sha256:c8d7c93d97dfe29877305917a057ee26ecec640524608c3e8f79e4c88e3d4c96 | quote: 百度网盘代下转直连下载百度网盘转浏览器下载百度海外国外下载￥0.984.8
+- sources:
+  - [1] https://www.taobao.com/list/product/%E5%85%8B%E7%BD%91%E7%9B%98%E4%BB%A3%E4%B8%8B.htm
+  - [2] https://helpcenter.taobao.com/servicehall/knowledge_detail?kwdContentId=10234821168072704&searchKey=542121f6e23e4dcca959dc593701071e1&spm=service_hall.20316095.text_kfmd3s60.10234821168072704&hcSessionId=d9265061-4108-48d3-bd3e-cd6734ba72d2

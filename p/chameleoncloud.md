@@ -1,0 +1,71 @@
+# Chameleon Cloud
+
+> chameleoncloud.org | Compute, Storage; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/chameleoncloud/ | JSON https://fshy.ajam.dev/api/v1/entity/chameleoncloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Chameleon Cloud
+
+- `compute/chameleon-cloud` | fails-identity | evidence documented | binding none | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T05:18:10.320Z (live) | stale on 2026-12-26
+- url https://chameleoncloud.org/learn/frequently-asked-questions/
+- free tier: "Chameleon operates on a 'soft allocation model' where each project, if approved, receives a startup allocation of 20,000 SUs for six months. This allocation can be both recharged (more SUs added) and renewed (duration extended)"; "Users can expect a project decision within one business day". | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: kind not stated
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits note: no binding constraint identified
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: not established
+- reliability: no reliability event recorded
+- notes: no open question recorded
+- evidence:
+  - [1] 2026-10-22: startup allocation of 20,000 SUs for six months, rechargeable and renewable, decision within one business day, quoted
+  - [2] 2026-10-22: "PI status is limited to faculty and research staff at US-based academic institutions", quoted
+  - [2] 2026-10-22: Daypass "lets anyone request temporary access to system resources for the purpose of reproducing an experiment published on Trovi ... No allocation, no project membership, no approval from a PI required", quoted
+  - [3] 2026-10-22: Daypass is for reproducing a published artefact, the request is reviewed by the artefact's project PI, and the suggested default reservation length is 6 hours, quoted
+  - [1] 2026-11-25: the FAQ still states a startup allocation of 20,000 SUs for six months under a soft allocation model | capture: sha256:2b67cd4c7d9b3c6d7ea23ab9d8aa330724679177e23dbeaee2ed2b8886801ae5 | quote: Chameleon operates on a “soft allocation model” where each project, if approved, receives a startup allocation of 20,000 SUs for six months.
+- sources:
+  - [1] https://chameleoncloud.org/learn/frequently-asked-questions/
+  - [2] https://blog.chameleoncloud.org/posts/tips-and-tricks-getting-access-to-chameleon-as-a-student/
+  - [3] https://blog.chameleoncloud.org/posts/interactive-science-made-easy-with-chameleon-daypass/
+
+## Chameleon Cloud (TACC / UChicago)
+
+- `storage/chameleon-cloud` | fails-identity | evidence reported | binding none | category research testbed - free bare metal and storage nodes
+- needs card no, phone no, ID no, institution yes | verified 2026-11-19T21:13:00.040Z (live) | stale on 2026-12-04
+- url https://chameleoncloud.org/
+- free tier: The live resource-discovery site lists 494 nodes; dedicated storage and storage_nvme node classes are present. | unit: mixed | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: not stated
+- retention: Accounts deactivate after 120 days' inactivity | days: 120 | source: [1] | note: not stated
+- egress: free within allocation; no published byte meter | metered: no
+- identity: institution | detail: institution
+- interface: ssh, cli
+- limits note: PI status is the binding constraint and is 'limited to faculty and research staff at US-based academic institutions'. International PIs are supported only as 'a limited number ... with ongoing, active collaborations with scientists in the US'. Students explicitly excluded except NSF GRFP holders. Accounts deactivate after 120 days' inactivity. FPGA resources additionally refuse residents or citizens of Iran, Iraq, North Korea, Sudan, Syria.
+- interface detail: OpenStack API (Nova/Cinder/Blazar), CLI, Jupyter; ssh to instances
+- tooling: python-chi, openstackclient, blazar reservations, Trovi artifacts, Daypass for artifact reproduction
+- composes with: bare-metal reservation -> local NVMe -> object store you run yourself
+- reliability: Project expiry immediately revokes all access and the allocation; storage is not offered as a durable service.
+- notes: 534 nodes across KVM@TACC, CHI@UC, CHI@TACC, CHI@NRP; 62 nodes with >1TB total storage, dedicated 'storage' (20) and 'storage_nvme' (10) node classes, plus 297 nodes at 400GB-1TB
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: 534 nodes across KVM@TACC, CHI@UC, CHI@TACC, CHI@NRP; 62 nodes with >1TB total storage, dedicated 'storage' (20) and 'storage_nvme' (10) node classes, plus 297 nodes at 400GB-1TB
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [2] 2026-10-21: 'PI status is limited to faculty and research staff at US-based academic institutions'
+  - [3] 2026-10-21: eligibility list: academic institutions (research staff/faculty in supervisory positions), federal agencies, 'a limited number of international PIs with ongoing, active collaborations with scientists in the US', NSF Graduate Student Fellows, US museums/libraries/labs, K-12 educators; 'We do occasionally provide case-by-case exceptions ... in well-justified cases'
+  - [4] 2026-10-21: Deactivation after 120 days inactivity
+  - [1] 2026-10-21: 534 nodes; 20 storage, 10 storage_nvme, 62 nodes >1TB; per-node inventory with r740xd/r630 chassis listed
+  - [2] 2026-11-19: PI status remains restricted to faculty and research staff at US-based academic institutions | capture: sha256:dd3f160e32e4f50b626dd823be7c51de61caff0a7a0c04b012bfa967f484d280 | quote: PI status is limited to faculty and research staff at US-based academic institutions
+  - [3] 2026-11-19: international PIs are supported only in limited number with active US collaborations | capture: sha256:858e6ccaa8b553dda0b64e510b12e002df3328eb7b96c6ae6aa8ac90fe6c2018 | quote: we support a limited number of international PIs with ongoing, active collaborations with scientists in the US
+  - [4] 2026-11-19: the 120-day inactivity deactivation is unchanged | capture: sha256:f81168aa563a3686e0f9fc7915acaef31f56bb3e947af0bf8b7ea60e8df267e1 | quote: User accounts will be deactivated due to inactivity after 120 calendar days.
+  - [5] 2026-11-19: the current live node count is 494, down from the 534 in the record | capture: sha256:208f138bf66e602f64d7c8386f64a48d715b76dbf57251b2f311c0fd70a69e16 | quote: 494 nodes
+- sources:
+  - [1] https://chameleoncloud.org/hardware/
+  - [2] https://blog.chameleoncloud.org/posts/tips-and-tricks-getting-access-to-chameleon-as-a-student/
+  - [3] https://chameleoncloud.readthedocs.io/en/stable/user/pi_eligibility.html
+  - [4] https://www.chameleoncloud.org/terms/
+  - [5] https://discover.chameleoncloud.org/

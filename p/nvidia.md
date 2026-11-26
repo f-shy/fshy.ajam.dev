@@ -1,0 +1,335 @@
+# NVIDIA
+
+> nvidia.com | Inference, Compute, Storage; 8 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/nvidia/ | JSON https://fshy.ajam.dev/api/v1/entity/nvidia.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Nvidia
+
+- `inference/nvidia` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted inference endpoint catalogue with free trial endpoints
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T13:00:00.000Z (live) | stale on 2026-12-19
+- url https://build.nvidia.com/
+- free tier: no numeric token or request quota is stated on the page. | unit: none | metered on: unstated | read on: 2026-11-18 | source: [1]
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: email | detail: an NVIDIA NGC account and API key; the captured homepage states no card or phone gate
+- interface: rest
+- limits:
+  - volume-quota (binding): Free hosted inference endpoints; numeric quota not stated on the captured page [1]
+- endpoint: https://integrate.api.nvidia.com/v1
+- tooling: OpenAI-compatible endpoint with an NVIDIA NGC API key
+- composes with: the trial terms and unstated request quota are the scarce link
+- reliability: quota enforcement details are not published on the page
+- notes: The NIM docs (docs.api.nvidia.com/nim) describe self-hosted microservices and the build.nvidia.com hosted catalogue; the hosted page gives free trial endpoints without a numeric quota.
+- evidence:
+  - [1] 2026-11-18: the catalogue offers free inference with leading models | capture: sha256:ef1490adbf1a99e4d95e1b6ad8dbf27dba328e5dca41a61123f50283485132f8 | quote: Free inference with leading models
+  - [2] 2026-11-18:  | capture: sha256:873da4aff127431a08ab6a288275de91937d17a370b9e7fb2cb8560bfea6d764 | quote: This trial service is governed by the
+- sources:
+  - [1] https://build.nvidia.com/
+  - [2] https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash
+
+## NVIDIA build
+
+- `inference/nvidia-build-trial` | trial-only | evidence documented | binding request-rate | category inference endpoint, trial tier
+- needs card no, phone yes, ID no, institution no | verified 2026-11-18T05:36:06.124Z (live) | stale on 2026-12-19
+- url https://build.nvidia.com/
+- free tier: free tier with no per-token billing, rate limited to up to 40 requests per minute (RPM) for most models; each account's own limit is shown in the dashboard | unit: requests | metered on: request-count | read on: 2026-10-28 | source: [1] | note: the FAQ states only the per-minute figure, up to 40 requests per minute for most models; it states no per-day request figure; the site's runtime copy file names 'Up to 40 rpm' and '10,000 requests per day' and the dashboard rate-limit chip renders only the per-minute value; the phone verification dialog lists 'Unlimited API requests without daily limits' as a benefit of verifying; whether a daily cap applies to an unverified account and not to a verified one is unverified: behind a sign-up
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: any-phone | detail: an NVIDIA account (email) plus a one-time password sent to a phone number before an API key can be generated; the phone form refuses numbers located in AF, BD, BY, CU, IR, KZ, KG, KP, PK, RU, SY, TJ, TZ and UZ; no card required; the phone form is shown only to an organization owner whose account is unverified, and a member who is not the owner counts as set up without it, but a member still needs the organization's API key permission (canGenerateAPIKey), otherwise the dialog shows 'API Access Restricted by your Organization' with a choice of another account or the account admin; whether the key service enforces the OTP for a member is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - request-rate (binding): up to 40 requests per minute (RPM) for most models, per account; no per-token billing; the account's own limit is shown in the top-right of the dashboard https://build.nvidia.com/search (FAQ)
+- interface detail: NVIDIA NIM hosted inference API, OpenAI-compatible Chat Completions at POST https://integrate.api.nvidia.com/v1/chat/completions, bearer auth via Authorization: Bearer $NVIDIA_API_KEY (an nvapi- key). Generated per-model API references are under https://build.nvidia.com/<id>/apireference.md.
+- endpoint: part of interface detail
+- tooling: any OpenAI-compatible client (set base_url to https://integrate.api.nvidia.com/v1); curl against POST https://integrate.api.nvidia.com/v1/chat/completions with Authorization: Bearer $NVIDIA_API_KEY
+- composes with: pairs with an agent only inside a trial
+- reliability: the phone one-time-password step fails for some numbers with 'invalid' or 'exceeded limits' errors; NVIDIA's pinned forum post of 2026-02-17 states verification on build.nvidia.com has been challenging and routes failures to help@build.nvidia.com; the phone form validates a number with libphonenumber isValid only and drops the listed locations, and it offers a Phone Call channel after three SMS resends when the runtime flag killswitches/otp/phone.enabled is true (read true on 2026-11-03), while the WhatsApp and WeChat channels are off (flags read false on 2026-11-03); whether the OTP service accepts VoIP or virtual numbers, and whether a call is delivered where SMS fails, is unverified: behind a sign-up
+- notes: Free tier: up to 40 requests per minute (RPM) for most models and no per-token billing; the account's own limit is shown in the dashboard. The /v1 root answers 404 to HEAD; individual models retire independently (a POST naming deepseek-ai/deepseek-v4.1-flash returned HTTP 410 on 2026-11-16). On 2026-11-18 two keyless POSTs for deepseek-ai/deepseek-v4.1-flash returned HTTP 410 Gone, so the retirement recorded on 2026-11-16 still stands.
+- evidence note: The endpoint, route and bearer scheme are from first-party llms.txt and the generated API reference; a keyless POST returned 401/403 as expected. Key value and per-account quota unverified behind a sign-up.
+- probe:
+  - records[0].probe_id: nvidia-build-trial-20261118
+  - records[0].target: https://integrate.api.nvidia.com/v1/chat/completions
+  - records[0].runs[0].label: run1
+  - records[0].runs[0].probed_at: 2026-11-18T05:26:15.207Z
+  - records[0].runs[0].status: 410
+  - records[0].runs[0].completion: no
+  - records[0].runs[0].capture: sha256:11c95cefac7ab1338c41d20b0a951bec244b2cf4c8a0b5655135946d68751027
+  - records[0].runs[1].label: run2
+  - records[0].runs[1].probed_at: 2026-11-18T05:36:06.124Z
+  - records[0].runs[1].status: 410
+  - records[0].runs[1].completion: no
+  - records[0].runs[1].capture: sha256:0972607784e4170db689d901836a407567491d5ac45163c9fe378b40b2a57d66
+- evidence:
+  - [2] 2026-10-07: 'Up to 40 rpm' and '10,000 requests per day' with throttling that 'may vary by model and traffic from other users', captured from the page JSON on 2026-10-07. The 2026-10-22 re-fetch of the same URL did not carry the rate string in the served text
+  - [1] 2026-10-28: the FAQ states the free tier is limited to up to 40 requests per minute for most models, with no per-token billing, and that the personal limit is shown in the dashboard | capture: sha256:ffda2aa5a671df0c05a760f6b355268646ec011d0c7d06e513d594bf5aa8dc46 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing. Your personal rate limit is shown in the top-right of the dashboard.
+  - [3] 2026-10-28: the first-party catalog text states no credit card is required for the free trial tier and that an API key is generated after sign-in | capture: sha256:6a51456b8d9a4a6eedb9f4ee51145e8233e3f218947291a0c1e7d4aa701b7671 | quote: All models offer a free trial tier with no credit card required. Sign in to generate an API key.
+  - [4] 2026-10-28: the quickstart's key-generation flow starts from an email address | capture: sha256:e7690d7ec8707c75f0e209d65488729317ad7debab73962ffcd1440644592886 | quote: Enter your email ID in the pop-up window, and click Next. By signing up, you will become a member of the Developer Program.
+  - [5] 2026-10-28: a user post of 2026-08-04 on the NVIDIA developer forum reports a phone-number verification step before an API key can be generated (reported, not a vendor statement) | capture: sha256:626af88b226722e9ac7a9f26035d5caefbebc81729a5b23f0590f256e40f7266 | quote: When verifying my phone number (required before API key generation), I first got:
+  - [6] 2026-10-30: the build.nvidia.com phone-verification form, titled 'We'll need to verify your phone number', states a one-time password is required before an API key can be generated | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: Validate your account with a one-time password (OTP). This is required before you can generate an API key with your account.
+  - [7] 2026-10-30: the runtime list otp-unsupported-countries.yaml, which the phone OTP form reads to drop locations from its selector and disable Send Code, names these country codes | capture: sha256:3cb69f68ccd47548f1600ec7d24dbd80c579312490b0a21c1235b1da0618865b | quote: ["AF","BD","BY","CU","IR","KZ","KG","KP","PK","RU","SY","TJ","TZ","UZ"]
+  - [8] 2026-10-30: NVIDIA's pinned post of 2026-02-17 on its developer forum states build.nvidia.com verification has been challenging and points affected users to help@build.nvidia.com; replies report 'exceeded limits' errors | capture: sha256:290138469f7d9ee6200a4ac88226e046204293a6725f0822057ad572101bbb49 | quote: It is no secret that the verification process on build.nvidia.com has been challenging for both the community and NVIDIA.
+  - [6] 2026-10-30: the first step of the OTP form is a phone number verification | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: "enter-phone-number":"We'll need to verify your phone number"
+  - [6] 2026-10-30: the phone OTP form reads its refused-location list from the runtime config otp-unsupported-countries.yaml | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: s=(0,rb.f)("config/otp-unsupported-countries.yaml")
+  - [9] 2026-10-30: the Generate API Key dialog shows the phone OTP form instead of the key generator to an organization owner whose account is not verified | capture: sha256:77cbebc793abb9519e9671676395f9a383d02cd2bf0c24915cae6a0b036a859b | quote: N.isOrgOwner&&E?.user?.verified===!1?(0,t.jsx)(a.f,{handleVerificationSuccess:()=>_(!0),onClose:()=>_(!1),open:P,size:O})
+  - [10] 2026-10-30: the getting-started step 'Create and verify your account' is complete only when the account is verified or is not the organization owner; a blocked account is sent to support | capture: sha256:c43379bc71d4f6c8257007b6bcd7e76cee586b45df49eca67a126b9b4183d8a9 | quote: description:M?"Please contact support to verify your account.":"Create and verify your account to unlock full access to NVIDIA NIM APIs.",isComplete:(n=!!o,a=c.isOrgOwner,s=!!f?.user.verified,r=!!f?.user.blocked,!!n&&!r&&(!!s||!a))
+  - [6] 2026-10-30: the phone form maps an HTTP 429 answer of the OTP endpoint to the 'exceeded limits' error | capture: sha256:c1b74a3000e9d555f3defe6661c21a4d8e9e774bd5aa1c7d7defc4efb13e9754 | quote: 429:"This phone number has exceeded limits, please try a different phone number or try again later."
+  - [11] 2026-10-30: a user post of 2026-07-15 reports Turkey was added to the phone-verification location list, so the refused list changes over time (reported) | capture: sha256:7bc4e375b45f7e15911b9539a9a209366d8cc9af1371b889b8af8854d79cce2d | quote: Turkey has now been added and my verification is complete.
+  - [1] 2026-10-30: the FAQ still states the free tier is rate limited to up to 40 RPM for most models with no per-token billing | capture: sha256:d1111121052fb3d53a300b17c0e4ac89055687721c86b4a98845bb9a5e9d4618 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing. Your personal rate limit is shown in the top-right of the dashboard.
+  - [6] 2026-11-03: the phone form adds a Phone Call channel only when the voice flag c and the attempt counter h (smsAttempts >= 3) are both true | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: h=u>=3,m=(0,q.default)([{value:"sms",children:"SMS"},c&&h&&{value:"voice",children:"Phone Call"}
+  - [12] 2026-11-03: the site's runtime copy file still carries both a per-minute and a per-day figure | capture: sha256:01075318402eebbda76ea97f7be76214d29baf66fe9c57e9eeabd5021adeb818 | quote: {"rateLimits":{"requestsPerMinute":"Up to 40 rpm","requestsPerDay":"10,000 requests per day"
+  - [10] 2026-11-03: the account set-up step is complete for a logged-in, unblocked account that is verified or is not the organization owner | capture: sha256:f202b8842c4de757584f5d8307eb7b09827591ebbe5080bd8e7e74e0c69e6e92 | quote: isComplete:(n=!!o,a=c.isOrgOwner,s=!!f?.user.verified,r=!!f?.user.blocked,!!n&&!r&&(!!s||!a))
+  - [1] 2026-11-03: the FAQ still states up to 40 requests per minute for most models with no per-token billing | capture: sha256:4651c19ddcda438f87fb7b05a360485ba146ff4295c74747caaeebb9fd45eb55 | quote: The free tier runs on rate limits - up to 40 requests per minute (RPM) for most models, with no per-token billing.
+  - [6] 2026-11-03: the Send Code button is disabled only when the number fails the parse and validity functions or its location is on the unsupported list | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: disabled:!!(!((l=r?function(){return ry(ep,arguments)}(r):null)&&function(){return ry(ev,arguments)}(r))||!s||s.includes(l?.country??""))
+  - [6] 2026-11-03: the form's validity function is the libphonenumber isValid check, a numbering-plan test with no VoIP exclusion in the form | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: function ev(){var t=Y(arguments),e=t.text,n=t.options,r=t.metadata,i=eh(e,n=eg(eg({},n),{},{extract:!1}),r);return i&&i.isValid()||!1}
+  - [6] 2026-11-03: each SMS resend from the code-entry step increments the counter that unlocks the Phone Call channel | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: handleSendCode:()=>{"sms"===s&&A(t=>t+1),G()}
+  - [6] 2026-11-03: the phone verification dialog lists unlimited API requests without daily limits as a benefit of verifying | capture: sha256:6d5d865e2f1b12b3ceae5ec70f0c97e8ea897b2b75f97547d2fe688668f94748 | quote: Unlimited API requests without daily limits
+  - [13] 2026-11-03: the runtime flag that gates the Phone Call channel read true on 2026-11-03 | capture: sha256:749484de0eda8cf2b309fa5b1ca8588b19709e4c9d0ef95c1cb163bfe9eeacfc | quote: true
+  - [14] 2026-11-03: the runtime flag that gates the WhatsApp channel read false on 2026-11-03 | capture: sha256:21dbd7dfc1748b53e00452f20f4fd1e0aa58cb5be1a8ae0a46eaf8506d9af6fb | quote: false
+  - [15] 2026-11-03: the runtime flag that gates the WeChat channel read false on 2026-11-03 | capture: sha256:82163331664548df493f0eb120b3fcf34b3e7a0857e3db683921d1e7a5af759a | quote: false
+  - [2] 2026-11-03: the served model page embeds the runtime copy data that names 10,000 requests per day | capture: sha256:278e0a855a351ebca5210e4e38af19fdf5ba8510e4d0ec5067bda20ad7343147 | quote: 10,000 requests per day
+  - [10] 2026-11-03: the dashboard rate-limit chip renders the per-minute key of the copy file only | capture: sha256:f202b8842c4de757584f5d8307eb7b09827591ebbe5080bd8e7e74e0c69e6e92 | quote: rateLimitKey:"requestsPerMinute"
+  - [9] 2026-11-03: the Generate API Key dialog shows the phone form only to an organization owner whose account is unverified | capture: sha256:71d04e62bc7e96b6aa5c54f2411f07d73737423fc3d5ca310322bb3c55d8eaec | quote: N.isOrgOwner&&E?.user?.verified===!1?(0,t.jsx)(a.f,{handleVerificationSuccess:()=>_(!0),onClose:()=>_(!1),open:P,size:O})
+  - [16] 2026-11-03: a user without API permission in the current organization sees an organization-restricted notice in the key dialog | capture: sha256:5b1777a3e72949219638a0acab187bd760a87b2b2b3d1f0acade2620245f0268 | quote: API Access Restricted by your Organization.
+  - [16] 2026-11-03: the restricted notice offers choosing another account or contacting the account admin | capture: sha256:5b1777a3e72949219638a0acab187bd760a87b2b2b3d1f0acade2620245f0268 | quote: Select another account or contact the account admin to request API access.
+  - [17] 2026-11-03: key generation is allowed by a per-organization role check and a not-blocked flag, with no verified test | capture: sha256:2e1ab7a20384b3156656bf4f1bd647bfcfe97526f269ec15a1d5c3afad0763f7 | quote: canGenerateAPIKey:c(r.I)&&!u?.blocked
+  - [7] 2026-11-03: the unsupported-location list read names the same 14 country codes | capture: sha256:59915a70806da7873b6a45b3862a3326d6d78cb0d189092bcb407ef3eb208825 | quote: ["AF","BD","BY","CU","IR","KZ","KG","KP","PK","RU","SY","TJ","TZ","UZ"]
+  - [18] 2026-11-03: a user post of 2026-03-25 reports a Google Voice number was not accepted by the phone form (reported; no vendor answer on the page) | capture: sha256:9292384e461bcb2e1e54643bdf934079ac55ccb0154605fee6b15bb90b38a2bb | quote: my Google Voice number is not accepted during phone verification
+  - [19] 2026-11-03: a user post of 2026-03-18 reports the OTP generate call passes an edge reputation service before the SMS is sent (reported) | capture: sha256:fa8ef74ec09ad1f653ff1fc5f6360c1cda5219f43ae742cf987edb493c530e3d | quote: Network inspection reveals the block originates at the edge reputation service
+  - [20] 2026-11-03: a reseller of SMS numbers claims virtual numbers are mostly rejected, with no method published (reported, commercial source) | capture: sha256:6518c6dfcdd918949ae1cbba43ebdcd83bf4aa4e44e60bbf0ee2d7372404c4a9 | quote: Virtual/VoIP number acceptance:~6% (rejected on sight)
+  - [21] 2026-11-03: a third-party write-up claims the key-creation API call returned a key for an owner account without a phone check (reported, not reproduced) | capture: sha256:d3f847dedf396474c4f4ad9f83a4e1e3183d2ebf308317ee80528f15fc065c11 | quote: But the API endpoint that actually creates the key does not check your phone number.
+  - [22] 2026-11-03: a user post of 2026-07-11 reports the API Keys page message shown to an account without the organization's API key permission (reported) | capture: sha256:c69adc6b6f06ad59d241334fe98ee81fa6776877bcff4873c09fea387d7f1f28 | quote: You do not have permissions to create API Keys in this Organization. Switch Orgs or contact your admin.
+  - [3] 2026-11-18: first-party base URL and bearer auth scheme for the NVIDIA build trial | capture: sha256:6a51456b8d9a4a6eedb9f4ee51145e8233e3f218947291a0c1e7d4aa701b7671 | quote: - Base URL: `https://integrate.api.nvidia.com/v1` - Auth: Bearer token via `Authorization: Bearer $NVIDIA_API_KEY` - API Key: Generate one at https://build.nvidia.com/settings
+  - [23] 2026-11-18: generated first-party OpenAPI reference names the POST route, server URL and bearer-only auth | capture: sha256:d20b79c8fe75d5846a74b2e060efbd072660bf1abc4a3a4ce8b9ee94325a1c2a | quote: - POST `https://integrate.api.nvidia.com/v1/chat/completions` Server definitions: ```json [ { "url": "https://integrate.api.nvidia.com/v1/" } ] ``` #### Token ```json { "type": "http", "scheme": "bearer" } ```
+  - [3] 2026-11-18: OpenAI Chat Completions compatibility and SDK base-URL usage | capture: sha256:6a51456b8d9a4a6eedb9f4ee51145e8233e3f218947291a0c1e7d4aa701b7671 | quote: All NIM model endpoints at `integrate.api.nvidia.com/v1` implement the OpenAI Chat Completions API. Point an existing OpenAI SDK client at `https://integrate.api.nvidia.com/v1` and set the model name.
+  - probe:https://integrate.api.nvidia.com/v1/chat/completions 2026-11-18: a keyless POST to https://integrate.api.nvidia.com/v1/chat/completions for deepseek-ai/deepseek-v4.1-flash returned HTTP 410 with body {'type':'about:blank','title':'Gone','status':410,'detail':'The model 'deepseek-ai/deepseek-v4.1-flash' has re and no completion in 340 ms Probe start 2026-11-18T05:26:15.207Z. | capture: sha256:11c95cefac7ab1338c41d20b0a951bec244b2cf4c8a0b5655135946d68751027 | quote: a keyless POST to https://integrate.api.nvidia.com/v1/chat/completions for deepseek-ai/deepseek-v4.1-flash returned HTTP 410 with body {'type':'about:blank','title':'Gone','status':410,'detail':'The model 'deepseek-ai/deepseek-v4.1-flash' has re and no completion in 340 ms
+  - probe:https://integrate.api.nvidia.com/v1/chat/completions 2026-11-18: a keyless POST to https://integrate.api.nvidia.com/v1/chat/completions for deepseek-ai/deepseek-v4.1-flash returned HTTP 410 with body {'type':'about:blank','title':'Gone','status':410,'detail':'The model 'deepseek-ai/deepseek-v4.1-flash' has re and no completion in 287 ms Probe start 2026-11-18T05:36:06.124Z. | capture: sha256:0972607784e4170db689d901836a407567491d5ac45163c9fe378b40b2a57d66 | quote: a keyless POST to https://integrate.api.nvidia.com/v1/chat/completions for deepseek-ai/deepseek-v4.1-flash returned HTTP 410 with body {'type':'about:blank','title':'Gone','status':410,'detail':'The model 'deepseek-ai/deepseek-v4.1-flash' has re and no completion in 287 ms
+- sources:
+  - [1] https://build.nvidia.com/search
+  - [2] https://build.nvidia.com/deepseek-ai/deepseek-v4.1-flash
+  - [3] https://build.nvidia.com/llms.txt
+  - [4] https://docs.api.nvidia.com/nim/docs/api-quickstart
+  - [5] https://forums.developer.nvidia.com/t/phone-verification-fails-invalid-number-then-exceeded-limits-blocked-from-generating-api-key-on-build-nvidia-com/379084
+  - [6] https://build.nvidia.com/_next/static/chunks/30k3_pgjfqlvh.js
+  - [7] https://build.nvidia.com/api/runtime/config/otp-unsupported-countries.yaml
+  - [8] https://forums.developer.nvidia.com/t/account-access-verification-update/360900
+  - [9] https://build.nvidia.com/_next/static/chunks/0bz4psqrhk1gy.js
+  - [10] https://build.nvidia.com/_next/static/chunks/1_3acgk-ajkbl.js
+  - [11] https://forums.developer.nvidia.com/t/turkey-90-is-not-available-for-phone-verification-on-build-nvidia-com/376099
+  - [12] https://build.nvidia.com/api/runtime/content/copy.yaml
+  - [13] https://build.nvidia.com/api/runtime/killswitches/otp/phone.enabled
+  - [14] https://build.nvidia.com/api/runtime/killswitches/otp/whatsapp.enabled
+  - [15] https://build.nvidia.com/api/runtime/killswitches/otp/wechat.enabled
+  - [16] https://build.nvidia.com/_next/static/chunks/2xv_0hdneb8vt.js
+  - [17] https://build.nvidia.com/_next/static/chunks/2ifqamf77-4t0.js
+  - [18] https://forums.developer.nvidia.com/t/google-voice-number-not-accepted-for-nvidia-verification-api-key-issue/364746
+  - [19] https://forums.developer.nvidia.com/t/phone-verification-blocked-on-first-attempt-edge-local-rate-limited-backend-429-while-sms-success/363923
+  - [20] https://gotsms.org/en/check/nvidia
+  - [21] https://dev.to/alaminnna/how-i-bypassed-nvidias-phone-verification-to-access-70-free-ai-models-from-bangladesh-24l0
+  - [22] https://forums.developer.nvidia.com/t/not-able-to-generate-apikeys/376584
+  - [23] https://build.nvidia.com/qc69jvmznzxy/deepseek-v4.1-flash/apireference.md
+
+## NVIDIA Academic Grant
+
+- `compute/nvidia-academic-grant` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-11-25T15:03:44.119Z (live) | stale on 2026-12-26
+- url https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/
+- free tier: Resources available: 2 NVIDIA DGX™ Sparks and up to 30,000 NVIDIA H100 80 GB hours. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: one-time-credit
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution
+- interface: unknown
+- limits:
+  - write-gated (binding): a four-page proposal reviewed by an awards panel, gated on full-time faculty status at a PhD-granting institution, so an unaffiliated applicant fails before the proposal is read. [1]
+- limits note: a four-page proposal reviewed by an awards panel, gated on full-time faculty status at a PhD-granting institution, so an unaffiliated applicant fails before the proposal is read.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The DGX Spark is shipped hardware rather than a hosted slice, so it does not compose with a cloud allowance; the H100 hours are consumed on NVIDIA's side and cannot be redirected to another vendor.
+- reliability: no reliability event recorded
+- notes: Two failure modes stacked, and documented records should record both because they decay differently. The permanent one is the faculty gate: postdocs and graduate students must route through a full-time faculty member, and there is no independent-researcher lane. The transient one is the closed portal: the vendor page says not accepting, a third-party portal page says 'Application Halted', and a June 2026 forum thread shows the 30 June round closing early. Worth re-checking each quarter rather than marking dead, because NVIDIA has run this as a rolling quarterly call and an award is USD-equivalent to roughly 30,000 H100-hours. A second variant circulates through university research offices quoting '32,000 A100 40GB hours' and 'one DGX Spark' for other interest areas, which is the same program with a different resource line per call for proposals.
+- extras:
+  - facets.class: research-credit
+  - facets.free_tier_kind: one-time-credit
+  - facets.shape.gpu_class: H100 80GB
+  - facets.shape.gpu_count: 8
+- evidence:
+  - [2] 2026-10-22: the AI Inference, Agents, and Systems Software call for proposals: 'Up to 30,000 H100 80 GB hours or equivalent (max. of eight concurrent GPUs)', 'GPU hours provided to the PI will expire six months after the award', 'Full-time faculty at accredited academic institutions that award research degrees to Ph.D. students are eligible. Postdocs and graduate students must work with a full-time faculty member to submit on their behalf', quoted; PDF 4 pages, 200
+  - [1] 2026-10-22: 'While our Academic Grant Program is currently not accepting new applications, we remain committed to supporting the research community', quoted; and the requirements block repeats the full-time faculty condition
+  - [3] 2026-10-22: the program's own portal page is titled 'Application Halted' and reads 'The NVIDIA Academic Grant Program is not accepting new applications at this time.', per search snippet
+  - [4] 2026-06-30: an NVIDIA staff reply on the developer forum: 'I just checked with the team, and unfortunately we are currently not accepting new applications', after a submitter found the 30 June 2026 portal closed at 09:50 EDT
+  - [1] 2026-11-25: the vendor program page states the AI Inference, Agents, and Systems Software call's available resources: two DGX Sparks and up to 30,000 H100 80 GB hours | capture: sha256:4f8edd15ed565b0786f4680ccb95a8b5f6010e17a7c18bbe7e3acb6183ec9b0c | quote: Resources available: 2 NVIDIA DGX™ Sparks and up to 30,000 NVIDIA H100 80 GB hours.
+  - [1] 2026-11-25: the vendor program page restates the two DGX Sparks and up to 30,000 H100 80 GB hours available under the call | capture: sha256:4f8edd15ed565b0786f4680ccb95a8b5f6010e17a7c18bbe7e3acb6183ec9b0c | quote: Resources available: 2 NVIDIA DGX™ Sparks and up to 30,000 NVIDIA H100 80 GB hours.
+- sources:
+  - [1] https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/
+  - [2] https://dam-cdn.nvd.orangelogic.com/AssetLink/drvk2c5agrv0s0myqncgl63l4f8lc550.pdf
+  - [3] https://academicgrants.nvidia.com/academicgrantprogram/s/application-decision
+  - [4] https://forums.developer.nvidia.com/t/academic-research-grant-portal-closed-early/374990
+
+## NVIDIA DGX Cloud
+
+- `compute/nvidia-dgx-cloud` | fails-identity | evidence documented | binding write-gated | category GPU cloud
+- needs card no, phone no, ID no, institution yes | verified 2026-11-25T15:03:44.120Z (live) | stale on 2026-12-26
+- url https://docs.nvidia.com/dgx-cloud/lepton/get-started/workspace/index.html
+- free tier: As DGX Cloud Lepton is still in early access, the workspace needs to be activated after it is created. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: none-self-serve
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: a business relationship is the gate: workspace activation is a manual review by an NVIDIA technical account manager. "Contact your TAM to activate your Workspace. TAM will review your request and contact you.". and the USD 100,000 credit lane is limited to "eligible portfolio companies" of Accel, Elaia, Partech and Sofinnova Partners. No card, phone, hold or identity document is stated, and an aggregator's "no credit card, no approval" claim is contradicted by the vendor documentation
+- interface: unknown
+- limits:
+  - write-gated (binding): workspace activation is a manual review by an NVIDIA technical account manager, and the USD 100,000 credit lane is limited to named VC portfolios. [1]
+- limits note: workspace activation is a manual review by an NVIDIA technical account manager, and the USD 100,000 credit lane is limited to named VC portfolios.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: The credits compose with nothing for an individual: they are portfolio-gated. A developer who does hold an NVIDIA cloud partner relationship can rent from the Lepton marketplace, which is a normal paid GPU rental.
+- reliability: no reliability event recorded
+- notes: NVIDIA DGX Cloud requires sales-led Technical Account Manager (TAM) review; self-serve instant access tiers from earlier Lepton AI offerings have been superseded by managed enterprise onboarding.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: none-self-serve
+- evidence:
+  - [1] 2026-10-22: 'Contact your TAM to activate your Workspace. TAM will review your request and contact you.', quoted from the workspace activation section
+  - [2] 2026-10-22: 'up to $100,000 in GPU capacity credits' offered 'to eligible portfolio companies' of Accel, Elaia, Partech and Sofinnova Partners
+  - [3] 2026-10-22: a credit aggregator claims a free Basic plan with 'up to 48 CPUs + 2 GPUs concurrently' and 'Instant Signup and get credits instantly - no credit card, no approval'; the claim is not supported by NVIDIA's documentation, which requires TAM activation
+  - [1] 2026-11-25: the product documentation states that a DGX Cloud Lepton workspace requires activation because the product is in early access | capture: sha256:898670c34df53cb42dcbee7336c4886eb8d631258ca61c3f2341da23ab7de06a | quote: As DGX Cloud Lepton is still in early access, the workspace needs to be activated after it is created.
+  - [1] 2026-11-25: the product documentation restates the early-access workspace activation requirement | capture: sha256:898670c34df53cb42dcbee7336c4886eb8d631258ca61c3f2341da23ab7de06a | quote: As DGX Cloud Lepton is still in early access, the workspace needs to be activated after it is created.
+- sources:
+  - [1] https://docs.nvidia.com/dgx-cloud/lepton/get-started/workspace/index.html
+  - [2] https://investor.nvidia.com/news/press-release-details/2025/NVIDIA-DGX-Cloud-Lepton-Connects-Europes-Developers-to-Global-NVIDIA-Compute-Ecosystem/default.aspx
+  - [3] https://aicredits.dev/submissions/45-lepton-ai-nvidia-dgx-cloud-lepton-free-plan
+
+## NVIDIA DSX Air
+
+- `compute/nvidia-dsx-air` | fails-identity | evidence reported | binding retention-clamped | category cloud VM
+- needs card unknown, phone unknown, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-06
+- url https://docs.nvidia.com/networking-ethernet-software/nvidia-air-v2/Account-Setup/
+- free tier: as indexed from the account-setup page: a free trial with 60 concurrent vCPUs, 60 GiB concurrent memory, 10,000 compute-hour credits and a 1 year duration, restricted to NGC organization owners, and the page states that a business email address is required and that personal addresses such as gmail.com are not accepted. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-credit
+- per-object cap: not applicable | source: [1]
+- retention: the trial must be started by an NGC organization owner behind a non-public domain mailbox, and a trial machine sleep date can be pushed at most 72 hours at a time, so 10,000 compute hours are reachable only by an operator who re-arms a calendar every three days. | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: institution, in the form of a business mailbox: the account-setup page states a business email address is required and that personal addresses such as gmail.com are not accepted, and the trial must be started by an NGC organization owner. A forum report adds that public-suffix addresses such as QQ, Gmail and Outlook are rejected and that a domain mailbox was accepted at signup. No card, hold, phone number or ID document is stated in any evidence row: unknown. The page was read through the search index, not first-party.
+- interface: unknown
+- limits:
+  - retention-clamped (binding): the trial must be started by an NGC organization owner behind a non-public domain mailbox, and a trial machine sleep date can be pushed at most 72 hours at a time, so 10,000 compute hours are reachable only by an operator who re-arms a calendar every three days. [1]
+- limits note: the trial must be started by an NGC organization owner behind a non-public domain mailbox, and a trial machine sleep date can be pushed at most 72 hours at a time, so 10,000 compute hours are reachable only by an operator who re-arms a calendar every three days.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: 60 vCPU and 60 GiB concurrent with 10,000 compute hours is the largest single free CPU allowance found in among documented hosts, and it composes with a domain: a custom-domain mailbox is the price of entry, which the domains topic already prices.
+- reliability: no reliability event recorded
+- notes: Two independent forum reports disagree on whether the sleep window is 72 hours or 24. DSX Air is a data-centre simulation product, so the machines are network simulators and not a general build host; that is a tooling note and not a rejection. The business-email gate is the finding: this is another institution-shaped free allowance with a five-figure compute-hour number beside it.
+- extras:
+  - facets.class: vendor-trial
+  - facets.free_tier_kind: trial-credit
+  - facets.shape.vcpu: 60
+  - facets.shape.ram_gib: 60
+  - facets.shape.gpu_count: 0
+- evidence:
+  - [1] 2026-10-22: the search index of this page carries the trial table of 60 vCPU, 60 GiB, 10,000 compute hours, 1 year, and the sentence that personal email addresses such as gmail.com are not accepted
+  - [2] 2026-05-21: reported, translated: a domain mailbox is required and public-suffix addresses such as QQ, Gmail and Outlook are rejected; the machine needs re-arming every 3 days; 10,000 hours is about 416 days of one vCPU
+  - [3] 2026-05-19: forum thread titled around using Nvidia's 60c60g machine for free for a year confirms the shape and that a domain mailbox was accepted at signup
+  - [4] 2026-05-20: counter-report, translated: no stock was available; the token expires immediately; login and machines must be raced for; and a later reply says the machine now sleeps automatically every 24 hours, which contradicts the 72 hour figure
+- sources:
+  - [1] https://docs.nvidia.com/networking-ethernet-software/nvidia-air-v2/Account-Setup/
+  - [2] https://lewuxian.com/17288/
+  - [3] https://www.nodeloc.com/t/topic/85975
+  - [4] https://www.nodeseek.com/post-738507-1
+
+## NVIDIA Inception
+
+- `compute/nvidia-inception` | fails-identity | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution yes | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://programs.nvidia.com/phoenix/application
+- free tier: A free program with no application fees, deadlines or cohorts. Members get developer tools and training, preferred pricing on NVIDIA hardware and software, and 'access to free cloud credits from NVIDIA and partners'. Minimum requirements state the company must be officially incorporated and less than 10 years old. Solo founders with no other employees may apply. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: membership-perks
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: institution | detail: Explicitly requires the company to be 'officially incorporated', a working website, a business email on a non-generic domain (gmail.com and info@ aliases refused), and two named contacts, with a carve-out that solo founders may apply. The incorporation requirement is the binding term and is not waived for solo founders.
+- interface: unknown
+- limits:
+  - write-gated (binding): The incorporation requirement fails first, so the member-only cloud credits and preferred hardware pricing are unreachable without a legal entity; the credit amount itself is not published. [1]
+- limits note: The incorporation requirement fails first, so the member-only cloud credits and preferred hardware pricing are unreachable without a legal entity; the credit amount itself is not published.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Inception is the front door to the partner credit offers rather than a credit in itself, and the published partner credit found here, Lambda, is USD 1,000 and also demands incorporation. The chain is short and every link needs a company.
+- reliability: no reliability event recorded
+- notes: Membership is free and the partner credits are the actual value, but no dollar figure is published for the NVIDIA-side cloud credits at all, so the amount is null rather than guessed. This is the refutation of the GPU-vendor startup path: the program that gates every partner credit requires a legal entity.
+- extras:
+  - facets.class: startup-credit
+  - facets.free_tier_kind: membership-perks
+- evidence:
+  - [1] 2026-10-22: qualification requires the company to be 'officially incorporated', less than 10 years old, with a working website and a non-generic business email, quoted
+  - [1] 2026-10-22: 'Solo founders with no other employees may also apply' alongside the incorporation requirement, quoted
+  - [2] 2026-10-22: benefits include 'Access free cloud credits from NVIDIA and partners', with no amount, tier or expiry published, quoted
+- sources:
+  - [1] https://programs.nvidia.com/phoenix/application
+  - [2] https://www.nvidia.com/en-us/startups/
+
+## NVIDIA LaunchPad
+
+- `compute/nvidia-launchpad` | dead | evidence documented | binding write-gated | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-10-22 (live) | stale on 2026-11-22
+- url https://www.nvidia.com/en-us/launchpad/
+- free tier: Withdrawn. The 2024-02-29 capture states 'NVIDIA LaunchPad provides free access to enterprise NVIDIA hardware and software through an internet browser' and 'Try up to $20,000 (cloud-equivalent) of accelerated compute infrastructure for free'. On 2026-10-22 the URL redirects to build.nvidia.com/explore/discover, an NVIDIA moderator wrote on 2025-11-24 that 'the lab has been discontinued and not just redirect folks over to build.nvidia.com', and the lab host dx.nvidialaunchpad.com now serves 'Your environment is no longer active'. | unit: none | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: guided-lab-access
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email
+- interface: unknown
+- limits:
+  - write-gated (binding): access was never automatic: each lab needed a submitted application and a manual approval before the environment was provisioned. [1]
+- limits note: access was never automatic: each lab needed a submitted application and a manual approval before the environment was provisioned.
+- binding note: the same as limits note
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: not stated
+- composes with: Nothing chains now. The successor is build.nvidia.com, whose free tier is a request-rate allowance on hosted inference and carries no accelerator of its own.
+- reliability: no reliability event recorded
+- notes: NVIDIA Launchpad previously provided cloud-equivalent accelerator capacity of up to USD 20,000, but the program has been discontinued and dx.nvidialaunchpad.com reports the environment inactive.
+- extras:
+  - facets.class: refutation
+  - facets.free_tier_kind: guided-lab-access
+- evidence:
+  - [2] 2026-10-22: archived 2024-02-29 capture of the LaunchPad page carrying 'Try up to $20,000 (cloud-equivalent) of accelerated compute infrastructure for free' and the four-step 'Choose a Lab / Fill in the Application Form / Wait for Approval / Take Additional Labs' workflow
+  - [3] 2026-10-22: NVIDIA staff reply dated Nov 24 2025: 'The Morpheus product page needs to be updated to reflect that the lab has been discontinued and not just redirect folks over to build.nvidia.com.'
+  - [1] 2026-10-22: 
+  - [4] 2026-10-22: the lab host serves 'NVIDIA Developer Experience / Your environment is no longer active'
+- sources:
+  - [1] https://www.nvidia.com/en-us/launchpad/
+  - [2] https://web.archive.org/web/20240229143632/https://www.nvidia.com/en-us/launchpad/?provider=wayback
+  - [3] https://forums.developer.nvidia.com/t/morpheus-ai-and-launchpad/352493
+  - [4] https://dx.nvidialaunchpad.com/
+
+## nvidia ngc catalog
+
+- `storage/nvidia-ngc-catalog` | dead | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:15:05.885Z (live) | stale on 2026-12-04
+- url https://catalog.ngc.nvidia.com/
+- free tier: none reachable: Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and… | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: dead-service
+  - dead_end.why: Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and…
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and…
+  - [2] 2026-10-21: cited as the basis of the rejection: Curated by NVIDIA, not user-writable: containers, models and Helm charts published by NVIDIA and partners. api.ngc.nvidia.com is an authenticated pull path (404/401 unauthenticated), and the
+  - [1] 2026-11-19: NGC is a curated distribution catalog of containers, models and Helm charts, not user-writable storage | capture: sha256:c51e5d3219de8715ebdd4eb89a9d34907b368d0bd36547c2e6c2fa81d381cdb0 | quote: All you need to build AI—GPU-optimized containers, pretrained models, SDKs, and Helm charts—unified in one catalog
+- sources:
+  - [1] https://catalog.ngc.nvidia.com/
+  - [2] https://api.ngc.nvidia.com/v2/models/nvidia/clip/versions

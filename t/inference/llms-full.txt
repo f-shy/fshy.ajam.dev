@@ -1,0 +1,18 @@
+# fshy: Inference in full
+
+> Model APIs that answer a completion request, keyless or behind a free key.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 1,193 KB, about 322K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 2](https://fshy.ajam.dev/t/inference/llms-full-usable-1.txt): 48 records, Augure (qualifies) to Kilo Gateway (qualifies-with-caveat); 224 KB, about 61K tokens
+- [Usable part 2 of 2](https://fshy.ajam.dev/t/inference/llms-full-usable-2.txt): 52 records, Liquid Inference (qualifies-with-caveat) to Zro (qualifies-with-caveat); 215 KB, about 58K tokens
+- [Trial](https://fshy.ajam.dev/t/inference/llms-full-trial.txt): 60 records; 289 KB, about 78K tokens
+- [Paid only part 1 of 2](https://fshy.ajam.dev/t/inference/llms-full-paid-1.txt): 79 records, 302.AI (paid-only) to Leonardo.Ai (paid-only); 178 KB, about 48K tokens
+- [Paid only part 2 of 2](https://fshy.ajam.dev/t/inference/llms-full-paid-2.txt): 90 records, LibreTranslate hosted (libretranslate.com) (paid-only) to ZeroGPU (paid-only); 174 KB, about 47K tokens
+- [Rejected](https://fshy.ajam.dev/t/inference/llms-full-rejected.txt): 18 records; 62 KB, about 17K tokens
+- [Dead](https://fshy.ajam.dev/t/inference/llms-full-dead.txt): 13 records; 46 KB, about 13K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/inference/llms-full-self-hosted.txt): 5 records; 9 KB, about 2K tokens

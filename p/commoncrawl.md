@@ -1,0 +1,143 @@
+# Common Crawl
+
+> commoncrawl.org | Crawling, Storage; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/commoncrawl/ | JSON https://fshy.ajam.dev/api/v1/entity/commoncrawl.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Common Crawl
+
+- `crawler-scraper/commoncrawl` | qualifies-with-caveat | evidence measured | binding request-rate | category archive
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T05:30:27.069Z (live) | stale on 2027-01-04
+- url https://commoncrawl.org/
+- free tier: keyless index and WARC access | unit: requests | metered on: request-count | read on: 2026-10-22 | source: [1]
+- per-object cap: not applicable: the unit is a WARC record | source: [1]
+- retention: one index per crawl, all still listed: collinfo.json names 129 crawl indexes, from CC-MAIN-2008-2009 to CC-MAIN-2026-43 | source: [2]
+- egress: No charge and no account for HTTPS downloads of the data and index files from data.commoncrawl.org. | metered: no | source: [1]
+- identity: anonymous | detail: keyless
+- interface: rest
+- limits:
+  - request-rate (binding): at most 1 request a second (HTTP level) on index.commoncrawl.org: the rate a Common Crawl engineer asked index callers to keep to on the Common Crawl user forum in April 2023 [3]
+  - request-rate (binding): no concurrent requests from one IP address on the CDXJ API: callers are asked to sleep between calls, not to run multiple threads at once on the same IP and not to use proxy networks; an HTTP 503 answer means the acceptable request rate is exceeded [4]
+  - request-rate (binding): the CDXJ API on index.commoncrawl.org is heavily rate limited; an IP address that sends too many requests may be blocked, and a blocked IP address should wait 24 hours [4]
+- interface detail: Index API per crawl on index.commoncrawl.org; WARC files on data.commoncrawl.org
+- tooling: Any HTTP client: a CDXJ lookup on index.commoncrawl.org returns a WARC filename, offset and length, and a byte-range GET on data.commoncrawl.org returns that one record.
+- composes with: A CDXJ lookup on index.commoncrawl.org names the WARC file, offset and length of a stored capture and one byte-range GET on data.commoncrawl.org reads it, so a page Common Crawl captured is read from the crawl copy when a live fetch fails; for broad or large-scale URL filtering Common Crawl points callers to its URL Index (formerly the Columnar Index) through Amazon Athena or Apache Spark instead of the CDXJ API
+- reliability: The CDXJ index is intermittent: on 2026-10-30 the same lookup answered 504 Gateway Time-out from nginx after 11.0 s and 200 after 9.1 s, while a WARC byte-range read on data.commoncrawl.org answered 206 in 0.7 s.
+- notes: Degraded, not dead: on 2026-10-30 the CDXJ index answered 504 and 200 to the same lookup within minutes, while the WARC files on data.commoncrawl.org answered at once. One offer with storage/common-crawl, which reads the same corpus as storage.
+- evidence:
+  - [5] 2026-10-22: 504 Gateway Time-out after 11.3 s from nginx: the index did not answer
+  - withheld 2026-10-22: state failing, 9 consecutive probe timeouts, the only provider not ok
+  - probe:https://index.commoncrawl.org/CC-MAIN-2026-43-index?url=wikipedia.org&output=json&limit=1 2026-10-30: the CDXJ lookup answered 200 after 9.1 s with no key | capture: sha256:cdf99b6983e5ed4af67d1e02e05b9617152498aee0d3d05458a01fc04dac1139 | quote: "elapsed_ms": 9101.5
+  - probe:https://index.commoncrawl.org/CC-MAIN-2026-43-index?url=wikipedia.org&output=json&limit=1 2026-10-30: the same CDXJ lookup answered 504 Gateway Time-out from nginx after 11.0 s, minutes before the 200 | capture: sha256:e52ddd1e86b2a670851fd33b6eb0841152bf9c9c189b259fb88e95f6b6411420 | quote: "status": 504
+  - probe:https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/segments/1791170053823.21/warc/CC-MAIN-20261005105623-20261005135623-00993.warc.gz 2026-10-30: an anonymous byte-range GET on data.commoncrawl.org returned the one WARC record the index named (206) | capture: sha256:72f6da208a9a3a417c5c03d2933225a8bb0fcc05ca90649838c39eb3e9520b1f | quote: "content_range": "bytes 937296400-937320567/958726164"
+  - probe:https://index.commoncrawl.org/CC-MAIN-2026-43-index?url=example.com&output=json&limit=1 2026-10-30: a second CDXJ lookup on the October 2026 index answered 504 Gateway Time-out | capture: sha256:eb96ce4ec2b1b5024c01245586a0465200b5826a2172b268544712b16944488c | quote: "status": 504
+  - probe:https://index.commoncrawl.org/collinfo.json 2026-10-30: collinfo.json lists one index per crawl, back to the 2008-2009 ARC crawl; the body has 129 entries | capture: sha256:a683312f4448cdda63b38f40c7289853fa82eb1e7e3cd5a3674e46142b01891a | quote: "id": "CC-MAIN-2008-2009"
+  - probe:https://index.commoncrawl.org/CC-MAIN-2026-43-index?url=wikipedia.org&output=json&limit=1 2026-10-30: the index answer names the WARC filename, offset and length of the capture | capture: sha256:a7e2ae3a76bf30b4972c716e32b6f3c5bdc685e560c44334905c3f37e1c9cdd8 | quote: "offset": "937296400"
+  - [6] 2026-10-30:  | capture: sha256:7ff7835462eec34c002d6da07b91f1a3798465091a93f407303955d644ce79bf | quote: All data and index files are free to download.
+  - [7] 2026-10-30: HTTPS downloads from data.commoncrawl.org need no account | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: There is no need to create an AWS account in order to access the data using this method.
+  - [4] 2026-10-30: a blocked IP address should wait 24 hours | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: If your IP is temporarily blocked, please wait 24 hours before trying again.
+  - [4] 2026-10-30: the CDXJ index is heavily rate limited and blocks an IP address that sends too many requests | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: Our CDX API endpoint is frequently abused and therefore heavily rate limited. If your client sends too many requests in a short period of time, your IP address may be temporarily blocked.
+  - [8] 2026-10-30: the index rate limits are strict | capture: sha256:416b7747fbea2e6bec5566970056be621e9bf9cfdebe8d73d6f69dea95990475 | quote: Please be aware, `index.commoncrawl.org` is rate-limited, and those limits are strict.
+  - [3] 2026-10-30: a Common Crawl engineer asked index users to stay at or below 1 request a second (forum, 2023) | capture: sha256:00f7c09509cc998d20cbd7370992a850dcecd192518dd55a6695b28cab663616 | quote: reduce the request rate to max. 1 request per second (on HTTP level).
+  - [9] 2026-10-30: the 2023 performance post asks small-request callers to stay below 10 requests a second | capture: sha256:536be8f1769d1477a7b3618e294584068b09b804852b884020115c8a058f4add | quote: If you’re sending small requests for index information or single webpages contained in WARC files, we can handle a few thousand requests per second total for everyone combined, so you’ll want to stay below 10 per second
+  - probe:https://index.commoncrawl.org/collinfo.json 2026-10-31: collinfo.json lists one CDXJ index per crawl, back to CC-MAIN-2008-2009; the body has 129 entries, the newest CC-MAIN-2026-43 | capture: sha256:a683312f4448cdda63b38f40c7289853fa82eb1e7e3cd5a3674e46142b01891a | quote: "id": "CC-MAIN-2008-2009"
+  - probe:https://groups.google.com/g/common-crawl/c/d7ftvUSuGYI 2026-10-31: a Common Crawl engineer asked index callers on the Common Crawl user forum (April 2023) to keep to at most 1 request a second | capture: sha256:ad05e0640adfef35a6bf073ca54fd37649f7e5735f44abe1dd00a2933111e2f3 | quote: reduce the request rate to max. 1 request per second (on HTTP level).
+  - probe:https://commoncrawl.org/team 2026-10-31: Sebastian Nagel, the author of the April 2023 forum post, is on the Common Crawl team as Distinguished Engineer | capture: sha256:2fe717a7b57d1ff846b91d34c9ab55c87a52e9351b4fb0a6e6e40267f4f0f70d | quote: Sebastian Nagel Distinguished Engineer
+  - probe:https://commoncrawl.org/faq 2026-10-31: the CDXJ API is to be called with a pause between calls, no parallel threads from one IP address and no proxy networks | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: Please sleep between calls to our API (including if you run your script repeatedly in a loop), don't run multiple threads at once on the same IP, and don't use proxy networks.
+  - probe:https://commoncrawl.org/faq 2026-10-31: an HTTP 503 from the CDXJ API means the caller exceeded the acceptable request rate | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: If you receive HTTP 503 responses, please slow down your request rate. These are a sign you've exceeded the acceptable request rate.
+  - probe:https://commoncrawl.org/faq 2026-10-31: Common Crawl points broad or large-scale URL filtering to its URL Index, through Amazon Athena or Apache Spark, instead of the CDXJ API | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: You may wish to use our URL Index (previously called the "Columnar Index") via Amazon Athena or Apache Spark if your query involves broad or large-scale filtering.
+  - probe:https://index.commoncrawl.org/ 2026-10-31: the index server page sends bulk filtering to the Columnar Index | capture: sha256:7beb65c8ff3f5ed6b0744426593bfae7f2d6640bb8927ef79ac0a07839fe4c8c | quote: The Columnar Index is a better fit for bulk filtering and aggregation.
+  - probe:https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/segments/1791170053823.21/warc/CC-MAIN-20261005105623-20261005135623-00993.warc.gz 2026-10-31: an anonymous byte-range GET on data.commoncrawl.org answered 206; the October 2026 WARC file is 958726164 bytes | capture: sha256:0daf334f2fba907a2ee686736b3c76857b68fd5fa6af726c41999143076744d4 | quote: "content_range": "bytes 0-1023/958726164"
+  - probe:https://commoncrawl.org/get-started 2026-10-31: HTTPS downloads from data.commoncrawl.org need no account | capture: sha256:25e9bc50af15ca0235cbc0fad6a7fe9463e3bcf37b9233e78236f9ca6578ba7a | quote: There is no need to create an AWS account in order to access the data using this method.
+  - probe:https://index.commoncrawl.org/CC-MAIN-2026-43-index?url=wikipedia.org&output=json&limit=1 2026-10-31: a keyless CDXJ lookup answered 200 on 2026-10-31 with the WARC filename, offset and length of the capture | capture: sha256:a7e2ae3a76bf30b4972c716e32b6f3c5bdc685e560c44334905c3f37e1c9cdd8 | quote: "length": "24168", "offset": "937296400"
+  - [7] 2026-11-04: HTTPS downloads from data.commoncrawl.org need no account, so the free read path is anonymous | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: There is no need to create an AWS account in order to access the data using this method.
+- sources:
+  - [1] https://commoncrawl.org/
+  - [2] https://index.commoncrawl.org/collinfo.json
+  - [3] https://groups.google.com/g/common-crawl/c/d7ftvUSuGYI
+  - [4] https://commoncrawl.org/faq
+  - [5] https://index.commoncrawl.org/CC-MAIN-2026-38-index?url=example.com&output=json&limit=1
+  - [6] https://index.commoncrawl.org/
+  - [7] https://commoncrawl.org/get-started
+  - [8] https://commoncrawl.org/blog/you-can-now-build-directly-on-common-crawl-from-the-browser
+  - [9] https://commoncrawl.org/blog/oct-nov-2023-performance-issues
+
+## Common Crawl (the petabyte corpus — read side only)
+
+- `storage/common-crawl` | fails-quota | evidence measured | binding request-rate | category academic
+- identity a placeholder: card and phone unknown | verified 2026-11-04T05:30:27.067Z, checked 2026-10-21 (inherited) | stale on 2026-12-06
+- url https://commoncrawl.org/get-started
+- duplicate of `crawler-scraper/commoncrawl`
+- free tier: Read-only corpus, free to download over HTTPS with no account; the October 2026 crawl alone is 2.16 billion pages, 109.20 TiB compressed. It holds Common Crawl's own crawls and takes no user data. | unit: mixed | metered on: unstated | read on: 2026-10-30 | source: [1]
+- per-object cap: not applicable: the bucket stores no user objects; a read is a whole Common Crawl WARC file (958726164 bytes for one October 2026 file) or a byte range of one | source: [2]
+- retention: one index per crawl, all still listed: collinfo.json names 129 crawl indexes, from CC-MAIN-2008-2009 to CC-MAIN-2026-43 | source: [3]
+- egress: Free and anonymous over HTTPS: 'The data is accessible via the https://data.commoncrawl.org/[...] URL scheme. There is no need to create an AWS account in order to access the data using this method.' S3 access (s3://commoncrawl) requires an authenticated AWS account. New: selected crawls are mirrored into a Hugging Face Storage Bucket with CDN pre-warming. | metered: no | source: [4]
+- identity: anonymous | detail: no account for HTTPS downloads from data.commoncrawl.org
+- interface: rest, s3, cli
+- limits:
+  - request-rate (binding): the CDXJ API on index.commoncrawl.org is heavily rate limited; an IP address that sends too many requests may be blocked, and a blocked IP address should wait 24 hours [5]
+  - request-rate (binding): under load the bucket answers 503 Slow Down to every caller; whole-file downloads recover when retried no more than once per second, index lookups and byte-range reads of single captures do not [6]
+- limits note: An unsigned GET to the S3 endpoint commoncrawl.s3.amazonaws.com answered 403 on 2026-10-30 and again on 2026-11-03, while HTTPS on data.commoncrawl.org and the Hugging Face bucket mirror served the same WARC file list with no account. The Get Started page still shows --no-sign-request commands in a second AWS CLI section.
+- binding note: the CDXJ index on index.commoncrawl.org is heavily rate limited and can block a caller's IP address, which bounds lookups of single captures; a whole-file download, once it starts, runs without further rate checks
+- interface detail: HTTPS GET with byte ranges on data.commoncrawl.org, no account; s3://commoncrawl through the S3 API; a Hugging Face Storage Bucket mirror of selected crawls with the same directory layout
+- tooling: cURL or wget against https://data.commoncrawl.org/, the AWS CLI against s3://commoncrawl/, the hf CLI against the Hugging Face Storage Bucket mirror, and Common Crawl's official downloader client cc-downloader
+- composes with: A read source, not a store: the crawl data is downloaded over HTTPS from data.commoncrawl.org, through the S3 API or from the Hugging Face Storage Bucket mirror into storage or compute held elsewhere, and its CDXJ index names the byte range of a single capture
+- reliability: Under load the bucket answers 503 Slow Down to every caller, even one sending a single request; whole-file downloads recover with retries no more than once per second, index lookups and byte-range reads of single captures do not.
+- notes: Fails the storage quota filter: the bucket holds only Common Crawl's own crawls of the web and takes no user data, so it offers no allowance a user can write to. One offer with crawler-scraper/commoncrawl, the same corpus judged as a crawl archive, which keeps qualifies-with-caveat as a read source.
+- evidence note: read path probed: a CDXJ lookup, WARC byte-range reads on data.commoncrawl.org, an unsigned S3 GET and the Hugging Face mirror; the size of one WARC file measured by a range read; the FAQ and get-started bodies read by probe for the verdict, tooling and chaining
+- extras:
+  - dead_end.failure_class: quota
+  - dead_end.why: Not a hosting service: ~300 billion web pages across ~100+ monthly crawls, multi-petabyte, free to READ and free to re-host yourself. There is NO path to host your own data with Common Crawl — confirmed, it publishes its own crawls only.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [4] 2026-10-21: 'There is no need to create an AWS account in order to access the data using this method'; 'access to data from the Amazon cloud using the S3 API is only allowed for authenticated users'
+  - [7] 2026-10-21: probe: GET -> 200, 201,605 bytes, gzip (anonymous listing manifest)
+  - [8] 2026-10-21: probe: GET -> 403 (S3 path is auth-only)
+  - probe:https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/segments/1791170053823.21/warc/CC-MAIN-20261005105623-20261005135623-00993.warc.gz 2026-10-30: an anonymous byte-range GET on data.commoncrawl.org returned the one WARC record the index named (206) | capture: sha256:72f6da208a9a3a417c5c03d2933225a8bb0fcc05ca90649838c39eb3e9520b1f | quote: "content_range": "bytes 937296400-937320567/958726164"
+  - [4] 2026-10-30: HTTPS downloads from data.commoncrawl.org need no account | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: There is no need to create an AWS account in order to access the data using this method.
+  - probe:https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/warc.paths.gz 2026-10-30: the October 2026 WARC file list downloads anonymously over HTTPS | capture: sha256:c52a5232ad8b38a72e9ff5f9229acc4c4fb6a6c2880d9fe5925388be3191c6b5 | quote: "status": 200
+  - [1] 2026-10-30: the October 2026 crawl is 2.16 billion pages and 109.20 TiB compressed | capture: sha256:ba5edfd1cbe0dddf181010bed1c6bb91e5b956a79ebb7e8b33a265f278cb5942 | quote: CC-MAIN-2026-43 | October 2026 | 2.16 | 109.20
+  - [9] 2026-10-30: the October 2026 crawl holds 2.16 billion pages, 371.19 TiB uncompressed | capture: sha256:01b285b5aac86192645576ca8705c06bb1b46c0b6e937135ee1b711cfb0d021f | quote: The data was crawled between October 5th and October 18th, and contains 2.16 billion web pages (or 371.19 TiB of uncompressed content).
+  - [5] 2026-10-30: a blocked IP address should wait 24 hours | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: If your IP is temporarily blocked, please wait 24 hours before trying again.
+  - [6] 2026-10-30: whole-file downloads recover from 503 by retrying no more than once per second | capture: sha256:2e34822f6633068569cc7442aa799d06a03d06dc821806bd623b32a9c0dcddea | quote: For bulk downloads, such as whole files, it’s possible to work around these 503s by politely retrying many times. Retrying no more than once per second is polite enough.
+  - [6] 2026-10-30: index lookups and byte-range reads of single captures do not recover by retrying | capture: sha256:2e34822f6633068569cc7442aa799d06a03d06dc821806bd623b32a9c0dcddea | quote: This retry technique does not work well enough for partial file downloads, such as index lookups and downloading individual webpage captures from within a WARC file.
+  - [5] 2026-10-30: the CDXJ index is heavily rate limited and blocks an IP address that sends too many requests | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: Our CDX API endpoint is frequently abused and therefore heavily rate limited. If your client sends too many requests in a short period of time, your IP address may be temporarily blocked.
+  - [6] 2026-10-30: a whole-file download that gets through runs without further rate checks | capture: sha256:2e34822f6633068569cc7442aa799d06a03d06dc821806bd623b32a9c0dcddea | quote: And once you are lucky and get a request through, you’ll get the entire file without any further rate limit checks.
+  - probe:https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2026-43/warc.paths.gz 2026-10-30: an unsigned GET on the S3 endpoint of the commoncrawl bucket is refused | capture: sha256:bd6aaef88197dbdc681ebc2997ee56b85147f25b105580a5180c8edcc0d25982 | quote: "status": 403
+  - probe:https://huggingface.co/buckets/commoncrawl/commoncrawl/resolve/crawl-data/CC-MAIN-2026-43/warc.paths.gz 2026-10-30: the Hugging Face bucket mirror serves the same 201296-byte WARC file list with no token | capture: sha256:29abf7676f9ac94af387ba136ebbe196f160e8a355ed5cd992e0d0bf8bfaf30b | quote: "status": 200
+  - [4] 2026-10-30: the S3 API path is stated as for authenticated users (the same page also documents --no-sign-request) | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: Please note, access to data from the Amazon cloud using the S3 API is only allowed for authenticated users.
+  - [6] 2026-10-30: under load the bucket answers 503 to every caller | capture: sha256:2e34822f6633068569cc7442aa799d06a03d06dc821806bd623b32a9c0dcddea | quote: Once the bucket is temporarily overwhelmed, it sends these 503 errors to everyone, including users sending even a single request.
+  - [10] 2026-10-30: the bucket is Common Crawl's own distribution of its corpus, hosted under the AWS Open Data Sponsorship Program | capture: sha256:6e6e564218575ec7e202c55511eb0a2cd9c3774f8438475cd931531293e08f8b | quote: AWS S3 remains the canonical distribution point for the Common Crawl corpus, generously hosted through Amazon Web Services' Open Data Sponsorship Program
+  - [4] 2026-10-30: a Hugging Face Storage Bucket mirrors selected crawls with the S3 layout | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: Selected crawl archives are mirrored in a Hugging Face Storage Bucket, using the same directory layout as S3
+  - probe:https://index.commoncrawl.org/collinfo.json 2026-10-30: collinfo.json lists one index per crawl, back to the 2008-2009 ARC crawl; the body has 129 entries | capture: sha256:a683312f4448cdda63b38f40c7289853fa82eb1e7e3cd5a3674e46142b01891a | quote: "id": "CC-MAIN-2008-2009"
+  - probe:https://commoncrawl.org/get-started 2026-10-31: the crawl data is processed in the AWS cloud or downloaded over HTTPS at no charge | capture: sha256:25e9bc50af15ca0235cbc0fad6a7fe9463e3bcf37b9233e78236f9ca6578ba7a | quote: You may process the data in the AWS cloud or download it for free over HTTP(S) with a good Internet connection.
+  - probe:https://index.commoncrawl.org/collinfo.json 2026-10-31: collinfo.json lists one CDXJ index per crawl, back to CC-MAIN-2008-2009; the body has 129 entries, the newest CC-MAIN-2026-43 | capture: sha256:a683312f4448cdda63b38f40c7289853fa82eb1e7e3cd5a3674e46142b01891a | quote: "id": "CC-MAIN-2008-2009"
+  - probe:https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/segments/1791170053823.21/warc/CC-MAIN-20261005105623-20261005135623-00993.warc.gz 2026-10-31: an anonymous byte-range GET on data.commoncrawl.org answered 206; the October 2026 WARC file is 958726164 bytes | capture: sha256:0daf334f2fba907a2ee686736b3c76857b68fd5fa6af726c41999143076744d4 | quote: "content_range": "bytes 0-1023/958726164"
+  - probe:https://commoncrawl.org/faq 2026-10-31: cc-downloader is Common Crawl's official downloader client | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: We also provide an official downloader client cc-downloader which is robust and polite.
+  - probe:https://commoncrawl.org/get-started 2026-10-31: any HTTP download agent (the page names cURL and wget) reads the data from outside AWS | capture: sha256:25e9bc50af15ca0235cbc0fad6a7fe9463e3bcf37b9233e78236f9ca6578ba7a | quote: you can use any HTTP download agent, such as
+  - probe:https://commoncrawl.org/get-started 2026-10-31: the hf CLI copies files from the Hugging Face Storage Bucket mirror | capture: sha256:25e9bc50af15ca0235cbc0fad6a7fe9463e3bcf37b9233e78236f9ca6578ba7a | quote: hf buckets cp hf://buckets/commoncrawl/commoncrawl/crawl-data/CC-MAIN-2026-17/segments/.../warc/CC-MAIN-....warc.gz ./local-path/
+  - probe:https://commoncrawl.org/faq 2026-10-31: the dataset is Common Crawl's own crawl sample of the web; the FAQ's answer to adding a website is the crawler, not an upload | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: Common Crawl's dataset is a sample of the web, and we do not generally archive any entire website but a randomly selected subset of it.
+  - probe:https://commoncrawl.org/faq 2026-10-31: Common Crawl distributes its own copy of the web to readers; it is not a store for their data | capture: sha256:b8d8611668566f66cbf218403910994c71382a9af8d8278648ed11349dd6ffd1 | quote: Common Crawl is a 501(c)(3) non-profit organization dedicated to providing a copy of the Internet to Internet researchers, companies and individuals at no cost for the purpose of research and analysis.
+  - probe:https://commoncrawl.org/get-started 2026-10-31: HTTPS downloads from data.commoncrawl.org need no account | capture: sha256:25e9bc50af15ca0235cbc0fad6a7fe9463e3bcf37b9233e78236f9ca6578ba7a | quote: There is no need to create an AWS account in order to access the data using this method.
+  - probe:https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2026-43/warc.paths.gz 2026-11-03: an unsigned GET on the S3 endpoint of the commoncrawl bucket was refused with 403 | capture: sha256:419053cac96b00fc6360c5a748fefd78d16d00a4517968a4c2220a5f16ecc8c6 | quote: "status": 403
+  - [11] 2026-11-03: the S3 API from the Amazon cloud is restricted to authenticated AWS users and unsigned access to s3://commoncrawl/ is disabled | capture: sha256:f881cf8594afd9f12340ff8c0cfc5372c123906a02a259ee6b51f565f2b23ed4 | quote: will be restricted to authenticated AWS users, and unsigned access to s3://commoncrawl/ will be disabled.
+  - [11] 2026-11-03:  | capture: sha256:f881cf8594afd9f12340ff8c0cfc5372c123906a02a259ee6b51f565f2b23ed4
+  - [12] 2026-11-03: a Common Crawl reply on the user forum states the S3 API needs an AWS account, from us-east-1 | capture: sha256:f744c3bef07ebc19cf8b79dc11df8e74d270c44e1f67508a93169fa81abd054d | quote: accessing data on the bucket s3://commoncrawl/ using the S3 API requires an AWS account and should be done only from the AWS region "us-east-1".
+  - [4] 2026-11-03: a second AWS CLI section of the Get Started page still shows --no-sign-request commands | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: aws --no-sign-request s3 ls s3://commoncrawl/crawl-data/CC-MAIN-2018-17/segments/1524125937193.1/warc/
+  - [4] 2026-11-03: HTTPS downloads from data.commoncrawl.org need no account | capture: sha256:f035bf60f3892932f25c16f775fb450fc05385e94f3405fd0ba1b9e5f7714d37 | quote: There is no need to create an AWS account in order to access the data using this method.
+  - [5] 2026-11-03: the CDXJ index is heavily rate limited and blocks an IP address that sends too many requests, so request-rate is the constraint that binds reads | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: Our CDX API endpoint is frequently abused and therefore heavily rate limited. If your client sends too many requests in a short period of time, your IP address may be temporarily blocked.
+  - [6] 2026-11-03: index lookups and single-capture reads stay rate bound under load, so request-rate binds reads | capture: sha256:2e34822f6633068569cc7442aa799d06a03d06dc821806bd623b32a9c0dcddea | quote: This retry technique does not work well enough for partial file downloads, such as index lookups and downloading individual webpage captures from within a WARC file.
+  - [5] 2026-11-04: the CDXJ index is rate limited and blocks an IP address that sends too many requests, so request-rate binds | capture: sha256:eb8cba4c974736f6f2bb2d8eedacf491f2fb960db386bb581669780186d3a1b5 | quote: Our CDX API endpoint is frequently abused and therefore heavily rate limited. If your client sends too many requests in a short period of time, your IP address may be temporarily blocked.
+- sources:
+  - [1] https://data.commoncrawl.org/crawl-data/index.html
+  - [2] https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-43/segments/1791170053823.21/warc/CC-MAIN-20261005105623-20261005135623-00993.warc.gz
+  - [3] https://index.commoncrawl.org/collinfo.json
+  - [4] https://commoncrawl.org/get-started
+  - [5] https://commoncrawl.org/faq
+  - [6] https://status.commoncrawl.org/
+  - [7] https://data.commoncrawl.org/crawl-data/CC-MAIN-2026-17/warc.paths.gz
+  - [8] https://commoncrawl.s3.amazonaws.com/crawl-data/CC-MAIN-2026-17/warc.paths.gz
+  - [9] https://commoncrawl.org/blog/october-2026-crawl-archive-now-available
+  - [10] https://commoncrawl.org/blog/april-2026-crawl-archive-now-available-in-a-hugging-face-storage-bucket
+  - [11] https://commoncrawl.org/blog/introducing-cloudfront-access-to-common-crawl-data
+  - [12] https://groups.google.com/g/common-crawl/c/KL64eJzq304

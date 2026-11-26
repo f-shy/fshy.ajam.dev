@@ -1,0 +1,88 @@
+# 喵云
+
+> miaomiao.moe | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/miaomiao/ | JSON https://fshy.ajam.dev/api/v1/entity/miaomiao.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 喵云 (miaomiao.moe)
+
+- `compute/miaomiao-hgc-nat-nano` | qualifies-with-caveat | evidence documented | binding per-ip-shaping | category NAT VPS | tier HGC-Nano
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-02T02:17:38.787Z (live) | stale on 2026-12-03
+- url https://miaomiao.moe/index.php?rp=/store/hgc-nat
+- price parsed USD 0.99/mo
+- free tier: No free tier. HGC-Nano is CNY 6.60 a month, printed '¥6.60CNY 每月', for 1 core, 256 MB, 10 GB SSD, 1 TB of bidirectional traffic and 10 NAT forwarding rules on a shared Hong Kong native IPv4. | unit: none | metered on: none | read on: 2026-10-24 | source: [1]
+- per-object cap: not applicable
+- retention: monthly billing; no deletion interval after expiry was published on the pages read. The store states '无技术支持 无退款' (no technical support, no refund). | source: [2]
+- egress: 1000 GB a month counted in both directions, printed '流量：1000G 双向' | metered: yes | free allowance: 1000 GB a month, bidirectional | source: [1]
+- identity: card | detail: a WHMCS account whose registration form asks first name, last name, email, phone, street address, city, postcode and a password with an image captcha; no national ID field exists. The cart prices the plan once a session exists, but the checkout then renders an empty cart ('您的购物车是空的') with no payment selector, so the rail is chosen only after an order is placed. Payment rails, any authorisation hold, and whether a prepaid or virtual card passes are not published at https://miaomiao.moe/cart.php?a=checkout: the storefront terms name no rail, and the product page states '无技术支持 无退款'.
+- interface: ssh
+- limits:
+  - per-ip-shaping (binding): 10 NAT forwarding rules on one shared Hong Kong native IPv4 [1]
+  - volume-quota: 1000 GB a month counted in both directions [1]
+- binding note: 10 forwarding rules is the inbound budget and they are rules rather than a port range, so the buyer has less room than the sellers that hand out 20 consecutive ports.
+- interface detail: NAT container with 10 forwarding rules on a shared Hong Kong HGC native IPv4; the store also sells separate HKT, HKBN and HiNet NAT groups and an IPv6-first HK group
+- tooling: any SSH client; a WHMCS client area
+- composes with: a Hong Kong-native HGC address with 10 forwarded rules at USD 0.9873 a month, the cheapest Hong Kong-native row found among evaluated providers, from a seller that names no entity and states no refunds.
+- reliability: the store states '无技术支持 无退款' (no technical support, no refund) and '购买前请确保掌握基础使用知识' (make sure you have basic knowledge before buying); no uptime figure or SLA published
+- notes: The cheapest Hong Kong-native row among evaluated providers and the widest carrier menu. Miaomiao sells four separate Hong Kong and Taiwan NAT groups on real ISP lines - HGC, HKT, HKBN and HiNet - plus a Germany group and an IPv6-first group that pairs a /64 with a DNS64 egress. HGC-Nano at CNY 6.60 = USD 0.9873 a month for 256 MB, 10 GB, 1 TB bidirectional and 10 forwarding rules is the cheapest of them; HKT-Nano is CNY 8.80 and HKBN-Nano CNY 9.90 for the same shape on different carriers. That carrier choice is the reason this store is worth a row: an HGC or HKBN address behaves differently from a datacentre address for anything that cares about the network it comes from, and an English-language search does not surface it. The IPv6-first group is the other reason: HKIDCv6-Nano at CNY 9.90 = USD 1.4810 gives 512 MB, a /64 and a DNS64 egress, which is the same pattern Privex uses and only the second seller among evaluated providers to publish it. Three caveats. The cart route is broken for every product id tried - pids 39 and 45 both rendered the German DEIDC group rather than the product - so neither stock nor the payment step was established, and the price comes from the listing rather than a priced line. The store states '无技术支持 无退款', no support and no refunds, in its own header. Registration needs a name, city and postcode but no ID and no required phone, which is a low identity cost by the standards of this group of sellers. What is not established: stock on any group except HiNet-Nano, which reads '0 可用'; the payment rails; and whether the forwarding rules carry UDP. A buyer who wants a Hong Kong-native address should treat the price as listed rather than confirmed.
+- evidence note: price, shape, traffic, the forwarding-rule count and the Hong Kong native IPv4 are quoted from the vendor's own store page read; the registration fields are quoted from the form source read. Not documented: the payment rails and stock, because the cart route redirects to a different group for every product id tried; and the legal entity, which is not named.
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 0.25
+  - shape.disk_gib: 10
+  - billing_model: monthly
+  - term: monthly
+  - m10h_usd: 0.99
+  - m24h_usd: 0.99
+  - price_arithmetic: CNY 6.60 a month / 6.684864 CNY per USD = USD 0.9873 a month, from open.er-api.com read 2026-10-24 with an update timestamp of 'Sat, 24 Oct 2026 00:02:31 +0000'. VPS billing: the machine bills whether it runs or not, so the 10 h/day and 24/7 figures are identical.
+  - out_of_pocket_usd: 0.99
+  - renewal_usd: CNY 6.60 a month; no separate renewal price published and the store refuses refunds
+  - fx: CNY 6.684864 per USD, open.er-api.com/v6/latest/USD read 2026-10-24
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: 10 NAT forwarding rules on one shared Hong Kong native IPv4
+  - network_out.static_ip: no
+  - network_out.ipv6: no
+  - udp: not stated: no page read says whether the 10 forwarding rules carry UDP
+  - session_cap.restart_required: no
+  - session_cap.note: none; it is a VPS
+  - payment_rails: not established: every cart route tried resolved to a different product group
+  - card_hold: not stated on any page read
+  - checkout_fields: first name, last name, city and postcode required; email and phone present; no national ID field
+  - stock: not published on the Hong Kong groups; the Taiwan HiNet group is the only one with a marker and its cheapest tier reads '0 可用'
+  - cart_url: https://miaomiao.moe/cart.php?a=add&pid=39
+  - cart_works: yes: the add route resolves to the product configuration page and prices HGC-Nano at CNY 6.60 a month
+  - product_url: https://miaomiao.moe/index.php?rp=/store/hgc-nat
+  - signup_url: https://miaomiao.moe/register.php
+  - cart_url_note: pid 39 resolves to the HGC configuration page and prices HGC-Nano; the price is visible only after the session cookie is set, and the checkout still returns an empty cart
+  - other_groups: HKT NAT from CNY 8.80, HKBN NAT from CNY 9.90, HiNet NAT (Taiwan) from CNY 9.90, HKIDC VPS with a dedicated IPv4 from CNY 19.90, HKIDC IPv6 VPS from CNY 9.90 with a /64 and DNS64, DEIDC VPS in Germany from CNY 19.90, and separate Macau and Taiwan HKIDC groups
+  - why_recorded: the widest carrier choice - four real Hong Kong and Taiwan ISP lines plus an IPv6-first product - at the lowest Hong Kong-native price found
+- evidence:
+  - [1] 2026-10-24: quoted plan: 'HGC-Nano CPU：1C RAM：256M 硬盘：10G SSD 带宽：200M 共享 流量：1000G 双向 10个NAT转发规则 1个香港原生共享IPv4 ¥6.60CNY 每月'
+  - [1] 2026-10-24: quoted siblings: 'HGC-Micro CPU：1C RAM：512M ... 10个NAT转发规则 1个香港原生共享IPv4 ¥9.90CNY 每月', 'HGC-Middle ... 15个NAT转发规则 ... ¥19.90CNY', 'HGC-Plus ... 20个NAT转发规则 ... ¥29.90CNY', 'HGC-Pro ... ¥39.90CNY', 'HGC-Ultra ... 30个NAT转发规则 ... ¥59.90CNY'
+  - [3] 2026-10-24: quoted a second Hong Kong carrier group: 'HKT-Nano CPU：1C RAM：256M ... 10个NAT转发规则 1个香港原生共享IPv4 ¥8.80CNY 每月' and 'HKT-Micro ... ¥12.90CNY'
+  - [4] 2026-10-24: quoted a third: 'HKBN-Nano CPU：1C RAM：256M 硬盘：10G SSD 带宽：200M 共享 流量：1000G 双向 10个NAT转发规则 1个香港原生共享IPv4 ¥9.90CNY 每月'
+  - [5] 2026-10-24: quoted a Taiwan group with an explicit stock marker: 'HiNet-Nano 0 可用 CPU：1C RAM：256M ... 1个台湾原生共享IPv4 ¥9.90CNY 每月' - the only group on this store that publishes a stock count
+  - [6] 2026-10-24: quoted an IPv6-first group: 'HKIDCv6-Nano CPU：1C RAM：512M 硬盘：10G SSD 带宽：1000M 共享 流量：1000G 双向 1 * /64 香港 IPv6 共享 1* HKBN IPv4 出口 (DNS64) ¥9.90CNY 每月'
+  - [7] 2026-10-24: the cart did not price the product: it returned HTTP 200, title '购物车 - 喵云', and rendered the DEIDC German group at '¥19.90 / ¥36.90 / ¥69.90 / ¥129.90' instead. The same happened for pid 45 (the IPv6 group), so the redirect is a property of the route rather than evidence about stock.
+  - [2] 2026-10-24: quoted store notice: '移动直连保证 无技术支持 无退款 购买前请确保掌握基础使用知识' (mobile direct-connection guaranteed, no technical support, no refund, make sure you have basic knowledge before buying)
+  - [8] 2026-10-24: the form source marks firstname (名字), lastname (姓氏), city (城市) and postcode (邮编) as required, with email and phonenumber (手机号码) present and no national ID field
+  - [9] 2026-11-02: the checkout renders an empty cart and no payment selector, so no rail or hold is published there | capture: sha256:9c4cf8bfab30324b7bf2ba8d6a062646dedb5bc42e936334115424dae3dfa555 | quote: 您的购物车是空的
+  - [8] 2026-11-02: the registration form carries a billing-address block with phone, street, city, postcode, country and state | capture: sha256:e39be7db82319be1c998325849a3df7a6389906f4d16e03462cf1e78e7bf6663 | quote: 账单地址
+  - [1] 2026-11-02: the product page states no technical support and no refund | capture: sha256:988d9ae22f646c9f2e2efafe77fe048c4bb700892c91c76b4e2b8a272063b12f | quote: 无技术支持 无退款
+  - [10] 2026-11-02: the terms' refund clause is the only payment-adjacent statement and names no rail | capture: sha256:44db4b931ecffd3b098fb595daf8357de2a39f49926f20429cbac6f897c60c67 | quote: 1.產品未有使用問題無退款政策，不接受任何因速度、延遲以及個人問題理由進行退款。
+  - probe:https://miaomiao.moe/cart.php?a=add&pid=39 2026-11-02: with a warmed cookie jar the cart resolves to the product configuration page and renders a price | capture: sha256:9e859b3409ae7f628563f902d6af91a06cf1a65e9c338b380e08efe7478bd8cf | quote: "verdict": "priced"
+  - probe:https://miaomiao.moe/cart.php?a=add&pid=39 2026-11-02: the add route for pid 39 lands on the configuration page for HGC-Nano rather than another product group | capture: sha256:9e859b3409ae7f628563f902d6af91a06cf1a65e9c338b380e08efe7478bd8cf | quote: "final_url": "https://miaomiao.moe/cart.php?a=confproduct&i=0"
+  - probe:https://miaomiao.moe/cart.php?a=add&pid=39 2026-11-02: the record of the cart read shows the resolved product page and its size | capture: sha256:9e859b3409ae7f628563f902d6af91a06cf1a65e9c338b380e08efe7478bd8cf | quote: "bytes": 39084
+  - [9] 2026-11-02: the checkout still offers an empty cart and a cart view, with no payment rail and no hold | capture: sha256:9c4cf8bfab30324b7bf2ba8d6a062646dedb5bc42e936334115424dae3dfa555 | quote: 查看购物车
+- sources:
+  - [1] https://miaomiao.moe/index.php?rp=/store/hgc-nat
+  - [2] https://miaomiao.moe/index.php?rp=/store/hkidc-vps
+  - [3] https://miaomiao.moe/index.php?rp=/store/hkt-nat
+  - [4] https://miaomiao.moe/index.php?rp=/store/hkbn-nat
+  - [5] https://miaomiao.moe/index.php?rp=/store/hinet-nat
+  - [6] https://miaomiao.moe/index.php?rp=/store/hkidc-ipv6-vps
+  - [7] https://miaomiao.moe/cart.php?a=add&pid=39
+  - [8] https://miaomiao.moe/register.php
+  - [9] https://miaomiao.moe/cart.php?a=checkout
+  - [10] https://miaomiao.moe/index.php?rp=%2Fannouncements%2F2%2FMiaoMiaoMoe-%E4%BD%BF%E7%94%A8%E6%9D%A1%E6%AC%BETOS.html

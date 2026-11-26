@@ -1,0 +1,97 @@
+# Zode
+
+> zode.dev | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/zode/ | JSON https://fshy.ajam.dev/api/v1/entity/zode.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Zode
+
+- `compute/zode` | qualifies-with-caveat | evidence documented | binding volume-quota | category VM sandbox | tier Free plan / pay-as-you-go
+- identity a placeholder: card and phone unknown | verified 2026-11-25T11:55:06.271Z (live) | stale on 2026-12-26
+- url https://docs.zode.dev/pricing
+- free tier: USD 10 one-time credit with no card to start, with 2 sandboxes running at once; a 7-day Pro trial needs no card. Stopped sandboxes cost nothing for compute and storage is free for the first 48 hours of every sandbox. | unit: credits | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: A personal workspace gets the USD 10 from sign-up; a team workspace starts with USD 0 and gets its credit when its first card is saved. Storage after 48 hours is USD 0.10 per GB-month of disk size.
+- per-object cap: The small sandbox has 50 GB of disk, medium 50 GB, large 110 GB and xlarge 250 GB; no larger published disk size exists. | source: [1]
+- retention: Storage is free for the first 48 hours of every sandbox, then USD 0.10 per GB-month until the sandbox is deleted; stopping a sandbox ends its compute charge but not its storage charge. A sandbox with no card and zero credit has its running sandboxes stopped within about 15 minutes. | days: 2 | source: [1]
+- egress: The docs describe outbound network use and a private mesh with security groups, but publish no egress allowance or per-GB price. The homepage states 'Egress and AI keys: $0'. | metered: no | source: [2]
+- identity: email | detail: unverified: no captured or fresh first-party page names the sign-up or sign-in method; the CLI quickstart says only 'zode login opens your browser and prints a code' and the console renders only its page metadata, so the exact registration fields are unverified: behind a sign-up. A personal workspace starts with USD 10 and no card; adding a card is needed to continue past zero credit. The terms set an 18-year minimum age but name no phone or ID document.
+- interface: cli, rest, chat
+- limits:
+  - volume-quota (binding): USD 10 one-time free credit on sign-up, plus 2 sandboxes running at once on Free [1]
+  - volume-quota (binding): USD 0.00875 per vCPU-hour; USD 0.0175 an hour for 2 vCPU / 4 GB [1]
+  - volume-quota (binding): USD 0.10 per GB-month of disk size from 48 hours after create [1]
+- limits note: Free plan ceiling is medium for automatic sizing and 3 custom images kept; the desktop needs Pro. A workspace daily cap can refuse creates, forks and starts with daily_cap_reached, and no-card workspaces with zero credit cannot create after credit runs out.
+- binding note: The one-time USD 10 credit is what runs out first: at USD 0.0175 an hour it is 571 hours of a small sandbox, before the 2-at-once concurrency limit or the storage charge after 48 hours.
+- interface detail: A zode CLI and SDK plus a REST API with a GET /v1/usage endpoint; MCP sandbox_create is documented, and an AI chat agent runs in the sandbox. A Linux desktop is available on paid plans and fails with plan_required on Free.
+- endpoint: https://api.zode.dev/v1/sandboxes
+- tooling: zode CLI with new, cost and sandbox commands; SDKs; REST API; MCP server.
+- composes with: Sandboxes run on the same machines as Zode CI and can be forked and snapshotted; a workspace can cap daily spend, and AI provider keys stay on the user's own accounts with no markup.
+- reliability: A workspace with no card and zero credit has running sandboxes stopped within about 15 minutes; after the 48-hour storage grace period a deleted or stopped sandbox still incurs storage charges until deletion. The service is in early access and features, limits and prices may change. No page read states the registration identity.
+- notes: The rate card is USD 0.00875 per vCPU-hour, so the 2 vCPU / 4 GB small sandbox is USD 0.0175 an hour and the USD 10 credit is 571 hours of that sandbox. Storage is free for 48 hours then USD 0.10 per GB-month of declared disk size, and the homepage states egress and AI keys cost zero. The hosted VM is the offer; the install script in the homepage installs a CLI client, not a self-hosted service.
+- evidence note: The rate card, free credit, storage rule, plan limits and account behaviour were read from the first-party docs pricing page. No page read states the sign-in method, so identity_cost.kind is a defaulted placeholder with an unverified detail; the signup form was not readable.
+- extras:
+  - shape.vcpu: 2
+  - shape.ram_gib: 4
+  - shape.disk_gib: 50
+  - billing_model: per-second, prepaid credit or invoiced monthly
+  - free_tier_kind: one-time-credit
+  - term: no monthly fee on Free; Pro is USD 20 a month
+  - price_arithmetic: 2 x USD 0.00875 = USD 0.0175/hour; USD 10 / USD 0.0175 = 571.4 hours
+  - status: live hosted service, early access
+  - network_out.allow_outbound: yes
+  - network_out.ports: not stated; a private mesh and security groups are documented
+  - session_cap.restart_required: no
+  - session_cap.note: stopping ends compute charges; storage continues after 48 hours until the sandbox is deleted
+- evidence:
+  - [1] 2026-11-25: compute is USD 0.00875 per vCPU-hour billed per second | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Compute costs \$0.00875 per vCPU-hour, billed per second while a sandbox is running.
+  - [1] 2026-11-25: storage is free for 48 hours then USD 0.10 per GB-month | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Storage is free for the first 48 hours of every sandbox, forks included.
+  - [1] 2026-11-25: the free plan grants USD 10 one-time credit with no card | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: \$10 one-time credit, no card to start
+  - [1] 2026-11-25: a no-card workspace needs credit or a card to keep creating sandboxes, and running sandboxes stop within about 15 minutes when credit runs out | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: has its running sandboxes stopped within about 15 minutes
+  - [1] 2026-11-25: the Free plan runs at most 2 sandboxes at once | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Your free plan runs at most 2 sandboxes at once
+  - [2] 2026-11-25: the homepage states egress and AI keys cost zero and the small sandbox is USD 0.0175 an hour billed per second | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: Egress and AI keys: $0. Disk is free for 48 hours, then $0.10 per GB a month.
+  - [2] 2026-11-25: a personal workspace starts with USD 10 free and no card | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: $10 free. No card.
+  - [3] 2026-11-25: the account terms require users to be 18 or old enough to agree where they live | capture: sha256:c8c81fbd486ec21db6129c4c38c642cc1ec1f00c6b6f959f9682e37928a1b215 | quote: You must be at least 18, or old enough to agree to these terms where you live.
+  - [4] 2026-11-25: the documented login is a browser device-code flow and names no email, phone or card sign-in method | capture: sha256:a52eb9239b30acd255c39a9c34143d030642e56848bf47f12f0140ccb6f3faef | quote: `zode login` opens your browser and prints a code. Confirm the code in the browser, and the CLI saves an API key for that workspace.
+  - [2] 2026-11-24: the landing page offers USD 10 free with no card | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: $10 free. No card.
+  - [2] 2026-11-24: the smallest VM starts at USD 0.0175 an hour billed per second | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: From $0.0175 an hour. Billed per second.
+  - [2] 2026-11-24: egress and AI keys carry no charge | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: Egress and AI keys: $0
+  - [2] 2026-11-24: disk storage is free for 48 hours then USD 0.10 per GB-month | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: Disk is free for 48 hours, then $0.10 per GB a month.
+  - [2] 2026-11-24: private networking is available and shut by default | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: A private network, on your mesh. Shut by default.
+  - [2] 2026-11-24: metadata and SMTP are unreachable from a sandbox | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: Metadata and SMTP never reachable
+  - [2] 2026-11-24: the platform is driven from a CLI, SDK, REST and MCP | capture: sha256:7f830f5c9fc55ee73484934fd048566ef72afb47f308738d9d9fa7785280826b | quote: CLI, SDK, REST and MCP
+  - [5] 2026-11-24: compute is USD 0.00875 per vCPU-hour billed per second while running | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Compute costs \$0.00875 per vCPU-hour, billed per second while a sandbox is running.
+  - [5] 2026-11-24: the Free plan gives a one-time USD 10 credit with no card | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: $10 one-time credit, no card to start
+  - [5] 2026-11-24: Free runs at most two sandboxes at once and Pro fifteen | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Sandboxes running at once | 2 | 15
+  - [5] 2026-11-24: the small size is 2 vCPU, 4 GB RAM and 50 GB disk at USD 0.0175 an hour | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: | small | 2 | 4 GB | 50 GB | \$0.0175 | \$0.14 |
+  - [5] 2026-11-24: storage is free for 48 hours then USD 0.10 per GB-month | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Storage is free for the first 48 hours of every sandbox, forks included. After that it costs \$0.10 per GB-month
+  - [5] 2026-11-24: the Free credit is held by the Personal workspace from signup without a card | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: Your Personal workspace has it from sign-up, with no card.
+  - [5] 2026-11-24: a workspace without a card and with no credit cannot create or start sandboxes | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: cannot create, fork or start sandboxes. Those calls fail with HTTP 402 credit_exhausted
+  - [5] 2026-11-24: a per-workspace daily spend cap can be set | capture: sha256:6df29c54422c35f495c54c385d41aa20ac3a7e8690bf08e700cfe06a4464283b | quote: a daily cap in Billing
+  - [6] 2026-11-24: using Zode needs an account and a Linux or macOS machine | capture: sha256:a52eb9239b30acd255c39a9c34143d030642e56848bf47f12f0140ccb6f3faef | quote: You need a Zode account and a Linux or macOS machine (amd64 or arm64).
+  - [6] 2026-11-24: the personal workspace's USD 10 credit buys about 440 hours of a small sandbox and needs no card | capture: sha256:a52eb9239b30acd255c39a9c34143d030642e56848bf47f12f0140ccb6f3faef | quote: Your Personal workspace starts with $10 of free credit, no card needed: about 440 hours of a `small` sandbox.
+  - [6] 2026-11-24: the CLI, TypeScript SDK and HTTP API drive sandboxes | capture: sha256:a52eb9239b30acd255c39a9c34143d030642e56848bf47f12f0140ccb6f3faef | quote: Install the zode CLI, make a sandbox, run a command in it, fork it, then do the same from TypeScript or curl.
+  - [6] 2026-11-24: the Free plan's concurrency cap is two sandboxes | capture: sha256:a52eb9239b30acd255c39a9c34143d030642e56848bf47f12f0140ccb6f3faef | quote: The Free plan runs at most 2 sandboxes at once.
+  - [7] 2026-11-24: the console has an account creation form | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Create your Zode account
+  - [7] 2026-11-24: Google signup is offered | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Sign up with Google
+  - [7] 2026-11-24: GitHub signup is offered | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Sign up with GitHub
+  - [7] 2026-11-24: a one-time email link is offered as a sign-in route | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Email me a link instead
+  - [7] 2026-11-24: a password route requires at least ten characters | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Password, 10 characters or more
+  - [7] 2026-11-24: signup requires a permanent email address | capture: sha256:0c40aa062015eaab452c4c00512f8760f8dfca605d25e6534786bd1a594b936d | quote: Use a permanent email address. Throwaway inboxes cannot sign up.
+  - [8] 2026-11-24: each sandbox is an isolated microVM | capture: sha256:3ee36a11ebceeec43c912b84c37b8f17c05d90cdab4b21f066a2262652edeb84 | quote: A sandbox is one microVM with its own kernel, disk and memory.
+  - [8] 2026-11-24: the sandbox image is Ubuntu with Docker | capture: sha256:3ee36a11ebceeec43c912b84c37b8f17c05d90cdab4b21f066a2262652edeb84 | quote: It runs Ubuntu 24.04 with Docker
+  - [8] 2026-11-24: buffered commands are capped at 55 seconds and 16 KB | capture: sha256:3ee36a11ebceeec43c912b84c37b8f17c05d90cdab4b21f066a2262652edeb84 | quote: 30 seconds by default and 55 seconds at most (`timeout_ms`), 16 KB of command
+  - [8] 2026-11-24: a stopped sandbox restarts on the same host | capture: sha256:3ee36a11ebceeec43c912b84c37b8f17c05d90cdab4b21f066a2262652edeb84 | quote: A stopped sandbox starts again on the same host.
+  - [9] 2026-11-24: compute accrues only while the sandbox runs | capture: sha256:3bf8f75ec86f57dd14397ce6145d4e86c69287c8c82f68247b2a196dd23ec589 | quote: Compute accrues per vCPU-hour, only while the sandbox is running
+  - [9] 2026-11-24: storage is free for the first 48 hours | capture: sha256:3bf8f75ec86f57dd14397ce6145d4e86c69287c8c82f68247b2a196dd23ec589 | quote: Storage is free for the first 48 hours of every sandbox, forks included.
+  - [9] 2026-11-24: a card keeps sandboxes running when credit runs out | capture: sha256:3bf8f75ec86f57dd14397ce6145d4e86c69287c8c82f68247b2a196dd23ec589 | quote: With a card, nothing stops.
+  - [10] 2026-11-24: Zode offers Linux VMs for coding agents | capture: sha256:a7a628f1b5a2f1904b2cac3a8e666a9004c41a6a08e165310fcaac9df381568e | quote: Linux VMs for coding agents. Start a sandbox
+- sources:
+  - [1] https://docs.zode.dev/pricing
+  - [2] https://zode.dev/
+  - [3] https://zode.dev/terms
+  - [4] https://docs.zode.dev/quickstart
+  - [5] https://docs.zode.dev/pricing.md
+  - [6] https://docs.zode.dev/quickstart.md
+  - [7] https://console.zode.dev/assets/index-8YHvxzjY.js
+  - [8] https://docs.zode.dev/concepts/sandboxes.md
+  - [9] https://docs.zode.dev/concepts/spend-and-caps.md
+  - [10] https://docs.zode.dev/llms.txt

@@ -1,0 +1,140 @@
+# BlockRun Modal
+
+> blockrun.ai | Inference, Compute; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/blockrun/ | JSON https://fshy.ajam.dev/api/v1/entity/blockrun.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## BlockRun
+
+- `inference/blockrun` | qualifies-with-caveat | evidence measured | binding request-rate | category inference relay
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T05:35:58.623Z (live) | stale on 2026-12-19
+- url https://blockrun.ai/api/v1
+- free tier: on 2026-11-10, 9 of 117 model ids on /v1/models carried billing_mode free; on 2026-10-22, 7 of 117 carried an input price of 0 (the two counts use different markers); the rest carry list prices spanning openai, google, anthropic, xai, zai, bytedance, deepseek, qwen, nvidia and eleven other families | unit: tokens | metered on: request-count | read on: 2026-11-10 | source: [1] | note: on 2026-11-10 the nine free ids were nvidia/nemotron-3-super-120b, nvidia/nemotron-3-nano-omni-30b-a3b-reasoning, nvidia/nemotron-3.5-lightning, nvidia/nemotron-3-ultra-550b, cohere/north-mini-code, poolside/laguna-xs-2.1, nvidia/muse-glimmer-30b, nvidia/nemotron-3.5-bolt and nvidia/minimax-m3.1-flash; on 2026-10-22 the seven zero-priced ids were nvidia/nemotron-3-nano-omni-30b-a3b-reasoning, nvidia/nemotron-3.5-lightning, nvidia/llama-3.2-11b-vision, nvidia/nemotron-3-ultra-550b, cohere/north-mini-code, poolside/laguna-xs-2.1 and nvidia/muse-glimmer-30b
+- per-object cap: not applicable
+- retention: not applicable
+- egress: metered: no
+- identity: anonymous | detail: no Authorization header sent and none required for the free route
+- interface: rest
+- limits:
+  - request-rate (binding): unpublished at BlockRun. The free route fails with FREE_MODEL_FAILED carrying debug 'NVIDIA API error: 429 Too Many Requests', so the observed ceiling belongs to BlockRun's own upstream key probe:https://blockrun.ai/api/v1/chat/completions, 2026-10-22
+  - request-rate (binding): 30 requests per minute (burst) and 300 requests per hour (sustained) per source IP on free chat models; over the limit the answer is 429 FREE_TIER_RATE_LIMITED [2]
+- binding note: the upstream NVIDIA 429 binds, and it arrives inside a 200-style error body rather than as a 429 status, so a client cannot see it by status code
+- endpoint: https://blockrun.ai/api/v1/chat/completions
+- tooling: any OpenAI-compatible client; curl against POST {base}/chat/completions
+- composes with: pairs with a free-standing agent as a relay of last resort; the scarce link is BlockRun's own upstream key, because its 429 arrives as FREE_MODEL_FAILED inside a 200
+- reliability: a keyless POST on 2026-11-10 for nvidia/nemotron-3.5-lightning answered 200 twice and echoed the model; on 2026-10-22, 5 sequential identical calls answered 2 and refused 3 with FREE_MODEL_FAILED and a debug field naming 'NVIDIA API error: 429 Too Many Requests'
+- notes: The relay category's clearest instance. An error body that names a different vendor's API is the cheapest available tell, and the echoed model string is the second. A caller that does not compare the echoed model receives a plausible answer from a model it did not choose. On 2026-11-18 the free route returned HTTP 429 with retry-after 30 at 05:26Z and HTTP 200 with 64 completion tokens at 05:36Z for the same request, so the refusal is free-tier capacity that clears rather than a dead route.
+- evidence note: the relay is proved by its own error body naming NVIDIA, and the substitution by the echoed model string. Both are measured; the upstream arrangement is inferred from them.
+- probe:
+  - records[0].probe_id: blockrun-gptoss20b
+  - records[0].requested_model: nvidia/gpt-oss-20b
+  - records[0].http_run1: 200
+  - records[0].http_run2: 200
+  - records[0].answered_run1: yes
+  - records[0].answered_run2: yes
+  - records[0].model_echoed: nvidia/gpt-oss-20b
+  - records[0].echo_match: yes
+  - records[0].latency_ms_run1: 2091
+  - records[0].latency_ms_run2: 2543
+  - records[0].ttft_ms_run1: 822
+  - records[0].completion_tokens_run1: 51
+  - records[0].tps_run1: 12.92
+  - records[0].tps_run2: 13.23
+  - records[0].needle_echoed_run1: yes
+  - records[0].body_bytes_run1: 451
+  - records[0].body_sha256_16_run1: 056f8f161ffbc029
+  - records[0].reasoning_only: no
+  - records[1].probe_id: blockrun-20261118
+  - records[1].target: https://blockrun.ai/api/v1/chat/completions
+  - records[1].runs[0].label: run1
+  - records[1].runs[0].probed_at: 2026-11-18T05:26:02.230Z
+  - records[1].runs[0].status: 429
+  - records[1].runs[0].completion: no
+  - records[1].runs[0].capture: sha256:a05f092e864ded011b1af2a5f97873faf4aad557a2cb65e8bbf8635d7b833cf2
+  - records[1].runs[1].label: run2
+  - records[1].runs[1].probed_at: 2026-11-18T05:35:58.623Z
+  - records[1].runs[1].status: 200
+  - records[1].runs[1].completion: yes
+  - records[1].runs[1].capture: sha256:bf14f58c88771dac62dbefec94ccf4a7087bb8439e0738c3468ddf9bdf740c99
+  - runs: probes-w.json; probes-w-run2.json
+- evidence:
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-10-22: nvidia/gpt-oss-20b answered 200 and echoed nvidia/gpt-oss-20b's two runs, 2091 ms and 2543 ms, 51 completion tokens each
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-10-22: in the recon sweep eight minutes earlier, one of five sequential calls echoed nvidia/nemotron-3-super-120b for a nvidia/gpt-oss-20b request, and three returned FREE_MODEL_FAILED with debug 'NVIDIA API error: 429 Too Many Requests'
+  - [1] 2026-10-22: 117 model ids across 13 or more vendor families including openai, anthropic, google, xai and elevenlabs, with per-model long_context price tiers
+  - [2] 2026-10-28: the documented over-limit 429 carries Retry-After, X-RateLimit-Limit: 30, X-RateLimit-Remaining and X-RateLimit-Reset (unix milliseconds); a separate 429 with code FREE_MODEL_FAILED and Retry-After: 30 signals an exhausted free pool | capture: sha256:ba788bc524f7f0c096e6f5599a022a32f41226246bf61875c5f1a74226e5ca01 | quote: X-RateLimit-Limit: 30
+  - [3] 2026-10-28: the vendor documents that a busy free model is answered by another free model and that the model field names the one that answered | capture: sha256:2a850de5e2d02ee8412c6ed4b4abf2f3b5a10fbd054ba091478c46dd19d15b7a | quote: When the one you named is, we answer with another free model instead of failing the request.
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-10-28: one POST with no Authorization header for nvidia/nemotron-3.5-lightning answered 200 and echoed model nvidia/nemotron-3.5-lightning-nim; headers x-free-model: true, x-health-reroute: true, x-original-model: nvidia/nemotron-3.5-lightning, x-served-model: nvidia/nemotron-3.5-lightning-nim; no X-RateLimit header on the 200; content was a reasoning trace with finish_reason length at max_tokens 128
+  - [4] 2026-10-28: the error catalogue lists FREE_TIER_RATE_LIMITED as the 429 per-IP free-tier limit of 30 per minute and 300 per hour | capture: sha256:b8ffbc5247355c81fa1087b9a13ef5dbf9a1f6be7d9bed386084eecbc1beafba | quote: | `FREE_TIER_RATE_LIMITED` | 429 | Per-IP free-tier limit (30/min, 300/hour) |
+  - [2] 2026-10-28: free-model pool exhaustion surfaces as FREE_MODEL_FAILED (non-streaming) or STREAM_FAILED (streaming), published as 429 with Retry-After 30 | capture: sha256:ba788bc524f7f0c096e6f5599a022a32f41226246bf61875c5f1a74226e5ca01 | quote: Separately, when the free model pool itself is out of capacity (every free rung is throttled or unhealthy upstream), the response is `429` with `code: "STREAM_FAILED"` (streaming) or `"FREE_MODEL_FAILED"` (non-streaming) and `Retry-After: 30`.
+  - [2] 2026-10-28: free chat models need no wallet and no payment | capture: sha256:ba788bc524f7f0c096e6f5599a022a32f41226246bf61875c5f1a74226e5ca01 | quote: Free chat models (the ones `GET /v1/models` lists with `"billing_mode": "free"`) need no wallet and no payment
+  - [2] 2026-10-28: the free-route limit is a per-IP request-rate limit, so the limit kind request-rate stands | capture: sha256:ba788bc524f7f0c096e6f5599a022a32f41226246bf61875c5f1a74226e5ca01 | quote: 30 requests per minute (burst) and 300 requests per hour (sustained)
+  - [2] 2026-11-04: the vendor publishes a per-IP free-tier limit of 30 per minute and 300 per hour | capture: sha256:041d612f47f75550fdcb581e18c7b754b72d150dc46f0ff7073de28565ae8475 | quote: 30 requests per minute (burst) and 300 requests per hour (sustained)
+  - [4] 2026-11-04: the error catalogue names FREE_TIER_RATE_LIMITED as the per-IP free-tier 429 at 30 per minute and 300 per hour | capture: sha256:3c7ba5fc030c1986488e0129271d3177eeb4f22f11d31a819fb645f94124c807 | quote: | `FREE_TIER_RATE_LIMITED` | 429 | Per-IP free-tier limit (30/min, 300/hour) |
+  - [2] 2026-11-04: the free route is still limited per source IP by request rate | capture: sha256:041d612f47f75550fdcb581e18c7b754b72d150dc46f0ff7073de28565ae8475 | quote: 30 requests per minute (burst) and 300 requests per hour (sustained)
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-11-10: a keyless POST on 2026-11-10 for nvidia/nemotron-3.5-lightning answered 200 twice and echoed nvidia/nemotron-3.5-lightning with 56 tokens (24 prompt, 32 completion) | capture: sha256:4fcea24310d308aa980892921873cfc8567e30e890a7862708b79add745fb6dd | quote: "status": 200
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-11-18: a keyless POST to https://blockrun.ai/api/v1/chat/completions for nvidia/nemotron-3.5-lightning returned HTTP 429 with body {'error':{'message':'Free model capacity exhausted — retry shortly, or use a paid model (from $0.002/request). and no completion in 1179 ms Probe start 2026-11-18T05:26:02.230Z. | capture: sha256:a05f092e864ded011b1af2a5f97873faf4aad557a2cb65e8bbf8635d7b833cf2 | quote: a keyless POST to https://blockrun.ai/api/v1/chat/completions for nvidia/nemotron-3.5-lightning returned HTTP 429 with body {'error':{'message':'Free model capacity exhausted — retry shortly, or use a paid model (from $0.002/request). and no completion in 1179 ms
+  - probe:https://blockrun.ai/api/v1/chat/completions 2026-11-18: a keyless POST to https://blockrun.ai/api/v1/chat/completions for nvidia/nemotron-3.5-lightning returned HTTP 200, echoed nvidia/nemotron-3.5-lightning, 64 completion tokens, content Here's a thinking process: 1. Analyze User Input: User s, in 6197 ms Probe start 2026-11-18T05:35:58.623Z. | capture: sha256:bf14f58c88771dac62dbefec94ccf4a7087bb8439e0738c3468ddf9bdf740c99 | quote: a keyless POST to https://blockrun.ai/api/v1/chat/completions for nvidia/nemotron-3.5-lightning returned HTTP 200, echoed nvidia/nemotron-3.5-lightning, 64 completion tokens, content Here's a thinking process: 1. Analyze User Input: User s, in 6197 ms
+- sources:
+  - [1] https://blockrun.ai/api/v1/models
+  - [2] https://blockrun.ai/docs/api-reference/rate-limits
+  - [3] https://blockrun.ai/free
+  - [4] https://blockrun.ai/docs/api-reference/errors
+
+## BlockRun Modal Sandbox
+
+- `compute/blockrun-modal-sandbox` | paid-only | evidence documented | binding volume-quota | category sandbox (hosted Modal runtime, paid per request) | tier public beta, CPU burst and hourly, GPU T4 to H100
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T02:12:34.793Z (live) | stale on 2026-12-26
+- url https://blockrun.ai/services/modal
+- free tier: none: no free allowance is published; a call is paid per request in USDC over x402, and an unfunded request gets HTTP 402 with the exact price | unit: none | metered on: none | read on: 2026-11-25 | source: [1] | note: the service advertises 'No account required' and 'Pay per run', but nothing in the read pages states a free credit or a free tier
+- per-object cap: not applicable: the unit is a sandbox session, not a stored object
+- retention: no filesystem persistence after terminate; a sandbox keeps state between exec commands only for its own lifetime. A lifetime is 10s to 24h, default 300s. | source: [1]
+- egress: Outbound network reaches PyPI, Hugging Face and GitHub over HTTPS; other hosts are blocked. No per-GB egress price is published. | metered: no | source: [1]
+- identity: anonymous | detail: the paid-per-call path needs a locally generated wallet funded with USDC on Base, Solana or Arc; the service states 'No account required', 'No accounts, API keys, or infrastructure setup required for the caller' and 'No registration, no API keys required'. An API key and card or invoice billing are an optional alternative for teams.
+- interface: rest, cli
+- limits:
+  - volume-quota (binding): 5 sandboxes running at once per payer, at most 2 with a GPU [1]
+  - request-rate: each exec runs up to 60s; lifetime 10s to 24h, default 300s, and a timeout above 300s bills hourly [1]
+- binding note: the concurrency ceiling of 5 live sandboxes (2 with a GPU) is what an agent hits first at scale; the exec timeout and the 24h lifetime bound a single session rather than the number of sessions
+- interface detail: POST /api/v1/modal/sandbox/create, /exec, /status and /terminate; reachable over a plain HTTP client, the Python and TypeScript SDKs, or the blockrun_modal MCP tool
+- endpoint: https://blockrun.ai/api/v1/modal/sandbox/create
+- tooling: an HTTP client sending an x402 payment header, the BlockRun Python or TypeScript SDK, the MCP server, or ClawRouter; no account or API key is needed for the paid-per-call path
+- composes with: a disposable Modal sandbox reached per request with a funded wallet, so an agent can run untrusted Python without a Modal account, a monthly plan or a prepaid balance; the paid hourly rate for a 1 vCPU / 1 GiB sandbox is USD 0.25 per hour, with GPU tiers from USD 4.00 (T4) to USD 9.00 (H100) per hour
+- reliability: lifetime is billed up front with no refund on early terminate; a sandbox is a fresh image with no persistence after terminate, and the only outbound hosts allowed are PyPI, Hugging Face and GitHub
+- notes: A per-request hosted Modal sandbox rather than a monthly plan: the CPU shape is USD 0.25 per hour billed up front, and the H100 shape is USD 9.00 per hour. Callers pay in USDC through x402 without signing up; an optional API-key path bills by card or invoice. Outbound access is limited to PyPI, Hugging Face and GitHub, and a sandbox has no filesystem persistence after terminate.
+- evidence note: the prices, limits, egress allowlist and identity terms are quoted from the first-party service page and API page read on 2026-11-25; no live sandbox was created, so the rung is documented rather than measured
+- extras:
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.gpu_class: T4, L4, A10G, A100 or H100 on request
+  - shape.note: CPU burst is up to 1 vCPU and 1 GiB; GPU sandboxes allow up to 8 vCPU and 32 GiB
+  - billing_model: per request in USDC via x402, flat burst fee or hourly rate paid up front
+  - free_tier_kind: none
+  - term: on demand, lifetime 10s to 24h (default 300s)
+  - price_arithmetic: CPU hourly USD 0.25/h; H100 hourly USD 9.00/h; burst create CPU USD 0.011 and T4 USD 0.051 to H100 USD 0.401 plus USD 0.002 per exec, status or terminate call
+  - network_out.allow_outbound: yes
+  - session_cap.wall_clock_min: 1440
+  - session_cap.restart_required: no
+  - session_cap.note: lifetime is requested at create; each exec is capped at 60s
+- evidence:
+  - [1] 2026-11-25: the sandbox is a hosted Modal runtime reached without an account, and the caller pays per run | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Pay per run with x402 on Base, Solana or Arc. No accounts, API keys, or infrastructure setup required for the caller.
+  - [1] 2026-11-25: no registration or API key is required to call the paid sandbox endpoint | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Fund your wallet with USDC on Base, Solana or Arc and give your agent a safe place to run code. No registration, no API keys required.
+  - [1] 2026-11-25: concurrency is capped at 5 live sandboxes per payer, 2 with a GPU | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Each payer can keep at most 5 sandboxes running at once, 2 with a GPU; terminate one to create another.
+  - [1] 2026-11-25: outbound network is restricted to PyPI, Hugging Face and GitHub over HTTPS | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Outbound network reaches PyPI, Hugging Face and GitHub over HTTPS; other hosts are blocked.
+  - [1] 2026-11-25: the hourly CPU sandbox rate is USD 0.25 per hour | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: | CPU (1 vCPU / 1 GiB) | $0.25 | Long-running batch jobs, scrapers, schedulers |
+  - [1] 2026-11-25: the hourly H100 sandbox rate is USD 9.00 per hour | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: | H100 (up to 8 vCPU / 32 GiB) | $9.00 | Frontier training, low-latency 70B+ |
+  - [1] 2026-11-25: burst GPU create prices range from T4 USD 0.051 to H100 USD 0.401 per sandbox | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: T4 $0.051 / L4 $0.081 / A10G $0.101 / A100 $0.201 / H100 $0.401.
+  - [1] 2026-11-25: a longer lifetime is billed up front for the full requested duration with no refund on early terminate | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Per-hour rate × requested duration, billed upfront in one x402 settlement. No refund on early terminate
+  - [2] 2026-11-25: a team may optionally get an API key and pay by card or invoice | capture: sha256:71338fe6e536e8a9874cd31dee607c3b7741c8f34fe8a7c62f5e7a2d5d16721b | quote: A team that prefers keys gets one and pays by card or invoice.
+  - [1] 2026-11-24: the CPU burst sandbox create price is USD 0.011 and the GPU burst create prices are listed per tier | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: CPU sandbox/create $0.011 per sandbox Up to 1 vCPU, 1 GiB RAM, 300s lifetime GPU sandbox/create $0.051 – $0.401 per sandbox by GPU type T4 $0.051 / L4 $0.081 / A10G $0.101 / A100 $0.201 / H100 $0.401. Up to 1 CPU, 1024 MB, 300s lifetime. Larger sizes, up to 8 CPU and 32 GiB, bill hourly.
+  - [1] 2026-11-24: the hourly CPU rate is USD 0.25 and exec, status and terminate cost USD 0.002 each | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: | CPU (1 vCPU / 1 GiB) | $0.25 | Long-running batch jobs, scrapers, schedulers |
+  - [1] 2026-11-24: the sandbox lifetime is 10s to 24h with a 300s default and each exec runs at most 60s | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: A sandbox lives 10s to 24h, default 300s. Each exec runs up to 60s: start longer jobs in the background and poll them with exec.
+  - [1] 2026-11-24: egress is restricted to three named hosts over HTTPS and all other hosts are blocked | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Outbound network reaches PyPI, Hugging Face and GitHub over HTTPS; other hosts are blocked.
+  - [1] 2026-11-24: each payer can run at most 5 sandboxes at once, 2 with a GPU | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Each payer can keep at most 5 sandboxes running at once, 2 with a GPU; terminate one to create another.
+  - [1] 2026-11-24: no account or API key is needed and USDC funding is the only gate stated for the caller | capture: sha256:42e1fac0a118cee10336fe19ea7fdc05417cdb13a0e175c552d61fcfc74b38d8 | quote: Fund your wallet with USDC on Base, Solana or Arc and give your agent a safe place to run code. No registration, no API keys required.
+  - [2] 2026-11-24: the request is quoted in dollars and paid in USDC with no account and no API key | capture: sha256:3df54872de88f0878b8a8f1752c575d559f45324f077171ff618d198dc6f8f1a | quote: No account and no API key stand between an agent and the first call: the request is quoted in dollars and the agent's client pays it.
+  - [2] 2026-11-24: the create lifetime is at most 86400 seconds and above 1 CPU or 1024 MB the call bills hourly | capture: sha256:3df54872de88f0878b8a8f1752c575d559f45324f077171ff618d198dc6f8f1a | quote: | timeout | number | Sandbox lifetime in seconds (max 86400 = 24h, default: 300). Above 300s bills hourly. |
+  - [3] 2026-11-24: an unsigned create request is answered with HTTP 402 and x402 payment requirements on Base | capture: sha256:f03bdb506661b38635ce9b073101219fb2737d3e7119d635ef76e3bc05fae995 | quote: "error":"Payment Required","message":"This endpoint requires x402 payment. Send a POST request with payment header.","endpoint":"/api/v1/modal/sandbox/create","method":"POST","available":["sandbox/create","sandbox/exec","sandbox/status","sandbox/terminate"],"documentation":"https://blockrun.ai/services/modal","paymentInfo":{"network":"eip155:8453","networkName":"Base","asset":"USDC","x402Version":2,"price":0.01}}
+- sources:
+  - [1] https://blockrun.ai/services/modal
+  - [2] https://blockrun.ai/tools/code-sandbox-api
+  - [3] https://blockrun.ai/api/v1/modal/sandbox/create

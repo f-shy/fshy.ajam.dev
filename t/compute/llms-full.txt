@@ -1,0 +1,43 @@
+# fshy: Compute in full
+
+> Machines, sandboxes, notebooks, GPU time, platform hosts and how long each runs before it is reaped.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic is 8,818 KB, about 2,383K tokens in full, more than the 300 KB, about 81K tokens one file holds, so it is split: its hosted records by verdict group, then its self-hosted records in one last group, and a group over that size into balanced parts. The parts in the order below are the one order (hosted before self-hosted, then verdict, provider name, record id). How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Parts
+
+- [Usable part 1 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-1.txt): 37 records, Alibaba Cloud (Simple Application Server, international site) (qualifies) to Privex (Privex Inc.) (qualifies); 290 KB, about 78K tokens
+- [Usable part 2 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-2.txt): 41 records, RackNerd (qualifies) to Appish (qualifies-with-caveat); 291 KB, about 79K tokens
+- [Usable part 3 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-3.txt): 43 records, Apple Xcode Cloud (qualifies-with-caveat) to Bright Data Browser API (qualifies-with-caveat); 287 KB, about 78K tokens
+- [Usable part 4 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-4.txt): 43 records, Brimble Sandboxes (qualifies-with-caveat) to Comfy Deploy (qualifies-with-caveat); 292 KB, about 79K tokens
+- [Usable part 5 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-5.txt): 41 records, Compound Reverie Grants (qualifies-with-caveat) to Epho (qualifies-with-caveat); 287 KB, about 78K tokens
+- [Usable part 6 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-6.txt): 40 records, EQVPS (qualifies-with-caveat) to Google Cloud Build (qualifies-with-caveat); 290 KB, about 78K tokens
+- [Usable part 7 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-7.txt): 41 records, Google Cloud Free Tier (e2-micro) (qualifies-with-caveat) to Inference.net (qualifies-with-caveat); 291 KB, about 79K tokens
+- [Usable part 8 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-8.txt): 49 records, InfluxDB Cloud Serverless (qualifies-with-caveat) to MIOSA (qualifies-with-caveat); 290 KB, about 78K tokens
+- [Usable part 9 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-9.txt): 40 records, MiraclePlus Compute (qualifies-with-caveat) to Oracle Cloud Always Free (qualifies-with-caveat); 286 KB, about 77K tokens
+- [Usable part 10 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-10.txt): 47 records, Oracle Cloud Always Free (qualifies-with-caveat) to Savannaa (qualifies-with-caveat); 292 KB, about 79K tokens
+- [Usable part 11 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-11.txt): 58 records, SciServer (qualifies-with-caveat) to UCloud Agent Sandbox (qualifies-with-caveat); 291 KB, about 79K tokens
+- [Usable part 12 of 12](https://fshy.ajam.dev/t/compute/llms-full-usable-12.txt): 43 records, unsandbox (qualifies-with-caveat) to 无忧云 (Wuyou Cloud) (qualifies-with-caveat); 287 KB, about 78K tokens
+- [Trial part 1 of 4](https://fshy.ajam.dev/t/compute/llms-full-trial-1.txt): 39 records, ABLENET VPS (trial-only) to CloudBrowser AI (trial-only); 247 KB, about 67K tokens
+- [Trial part 2 of 4](https://fshy.ajam.dev/t/compute/llms-full-trial-2.txt): 38 records, CloudCruise (trial-only) to Isorun (trial-only); 245 KB, about 66K tokens
+- [Trial part 3 of 4](https://fshy.ajam.dev/t/compute/llms-full-trial-3.txt): 39 records, Jagoan Cloud (trial-only) to Rev AI (trial-only); 239 KB, about 65K tokens
+- [Trial part 4 of 4](https://fshy.ajam.dev/t/compute/llms-full-trial-4.txt): 43 records, RunInfra (trial-only) to Zylora startup GPU (trial-only); 248 KB, about 67K tokens
+- [Paid only part 1 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-1.txt): 44 records, 62yun (paid-only) to Aéza (paid-only); 279 KB, about 75K tokens
+- [Paid only part 2 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-2.txt): 50 records, BageVM (paid-only) to Compshare (paid-only); 274 KB, about 74K tokens
+- [Paid only part 3 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-3.txt): 47 records, Compute Cheap (paid-only) to Ferenz (paid-only); 279 KB, about 75K tokens
+- [Paid only part 4 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-4.txt): 49 records, FiberState (paid-only) to Hosting Int (paid-only); 280 KB, about 76K tokens
+- [Paid only part 5 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-5.txt): 53 records, Hostinger VPS (paid-only) to LandVPS (paid-only); 279 KB, about 75K tokens
+- [Paid only part 6 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-6.txt): 48 records, Latitude.sh (paid-only) to Mosaic Sandbox (paid-only); 272 KB, about 74K tokens
+- [Paid only part 7 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-7.txt): 48 records, My Remote Mac (paid-only) to ParsPack (paid-only); 278 KB, about 75K tokens
+- [Paid only part 8 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-8.txt): 52 records, ph24 (ProHosting24) (paid-only) to Sail Research (Sailboxes) (paid-only); 279 KB, about 75K tokens
+- [Paid only part 9 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-9.txt): 52 records, Sakura Cloud (paid-only) to SpeedyPage (paid-only); 281 KB, about 76K tokens
+- [Paid only part 10 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-10.txt): 51 records, Spheron (paid-only) to up_network (paid-only); 275 KB, about 74K tokens
+- [Paid only part 11 of 11](https://fshy.ajam.dev/t/compute/llms-full-paid-11.txt): 55 records, UpCloud (paid-only) to Zorocloud (paid-only); 279 KB, about 75K tokens
+- [Rejected part 1 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-1.txt): 60 records, 1517 Medici Project (fails-identity) to GitHub Student Developer (fails-identity); 288 KB, about 78K tokens
+- [Rejected part 2 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-2.txt): 58 records, GMI Cloud SCALE (fails-identity) to NVIDIA Academic Grant (fails-identity); 296 KB, about 80K tokens
+- [Rejected part 3 of 3](https://fshy.ajam.dev/t/compute/llms-full-rejected-3.txt): 58 records, NVIDIA DGX Cloud (fails-identity) to wap.ac (WAPAC) (fails-quota); 290 KB, about 78K tokens
+- [Dead part 1 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-1.txt): 39 records, 4vps.su (dead) to FreeVPSTrial.net (dead); 161 KB, about 44K tokens
+- [Dead part 2 of 2](https://fshy.ajam.dev/t/compute/llms-full-dead-2.txt): 42 records, Gabia VPS hosting (dead) to Yandex Cloud (dead); 162 KB, about 44K tokens
+- [Self-hosted, the last resort](https://fshy.ajam.dev/t/compute/llms-full-self-hosted.txt): 36 records; 132 KB, about 36K tokens

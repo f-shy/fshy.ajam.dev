@@ -1,0 +1,1077 @@
+# fshy: CI runners, usable
+
+> Hosted CI runners and registries, and what they will run.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/ci-cd-runners/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## Appcircle
+
+- `ci-cd-runners/appcircle-starter` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner | tier Starter
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T12:52:26.539Z (live) | stale on 2026-12-10
+- url https://appcircle.io/pricing | page https://fshy.ajam.dev/p/appcircle.md
+- free tier: Starter, labelled Always Free: 20 builds per month, 1 concurrent build, 30 minutes max build time per build | unit: mixed | metered on: unstated | read on: 2026-11-02 | source: [1] | note: the pool is a count of builds a month, not minutes or credits; no term of the unit vocabulary names a build count
+- per-object cap: 30 minutes max build time per build | source: [1]
+- retention: not stated | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: registration is by email address and password at my.appcircle.io, signing up with the Sign up with Company E-mail button and then verifying the address; common and disposable email domains cannot be used, so a company address is required. No card and no phone number is named on the registration page
+- interface: rest
+- limits:
+  - request-rate (binding): 20 builds per month on Starter [1]
+  - request-rate (binding): 1 concurrent build [1]
+  - per-object-cap: 30 minutes max build time per build [1]
+- binding note: the 20-builds-a-month pool fails first (at most 600 build minutes a month, which is a compute pool counted in builds); the schema has no term for a build-count or compute-time pool, so request-rate is the nearest
+- interface detail: a hosted mobile CI/CD service with build, signing, distribution and store-publishing modules, and a REST API at api.appcircle.io authenticated by a Personal Access Key or an API Key, with the API reference published as an OpenAPI document
+- tooling: builds for iOS, Android, React Native and Flutter on Apple Silicon machines, with a clean isolated environment for every build
+- composes with: not stated
+- reliability: no reliability event recorded
+- notes: a mobile-only CI service: builds run on Apple Silicon machines, so the Starter pool is also a route to macOS build time. 20 builds of at most 30 minutes is a ceiling of 600 build minutes a month.
+- evidence note: the pricing page was read on 2026-11-02 and states the Starter pool, concurrency and build time; what registration asks for is unverified
+- extras:
+  - derived: 20 builds x 30 minutes = 600 build minutes a month at most
+- evidence:
+  - [1] 2026-11-02: the Starter plan includes 20 builds a month | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 20 builds per month
+  - [1] 2026-11-02: a build is capped at 30 minutes | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 30 minutes max build time per build
+  - [1] 2026-11-02: the Starter plan runs 1 build at a time | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 1 concurrent build
+  - [1] 2026-11-02: the Starter plan is labelled Always Free, which is a recurring allowance and not a trial | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: Always Free
+  - [1] 2026-11-04: the Starter plan includes 20 builds a month | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 20 builds per month
+  - [1] 2026-11-04: a build is capped at 30 minutes | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 30 minutes max build time per build
+  - probe:https://appcircle.io/pricing 2026-11-04: the pricing page answered HTTP 200 on 2026-11-04 | capture: sha256:388447d86c9801dc66dbf221897f3ee7e876e4431df0bdc09b52d218b12047ae | quote: "status": 200
+  - [2] 2026-11-09: registration is by email with verification, and common or disposable email domains are refused, so a company address is required | capture: sha256:2712f4bd507abe82e4c50f3a6a4c5ef02c7a592cf5d2b9648f67909254b5a77f | quote: You cannot use common and disposable email domains for registration; instead, please register using your company email account.
+  - [3] 2026-11-09: the service publishes a REST API with personal-access-key and API-key authentication, so its interface is not unknown | capture: sha256:b4385a4292cc2d26cb98b63177f3ae3d5249b674f4b6fb4817c015d1b2e9c74c | quote: The Appcircle API supports authentication with a Personal Access Key.
+  - [3] 2026-11-09: the API base is api.appcircle.io and a bearer token from the auth endpoint authorises a call | capture: sha256:b4385a4292cc2d26cb98b63177f3ae3d5249b674f4b6fb4817c015d1b2e9c74c | quote: curl -X GET "https://api.appcircle.io/distribution/v2/profiles" -H "accept: application/json" -H "Authorization: Auth-Token-Goes-Here"
+  - [1] 2026-11-09: the Starter plan is still labelled Always Free with 20 builds a month, 1 concurrent build and a 30 minute maximum per build | capture: sha256:b930e55ffa7115e5bb214f95e4bce2b1c4e4609203253450279036d04b0bb206 | quote: 20 builds per month
+- sources:
+  - [1] https://appcircle.io/pricing
+  - [2] https://docs.appcircle.io/account/my-account/sign-up-login
+  - [3] https://docs.appcircle.io/appcircle-api/api-authentication
+
+## AppVeyor
+
+- `ci-cd-runners/appveyor` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.533Z (live) | stale on 2026-12-05
+- url https://www.appveyor.com/pricing/ | page https://fshy.ajam.dev/p/appveyor.md
+- free tier: an Open-source plan at USD 0 listing 'Unlimited public projects', 1 concurrent job and 5 self-hosted jobs, with a 60-minute maximum build; the page states no monthly minute allowance for that plan, and does not use the word unlimited for builds or minutes | unit: objects | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 60 minutes per build on the free plan; one concurrent job | source: [1]
+- retention: build artifacts and history are retained per project settings | source: [1]
+- egress: no egress charge published | metered: no | source: [1]
+- identity: email | detail: email or GitHub OAuth
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 60 minutes per build; one concurrent job on Free [1]
+- interface detail: an appveyor.yml or the web UI; a REST API
+- tooling: Windows and Linux images; MSBuild, Visual Studio, and the usual package managers
+- composes with: the cheapest way to get a real Windows build, which no other free tier here offers at this cap
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: Sixty minutes and one job at a time is a build system for a small project. It is not general compute, and the concurrency of one is the number that ends that idea.
+- evidence note: the pricing page was read on 2026-10-22. The page's unlimited claim is about the number of public projects, not about the number of builds, which the page does not state.
+- evidence:
+  - [1] 2026-10-22: public open-source projects build without a minute cap, with one concurrent job and a 60-minute maximum build
+  - [1] 2026-11-04: the Open-source plan lists unlimited public projects; the page names no minute allowance | capture: sha256:92b3fc44cde9f11429500f0678c8211db9725f57164237f4f1a1dba0a0ac1d3c | quote: <strong>Unlimited</strong> public projects
+  - [1] 2026-11-04: the Open-source plan runs 1 concurrent job | capture: sha256:92b3fc44cde9f11429500f0678c8211db9725f57164237f4f1a1dba0a0ac1d3c | quote: <strong>1</strong> concurrent job
+  - [1] 2026-11-04: every plan caps a build job at 60 minutes | capture: sha256:2697e53f1fcee2f3591a1e60fbb56d82d22cf449376de2ada38313790b34ffe8 | quote: All plans have maximum build job execution time of 60 minutes.
+  - probe:https://www.appveyor.com/pricing/ 2026-11-04: the pricing page answered HTTP 200 on 2026-11-04 | capture: sha256:39468c67198cc56a29a7fc8a00090a1a132291e763ccd19012bf02bef84dc33e | quote: "status": 200
+- sources:
+  - [1] https://www.appveyor.com/pricing/
+
+## AWS CodeBuild, AWS Free Tier (on-demand EC2 and Lambda)
+
+- `ci-cd-runners/aws-codebuild` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier AWS Free Tier (on-demand EC2 and Lambda)
+- needs card unknown, phone unknown, ID no, institution no | verified 2026-11-19T00:19:24.719Z (live) | stale on 2026-12-20
+- url https://aws.amazon.com/codebuild/pricing/ | page https://fshy.ajam.dev/p/amazon.md
+- free tier: 100 total build minutes per month with the general1.small or arm1.small instance types using on-demand Amazon EC2, and 6,000 total build seconds per month with the lambda.arm.1GB or lambda.x86-64.1GB compute types using on-demand Lambda; the free tier does not expire at the end of the 12-month AWS Free Tier term and is available to new and existing AWS customers | unit: minutes | metered on: wall-clock | read on: 2026-11-19 | source: [1] | note: the headline counts build minutes on on-demand EC2; Lambda compute is metered in seconds under a separate 6,000-second allowance. Reserved Capacity EC2, Sandbox and Docker image server have no free tier. The unit counts minutes a build runs from submission to termination, not one unit per build
+- per-object cap: unverified: the pricing and run-build pages read state no cap on a single build input or artifact | source: [1]
+- retention: unverified: the pricing and run-build pages read state no retention period for build logs or artifacts | source: [1]
+- egress: unverified: the pricing page states that builds may incur additional charges when they transfer data, but states no data-transfer allowance or rate | metered: no | source: [1]
+- identity: email | detail: an AWS account is opened with a name, an email address verified by a one-time code, a password and contact information; most new customers are not asked for a payment method to start, though a phone number and a card may be requested for identity verification in some cases
+- interface: cli, rest
+- limits:
+  - volume-quota (binding): 100 free build minutes per month on on-demand EC2 general1.small or arm1.small; beyond it general1.small costs $0.005 per minute [1]
+  - volume-quota (binding): 6,000 free build seconds per month on on-demand Lambda lambda.arm.1GB or lambda.x86-64.1GB [1]
+  - request-rate: on-demand EC2 build duration is rounded up to the nearest minute; Lambda duration is rounded up to the nearest second [1]
+- limits note: Reserved Capacity EC2 instances carry a minimum charge of 60 minutes each, and Mac reserved instances a minimum of 24 hours; Sandbox and Docker image server have no free tier
+- binding note: the 100 monthly EC2 build-minutes are spent from submission to termination on every build, so an active account reaches that allowance before the per-minute rounding or a compute limit…
+- interface detail: builds run from the AWS CodeBuild console, the AWS CLI or the AWS SDKs; build projects and triggers are managed through the AWS APIs
+- endpoint: https://codebuild.amazonaws.com
+- tooling: the AWS CodeBuild console, the AWS CLI and the AWS SDKs; the user supplies a buildspec.yml build definition and a source repository
+- composes with: a build runs to completion on an AWS-managed compute instance or on Lambda and its result is published to AWS services such as S3 and ECR; the console, CLI or an AWS SDK starts each build and each minute or second spends the monthly allowance. Reserved Capacity fleets are a separate paid offer outside this free allowance
+- reliability: the free tier is stated not to expire after the 12-month AWS Free Tier term; no ban or data-loss event is recorded on the pages read
+- notes: A managed, AWS-run build service where each build spends minutes or seconds from a monthly allowance. Retention of build logs and artifacts and the price of data transfer out are unverified: no first-party page read states them. An AWS account is the identity gate; CodeBuild free minutes are a usage allowance, not a one-time credit. Reserved Capacity fleets, Sandbox and Docker image server are separate paid offers outside this free allowance and are not documented here.
+- evidence note: all numbers are quoted from the first-party CodeBuild pricing page and run-build docs; no build was run, so worker behaviour during a build, the price of data transfer, and what happens after the 100 monthly minutes are spent are unverified
+- evidence:
+  - [1] 2026-11-19: the on-demand EC2 free tier is 100 build minutes a month on general1.small or arm1.small | capture: sha256:bd02f4b5b66f1f2e36f5fe03a6beaaf3a5601272a9b06491eb896abb531104c2 | quote: The CodeBuild AWS Free Tier includes 100 total build minutes per month with the general1.small or arm1.small instance types using on-demand Amazon EC2.
+  - [1] 2026-11-19: the on-demand Lambda free tier is 6,000 build seconds a month on lambda.arm.1GB or lambda.x86-64.1GB | capture: sha256:bd02f4b5b66f1f2e36f5fe03a6beaaf3a5601272a9b06491eb896abb531104c2 | quote: Using on-demand Lambda, the CodeBuild AWS Free Tier includes 6,000 total build seconds per month with the lambda.arm.1GB or lambda.x86-64.1GB compute types.
+  - [1] 2026-11-19: the CodeBuild free tier does not expire after the 12-month term and applies to new and existing customers | capture: sha256:bd02f4b5b66f1f2e36f5fe03a6beaaf3a5601272a9b06491eb896abb531104c2 | quote: The CodeBuild AWS Free Tier does not automatically expire at the end of your 12-month AWS Free Tier term. It is available to new and existing AWS customers.
+  - [1] 2026-11-19: Reserved Capacity, Sandbox and Docker image server have no free allowance | capture: sha256:bd02f4b5b66f1f2e36f5fe03a6beaaf3a5601272a9b06491eb896abb531104c2 | quote: Reserved Capacity EC2, Sandbox and Docker image server don't offer an AWS free tier.
+  - [1] 2026-11-19: on-demand EC2 builds are billed per minute, rounded up from submission to termination | capture: sha256:e8dbb42edaf9b5a266164a5e3b56dd520a521d897e05631b34e1fb7998f7e309 | quote: Build duration is calculated in minutes, from the time you submit your build until your build is terminated, rounded up to the nearest minute.
+  - [1] 2026-11-19: Lambda builds are billed per second, rounded up from submission to termination | capture: sha256:e8dbb42edaf9b5a266164a5e3b56dd520a521d897e05631b34e1fb7998f7e309 | quote: Build duration is calculated in seconds, from the time you submit your build until your build is terminated, rounded up to the nearest second.
+  - [2] 2026-11-19: builds run from the console, the AWS CLI or the AWS SDKs | capture: sha256:8af5b179ee33e85039f6f0038ec99628548733dc1e7e20388c310b005543ddde | quote: You can use the AWS CodeBuild console, AWS CLI, or AWS SDKs to run a build in CodeBuild.
+  - [3] 2026-11-19: the sign-up form asks for a name, an email address verified by a code, a password and contact information | capture: sha256:116645bd8c47dec00438e2fc10e14711a22c363c3ac777381f5f6ba4bae6b530 | quote: Enter your name, verify your email with a one-time code, create a password, and provide your contact information.
+  - [3] 2026-11-19: most new customers sign up without a payment method | capture: sha256:116645bd8c47dec00438e2fc10e14711a22c363c3ac777381f5f6ba4bae6b530 | quote: No credit card is required for most new customers to get started.
+- sources:
+  - [1] https://aws.amazon.com/codebuild/pricing/
+  - [2] https://docs.aws.amazon.com/codebuild/latest/userguide/run-build.html
+  - [3] https://aws.amazon.com/resources/create-account
+
+## Azure Pipelines (private project, free grant)
+
+- `ci-cd-runners/azure-pipelines-private` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T00:32:24.304Z (live) | stale on 2026-12-04
+- url https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted | page https://fshy.ajam.dev/p/microsoft.md
+- disagrees on verdict: `ci-cd-runners/azure-pipelines-private` says qualifies-with-caveat, `ci-cd-runners/azure-pipelines-public` says dead
+- free tier: 1 free parallel job with 1,800 minutes a month and 60 minutes per job, with a 10 GB disk | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 60 minutes per job on the free grant; 360 minutes only on a paid parallel job | source: [1]
+- retention: artifacts and logs follow pipeline retention settings; the minute pool is monthly | source: [1]
+- egress: no egress charge on the hosted agent itself | metered: no | source: [1]
+- identity: card | detail: the free grant applies only to an Azure DevOps organisation linked to a valid Azure subscription; Azure DevOps billing does not accept the Azure Free Trial, and an Azure account asks for a phone number and a non-prepaid credit or debit card
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 60 minutes per job on the free grant [1]
+  - request-rate: 1,800 minutes a month with 1 free parallel job [1]
+- interface detail: an azure-pipelines.yml pipeline; a REST API and the az CLI
+- tooling: the Microsoft-hosted images; any shell; the Azure CLI preinstalled
+- composes with: 1,800 minutes is the largest per-job-minute pool of the small providers, and the 60-minute job cap is the smallest
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: Each job on the free grant stops at 60 minutes and the grant ends at 1,800 minutes a month; a paid parallel job lifts the job cap to 360 minutes. The same organisation grant includes one self-hosted parallel job with no time limit, which runs the agent on a machine the user provides.
+- evidence note: the hosted-agents doc was read.
+- evidence:
+  - [1] 2026-10-22: one free parallel job with 1,800 minutes a month and a 60-minute maximum job duration; 10 GB of disk; the 360-minute cap applies only with a paid parallel job
+  - [2] 2026-10-30: the free parallel-job grant needs the organisation linked to a valid Azure subscription | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: To receive the free grant of parallel jobs, link your Azure DevOps organization to a valid Azure subscription.
+  - [3] 2026-10-30: the Azure Free Trial cannot be the subscription linked for Azure DevOps billing | capture: sha256:78074907bb0658979dea06967f69c05a07979c13c5f12b6a7281a508323b65fa | quote: Azure DevOps doesn't support the Azure Free Trial.
+  - [4] 2026-10-30: an Azure account asks for a phone number and a non-prepaid credit or debit card | capture: sha256:f1d70fff507d29dd9a1375ee033db2b5b2ac9fe30cb65fa34c2601393d095941 | quote: All you need is a phone number, a credit card or a debit card (non-prepaid), and a Microsoft account or a GitHub account.
+  - [2] 2026-10-30: the free tier is one job of up to 60 minutes and 1,800 minutes a month; the paid tier allows 360 minutes per job | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: | Free tier | One free job that can run up to 60 minutes each time | 1,800 minutes (30 hours) per month |
+  - [1] 2026-10-30: the private-project free grant is one parallel job, 60 minutes per job and 1,800 minutes a month | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: Private project: One free parallel job that can run for up to 60 minutes each time, until you use 1,800 minutes (30 hours) per month.
+  - [1] 2026-11-02: the private-project free grant is one parallel job, 60 minutes per job, 1,800 minutes a month | capture: sha256:06e317a38265896b2559e50b8b11221ecb600c4afc477d81ebdaeef0669f15cf | quote: Private project: One free parallel job that can run for up to 60 minutes each time, until you use 1,800 minutes (30 hours) per month.
+  - [2] 2026-11-02: the free grant needs the organisation linked to a valid Azure subscription | capture: sha256:63ec0df492feaffe8e31f80462029db417c6ef4b48ecf4e3ed926821482f6528 | quote: To receive the free grant of parallel jobs, link your Azure DevOps organization to a valid Azure subscription.
+- sources:
+  - [1] https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/hosted
+  - [2] https://learn.microsoft.com/en-us/azure/devops/pipelines/licensing/concurrent-jobs
+  - [3] https://learn.microsoft.com/en-us/azure/devops/organizations/billing/set-up-billing-for-your-organization-vs
+  - [4] https://azure.microsoft.com/en-us/free/
+
+## Buddy
+
+- `ci-cd-runners/buddy` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:52:06.675Z (live) | stale on 2026-12-20
+- url https://buddy.works/pricing | page https://fshy.ajam.dev/p/buddy.md
+- free tier: Free plan at EUR 0: 1 seat, 2 concurrents, USD 1 of usage credit per month for compute and storage, and 1 GB of pipeline cache; all features except SSO and advanced permissions | unit: credits | metered on: wall-clock | read on: 2026-11-19 | source: [1] | note: the USD 1 credit buys CPU-minutes, GB-minutes and GB-hours at the published rates, so the free allowance is a dollar budget rather than a fixed minute count; 1 GB of pipeline cache is included on top
+- per-object cap: no per-object cap stated; the free plan includes 1 GB of pipeline cache | source: [2]
+- retention: a free workspace with no login is frozen after 60 days and permanently terminated if no action is taken in the following 30 days; pipeline runs alone do not count as activity | days: 90 | source: [2] | note: the 90 days is the sum of the 60-day inactivity window and the following 30 days before permanent termination: 60 + 30 = 90
+- egress: no egress allowance or per-GB price is published; storage is billed per GB-hour at USD 0.00011 for sandbox and artifact storage and USD 0.00068 for the pipeline cache | metered: no | source: [3]
+- identity: email | detail: the signup page offers GitHub, GitLab, Google or Bitbucket sign-in, or a work email address, full name and a password of at least 15 characters or 7 including a number; no phone number or card is asked for on that page, and the pricing page states 'No credit card required'
+- interface: git, rest, cli
+- limits:
+  - volume-quota (binding): USD 1 of usage credit per month on Free, spent on CPU-minutes, GB-minutes and GB-hours; no pay-as-you-go billing on Free [3]
+  - request-rate: 2 concurrent pipeline runs on Free, a hard limit with no extra concurrents sold [1]
+  - per-object-cap: 1 seat and 1 GB of pipeline cache on Free [1]
+  - retention-clamped: a free workspace is frozen after 60 days with no login and permanently terminated if no action is taken in the following 30 days [2]
+- limits note: the USD 1 credit buys 4,166 CPU-minutes or GB-minutes at the container rate of USD 0.00024 each: USD 1 / USD 0.00024 = 4,166.67; a macOS VM runs at USD 0.00144 per GB-minute, about six times faster; storage at USD 0.00011 per GB-hour also draws from the same credit
+- binding note: the USD 1 monthly credit binds first: a free pipeline stops when the credit is used up and cannot be extended with pay-as-you-go, before 2 concurrent runs or the 60-day inactivity window matter
+- interface detail: the REST API is described by an OpenAPI 3 specification and is reached at api.buddy.works, api.eu.buddy.works or api.asia.buddy.works with an OAuth2 bearer token; pipelines are defined in the web editor, in YAML or imported from YAML, and the bdy CLI starts and follows pipeline runs
+- endpoint: https://api.buddy.works
+- tooling: a browser-based visual pipeline builder, YAML pipeline definitions, the bdy CLI and a REST API with an OpenAPI 3 specification; pipelines run in containers or Linux, Windows and macOS VMs with x64 or ARM64 CPUs; self-hosted Buddy installations exist but are software the reader installs and runs and come after this hosted offer
+- composes with: a Git push, pull request, schedule or webhook starts a pipeline; containers make up over 90% of actions and consume the USD 1 monthly credit at USD 0.00024 per CPU-minute and GB-minute, with higher GB-minute multipliers for Windows and macOS; a free pipeline stops once the credit is used up and resumes when it renews
+- reliability: unverified: no suspension or data-loss event is stated on the pages read; a free workspace is frozen after 60 days without a login and terminated 30 days later, and pipelines and sandboxes stop when the monthly credit runs out
+- notes: Buddy's hosted CI/CD service is the subject of this record. A separate record, compute/buddy, holds the Buddy Sandboxes container and VM sandbox offer under the compute topic, and a domain-collision open question is filed. The free USD 1 monthly credit buys a variable number of minutes depending on the action type, so the allowance is a budget rather than a fixed minute count. Self-hosted Buddy installations are software the reader installs and runs, listed after this hosted offer. No pipeline was run, so the CPU, memory and disk of a run and the build log retention period are unverified.
+- evidence note: the Buddy pricing page, plans-and-features doc, usage doc, signup page, API overview and pipeline UI doc were read and quoted on 2026-11-19; no pipeline was run, so the CPU, memory and disk of a pipeline run and the exact build log retention period are unverified
+- self hosted: no
+- evidence:
+  - [1] 2026-11-19: the free plan allows 2 concurrent pipeline runs with no option to buy more | capture: sha256:85bc5f92472aab8f1e4d3868af5099f12de42545e72da0d2fe193f3016c4083b | quote: - 2 concurrents (no extra concurrents)
+  - [1] 2026-11-19: the free plan includes USD 1 of monthly compute and storage credit | capture: sha256:85bc5f92472aab8f1e4d3868af5099f12de42545e72da0d2fe193f3016c4083b | quote: - $1/mo. usage credit (compute & storage)
+  - [2] 2026-11-19: the free plan has 1 seat, 2 concurrents, USD 1 monthly credit and all features except SSO and advanced permissions | capture: sha256:1dccd78896efdac1d6b0d34039da225606003daebe3061c9920699b5dcbe69a4 | quote: The Free plan gives you access to all the features of Buddy except SSO and advanced permissions. It is limited to 1 seat and 2 concurrents and includes $1 of usage credit every month.
+  - [2] 2026-11-19: a free workspace is frozen after 60 days without activity and terminated 30 days later | capture: sha256:1dccd78896efdac1d6b0d34039da225606003daebe3061c9920699b5dcbe69a4 | quote: Free workspaces are a subjet to inactivity termination. After a period of 60 days with no activity, the workspace will be frozen and subsequently terminated permanently if no action is taken within the following 30 days.
+  - [3] 2026-11-19: the free plan has no pay-as-you-go billing and stops when the USD 1 credit is used up | capture: sha256:e4794b639bd8fa02b2d2f411079104e1784b83a4c698529bce409ba7e088b6fe | quote: The Free plan has no pay-as-you-go billing. Instead, it includes $1 of usage credit every month, spent at the rates above, and 1 GB of pipeline cache.
+  - [3] 2026-11-19: compute is billed at USD 0.00024 per CPU-minute and GB-minute | capture: sha256:e4794b639bd8fa02b2d2f411079104e1784b83a4c698529bce409ba7e088b6fe | quote: Both CPU-minutes and GB-minutes cost $0.00024.
+  - [3] 2026-11-19: a macOS VM GB-minute costs USD 0.00144, six times the container rate | capture: sha256:e4794b639bd8fa02b2d2f411079104e1784b83a4c698529bce409ba7e088b6fe | quote: | macOS VM | 6 | $0.00144 |
+  - [4] 2026-11-19: the signup form asks for an email address | capture: sha256:a7d0ecfe4b9af372ddd2c20df9e0c604b6fdcd31d21bf09de8d43c2af51fa239 | quote: Your work email
+  - [4] 2026-11-19: the signup form asks for a password with a stated complexity rule | capture: sha256:a7d0ecfe4b9af372ddd2c20df9e0c604b6fdcd31d21bf09de8d43c2af51fa239 | quote: Password: at least 15 characters or 7 including a number
+  - [5] 2026-11-19: a documented REST API is available for programmatic access | capture: sha256:721ac293ac5c11cf9a58da23cb7f72910b4903e4f82608bfe945828759de93a8 | quote: The Buddy REST API is described by an OpenAPI 3 specification.
+  - [5] 2026-11-19: self-hosted Buddy installations exist beside the hosted cloud service | capture: sha256:721ac293ac5c11cf9a58da23cb7f72910b4903e4f82608bfe945828759de93a8 | quote: For self-hosted installations of Buddy:
+  - [6] 2026-11-19: a pipeline can target x64 or ARM64 CPUs | capture: sha256:fbc8eb66ff9c90e40979614f92f3d9bfd2949b209c8ebfe38afcce86d8f0cfa9 | quote: You can choose between x64 and ARM64
+- sources:
+  - [1] https://buddy.works/pricing
+  - [2] https://buddy.works/docs/basics/billing-and-usage/features
+  - [3] https://buddy.works/docs/basics/billing-and-usage/gbmin
+  - [4] https://buddy.works/sign-up
+  - [5] https://buddy.works/docs/api
+  - [6] https://buddy.works/docs/pipelines/introduction/creating-pipeline/pipeline-ui
+
+## Buildkite Free
+
+- `ci-cd-runners/buildkite-free` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:32:22.884Z (live) | stale on 2026-12-04
+- url https://buildkite.com/pricing | page https://fshy.ajam.dev/p/buildkite.md
+- price USD 0.004 per vCPU-minute
+- free tier: 5 users, 10 concurrent jobs and 2,000 Linux vCPU-minutes a month, plus 250,000 test executions a month | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 10 GiB per artifact uploaded from an agent, and 50 GiB of artifacts in one job's upload batch | bytes: 10737418240
+- retention: builds are stored 30 days on the Free plan (90 on Pro, 365 on Enterprise) and artifacts 30 days; the vCPU-minute pool is monthly | days: 30 | source: [1]
+- egress: artifact downloads: 250 GB a month on the Free plan, 2.5 TB a month on Pro and then USD 0.10 per GB; no charge for network traffic from a hosted agent is published on the pricing, limits or hosted-agent pages | metered: yes | free allowance: 250 GB a month of artifact downloads | price per TB: USD 100 per TB of artifact downloads beyond the Pro allowance; the Free plan names no overage | source: [2]
+- identity: email | detail: the signup form asks for a full name, an email and a password, or a GitHub sign-in; the Free plan states 'No credit card required'; the form has no phone or card field
+- interface: git, cli
+- limits:
+  - volume-quota (binding): Up to 2,000 Linux vCPU-minutes a month of Buildkite-hosted agents on the Free plan (Pro includes 4,000); usage is the shape's vCPU count times job runtime [3]
+  - request-rate: 5 users on Free [1]
+  - request-rate: Linux hosted-agent concurrency of 20 vCPU on the Free plan, which is 10 small machines at 2 vCPU each; further jobs queue until capacity frees [3]
+  - retention-clamped: Job timeout of 4 hours on the Free plan; unlimited on Pro and Enterprise [3]
+- binding note: the monthly pool runs out first: 2,000 vCPU-minutes on the only shape the Free plan offers, 2 vCPU, is 1,000 wall-clock minutes a month, against a 4-hour job timeout; usage counts job runtime, with startup and shutdown excluded
+- interface detail: an agent you run, with Buildkite as the control plane; the bk CLI and a REST API
+- tooling: Buildkite-hosted Linux agents on the Free plan, small shape only, run the jobs with no machine of the user's; their outbound traffic comes from IP address ranges shared across customers, and dedicated static addresses are requested from Support; the buildkite-agent binary can also run on a VM from another provider and take jobs from the same pipelines
+- composes with: the Free plan supplies both the scheduler and a hosted machine; once the monthly vCPU-minute pool is spent, the same pipelines can dispatch to a buildkite-agent on a free or rented VM from another provider, which counts against the 10 concurrent self-hosted jobs rather than the pool
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 2,000 vCPU-minutes is 33 vCPU-hours. The Free plan reaches only the 2 vCPU small shape, so the pool is 1,000 wall-clock minutes (16 h 40 min) a month, and a larger shape needs a paid plan. A self-run agent does not draw on the pool, but it needs a machine from another provider, so it is the last resort.
+- evidence note: the pricing page was read and lists the Free column explicitly.
+- evidence:
+  - [1] 2026-10-22: the Free column: 'Up to 2,000 Linux vCPU minutes per month', 'Up to 250k test executions per month', 10 concurrent agents with 10 included, 5 users; Pro includes 4,000 Linux vCPU minutes
+  - [1] 2026-10-22: Free: up to 5 users, up to 10 concurrent jobs, up to 2,000 Linux vCPU-minutes a month; hosted agents at USD 0.004 per vCPU-minute, metered to the second with no minimum
+  - [4] 2026-10-30: the Free plan includes Buildkite-hosted Linux agents, restricted to the small instance shapes | capture: sha256:cbbaf82b462c383bb41827984d3d404bd1163a917e796270183c95e4ff752488 | quote: The Free plan only provides access to small-sized instance shapes.
+  - [3] 2026-10-30: the hosted-agent limits table: Linux vCPU minutes per month are up to 2,000 on Free, 4,000 included on Pro | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Linux vCPU minutes per month | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+  - [3] 2026-10-30: the Free plan's hosted concurrency is 20 vCPU, which is 10 small machines at 2 vCPU each | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: For example, the Free plan's 20-vCPU Linux limit supports up to 10 Small Linux machines at 2 vCPU each.
+  - [3] 2026-10-30: a job on the Free plan times out after 4 hours | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: Default: **4 hours on the Free plan. Unlimited on Pro and Enterprise plans**
+  - [3] 2026-10-30: the monthly vCPU-minute pool of the Free plan is up to 2,000 | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Linux vCPU minutes per month | 4,000 included | Up to 2,000 | 4,000 included | Volume discounts |
+  - [5] 2026-10-30: hosted-agent usage counts job runtime; startup and shutdown are not billed and there is no minimum | capture: sha256:f26f84bf80d7063f8662c702c2392fefa66293d8552499563eeac4b5b9d25091 | quote: Startup and shutdown periods are excluded, with no minimum charges.
+  - [3] 2026-10-30: builds are stored 30 days on the Free plan; the same table gives artifact retention of 30 days on Free | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Build retention | The time period builds are stored in Buildkite after running. Default: 30 days on the Free plan, 90 days on the Pro plan, and 365 days on the Enterprise plan |
+  - [3] 2026-10-30: build retention is 30 days on the Free plan | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: Default: 30 days on the Free plan, 90 days on the Pro plan, and 365 days on the Enterprise plan
+  - [3] 2026-10-30: an artifact uploaded from an agent is at most 10 GiB; the same table gives 50 GiB per job batch | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Artifact file size | The maximum size of an artifact that can be uploaded to Buildkite from an agent. Default: 10 GiB |
+  - [3] 2026-10-30: the artifact file size cap is 10 GiB | capture: sha256:3bb99aa77d71fd8cfe97a09e8bd0fdc72d16bb18229db238b044b6bd02267593 | quote: | Artifact file size | The maximum size of an artifact that can be uploaded to Buildkite from an agent. Default: 10 GiB |
+  - [2] 2026-10-30: artifact downloads are 250 GB a month on Free and 2.5 TB a month on Pro, then USD 0.10 per GB | capture: sha256:06416ebaf4c81102d8db604fe54e02a78e7dca7ba22805d0a8c05b73e941988e | quote: Artifact downloads 250GB/month 2.5TB/month Then $0.10/GB overage
+  - [6] 2026-10-30: the signup form has full name, email and password fields and a GitHub sign-in, and no phone or card field | capture: sha256:272bc9faf03b76e7a0ccef503e368da9a809adc021c277bd0e4b9673faaa5511 | quote: <div class="FormField__Label">Email</div>
+  - [1] 2026-10-30: an agent runs either on Buildkite-hosted compute or on infrastructure the user supplies | capture: sha256:aea630b6e8d230d0787773bc270046435ece802743c101d1ba9bdd75ee5bd2da | quote: A build agent (commonly referred to as a runner) runs on your infrastructure or on Buildkite-hosted compute, and runs one build job at a time.
+  - [4] 2026-10-30: the Free plan cannot select a shape larger than small, which is 2 vCPU | capture: sha256:cbbaf82b462c383bb41827984d3d404bd1163a917e796270183c95e4ff752488 | quote: The Free plan only provides access to small-sized instance shapes.
+  - [1] 2026-10-30: the Free plan is USD 0 with up to 5 users, 10 concurrent jobs, 2,000 Linux vCPU-minutes and 250k test executions a month, and needs no card | capture: sha256:aea630b6e8d230d0787773bc270046435ece802743c101d1ba9bdd75ee5bd2da | quote: No credit card required
+  - [7] 2026-11-02: hosted agents reach the network from IP address ranges shared across customers | capture: sha256:e8c95744e4ec6aa07bbd6fb0000d9f91b009dc8551d0128cd285997f729e6726 | quote: Since the infrastructure of Buildkite hosted agents is shared across Buildkite customers, the IP address ranges for Buildkite hosted agents originate from a common source, and could be shared between different customers' configured hosted agents.
+  - [7] 2026-11-02: dedicated static egress addresses for hosted agents are not self-serve; they are requested from Support | capture: sha256:e8c95744e4ec6aa07bbd6fb0000d9f91b009dc8551d0128cd285997f729e6726 | quote: If you do require dedicated static IP addresses for your hosted agents' IP addresses, contact Support at support@buildkite.com.
+- sources:
+  - [1] https://buildkite.com/pricing
+  - [2] https://buildkite.com/pricing/feature-comparison
+  - [3] https://buildkite.com/docs/platform/limits
+  - [4] https://buildkite.com/docs/agent/buildkite-hosted/linux
+  - [5] https://buildkite.com/docs/pipelines/hosted-agents
+  - [6] https://buildkite.com/signup
+  - [7] https://buildkite.com/docs/agent/buildkite-hosted/network-security
+
+## CircleCI Free
+
+- `ci-cd-runners/circleci-free` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-10-30T12:41:30.391Z (live) | stale on 2026-11-30
+- url https://circleci.com/pricing/ | page https://fshy.ajam.dev/p/circleci.md
+- free tier: 30,000 credits a month on the Free plan, with up to 5 active users and 30x concurrency; open-source projects get up to 400,000 credits a month for Linux, Arm and Docker builds, and macOS and Windows open-source builds draw on the 30,000 | unit: credits | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 1 hour maximum job runtime on the Free plan; 3 hours on Performance and 5 hours on Scale
+- retention: credits expire monthly and do not roll over; caches and artifacts expire per configuration | source: [2]
+- egress: network transfer is billed only for traffic from CircleCI to self-hosted runners; the Free plan includes 1 GB of network transfer and 2 GB-months of storage, and use beyond these draws from the monthly credits at 420 credits per GB | metered: no | source: [2]
+- identity: email | detail: an email address and a password, verified by email, for GitHub, GitLab or Cursor Origin projects; a Bitbucket account for Bitbucket Cloud projects; the Free plan needs no credit card
+- interface: git, cli
+- limits:
+  - request-rate (binding): 30,000 credits a month on Free; every credit expires at the end of the month [1]
+  - request-rate (binding): 30x concurrency on Free, and 5 active users [1]
+  - per-object-cap: 1 hour maximum job runtime on the Free plan [3]
+- interface detail: a .circleci/config.yml pipeline; the CircleCI API and CLI
+- tooling: the CircleCI convenience images; docker; any shell
+- composes with: the largest credit pool of the hosted CI providers here, and the only one that scales with public rather than private visibility by a factor above ten
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: Every job on the Free plan stops at 1 hour, so both the 400,000-credit open-source pool and the 30,000-credit pool are spent in jobs of at most 1 hour. The vendor's credits page gives the macOS open-source allowance as 30,000 credits a month in one section and 25,000 in another, so that figure is unsettled.
+- evidence note: the pricing page was read; the credits doc was read for the overage rate. The 5,000-credit figure in circulation is the pre-2025 plan.
+- evidence:
+  - [1] 2026-10-22: Free: 30,000 credits a month, 5 active users, 30x concurrency; 400,000 credits a month for public repositories
+  - [2] 2026-10-22: credits are consumed by machine size and duration; network and storage beyond the threshold are 420 credits per GB
+  - [1] 2026-10-30: the 400,000-credit pool is for open-source Linux, Arm and Docker builds | capture: sha256:9330f40ac10bbe3ec8e64ad253b39c6dbfbd87802d7d5717e4b0e83820ca648a | quote: Open source projects can access up to 400,000 credits per month (equivalent to 80,000 build minutes) to use on Linux, Arm, and Docker.
+  - [1] 2026-10-30: the Free plan is metered in credits, 30,000 a month | capture: sha256:9330f40ac10bbe3ec8e64ad253b39c6dbfbd87802d7d5717e4b0e83820ca648a | quote: | Credits | 30,000 free credits/month | /month included | Custom |
+  - [3] 2026-10-30: a job on the Free plan stops at 1 hour | capture: sha256:965521fedc2c9922515e97f80815a5be3ea8d6261ea0c100c613aabd2bf2b79f | quote: Jobs have a maximum runtime of 1 (Free), 3 (Performance), or 5 (Scale) hours depending on pricing plan.
+  - [4] 2026-10-30: a build on the Free plan stops at 1 hour | capture: sha256:2be0afadc1f88f1c0558f0dfbd8cf5139f2b394824acceebbe7eb3491ffb4782 | quote: In particular, builds on the Free plan are limited to a maximum duration of 1 hour.
+  - [2] 2026-10-30: the Free plan includes 1 GB of network transfer and 2 GB-months of storage | capture: sha256:0ffd874a0bf8cc540f5146b50da7f604a23275149ceadefdb336e93ed7abf334 | quote: Free organizations also receive an included allotment of 1 GB of network transfer and 2 GB-months of storage.
+  - [2] 2026-10-30: outbound traffic from a hosted job is not billed; only traffic to self-hosted runners is | capture: sha256:0ffd874a0bf8cc540f5146b50da7f604a23275149ceadefdb336e93ed7abf334 | quote: Billing for network usage is only applicable to traffic from CircleCI to self-hosted runners.
+  - [5] 2026-10-30: sign-up is by email address for GitHub, GitLab and Cursor Origin projects | capture: sha256:0ba35164d75f8b10097414bb916523baa0f95ea3883da2bee1d247882e875fb7 | quote: If you want to build mainly GitHub, GitLab, or Cursor Origin projects, sign up with your email address to create an account.
+  - [5] 2026-10-30: Bitbucket Cloud projects sign up with a Bitbucket account | capture: sha256:0ba35164d75f8b10097414bb916523baa0f95ea3883da2bee1d247882e875fb7 | quote: If you want to primarily build Bitbucket Cloud projects, sign up with your Bitbucket account.
+  - [1] 2026-10-30: the Free plan needs no credit card | capture: sha256:9330f40ac10bbe3ec8e64ad253b39c6dbfbd87802d7d5717e4b0e83820ca648a | quote: No credit card required.
+  - [2] 2026-10-30: one section of the credits page gives the macOS open-source allowance as 25,000 credits a month | capture: sha256:0ffd874a0bf8cc540f5146b50da7f604a23275149ceadefdb336e93ed7abf334 | quote: If you build on macOS, we also offer organizations on our Free Plan 25,000 free credits per month to use on macOS open source builds.
+  - [1] 2026-10-30: Free-plan credits are monthly and do not roll over | capture: sha256:9330f40ac10bbe3ec8e64ad253b39c6dbfbd87802d7d5717e4b0e83820ca648a | quote: Credits on the Free plan expire after a month and do not roll over.
+- sources:
+  - [1] https://circleci.com/pricing/
+  - [2] https://docs.circleci.com/guides/plans-pricing/credits
+  - [3] https://support.circleci.com/en/articles/15091447-max-runtime-in-circleci-server
+  - [4] https://support.circleci.com/hc/en-us/articles/4410707277083-Context-deadline-exceeded-after-1-hour-Build-timed-out-Free-tier-only
+  - [5] https://circleci.com/docs/guides/getting-started/first-steps/
+
+## Cloudflare Pages builds
+
+- `ci-cd-runners/cloudflare-pages-builds` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Pages Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.534Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/pages/platform/limits/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: Free plan: 500 builds a month, 1 build at a time, 20 minutes per build. Pro: 5,000 builds a month and 5 concurrent builds. Business: 20,000 builds a month and 20 concurrent builds | unit: mixed | metered on: unstated | read on: 2026-11-02 | source: [1] | note: the quota counts builds, not minutes: a one-minute build and a twenty-minute build each use one of the 500; the vocabulary has no builds term for the unit, so mixed stands in
+- per-object cap: 20 minutes per build | source: [1]
+- retention: unverified: the limits and build pages state no retention period for builds or build logs | source: [1]
+- egress: not stated for the build container; the output of a build is a Pages deployment | metered: no | source: [1]
+- identity: email | detail: a Cloudflare account opened with an email address and a password, verified by email; a GitHub or GitLab account authorised to Cloudflare for Git builds
+- interface: git, rest
+- limits:
+  - volume-quota (binding): 500 builds a month on Free; 5,000 on Pro; 20,000 on Business [1]
+  - request-rate: 1 build at a time per account on Free; 5 on Pro; 20 on Business [1]
+  - per-object-cap: 20 minutes per build [1]
+- limits note: only GitHub and GitLab repositories connect; a project connected to Git cannot switch to Direct Upload later
+- binding note: the 500 monthly builds are spent by pushes and Deploy Hook calls whatever their length, so a busy repository reaches the count before the 20-minute cap matters
+- interface detail: a push to a connected GitHub or GitLab repository builds and deploys the project; a Deploy Hook is a unique URL that starts a build for one branch on an HTTP POST
+- endpoint: unverified: the Deploy Hook URL is generated per hook in the dashboard and its format is not stated on the page read
+- tooling: a gVisor container with Ruby, Node.js, Python, PHP and Go preinstalled and versions overridable by environment variable or version file; the user supplies a build command and an output directory
+- composes with: a 20-minute job on every push or Deploy Hook call, ending in a Pages deployment. An external scheduler calling a Deploy Hook makes it a scheduled job, but each call spends one of the 500 monthly builds. Builds run by an external CI system and uploaded with Wrangler direct upload do not use the Pages build runner; Cloudflare Workers Builds is a separate service with its own record
+- reliability: unverified: no page read states what happens to a Free account once the 500 monthly builds are used
+- notes: A Git-driven build service whose job is bound to a Pages deployment: the build command writes an output directory that is deployed. Pro plan price is unverified; no page read states it. A separate Cloudflare service, Workers Builds, offers 3,000 build minutes a month on Free and has its own record.
+- evidence note: every number is quoted from the Cloudflare Pages limits page; no build was run, so CPU, memory and disk of the build container, outbound network access from it and what happens to a build after the 500 monthly builds are spent are unverified
+- evidence:
+  - [1] 2026-11-02: Free allows 500 builds a month; Pro 5,000; Business 20,000 | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds per month | 500 | 5,000 | 20,000 |
+  - [1] 2026-11-02: Free runs 1 build at a time; Pro 5 concurrent; Business 20 | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds | 1 build at a time | 5 concurrent builds | 20 concurrent builds |
+  - [1] 2026-11-02: a build is terminated after 20 minutes; concurrency is counted per account | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: Builds will timeout after 20 minutes. Concurrent builds are counted per account.
+  - [2] 2026-11-02: GitHub and GitLab connect; self-hosted instances of either do not | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: Cloudflare supports connecting Cloudflare Pages to your GitHub and GitLab repositories. Pages does not currently support connecting self-hosted instances of GitHub or GitLab.
+  - [2] 2026-11-02: a Git-integrated Pages project cannot later become a Direct Upload project | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: If you deploy using the Git integration, you cannot switch to [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/) later.
+  - [2] 2026-11-02: Workers has a separate Git build service, Workers Builds | capture: sha256:73c43f19616fcdd6f71df18b93f65612330f53a4caa5ba1e8b3c368c7f03c0ed | quote: Cloudflare Workers now also supports Git integrations to automatically build and deploy Workers from your connected Git repository.
+  - [3] 2026-11-02: a Deploy Hook URL starts a new Pages build on an HTTP POST | capture: sha256:5c3da66547a81eb3218f92253b7126f223e07b342e87b7f420b45046ef6737e4 | quote: Each event source may obtain its own unique URL, which will receive HTTP POST requests in order to initiate new deployments.
+  - [3] 2026-11-02: a Deploy Hook can be called from a scheduler to run builds on a timetable | capture: sha256:5c3da66547a81eb3218f92253b7126f223e07b342e87b7f420b45046ef6737e4 | quote: Schedule a CRON trigger to update your website on a fixed timeline
+  - [4] 2026-11-02: builds run in a gVisor container | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: Cloudflare Pages builds are run in a [gVisor ↗︎](https://gvisor.dev/docs/) container.
+  - [4] 2026-11-02: the build image carries Ruby, Node.js, Python, PHP and Go | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: Cloudflare Pages' build environment has broad support for a variety of languages, such as Ruby, Node.js, Python, PHP, and Go.
+  - [4] 2026-11-02: older build images are retired into the v3 image | capture: sha256:97ab4228abc5cdce1d30735e628db8e97a966c79b10383cfc55a0f45e0ef1d72 | quote: If you are using the Pages v2 build image, your project will be automatically moved to v3 on February 23, 2027.
+  - [5] 2026-11-02: prebuilt assets can be deployed to Pages from an external CI system with Wrangler | capture: sha256:6fe80c9fb8958c496743818c903c697f12fff897a3f1f552ba1fa06057a80ac2 | quote: Cloudflare Pages supports directly uploading prebuilt assets, allowing you to use custom build steps for your applications and deploy to Pages with
+  - [6] 2026-11-02: the sign-up form asks for an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [1] 2026-11-04: Free allows 500 builds a month | capture: sha256:7f4078e143d1dd096866771c0468b0d3334be8bd1008840fbb5479ad9d67a818 | quote: | Builds per month | 500 | 5,000 | 20,000 |
+  - probe:https://developers.cloudflare.com/pages/platform/limits/ 2026-11-04: the limits page answered HTTP 200 on 2026-11-04 | capture: sha256:2097533da27aaba2dcd808d6e409bfc67f207f859cbf72bbeb14c98d994e1edc | quote: "status": 200
+- sources:
+  - [1] https://developers.cloudflare.com/pages/platform/limits/
+  - [2] https://developers.cloudflare.com/pages/configuration/git-integration/
+  - [3] https://developers.cloudflare.com/pages/configuration/deploy-hooks/
+  - [4] https://developers.cloudflare.com/pages/configuration/build-image/
+  - [5] https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/
+  - [6] https://developers.cloudflare.com/fundamentals/account/create-account/
+
+## Cloudflare Workers Builds
+
+- `ci-cd-runners/cloudflare-workers-builds` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:40.517Z (live) | stale on 2026-12-05
+- url https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/ | page https://fshy.ajam.dev/p/cloudflare.md
+- free tier: Workers Free: 3,000 build minutes a month, 1 concurrent build, 20 minutes per build, 2 vCPU, 8 GB memory and 20 GB disk. Workers Paid (USD 5 a month minimum): 6,000 build minutes a month, then USD 0.005 per minute, 6 concurrent builds, 4 vCPU | unit: minutes | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: a build minute is the time a project takes to build; the overage price applies on Paid plans only; the Builds API reports whether the build-minute allowance is exhausted and when it refreshes, for non-paid plans only; what a push does once the Free minutes are spent (queued, refused or billed) is unverified: behind a sign-up
+- per-object cap: 20 minutes per build on every plan; 8 GB memory and 20 GB disk per build; 64 environment variables per Worker | source: [1]
+- retention: builds and build logs are kept 90 days after the build finishes; the versions and deployments a build created are not removed | days: 90 | source: [1]
+- egress: build commands make HTTPS requests and the build image checks their certificates; no page states whether the build container's outbound traffic is restricted or unrestricted (unverified: no build was run); the build's output is a Worker, and the Workers Paid plan states no additional charge for data transfer (egress) or bandwidth | metered: no | source: [2]
+- identity: email | detail: a Cloudflare account opened with an email address and a password, then verified by email; a GitHub, GitLab or Cursor Origin account authorised to Cloudflare, unless the repository is on Cloudflare Artifacts. Workers Paid adds a USD 5 monthly minimum charge
+- interface: git, rest
+- limits:
+  - per-object-cap (binding): 20 minutes per build on Free and Paid; 8 GB memory; 20 GB disk [1]
+  - request-rate: 3,000 build minutes a month on Free; 6,000 on Paid, then USD 0.005 per minute [1]
+  - request-rate: 1 concurrent build per account on Free, 6 on Paid; Deploy Hooks 10 a minute per Worker and 100 a minute per account [1]
+  - retention-clamped: builds and build logs kept 90 days after the build finishes [1]
+- limits note: a build fails when the Worker name in the dashboard does not match the name in the Wrangler configuration file; Workers Builds does not honour the custom-build settings of the Wrangler file
+- binding note: a job longer than 20 minutes cannot run on any plan, and the 3,000 Free minutes at one concurrent build hold many full-length builds, so the per-build cap fails before the monthly minutes
+- interface detail: a push to a connected GitHub, GitLab, Cursor Origin or Cloudflare Artifacts repository runs an optional build command, then a deploy command that defaults to npx wrangler deploy and can be customised; non-production branches run a preview command. A Deploy Hook is a URL that starts a build for one branch on an HTTP POST with no Authorization header
+- endpoint: https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/<DEPLOY_HOOK_ID>
+- tooling: an Ubuntu 24.04 build image with Node.js, Python, PHP, Ruby and Go preinstalled and versions overridable by environment variable or version file; the deploy and preview commands are Wrangler commands
+- composes with: a 20-minute Ubuntu job on every push or Deploy Hook call, ending in a Worker deploy; an external cron calling a Deploy Hook makes it a scheduled job, and a repository on Cloudflare Artifacts keeps source, build and deploy inside one Cloudflare account. GitHub Actions on a public repository gives longer jobs and comes first
+- reliability: only GitHub, GitLab, Cursor Origin and Cloudflare Artifacts repositories connect; GitHub or GitLab instances run by their owners do not
+- notes: Confirmed as a CI runner service whose job is bound to a Worker deploy: every production build ends in the deploy command and every other branch in the preview command. Price per minute: USD 0.005 beyond the 6,000 minutes included in the USD 5 Workers Paid plan. Whether the build container has unrestricted outbound network access, and what happens to a build on Free once the 3,000 minutes are spent, are unverified.
+- evidence note: every number is quoted from Cloudflare's Workers Builds limits page and the build documentation; no build was run, so network access from the build container and the behaviour once Free minutes are spent are unverified
+- evidence:
+  - [1] 2026-10-30: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+  - [1] 2026-10-30: 1 concurrent build on Free, 6 on Paid | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Concurrent builds | 1 | 6 |
+  - [1] 2026-10-30: a build is terminated after 20 minutes on every plan | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build timeout | 20 minutes | 20 minutes |
+  - [1] 2026-10-30: a build gets 2 vCPU on Free and 4 on Paid | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | CPU | 2 vCPU | 4 vCPU |
+  - [1] 2026-10-30: a build gets 8 GB of memory | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Memory | 8 GB | 8 GB |
+  - [1] 2026-10-30: a build gets 20 GB of disk | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Disk space | 20 GB | 20 GB |
+  - [1] 2026-10-30: builds and build logs are kept 90 days | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build and build log retention | 90 days | 90 days |
+  - [1] 2026-10-30: Deploy Hooks are limited to 10 a minute per Worker and 100 a minute per account | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Deploy Hooks | 10/min per Worker, 100/min per account | 10/min per Worker, 100/min per account |
+  - [1] 2026-10-30: 64 environment variables per Worker | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Environment variables | 64 | 64 |
+  - [3] 2026-10-30: a push to a connected Artifacts, GitHub or GitLab repository builds and deploys the Worker | capture: sha256:3abe72e22b8b8def2df796bf1fa87cd09138b14968445832400f8cdd390f852b | quote: lets you connect a new or existing Worker to a repository hosted by Artifacts, GitHub, or GitLab, enabling automated builds and deployments for your Worker on push.
+  - [4] 2026-10-30: the deploy command defaults to npx wrangler deploy and can be customised | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Your deploy command will default to `npx wrangler deploy` but you may customize this command.
+  - [4] 2026-10-30: a build command is optional and set by the user | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Set a build command if your project requires a build step (e.g. `npm run build`).
+  - [5] 2026-10-30: the build environment is Ubuntu 24.04 | capture: sha256:4f2ac936310a744762c959b555fd0f9ee414602f29774d6cffa1561c916b6e74 | quote: | Build Environment | Ubuntu 24.04 |
+  - [5] 2026-10-30: the build image carries Node.js, Python, PHP, Ruby and Go | capture: sha256:4f2ac936310a744762c959b555fd0f9ee414602f29774d6cffa1561c916b6e74 | quote: Workers Builds uses a build image with support for a variety of languages and tools such as Node.js, Python, PHP, Ruby, and Go.
+  - [1] 2026-10-30: a build minute is the time a project takes to build | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: Build minutes**: The number of minutes that it takes to build a project.
+  - [3] 2026-10-30: a build fails when the dashboard Worker name differs from the Wrangler configuration name | capture: sha256:3abe72e22b8b8def2df796bf1fa87cd09138b14968445832400f8cdd390f852b | quote: the Worker name in the Cloudflare dashboard must match the `name` in the Wrangler configuration file in the specified root directory, or the build will fail.
+  - [4] 2026-10-30: the custom-build settings of the Wrangler file are not honoured | capture: sha256:a54e6da48d73c15a406b4acf7322079052cdff692c9dae781ff4a917959b7bb0 | quote: Currently, Workers Builds does not honor the configurations set in
+  - [6] 2026-10-30: Artifacts, GitHub, GitLab and Cursor Origin repositories can be connected | capture: sha256:fb02e8d1acf70e81848978c1ddc4cd1216d181615fe0aaf5bc999db8d4c98b66 | quote: Cloudflare supports connecting Cloudflare Workers to your Artifacts, GitHub, GitLab, and Cursor Origin repositories.
+  - [6] 2026-10-30: GitHub or GitLab instances run by their owners cannot be connected | capture: sha256:fb02e8d1acf70e81848978c1ddc4cd1216d181615fe0aaf5bc999db8d4c98b66 | quote: Workers Builds does not currently support connecting self-hosted instances of GitHub or GitLab.
+  - [7] 2026-10-30: with a Cloudflare Artifacts repository, source, build and deploy stay inside Cloudflare | capture: sha256:b26a221dcf2ac2379d26c3d8ab44d562678c41f9d2a18652d305edd78896b11f | quote: With Artifacts and Workers Builds, you can host source code, run builds, test changes with Worker Previews, and deploy Workers entirely within Cloudflare.
+  - [8] 2026-10-30: a Deploy Hook URL starts a build for one branch on an HTTP POST | capture: sha256:395e15577e65d2c1f98f1f06bd17825eecf41677a698d7c7c1f4ee013607a73c | quote: Each hook is a unique URL that triggers a manual build for one branch when it receives an HTTP POST request.
+  - [8] 2026-10-30: a Deploy Hook call needs no Authorization header | capture: sha256:395e15577e65d2c1f98f1f06bd17825eecf41677a698d7c7c1f4ee013607a73c | quote: No `Authorization` header is needed.
+  - [2] 2026-10-30: Workers Paid has a minimum charge of USD 5 a month per account | capture: sha256:7ee841f6ac8633cfac31f1c0c35852d58c4e8f2f76ee2660f24b8f810d4f6f6c | quote: The Workers Paid plan includes Workers, Pages Functions, Workers KV, Hyperdrive, and Durable Objects usage for a minimum charge of $5 USD per month for an account.
+  - [2] 2026-10-30: Workers Paid charges nothing extra for egress or bandwidth | capture: sha256:7ee841f6ac8633cfac31f1c0c35852d58c4e8f2f76ee2660f24b8f810d4f6f6c | quote: There are no additional charges for data transfer (egress) or throughput (bandwidth).
+  - [9] 2026-10-30: the sign-up form asks for an email address and a password | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Enter your Email and Password.
+  - [9] 2026-10-30: the email address is verified after sign-up | capture: sha256:0165fdf250cc1338d7e7a94dd78c7adc2df6f592133ad72dfcf0651a080c5543 | quote: Once you create your account, Cloudflare will automatically send an email to your address
+  - [10] 2026-11-02: a Workers Builds build makes HTTPS requests, which the build image checks against rejected certificate authorities | capture: sha256:46b46becad34d42408fdb281153b84ef3ad1bb6d51510aec8ac09dd69d3e7a0f | quote: The Workers Builds and Pages build images now reject these certificates when your build clones your repository, installs dependencies, or makes HTTPS requests.
+  - [11] 2026-11-02: the Builds API reports an exhausted build-minute limit for non-paid plans only | capture: sha256:60442bd949649fa447a35de2c611e221e0e655a510f82dcb5685079ad5270b36 | quote: Whether build minutes limit has been reached (only for non-paid plans)
+  - [1] 2026-11-02: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+  - [1] 2026-11-04: Free includes 3,000 build minutes a month; Paid includes 6,000, then USD 0.005 per minute | capture: sha256:6c03d75dc57a16803ff41ce337dcfa48975e762b0e0a107914e70b8808f2c51d | quote: | Build minutes | 3,000 per month | 6,000 per month (then, +$0.005 per minute) |
+- sources:
+  - [1] https://developers.cloudflare.com/workers/ci-cd/builds/limits-and-pricing/
+  - [2] https://developers.cloudflare.com/workers/platform/pricing/
+  - [3] https://developers.cloudflare.com/workers/ci-cd/builds/
+  - [4] https://developers.cloudflare.com/workers/ci-cd/builds/configuration/
+  - [5] https://developers.cloudflare.com/workers/ci-cd/builds/build-image/
+  - [6] https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/
+  - [7] https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/artifacts-integration/
+  - [8] https://developers.cloudflare.com/workers/ci-cd/builds/deploy-hooks/
+  - [9] https://developers.cloudflare.com/fundamentals/account/create-account/
+  - [10] https://developers.cloudflare.com/changelog/post/2026-10-23-build-images-emudhra-certificates/
+  - [11] https://developers.cloudflare.com/api/resources/workers_builds/methods/get_account_limits/
+
+## Codeberg CI (hosted Woodpecker)
+
+- `ci-cd-runners/codeberg-ci` | qualifies-with-caveat | evidence documented | binding write-gated | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-06T19:14:28.504Z (live) | stale on 2026-12-07
+- url https://docs.codeberg.org/ci/ | page https://fshy.ajam.dev/p/codeberg.md
+- free tier: free for public repositories under a free licence, after a manual access request; linux/amd64 only | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: unverified: the Codeberg CI page states no per-job wall clock | source: [1]
+- retention: the CI is provided as-is and may break for an undefined period | source: [1]
+- egress: no charge published | metered: no | source: [1]
+- identity: email | detail: a Codeberg account plus a reviewed access request
+- interface: git, cli
+- limits:
+  - write-gated (binding): onboarding requires a request form reviewed by a Codeberg volunteer [1]
+  - per-object-cap: linux/amd64 is the sole build target; there is no Docker daemon in the hosted runners [1]
+- limits note: the Woodpecker software kills a pipeline at 60 minutes by default and caps the repo setting at 120 minutes by default
+- interface detail: a .woodpecker.yml pipeline against ci.codeberg.org; self-hosted agents can be attached
+- tooling: the Woodpecker pipeline images; no Docker daemon inside the hosted runners
+- composes with: a free control plane on a non-commercial forge, which pairs with a self-hosted agent for long-running or resource-intensive jobs
+- reliability: 'CI access is provided as-is and might break at any time and for an undefined period'
+- notes: The gate is a volunteer and the availability is explicitly not promised; the page publishes no per-job wall clock.
+- evidence note: the Codeberg CI page was read and states the manual onboarding and the amd64-only limit.
+- evidence:
+  - [1] 2026-10-22: 'Onboarding requires a few manual steps ... a Codeberg volunteer will review your request'; 'linux/amd64 is the sole build target'; CI is provided as-is and may break at any time
+  - [1] 2026-11-04: onboarding is a manual request reviewed by a volunteer | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: a Codeberg volunteer will review your request and grant you access if your use case is appropriate.
+  - [1] 2026-11-04: amd64 is the only build target | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: `linux/amd64` is the sole build target on the Woodpecker CI deployment.
+  - [1] 2026-11-04: the service carries no availability promise | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: CI access is provided as-is and might break at any time
+  - probe:https://docs.codeberg.org/ci/ 2026-11-04: the CI page answered HTTP 200 on 2026-11-04 | capture: sha256:d07a3111c5e0485900964a9ed47bf6430b465a9def1ae7bfb7ef43c6410b2963 | quote: "status": 200
+  - [1] 2026-11-06: the page limits resource use by a reasonable-use rule, not a per-job number | capture: sha256:8e71091b439845f5ae6219fac0135e684a18827efc36f77fc73a37b308360d13 | quote: Resource usage must be reasonable for the intended use-case.
+  - [2] 2026-11-06: a pipeline is killed at 60 minutes by default and the repo setting is capped at 120 minutes by default | capture: sha256:e5756a4fdfb6832c692b7bfbc58562fd98196178cee63121f2f042c8c4f5a6d5 | quote: - Default: 60 ... The default time for a repo in minutes before a pipeline gets killed ... - Default: 120 ... The maximum time in minutes you can set in the repo settings before a pipeline gets killed
+  - [3] 2026-11-06: a self-hosted agent is recommended for long-running or resource-intensive jobs | capture: sha256:92475eec5eff9b9c011a6189d761581047da0110d3b33824ca490b2ec5690c34 | quote: when you want faster feedback from CI, to handle long-running or resource-intensive jobs
+- sources:
+  - [1] https://docs.codeberg.org/ci/
+  - [2] https://woodpecker-ci.org/docs/administration/configuration/server
+  - [3] https://docs.codeberg.org/ci/agents
+
+## Codeberg Forgejo Actions (hosted runners)
+
+- `ci-cd-runners/codeberg-forgejo-actions` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.534Z (live) | stale on 2026-12-05
+- url https://codeberg.org/actions/meta | page https://fshy.ajam.dev/p/codeberg.md
+- free tier: three hosted runner labels on a free Codeberg account, in open alpha: tiny, small and medium. No job-count cap and no monthly minute meter is published; the only published ceiling is the per-job runtime of 2, 5 or 10 minutes | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: codeberg-tiny 1 CPU / 2 GB / 2 min; codeberg-small 2 CPU / 4 GB / 5 min; codeberg-medium 4 CPU / 8 GB / 10 min | source: [1] | note: the RAM allocation includes writes to the filesystem, with 2 GB of extra temporary storage per container
+- retention: no artifact retention is published; the service is in open alpha | source: [1]
+- egress: no charge published | metered: no | source: [1]
+- identity: email | detail: a Codeberg account: a username, an email address and a password, confirmed through a link sent to the email; no card or phone step is stated
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 2 minutes per job on tiny, 5 on small, 10 on medium [1]
+  - per-object-cap (binding): 1, 2 and 4 CPUs, with 2, 4 and 8 GB of RAM, and the RAM includes filesystem writes [1]
+  - request-rate: lazy variants exist and may wait up to 24 hours for a slot [1]
+  - write-gated: the project must be public and under a free licence [1]
+- interface detail: a GitHub-Actions-compatible workflow with runs-on set to a codeberg label; the default image is ghcr.io/catthehacker/ubuntu:act-latest
+- tooling: the act-compatible image; podman for image builds; no Docker daemon
+- composes with: a GitHub-Actions-compatible workflow on a free runner for jobs that finish in ten minutes, which is the only free path to Actions syntax without a GitHub repository
+- reliability: open alpha: the runner sizes are guidelines enforced by fair use rather than hard quotas, and the CI page states the service 'might break at any time and for an undefined period of time'
+- notes: Ten minutes on four CPUs is 40 CPU-minutes per job. No job count and no monthly meter is published; the runner specs are guidelines under fair use and the page asks projects not to jam the shared queue, so the aggregate is discretionary rather than unlimited.
+- evidence note: the runner table was read on 2026-10-22 from Codeberg's own meta repository. The CPUs are one, two and four cores, each paired with 2, 4 and 8 GB of RAM. A figure of 2, 4 and 8 cores is the RAM column read as a CPU count.
+- evidence:
+  - [1] 2026-10-22: 'codeberg-tiny amd64 1 2G 2 min'; 'codeberg-small amd64 2 4G 5 min'; 'codeberg-medium amd64 4 8G 10 min'; 'The RAM allocation includes writes to the filesystem ... we grant you 2 GB of additional storage for temporary files per container'; the lazy variants may take up to 24 hours
+  - [2] 2026-10-22: Forgejo Actions is available with self-hosted runners and a hosted version in limited fashion in open alpha
+  - [1] 2026-10-30: hosted Forgejo Actions runs only for public projects under a free licence | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d
+  - [3] 2026-10-30: Codeberg signup asks for a username, an email and a password | capture: sha256:fdf7bf562dcea2049610217a6878ada22bbadf499862e18b9a086abff6779051 | quote: Then, simply fill in your username and email address and then choose a good password.
+  - [1] 2026-10-30: the runner specs are maxima under fair use, not a metered allowance | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: The specs are guidelines for how many resources builds are allowed to take at most, but we rely on "fair use".
+  - [1] 2026-10-30: the runner table is unchanged: medium 4 CPU, 8G, 10 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-medium | amd64 | 4 | 8G | 10 min | |
+  - [1] 2026-11-04: medium is 4 CPU, 8 GB, 10 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-medium | amd64 | 4 | 8G | 10 min | |
+  - [1] 2026-11-04: tiny is 1 CPU, 2 GB, 2 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-tiny | amd64 | 1 | 2G | 2 min | Intended for very lightweight jobs like linters and other helpers |
+  - [1] 2026-11-04: small is 2 CPU, 4 GB, 5 minutes | capture: sha256:49dba4d43c02e96b03fab66e7f3bcf016fc217356f90c72228b4e9ff161dac7d | quote: | codeberg-small | amd64 | 2 | 4G | 5 min | |
+  - probe:https://codeberg.org/actions/meta 2026-11-04: the runner table page answered HTTP 200 on 2026-11-04 | capture: sha256:2c9f420b20d4fc14b40fddd9b0a03c59d6a2c1b7a01b49928e91584b7a89b141 | quote: "status": 200
+- sources:
+  - [1] https://codeberg.org/actions/meta
+  - [2] https://docs.codeberg.org/ci/actions/
+  - [3] https://docs.codeberg.org/getting-started/first-steps/
+
+## Dev Ramps
+
+- `ci-cd-runners/dev-ramps-free` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner | tier Free
+- needs card no, phone no, ID no, institution no | verified 2026-11-09T12:52:26.661Z (live) | stale on 2026-12-10
+- url https://devramps.com/pricing | page https://fshy.ajam.dev/p/devramps.md
+- free tier: Free: $0 / month with 500 build credits / month, 1 pipeline and 4 team members | unit: credits | metered on: wall-clock | read on: 2026-11-02 | source: [1] | note: the page counts build minutes while a pipeline is running and also lists the pool as build credits; it does not state how many credits one minute uses
+- per-object cap: not stated | source: [1]
+- retention: not stated | source: [1]
+- egress: not stated | metered: no | source: [1]
+- identity: email | detail: an email address and a GitHub repository: the pricing page states No credit card required and Get started with the free tier, and the platform requires GitHub for source control and an AWS account the user owns for the deploy target. No phone number is named
+- interface: git, cli
+- limits:
+  - request-rate (binding): 500 build credits a month on Free; the page also says build minutes are counted while a pipeline is running [1]
+  - write-gated: 1 pipeline and 4 team members on Free; Git provider limited to GitHub [1]
+- binding note: the 500-credit monthly pool fails first; the schema has no term for a compute-time or credit pool, so request-rate is the nearest
+- interface detail: a pipeline defined in a YAML file at .devramps/<pipeline>/pipeline.yaml that deploys to the user's own AWS accounts, driven by a git push; the Free plan lists GitHub as its only Git provider, and the @devramps/cli CLI handles login and AWS bootstrap
+- tooling: an AWS-native CI/CD and deployment service; the build and deploy steps run against AWS accounts that the user owns and pays AWS for
+- composes with: not stated
+- reliability: no reliability event recorded
+- notes: the Free pool is named build credits in the plan table and build minutes in the text; the conversion is not stated, so the number of minutes a month is unverified. The service deploys to AWS accounts that the user owns.
+- evidence note: the pricing page was read on 2026-11-02; the credit-to-minute conversion and the Free plan's sign-up requirements are unverified
+- evidence:
+  - [1] 2026-11-02: the Free plan carries 500 build credits a month | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: | Build credits / month | 500 | 1,500 | 3,000 | Unlimited |
+  - [1] 2026-11-02: the Free plan lists a 500 build-credit monthly pool | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: 500 build credits / month
+  - [1] 2026-11-02: the pool is denominated in build minutes while a pipeline runs | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: Build minutes are counted while your pipeline is actively running
+  - [1] 2026-11-02: the Free plan connects to GitHub only | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: | Git providers | GitHub | All | All | All + Custom |
+  - [1] 2026-11-02: deploy targets are the user's own AWS accounts, billed by AWS | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: Your AWS infrastructure runs in your own accounts, billed directly by AWS.
+  - [1] 2026-11-04: the Free plan lists 500 build credits a month | capture: sha256:1cce92d8372359e56524bec3be6c9dd2bcf679768660a3ebe57837ec83cff350 | quote: 500 build credits / month
+  - probe:https://devramps.com/pricing 2026-11-04: the pricing page answered HTTP 200 on 2026-11-04 | capture: sha256:8230496a66da49db286f9cff71536d26b9342ad16615c1fd18931ff95b0094eb | quote: "status": 200
+  - [1] 2026-11-09: the page states that starting on the free tier needs no credit card | capture: sha256:2d5dfe9fba1bdad29a5359c5808bfacc73bde1062143b966e2450d13a76b4c03 | quote: No credit card required. Get started with the free tier and upgrade when you're ready.
+  - [2] 2026-11-09: a published CLI exists, so the interface is git plus a command-line client rather than git alone | capture: sha256:9611da7e0e26a28bb20026c4a4d627af9645a589618978c441c8af8e885f00e0 | quote: The DevRamps CLI (`@devramps/cli`) manages authentication, AI agent setup, and AWS infrastructure bootstrapping.
+  - [2] 2026-11-09: the CLI runs through npx, so no installation is needed to reach it | capture: sha256:9611da7e0e26a28bb20026c4a4d627af9645a589618978c441c8af8e885f00e0 | quote: npx @devramps/cli <command>
+  - [1] 2026-11-09: the Free plan is still 500 build credits a month with 1 pipeline and 4 team members | capture: sha256:2d5dfe9fba1bdad29a5359c5808bfacc73bde1062143b966e2450d13a76b4c03 | quote: 500 build credits / month
+- sources:
+  - [1] https://devramps.com/pricing
+  - [2] https://devramps.com/docs/cli/overview
+
+## GitHub Actions on a private repository
+
+- `ci-cd-runners/github-actions-private` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:36.354Z (live) | stale on 2026-12-04
+- url https://docs.github.com/en/billing/concepts/product-billing/github-actions | page https://fshy.ajam.dev/p/github.md
+- price USD 0.006 per Linux minute beyond the allowance
+- free tier: USD 12 of included compute usage per month on GitHub Free and GitHub Free for organizations (the vendor states a monetary amount, not minutes); at USD 0.006 a minute on a standard Linux 2-core runner that is 2,000 minutes per month; USD 18 on Pro and Team, USD 300 on Enterprise Cloud, shared with cloud sandbox compute; 500 MB of artifact storage on Free | unit: credits | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 6 hours per job, the same as the public path; the difference is the monthly minute pool | source: [2]
+- retention: artifacts kept 90 days by default; the runner is destroyed at the end of the job | days: 90 | source: [3]
+- egress: no egress charge; artifact storage is 500 MB on Free and shared with GitHub Packages | metered: yes | free allowance: 500 MB artifact and package storage | source: [4]
+- identity: email | detail: a GitHub account; no card while inside the included amounts
+- interface: git, cli
+- limits:
+  - request-rate (binding): USD 12 of included compute usage a month on Free, or 2,000 minutes on a standard Linux 2-core runner at USD 0.006 a minute; it resets at the start of each billing cycle, and usage is blocked once it is consumed when no payment method is on file [1]
+  - per-object-cap: 6 hours per job; 500 MB of artifact storage shared with Packages on Free [2]
+  - request-rate (binding): 20 concurrent jobs on Free [2]
+- interface detail: the same workflow YAML; minutes are charged to the repository owner, not the trigger
+- tooling: the same runner images as the public path on a smaller machine: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD, against 4 vCPU and 16 GB RAM on a public repository
+- composes with: the honest paid path: 2,000 minutes is 33 hours of one runner a month, and beyond it Linux billing is USD 0.006 a minute
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 2,000 minutes is 33 hours and the per-job cap still applies, so the two limits are independent and the smaller one wins. A single six-hour job already spends 18% of the month.
+- evidence note: the billing page's plan table was read.
+- evidence:
+  - [1] 2026-10-22: Free: 500 MB artifact storage and 2,000 minutes; Pro 1 GB and 3,000; Team 2 GB and 3,000 with 75 GB custom images; Enterprise 50 GB and 50,000; Linux baseline USD 0.006 a minute and Windows USD 0.010
+  - [1] 2026-10-22: 'Minutes usage is charged to the repository owner, not the person who triggered the workflow runs'
+  - [1] 2026-10-30: GitHub Free includes 500 MB of artifact storage, USD 12 of compute usage a month and 10 GB of cache per repository | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [1] 2026-10-30: the private-repository allowance is a monetary amount, not a minute count | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage is expressed as a monetary amount, not a fixed number of minutes or other usage units.
+  - [1] 2026-10-30: no payment method is needed inside the included usage; usage stops when it is consumed | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: If your account does not have a valid payment method on file, usage is blocked once you consume the included compute usage.
+  - [5] 2026-10-30: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: | Linux | 2 | 8 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [2] 2026-10-30: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [2] 2026-10-30: GitHub Free allows 20 concurrent jobs on standard GitHub-hosted runners, 5 of them macOS | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: | Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |
+  - [1] 2026-10-30: a standard Linux 2-core runner costs USD 0.006 a minute | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | Linux 2-core (x64) | `actions_linux` | $0.006 |
+  - [6] 2026-10-30: a GitHub account needs a verified email address | capture: sha256:124e92b5cc7611a060dd61acef3a8b9dc598f1c8b29a55af95ecf39915d1a316 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [1] 2026-11-03: GitHub Free includes USD 12 of included compute usage; the table column is headed per month | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [1] 2026-11-03: the vendor converts included usage to standard Linux minutes at USD 0.006 a minute | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: As a guide, $300 USD covers 50,000 minutes on a standard Linux runner at $0.006 USD per minute.
+  - [1] 2026-11-03: the private-repository allowance is a monetary amount, not a minute count | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage is expressed as a monetary amount, not a fixed number of minutes or other usage units.
+  - [1] 2026-11-03: the allowance is monthly and resets each billing cycle | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: The included compute usage resets at the start of each billing cycle.
+  - [2] 2026-11-03: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [5] 2026-11-03: on a private repository ubuntu-latest is 2 vCPU, 8 GB RAM and 14 GB SSD | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: | Linux | 2 | 8 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [6] 2026-11-03: a GitHub account with a verified email address is the registration requirement | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [2] https://docs.github.com/en/actions/reference/limits
+  - [3] https://docs.github.com/en/actions/how-tos/manage-workflow-runs/remove-workflow-artifacts
+  - [4] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [5] https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - [6] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Actions on a public repository
+
+- `ci-cd-runners/github-actions-public` | qualifies-with-caveat | evidence documented | binding per-object-cap | category CI runner
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T17:29:36.355Z (live) | stale on 2026-12-04
+- url https://docs.github.com/en/billing/concepts/product-billing/github-actions | page https://fshy.ajam.dev/p/github.md
+- free tier: standard GitHub-hosted runners are free with no minute cap on a public repository; 20 concurrent jobs on Free; 6 hours per job | unit: unlimited | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 6 hours of execution per job on a GitHub-hosted runner; 35 days per workflow run including waiting and approval; 256 jobs per matrix per run; a 500 KB workflow file | source: [2] | note: a self-hosted job is capped at 5 days instead
+- retention: artifacts and logs are kept 90 days by default and configurable per repository; the runner is destroyed at the end of the job | days: 90 | source: [3]
+- egress: no egress charge on the runner; artifact storage is capped at 500 MB on Free and shared with GitHub Packages | metered: yes | free allowance: 500 MB artifact and package storage | source: [4]
+- identity: email | detail: a GitHub account; no card for a public repository
+- interface: git, cli
+- limits:
+  - per-object-cap (binding): 6 hours per job; 35 days per workflow run; 256 jobs per matrix; a 500 KB workflow file [2]
+  - request-rate: 20 concurrent jobs on GitHub Free (Pro 40, Team 60, Enterprise 500); 5 concurrent macOS [2]
+  - retention-clamped: cache entries not accessed in over 7 days are removed [5]
+  - retention-clamped: artifacts and logs are kept 90 days by default and the window is configurable per repository [3]
+  - per-object-cap (binding): 10 GB of cache per repository, evicted oldest-first beyond it [5]
+- limits note: 100 workflow runs may queue per concurrency group; cache uploads are 200 a minute and downloads 1,500 a minute per repository; in a public repository a scheduled workflow is automatically disabled when the repository has no activity for 60 days (docs.github.com/en/actions/how-tos/manage-workflow-runs/disable-and-enable-workflows)
+- interface detail: a workflow YAML in .github/workflows, triggered by a push, a schedule, a pull request or a repository dispatch; the runner is a shell with a network
+- tooling: the runner image is Ubuntu 24.04 with 4 vCPU, 16 GB RAM and 14 GB SSD; any package manager, any compiler, docker buildx
+- composes with: free compute whose output has to leave immediately: artifacts are 500 MB, GHCR is 500 MB, and the cache evicts at 7 days. R2's 10 GB free tier is the join that makes the chain storable
+- reliability: the repository, its workflows and its logs are public, which is a technical property of the free tier and not a policy question
+- notes: Unlimited minutes is true and it is not the number that decides anything. The capacity is the 20-slot concurrency: 20 slots x 24 h is 480 runner-hours a day, which is the flow ceiling, and the 120 runner-hours the slots hold at one instant is a stock and not a rate. Minutes are not scarce; a single job that runs longer than six hours is impossible. A 256-job matrix at the six-hour ceiling is 1,536 runner-hours, or thirteen waves of 20 and 78 hours of wall clock.
+- evidence note: the billing and limits pages were read on 2026-10-22 and state both the unlimited public minutes and each cap. No workflow was run, so the concurrency and job-duration figures are the pages' own.
+- evidence:
+  - [1] 2026-10-22: 'GitHub Actions usage is free for self-hosted runners and for public repositories that use standard GitHub-hosted runners'; 'Larger runners are always charged for, even when used by public repositories'
+  - [2] 2026-10-22: Job execution time 6 hours on GitHub-hosted and 5 days self-hosted; 35 days per workflow run; 256 jobs per matrix per run; 500 KB workflow file; 20 concurrent jobs on Free and 5 macOS; 500 MB artifact storage, 2,000 minutes and 10 GB cache per repository on Free
+  - [6] 2026-10-22: ubuntu-latest is 4 vCPU, 16 GB RAM, 14 GB SSD; ubuntu-slim is 1 vCPU and 5 GB
+  - [5] 2026-10-22: 10 GB per repository by default; any cache entry not accessed in over 7 days is removed; beyond the limit the oldest entries are evicted
+  - [3] 2026-10-22: 'By default, GitHub stores build logs and artifacts for 90 days'
+  - [2] 2026-10-30: a job on a GitHub-hosted runner is capped at 6 hours | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: Each job in a workflow can run for up to 6 hours of execution time. If a job reaches this limit, the job is terminated and fails.
+  - [6] 2026-10-30: standard GitHub-hosted runners have no minute cap and no charge on a public repository | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: Use of the standard GitHub-hosted runners is free and unlimited on public repositories.
+  - [2] 2026-10-30: GitHub Free allows 20 concurrent jobs on standard GitHub-hosted runners, 5 of them macOS | capture: sha256:80578bff32c062c9bd42f73df05a742f812ac2687ca700ddcda521568513230b | quote: | Standard GitHub-hosted runner | Free | 20 | 5 | Not applicable |
+  - [6] 2026-10-30: on a public repository ubuntu-latest is 4 vCPU, 16 GB RAM and 14 GB SSD | capture: sha256:a52a8d6be5da2b9b0bb0c3018849715008e3234850d5d6f254a34cdb1abe6b60 | quote: | Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [7] 2026-10-30: a GitHub account needs a verified email address | capture: sha256:124e92b5cc7611a060dd61acef3a8b9dc598f1c8b29a55af95ecf39915d1a316 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+  - [1] 2026-10-30: GitHub Free includes 500 MB of artifact storage, USD 12 of compute usage a month and 10 GB of cache per repository | capture: sha256:6a4c243c1922768f9c4e449e67cc73a6db35e567363be67f12c1cf6a432ce318 | quote: | GitHub Free | 500 MB | $12 USD | 10 GB | Not applicable |
+  - [6] 2026-11-03: standard GitHub-hosted runners on a public repository have no minute cap and no charge | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: Use of the standard GitHub-hosted runners is free and unlimited on public repositories.
+  - [6] 2026-11-03: on a public repository ubuntu-latest is 4 vCPU, 16 GB RAM and 14 GB SSD | capture: sha256:e770f53d3eb0eae8a10e7076ecbf23801b542f94b001c228d003636c90c960c2 | quote: | Linux | 4 | 16 GB | 14 GB | x64 | `ubuntu-latest`, `ubuntu-24.04`, `ubuntu-22.04`, `ubuntu-26.04` |
+  - [7] 2026-11-03: a GitHub account with a verified email address is the registration requirement | capture: sha256:0a0beece02e0570e78f75f239991e8a347ea5999944b0ca711ce7bcb46cdb716 | quote: To get started with GitHub.com, you need to have a personal account and a verified email address.
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-actions
+  - [2] https://docs.github.com/en/actions/reference/limits
+  - [3] https://docs.github.com/en/actions/how-tos/manage-workflow-runs/remove-workflow-artifacts
+  - [4] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [5] https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching
+  - [6] https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+  - [7] https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github
+
+## GitHub Container Registry
+
+- `ci-cd-runners/ghcr` | qualifies-with-caveat | evidence documented | binding per-object-cap | category container registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T04:36:08.320Z (live) | stale on 2026-12-19
+- url https://docs.github.com/en/billing/concepts/product-billing/github-packages | page https://fshy.ajam.dev/p/github.md
+- free tier: container image storage and bandwidth for the Container registry is currently free; a change to that policy is announced at least one month in advance | unit: unlimited | metered on: none | read on: 2026-11-06 | source: [1]
+- per-object cap: a 10 GB size limit for each layer, and a 10 minute timeout limit for uploads | source: [2]
+- retention: a package persists until deleted; it shares the storage pool with artifacts, which expire at 90 days | days: 90 | source: [1]
+- egress: container image storage and bandwidth for the Container registry is currently free; a change to that policy is announced at least one month in advance | metered: no | free allowance: currently free | source: [1]
+- identity: email | detail: a GitHub account; a personal access token with packages scope for a push
+- interface: oci, rest
+- limits:
+  - per-object-cap (binding): a 10 GB size limit for each layer [2]
+  - per-object-cap (binding): a 10 minute timeout limit for uploads [2]
+- limits note: the same as the free tier
+- binding note: the Container registry publishes two limits of its own, a 10 GB size limit for each layer and a 10 minute timeout limit for uploads
+- interface detail: the OCI distribution API at ghcr.io: an unauthenticated GET to /token with a repository pull scope returns a Bearer token, and a GET to /v2/<repo>/manifests/<tag> with that token and an Accept header that permits OCI image indexes returns the image index
+- tooling: docker, podman, skopeo, oras, crane
+- composes with: the artifact store for a GitHub Actions build; the 10 GB per-layer size and the 10 minute upload timeout are the limits to watch
+- reliability: an unauthenticated GET of the ghcr.io pull-token endpoint for catthehacker/ubuntu answers HTTP 200 with a 69-byte token JSON body
+- notes: Container image storage and bandwidth are currently free, so the per-layer size and the upload timeout are the limits that bind. The earlier 'no anonymous pull token' claim came from requesting library/hello-world, which is Docker Hub's namespace; real public packages return a manifest.
+- evidence note: the storage and transfer figures are a first-party page, and they are the fields the verdict rests on. The anonymous token and manifest probes prove the read path, which does not raise a documented quota. The earlier anonymous-pull measurement used library/hello-world, a Docker Hub namespace rather than a ghcr.io one, so it proved nothing about a public ghcr.io package.
+- evidence:
+  - probe:https://ghcr.io/token?scope=repository:catthehacker/ubuntu:pull&service=ghcr.io 2026-10-22: 200 with 69 bytes of token JSON, {"token":"djE6Y2F0dGhlaGFja2VyL3VidW50dToxNzkyNjQxMjI2Njg2NzQ2MTE3"}, sha256 e26b35c1dc64bf51b6e02f5a20f7d7fbf436a944d445155e8fc313a42ec3a808; GHCR issues an anonymous pull token for a public package
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest 2026-10-22: 200 with 754 bytes, schemaVersion 2, mediaType application/vnd.oci.image.index.v1+json, sha256 62d572b92f9f32d3427b6d220ad1f9dca9c7b6ffad37d295425037dbff78abaf; the anonymous token fetches a manifest
+  - probe:https://ghcr.io/token?scope=repository:library/hello-world:pull&service=ghcr.io 2026-10-22: 403 with 86 bytes, DENIED. This is the negative control: library/ is Docker Hub's namespace and does not exist on ghcr.io, so the 403 answers the path, not the anonymity policy
+  - probe:https://auth.docker.io/token?service=registry.docker.io&scope=repository:library/alpine:pull 2026-10-22: 200 with 5,489 bytes of token JSON, so Docker Hub does issue anonymous pull tokens and a public base image is free
+  - [1] 2026-10-22: storage is shared with Actions artifacts and cannot exceed the plan amount; a 500 MB package in a private repository consumes 500 MB of storage and a download consumes 500 MB of transfer; an Actions download with GITHUB_TOKEN does not count
+  - [1] 2026-11-06: container image storage and bandwidth are currently free, with at least one month's notice of a change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free. If you use Container registry, you'll be informed at least one month in advance of any change to this policy.
+  - [2] 2026-11-06: the registry publishes a 10 GB per-layer size limit and a 10 minute upload timeout | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 GB size limit for each layer. ... * The Container registry has a 10 minute timeout limit for uploads.
+  - [2] 2026-11-06: the registry publishes a 10 GB per-layer size limit | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 GB size limit for each layer.
+  - [2] 2026-11-06: the registry publishes a 10 minute upload timeout | capture: sha256:4b3a2c0a26a56c2a4cfd47016d4f6a9c5f388b00b9a4eb57386569eab7a9495b | quote: * The Container registry has a 10 minute timeout limit for uploads.
+  - probe:https://ghcr.io/token?scope=repository:library/hello-world:pull&service=ghcr.io 2026-11-09: the control: library/hello-world is Docker Hub's namespace and not GHCR's, so its 403 DENIED states nothing about GHCR's private packages | capture: sha256:abf852beb1f3d6601bf0451dc96e7b91cd03ec1a1aad1078f0b2cd4f4836e368 | quote: "status": 403, "bytes": 86
+  - probe:https://ghcr.io/token?scope=repository:catthehacker/ubuntu:pull&service=ghcr.io 2026-11-09: an unauthenticated request for a pull token on catthehacker/ubuntu answers 200 with a 69-byte token JSON, which is the fact the reliability note states | capture: sha256:d44c4c4ecf74b3b7bed1fa7df7dbd511976e0b40d27e8b00412d883ca505eb13 | quote: "status": 200, "bytes": 69,
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest 2026-11-09: the token that request returned fetches the act-latest image index: 200, 754 bytes, digest sha256:62d572b9 | capture: sha256:c890eddac240b46f411af5c4f0f5c46238b9f9a12df46f76275a3c292d66bf34 | quote: "status": 200, "bytes": 754, "sha256": "62d572b92f9f32d3427b6d220ad1f9dca9c7b6ffad37d295425037dbff78abaf"
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/tags/list?n=1000 2026-11-09: the namespace exists: the anonymous token lists its tags, so the manifest pull answered a real repository | capture: sha256:d5d51658fe09f2df9556b7d00a45d2a312cfe635fe3f1c8abf105c292204a261 | quote: "name":"catthehacker/ubuntu","tags":["act-18.04-20210222"
+  - [1] 2026-11-09: the billing page states that container image storage and bandwidth are free, with a month's notice of any change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free.
+  - probe:https://ghcr.io/token?scope=repository:catthehacker/ubuntu:pull&service=ghcr.io 2026-11-18: an unauthenticated GET of the pull-token endpoint for catthehacker/ubuntu answers 200 with a 69-byte token JSON body | capture: sha256:af5b831c4d2b01422b3e9d4d6686c50b06256c513e57494ffd15b6785f99bf37 | quote: "status": 200, "bytes": 69,
+  - [3] 2026-11-18: the token fetches the act-latest image index: 200, 528 bytes, digest sha256:a69bc68d691e9e9afd294dbb9ea7a71e38207c2f0a7b689b5dc6a4cacf06f5e6 | capture: sha256:a69bc68d691e9e9afd294dbb9ea7a71e38207c2f0a7b689b5dc6a4cacf06f5e6 | quote: "mediaType":"application/vnd.oci.image.index.v1+json"
+  - probe:https://ghcr.io/token?scope=repository:library/hello-world:pull&service=ghcr.io 2026-11-18: the wrong-namespace control: library/hello-world is Docker Hub's namespace and does not exist on ghcr.io, so its 403 answers the path and not the anonymity policy | capture: sha256:a265c73224ba518685de90d79f09531c4747dfa09246ae8739e5bedd96cc0905 | quote: "status": 403, "bytes": 86,
+  - probe:https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest 2026-11-18: the same manifest route without a token answers 401 with a 73-byte body, so the token is what the 200 depends on | capture: sha256:d34073fccb777cabe781eb53522154a6dda4d72775b2a043b79c7677d40f6186 | quote: "status": 401, "bytes": 73,
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [2] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+  - [3] https://ghcr.io/v2/catthehacker/ubuntu/manifests/act-latest
+
+## GitHub Packages (CI runners)
+
+- `ci-cd-runners/github-packages` | qualifies-with-caveat | evidence documented | binding per-object-cap | category package registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T04:36:08.435Z (live) | stale on 2026-12-19
+- url https://docs.github.com/en/billing/concepts/product-billing/github-packages | page https://fshy.ajam.dev/p/github.md
+- free tier: 500 MB of storage and 1 GB of transfer a month on GitHub Free, shared with Actions artifacts | unit: MB | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: 500 MB total across all package types and artifacts on Free | source: [1]
+- retention: packages persist until deleted; artifacts in the same pool expire at 90 days | days: 90 | source: [1]
+- egress: 1 GB of transfer a month on Free for private packages | metered: yes | free allowance: 1 GB per month | source: [1]
+- identity: email | detail: a GitHub account; GitHub Packages only supports authentication using a personal access token (classic)
+- interface: rest, cli
+- limits:
+  - per-object-cap (binding): 500 MB of storage shared with Actions artifacts [1]
+  - request-rate: 1 GB of transfer a month for private packages [1]
+- interface detail: the npm registry at npm.pkg.github.com; an access token is required to install a package from it, public packages included, and a personal access token (classic) is the credential the registry accepts
+- tooling: the native package manager for each ecosystem, plus the gh CLI
+- composes with: the same account as GHCR, whose container image storage and bandwidth are currently free
+- reliability: an unauthenticated GET of the public npm package @azu/npm-github-package-example at npm.pkg.github.com answers HTTP 401 with a 46-byte body, {"error":"authentication token not provided"}; a token is required to read a public package here
+- notes: Recorded separately from GHCR because the two are routinely counted as if they were two allowances; container image storage and bandwidth are currently free.
+- evidence note: the billing page was read.
+- evidence:
+  - [1] 2026-10-22: 'The storage amounts shown are shared with GitHub Actions artifacts'; a 500 MB package consumes 500 MB of storage and each download consumes 500 MB of transfer
+  - [2] 2026-11-06: a personal access token (classic) is the only credential GitHub Packages supports | capture: sha256:3a8a5012d92758ae51377843b8e98fcfd5ddba7072c379ed6000b12a6d57a7c4 | quote: GitHub Packages only supports authentication using a personal access token (classic).
+  - [1] 2026-11-06: the included storage is shared with GitHub Actions artifacts | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: The storage amounts shown are shared with GitHub Actions artifacts.
+  - [1] 2026-11-06: container image storage and bandwidth are currently free, with at least one month's notice of a change | capture: sha256:e86d8202da6424d7fe777a09cf7daa8f56612d3bd02b7fe08da73f46ea4aa5a2 | quote: Container image storage and bandwidth for the Container registry is currently free. If you use Container registry, you'll be informed at least one month in advance of any change to this policy.
+  - [2] 2026-11-09: GitHub's own npm registry page states that an access token is required to install packages, public ones included, and that a personal access token (classic) is the credential | capture: sha256:3a8a5012d92758ae51377843b8e98fcfd5ddba7072c379ed6000b12a6d57a7c4 | quote: You need an access token to publish, install, and delete private, internal, and public packages.
+  - probe:https://npm.pkg.github.com/@azu%2fnpm-github-package-example 2026-11-09: an unauthenticated GET of a public npm package answers 401 with a 46-byte error body, which is the fact the reliability note states | capture: sha256:7d6007e5af9004434867fc40b60d1bcab1978f034b21751e29f5929235dcbcff | quote: "status": 401, "bytes": 46,
+  - probe:https://npm.pkg.github.com/@actions%2fcore 2026-11-09: the control: a package that does not exist under that owner answers 404, so the 401 is the read gate and not a missing package | capture: sha256:c70d20350d394aaa3c88831d92e700b7b4d9079fbe27c1eaaad5b8c51d39d6ff | quote: "status": 404, "bytes": 72,
+  - probe:https://npm.pkg.github.com/@azu/npm-github-package-example 2026-11-18: an unauthenticated GET of the public npm package @azu/npm-github-package-example answers 401 with a 46-byte body | capture: sha256:3fe7d3bbc140b73d9d15f740debba360c554e7d9cc6513a26991696c19806893 | quote: "status": 401, "bytes": 46,
+  - probe:https://npm.pkg.github.com/@tsubasa/example-npm-github-package 2026-11-18: a second published public package answers the same 401 with the same 46-byte body, so the gate is the registry's and not one package's | capture: sha256:7ce244d9005bdc09faaa4c77e145f3e4abe002cd4cdb0800c649b686bbab61c2 | quote: "status": 401, "bytes": 46,
+- sources:
+  - [1] https://docs.github.com/en/billing/concepts/product-billing/github-packages
+  - [2] https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry
+
+## GitLab CI on GitLab.com Free
+
+- `ci-cd-runners/gitlab-ci` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner
+- needs card yes, phone yes, ID no, institution no | verified 2026-11-03T00:32:24.302Z (live) | stale on 2026-12-04
+- url https://docs.gitlab.com/ci/pipelines/compute_minutes/ | page https://fshy.ajam.dev/p/gitlab.md
+- free tier: 400 compute minutes a month per namespace; 5 users per top-level group; 10 GiB of repository storage | unit: minutes | metered on: wall-clock | read on: 2026-10-22 | source: [1]
+- per-object cap: 3 hours per job on GitLab.com hosted runners, regardless of the timeout configured in a project; the monthly pool and the cost factor bind first
+- retention: artifacts expire per job configuration, default 30 days; compute minutes reset on the first of the month | days: 30 | source: [1]
+- egress: the container registry is excluded from the namespace storage quota; storage beyond the purchased amount is billed | metered: yes | free allowance: 10 GiB per namespace | source: [2]
+- identity: card | detail: an email address registers the account; the pricing FAQ requires credit/debit card details to run jobs on GitLab.com shared runners on Free, checked by a one-dollar authorization that is not charged; the identity-verification page makes the card conditional on a risk score (email verification for all users, a phone number for medium-risk users, a credit card for high-risk users) and the CI documentation names the same score with email, phone number or payment method; whether a new Free account is asked for a card before its first hosted-runner job is unverified: behind a sign-up, because the risk score is not published; a namespace that brings its own runner or disables shared runners needs no card
+- interface: git, cli
+- limits:
+  - request-rate (binding): 400 compute minutes a month on Free; a job consumes duration divided by 60 times the cost factor [1]
+  - request-rate (binding): cost factor 1 for small Linux, 2 for medium, 3 for large, 6 for xlarge, 12 for 2xlarge, 6 for macOS M1 [1]
+  - per-object-cap: 10 GiB of repository storage per namespace [2]
+- limits note: a 1,000-minute grace period exists before jobs are dropped when the quota is exceeded; the 300,000-minute cap applies only to the community-contribution programme
+- interface detail: a .gitlab-ci.yml pipeline; instance runners on GitLab.com; self-managed runners are free of the vendor cap
+- tooling: the runner images; any shell; docker-in-docker on the Linux runners
+- composes with: the only free pool here with a cost-factor discount that makes open-source work cheaper: 0.5 for a GitLab-for-Open-Source project and 0.008 for a public fork of one
+- reliability: no suspension, throttle or data-loss event is recorded on the pages read
+- notes: 400 minutes is 6.7 hours, and a medium runner halves that. The open-source discount is the interesting part and it needs the project to be accepted into the programme, which is a review.
+- evidence note: the compute-minutes doc and the storage-quota doc were read.
+- evidence:
+  - [1] 2026-10-22: 'Free tier namespaces receive 400 compute minutes per month'; cost factors small 1, medium 2, large 3, xlarge 6, 2xlarge 12; public projects in GitLab for Open Source 0.5 and public forks 0.008; usage resets on the first day of the month
+  - [2] 2026-10-22: the container registry is excluded from the namespace repository quota
+  - [3] 2026-10-30: the pricing FAQ requires card details to run jobs on GitLab.com shared runners | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+  - [3] 2026-10-30: the card is checked with a one-dollar authorization | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: When you provide the card, it will be verified with a one-dollar authorization transaction.
+  - [4] 2026-10-30: a job on GitLab.com hosted runners is capped at 3 hours | capture: sha256:8439c8806f86d99b80dac0fefcbee596901a2682e56e19b01ae80de0aefe2e1a | quote: Jobs handled by hosted runners on GitLab.com time out after 3 hours, regardless of the timeout configured in a project.
+  - [1] 2026-10-30: a GitLab.com Free namespace gets 400 compute minutes a month on instance runners | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: Free tier namespaces receive 400 compute minutes per month.
+  - [5] 2026-10-30: on GitLab.com Free the identity check before hosted-runner jobs follows a risk score: email, phone or payment method | capture: sha256:06ffd3fc32a16dc3302960fc4c277bcb44199514d960eeee2d890f863a682d67 | quote: Depending on your risk score, you may need to verify your email, phone number, or add a payment method.
+  - [1] 2026-10-30: the default small Linux runner has cost factor 1 | capture: sha256:d9b0cc2cfe13609488898aa96c54a548728d2e9b998756fbc0e272d7be7b6202 | quote: | Linux x86-64 (default) | `small` | `1` |
+  - [6] 2026-10-30: running jobs continue until the namespace is 1,000 compute minutes over quota | capture: sha256:efaec0943e354db0290de9d82f6215bbaf933b99ce359a486c25d020c8d82af1 | quote: Jobs running on instance runners can continue to run until the overall namespace usage goes over-quota by 1,000 compute minutes.
+  - [3] 2026-10-30: the Free plan allows 5 users per top-level group | capture: sha256:1a553ff4ad78a2b9e910d752cd0e4cc7450386e42e540da41349d65ef839be09 | quote: 5 users per top-level group
+  - [7] 2026-10-30: GitLab.com keeps job artifacts 30 days unless the job sets another expiry | capture: sha256:dba2dd548a3ca265465d07e9dcd66659c3852f419233d817e24c63a16e860949 | quote: 30 days unless otherwise specified
+  - [8] 2026-11-02: identity verification has up to three stages that depend on a risk score (email, phone number, credit card) | capture: sha256:243049211809bf6d20dcee6a578403c65764d5a0904512736ea660519842818f | quote: you might be required to perform up to three stages of verification to create a user account
+  - [3] 2026-11-02: the pricing FAQ requires card details for GitLab.com shared runners | capture: sha256:1f11aee93fcecc4411861d394f588e8f79cc6797b958c8a68fcdf634ef11af57 | quote: To discourage such abuse, credit/debit card details are required if you choose to use GitLab.com shared runners.
+- sources:
+  - [1] https://docs.gitlab.com/ci/pipelines/compute_minutes/
+  - [2] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [3] https://about.gitlab.com/pricing/
+  - [4] https://docs.gitlab.com/ci/runners/hosted_runners/
+  - [5] https://docs.gitlab.com/ci/debugging/
+  - [6] https://docs.gitlab.com/ci/pipelines/instance_runner_compute_minutes/
+  - [7] https://docs.gitlab.com/user/gitlab_com/
+  - [8] https://docs.gitlab.com/security/identity_verification/
+
+## GitLab Container Registry
+
+- `ci-cd-runners/gitlab-container-registry` | qualifies-with-caveat | evidence documented | binding request-rate | category container registry
+- needs card no, phone no, ID no, institution no | verified 2026-11-18T04:36:08.479Z (live) | stale on 2026-12-19
+- url https://docs.gitlab.com/user/storage_usage_quotas/ | page https://fshy.ajam.dev/p/gitlab.md
+- free tier: the registry is excluded from the 10 GiB namespace repository quota; no separate free cap is published | unit: unlimited | metered on: stored-bytes | read on: 2026-10-22 | source: [1]
+- per-object cap: no separate published cap: the container registry is not included in the project storage limit, and the page publishes no cap for it | source: [1]
+- retention: tags expire per the project's cleanup policy if one is configured; nothing expires by default | source: [1]
+- egress: no egress charge is published; storage is what is metered | metered: yes | source: [1]
+- identity: email | detail: a GitLab account
+- interface: oci, rest
+- limits:
+  - per-object-cap: storage above the namespace purchased amount is billed; the registry is excluded from the 10 GiB repository quota [1]
+- limits note: the 10 GiB figure that circulates is the repository quota and not the registry quota; the two are different limits and the comparison literature conflates them
+- interface detail: the OCI distribution API at registry.gitlab.com; Bearer pull tokens come from the https://gitlab.com/jwt/auth realm
+- tooling: docker, podman, skopeo
+- composes with: the only free registry here that does not count image layers against the same quota as the code
+- reliability: the pull-token endpoint answers an unauthenticated pull-scope request for the public gitlab-org/gitlab-runner namespace with a 200 and a 2,596-byte token JSON whose auth_type is none
+- notes: An exclusion is not an allowance. The doc says the registry does not count against 10 GiB; it does not say the registry is free, and no separate free figure is published.
+- evidence note: the storage-quota doc was read and states the exclusion.
+- evidence:
+  - [1] 2026-10-22: the container registry is excluded from the namespace repository storage quota
+  - probe:https://gitlab.com/jwt/auth?service=container_registry&scope=repository:gitlab-org/gitlab-runner:pull 2026-11-09: the token endpoint answers a pull scope requested without a credential with a 2,596-byte token JSON, which is the fact the reliability note states | capture: sha256:f57e9af954e4634cc0ebf398ac01af53e9d4b42bcfca2be26719f3bff91d12fd | quote: "status": 200, "bytes": 2596,
+  - probe:https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/manifests/alpine-v16.11.0 2026-11-09: the token fetches a real image index: 200 and 3,117 bytes | capture: sha256:01451980c94562be9c5b5d017a3edd3371df93738efc5caf5da0d73a285c793c | quote: "status": 200, "bytes": 3117,
+  - probe:https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/tags/list 2026-11-09: the namespace exists: the anonymous token lists its tags, so the manifest pull answered a real project | capture: sha256:a2dbfb2e43d9d9f53b86ca50cdee4b53901999daba2139956a29eb03b8d7704f | quote: "status": 200, "bytes": 1145,
+  - [1] 2026-11-09: the storage-quota page states that the container registry is outside the project storage limit; the Free limit is 10 GiB of repository and LFS storage | capture: sha256:32cb9b13bd82d6395449b56d639b10c9214fbcf89a1a5fa1493dad8fe2e46c49 | quote: The container registry, package registry, and build artifacts are not included in the limit.
+  - [1] 2026-11-09: the storage-quota page excludes the container registry from the project storage limit and publishes no cap for the registry itself | capture: sha256:32cb9b13bd82d6395449b56d639b10c9214fbcf89a1a5fa1493dad8fe2e46c49 | quote: The container registry, package registry, and build artifacts are not included in the limit.
+  - probe:https://gitlab.com/jwt/auth?service=container_registry&scope=repository:gitlab-org/gitlab-runner:pull 2026-11-18: an unauthenticated pull-scope request for gitlab-org/gitlab-runner answers 200 with a 2,596-byte token JSON | capture: sha256:60d0fbc141afd57587a9d90db016c3ddadae476db3610d8bdd19d3038fd9209d | quote: "status": 200, "bytes": 2596,
+  - [2] 2026-11-18: the token fetches the alpine-v16.11.0 image index: 200, 3,117 bytes, digest sha256:4c0393cf585ec501c830ec385879985e529bdd93203ec67cd4a65cb19443778a | capture: sha256:4c0393cf585ec501c830ec385879985e529bdd93203ec67cd4a65cb19443778a | quote: "mediaType":"application/vnd.oci.image.index.v1+json"
+- sources:
+  - [1] https://docs.gitlab.com/user/storage_usage_quotas/
+  - [2] https://registry.gitlab.com/v2/gitlab-org/gitlab-runner/manifests/alpine-v16.11.0
+
+## Google Cloud Build, Free Tier (default pool, e2-standard-2)
+
+- `ci-cd-runners/google-cloud-build` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Free Tier (default pool, e2-standard-2)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-19T00:19:24.719Z (live) | stale on 2026-12-20
+- url https://cloud.google.com/build/pricing | page https://fshy.ajam.dev/p/google.md
+- free tier: Each billing account comes with 2,500 free build-minutes per month on e2-standard-2 (2 vCPU, 8 GB memory) in the default pool; the first 100GB of worker SSD is free. The build-minute allowance is promotional and its limit is subject to change | unit: minutes | metered on: wall-clock | read on: 2026-11-19 | source: [1] | note: the unit counts minutes a build is in process, not one unit per build; a one-minute build and a sixty-minute build each spend minutes from the same 2,500 per billing account. A Google Cloud billing account is required to reach the Free Tier
+- per-object cap: the first 100GB of extra worker SSD is free, and up to 4000GB can be requested; no cap on a single artifact or build input is stated on the pages read | source: [1]
+- retention: unverified: the pricing, quotas and free-features pages read state no retention period for build logs, artifacts or the build worker | source: [1]
+- egress: network egress is charged according to standard Google Cloud rates; no Cloud Build egress allowance or own price is stated | metered: yes | source: [1]
+- identity: card | detail: a Google Cloud billing account is required for the Free Tier; the Free Trial sign-up that creates one requires a credit card or other payment method valid for the trial, and in some countries a bank account verification
+- interface: cli, rest, git
+- limits:
+  - volume-quota (binding): 2,500 free build-minutes per month per billing account on e2-standard-2 in the default pool; beyond it e2-standard-2 costs $0.006 per minute [1]
+  - request-rate: 10 to 30 concurrent builds in the default pool, counted globally as a project quota [2]
+  - per-object-cap: the first 100GB of worker SSD is free, up to 4000GB can be requested [1]
+- limits note: partial minutes are billed at the actual number of seconds consumed, and minutes a build spends queued are not billed
+- binding note: the 2,500 monthly build-minutes are shared across every project on a billing account and are spent by every build in process, so an active account reaches the promotional allowance before the 10 to 30 concurrent-build quota binds
+- interface detail: builds are submitted with gcloud builds submit (the Google Cloud CLI) and the Cloud Build REST API at cloudbuild.googleapis.com; build triggers connect a Git repository. No SSH into a build worker is documented on the pages read
+- endpoint: https://cloudbuild.googleapis.com
+- tooling: the gcloud CLI and the Cloud Build REST API; the user supplies a cloudbuild.yaml build configuration and a source archive or a connected repository
+- composes with: a build runs to completion on a Google-managed worker in the default pool and its result is published to Google Cloud services; a repository trigger, the CLI or the REST API starts each build and each build-minute spends the monthly allowance. No per-build step is a separate hosted runner
+- reliability: the pricing page calls the 2,500-minute allowance promotional and subject to change; no ban or data-loss event is recorded on the pages read
+- notes: A managed, Google-run build service where each build spends minutes from a monthly allowance held by the billing account. Retention of build logs and artifacts and the exact standard egress rate are unverified: no first-party page read states them. Private pools and the local builder are separate offers outside this free allowance and are not documented here.
+- evidence note: all numbers are quoted from the first-party Cloud Build pricing, quotas and free-features pages; no build was run, so the behaviour of a worker during a build, the exact rate of standard network egress and what happens after the 2,500 monthly minutes are spent are unverified
+- evidence:
+  - [1] 2026-11-19: the free allowance is 2,500 build-minutes a month, counted per billing account | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Each billing account comes with 2,500 free build-minutes per month.1
+  - [1] 2026-11-19: the free minutes apply only to e2-standard-2 in the default pool and are promotional | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: This promotional free tier is for e2-standard-2 machine types in the default pool, and the limit is subject to change.
+  - [1] 2026-11-19: e2-standard-2 has 2 vCPUs and 8 GB of memory and costs $0.006 a minute beyond the allowance | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: | e2-standard-2 | 2 | 8 | Yes | $0.006 |
+  - [1] 2026-11-19: partial build minutes are billed at the actual seconds consumed | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Partial minutes are billed at the actual number of seconds consumed.
+  - [1] 2026-11-19: network egress from builds is metered at standard Google Cloud rates with no Cloud Build allowance | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: Network egress will be charged according to standard rates.
+  - [1] 2026-11-19: the first 100GB of extra worker SSD is free and up to 4000GB can be requested | capture: sha256:7606d69f0fb1a11e08be624910f73c1d37fadb201940584eb1a6e1379d060e27 | quote: The first 100GB is free, and you can request up to 4000GB.
+  - [2] 2026-11-19: the default pool allows 10 to 30 concurrent builds globally as a project quota | capture: sha256:d6ed5530c8554528f8d33cae0e0e11371995062ad68b0b09c89b608a923c3486 | quote: | Default pool | Build | Number of concurrent builds | 10 - 30 |
+  - [3] 2026-11-19: builds start from the gcloud CLI and the Cloud Build API | capture: sha256:51e73c4c9532c5b9fe4483a006fce83cc6ef28e5d254442b5baf8f577379ba25 | quote: Google Cloud CLI and the Cloud Build API.
+  - [4] 2026-11-19: the sign-up that creates a billing account asks for a credit card or other payment method | capture: sha256:fb586488a217a0ff0238444a87a475f4707979c7264530c727094822a4e15d70 | quote: During the sign up, you must provide a credit card or other payment method that is valid for the period of the Free Trial.
+  - [4] 2026-11-19: the Free Tier, which lists the Cloud Build minutes, is reached only through a billing account | capture: sha256:fb586488a217a0ff0238444a87a475f4707979c7264530c727094822a4e15d70 | quote: A Google Cloud billing account is required to access the Google Cloud Free Tier.
+- sources:
+  - [1] https://cloud.google.com/build/pricing
+  - [2] https://cloud.google.com/build/quotas
+  - [3] https://cloud.google.com/build/docs/running-builds/submit-build-via-cli-api
+  - [4] https://docs.cloud.google.com/free/docs/free-cloud-features
+
+## JetBrains Qodana
+
+- `ci-cd-runners/jetbrains-qodana` | qualifies-with-caveat | evidence documented | binding write-gated | category hosted CI static code analysis service | tier 30-day free trial; USD 5 per developer per month; free for open source
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T07:00:00.000Z (live) | stale on 2026-12-20
+- url https://www.jetbrains.com/qodana/ | page https://fshy.ajam.dev/p/jetbrains.md
+- free tier: a 30-day free trial; pricing starts at USD 5 per developer; free for open-source projects | unit: users | metered on: identity-count | read on: 2026-11-19 | source: [1]
+- per-object cap: unverified: no per-object or build wall-clock cap stated in the first-party pages read | source: [1]
+- retention: unverified: no number is stated in the first-party pages read | source: [1]
+- egress: unverified: no egress allowance or price stated on the page read | metered: no | source: [1]
+- identity: email | detail: a JetBrains account is needed to start the trial; the exact form fields are unverified: behind a sign-up. The page offers Log in and Try for free links.
+- interface: cli, browser, rest
+- limits:
+  - volume-quota: the trial lasts 30 days; paid plans charge per active contributor, defined as anyone who has made a commit to a registered project in the last 90 days [1]
+  - volume-quota: the page states a starting price of USD 5 per developer per month [1]
+  - write-gated (binding): free for open-source projects; a demo is required for a paid plan [1]
+- binding note: there is no standing free for-profit allowance: a 30-day trial ends and paid plans bill per active contributor, while open-source projects are free
+- interface detail: JetBrains IDE linters run as a CI step and report findings with suggested fixes; Qodana Cloud stores reports and connects CI results back to the IDE. The page names integration with tools developers use daily, including JetBrains IDEs.
+- endpoint: unverified: no public API endpoint stated on the pages read
+- tooling: static analysis powered by JetBrains IDE linters, with quick-fix suggestions and a CI-to-IDE feedback loop
+- composes with: a CI pipeline runs the Qodana analyzer on a commit; findings appear in Qodana Cloud and in the developer's IDE
+- reliability: 
+- notes: A hosted static-analysis service for CI pipelines with a 30-day trial and a free open-source path. It analyses code in CI rather than running builds.
+- evidence note: all values are quoted from the first-party JetBrains page read on 2026-11-19. There is no standing free tier: the page offers a 30-day trial and says Qodana is free for open-source projects. Analysis frequency and retention are unverified: no page read states them.
+- evidence:
+  - [1] 2026-11-19: a 30-day free trial is offered | capture: sha256:8c431d6ce673940df16f6bd3aa93ce5490e344fbfbd9500ac69b50bcef20c315 | quote: 30-day free trial
+  - [1] 2026-11-19: the starting price is USD 5 per developer | capture: sha256:8c431d6ce673940df16f6bd3aa93ce5490e344fbfbd9500ac69b50bcef20c315 | quote: Pricing starts at $5 per developer
+  - [1] 2026-11-19: licences are per active contributor and open-source projects are free | capture: sha256:8c431d6ce673940df16f6bd3aa93ce5490e344fbfbd9500ac69b50bcef20c315 | quote: Qodana calculates licenses per active contributor, so it won’t cause unexpected expenses or charge you for growing your project (as we don’t calculate LOCs). It’s also free for open-source projects.
+- sources:
+  - [1] https://www.jetbrains.com/qodana/
+
+## Octopus Cloud
+
+- `ci-cd-runners/octopus-cloud` | qualifies-with-caveat | evidence documented | binding volume-quota | category hosted deployment automation and CI/CD orchestration | tier Free (USD 0 per year)
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T07:00:00.000Z (live) | stale on 2026-12-20
+- url https://octopus.com/pricing/overview | page https://fshy.ajam.dev/p/octopus.md
+- free tier: a Free cloud tier at USD 0 per year with 10 projects, 10 tenants, 10 machines, 10 users, 1 space, 5 concurrent tasks, 1 TB file storage and 100 GB database storage | unit: users | metered on: request-count | read on: 2026-11-19 | source: [1]
+- per-object cap: unverified: no per-object or build wall-clock cap stated in the first-party pages read | source: [1]
+- retention: unverified: no number is stated in the first-party pages read | source: [1]
+- egress: unverified: no egress allowance or price stated on the pricing page | metered: no | source: [1]
+- identity: email | detail: a sign-up is needed for the free cloud tier; the exact form fields are unverified: behind a sign-up. The page names SSO through Google, Microsoft Azure or GitHub on paid plans.
+- interface: browser, git, rest
+- limits:
+  - volume-quota (binding): Free cloud tier: 10 projects, 10 tenants, 10 machines, 1 space, 10 users and 5 concurrent tasks [1]
+  - per-object-cap: Free cloud tier: 1 TB file storage and 100 GB database storage [1]
+  - write-gated: a task is a deployment, runbook, health check or other operation; only 5 run concurrently on the free tier, up to 20 for an additional fee on paid plans [1]
+- binding note: the free tier binds at 10 projects and 5 concurrent deployment tasks before any build minute allowance, and it is a deployment service rather than a source-code build runner
+- interface detail: deployments, runbooks and environment promotions run in Octopus Cloud; build servers such as TeamCity, Azure DevOps, GitHub Actions and Jenkins integrate through build-server integrations; the free tier includes SSO and RBAC.
+- endpoint: unverified: no public API endpoint stated on the pages read
+- tooling: release snapshotting, config variables as secrets management, runbook automation and environment promotion with approvals
+- composes with: a build server produces a release; Octopus Cloud deploys it through a pipeline with approvals and runbooks
+- reliability: 
+- notes: A hosted deployment and CI/CD orchestration service with a Free cloud tier at USD 0 per year. It is not a source-code build runner: builds come from integrated external build servers.
+- evidence note: all values are quoted from the first-party pricing page read on 2026-11-19. The free tier is a cloud deployment service, not a source-code build runner; builds are integrated from external build servers. Concurrent tasks and storage are stated on the page.
+- evidence:
+  - [1] 2026-11-19: a Free cloud tier at USD 0 per year with 10 projects | capture: sha256:be1be1511f6025ae1fbdd6d4ddcf3b5f86ad7b32ae3ec4e6e8b6fdd7f0232144 | quote: $ 0 USD / year 10 projects
+  - [1] 2026-11-19: the free tier allows 5 concurrent tasks | capture: sha256:be1be1511f6025ae1fbdd6d4ddcf3b5f86ad7b32ae3ec4e6e8b6fdd7f0232144 | quote: - 5 concurrent tasks
+  - [1] 2026-11-19: the free tier states 1 TB file and 100 GB database storage | capture: sha256:be1be1511f6025ae1fbdd6d4ddcf3b5f86ad7b32ae3ec4e6e8b6fdd7f0232144 | quote: - 1TB file storage - 100GB database storage
+- sources:
+  - [1] https://octopus.com/pricing/overview
+
+## RunnerHut
+
+- `ci-cd-runners/runnerhut` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner (hosted, GitHub Actions-compatible)
+- needs card no, phone no, ID no, institution no | verified 2026-11-10T02:39:57.384Z (live) | stale on 2026-12-11
+- url https://runnerhut.com/pricing | page https://fshy.ajam.dev/p/runnerhut.md
+- free tier: 3,000 Linux minutes a month on the free plan, with unlimited cache, every runner family and full analytics; per-second billing with a one-minute minimum beyond it. The 2 vCPU Linux x64 runner is USD 0.0040 a minute, the 2 vCPU ARM64 runner USD 0.0032, Windows USD 0.0080, macOS USD 0.0400 and an L4 GPU runner USD 0.0900. | unit: minutes | metered on: wall-clock | read on: 2026-11-10 | source: [1]
+- per-object cap: not applicable: a job is bounded by the runner size, and the page prices a 2 vCPU tier and scales linearly with size
+- retention: not applicable: a job runs and is destroyed; the page publishes no artifact or cache retention window
+- egress: no egress charge is published: the page says it bills per-second compute with no per-developer fee, no cache charges and no egress surprises | metered: no
+- identity: email | detail: an email address and a GitHub account to connect a repository: the homepage states "No credit card required · 3,000 free minutes", and no signup was performed
+- interface: git
+- limits:
+  - request-rate (binding): 3,000 Linux minutes a month on the free plan [1]
+  - request-rate (binding): USD 0.0040 a minute for the 2 vCPU Linux x64 runner, USD 0.0032 for ARM64, USD 0.0900 for an L4 GPU runner [1]
+  - request-rate (binding): per-second billing with a one-minute minimum, so a 20-second job is billed as a full minute [1]
+- limits note: no concurrency cap, queue charge, cache charge or egress charge is published; the free pool is Linux only and every runner family is available on the paid meter
+- binding note: 3,000 minutes is the first thing to fail: on a 2 vCPU runner it is 50 hours of wall-clock time a month, and nothing else on the free plan is capped.
+- interface detail: a GitHub Actions workflow points its runs-on label at a RunnerHut runner; the homepage calls them drop-in runners and says there is no agent to install
+- tooling: a one-line change to an existing GitHub Actions workflow; no agent, CLI or self-hosted runner is needed
+- composes with: GitHub Actions on a public repository stays free and comes first; RunnerHut buys private-repository minutes at USD 0.0040 for 2 vCPU against GitHub list price of USD 0.0060, and the 3,000 free minutes cover a small private pipeline before any card is needed
+- reliability: the page publishes no job wall clock, no concurrency cap and no queue limit; per-second billing with a one-minute minimum rounds a short job up to a full minute
+- notes: A hosted GitHub Actions runner with a free pool large enough for a small private pipeline: 3,000 Linux minutes a month, no cache charge and no egress charge. The rates undercut GitHub list price on every family the page lists, and the one-minute minimum is the only rounding. The free pool is Linux only, and the runners are EU-hosted with data residency in six regions.
+- evidence note: The free pool, the five runner rates and the billing granularity are read from the vendor own pricing page, and the no-card and drop-in claims from its homepage. Raise by running one job on the free plan and reading the minute counter and the first invoice line.
+- evidence:
+  - [1] 2026-11-10: the free plan is 3,000 Linux minutes a month with unlimited cache | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: 3,000 Linux minutes a month. Everything included
+  - [1] 2026-11-10: prices are per minute for the 2 vCPU tier and scale linearly with size | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: Prices are per minute for the 2 vCPU tier and scale linearly with size.
+  - [1] 2026-11-10: cache is unlimited and no retention window is stated | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: Unlimited cache
+  - [1] 2026-11-10: no egress charge is published | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: No per-developer fee, no cache charges, no egress surprises.
+  - [2] 2026-11-10: a workflow targets the runners by changing one line | capture: sha256:17ebf4716a6100de57ef86cab4fea0dd4de16d8ed4e67114d8d85be5c5cce903 | quote: Change one line in your workflow.
+  - [2] 2026-11-10: the runners are drop-in and need no agent | capture: sha256:17ebf4716a6100de57ef86cab4fea0dd4de16d8ed4e67114d8d85be5c5cce903 | quote: There is no agent to install
+  - [1] 2026-11-10: the 2 vCPU Linux rate is USD 0.0040 a minute against GitHub list price of USD 0.0060 | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: | Linux x64 | $0.0040 | $0.0060 | 33% |
+  - [1] 2026-11-10: per-second billing with a one-minute minimum | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: Per-second billing with a one-minute minimum.
+  - [1] 2026-11-10: the free pool is Linux minutes | capture: sha256:aa23425588cf89ddc6c343f85aeeabe26ec367de3d97fdcf6c709a1ff83b809a | quote: 3,000 Linux minutes a month. Everything included
+  - [2] 2026-11-10: no credit card is required for the free minutes | capture: sha256:17ebf4716a6100de57ef86cab4fea0dd4de16d8ed4e67114d8d85be5c5cce903 | quote: No credit card required · 3,000 free minutes
+- sources:
+  - [1] https://runnerhut.com/pricing
+  - [2] https://runnerhut.com/
+
+## runners.io
+
+- `ci-cd-runners/runners-io` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner (hosted, GitHub Actions-compatible)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-10T02:39:57.489Z (live) | stale on 2026-12-11
+- url https://www.runners.io/pricing | page https://fshy.ajam.dev/p/runners.md
+- free tier: 3,000 run-minutes included every month for every organisation, with no monthly fee; beyond that USD 0.0040 a run-minute. A run-minute is one minute of a 2 vCPU Linux x64 machine, so a 4 vCPU job spends two run-minutes a minute and a 1 vCPU job spends half of one. | unit: minutes | metered on: wall-clock | read on: 2026-11-10 | source: [1]
+- per-object cap: not applicable: a job is bounded by the runner size, and the meter is weighted by vCPU count rather than capped per job
+- retention: not applicable: a job runs and is destroyed; state that is kept is priced separately at USD 0.50 a GB-month
+- egress: no bandwidth charge is published: the pricing page lists queue wait, cold start, control-plane calls and state reads and writes as not billed, and the homepage says the customer pays only for the minutes jobs run | metered: no
+- identity: card | detail: a card: the homepage and the pricing page both say "Card required", and the card is charged for the minutes jobs run
+- interface: git
+- limits:
+  - request-rate (binding): 3,000 run-minutes a month included, then USD 0.0040 a run-minute [1]
+  - per-object-cap: state that is kept is USD 0.50 a GB-month [1]
+  - request-rate (binding): a priority label costs twice the run-minutes and twice the rate of the same label [1]
+- limits note: the meter is weighted by vCPU: 1 vCPU spends 0.5 run-minutes a minute, 4 vCPU spends 2, 8 vCPU spends 4, Linux ARM64 is 0.625x the same size on x64, and Windows is 2.5x
+- binding note: 3,000 run-minutes is the first thing to fail, and the vCPU weighting makes it smaller than it looks: on a 4 vCPU runner it is 1,500 wall-clock minutes a month, and the card requirement gates the account before the pool is spent.
+- interface detail: a GitHub Actions workflow changes its runs-on label to a runners.io label such as runnersio-2vcpu-ubuntu-2404; every job runs in its own fresh virtual machine
+- tooling: a one-line runs-on change on an existing GitHub Actions workflow; no agent or self-hosted runner is needed
+- composes with: GitHub Actions on a public repository stays free and comes first; runners.io buys private-repository minutes at USD 0.0040 for 2 vCPU against GitHub list price of USD 0.0060, and the 3,000 included run-minutes cover a small private pipeline, but a card is required before the first job
+- reliability: the page publishes no job wall clock and no concurrency cap; the meter is weighted by vCPU, so a wider runner spends the pool faster, and a priority label doubles both the rate and the run-minutes
+- notes: A hosted GitHub Actions runner market that includes 3,000 run-minutes a month for every organisation and meters by vCPU-weighted time rather than by seat. The weighting is the fact a reader must carry: 3,000 run-minutes is 1,500 wall-clock minutes on a 4 vCPU runner and 6,000 on a 1 vCPU one. A card is required before the first job, so this is not a no-card lane.
+- evidence note: The included pool, the run-minute definition, the weighting and the card requirement are read from the vendor own pages. Raise by running one job on the included pool and reading the run-minute counter and the first invoice line.
+- evidence:
+  - [1] 2026-11-10: 3,000 run-minutes are included every month for every organisation | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: No monthly fee. 3,000 run-minutes included every month, for every organisation.
+  - [1] 2026-11-10: a run-minute is one minute of a 2 vCPU machine | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: 1 run-minute = one minute of a 2 vCPU machine (Linux x64)
+  - [1] 2026-11-10: state that is kept is priced at USD 0.50 a GB-month | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: $0.50/GB-month
+  - [1] 2026-11-10: the customer pays only for the minutes jobs run | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: You pay only for the minutes your jobs run.
+  - [2] 2026-11-10: a workflow targets the runners by changing its runs-on label | capture: sha256:638be05a65e0f1226330a34eca2ac1fd95a3748e92c46ff63dcb8d53a8a0a5d3 | quote: runs-on: runnersio-2vcpu-ubuntu-2404
+  - [2] 2026-11-10: every job runs in its own fresh virtual machine | capture: sha256:638be05a65e0f1226330a34eca2ac1fd95a3748e92c46ff63dcb8d53a8a0a5d3 | quote: Change runs-on and every job runs in its own fresh virtual machine.
+  - [1] 2026-11-10: the 2 vCPU rate is USD 0.0040 a run-minute | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: $0.0040 a run-minute
+  - [1] 2026-11-10: a priority label costs twice the run-minutes | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: Priority = 2x the run-minutes
+  - [1] 2026-11-10: a 4 vCPU job spends two run-minutes a minute | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: 4 vCPU = 2 run-minutes per minute
+  - [1] 2026-11-10: a card is required before the first job | capture: sha256:274e8f57a099500a31aa0078f27afba097f1325997e9d90def1c49a524a7eef9 | quote: Card required.
+- sources:
+  - [1] https://www.runners.io/pricing
+  - [2] https://www.runners.io/
+
+## Semaphore Cloud
+
+- `ci-cd-runners/semaphore-cloud` | qualifies-with-caveat | evidence documented | binding request-rate | category CI runner | tier free monthly credit
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:39.388Z (live) | stale on 2026-12-05
+- url https://semaphore.io/pricing | page https://fshy.ajam.dev/p/semaphore.md
+- free tier: USD 15 of free credits per month for every organization, about 2,000 Ubuntu x64 2-vCPU minutes; 20 concurrent jobs by default; no card | unit: credits | metered on: wall-clock | read on: 2026-10-30 | source: [1] | note: the credit is US dollars spent per minute at each machine's rate: f1-standard-2 (x64) USD 0.0075, r1-standard-2 (ARM) USD 0.003, a2-standard-4 (macOS) USD 0.09; a job under one minute is billed as one minute
+- per-object cap: execution_time_limit is 1 hour by default and at most 24 hours (1,440 minutes); jobs are terminated at the limit, and a block or job limit longer than its pipeline's is rejected | source: [2] | note: no per-artifact size cap was found in the pages read
+- retention: artifacts in the workflow and job namespaces are kept at most 400 days; project artifacts have no age limit; the agent and every file on it are discarded when the job ends | days: 400 | source: [3]
+- egress: artifact egress is free up to 20 GB a month with 100 GB a month of artifact storage; beyond it USD 0.35 per GB of egress and USD 0.07 per GB of storage | metered: yes | free allowance: 20 GB of artifact egress a month | source: [1]
+- identity: email | detail: Sign-up needs a GitHub or Bitbucket account; the free usage is advertised as 'Start free — $15/mo, no card'; the flow then asks for an organization name and a short survey.
+- interface: git, cli
+- limits:
+  - request-rate (binding): USD 15 of credit a month: about 2,000 minutes on f1-standard-2 (2 vCPU, 8 GB RAM, 45 GB disk) at USD 0.0075 a minute; USD 15 / USD 0.003 = 5,000 minutes on r1-standard-2 (ARM, 2 vCPU, 4 GB RAM) [1]
+  - request-rate (binding): 20 concurrent jobs by default; higher limits on request [1]
+  - per-object-cap: 1 hour per pipeline by default, at most 24 hours (1,440 minutes) [2]
+  - volume-quota: 20 GB a month of artifact egress and 100 GB a month of artifact storage free; then USD 0.35 per GB egress and USD 0.07 per GB storage [1]
+  - retention-clamped: workflow and job artifacts are deleted after at most 400 days [3]
+- limits note: 9.6 GB of cache storage per project; time spent queued for a concurrency slot is not billed; the FAQ states that open-source and free plans cannot create private projects
+- binding note: the USD 15 credit is spent at about 2,000 f1-standard-2 minutes a month, long before 20 concurrent jobs or the 24-hour job ceiling bind; a monthly minute pool has no kind of its own and sits under request-rate as in the other hosted CI records
+- interface detail: a pipeline YAML such as .semaphore/semaphore.yml in a GitHub or Bitbucket repository, or the visual workflow editor; the sem CLI opens an SSH session into a running job
+- tooling: Ubuntu 22.04 and 24.04 images on F1 x86_64 machines with Docker environments, Ubuntu 24.04 on R1 ARM machines, macOS Xcode images on A2 machines; the toolbox commands checkout, cache, artifact, sem-version and sem-service; the sem-ai CLI and an MCP server. The Community Edition is Apache-2.0 software the user installs and runs on a rented or free machine, after every hosted offer
+- composes with: a monthly dollar credit rather than a minute count, so the R1 ARM machine at USD 0.003 a minute stretches it furthest; artifacts leave free up to 20 GB a month, and the project artifact namespace has no age limit
+- reliability: a job runs on an ephemeral agent destroyed at the end of the job; a shared runner address can already be at the Docker Hub anonymous pull limit
+- notes: The pricing page names one free allowance, USD 15 a month for every organization. The Cloud page FAQ says Linux and macOS open-source projects get free parallel CI and gives no number, so any open-source allowance beyond the USD 15 is unverified. The Community Edition (Apache-2.0) is software the user installs and runs, the last resort after every hosted offer.
+- evidence note: pricing, billing, machine-type, pipeline-YAML, artifact, FAQ and sign-up pages were read and quoted on 2026-10-30; no job was run. Raised to measured by a probe of a job on f1-standard-2.
+- evidence:
+  - [1] 2026-10-30: every organization gets USD 15 of credit a month, about 2,000 minutes on the 2-vCPU x64 machine | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [1] 2026-10-30: 20 concurrent jobs by default | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-10-30: artifact egress free to 20 GB a month and storage to 100 GB a month, then USD 0.35 and USD 0.07 per GB | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Free up to 20 GB/month egress and 100 GB/month storage. Additional usage: $0.35/GB egress and $0.07/GB storage.
+  - [1] 2026-10-30: 9.6 GB of cache storage per project | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Each project includes 9.6 GB of cache storage to speed up builds and dependency installs.
+  - [4] 2026-10-30: f1-standard-2 costs USD 0.0075 a minute and f1-standard-4 USD 0.015 | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: | F1 (Linux) | $0.0075 | $0.015 |
+  - [4] 2026-10-30: r1-standard-2 (ARM) costs USD 0.003 a minute | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: | R1 (ARM) | $0.003 | $0.006 |
+  - [4] 2026-10-30: a job under one minute is billed as a full minute | capture: sha256:11a3be0abd0822855f0544416b48d483953545f875abc3453df87b9e785ff47e | quote: Jobs that take less than one minute to complete will be rounded up to a full minute for billing purposes.
+  - [5] 2026-10-30: f1-standard-2 is 2 vCPU, 8 GB RAM and 45 GB disk | capture: sha256:b6caa5ecd06c930cc98f1969747b634930e253f111b7161c520746112f4dd6a4 | quote: | `f1-standard-2` | 2 | 8 | 45 |
+  - [5] 2026-10-30: r1-standard-2 (ARM) is 2 vCPU, 4 GB RAM and 50 GB disk | capture: sha256:b6caa5ecd06c930cc98f1969747b634930e253f111b7161c520746112f4dd6a4 | quote: | `r1-standard-2` | 2 | 4 | 50 |
+  - [2] 2026-10-30: the default execution time limit is 1 hour | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: Jobs are forcibly terminated once the time limit is reached. The default value is 1 hour.
+  - [2] 2026-10-30: the execution time limit is at most 24 hours | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: `hours`: time limit expressed in hours. Maximum value is 24
+  - [3] 2026-10-30: workflow and job artifacts are kept at most 400 days | capture: sha256:242a2b7c305a96009dc71d5985767eae80cf637bf233c7b7ae80c00f4800a05d | quote: all artifacts on the workflow and job namespaces/scopes have a maximum retention of 400 days
+  - [6] 2026-10-30: the agent and its files are discarded after each job | capture: sha256:7d482af06c1c18ebb3d65799a0c1bdef932b4e0503268cd7ba4ebf6e8ed3f2d8
+  - [7] 2026-10-30: sign-up needs a GitHub or Bitbucket account | capture: sha256:9dfa56435511c2f000b11f03af28dca4149a41d52578337e1c4eb25e29b2aecf | quote: To create your Semaphore account you need a GitHub or BitBucket account.
+  - [8] 2026-10-30: the USD 15 monthly free usage needs no card | capture: sha256:9ffd78ab1d589bc914cbcdd403c37a9b3f12ce058a20c4868e98a994125ccfdd | quote: Start free — $15/mo, no card
+  - [8] 2026-10-30: a self-hostable free Community Edition exists beside the hosted service | capture: sha256:9ffd78ab1d589bc914cbcdd403c37a9b3f12ce058a20c4868e98a994125ccfdd | quote: use fully managed Semaphore Cloud, self-host the free Community Edition, or deploy Enterprise behind your firewall.
+  - [9] 2026-10-30: free and open-source plans cannot create private projects | capture: sha256:b7b409007a99311272c0f0be949c2e342e0883369c51f5ce939a9414634a20fe | quote: Open-source and free plans cannot create private projects.
+  - [9] 2026-10-30: a runner address can already be rate-limited by Docker Hub | capture: sha256:b7b409007a99311272c0f0be949c2e342e0883369c51f5ce939a9414634a20fe | quote: The machine you are running your jobs on may have been provisioned for another user, resulting in that particular IP being rate-limited.
+  - [10] 2026-10-30: open-source projects are said to get free parallel CI, with no number stated | capture: sha256:2fab7c3ea2782bcb6705f4e949ac00cf3fcadf05e988f9daa17b19bf33a65e80 | quote: Linux and macOS open-source projects get free parallel CI on Semaphore.
+  - [11] 2026-11-02: the Open Source page covers the self-hosted editions and lists no hosted open-source allowance | capture: sha256:478c9e14df04737e7dcfc17c292532bf793453d61294cdfd1316049aa5f11131 | quote: Cloud and Enterprise add features like hosted runners, premium support, SSO/SCIM, governance tools, and advanced insights.
+  - [1] 2026-11-02: the pricing page still names USD 15 a month as the free allowance | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [10] 2026-11-03: the current Cloud page FAQ promises free parallel CI for open-source projects with no number | capture: sha256:2fab7c3ea2782bcb6705f4e949ac00cf3fcadf05e988f9daa17b19bf33a65e80 | quote: Linux and macOS open-source projects get free parallel CI on Semaphore.
+  - [1] 2026-11-03: the pricing page still names USD 15 a month as the free allowance | capture: sha256:2b3c6afac131f727a322a2c9768bb7ecfee0512fb4490724ac745c0dd9c49e5e | quote: Get $15 free credits per month (≈ 2,000 Ubuntu x64 2-vCPU minutes). Credits can be used across available services.
+  - [1] 2026-11-04: 20 concurrent jobs by default, higher on request | capture: sha256:8e55db0233139260eb6d4d3c55a77add2b884460d485015fe5ebc7f0693e4b29 | quote: Includes 20 concurrent jobs by default. Higher limits are available on request based on usage.
+  - [1] 2026-11-04: USD 15 of free credits a month | capture: sha256:8e55db0233139260eb6d4d3c55a77add2b884460d485015fe5ebc7f0693e4b29 | quote: Get $15 free credits per month
+  - [2] 2026-11-04: default job time limit 1 hour | capture: sha256:ad170e51f97799b811d6d7972dcb0ccd8c571cc27620e7b60c95fddf0dc45aec | quote: Jobs are forcibly terminated once the time limit is reached. The default value is 1 hour.
+- sources:
+  - [1] https://semaphore.io/pricing
+  - [2] https://docs.semaphore.io/reference/pipeline-yaml
+  - [3] https://docs.semaphore.io/using-semaphore/artifacts
+  - [4] https://docs.semaphore.io/using-semaphore/billing
+  - [5] https://docs.semaphore.io/reference/machine-types
+  - [6] https://docs.semaphore.io/using-semaphore/jobs
+  - [7] https://docs.semaphore.io/getting-started/tour/sign-up
+  - [8] https://semaphore.io/semaphore-vs-circleci
+  - [9] https://docs.semaphore.io/getting-started/faq
+  - [10] https://semaphore.io/cloud
+  - [11] https://semaphore.io/open-source
+
+## Vercel CI
+
+- `ci-cd-runners/vercel-ci` | qualifies-with-caveat | evidence documented | binding volume-quota | category CI runner | tier Hobby
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T06:00:42.536Z (live) | stale on 2026-12-05
+- url https://vercel.com/docs/ci | page https://fshy.ajam.dev/p/vercel.md
+- free tier: Hobby: 200 CPU minutes a month included; a CPU minute is one CPU running for one minute. Pro: USD 0.0035 per CPU minute. Beta on all plans | unit: minutes | metered on: wall-clock | read on: 2026-11-02 | source: [1] | note: the true unit is CPU minutes (CPUs multiplied by task run time, rounded up to the second, 1 second minimum); the vocabulary has no core-minutes term, so unit is minutes. Each run spends 4 CPUs on bootstrapping and 2 CPUs by default on each task that runs; cached and skipped tasks cost nothing
+- per-object cap: 2 CPUs and 4 GB of memory per task by default, up to 32 CPUs and 64 GB of memory with a ci:cpus tag; bootstrapping install step 4 CPUs and 8 GB by default. Job time limit: unverified: no Vercel CI page states a task or run time limit | source: [2]
+- retention: unverified: no Vercel CI page states how long runs and task logs are kept | source: [3]
+- egress: unverified: no Vercel CI page states a network egress policy for tasks; the network traffic of tasks passes through a Vercel CI certificate authority | metered: no | source: [4]
+- identity: email | detail: a Vercel account opened with an email address (six-digit one-time password) or a Git provider; a GitHub repository connected to a Vercel project. No card is asked on Hobby; Pro adds USD 20 a month
+- interface: git, cli, rest
+- limits:
+  - volume-quota (binding): 200 CPU minutes a month on Hobby; Pro USD 0.0035 per CPU minute [1]
+  - per-object-cap: 2 CPUs and 4 GB of memory per task by default, up to 32 CPUs and 64 GB; install step 4 CPUs and 8 GB [2]
+  - write-gated: GitHub repositories only, private repositories only, a git push as the only trigger, Linux only, Turborepo required [3]
+- limits note: the job time limit and the largest task size available on Hobby are not stated on any page read; the 45-minute build limit of the Vercel limits page applies to deployment builds, not to Vercel CI tasks
+- binding note: 200 CPU minutes a month are spent faster than wall-clock minutes because bootstrapping bills 4 CPUs by default and every task that runs bills 2 CPUs by default, so the monthly quota runs out before any size limit
+- interface detail: a git push to a GitHub repository connected to a Vercel project runs every task tagged ci in turbo.json; a repository is enabled with the vercel ci enable command, runs and task logs are read in the dashboard CI tab, with the vercel ci CLI, the Vercel MCP and the REST API, and the status of the tasks is posted to the pull request as a check
+- tooling: Turborepo 2.11.7 or later and Vercel CLI 64.3.1 or later; tasks run in Linux containers on x86_64, Amazon Linux 2023 by default or Ubuntu 24.04 with a ci:os:ubuntu tag, with Node.js 24, git, Docker and common build tools preinstalled; extra tools are installed during bootstrapping with an install command in vercel.json
+- composes with: a hosted runner for tagged Turborepo tasks (lint, type check, tests, builds) triggered only by a git push to a private GitHub repository; it has no schedule, manual or pull-request trigger and no public-repository support, so GitHub Actions on a public repository and the other hosted runners of this topic come first for general jobs
+- reliability: Beta: features and configuration may change; behaviour once the 200 Hobby CPU minutes are spent is unverified
+- notes: Confirmed as a hosted CI runner: it runs the Turborepo tasks tagged ci (lint, type checks, tests, builds) on every git push, each task in its own isolated container. It is not a general workflow runner: no YAML workflows, no scheduled or manual triggers, GitHub private repositories only. Launched in Beta on 2026-10-28 on all plans. Whether Hobby can use the 32-CPU task size and what a run does after the Hobby allowance is spent are unverified.
+- evidence note: every number is quoted from Vercel's pricing page and Vercel CI documentation; no run was made, so the job time limit, the largest task size on Hobby and the behaviour once the 200 CPU minutes are spent are unverified
+- evidence:
+  - [1] 2026-11-02: Hobby includes 200 CPU minutes a month; Pro pays USD 0.0035 per CPU minute | capture: sha256:3c8802f87eda6c33dd4b4036ee6e3ea0e147fea3219cb3852c2fa4d201f8ee2b | quote: | 200 CPU minutes / month included | $0.0035 per CPU minute | Custom |
+  - [1] 2026-11-02: Vercel CI runs tests, linting and type checks; a CPU minute is one CPU for one minute | capture: sha256:3c8802f87eda6c33dd4b4036ee6e3ea0e147fea3219cb3852c2fa4d201f8ee2b | quote: Run tests, linting, and type checks on Vercel with native Turborepo support. A CPU minute is one CPU running for one minute.
+  - [3] 2026-11-02: the service is in Beta | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: Vercel CI is in Beta. Features and configuration may change.
+  - [5] 2026-11-02: the Beta is open to every plan, Hobby included | capture: sha256:639a6bb61fe40adf8325c74ae58f350444c10dc19270f574ac030fca465930fe | quote: [Vercel CI is available in Beta today](https://vercel.com/changelog/vercel-ci-is-now-in-beta) on all plans.
+  - [2] 2026-11-02: default task size is 2 CPUs and 4 GB | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: Vercel CI assigns 2 CPUs and 4 GB of memory to each task by default.
+  - [2] 2026-11-02: a task can be given up to 32 CPUs | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: Add a `ci:cpus:<count>` tag to assign up to 32 CPUs to a task:
+  - [2] 2026-11-02: 32 CPUs carry 64 GB of memory | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: | 32 | 64 GB |
+  - [2] 2026-11-02: the bootstrapping install step defaults to 4 CPUs and 8 GB | capture: sha256:1519f9e7c52682aa0d33cd87622bfeaa822b378c08bf75f19463d5b4443ca90a | quote: The install step uses 4 CPUs and 8 GB of memory by default.
+  - [6] 2026-11-02: cached and skipped tasks use no CPU minutes | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: Tasks that Vercel CI restores from cache or skips because your changes don't affect them don't run, so they don't use CPU minutes.
+  - [6] 2026-11-02: usage rounds up to the next second, 1 second minimum | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: Vercel CI rounds up to the next second, with a minimum of 1 second.
+  - [6] 2026-11-02: Pro price per CPU minute | capture: sha256:c716f7a5718a7f06a4f5dbef9c797a3723ac2b539bf742922dbf780a5fe80cde | quote: | Pro | $0.0035 per CPU minute |
+  - [3] 2026-11-02: GitHub is the only supported forge | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - GitHub is currently the only supported source code forge.
+  - [3] 2026-11-02: public repositories are not supported | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Public repositories are not currently supported.
+  - [3] 2026-11-02: a git push is the only trigger | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Pushing code to GitHub with `git push` is currently the only supported trigger.
+  - [3] 2026-11-02: Linux only | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - Vercel CI currently only offers Linux for its base image.
+  - [3] 2026-11-02: Turborepo 2.11.7 or later is required | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: Vercel CI requires Turborepo 2.11.7 or later.
+  - [3] 2026-11-02: CI is enabled per repository | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: You must explicitly enable Vercel CI for your repository before it can run tasks.
+  - [3] 2026-11-02: a repository must be connected to a Vercel project | capture: sha256:2027418a2b53f8f57894283e1fc273994e675d25ae64325297acc386aa349655 | quote: - A repository must be connected to at least one Vercel project.
+  - [4] 2026-11-02: default image is Amazon Linux 2023 on x86_64, Ubuntu 24.04 optional | capture: sha256:54dbc20849d34c1c27105a43295acbb9195b2c0ae4da55aa8428ab7cc5c13f9d | quote: Tasks without a `ci:os` tag use the Amazon Linux image. Both images run on the `x86_64` architecture.
+  - [4] 2026-11-02: tasks can run Docker containers | capture: sha256:54dbc20849d34c1c27105a43295acbb9195b2c0ae4da55aa8428ab7cc5c13f9d | quote: Your tasks can build and run Docker containers.
+  - [7] 2026-11-02: a CLI command enables CI; others list runs and read logs | capture: sha256:fbdd8b4ab6255083da27e01d737e4d73eefcaeb01fcdf49adac71ced3c37f045 | quote: `vercel ci enable` enables Vercel CI for the current Git repository.
+  - [8] 2026-11-02: sign-up is by email address or Git provider | capture: sha256:1d33b20f4dc43f7ad912f4604f63ab43b7694c2eb0a48dbb4cf8da74bf66c04c | quote: When signing up for Vercel, you can choose to sign up with an email address or a Git provider.
+  - [9] 2026-11-02: Hobby overage generally means a 30-day pause rather than a charge (stated for Hobby usage limits in general, not for Vercel CI) | capture: sha256:09fcdb38ca8d6639deec2529077e24911b2a2d6be39ea57f2beb299b23d06eb1 | quote: In most cases, if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again.
+  - [6] 2026-11-04: Hobby includes 200 CPU minutes a month | capture: sha256:58aaaed1d5bcc1e1c64c1f42232801923a6a837895bb19bf014694afffb70f55 | quote: | Hobby | 200 CPU minutes per month included |
+  - probe:https://vercel.com/docs/ci/pricing 2026-11-04: the CI pricing page answered HTTP 200 on 2026-11-04 | capture: sha256:a8199a60ba84c136cf5850719c4d224649e9c31c902b2d6b0959b088d179a5de | quote: "status": 200
+- sources:
+  - [1] https://vercel.com/pricing
+  - [2] https://vercel.com/docs/ci/configuration
+  - [3] https://vercel.com/docs/ci
+  - [4] https://vercel.com/docs/ci/image
+  - [5] https://vercel.com/blog/introducing-vercel-ci
+  - [6] https://vercel.com/docs/ci/pricing
+  - [7] https://vercel.com/docs/cli/ci
+  - [8] https://vercel.com/docs/accounts/create-an-account
+  - [9] https://vercel.com/docs/plans/hobby

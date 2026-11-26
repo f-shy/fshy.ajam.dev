@@ -1,0 +1,44 @@
+# Proxy-Cheap
+
+> proxy-cheap.com | Debrid; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/proxy-cheap/ | JSON https://fshy.ajam.dev/api/v1/entity/proxy-cheap.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Proxy-Cheap
+
+- `debrid/proxy-cheap` | qualifies-with-caveat | evidence documented | binding volume-quota | category residential egress: static residential IPv4, per IP per month | tier Static Residential IPv4
+- needs card yes, phone no, ID no, institution no | verified 2026-11-25T09:47:01.821Z (live) | stale on 2026-12-26
+- url https://www.proxy-cheap.com/pricing
+- price USD 2.71 per IP per month for the basic plan (USD 2.17 on a 12-month term), 1 GB included
+- free tier: No free allowance read; the cheapest entry is '1 week' at $1.99, then $2.71 per month. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable: an address and a byte stream, not an object | source: [1]
+- retention: not applicable: a live endpoint, not stored bytes | source: [1]
+- egress: The basic static residential IPv4 plan now lists 'Shared by up to 3 users', '1 GB bandwidth', 'No speed upgrades', 'No concurrency upgrades' and 'HTTP/SOCKS5'; the 1-month price is $2.71 and the 12-month price is $2.17/month. The old unlimited-bandwidth, 100+ threads and 100+ Mbps bullets are no longer on the page. | metered: no | free allowance: none | source: [1]
+- identity: card | detail: Checkout at app.proxy-cheap.com; card. No identity document was mentioned on the page read.
+- interface: rest
+- limits:
+  - volume-quota (binding): 1 GB bandwidth per address; shared by up to 3 users; no speed or concurrency upgrades on the basic plan [1]
+- limits note: 100 Mbit/s is 12.5 MB/s, or 1 TiB in 23.9 hours of saturated transfer; that is a throughput ceiling, not a volume ceiling, and it does not bind 1 TiB of monthly transfer.
+- binding note: Nothing in the vocabulary fails at 1 TiB/month on this product: no byte meter, no concurrency limit below 100, and 100 Mbit/s clears the 3.24 Mbit/s 1 TiB of monthly transfer needs by a factor of 30.
+- interface detail: HTTP(S) proxy endpoint on a fixed address, ordered per IP from the app.proxy-cheap.com checkout.
+- endpoint: https://app.proxy-cheap.com/
+- tooling: any HTTP proxy client; nothing debrid-specific is needed beyond pointing the downloader at it
+- composes with: At $2.71 a month for an address with no byte meter and 100 Mbit/s, this is the cheapest residential-class egress in the set: it makes the total for a prohibited debrid service about $7 a month instead of $1,800.
+- reliability: A static residential address is the class a debrid service is least equipped to refuse by inspection, and the class its terms most plainly name as a proxy.
+- notes: The single most important number among debrid providers: it is the counter-example to 'a residential proxy costs $2/GB and therefore debrid is pointless'. The metered market is $1.40-$6.00/GB; the static market is $0.30-$2.71 per IP per month with no meter. The two markets are different products and published records should never quote one as the price of the other.
+- evidence note: Price, throughput and the unlimited-bandwidth bullet are on the vendor's pricing page read. Whether the address is accepted by a given debrid service is inferred and untested.
+- extras:
+  - static_residential_monthly: USD 2.71
+  - static_mobile: 'from $3.50/proxy' and '$5.99/GB' on the same page
+  - rotating_residential: not priced on this page
+  - throughput: 100+ Mbps
+  - byte_meter: none published
+- evidence:
+  - [1] 2026-11-25: the cheapest entry is still the paid 7-day plan at USD 1.99 | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: 7 Day Trial Starts at $1.99 PER WEEK
+  - [1] 2026-11-25: the basic plan is now listed with 1 GB bandwidth and shared access | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: 1 Month Starts at $2.71 PER MONTH
+  - [1] 2026-11-25: the basic static residential plan now has a published 1 GB byte allowance | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: Shared by up to 3 users - 1 GB bandwidth - No speed upgrades - No concurrency upgrades
+  - [1] 2026-11-25: the basic plan's limit is now a byte allowance rather than throughput | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: 1 GB bandwidth
+  - [1] 2026-11-25: a 1 GB allowance now binds the basic static residential plan | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: 1 GB bandwidth
+  - [1] 2026-11-25: the 12-month rate is USD 2.17 per month and the basic plan includes 1 GB | capture: sha256:e70429417cf713bfc27447fa3416ac94f8f5e54f3d4e973b410434f2c4e19591 | quote: 12 Months Starts at $2.17 ~~$2.71~~ PER MONTH
+- sources:
+  - [1] https://www.proxy-cheap.com/pricing

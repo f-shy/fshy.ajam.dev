@@ -1,0 +1,46 @@
+# fshy: Email, dead
+
+> Sending, receiving, forwarding and inbox APIs.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/email/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## MailExpire
+
+- `email/mailexpire` | dead | evidence documented | binding write-gated | category disposable email alias and forwarding service (defunct)
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T00:18:04.226Z (live) | stale on 2026-12-20
+- url https://mailexpire.com | page https://fshy.ajam.dev/p/mailexpire.md
+- free tier: a free email alias, valid for a chosen period from 12 hours to 3 months, forwarded to the user's real address; usable as often as the user likes | unit: unlimited | metered on: none | read on: 2026-11-19 | source: [1] | note: The offer was historical: the service stopped accepting new aliases on 31 March 2015 and stopped forwarding after that date.
+- per-object cap: unverified: no first-party message size limit appears on the archived pages; the service forwarded mail to a real address rather than storing objects | source: [1]
+- retention: each alias lasted for a period the user chose, from 12 hours to 3 months; forwarding ended after 31 March 2015 | source: [2] | note: The retention period was per alias and user-selected, not a single fixed number, so days is null.
+- egress: not applicable: a receive-and-forward alias service, not a traffic egress offer | metered: no | source: [1]
+- identity: email | detail: the archived signup help asks the user to type a current email address as the forwarding destination, solve a captcha and activate the alias by clicking a link in a confirmation mail; no card or phone is asked for
+- interface: browser
+- limits:
+  - write-gated (binding): no new aliases created after 31 March 2015 [2]
+  - retention-clamped: alias validity from 12 hours to 3 months, chosen by the user [1]
+- binding note: new alias creation was closed on 31 March 2015, so the write gate binds before the 12-hour to 3-month alias lifetime does
+- interface detail: the archived first-party pages document a web signup form and a control panel, with no API, CLI or documented protocol
+- tooling: a web browser: the archived site offered a signup form and a control panel
+- composes with: a receive-and-forward alias with no documented API, so it offers no programmatic inbox to chain into an automated flow
+- reliability: the service shut down on 31 March 2015; mailexpire.com now serves a domain-for-sale listing rather than the original service
+- notes: Defunct receive-and-forward alias service. New alias creation and all forwarding ended on 31 March 2015 per the first-party shutdown notice. The archived pages document a web form and a control panel, with no API. mailexpire.com now serves a domain-for-sale listing.
+- evidence note: first-party archived pages from 2012 to 2015 and the current mailexpire.com page were captured and quoted; no probe was run because the service no longer runs
+- self hosted: no
+- evidence:
+  - [2] 2026-11-19: the first-party shutdown notice states that new alias creation ended | capture: sha256:994e165608290eec588bcb3617d491f54ae01f61caa0093d509092cb87f5d66d | quote: So, as of today, I am no longer offering the facility to create new mailexpire aliases.
+  - [2] 2026-11-19: the first-party notice states that forwarding stopped after March 2015 | capture: sha256:994e165608290eec588bcb3617d491f54ae01f61caa0093d509092cb87f5d66d | quote: Any existing aliases will continue to work as normal until the end of March. After that, no further mails will be forwarded.
+  - [2] 2026-11-19: the first-party notice fixes 31 March 2015 as the end of forwarding | capture: sha256:994e165608290eec588bcb3617d491f54ae01f61caa0093d509092cb87f5d66d | quote: Remember. Alias forwarding will stop after March 31st 2015.
+  - [3] 2026-11-19: mailexpire.com now serves a domain-for-sale listing, not the original service | capture: sha256:338021f96537607b9f061d7d62f0d112333a18a477240dc66af6aff92ee84a6a | quote: After payment is completed for MailExpire.com, we’ll guide you through the best available transfer option based on the domain’s current registrar and extension.
+  - [1] 2026-11-19: the alias ran 12 hours to 3 months and forwarded to the user's real address | capture: sha256:12027f3b4899b41e4e2a8a11bb00cbd58eec9589f08ba589d5d4b3b52e85c678 | quote: For a period you choose, from 12 hours to 3 months, anything sent to this email alias will be passed on to you at your actual email address.
+  - [1] 2026-11-19: the offer was free and repeatable | capture: sha256:12027f3b4899b41e4e2a8a11bb00cbd58eec9589f08ba589d5d4b3b52e85c678 | quote: mailexpire is free, and you can use it as often as you like.
+  - [4] 2026-11-19: the archived signup asks for an email address as the forwarding destination | capture: sha256:db58a3c91d901951a669806d8ab57988643edbb0f2e46cc2d9a2477f614c1d20 | quote: Type your current email address into the "current email address" field. Any mail sent to your new alias will be sent to this address.
+  - [5] 2026-11-19: the archived signup page applied a captcha gate | capture: sha256:e9cd9de9ffff23a7f5cf3e2ed53b6d902e6c27b4abde181cded16319ecdd4ae3 | quote: In order to protect ourselves, we've had to introduce a captcha test to the signup process.
+  - [4] 2026-11-19: activation required clicking a link in a confirmation mail | capture: sha256:db58a3c91d901951a669806d8ab57988643edbb0f2e46cc2d9a2477f614c1d20 | quote: Your new mailexpire alias will now be prepared, but it will not be activated until you click on the control panel in the confirmation mail sent to you.
+- sources:
+  - [1] https://web.archive.org/web/20130531164423id_/http://www.mailexpire.com/
+  - [2] https://web.archive.org/web/20150407123256id_/http://mailexpire.com/
+  - [3] https://mailexpire.com
+  - [4] https://web.archive.org/web/20130529230044id_/http://mailexpire.com/help.php
+  - [5] https://web.archive.org/web/20130529233254id_/http://mailexpire.com/create.php

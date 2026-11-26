@@ -1,0 +1,166 @@
+# Corellium
+
+> corellium.com | Compute; 3 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/corellium/ | JSON https://fshy.ajam.dev/api/v1/entity/corellium.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Corellium, Solo Explorer (student/EDU)
+
+- `compute/corellium-solo` | qualifies-with-caveat | evidence documented | binding write-gated | category hosted mobile-device virtualization | tier Solo Explorer (student/EDU)
+- needs card yes, phone no, ID no, institution no | verified 2026-11-25T02:12:34.899Z (live) | stale on 2026-12-26
+- url https://www.corellium.com/products/solo
+- disagrees on verdict: `compute/corellium` says trial-only, `compute/corellium-solo` says qualifies-with-caveat
+- free tier: A free trial by request: support documentation states 14 days to use 6 hours of credit for a 6-core device, or 18 hours on a 2-core device; Solo trial requests are manually approved and delivered by email invitation. The paid Solo Explorer rate is USD 3 per device-hour. | unit: hours | metered on: wall-clock | read on: 2026-11-25 | source: [1] | note: The vendor's trial page gives no numeric credit; the 14-day and 6-hour figures are from the vendor's support FAQ and describe a cloud trial generally, not a Solo-specific public offer. Stored devices count USD 0.25 a day towards the credit.
+- per-object cap: not applicable: the metered unit is a virtual device-hour, not an object
+- retention: Trial devices are stored between sessions and count towards trial credit; after a subscription expires Corellium removes customer data from the SaaS generally within 30 days. | source: [2]
+- egress: not published as a device-hour allowance: the pricing and terms pages read state no separate egress price or quota for Solo | metered: no | source: [3]
+- identity: email | detail: The app login asks for email and password and directs account creation to a trial request. The trial request form asks whether the applicant is an individual or a company; individual applicants need a valid personal email and company applicants a professional email and company details. Trials are manually approved with automated checks that include an OFAC lookup. The exact form fields are unverified: behind a sign-up, since no request was submitted. Burst hours above plan hours require a credit card.
+- interface: rest, ssh, cli, browser
+- limits:
+  - volume-quota: 14 days and 6 hours of credit on a 6-core device (18 hours on a 2-core device) for a cloud trial [1]
+  - per-object-cap: Solo allows 1 user and 1 active device; Pay-As-You-Go-style plans elsewhere default to 2 simultaneous devices [4]
+  - write-gated (binding): trials are manually approved for individuals and businesses, with automated checks and manual review; Solo is for student users only [5]
+- limits note: A device hour is any hour the device is on, paused, turning on or turning off; usage is measured by the minute and totalled at month end, rounded up. Burst hours above plan hours are charged at the same plan rate. Stored trial devices cost USD 0.25 a day against credit.
+- binding note: The manually approved, student-only trial gate binds before the 6-hour credit: a request can be denied and a trial invitation is sent by email only on approval.
+- interface detail: A Solo Cloud REST API at app.corellium.com/api/docs; virtual devices are reached through ADB, SSH, GDB, serial console and VPN, with Quick Connect over SSH tunnelling.
+- tooling: Corellium REST API with API keys, a Python API client, ADB and SSH clients, and an OpenVPN client for project network access.
+- composes with: An agent or researcher creates a virtual iOS or Android device, connects with ADB or SSH, snapshots and clones device state, and runs security tooling such as Frida; the paid Solo rate is USD 3 per device-hour with no prepaid minimum and one active device.
+- reliability: Trials are manually approved and expire after 14 days; if an expired trial is not converted to a subscription, the account is suspended and data is deleted. Device-hours accrue while a device is on or paused, and stored trial devices draw down credit.
+- notes: Hosted virtual iOS and Android devices for security research: Solo Explorer is USD 3 per device-hour with no prepaid minimum, one user and one active device, restricted to students. A free trial is available only on application, manually approved, with 14 days and 6 hours of credit on a 6-core device; the exact sign-up fields were not seen. On-site appliances and Corellium's other products are different offers.
+- evidence note: The USD 3 per device-hour rate, device-hour definition, student-only scope, manual trial approval, email invitation and login fields are quoted from first-party Corellium pages read on 2026-11-25. The 14-day/6-hour credit comes from the vendor's general cloud-trial FAQ, not a Solo-specific price page.
+- extras:
+  - shape.note: virtual iOS and Android devices priced per device-hour; a 6-core device is named in the trial FAQ
+  - billing_model: per device-hour with no prepaid minimum; bank burst device-hours charged at the plan rate
+  - free_tier_kind: manually-approved-trial
+  - term: no commitment stated for Solo; trial limited to 14 days
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: port forwarding and virtual Wi-Fi listed as Solo capabilities
+  - session_cap.restart_required: no
+  - session_cap.note: device-hours accrue while a device is on or paused; paused devices are not off
+- evidence:
+  - [4] 2026-11-25: Solo is priced at USD 3 per device-hour with one user and one active device | capture: sha256:f63883b2bbe31e3418e4b8f88ac187a5c45992c88adcf0a0edc1fc725e62c45d | quote: Solo $3/device-hour
+  - [4] 2026-11-25: Solo is limited to student users | capture: sha256:f63883b2bbe31e3418e4b8f88ac187a5c45992c88adcf0a0edc1fc725e62c45d | quote: Solo is for student users only.
+  - [3] 2026-11-25: the Solo Explorer plan rate is USD 3 per device-hour | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: Plan rates are only available for Solo Explorer and are currently $3 per/device-hour.
+  - [3] 2026-11-25: a device hour is billed while a device is not off, including paused devices | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: A device hour is one hour of device usage while the device is not `off`.
+  - [6] 2026-11-25: a Solo trial starts with a request and an email invitation on approval | capture: sha256:30a22884f594f7368a93383e3eed96221a1b672d22b49ca55e0a84131c4ab159 | quote: If approved, you will receive a trial invitation by email.
+  - [5] 2026-11-25: trials are manually approved with automated checks and manual review | capture: sha256:5e16dffb6aa94913f420ffbc5c6d094a490731c58ad12f310a7e0abed61c507e | quote: Trials are manually approved for individuals and businesses.
+  - [1] 2026-11-25: a cloud trial gives 14 days and 6 hours of credit on a 6-core device, or 18 hours on a 2-core device | capture: sha256:c6c8d7f520204ca8c2d2d8b5018b9a59e44cb3332f29bf931d75f329e8784bb7 | quote: You have 14 days to use 6 hours of credit for a 6-core device.
+  - [7] 2026-11-25: the app login asks for email and password and account creation goes through a trial request | capture: sha256:21c178ef319fa7666edc9b709459a7d8060c4d8c1c8a18b49f48121a96186ae0 | quote: Email Password
+  - [2] 2026-11-25: trial access is limited to evaluation and at most 14 calendar days unless stated otherwise | capture: sha256:f73a3183f0b31ba1f8424f0dfb4a186889a202922b5a62b22bb8236b16657c48 | quote: Customer may access and use Trial Software during the applicable trial period solely for Customer’s internal business purposes and solely to test or evaluate the Trial Software.
+  - [8] 2026-11-25: Solo Cloud customers have a REST API for programmatic device control | capture: sha256:19fe80178db042319894913b483bad2076910cbcb48d493e79c21fb9031d3c1c | quote: Solo Cloud customers can access the Corellium REST API at `https://app.corellium.com/api/docs`.
+  - [9] 2026-11-25: virtual devices are reachable over ADB, SSH, GDB, serial console and VPN | capture: sha256:91fbc3b64695dec7fcb96d4bb1bb6fa8f062af4cef95a54d7a7989d4a3b76500 | quote: Corellium’s Quick Connect feature lets you connect to your virtual devices and access tools such as ADB, HTTP proxying, and Frida, without the need for a VPN by leveraging SSH tunneling.
+- sources:
+  - [1] https://support.corellium.com/troubleshooting-faqs/why-cant-i-log-into-my-trial
+  - [2] https://www.corellium.com/legal/terms
+  - [3] https://support.corellium.com/subscriptions/pricing
+  - [4] https://www.corellium.com/products/solo
+  - [5] https://support.corellium.com/subscriptions/trials
+  - [6] https://www.corellium.com/trial-solo
+  - [7] https://app.corellium.com/
+  - [8] https://support.corellium.com/sdk/apis/rest/
+  - [9] https://support.corellium.com/features/connect/
+
+## Arm Virtual Hardware
+
+- `compute/arm-virtual-hardware` | trial-only | evidence documented | binding retention-clamped | category cloud VM
+- needs card no, phone no, ID no, institution no | verified 2026-11-04T11:01:13.170Z (live) | stale on 2026-12-05
+- url https://support.avh.corellium.com/getting-started/access
+- free tier: A free trial that is documented with real numbers: 'Once registered, you automatically have access to Arm Virtual Hardware and are enrolled on a 30-day free trial. This trial provides access for up to 15 active CPU cores at a time and up to 100 core hours of usage. Your trial includes 25 device slots.' After the trial the rate is 'USD 0.50 per core hour, where a core hour is one hour of CPU core usage on AVH', with 'Discounts... for open-source software development and other non-commercial, academic, or research usage'. The models are instruction-accurate virtual development kits, Corstone fixed virtual platforms and Ethos-U NPU models, and they run in the vendor's cloud rather than on a local machine. | unit: hours | metered on: wall-clock | read on: 2026-10-22 | source: [1] | note: trial-credit
+- per-object cap: not applicable | source: [1]
+- retention: 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically. | source: [1]
+- egress: not published: the page read states no egress allowance and no overage price; https://support.avh.corellium.com/getting-started/access read 2026-11-03 | metered: no | source: [1]
+- identity: email
+- interface: rest, cli, ssh
+- limits:
+  - retention-clamped (binding): 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically. [1]
+- limits note: 100 core hours inside 30 days is the cap: a five-core device exhausts the trial in 20 hours of wall clock, and after the 30 days the virtual device shuts down automatically.
+- binding note: the same as limits note
+- interface detail: REST API with an API token; AVH CLI installed from npm (@corellium/corellium-cli); SSH to a virtual device over the AVH VPN or an SSH tunnel
+- tooling: the provider documents its own CLI, the AVH CLI, per https://support.avh.corellium.com/sdk/cli/: "The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal."
+- composes with: It chains with a free CI runner: the same 25 device slots make a firmware or model test suite run in a build, which is the shape the workload needs. It breaks at throughput, because a virtual Ethos-U is a functional model and its latency numbers are not silicon numbers.
+- reliability: no reliability event recorded
+- notes: Two things are stated rather than measured: 100 core hours is the trial figure, and whether the trial resets per account is not published. The AWS Marketplace route is a second door with the same rate. This is the only accelerator-adjacent programme in evaluated offerings whose free allowance is published in a unit that can be planned against.
+- extras:
+  - facets.class: hardware-vendor-programme
+  - facets.free_tier_kind: trial-credit
+  - facets.shape.vcpu: 15
+  - facets.shape.gpu_class: Arm Ethos-U NPU and Cortex-M models, simulated
+- evidence:
+  - [1] 2026-10-22: 'a 30-day free trial... up to 15 active CPU cores at a time and up to 100 core hours of usage. Your trial includes 25 device slots', quoted
+  - [1] 2026-10-22: 'You will be charged based on usage at a rate of USD 0.50 per core hour' and 'After this trial period, the virtual device is automatically shut down', both quoted
+  - [2] 2026-10-22: the AWS Marketplace listing prices core hours at USD 0.50 with no tiers or fixed plans
+  - [3] 2026-10-22: the product page describes 'an instruction-accurate, and extensible modeling engine' for Arm-based processors and systems in the cloud, and a route via Arm Tools Artifactory 'free of charge'
+  - [1] 2026-11-03: the access page prices usage per core hour and states no egress allowance or price | capture: sha256:bc14b2c63c5dc175780f8f98691f1a76e0e87f0b0e4e90eec137ff94970fd12e | quote: After this trial period, the virtual device is automatically shut down and must be restarted by the user.
+  - [4] 2026-11-03: a REST API exists | capture: sha256:d3ceb5f939710bbb209f55126e1d40c6a947691a1444acd8e156a3f390328fd1 | quote: This example shell script demonstrates how to use the Corellium REST API to:
+  - [5] 2026-11-03: a CLI exists | capture: sha256:9104e669598da9e8eb19c6ad15a208b5af36c7f854cac67e43fa917e372da086 | quote: The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal.
+  - [6] 2026-11-03: SSH to a virtual device is documented | capture: sha256:11cae914dc469b4a44bbcc9d8b8282e3dbb85b0e187401a723f7bb5a85fead80 | quote: The Secure Shell protocol, or SSH, is a method of secure remote login from one computer to another.
+  - [5] 2026-11-04: the provider documents its own CLI, the AVH CLI | capture: sha256:9104e669598da9e8eb19c6ad15a208b5af36c7f854cac67e43fa917e372da086 | quote: The AVH CLI is a command line tool that allows you to manage your AVH instances from the terminal.
+- sources:
+  - [1] https://support.avh.corellium.com/getting-started/access
+  - [2] https://aws.amazon.com/marketplace/pp/prodview-3ert36ne4rlmq
+  - [3] https://www.arm.com/products/development-tools/simulation/virtual-hardware
+  - [4] https://support.avh.corellium.com/sdk/apis/rest/example-script
+  - [5] https://support.avh.corellium.com/sdk/cli/
+  - [6] https://support.avh.corellium.com/features/connect/ssh
+
+## Corellium (compute/corellium)
+
+- `compute/corellium` | trial-only | evidence documented | binding volume-quota | category virtual mobile device cloud | tier Solo Explorer / per-device-hour cloud subscription
+- needs card no, phone no, ID no, institution no | verified 2026-11-24T14:32:00.000Z (live) | stale on 2026-12-25
+- url https://support.corellium.com/subscriptions/pricing
+- disagrees on verdict: `compute/corellium` says trial-only, `compute/corellium-solo` says qualifies-with-caveat
+- free tier: No free tier: Corellium Solo is priced at USD 3 per device-hour with no pre-paid minimum, for one user and one active device, open to students only; a manually approved trial credits 6 hours over 14 days on a 6-core device, or 18 hours on a 2-core device, and stored devices count USD 0.25 a day against the credit. | unit: hours | metered on: wall-clock | read on: 2026-11-24 | source: [1] | note: The trial is reviewed and approved by the vendor and expires; it is not a standing free tier. Enterprise plans Viper and Falcon come with 1,250 device-hours a month and move to burst hours at the same plan rate. Arm Virtual Hardware has its own record and is a different offer.
+- per-object cap: not applicable: the unit is a virtual mobile device, not an object; each project has a /23 IP space with 512 addresses and effectively 127 devices when devices have two LAN addresses and one service… | source: [2]
+- retention: A trial expires after 14 days; after expiry, an account not converted to a subscription is suspended and its data is deleted. Stored devices are billed USD 0.25 a day. | days: 14 | source: [3]
+- egress: Virtual devices have network interfaces connected to the outside world and a per-project private IP range, but the pricing and support pages read state no egress allowance and no price per unit of outbound traffic; unverified: no published egress terms. | metered: no | source: [4]
+- identity: email | detail: A trial request is required and reviewed: 'Once we receive your trial request, we'll contact you if we need more information. If approved, you will receive a trial invitation by email.' Cloud trials are manually approved for individuals and businesses with automated checks such as an OFAC lookup and a manual review. Solo is for student users only. No card, phone number, ID document or institution field is published on the trial request page.
+- interface: rest, cli, ssh, browser
+- limits:
+  - volume-quota (binding): 6 hours of trial credit in 14 days for a 6-core device, or 18 hours on a 2-core device; stored devices count USD 0.25 a day against the credit [5]
+  - volume-quota (binding): Solo at USD 3 per device-hour, one user and one active device; enterprise plans include 1,250 device-hours a month before burst hours at the same rate [4]
+  - per-object-cap: each project has a /23 IP space of 512 addresses, with an effective limit of 127 devices for products with two LAN addresses and one service address [2]
+- limits note: Device-hour usage is measured per minute and totaled at month end, then rounded up to the next whole hour. A device is active when it is on, paused, turning on or turning off; a device that is off is not billed. Unused plan hours do not roll over. Trial access requires manual approval.
+- binding note: The 6 trial hours in 14 days run out before the per-project device count or the paid device-hour meter, and the trial is the only no-cost capacity.
+- interface detail: A browser-based web interface and product portal, a REST API with API keys, the Corellium CLI installed through npm, and SSH into a jailbroken virtual device over a VPN; ADB, GDB and a serial console are also documented.
+- endpoint: https://app.corellium.com/api/docs
+- tooling: the web interface; the REST API at https://app.corellium.com/api/docs for Solo Cloud customers with API keys; the Corellium CLI installed with 'npm install -g @corellium/corellium-cli'; SSH, ADB, GDB and a serial console; REST and JavaScript and Python API clients
+- composes with: Virtual devices in a project can be driven from a CI workflow with the CLI and REST API, and snapshots and cloning preserve device state; a workflow that needs files to outlive a deleted account needs a separate object-storage record.
+- reliability: Trials are manually approved and can be denied; the vendor states an account left unconverted after the trial is suspended and its data is deleted. Device-hour billing rounds the monthly total up to the next whole hour. Stored devices are billed USD 0.25 a day.
+- notes: The cloud product is a virtual mobile device service, distinct from the Arm Virtual Hardware offer that has its own record. Solo is USD 3 per device-hour for students, one user and one active device; enterprise Viper and Falcon plans carry 1,250 device-hours a month. The trial is 6 hours in 14 days on a 6-core device and requires manual approval. No egress price or allowance is published on the pages read.
+- evidence note: The per-device-hour rate, the one-user one-device cap, the trial credit and its 14-day horizon, the approval gate, the interface routes and the per-project address space are quoted from Corellium's own pricing, product, trial and support pages read on 2026-11-24.
+- extras:
+  - shape.vcpu: 6
+  - shape.note: a virtual iOS or Android device; the trial credit names a 6-core or 2-core device
+  - billing_model: per-device-hour, measured per minute and rounded up monthly; trial credit time-boxed
+  - free_tier_kind: manually-approved-time-boxed-trial
+  - term: subscription with monthly plan hours; no pre-paid minimum on Solo
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: a web interface, REST API, CLI, SSH, ADB, GDB and a serial console over a VPN
+  - session_cap.restart_required: no
+  - session_cap.note: trial expires after 14 days, and a device that is off is not billed
+- evidence:
+  - [4] 2026-11-24: the Solo Explorer plan rate is USD 3 per device-hour | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: Plan Rate**: is in USD unless otherwise specified and reflects the cost of device-hour use. Plan rates are only available for [Solo Explorer](https://www.corellium.com/products/solo) and are currently $3 per/device-hour.
+  - [4] 2026-11-24: enterprise plans include 1,250 device-hours a month and move to burst hours after that | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: all our enterprise-level plans ([Viper Essentials](https://www.corellium.com/products/viper), [Viper Advanced](https://www.corellium.com/products/viper), [Falcon](https://www.corellium.com/products/falcon)) come with 1,250 hours per month of device hours. Once all 1,250 hours have been used, you will move into burst hours pricing.
+  - [4] 2026-11-24: burst hours are charged at the same plan rate with no increase or penalty, and unused plan hours do not roll over | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: If you go over your Plan Hours in a month, we call them Burst Hours, and they are charged at the same Plan Rate. In other words, there isn’t a rate increase or penalty for exceeding your monthly plan.
+  - [4] 2026-11-24: device-hour usage is measured per minute and rounded up to the next whole hour at month end | capture: sha256:7b6302afab3f79774f36b9a47274ea481a37c91ce02d2883b5cf3fce5f5057dc | quote: To calculate monthly device-hour usage, we measure individual device usage by the minute, and at the end of the month, we total them all, then round up the total to the next whole hour.
+  - [1] 2026-11-24: Solo costs USD 3 per device-hour with no pre-paid minimum and one user and one active device, for students only | capture: sha256:f63883b2bbe31e3418e4b8f88ac187a5c45992c88adcf0a0edc1fc725e62c45d | quote: Solo $3/device-hour
+  - [1] 2026-11-24: Solo is an education offer for students only | capture: sha256:f63883b2bbe31e3418e4b8f88ac187a5c45992c88adcf0a0edc1fc725e62c45d | quote: Solo is for student users only. Enterprises should visit [Corellium Viper.](https://cellebrite.com/products/corellium/viper)
+  - [6] 2026-11-24: a trial request is reviewed and the invitation arrives by email | capture: sha256:30a22884f594f7368a93383e3eed96221a1b672d22b49ca55e0a84131c4ab159 | quote: Once we receive your trial request, we'll contact you if we need more information. If approved, you will receive a trial invitation by email.
+  - [3] 2026-11-24: cloud trials need manual approval plus automated checks, and an expired unconverted account is suspended with its data deleted | capture: sha256:5e16dffb6aa94913f420ffbc5c6d094a490731c58ad12f310a7e0abed61c507e | quote: Once your trial expires, you will need to convert it to a subscription to continue using Corellium. If you do not convert your expired trial to a subscription within a certain period of time, your account will be suspended and your data will be deleted.
+  - [5] 2026-11-24: a trial gives 6 hours over 14 days on a 6-core device and 18 hours on a 2-core device | capture: sha256:c9765bc8c7e53bea5ec6465a3cab28a0af63ebc3634d2b838996595b6036c702 | quote: You have 14 days to use 6 hours of credit for a 6-core device.
+  - [5] 2026-11-24: stored devices are charged USD 0.25 a day against the trial credit | capture: sha256:c9765bc8c7e53bea5ec6465a3cab28a0af63ebc3634d2b838996595b6036c702 | quote: Stored devices ($0.25/day) count towards credit used.
+  - [7] 2026-11-24: a REST API reaches Corellium devices over HTTP and uses API keys for authentication | capture: sha256:19fe80178db042319894913b483bad2076910cbcb48d493e79c21fb9031d3c1c | quote: The Corellium REST API allows you to interact with your Corellium devices programmatically through HTTP requests
+  - [8] 2026-11-24: the Corellium CLI manages instances and projects from a terminal and installs through npm | capture: sha256:461538484c56293f937a18d337a89791bc845d467f7c96072e83df9c27ba0858 | quote: The Corellium CLI is a command line tool that allows you to manage your Corellium instances from the terminal.
+  - [9] 2026-11-24: SSH is documented as a way to connect to a virtual device | capture: sha256:905054fdede5c823382d475837d3fb67779c88c0ceebcc3a08db9147e671a66a | quote: The Secure Shell protocol, or SSH, is a method of secure remote login from one computer to another.
+  - [2] 2026-11-24: virtual devices have network interfaces connected to the outside world and a per-project private IP range | capture: sha256:e2be140310cc566dce66effe936e203038ac53c07757ec9bc6c91d5aad427e91 | quote: Virtual devices have one or more network (LAN) interfaces that are connected so that they can access the outside world.
+- sources:
+  - [1] https://www.corellium.com/products/solo
+  - [2] https://support.corellium.com/administration/virtual-devices
+  - [3] https://support.corellium.com/subscriptions/trials
+  - [4] https://support.corellium.com/subscriptions/pricing
+  - [5] https://support.corellium.com/troubleshooting-faqs/why-cant-i-log-into-my-trial
+  - [6] https://www.corellium.com/trial-solo
+  - [7] https://support.corellium.com/sdk/apis/rest
+  - [8] https://support.corellium.com/cli
+  - [9] https://support.corellium.com/features/connect/ssh

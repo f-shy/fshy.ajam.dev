@@ -1,0 +1,93 @@
+# Outscraper
+
+> outscraper.com | Crawling; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/outscraper/ | JSON https://fshy.ajam.dev/api/v1/entity/outscraper.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Outscraper
+
+- `crawler-scraper/outscraper` | qualifies-with-caveat | evidence documented | binding volume-quota | category no-code scraper service with prebuilt and universal scrapers
+- needs card yes, phone no, ID no, institution no | verified 2026-11-02T01:02:23.928Z (live) | stale on 2026-12-03
+- url https://outscraper.com/pricing/
+- free tier: pay-as-you-go with a monthly Free Tier per service, tiers resetting every 30 days: Google Maps 500 businesses, Google Maps reviews 500, Google Search 10 searches (pages), Universal AI Scraper 5 pages, among others. Google Maps results export as CSV, Excel, Parquet or JSON, most other services as CSV or XLSX. The terms require a payment method before the first use | unit: mixed | read on: 2026-10-30 | source: [1] | note: each service is metered in its own unit (businesses, reviews, searches, pages, domains, images); no vocabulary term names a returned record
+- per-object cap: not applicable: billed per returned record | source: [1]
+- retention: a web-app task result file stays downloadable on the Tasks page for 30 days, after which its download link expires; an API response is available for 4 hours after the request completes; the free allowance resets every 30 days and does not accumulate | days: 30 | source: [2] | note: the 30 days is stated on Outscraper's tutorial pages for the Google Maps, emails, email validation, Google Search and crawler services; whether it counts from task creation or completion is not stated
+- egress: not applicable: result files and API responses | metered: no | source: [1]
+- identity: card | detail: the sign-up page offers a Google sign-in, or an email form confirmed by a verification email (reported), and shows an hCaptcha check; the terms require a payment method before the first use, and the pricing explainer lists two ways to pay: prepaid credits, or a connected credit card billed automatically past the free tier, with credits added by credit card, PayPal or other methods; staff state a new account, or API use, may be asked to deposit USD 10 of credits, especially after several accounts from one email or IP or with a disposable email, and that support can lift a check raised by mistake; a marketing page states no credit card is required to start, which the terms contradict; whether a new account runs its Free Tier with neither a payment method nor a deposit is unverified: behind a sign-up
+- interface: rest
+- limits:
+  - volume-quota (binding): Google Maps: first 500 businesses a month free, then USD 3 per 1,000 to 100k, then USD 1 per 1,000 [1]
+  - volume-quota (binding): Google Search: first 10 searches (pages) a month free, then USD 5 per 1,000 [1]
+  - volume-quota (binding): Universal AI Scraper: first 5 pages a month free, then USD 9 per 1,000 pages to 5k, then USD 7 per 1,000 [3]
+  - write-gated: a payment method is required before the first use; a new account may be asked to deposit USD 10 of credits [4]
+  - request-rate: API average about 20 queries a second, varying by service and parameters [2]
+  - retention-clamped: an API response is kept 4 hours after the request completes [2]
+  - retention-clamped: a web-app task result file stays downloadable on the Tasks page for 30 days; the download link then expires [5]
+- binding note: the free allowance is a few hundred records per service a month (5 pages for the universal scraper); past it every record is billed, so the monthly free tier runs out long before the API rate does
+- interface detail: a REST API authenticated by an X-API-KEY header (reference at app.outscraper.cloud/api-docs), about 20 queries a second on average; a format parameter (csv, json, parquet) turns a request into an asynchronous web-app task; the same services run from the web app with no code
+- tooling: the web app at app.outscraper.com; the REST API; the outscraper-python SDK on GitHub
+- composes with: Prebuilt Google Maps, reviews, search and contact scrapers return structured records with no selector work; for arbitrary pages the Universal AI Scraper's free tier is 5 pages a month, so a general page reader carries that load
+- reliability: no reliability event recorded; a new account, or several accounts from one email or IP, may be held until a USD 10 credit deposit
+- notes: Confirmed as a no-code scraper service with a free tier, though the free tier sits behind a payment method. Free runs: no run or task count is stated; the allowance is per service per month (500 Google Maps businesses, 500 reviews, 10 Google searches, 5 universal-scraper pages, and others). Pages per run: no per-run cap is stated; the universal scraper's free tier is 5 pages a month in total. Export formats: CSV, Excel, Parquet and JSON for Google Maps; CSV and XLSX for most other services; csv, json or parquet from the API. Cheapest paid step: USD 3 per 1,000 Google Maps records.
+- evidence note: the allowances, prices and formats are read from Outscraper's pricing, product and API pages; the email sign-up step is a third-party report
+- evidence:
+  - [1] 2026-10-30: pricing is pay-as-you-go per service with no subscription | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: No monthly fees. No recurring billing. Pay only for the individual services, as much as you use them (pay-as-you-go).
+  - [1] 2026-10-30: free and paid tiers reset every 30 days | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: Tiers reset every 30 days.
+  - [1] 2026-10-30: the free tier is a monthly allowance | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: Free Tier is the amount of usage you can use for free each month.
+  - [1] 2026-10-30: the Google Maps scraper is free for the first 500 businesses | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: - Free for the first 500 businesses (places)
+  - [1] 2026-10-30: Google Maps results export as CSV, Excel, Parquet or JSON | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: - CSV/Excel/Parquet/JSON
+  - [1] 2026-10-30: Google Maps records 501 to 100k are billed per 1,000 (USD 3, and USD 1 past 100k, on the same page) | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: - Price per 1k records for the usage from 501 to 100k businesses (places)
+  - [1] 2026-10-30: the Google Maps reviews scraper is free for the first 500 reviews | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: - Free for the first 500 reviews
+  - [1] 2026-10-30: the Google Search scraper is free for the first 10 searches | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: - Free for the first 10 searches (pages)
+  - [1] 2026-10-30: Google Search past the free tier costs USD 5 per 1,000 searches | capture: sha256:243968765917ee8ee9b574c033ba2f88373e7ba7e1f05b40973d2fe293c63849 | quote: $5/1,000 searches
+  - [3] 2026-10-30: the Universal AI Scraper is free for the first 5 pages, with CSV or XLSX export and API access | capture: sha256:0ce12b344438a628cff01e9d1120ee2527306fa3cb9c68600642745fa8ea3dfe | quote: Free for the first 5 pages. - CSV/XLSX export - API access
+  - [3] 2026-10-30: Universal AI Scraper pages 6 to 5k cost USD 9 per 1,000 | capture: sha256:0ce12b344438a628cff01e9d1120ee2527306fa3cb9c68600642745fa8ea3dfe | quote: $9/1,000 pages
+  - [3] 2026-10-30: Universal AI Scraper pages past 5k cost USD 7 per 1,000 | capture: sha256:0ce12b344438a628cff01e9d1120ee2527306fa3cb9c68600642745fa8ea3dfe | quote: $7/1,000 pages
+  - [6] 2026-10-30: the universal scrapers are no-code | capture: sha256:4cf689b4a553cd1e5b1880bc0ca2ab55b5dee6086f043a8c676296b465266d02 | quote: Scrape any public page in minutes with no code.
+  - [6] 2026-10-30: tasks run in Outscraper's cloud and export CSV, JSON or Parquet | capture: sha256:4cf689b4a553cd1e5b1880bc0ca2ab55b5dee6086f043a8c676296b465266d02 | quote: Run the task in the cloud and export the results to CSV, JSON, or Parquet.
+  - [4] 2026-10-30: a payment method is required before the first use, free tier included | capture: sha256:6a56e3e3f504a1bcab6829a617a14a24590bafc023d443ccb4c50e6072dcbff6 | quote: In order to prevent fraud and validate your account, we require our clients to add payment method before making the first usage of our services.
+  - [7] 2026-10-30: prepaid credits can be added by credit card, PayPal or other methods | capture: sha256:d956faa49f99ecb3f0116c9ab30aa64753f18e3a83f5e13772e3246b820ab772 | quote: Choose the payment method you want to use in order to add credits (credit card, PayPal, etc.).
+  - [8] 2026-10-30: staff on the Outscraper forum state a new account may be asked for a USD 10 deposit before a free-tier task | capture: sha256:e64a33675d3882e2f6833e9b84ec600b29e4117f8e26fb3fd081f4e77e22ee44 | quote: If you are a new user, the platform might ask you to deposit a minimum amount of credits ($10).
+  - [9] 2026-10-30: a marketing page states no card is needed to start, which contradicts the terms | capture: sha256:bc7d012db4083a82e950fd33a4e00a4d3826f58b2c4f050b8ce3073277426753 | quote: You can test your research ideas with our free tier. No credit card required to get started.
+  - [10] 2026-10-30: a third-party setup guide reports a card is needed even for the 500 free places | capture: sha256:e320b761c8ca3891e89f558e1cf6e6a6a35900f4582c7edcb6b3908b4b5752fa | quote: add a payment method (you can use this service to fetch up to 500 places for free but still need to add a card)
+  - [10] 2026-10-30: a third-party guide reports an email sign-up confirmed by a verification email | capture: sha256:e320b761c8ca3891e89f558e1cf6e6a6a35900f4582c7edcb6b3908b4b5752fa | quote: Fill out the form to create an account, and click the account verication email to confirm it.
+  - [2] 2026-10-30: the REST API authenticates with an X-API-KEY header | capture: sha256:1fa93f2ab99b00dded6274357ac1b7bb5512dbd96b74f723dfd96ae13f728365 | quote: Authentication to the API is performed via `X-API-KEY: YOUR-API-KEY` header inside each request.
+  - [2] 2026-10-30: the API averages about 20 queries a second | capture: sha256:1fa93f2ab99b00dded6274357ac1b7bb5512dbd96b74f723dfd96ae13f728365 | quote: The average QPS is about `20`.
+  - [2] 2026-10-30: API results are kept 4 hours | capture: sha256:1fa93f2ab99b00dded6274357ac1b7bb5512dbd96b74f723dfd96ae13f728365 | quote: Each response is available for `4` hours after a request has been completed.
+  - [2] 2026-10-30: a format parameter (csv, json, parquet on the same page) turns an API request into a web-app task with a file | capture: sha256:1fa93f2ab99b00dded6274357ac1b7bb5512dbd96b74f723dfd96ae13f728365 | quote: Output file format. Setting this parameter creates a UI task and forces asynchronous execution; the resulting file is available on the Tasks page.
+  - [11] 2026-10-30: a contributor on the official Python SDK repository states that a new account, or API use, may require a minimum credit deposit | capture: sha256:7b14ea1913f3f01514058228892df2edd1045c76f0286fdaf44009d90bf6a916 | quote: If you are a new user or want to use API, the platform might ask you to deposit a minimum amount of credits.
+  - [5] 2026-11-01: the Google Maps tutorial states task result files can be downloaded from the tasks page and are stored on servers for only 30 days | capture: sha256:8afd5ba164220ca5736c3d0e97de697632136773c28da17ac44528be30fef1a2 | quote: You can download your result files anytime you want on the tasks page. But it’s important that all results are stored on servers for only 30 days.
+  - [8] 2026-11-01: a staff reply of October 29, 2022 states a new account might be asked to deposit USD 10 of credits, especially after several accounts from one email or IP or with a disposable email | capture: sha256:e64a33675d3882e2f6833e9b84ec600b29e4117f8e26fb3fd081f4e77e22ee44 | quote: If you are a new user, the platform might ask you to deposit a minimum amount of credits ($10). Especially if you created a few accounts from the same email/IP, or you are using disposable emails.
+  - [12] 2026-11-01: the emails tutorial states all results are stored on servers for only 30 days | capture: sha256:47ba56006fba6344c5a8dfd2a7a782505272660f9bdc36b415836dca0cdc42f3 | quote: All results are stored on servers for only 30 days. We recommend that you keep the Result files on your disk for long periods.
+  - [13] 2026-11-01: the Google Search tutorial states result files can be downloaded for 30 days, after which the download links expire | capture: sha256:58d64ca25ce4288240c7adb2cc29af6def7e2023dc3034a33c28d923bfb1f4de | quote: It should be noted that result files can only be downloaded for 30 days. After 30 days, the download links will expire.
+  - [14] 2026-11-01: the crawler page states result file download links on the Tasks page are available only for 30 days | capture: sha256:fd33ca01cdeb15e2172249ea0f198ed1f0aacd160a3210d17a4f3b8928cbfd0c | quote: Result files download links are available only for 30 days.
+  - [15] 2026-11-01: the email validation tutorial states all results are stored on servers for only 30 days | capture: sha256:f60db6f4c71899e54ab504382105f188fbf397686ba13aa6238cc8c170c96287 | quote: All results are stored on servers for only 30 days. We recommend that you keep the Result files on your disk for long periods.
+  - [16] 2026-11-01: the sign-up page offers a Google sign-in | capture: sha256:1c3acae7c7e9a9a189760c23bd5668fa39c819b0a96ca806bfa9d89f8b63ed40 | quote: Continue with Google
+  - [16] 2026-11-01: the sign-up page shows an hCaptcha check | capture: sha256:1c3acae7c7e9a9a189760c23bd5668fa39c819b0a96ca806bfa9d89f8b63ed40 | quote: hCaptcha
+  - [17] 2026-11-01: the pricing explainer lists prepaid credits as one way to pay | capture: sha256:ca052b79702438abf2fff38eff2b2cf6958f0ef3d9f37745d62e80183556cd8d | quote: - Prepaid: Simply add credits to your account balance. These credits never expire, giving you complete control over your budget.
+  - [17] 2026-11-01: the pricing explainer lists a connected credit card, billed automatically past the free tier, as the other way to pay | capture: sha256:ca052b79702438abf2fff38eff2b2cf6958f0ef3d9f37745d62e80183556cd8d | quote: - Postpaid: For those with higher, more consistent needs, you can connect a credit card and be billed automatically if your usage exceeds the Free Tier limits in a given month.
+  - [8] 2026-11-01: the staff reply says support can lift the deposit check when it was raised by mistake | capture: sha256:e64a33675d3882e2f6833e9b84ec600b29e4117f8e26fb3fd081f4e77e22ee44 | quote: You can talk to support if you think that the security requirement was created by mistake.
+  - [11] 2026-11-01: a contributor on the official Python SDK repository names the test-drive program as the route that needs no payment method or credits | capture: sha256:7b14ea1913f3f01514058228892df2edd1045c76f0286fdaf44009d90bf6a916 | quote: In case you need to test the API without any commitments (adding payment method or minimal amount of credits), you might consider attending a [test-drive program](https://outscraper.com/test-drive/).
+  - [18] 2026-11-01: the test-drive page offers a company or startup 1-year free access to Outscraper services | capture: sha256:47709190fb47a5893fbb68ae002de0cd0b0421ebedbed297bb2b26aa9931fc37 | quote: Gain free, 1-year access to Outscraper services for your company or startup.
+  - [19] 2026-11-01: an independent guide published August 24, 2026 reports the free tier will not run until a card is attached (third-party report) | capture: sha256:7107ffa9bf6e35b6b5a8c6495ad82fb7f51409240ace3ecfc3d3136d4c280902 | quote: You are not charged for free-tier usage, but the free tier will not run until a card is attached.
+  - [4] 2026-11-01: the terms still require a payment method before the first use | capture: sha256:6a56e3e3f504a1bcab6829a617a14a24590bafc023d443ccb4c50e6072dcbff6 | quote: In order to prevent fraud and validate your account, we require our clients to add payment method before making the first usage of our services.
+- sources:
+  - [1] https://outscraper.com/pricing/
+  - [2] https://app.outscraper.com/api-docs
+  - [3] https://outscraper.com/universal-ai-scraper/
+  - [4] https://outscraper.com/terms-of-service/
+  - [5] https://outscraper.com/how-to-scrape-google-maps/
+  - [6] https://outscraper.com/universal-web-scraper/
+  - [7] https://outscraper.com/faq/
+  - [8] https://community.outscraper.com/t/why-its-asking-for-10-for-the-first-time-free-tier/44
+  - [9] https://outscraper.com/market-research/
+  - [10] https://mixedanalytics.com/knowledge-base/scrape-google-maps-places-into-google-sheets-outscraper/
+  - [11] https://github.com/outscraper/outscraper-python/issues/9
+  - [12] https://outscraper.com/how-to-scrape-emails/
+  - [13] https://outscraper.com/scraping-google-search-results/
+  - [14] https://outscraper.com/google-maps-crawler/
+  - [15] https://outscraper.com/validate-email-addresses-bulk/
+  - [16] https://auth.outscraper.com/signup
+  - [17] https://outscraper.com/outscraper-pricing-explained/
+  - [18] https://outscraper.com/test-drive/
+  - [19] https://webscraping.cc/blog/how-to-use-outscraper/

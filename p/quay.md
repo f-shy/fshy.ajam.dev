@@ -1,0 +1,41 @@
+# Quay.io public repositories
+
+> quay.io | Storage; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/quay/ | JSON https://fshy.ajam.dev/api/v1/entity/quay.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Quay.io public repositories (Red Hat)
+
+- `storage/quay-io-public-repositories` | qualifies | evidence reported | binding none | category registry
+- identity a placeholder: card and phone unknown | verified 2026-11-25T19:55:17.918Z (live) | stale on 2026-12-10
+- url https://quay.io
+- free tier: Yes! We offer unlimited storage and serving of public repositories. | unit: unlimited | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: source: [1] | note: The Red Hat support article states unlimited storage and serving of public repositories but gives no per-object size cap.
+- retention: Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan | days: 30 | source: [1] | note: The 30-day period is the free trial for a selected account, not a data retention term.
+- egress: Unlimited serving of public repositories is included in the free offer. | metered: no
+- identity: anonymous
+- interface: oci
+- limits note: Requires a Red Hat SSO account to push (anonymous pull only). Quay is a shared hosted registry: pull QPS and total storage are subject to undisclosed fair use; the paid tiers exist purely to buy private repos, which signals public storage is deliberately not metered.
+- interface detail: oci
+- tooling: oras push / docker push / skopeo; Cosign/notation signing supported natively.
+- composes with: Public repositories have unlimited storage and serving.
+- reliability: Hosted multitenancy means a noisy-neighbour throttle is possible but not documented; no data-expiry policy on public repos, so blobs persist indefinitely.
+- notes: "We offer unlimited storage and serving of public repositories". Red Hat's own support article. Every paid plan is priced only by private-repo count and lists 'Unlimited public repos'; a free account gets unlimited public repos, private repos require a 30-day trial then a paid plan.
+- evidence note: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: read live: 'Can I use Quay for free? Yes! We offer unlimited storage and serving of public repositories.'
+  - [2] 2026-10-21: read live: every tier lists 'Unlimited public repos'; Developer is $15/mo for 5 private repos, i.e. no free private tier, 30-day trial only
+  - [3] 2026-10-21: probe: GET -> 401 with WWW-Authenticate: Bearer realm="https://quay.io/v2/auth",service="quay.io" (correct challenge); then GET https://quay.io/v2/prometheus/busybox/manifests/latest -> 200, 736 bytes anonymous
+  - [4] 2026-10-21: probe: POST -> 404 (anonymous write refused)
+  - [1] 2026-11-11: the support article states unlimited storage and serving of public repositories, unchanged | capture: sha256:f20d1be5580546b25a64f1e07987d399ddfeadaec1d01ca852922449bc1854c1 | quote: Yes! We offer unlimited storage and serving of public repositories.
+  - [1] 2026-11-25: the first-party support article states unlimited storage and serving for public repositories | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: Yes! We offer unlimited storage and serving of public repositories.
+  - [1] 2026-11-25: the 30-day figure is the trial period for a paid plan | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: - Select to start a 30-day free trial for your selected account
+  - [1] 2026-11-25: the first-party support article includes unlimited serving in the free offer | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: Yes! We offer unlimited storage and serving of public repositories.
+  - [1] 2026-11-25: the first-party support article still states unlimited storage and serving | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: Yes! We offer unlimited storage and serving of public repositories.
+  - [1] 2026-11-25: the 30-day figure is a free trial for a selected account | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: - Select to start a 30-day free trial for your selected account
+  - [1] 2026-11-25: the first-party support article describes an OCI artifact registry | capture: sha256:556a6d6ef8c208c543a44fe895fb2d3344ccdfa0c79e88ec4a22b05e9ed136f4 | quote: Quay.io is a registry for storing and building container images as well as distributing other OCI artifacts.
+- sources:
+  - [1] https://access.redhat.com/articles/quayio-help
+  - [2] https://quay.io/plans/
+  - [3] https://quay.io/v2/
+  - [4] https://quay.io/v2/probe/blobs/uploads/

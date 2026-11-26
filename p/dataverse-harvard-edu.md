@@ -1,0 +1,115 @@
+# Harvard Dataverse
+
+> dataverse.harvard.edu | Storage; 2 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/dataverse-harvard-edu/ | JSON https://fshy.ajam.dev/api/v1/entity/dataverse-harvard-edu.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Harvard Dataverse Repository - per-collection quota
+
+- `storage/harvard-dataverse-repository-per-collection-quota` | qualifies | evidence reported | binding per-object-cap | category academic
+- identity a placeholder: card and phone unknown | verified 2026-11-25T12:15:42.696Z (live) | stale on 2026-12-10
+- url https://dataverse.harvard.edu/
+- free tier: Total quota allocation for this collection: 1,099,511,627,776 bytes | unit: bytes | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository. | bytes: 2500000000 | source: [1] | note: The 2.5 GB limit is stated for a file deposited; the same sentence gives 1 TB as the data a researcher can store.
+- retention: source: [2] | note: Harvard states it supports permanent bit-level preservation of all materials directly deposited in the Harvard Dataverse.
+- egress: Free anonymous access without login. Endpoint GET /api/access/datafile/<id> returns HTTP 303 to a signed S3 URL with 1-hour expiration, supporting Range requests. | metered: no
+- identity: email | detail: unverified: the cited pages state the quota and per-file cap, not the registration fields
+- interface: rest
+- limits:
+  - write-gated: Review' spam screen before publication [1]
+  - per-object-cap (binding): Per-file 2.5 GB [1]
+- limits note: write-once: publishing is irreversible, no delete without support intervention, no embargo; 'Submit for Review' spam screen before publication; per-file 2.5 GB in the browser path; 1,000 files/dataset is the observed effectiveDatasetFileCountLimit; S3 direct upload is admin-enabled per install and is the only route past the 2.5 GB file cap.
+- interface detail: rest
+- tooling: REST native API (create dataset, add files, direct S3 upload), plus the official Python/CLI clients. dataset count 306,027 live. rclone has no native backend but the S3 direct-upload path accepts any S3 client.
+- composes with: Collection creation is open to any logged-in user. The quota endpoint returns a 1 TiB allocation (1,099,511,627,776 bytes) for some collections and no quota for others, so a per-collection allocation is not shown for every collection.
+- reliability: Anonymous downloads return signed S3 URLs with 1-hour expiration, requiring URL resolution per request. Quota API endpoints rate-limit rapid successive requests with HTTP 403.
+- notes: 1 TB per Dataverse Collection allocation (2.5 TB for Harvard affiliates). Per-file 2.5 GB through UI/API; larger via the S3 direct-upload path. The 1 TB is enforced as a collection allocation, not a per-person cap: GET /api/dataverses/<alias>/storage/quota?showInherited=true returns {"Total quota allocation for this collection": 1099511627776} for ordinary collections, and one live collection returns 2748779069440 (2.5 TB).
+- evidence note: the same as the free tier
+- evidence:
+  - [1] 2026-10-21: 'All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.'
+  - [3] 2026-10-21: hosting restriction stated as '1TB per dataset (2.5GB per file) Any file types'
+  - [4] 2026-10-21: probe returned 1099511627776 bytes
+  - [5] 2026-10-21: probe returned 2748779069440 bytes (2.5 TB), proving allocations are set per collection and can exceed 1 TB
+  - [6] 2026-10-21: 303 then 200, Content-Length 16393, file written and SHA-256 fed450c5dfa423d6a51168611bbb9f4179e862a9c831ee41c37b23b128cc24fa (16,393 bytes, exact)
+  - [6] 2026-10-21: with Range: bytes=0-1048575 - HTTP 206, Content-Range: bytes 0-16392/16393
+  - [7] 2026-10-21: and #207 - collection creation was disabled for :authenticated-users in Nov 2022, reopened June 2024
+  - [4] 2026-11-09: The collection quota endpoint returns the 1 TiB allocation. | capture: sha256:0ee5f9ac76c27e70b7b9ba751b202151409e52b145a1429edb0b58387aa7cad5 | quote: Total quota allocation for this collection: 1,099,511,627,776 bytes
+  - [1] 2026-11-09: The researchers page states the per-file limit in the same sentence. | capture: sha256:9b45075f2690ac95769ab5d3710b5f496354b4b79aafa94c7010a8f2f3624e66 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+  - [5] 2026-11-09: the kgwas collection quota endpoint reports a 2.5 TB allocation | capture: sha256:efc5f8985587623570159fefbc362a570de31738d2b383e73f987586ac2414d3 | quote: {"status":"OK","data":{"message":"Total quota allocation for this collection: 2,748,779,069,440 bytes"}}
+  - [1] 2026-11-25: the researchers page states 2.5GB per deposited file and 1TB stored | capture: sha256:d5ca82c902a8056117a8137752c474a732c83a9f10334f5c4caf5d7f0f1df249 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+  - [2] 2026-11-25: the preservation policy says a published dataset cannot be unpublished | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b
+  - [2] 2026-11-25: the retention statement is on the preservation policy page | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b
+  - [2] 2026-11-25: the preservation policy commits to permanent bit-level preservation | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b | quote: Harvard University supports permanent bit-level preservation of all materials directly deposited in the Harvard Dataverse.
+  - [8] 2026-11-25: Harvard publishes APIs to access the Harvard Dataverse | capture: sha256:870631d282cb2c837682fd4b3b8fb0dd8752eb3c03becd1a00f07d791e7fea49
+  - probe:dataverse.harvard.edu/quota-ISM_ISNNA_Interes_Superior_del_NNA 2026-11-25: a recently created collection reports a 1 TiB allocation | capture: sha256:108d501edf7718c33f20750c2a62901fd83e2b1b9aa8571c02160db35b869cf3 | quote: Total quota allocation for this collection: 1,099,511,627,776 bytes
+  - probe:dataverse.harvard.edu/quota-xiaolu 2026-11-25: a recently created personal collection reports no quota | capture: sha256:627a0c166ef99595acfde854dc6a73248578ad7d7f2f064a30bcff617aede2c7 | quote: No quota defined for this collection
+  - [9] 2026-11-25: the repository maintainer states collection creation is open to anyone | capture: sha256:ebc0173b2e8767bc122eb3fc89c69795edab1e8ee9766155a67cbfe717af46d6 | quote: Anyone can create collections in Harvard Dataverse now, as of sometime in June 2024
+  - [1] 2026-11-25: the researchers page states the 2.5GB per-file limit in the cited sentence | capture: sha256:d5ca82c902a8056117a8137752c474a732c83a9f10334f5c4caf5d7f0f1df249 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+- sources:
+  - [1] https://support.dataverse.harvard.edu/researchers
+  - [2] https://support.dataverse.harvard.edu/harvard-dataverse-preservation-policy
+  - [3] https://neurips.cc/Conferences/2025/DataHostingGuidelines
+  - [4] https://dataverse.harvard.edu/api/dataverses/SEE_Precursors/storage/quota?showInherited=true
+  - [5] https://dataverse.harvard.edu/api/dataverses/kgwas/storage/quota?showInherited=true
+  - [6] https://dataverse.harvard.edu/api/access/datafile/13913528
+  - [7] https://github.com/IQSS/dataverse.harvard.edu/issues/199
+  - [8] https://support.dataverse.harvard.edu/harvard-dataverse-api-terms-use
+  - [9] https://github.com/IQSS/dataverse.harvard.edu/issues/207
+
+## Harvard Dataverse
+
+- `storage/harvard-dataverse` | qualifies-with-caveat | evidence documented | binding per-object-cap | category academic
+- identity a placeholder: card and phone unknown | verified 2026-11-25T12:15:42.696Z (live) | stale on 2026-12-26
+- url https://dataverse.harvard.edu
+- free tier: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository. | bytes: 2500000000 | source: [1] | note: The 2.5 GB limit is stated for a file deposited; the same sentence gives 1 TB as the data a researcher can store.
+- retention: source: [2] | note: Harvard states it supports permanent bit-level preservation of all materials directly deposited in the Harvard Dataverse.
+- egress: Free and unmetered. Public file access returns 303 -> a presigned S3 URL (dvn-cloud-iqss.s3.amazonaws.com) valid 3600s; S3 honours Range requests. No egress pricing exists anywhere in the product. Probe: GET /api/access/datafile/11685194 -L -H 'Range: bytes=0-1023' -> 303 then HTTP 206, Content-Range: bytes 0-1023/21269528, Server: AmazonS3. | metered: no
+- identity: institution | detail: unverified: the cited researchers page states who may deposit, not what registration asks for
+- interface: rest
+- limits:
+  - per-object-cap (binding): 2.5 GB per file [1]
+  - write-gated: Review' spam-check gate, not peer review [1]
+  - write-gated: curator rejecting a deposit at the review gate, and the storage-quota feature is flagge [1]
+- limits note: Per-file 2.5 GB through the Harvard UI/API; larger files require the S3 direct-upload path, which Harvard has enabled (downloads already redirect to S3, so upload-redirect is configured). Dataset file-count cap observed live: effectiveDatasetFileCountLimit=1000 (12 used on the sampled dataset). No enforced collection quota: GET /api/dataverses/harvard/storage/quota?showInherited=true -> {"message":"No quota defined for this collection"}. Publishing is a 'Submit for Review' spam-check gate, not peer review.
+- interface detail: rest
+- tooling: Native REST API v6.10.1 (live: GET /api/info/version -> {"version":"6.10.1"}); SWORD v2 deposit; OAI-PMH harvest; S3 direct-upload API for files >2.5 GB (docs: 'This option can handle files >300GB'). Python client pyDataverse; R package dataverse. No rclone backend, but a REST loop is trivial (~15 lines) and the platform is a well-documented Invenio-free Java stack.
+- composes with: Collection creation is open to any logged-in user. The quota endpoint returns a 1 TiB allocation (1,099,511,627,776 bytes) for some collections and no quota for others, so a per-collection allocation is not shown for every collection.
+- reliability: Mature, 15+ year old service with DOI permanence and S3-backed bytes; the only soft failure mode is a curator rejecting a deposit at the review gate, and the storage-quota feature is flagged 'new and still experimental' upstream.
+- notes: 2.5 GB per file; 1 TB per Dataverse Collection for non-Harvard researchers (2.5 TB for Harvard affiliates). The 1 TB is real and stated by Harvard, but it is a service/support threshold, not a hard enforced cap. See limits.
+- evidence note: the same as the free tier
+- extras:
+  - verified[0].url: https://dataverse.harvard.edu/
+  - verified[0].date: 2026-10-22
+  - verified[0].via: none
+  - verified[0].http_status: 0
+  - verified[0].bytes: 0
+  - verified[0].pattern_found: no
+  - verified[0].what_changed: not read
+  - unconfirmed[0].url: https://dataverse.harvard.edu/
+  - unconfirmed[0].status: 0
+  - unconfirmed[0].bytes: 0
+  - unconfirmed[0].why: not read
+- evidence:
+  - [1] 2026-10-21: 'can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository'
+  - [3] 2026-10-21: (updated Dec 3 2024) — 'free support for research data collections up to 1.0TB for non-Harvard researchers and groups and 2.5TB for Harvard affiliates'; paid Large Data Services only above 2.5TB
+  - withheld 2026-10-21: probe: GET /api/dataverses/harvard/storage/quota?showInherited=true -> 'No quota defined for this collection'; GET /api/access/datafile/11685194 -> 303 to presigned S3 -> 206 Partial…
+  - [4] 2026-10-22: the instance answers.
+  - probe:https://dataverse.harvard.edu/api/dataverses/harvard/storage/quota?showInherited=true 2026-10-22: GET 2026-10-22: harvard 200/73 B 'No quota defined for this collection'; SEE_Precursors 200/104 B 'Total quota allocation for this collection: 1,099,511,627,776 bytes'; kgwas 200/104 B 2,748,779,069,440 bytes
+  - [1] 2026-11-09: The researchers page states the per-file limit in the same sentence. | capture: sha256:9b45075f2690ac95769ab5d3710b5f496354b4b79aafa94c7010a8f2f3624e66 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+  - [1] 2026-11-25: the researchers page states 2.5GB per deposited file and 1TB stored | capture: sha256:d5ca82c902a8056117a8137752c474a732c83a9f10334f5c4caf5d7f0f1df249 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+  - [2] 2026-11-25: the preservation policy says a published dataset cannot be unpublished | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b
+  - [2] 2026-11-25: the retention statement is on the preservation policy page | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b
+  - [2] 2026-11-25: the preservation policy commits to permanent bit-level preservation | capture: sha256:8ad0e7e7a2d76fe4888dcbf7fd92605ba60a657474341649995e26781301069b | quote: Harvard University supports permanent bit-level preservation of all materials directly deposited in the Harvard Dataverse.
+  - [5] 2026-11-25: Harvard publishes APIs to access the Harvard Dataverse | capture: sha256:870631d282cb2c837682fd4b3b8fb0dd8752eb3c03becd1a00f07d791e7fea49
+  - probe:dataverse.harvard.edu/quota-ISM_ISNNA_Interes_Superior_del_NNA 2026-11-25: a recently created collection reports a 1 TiB allocation | capture: sha256:108d501edf7718c33f20750c2a62901fd83e2b1b9aa8571c02160db35b869cf3 | quote: Total quota allocation for this collection: 1,099,511,627,776 bytes
+  - probe:dataverse.harvard.edu/quota-xiaolu 2026-11-25: a recently created personal collection reports no quota | capture: sha256:627a0c166ef99595acfde854dc6a73248578ad7d7f2f064a30bcff617aede2c7 | quote: No quota defined for this collection
+  - [6] 2026-11-25: the repository maintainer states collection creation is open to anyone | capture: sha256:ebc0173b2e8767bc122eb3fc89c69795edab1e8ee9766155a67cbfe717af46d6 | quote: Anyone can create collections in Harvard Dataverse now, as of sometime in June 2024
+  - [1] 2026-11-25: the researchers page states the 2.5GB per-file limit in the cited sentence | capture: sha256:d5ca82c902a8056117a8137752c474a732c83a9f10334f5c4caf5d7f0f1df249 | quote: All researchers from any discipline, both inside and out of the Harvard University community, can deposit files of up to 2.5GB, and store up to 1TB of data on the Harvard Dataverse Repository.
+- sources:
+  - [1] https://support.dataverse.harvard.edu/researchers
+  - [2] https://support.dataverse.harvard.edu/harvard-dataverse-preservation-policy
+  - [3] https://support.dataverse.harvard.edu/sites/g/files/omnuum821/files/2024-12/Harvard%20Dataverse%20Repository%20Large%20Data%20Services.pdf
+  - [4] https://dataverse.harvard.edu/
+  - [5] https://support.dataverse.harvard.edu/harvard-dataverse-api-terms-use
+  - [6] https://github.com/IQSS/dataverse.harvard.edu/issues/207

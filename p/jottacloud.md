@@ -1,0 +1,230 @@
+# Jottacloud
+
+> jottacloud.com | Storage; 5 records: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/jottacloud/ | JSON https://fshy.ajam.dev/api/v1/entity/jottacloud.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Jottacloud Pro 20 TB
+
+- `storage/jottacloud-pro-20-tb` | qualifies | evidence reported | binding none | category Nordic cloud drive, subscription, unthrottled
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T19:55:10.654Z (live) | stale on 2026-12-10
+- url https://jottacloud.com/en/why-jottacloud/jottacloud-pro
+- price $3.20/TB at 20 TB ($64.01/mo); $3.20/TB at 30 TB ($96.08/mo); at 5 TB-equivalent the Pro 10 TB tier is $6.39/TB | parsed USD 3.2/TB-mo
+- free tier: Pro 20 TB: NOK 599 / month, 1 user, 20 TB storage. | unit: TB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded. | source: [1] | note: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+- retention: Files are kept in the trash can for 30 days before they are automatically deleted. | source: [1] | note: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+- egress: Maximum speed | metered: no
+- identity: email | detail: email
+- interface: rclone
+- limits note: None on transfer; the cap is the fixed quota
+- interface detail: rclone native, desktop apps
+- tooling: rclone native backend
+- composes with: same as Unlimited
+- reliability: Same operator as Unlimited but no retroactive-throttle exposure, since speed is guaranteed
+- notes: 10 / 20 / 30 / 50 TB fixed tiers, 1 user each
+- evidence note: the Pro 20 TB plan price, storage and single-user seat are stated on the Jottacloud Pro page
+- extras:
+  - price_verbatim: $3.20/TB at 20 TB ($64.01/mo); $3.20/TB at 30 TB ($96.08/mo); at 5 TB-equivalent the Pro 10 TB tier is $6.39/TB
+- evidence:
+  - [1] 2026-10-21: 'Pro 10 TB NOK 299 / month', 'Pro 20 TB NOK 599 / month', 'Pro 30 TB NOK 899 / month', 'Pro 50 TB NOK 1499 / month', each 'Maximum speed'
+  - [2] 2026-10-21: yearly: Pro 20 TB NOK 5990/year
+  - [1] 2026-11-09: the Pro 20 TB plan costs NOK 599 a month for one user with 20 TB of storage | capture: sha256:a77b14bf67976d7b6343f0b48cf4acc77d61e0e1766ed5745b9fbeb994260e55
+  - [3] 2026-11-25: the terms allow virus checks and blocking of individual files | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [3] 2026-11-25: the terms permit blocking individual files after virus checks | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [4] 2026-11-25: deleted files stay in the trash for 30 days before automatic deletion | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [5] 2026-11-25: the web app erases trashed files after 30 days | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+  - [1] 2026-11-25: the Pro 20 TB plan row states Maximum speed | capture: sha256:a77b14bf67976d7b6343f0b48cf4acc77d61e0e1766ed5745b9fbeb994260e55 | quote: Maximum speed
+  - [1] 2026-11-25: the Pro 20 TB plan is NOK 599 per month for one user with 20 TB storage | capture: sha256:a77b14bf67976d7b6343f0b48cf4acc77d61e0e1766ed5745b9fbeb994260e55
+  - [3] 2026-11-25: the terms permit virus checks and blocking of individual files | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [4] 2026-11-25: deleted files are held in the trash for 30 days | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [1] 2026-11-25: the Pro 20 TB plan lists Maximum speed | capture: sha256:a77b14bf67976d7b6343f0b48cf4acc77d61e0e1766ed5745b9fbeb994260e55 | quote: Maximum speed
+- sources:
+  - [1] https://jottacloud.com/en/why-jottacloud/jottacloud-pro
+  - [2] https://jottacloud.com/en/pricing
+  - [3] https://docs.jottacloud.com/en/articles/1372744-jottacloud-terms-conditions
+  - [4] https://docs.jottacloud.com/en/articles/1378198-trash
+  - [5] https://docs.jottacloud.com/en/articles/1562159-our-apps
+
+## Jottacloud (Norway)
+
+- `storage/jottacloud` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category consumer backup / drive
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T19:55:10.654Z (live) | stale on 2026-12-10
+- url https://jottacloud.com/en/pricing
+- price $1.30/TB/mo at 10 TB, $0.65/TB/mo at 20 TB, $0.43/TB/mo at 30 TB (flat $12.99/mo 'Unlimited', throttled above 5 TB) | parsed USD 12.99/mo
+- disagrees on verdict: `storage/jottacloud` says qualifies-with-caveat, `storage/jottacloud-2` says fails-quota
+- disagrees on verdict: `storage/jottacloud` says qualifies-with-caveat, `storage/jottacloud-free` says fails-egress
+- free tier: 5 GB plan: Free, 1 user, 5 GB storage. | unit: GB | metered on: unstated | read on: 2026-10-21 | source: [1]
+- per-object cap: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded. | source: [1] | note: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+- retention: Files are kept in the trash can for 30 days before they are automatically deleted. | source: [1] | note: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+- egress: Download speed and other use of the service is not changed, and you can still store as much data as you need in your account. | metered: no
+- identity: email | detail: email
+- interface: rest, rclone, cli
+- limits:
+  - per-ip-shaping (binding): upload speed gradually reduced after 5 TB [1]
+- limits note: Per-ip-shaping: upload speed throttled above 5 TB, described by HN as a 'harsh inflection' around 16 TB. Quotas are quoted in decimal TB, not TiB. Rclone about reports 9.095 TiB for a 10 TB plan (forum.rclone.org/t/45928), so the real capacity is ~9% smaller than the marketing number.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+- tooling: Tier 2 rclone backend (md5, ModTime R/W, case-insensitive, metadata RWU). One of the few Tier-2 providers that is also a real commercial backup service. Duplicati lists Jottacloud as a natively supported provider. Official CLI plus rclone+restic documented by HN commenters.
+- composes with: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+- reliability: Long-running, well-documented provider; the throttle is policy, not breakage. The TB-vs-TiB reporting gap is measured, not speculative.
+- notes: Unlimited* NOK 129 / month, 1 user, unlimited storage, with upload speed gradually reduced after 5 TB.
+- evidence note: the Unlimited plan price and its upload throttle are stated on the pricing page
+- extras:
+  - price_verbatim: $1.30/TB/mo at 10 TB, $0.65/TB/mo at 20 TB, $0.43/TB/mo at 30 TB (flat $12.99/mo 'Unlimited', throttled above 5 TB)
+- evidence:
+  - [1] 2026-10-21: '5 GB Free', 'Unlimited* NOK 129 / month ... *Upload speed gradually reduced after 5 TB', 'Home 1 TB NOK 79 / month ... No bandwidth limitation'
+  - [2] 2026-10-21: 'You get maximum speed up to 5 TB, after which the speed is gradually reduced'
+  - [3] 2026-10-21: USD 129.90/yr Unlimited, USD 79.90/yr Home 1 TB
+  - [4] 2026-10-21: native backend, OAuth refresh-token family handling, quota visible via rclone about
+  - [5] 2026-10-21: 10 TB plan reports 9.095 TiB
+  - [6] 2026-10-21: 'unlimited (in reality after 5TB they start slowing your upload speed)... up to about 16TB, where you hit a harsh inflection'
+  - [7] 2026-10-21: Jottacloud listed among natively supported destinations
+  - [1] 2026-11-09: the free plan is 5 GB of storage for one user | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: #### 5 GB Free 1 user ✔ 5 GB storage
+  - [1] 2026-11-09: the Unlimited plan costs NOK 129 a month for one user with unlimited storage, throttled after 5 TB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: #### Unlimited* NOK 129 / month 1 user ✔ Unlimited storage ✔ Backup all devices ✔ Phone, email and chat support * Upload speed gradually reduced after 5 TB
+  - [1] 2026-11-09: upload speed is gradually reduced after 5 TB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: * Upload speed gradually reduced after 5 TB
+  - [8] 2026-11-25: the terms allow individual files to be blocked after virus checks | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [8] 2026-11-25: the terms permit blocking individual files after virus checks | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [9] 2026-11-25: deleted files stay in the trash for 30 days before automatic deletion | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [10] 2026-11-25: the web app holds deleted files in the trash for 30 days before erasure | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+  - [11] 2026-11-25: the upload throttle does not change download speed or storage | capture: sha256:96b9a9c40c90eb1d2aa988a733d635fba04fdb9b8f861ece83a20e9d4773deb1 | quote: Download speed and other use of the service is not changed, and you can still store as much data as you need in your account.
+  - [12] 2026-11-25: the Personal subscription has no stated storage-space limit | capture: sha256:d58744edbba2e814d09e15fb9adfe051c47d303a49112298d8619bfd78589381 | quote: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+  - [10] 2026-11-25: Jottacloud documents its own CLI | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+  - [1] 2026-11-25: the free plan is 5 GB for one user | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: #### 5 GB Free 1 user ✔ 5 GB storage
+  - [8] 2026-11-25: the terms permit virus checks and blocking of individual files | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [9] 2026-11-25: deleted files are held in the trash for 30 days | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [10] 2026-11-25: the web app keeps deleted files in the trash for 30 days | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+  - [11] 2026-11-25: download speed is unaffected by the upload throttle | capture: sha256:96b9a9c40c90eb1d2aa988a733d635fba04fdb9b8f861ece83a20e9d4773deb1 | quote: Download speed and other use of the service is not changed, and you can still store as much data as you need in your account.
+  - [12] 2026-11-25: the Personal subscription does not state a storage-space limit | capture: sha256:d58744edbba2e814d09e15fb9adfe051c47d303a49112298d8619bfd78589381 | quote: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+  - [10] 2026-11-25: Jottacloud offers a command-line client | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+- sources:
+  - [1] https://jottacloud.com/en/pricing
+  - [2] https://jottacloud.com/en/why-jottacloud
+  - [3] https://www.itechfaqs.com/tools/jottacloud/pricing/
+  - [4] https://rclone.org/jottacloud/
+  - [5] https://forum.rclone.org/t/jottacloud-report-plans-and-space-on-web-as-terabytes-instead-of-tebibytes/45928
+  - [6] https://news.ycombinator.com/item?id=30580044
+  - [7] https://github.com/Duplicati/Duplicati
+  - [8] https://docs.jottacloud.com/en/articles/1372744-jottacloud-terms-conditions
+  - [9] https://docs.jottacloud.com/en/articles/1378198-trash
+  - [10] https://docs.jottacloud.com/en/articles/1562159-our-apps
+  - [11] https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed
+  - [12] https://docs.jottacloud.com/en/articles/1359756-what-and-how-much-data-can-i-store-on-the-personal-subscription
+
+## Jottacloud Unlimited (Personal)
+
+- `storage/jottacloud-unlimited` | qualifies-with-caveat | evidence reported | binding per-ip-shaping | category Nordic cloud drive, subscription, storage-VPS economics in disguise
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T19:55:10.655Z (live) | stale on 2026-12-10
+- url https://jottacloud.com/en/pricing/
+- price $2.76/TB at 5 TB; $0.69/TB at 20 TB (NOK 129/mo = $13.79 flat, so marginal cost per added TB is $0)
+- free tier: #### Unlimited* NOK 129 / month 1 user ✔ Unlimited storage | unit: GB | metered on: stored-bytes | read on: 2026-10-21 | source: [1]
+- per-object cap: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded. | source: [1] | note: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+- retention: Files are kept in the trash can for 30 days before they are automatically deleted. | source: [1] | note: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+- egress: Download speed and other use of the service is not changed, and you can still store as much data as you need in your account. | metered: no
+- identity: email | detail: email
+- interface: rclone, cli
+- limits:
+  - per-ip-shaping (binding): 1.85 MB/s [1]
+  - per-ip-shaping (binding): 250 KB/s [1]
+- limits note: Constraint type: per-ip-shaping, upload side only. Reported throttle at 6 TB is ~1.85 MB/s per transfer; at 44 TB one Duplicati user measured 250 KB/s. Download path unaffected. Non-commercial licensing on the Personal tier.
+- binding note: one stream is shaped, and aggregate throughput is the shaped rate times the number of streams
+- interface detail: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+- tooling: rclone native backend, supports --fast-list; CLI documented
+- composes with: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+- reliability: No documented mass data-loss event. Throttle policy was changed retroactively in 2021/2022 and the Norwegian Consumer Council flagged it; users were offered refunds. Operational risk is policy drift, not deletion.
+- notes: Unlimited storage; 1 user. Free 5 GB tier exists.
+- evidence note: Find the right Jottacloud plan: free 5 GB, Unlimited from USD 11.99/mo, Home 1 TB from USD 6.99/mo, Pro up to 50 TB, and Business.
+- extras:
+  - price_verbatim: $2.76/TB at 5 TB; $0.69/TB at 20 TB (NOK 129/mo = $13.79 flat, so marginal cost per added TB is $0)
+- evidence:
+  - [1] 2026-10-21: 'Unlimited* NOK 129 / month NOK 1290 / year ... Unlimited storage ... * Upload speed gradually reduced after 5 TB'
+  - [2] 2026-10-21: 'Download speed and other use of the service is not changed'
+  - [3] 2026-10-21: native backend, --fast-list supported
+  - [4] 2026-10-21: 44 TB account throttled to 250 KB/s upload, download fine
+  - [5] 2026-10-21: payment: 'We support VISA and MasterCard' via Stripe; no PayPal, no crypto
+  - [1] 2026-11-09: the pricing page lists a free 5 GB tier for 1 user and an Unlimited plan at NOK 129 per month with unlimited storage | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: #### 5 GB Free 1 user ✔ 5 GB storage ✔ Backup all devices ✔ Email and chat support [Try for free](https://jottacloud.com/signup/free?lang=en) - For everything #### Unlimited* NOK 129 / month 1 user ✔ Unlimited storage
+  - [1] 2026-11-11: the pricing page states a free 5 GB tier and an Unlimited plan at USD 11.99/mo, alongside Home, Pro and Business plans | capture: sha256:648303a2dd2a2e9b77c0a263edad9c00539ad4a359905ac54680f3b02b5e9da4 | quote: Find the right Jottacloud plan: free 5 GB, Unlimited from USD 11.99/mo, Home 1 TB from USD 6.99/mo, Pro up to 50 TB, and Business.
+  - [1] 2026-11-25: the Unlimited plan is NOK 129 per month for one user with unlimited storage | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: #### Unlimited* NOK 129 / month 1 user ✔ Unlimited storage
+  - [6] 2026-11-25: the terms allow virus checks and blocking of individual files | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [6] 2026-11-25: the terms permit blocking individual files after virus checks | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [7] 2026-11-25: deleted files stay in the trash for 30 days before automatic deletion | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [8] 2026-11-25: the web app erases trashed files after 30 days | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: Deleted files can be restored or permanently removed from the Trash. Note that deleted files remain in the Trash for 30 days before they are automatically erased.
+  - [2] 2026-11-25: download speed is unaffected by the upload throttle | capture: sha256:96b9a9c40c90eb1d2aa988a733d635fba04fdb9b8f861ece83a20e9d4773deb1 | quote: Download speed and other use of the service is not changed, and you can still store as much data as you need in your account.
+  - [9] 2026-11-25: the Personal subscription has no stated storage-space limit | capture: sha256:d58744edbba2e814d09e15fb9adfe051c47d303a49112298d8619bfd78589381 | quote: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+  - [8] 2026-11-25: Jottacloud documents its own CLI | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+  - [6] 2026-11-25: the terms permit virus checks and blocking of individual files | capture: sha256:a083bc22b7ead7f34a10b6afbb67192f2d8d513196e6a842281f50d899d0915c | quote: Jottacloud reserves the right to conduct virus checks and may block certain files from being uploaded.
+  - [7] 2026-11-25: deleted files are held in the trash for 30 days | capture: sha256:94774d6bda6358668c576a2825d8abed99d096af3dabf3d3e16b8b0bdc551b28 | quote: Files are kept in the trash can for 30 days before they are automatically deleted.
+  - [9] 2026-11-25: the Personal subscription does not state a storage-space limit | capture: sha256:d58744edbba2e814d09e15fb9adfe051c47d303a49112298d8619bfd78589381 | quote: We do not limit the storage space you can use on the Jottacloud Personal subscription.
+  - [8] 2026-11-25: Jottacloud offers a command-line client | capture: sha256:609ff7146aeeb339502784d4346372f1df745ee4e69572307606e26d64802310 | quote: The command-line client (CLI) is capable of running on most devices with Windows, OS X and linux systems such as desktops, servers, NAS devices, and even Raspberry Pi.
+- sources:
+  - [1] https://jottacloud.com/en/pricing/
+  - [2] https://docs.jottacloud.com/en/articles/3271114-reduced-upload-speed
+  - [3] https://rclone.org/jottacloud/
+  - [4] https://forum.duplicati.com/t/jottacloud-difference-in-upload-speeds-rclone-duplicati/19225
+  - [5] https://www.jottacloud.com/en/pricing/
+  - [6] https://docs.jottacloud.com/en/articles/1372744-jottacloud-terms-conditions
+  - [7] https://docs.jottacloud.com/en/articles/1378198-trash
+  - [8] https://docs.jottacloud.com/en/articles/1562159-our-apps
+  - [9] https://docs.jottacloud.com/en/articles/1359756-what-and-how-much-data-can-i-store-on-the-personal-subscription
+
+## jottacloud free
+
+- `storage/jottacloud-free` | fails-egress | evidence reported | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-19T21:14:03.170Z (live) | stale on 2026-12-04
+- url https://jottacloud.com/en/pricing
+- disagrees on verdict: `storage/jottacloud` says qualifies-with-caveat, `storage/jottacloud-free` says fails-egress
+- disagrees on verdict: `storage/jottacloud-2` says fails-quota, `storage/jottacloud-free` says fails-egress
+- free tier: None reachable: 5 GB free. The interesting product is 'Unlimited' at NOK 129/mo, which throttles upload after 5 TB. And it is paid. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: not recorded | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: Rejection quoted from historical research records; unverified against live endpoints.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 5 GB free. The interesting product is 'Unlimited' at NOK 129/mo, which throttles upload after 5 TB — and it is paid.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 5 GB free. The interesting product is 'Unlimited' at NOK 129/mo, which throttles upload after 5 TB — and it is paid.
+  - [1] 2026-11-19: the Unlimited plan still throttles upload after 5 TB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: * Upload speed gradually reduced after 5 TB
+- sources:
+  - [1] https://jottacloud.com/en/pricing
+
+## jottacloud
+
+- `storage/jottacloud-2` | fails-quota | evidence documented | binding none | category rejected-provider
+- identity a placeholder: card and phone unknown | verified 2026-11-04T01:24:26.511Z (live) | stale on 2026-12-05
+- url https://jottacloud.com/en/pricing/
+- disagrees on verdict: `storage/jottacloud` says qualifies-with-caveat, `storage/jottacloud-2` says fails-quota
+- disagrees on verdict: `storage/jottacloud-2` says fails-quota, `storage/jottacloud-free` says fails-egress
+- free tier: none reachable: 5 GB free; the genuinely interesting 'Unlimited' plan is NOK 129/mo and throttles upload after 5 TB. Not free. | unit: none | metered on: none | read on: 2026-10-21 | source: [1]
+- per-object cap: not recorded | source: [1] | note: not applicable
+- retention: not recorded | source: [1]
+- egress: No download cap or egress price is listed on any plan; the Home 1 TB and Home 5 TB plans state no bandwidth limitation, and the Unlimited plan (NOK 129 / month) reduces upload speed gradually after 5 TB. | metered: no
+- identity: email
+- interface: unknown
+- interface detail: not documented
+- tooling: the same as interface detail
+- composes with: not recorded
+- reliability: part of the free tier
+- notes: part of the free tier
+- evidence note: documented from the vendor page read on 2026-11-03 (https://jottacloud.com/en/pricing/): the 5 GB free plan, the Home plans without bandwidth limitation and the upload slowdown after 5 TB on the Unlimited plan. Identity, retention and per-object cap were not read.
+- extras:
+  - dead_end.failure_class: egress
+  - dead_end.why: 5 GB free; the genuinely interesting 'Unlimited' plan is NOK 129/mo and throttles upload after 5 TB. Not free.
+  - dead_end.first_recorded: 2026-10-21
+- evidence:
+  - [1] 2026-10-21: 5 GB free; the genuinely interesting 'Unlimited' plan is NOK 129/mo and throttles upload after 5 TB. Not free.
+  - [1] 2026-11-03: the Home 1 TB and Home 5 TB plans state no bandwidth limitation | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: ✔ No bandwidth limitation
+  - [1] 2026-11-03: the free plan is 5 GB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: ✔ 5 GB storage
+  - [1] 2026-11-03: the Unlimited plan reduces upload speed after 5 TB; no download cap is stated | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: * Upload speed gradually reduced after 5 TB
+  - [1] 2026-11-04: the free plan is 5 GB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: ✔ 5 GB storage
+  - [1] 2026-11-04: the Unlimited plan reduces upload speed after 5 TB | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: * Upload speed gradually reduced after 5 TB
+  - [1] 2026-11-04: the Home plans state no bandwidth limitation | capture: sha256:dc898362961859b8494f6add836011bdb27b60ed635e9b5957111e0e0e39677b | quote: ✔ No bandwidth limitation
+- sources:
+  - [1] https://jottacloud.com/en/pricing/

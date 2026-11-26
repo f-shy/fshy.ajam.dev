@@ -1,0 +1,57 @@
+# 趣盘
+
+> mediy.cn | Netdisk and pan; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/mediy/ | JSON https://fshy.ajam.dev/api/v1/entity/mediy.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## 趣盘 - 存兴趣，享乐趣
+
+- `netdisk-pan/pan-mediy-cn` | qualifies-with-caveat | evidence measured | binding write-gated | category public-instance
+- needs card no, phone no, ID no, institution no | verified 2026-11-25T21:46:10.684Z (live) | stale on 2026-12-17
+- url https://pan.mediy.cn/
+- free tier: anonymous guest read of 7 root entries; no account and no payment | unit: unlimited | metered on: none | read on: 2026-10-22 | source: [1]
+- per-object cap: source: [1]
+- retention: source: [1]
+- egress: served through nginx; the reader pays nothing | metered: no | source: [1]
+- identity: anonymous
+- interface: rest, webdav
+- limits:
+  - write-gated (binding): PUT denied at the guest role probe:https://pan.mediy.cn/api/fs/put
+- interface detail: rest
+- composes with: a fetch substrate: point a cache and two mirrors at it, never a write tier Read-only. A book and software corpus, and the index notes that parts of it are already dead
+- reliability: Contains 7 root entries. Advertised write permissions are denied on execution. Responded as an active API endpoint on 2026-10-22 and intermittently failed to respond on separate test queries.
+- notes: the same as reliability
+- extras:
+  - access_mode: public-instance
+  - read_capability: full
+  - write_capability: permission-denied
+  - upstream_provider: unknown
+  - fronting_cdn: nginx
+  - advertised_write_flag: yes
+  - write_content_bypass: no
+  - permission_bitmask: 0
+  - base_path: /
+  - listing_sha256: 89803c56
+  - first_seen: 2024-01-20
+  - last_verified_alive: 2026-11-25T02:34:39.637Z
+  - consecutive_failures: 0
+  - aliases: 趣盘 (pan.mediy.cn) — public OpenList, mixed media/book corpus
+- evidence:
+  - probe:https://pan.mediy.cn/api/public/settings 2026-10-22: HTTP 200, JSON carrying a code field, site_title '趣盘 - 存兴趣，享乐趣'
+  - probe:https://pan.mediy.cn/api/fs/list 2026-10-22: anonymous POST /api/fs/list on / returned code 200 with 7 root entries; write:true, write_content_bypass:False, provider:unknown
+  - probe:https://pan.mediy.cn/api/fs/put 2026-10-22: the zero-byte oracle (PUT at an existing directory with Overwrite:false) returned code 403 with message 'permission denied' inside HTTP 200, so the write permission failed and nothing was written
+  - probe:https://pan.mediy.cn/ 2026-11-11:  | capture: sha256:d97e4723aff37f11c04309c9bd1e6181b9b1e6397b2cf881eed912deb5dc29c6 | quote: "checked_at": "2026-11-11T00:20:09.158Z"
+  - probe:https://pan.mediy.cn/ 2026-11-11: the anonymous root listing hashed to this value | capture: sha256:d97e4723aff37f11c04309c9bd1e6181b9b1e6397b2cf881eed912deb5dc29c6 | quote: "listing_sha256": "89803c56"
+  - probe:https://pan.mediy.cn/ 2026-11-11:  | capture: sha256:d97e4723aff37f11c04309c9bd1e6181b9b1e6397b2cf881eed912deb5dc29c6
+  - probe:https://pan.mediy.cn/ 2026-11-11: this host answered every request of this run's probe | capture: sha256:d97e4723aff37f11c04309c9bd1e6181b9b1e6397b2cf881eed912deb5dc29c6
+  - probe:https://pan.mediy.cn 2026-11-19: the probe's checked_at instant is the fresh last-alive verification time | capture: sha256:aa0d7abf661c6c367efb59bfceef698c3f1b8c2d4c5077ca7efea2d1d78edbc0 | quote: "checked_at": "2026-11-19T03:36:51.233Z"
+  - probe:https://pan.mediy.cn 2026-11-19: the anonymous guest session answered and the root listing returned entries | capture: sha256:aa0d7abf661c6c367efb59bfceef698c3f1b8c2d4c5077ca7efea2d1d78edbc0 | quote: "alive": true
+  - probe:https://pan.mediy.cn 2026-11-19: the /api/public/settings request answered HTTP 200 | capture: sha256:aa0d7abf661c6c367efb59bfceef698c3f1b8c2d4c5077ca7efea2d1d78edbc0 | quote: "status": 200
+  - probe:https://pan.mediy.cn/ 2026-11-25: the anonymous settings and mount-list requests answered at this instant | capture: sha256:05808d255528fefca8404bf59d84af8ee6bb4fcaf078cf7b11d577f407738ab6 | quote: "alive": true
+  - probe:https://pan.mediy.cn/ 2026-11-25: the probe checked this host at this instant | capture: sha256:3d8b230b46b7d6a97434704428fd5140ad31deb5ff47f9bd83884b9322e66b5c | quote: "checked_at": "2026-11-25T01:38:31.831Z"
+  - probe:https://pan.mediy.cn/ 2026-11-25: the anonymous guest session answered and the settings request returned 200, so the host is alive | capture: sha256:3d8b230b46b7d6a97434704428fd5140ad31deb5ff47f9bd83884b9322e66b5c | quote: "alive": true, ... "status": 200,
+  - probe:https://pan.mediy.cn/ 2026-11-25: the anonymous root listing has this entry count and hash | capture: sha256:3d8b230b46b7d6a97434704428fd5140ad31deb5ff47f9bd83884b9322e66b5c | quote: "listing_sha256": "89803c56", ... "root_entries": 7,
+  - probe:https://pan.mediy.cn/ 2026-11-25: the session is an anonymous guest user | capture: sha256:3d8b230b46b7d6a97434704428fd5140ad31deb5ff47f9bd83884b9322e66b5c | quote: "guest": true, ... "username": "guest",
+  - probe:https://pan.mediy.cn/ 2026-11-25: the guest role has this permission bitmask, base path and advertised write flags | capture: sha256:3d8b230b46b7d6a97434704428fd5140ad31deb5ff47f9bd83884b9322e66b5c | quote: "permission": 0, ... "base_path": "/", ... "write_advertised": true, ... "write_content_bypass": false,
+- sources:
+  - [1] https://pan.mediy.cn/

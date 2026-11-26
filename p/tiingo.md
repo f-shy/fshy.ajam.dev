@@ -1,0 +1,81 @@
+# Tiingo
+
+> tiingo.com | Data APIs; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/tiingo/ | JSON https://fshy.ajam.dev/api/v1/entity/tiingo.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## Tiingo
+
+- `data-apis/tiingo` | qualifies-with-caveat | evidence documented | binding request-rate | category market data API (US and Chinese stocks, ETFs, mutual funds, end-of-day prices, IEX, crypto, forex, news) | tier Starter
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T00:28:53.391Z (live) | stale on 2026-12-04
+- url https://www.tiingo.com/about/pricing
+- free tier: Starter plan USD 0/month: 50 requests per hour, 1000 requests per day, 500 unique symbols per month and 1 GB of bandwidth per month; 30+ years of end-of-day price history | unit: requests | metered on: request-count | read on: 2026-10-31 | source: [1] | note: Hourly requests reset every hour, daily requests at midnight EST, and monthly bandwidth on the first of the month at midnight EST; there is no per-minute or per-second limit. The News API reaches 3 months of history. The Power plan is USD 30/month (or USD 300/year) for individuals with 10,000 requests per hour, 100,000 per day and 40 GB per month.
+- per-object cap: not stated per call; 1 GB of bandwidth per month bounds the Starter plan | source: [1]
+- retention: not applicable
+- egress: 1 GB of API bandwidth per month on Starter, 40 GB on Power | metered: yes | free allowance: 1 GB per month | source: [1]
+- identity: email | detail: Every API call needs a token from an account. The registration form asks for a username, an email, a password entered twice and a terms checkbox, behind a Cloudflare Turnstile check; it has no card field. Card or PayPal is asked only when signing up for a paid plan.
+- interface: rest
+- limits:
+  - request-rate (binding): 50 requests per hour on Starter [1]
+  - request-rate (binding): 1000 requests per day on Starter, reset at midnight EST [1]
+  - volume-quota: 1 GB of bandwidth per month on Starter, reset on the first of the month [1]
+- limits note: 500 unique symbols per month on Starter (no limits kind counts symbols). Bulk path: no bulk path for prices; supported_tickers.zip (805453 bytes, keyless) is a daily ticker list, not prices.
+- binding note: Pulled steadily, the 1000 per day count binds before the 50 per hour; a burst meets the hourly 50 first.
+- interface detail: GET https://api.tiingo.com/tiingo/daily/<ticker>/prices with the token as ?token= or an Authorization: Token header; JSON or CSV via format=; the documentation also describes a WebSocket API. A call with no token answered HTTP 403.
+- endpoint: part of interface detail
+- tooling: curl or any HTTP client; supported_tickers.zip lists every ticker and is updated daily
+- composes with: Deep end-of-day history (30+ years) at 1000 calls a day for up to 500 symbols a month; it pairs with FRED for macro series. Marketstack's US end-of-day prices are licensed from Tiingo.
+- reliability: Past the hourly, daily or monthly bandwidth limit the API answers HTTP 429; an end-of-day call past the Starter unique-symbol limit answers HTTP 403.
+- notes: The widest free end-of-day history of the market data records (30+ years at 1000 calls a day), against two caveats: 500 symbols a month and no persistent storage on Starter.
+- evidence note: The Starter quotas, reset times, storage rule and registration fields are documented on the pricing, documentation and terms pages and in the site's own script bundle. Probes measured that a call with no token answers HTTP 403 and that supported_tickers.zip is served with no key. The 429 and 403 statuses are documented; the bodies and exact reset moments of the cut-offs need a token to measure (unverified: behind a sign-up).
+- extras:
+  - bulk_path: no bulk path for prices; supported_tickers.zip is a daily ticker list
+  - history_depth: 30+ years of end-of-day prices; 3 months of news
+  - cutoff_body_reported: Starter hourly limit, as shown in a third-party blog dated 2024-02-20: {'detail': 'Error: You have run over your hourly request allocation. Please upgrade at https://api.tiingo.com/pricing to have your limits increased.'}; the status of that answer is not in the source
+- evidence:
+  - [1] 2026-10-31: Starter is USD 0/month against Power at USD 30/month | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Starter Power $0/month $30/month
+  - [1] 2026-10-31: Starter allows 50 requests per hour against 10,000 on Power | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Max Requests Per Hour 50 10,000
+  - [1] 2026-10-31: Starter allows 1000 requests per day against 100,000 on Power | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Max Requests Per Day 1000 100,000
+  - [1] 2026-10-31: Starter covers 500 unique symbols per month | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Unique Symbols per Month 500 110,422
+  - [1] 2026-10-31: Starter has 1 GB of bandwidth per month against 40 GB on Power | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Max Bandwidth Per Month 1 GB 40 GB
+  - [1] 2026-10-31: both plans carry 30+ years of price history | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: Historical 30+ Years 30+ Years
+  - [1] 2026-10-31: the individual paid plan is USD 30/month or USD 300/year | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: It is simply $30/month (or $300/year) for individuals and $50/month (or $499/year).
+  - [1] 2026-10-31: the News API reaches 3 months of history | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e | quote: \* News API allows 3 Months of queryable history and all data going forward.
+  - [1] 2026-10-31:  | capture: sha256:130d13987b81d6ec9409bffa4a471df30e4b0768f0adce799dc04b70d2d5e82e
+  - [2] 2026-10-31: the API needs an account | capture: sha256:9a31abca1fb02985ac61eaf6f0445c955b530b3af3edcb0b14632a7cb88d11b6 | quote: In order to use the API, you must sign-up to create an account.
+  - [2] 2026-10-31: there is no per-minute or per-second limit | capture: sha256:9a31abca1fb02985ac61eaf6f0445c955b530b3af3edcb0b14632a7cb88d11b6 | quote: We do not rate limit to minute or second, so you are free to make your requests as you desire.
+  - [2] 2026-10-31: hourly requests reset every hour | capture: sha256:9a31abca1fb02985ac61eaf6f0445c955b530b3af3edcb0b14632a7cb88d11b6 | quote: - Hourly Requests - Reset every hour.
+  - [2] 2026-10-31: daily requests reset at midnight EST | capture: sha256:9a31abca1fb02985ac61eaf6f0445c955b530b3af3edcb0b14632a7cb88d11b6 | quote: - Daily Requests - Reset every day at midnight EST.
+  - [2] 2026-10-31: monthly bandwidth resets on the first of the month | capture: sha256:9a31abca1fb02985ac61eaf6f0445c955b530b3af3edcb0b14632a7cb88d11b6 | quote: - Monthly Bandwidth - Reset the first of every month at midnight EST.
+  - [3] 2026-10-31: the token is passed in the URL or in a header | capture: sha256:940e4e4271f47c7b98faad7184cbda9761526288a54014fa193ca22937945dba | quote: There are two (2) ways to pass your API token using the REST API.
+  - [4] 2026-10-31: supported_tickers.zip is a ticker list, not a price file | capture: sha256:dc2ce0086e318d23ba88e1b4335ba9c011bea40d59eb4faa8405cdaddd68d7f9 | quote: The supported\_tickers.zip file includes current coverage as well as symbol reservations that we have preserved as we expand our data and licensing access for end customers.
+  - [5] 2026-10-31:  | capture: sha256:1eaad038665a0707204560508d88f1484648a5ef97ffd46b00bfcf46f9d8b4da
+  - [5] 2026-10-31:  | capture: sha256:1eaad038665a0707204560508d88f1484648a5ef97ffd46b00bfcf46f9d8b4da | quote: You may process Tiingo Data only transiently in volatile memory or in a temporary, non-persistent cache, and only to complete the calculation or operation for which the Tiingo Data was obtained.
+  - [5] 2026-10-31: a card or PayPal account is asked when signing up for a paid plan | capture: sha256:1eaad038665a0707204560508d88f1484648a5ef97ffd46b00bfcf46f9d8b4da | quote: You must provide Company with a valid credit card (Visa, MasterCard, or any other issuer accepted by us) or PayPal account
+  - [6] 2026-10-31: the registration form fields are username, email, password twice, a mailing-list box and a terms box | capture: sha256:804560a84579d2da7ba8154c753886ccccd876449a045dc5a9354e5e2b3458ab | quote: this.registrationForm=new we.cw({username:new we.NI,email:new we.NI,passwordOne:new we.NI,passwordTwo:new we.NI,signUpForEmailList:new we.NI(!1),agreeToTerms:new we.NI(!1)})
+  - [6] 2026-10-31: registration sends a Cloudflare Turnstile token | capture: sha256:804560a84579d2da7ba8154c753886ccccd876449a045dc5a9354e5e2b3458ab | quote: {action:"register",userData:e,registeredOnPage:t,turnstileToken:n,turnstileAction:"register"}
+  - probe:https://api.tiingo.com/tiingo/daily/aapl/prices 2026-10-31: a price call with no token answered HTTP 403 | capture: sha256:7114c8fde54e460a1077c45b4c9227091f8a6cc78bdedd7d8376428f5bc35d79 | quote: "status": 403
+  - probe:https://api.tiingo.com/tiingo/daily/aapl/prices 2026-10-31: the API asks for a token | capture: sha256:8a4251870d5d705866c1e4bf2feb58eea893b667c59824865a920ad32fb1ca52 | quote: {"detail":"Please supply a token"}
+  - probe:https://apimedia.tiingo.com/docs/tiingo/daily/supported_tickers.zip 2026-10-31: the ticker list is served with no key at 805453 bytes | capture: sha256:83b2d15260a3167b2e4f0c3bb792f930f5a35ba98763a091530cd72151ed9d85 | quote: "declared_bytes": 805453
+  - [7] 2026-10-31: Marketstack licenses its US end-of-day prices from Tiingo | capture: sha256:0d70096de9d5a4eb613eadaa89a5be76085067e5ebe1886cf3f69d52ebb271ed | quote: Stock market data from United States exchanges is licensed and sourced from Tiingo, Inc. out of New York City, USA.
+  - [8] 2026-11-02: HTTP 429 at the hourly, daily and bandwidth limits | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | 429 | Hourly, daily, or bandwidth limit. Check https://www.tiingo.com/account/api/usage. Confirm the intended active token is in use (a stale or wrong token can show unexpectedly low usage). Watch for retry loops. |
+  - [8] 2026-11-02: HTTP 403 on end-of-day calls at the Starter unique-symbol limit | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Auth OK on `/api/test` but 403 on EOD | Starter unique-symbol or other entitlement limits |
+  - [8] 2026-11-02: Starter allows 500 unique symbols a month | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Unique symbols / month | 500 | All covered securities | All covered securities |
+  - [8] 2026-11-02: Starter allows 50 requests an hour | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Max requests / hour | 50 | 10,000 | 20,000 |
+  - [8] 2026-11-02: Starter allows 1,000 requests a day | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Max requests / day | 1,000 | 100,000 | 150,000 |
+  - [8] 2026-11-02: Starter allows 1 GB of bandwidth a month | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Max bandwidth / month | 1 GB | 40 GB | 100 GB |
+  - [8] 2026-11-02: daily requests reset at midnight EST | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: - Daily requests reset every day at midnight EST
+  - [8] 2026-11-02: monthly bandwidth resets on the first at midnight EST | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: - Monthly bandwidth resets on the first of every month at midnight EST
+  - [9] 2026-11-02: a Starter account received this JSON detail at the hourly limit | capture: sha256:ef8f025b538867b6bf1132f1e3a0f54e18e1e7b13050d119aead39f99e16298a | quote: {'detail': 'Error: You have run over your hourly request allocation. Please upgrade at https://api.tiingo.com/pricing to have your limits increased.'}
+  - [8] 2026-11-02: the cut-off statuses are documented | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | 429 | Hourly, daily, or bandwidth limit. Check https://www.tiingo.com/account/api/usage. Confirm the intended active token is in use (a stale or wrong token can show unexpectedly low usage). Watch for retry loops. |
+  - [8] 2026-11-02: the Starter limits are unchanged | capture: sha256:a6f7296c9076b27d464b5081928df2f0fc6c16a86d85c18357c7848f01dc1378 | quote: | Max requests / hour | 50 | 10,000 | 20,000 |
+- sources:
+  - [1] https://www.tiingo.com/about/pricing
+  - [2] https://www.tiingo.com/documentation/general/overview
+  - [3] https://www.tiingo.com/documentation/general/connecting
+  - [4] https://www.tiingo.com/documentation/end-of-day
+  - [5] https://www.tiingo.com/tos
+  - [6] https://apimedia.tiingo.com/dist/main-es2015.2c2e67e72a8af52f39de.js
+  - [7] https://marketstack.com/product
+  - [8] https://www.tiingo.com/llms-full.txt
+  - [9] https://ta-nuki.hatenablog.com/entry/2024/02/20/230000

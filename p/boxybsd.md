@@ -1,0 +1,128 @@
+# BoxyBSD
+
+> boxybsd.com | Compute; 1 record: free tier, limits, identity cost and evidence.
+
+HTML https://fshy.ajam.dev/p/boxybsd/ | JSON https://fshy.ajam.dev/api/v1/entity/boxybsd.json | how to read a record: https://fshy.ajam.dev/llms-full.txt
+
+## BoxyBSD
+
+- `compute/boxybsd` | qualifies-with-caveat | evidence documented | binding write-gated | category cloud VM | tier Personal
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T01:36:08.119Z (live) | stale on 2026-11-01
+- url https://www.boxybsd.com/
+- free tier: Personal plan: EUR 0 a month for 1 vCPU, 1 GB RAM, 10 GB SSD and IPv6, 'IPv6 by default, with an additional /64 subnet.' A second plan, Project, is EUR 0 a month for 4 vCPU, 16 GB RAM, 100 GB SSD and IPv6. Stock is a dated observation of the plan cards, not a property of either plan: the Project card button read 'Out of stock' on 2026-10-22, 2026-10-24 and 2026-10-30, and the Personal card button read 'Request' on 2026-10-30. | unit: GB | metered on: stored-bytes | read on: 2026-10-30 | source: [1] | note: the vendor writes GB and does not say whether decimal or binary; kept as stated
+- per-object cap: not applicable: the unit is a virtual machine, not an object
+- retention: source: [2] | note: a termination right, not a retention rule; the account has no stated expiry
+- egress: 'Traffic is needed and you should do what you need to do but please do not generate unnecessary traffic. ... This is currently stated as "fair use" traffic but may change at any time. The host nodes are connected with multiple Gbit interfaces but each VM is limited to 100 Mbit.' No volume is published. | metered: no | free allowance: unstated (fair use) | source: [1]
+- identity: email | detail: No card, no hold, no phone, no ID. Verification is quoted as 'We only ask for a username and an email address (used for notifications)' and 'No additional personal data is required. No phone verification or ID upload.' The GitHub or Codeberg account is proven by publishing a file, not by OAuth. The invitation code is a second gate that the form required on that date.
+- interface: ssh, rest, cli
+- limits:
+  - volume-quota: 1 vCPU, 1 GB RAM, 10 GB SSD on the Personal plan [1]
+  - per-ip-shaping: each VM is limited to 100 Mbit, with traffic on a 'fair use' basis and no volume stated [1]
+  - write-gated (binding): verification requires a public GitHub or Codeberg repository named boxybsd_verification containing a specified string [3]
+  - write-gated (binding): an invitation code: the registration form served on 2026-10-22, 2026-10-24 and 2026-10-30 marks the invitation input required, while the FAQ describes invitation mode as conditional ('we might apply the invitation mode') [4]
+- limits note: The box is provisioned for 90 days and is deleted when that lifetime expires unless the extend button is pressed in the control panel, so an unattended box dies at day 90, and the provider publishes an explicit 'can be destroyed at any time for no reason' clause beside it.
+- binding note: two gates stack: a public GitHub or Codeberg account with a verification repository, and an invitation code that the registration form required when read on 2026-10-30 but the FAQ describes as conditional
+- interface detail: inferred from the tooling the provider documents; not probed
+- tooling: Root SSH, a web console, VNC, ISOs for self-install, an API with Terraform examples, PTR records, DN42 peering.
+- composes with: A persistent daemon host - cron, an indexer, a poller, a mail server with a static PTR - which a free serverless tier cannot be, and the free shared load balancer puts an IPv4 front end on 80/443 in front of it, so the IPv6-only default does not stop it serving. The break: the load balancer terminates TLS, so certificates live on shared infrastructure.
+- reliability: The status page updated 2026-10-30 reads Locations Green, Website Green, Portal Green and Services Yellow, with PoP utilisation at 100% for Toronto, Roubaix, Milan, Tokyo and Kyiv. The project account announced on 2026-03-23 that 'All boxes will be terminated by the 1st of May 2026'; that notice did not hold: the operator posted on 2026-05-04 that BoxyBSD 'remains up', and on 2026-10-30 the site serves the plan cards and the register form. The terms state 'we make no guarantee regarding the availability or continuity of our services'.
+- notes: The vendor's own material is internally ambiguous about whether an invitation is needed: the FAQ says invitation mode is something they 'might apply', while the register form served on 2026-10-22, 2026-10-24 and 2026-10-30 marks the invitation input required, and the project account's newest post, dated 2026-10-14, says the registration 'was open', in the past tense. Both are quoted and neither is treated as the answer. Stock as read on 2026-10-30: the Personal card button reads 'Request' and the Project card button reads 'Out of stock'. Not established: whether an account can be created without a code on a given day, and whether a Personal box is provisioned at a location whose utilisation reads full; both are visible only through a submitted registration. IPv4 is a paid add-on: 'IPv4 addresses incur additional costs that we need to cover.'
+- evidence note: the plan, the verification procedure, the required form fields and the traffic term are quoted from first-party pages read on 2026-10-30; whether a registration completes without an invitation code is not established
+- extras:
+  - facets.class: perpetual-vps
+  - facets.free_tier_kind: perpetual-90-day-renewable
+  - facets.shape.vcpu: 1
+  - facets.shape.ram_gib: 1
+  - facets.shape.disk_gib: 10
+  - facets.shape.gpu_count: 0
+  - shape.vcpu: 1
+  - shape.ram_gib: 1
+  - shape.disk_gib: 10
+  - billing_model: free
+  - term: perpetual
+  - m10h_usd: 0.0
+  - m24h_usd: 0.0
+  - price_arithmetic: no price: the Personal plan card reads '€0/mo'
+  - free_tier_kind: perpetual
+  - network_out.allow_outbound: yes
+  - network_out.allow_inbound_listen: yes
+  - network_out.ports: IPv6, any port; IPv4 is a paid add-on; a NAT64 gateway is provided for IPv4-only destinations
+  - network_out.static_ip: yes
+  - network_out.ipv6: yes
+  - session_cap.restart_required: no
+  - session_cap.note: none published
+  - second_plan.name: Project
+  - second_plan.spec: 4 vCPU, 16 GB RAM, 100 GB SSD, IPv6
+  - second_plan.state_as_read: 'Out of stock' on the plan card button when read on 2026-10-30; the same label was read on 2026-10-22 and 2026-10-24
+  - images: FreeBSD, OpenBSD, NetBSD and other BSD or Solaris systems; custom ISO installation over VNC is offered
+  - ipv4_cost: IPv4 addresses incur additional costs that we need to cover
+- evidence:
+  - [5] 2026-10-22: both EUR 0 tiers with exact specs, Project marked 'Out of stock', the IPv4 add-on being billed, and twelve locations (Toronto, Paris, Roubaix, Frankfurt, Limburg, Milan, Tokyo, Amsterdam, Eygelshoven, Kyiv, New York, Singapore); probe 200, 37730 bytes, sha256 1734b93ba83c5e85b65b68c22e4cff8f82f0cef92b44f7fb24f36a1ea547936a, with a custom server header
+  - [5] 2026-10-22: 'Once a new Box is provisioned, it runs for 90 days... You can extend the period for additional 90 days by clicking the extend button in the control panel. If a Box doesn't get extended, the box gets deleted as soon as its lifetime expired. Note: There is no guarantee to keep a box and it can be destroyed at any time for no reason!', quoted
+  - [5] 2026-10-22: 'Do you make backups? No! BoxyBSD is a learning platform providing short-living free VPS instances and is not meant for production services' and 'Boxes can die at any time', quoted
+  - [5] 2026-10-22: 'each VM is limited to 100 Mbit' and traffic is 'currently stated as fair use traffic but may change at any time', quoted; no byte allowance is published anywhere on the site
+  - [6] 2026-10-22: the register form has four required inputs - username, github_username, email, invitation - plus a tos_accept checkbox, read from the served HTML
+  - [7] 2026-10-22: 'No additional personal data is required. No phone verification or ID upload.', and the check is a public repo named boxybsd_verification holding verification.txt, quoted
+  - [8] 2026-10-22: 'BoxyBSD reserves the right to terminate its services at any time, without prior notice' and 'The VM and the account may be terminated at any time without notice', quoted
+  - [9] 2026-10-22: live status page: Website Green, Portal Green, Services Yellow; PoP utilisation Toronto 100%, Roubaix 100%, Milan 100%, Tokyo 100%, Kyiv 100%, Frankfurt 13%, Limburg 9%, Amsterdam 20%, Eygelshoven 12%, New York 43%, Singapore 32%, read 2026-10-22 09:57 UTC
+  - [6] 2026-10-22: the served HTML contains an input named 'invitation' carrying the attribute 'required' and the placeholder 'boxybsd-82195431245', quoted from the form
+  - [5] 2026-10-22: 'we might apply the invitation mode. This means, you can still sign up and get a box but only if you have a sponsor who provides you an invitation code. Each user that singsup has one code to share with friends or within the community. Please do not mail us for codes', quoted
+  - [10] 2026-10-22: the same four-field form including the invitation field was already served on 2025-12-17, so the gate is not a new change
+  - [11] 2026-10-13: the project account posted that 'the registration at BoxyBSD was open and we welcomed several new members who can now access their free VPS instance', quoted; the gate opens in windows
+  - [12] 2026-10-05: a user posted asking for an invitation code, writing that the GitHub verification was already prepared and he would create the boxybsd_verification repo after registering; no code answer appears on page 1
+  - [13] 2026-10-22: 96 public verification repositories exist, with creation counts of 12 in 2025-11, 9 in 2026-01, 12 in 2026-06, 10 in 2026-08, 10 in 2026-09 and 5 in 2026-10, so roughly 8 to 12 new verified accounts a month are being created despite the gate
+  - [5] 2026-10-22: quoted: 'Once a new Box is provisioned, it runs for 90 days ... If a Box does not get extended, the box gets deleted as soon as its lifetime expired'; 'There is no guarantee to keep a box and it can be destroyed at any time for no reason!'; 'BoxyBSD does not accept any donations.'
+  - [5] 2026-10-22: twelve locations listed today: Toronto, Paris, Roubaix, Frankfurt, Limburg, Milan, Tokyo, Amsterdam, Eygelshoven, Kyiv, New York, Singapore; multiple NAT64 gateways offered
+  - [14] 2026-05-04: 'Happy to share that #BoxyBSD remains up! ... Several things could finally be clarified to continue this service ... We could also get some more new resources and locations to scale', post header dated 2026-05-04 08:21 CEST, quoted
+  - [15] 2026-10-22: a user who ran a box from 2025-06 to 2026-03 writes 'an anonymous parcel from Norway resolved the hardware issue and made it possible for BoxyBSD to go on in its existing state. Whether it is going to shut down remains uncertain.'
+  - [15] 2026-10-22: the same user reports losing the box through the 90-day reaper: 'I forgot to renew my VPS and seemingly lost it at the end of the grace period. I didn't receive the intended email notification seven days before or on the day the VM expired', quoted, restored manually after asking on Matrix
+  - [5] 2026-10-22: the sponsor section names Nerdscave Hosting, the operator, a private sponsor, Servermanagementpanel and ST-Hosting as suppliers of 'compute, networking, and traffic capacity that keep services online', and the FAQ answers 'How can I donate? ... BoxyBSD does not accept any donations.', quoted
+  - [5] 2026-10-22: 'Personal For learning BSD EUR 0/mo - 1 vCPU - 1 GB RAM - 10 GB SSD - IPv6' and 'Project For open-source projects EUR 0/mo - 4 vCPU - 16 GB RAM - 100 GB SSD - IPv6', with the Project tier marked 'Out of stock'; 'IPv4 addresses incur additional costs'; locations listed as Toronto, Paris, Roubaix, Frankfurt, Limburg, Milan, Tokyo, Amsterdam, Eygelshoven, Kyiv, New York and Singapore; probed 200, 37730 bytes, sha256 1734b93ba83c5e85b65b68c22e4cff8f82f0cef92b44f7fb24f36a1ea547936a
+  - [7] 2026-10-22: verification requires only a GitHub or Codeberg username and a public repository named 'boxybsd_verification' containing a stated string in 'verification.txt': 'No emails, phone numbers, or personal data are required anymore', quoted
+  - [5] 2026-10-22: 'If you didn't renew your instance within the last 90 days, your box automatically gets deleted'; 'NAT64: Multiple NAT64 gateways to reach IPv4-only resources'; 'Dual-Stack Load Balancer'; 'IPv6 Subnets: Additional /64 or even /48', quoted
+  - [5] 2026-10-22: an invitation mode exists: 'we might apply the invitation mode ... you can still sign up and get a box but only if you have a sponsor who provides you an invitation code', quoted; this is the gate that could block a new signup on the day it is read
+  - [15] 2026-10-22: quoted: 'an anonymous parcel from Norway resolved the hardware issue and made it possible for BoxyBSD to go on in its existing state. Whether it is going to shut down remains uncertain.' The author reports 98.9 per cent uptime over 271 days on one box.
+  - [16] 2026-10-22: 'the time has come to officially shut the project down... All boxes will be terminated by the 1st of May 2026', post timestamp Monday 23 March 2026
+  - [1] 2026-10-24: quoted: 'Personal — For learning BSD — €0/mo — 1 vCPU — 1 GB RAM — 10 GB SSD — IPv6' and 'IPv6 by default, with an additional /64 subnet.' and 'each VM is limited to 100 Mbit'
+  - [1] 2026-10-24: BoxyBSD is stated to be a non-profit project of an individual, with the node list 'Canada, Toronto; France, Paris; France, Roubaix; Germany, Frankfurt; Germany, Limburg; Italy, Milan; Japan, Tokyo; Netherlands, Amsterdam; Netherlands, Eygelshoven; Ukraine, Kyiv; USA, New York; Singapore, Singapore'
+  - [4] 2026-10-24: the served markup: inputs named username, github_username, email and invitation, each carrying the required attribute, plus a tos_accept checkbox; labels 'Username', 'GitHub/Codeberg Username', 'Email address', 'Invitation code'
+  - [3] 2026-10-24: quoted: 'We only ask for a username and an email address (used for notifications).' and 'No additional personal data is required. No phone verification or ID upload.' and the boxybsd_verification repository procedure
+  - [1] 2026-10-24: quoted from the FAQ: 'Sometimes, we need to slow down the amount of new users signing up for new VPS instances. Also we don't have unlimited ressources and therefore, we might apply the invitation mode.'
+  - [2] 2026-10-24: quoted: 'BoxyBSD reserves the right to terminate its services at any time, without prior notice.'
+  - [1] 2026-10-30: on 2026-10-30 the Project plan card (EUR 0/mo, 4 vCPU, 16 GB RAM, 100 GB SSD) carries the button label 'Out of stock', while the Personal card carries 'Request' | capture: sha256:74b67f596b47e66bed6cb90b3b248bd48348fbe124c444c19f95a2201b104796 | quote: <a class="btn primary cta" href="/register">Out of stock</a>
+  - [1] 2026-10-30: on 2026-10-30 the Personal plan card (EUR 0/mo, 1 vCPU, 1 GB RAM, 10 GB SSD) carries the button label 'Request', not a stock notice | capture: sha256:74b67f596b47e66bed6cb90b3b248bd48348fbe124c444c19f95a2201b104796 | quote: <a class="btn primary cta" href="/register">Request</a>
+  - [4] 2026-10-30: the register form served on 2026-10-30 carries an invitation input with the required attribute, beside required username, github_username and email inputs | capture: sha256:4ce3bf16ca77ab7efecf3f93d3931d65c07eeb1459e99a2848a6988a56a4e52f | quote: name="invitation" placeholder="boxybsd-82195431245" pattern="^[a-zA-Z0-9._-]+$" required
+  - [17] 2026-10-30: the status page, 'Updated Oct 30, 2026, 1:31 PM', shows Locations, Website and Portal Green, Services Yellow, and PoP utilisation of 100% at Toronto, Roubaix, Milan, Tokyo and Kyiv | capture: sha256:ef02fe38ef14104cc4a1ed18803f1f203388be03ec12b4ffe253814040a1803b | quote: Canada, Toronto100%
+  - [3] 2026-10-30: the verification page read on 2026-10-30: a public boxybsd_verification repository on GitHub or Codeberg, no phone and no ID | capture: sha256:4157c1758099c7c252328054540ba00b6d0273057d39612ebc21af426e51baf3 | quote: No additional personal data is required. No phone verification or ID upload.
+  - [1] 2026-10-30: the API with Terraform examples is stated on 2026-10-30 | capture: sha256:854a8bb9a997b702aed6720d8429f76475caecd6858a44ed6bfb061403c4d370 | quote: Automation-friendly API and Terraform examples out of the box.
+  - [1] 2026-10-30: the FAQ read on 2026-10-30 still describes invitation mode as conditional | capture: sha256:854a8bb9a997b702aed6720d8429f76475caecd6858a44ed6bfb061403c4d370 | quote: Also we don't have unlimited ressources and therefore, we might apply the invitation mode.
+  - [18] 2026-10-30: the project account's newest post, dated Wed, 14 Oct 2026 03:25:28 +0000 in the feed read 2026-10-30, says the registration 'was open', in the past tense; no later post announces an opening | capture: sha256:0ad434a91dd1bf891b6458967f75a2a029db81dfb27e4c54e84114b8ff53dee0 | quote: The registration at
+  - [16] 2026-10-30: the project account announced the shutdown in a note dated Monday, March 23, 2026, with all boxes to be terminated by 2026-05-01; re-read 2026-10-30 | capture: sha256:58391dd797c745c4ecb74130ad680f2484cc3cc26d95f02a631ddf61e8ee5376 | quote: All boxes will be terminated by the 1st of May 2026.
+  - [14] 2026-10-30: the operator posted on 2026-05-04 08:21:26 CEST that BoxyBSD remains available, reversing the 2026-03-23 shutdown notice; re-read 2026-10-30 | capture: sha256:4804c676b4e21e5312e1d2cc7ba82dac256c457b372b9c1448cfca9d40d6f507 | quote: Happy to share that #BoxyBSD remains up!
+  - [2] 2026-10-30: the terms read on 2026-10-30 still disclaim any availability or continuity guarantee | capture: sha256:7f168460677576c132ef978953c7b88b5bf368a0be01e9d7d0cc960b43d37848 | quote: While BoxyBSD strives to provide uninterrupted service, we make no guarantee regarding the availability or continuity of our services.
+  - [1] 2026-10-30: the 90-day lifetime with an extend button is still stated on 2026-10-30 | capture: sha256:854a8bb9a997b702aed6720d8429f76475caecd6858a44ed6bfb061403c4d370 | quote: Once a new Box is provisioned, it runs for 90 days.
+  - [4] 2026-11-03: the register form served on 2026-11-03 still marks the invitation input required | capture: sha256:c9423fe07a60fe9770574e268efb1161997cbcacb90711e9c4137907ed62fd0b | quote: name="invitation" placeholder="boxybsd-82195431245" pattern="^[a-zA-Z0-9._-]+$" required
+  - [1] 2026-11-03: on 2026-11-03 the Personal plan card button reads 'Request' | capture: sha256:854a8bb9a997b702aed6720d8429f76475caecd6858a44ed6bfb061403c4d370 | quote: [Request](https://www.boxybsd.com/register)
+  - [1] 2026-11-03: on 2026-11-03 the Project plan card button reads 'Out of stock' | capture: sha256:854a8bb9a997b702aed6720d8429f76475caecd6858a44ed6bfb061403c4d370 | quote: [Out of stock](https://www.boxybsd.com/register)
+  - [17] 2026-11-03: the status page data on 2026-11-03 lists Toronto at 100; Roubaix, Milan, Tokyo and Kyiv are also 100 in the same list | capture: sha256:e93311223e82e4525db0d3e6fba272b949863cb869390b8e9573fa21f83895cf | quote: { name: "Canada, Toronto", value: 100 },
+  - [17] 2026-11-03: the PoP list on 2026-11-03 has a Nuremberg entry at 1, a location not in the twelve the record lists | capture: sha256:e93311223e82e4525db0d3e6fba272b949863cb869390b8e9573fa21f83895cf | quote: { name: "Germany, Nuremberg", value: 1 },
+  - [18] 2026-11-03: the project account's newest post, dated 2026-10-14, is still the latest feed item on 2026-11-03 and says registration 'was open' in the past tense | capture: sha256:172383406e325f3fd7ddaa8874569627cf92dad1a32a35960418cbfde1151d50 | quote: The registration at @ BoxyBSD was open and we welcomed several new members
+- sources:
+  - [1] https://www.boxybsd.com/
+  - [2] https://www.boxybsd.com/tos
+  - [3] https://www.boxybsd.com/user-verification
+  - [4] https://www.boxybsd.com/register
+  - [5] https://boxybsd.com/
+  - [6] https://boxybsd.com/register
+  - [7] https://boxybsd.com/user-verification
+  - [8] https://boxybsd.com/tos
+  - [9] https://boxybsd.com/status
+  - [10] https://web.archive.org/web/20251217071332/https://boxybsd.com/register?provider=wayback
+  - [11] https://mastodon.bsd.cafe/@BoxyBSD/117437125625304970
+  - [12] https://www.nodeloc.com/t/topic/112374
+  - [13] https://api.github.com/search/repositories?q=boxybsd_verification
+  - [14] https://nostr.at/nevent1qqsy0rhaeqmysfgm9u6qmlwse36p40pd74cqjfxp53j900x40nhghsgzyr0stxvm4ksd6w83r5u8pw49x4v274luzwdznlwwgetn5rt5z5pz62zns5q
+  - [15] https://dbohdan.com/boxybsd
+  - [16] https://primal.net/e/nevent1qqsxyehlhhl578rl2texrjgpvn0r6jll49xnnfg5ws0t6h3zpdphltcpz4mhxue69uhhyetvv9ujuerfw36x7tnsw43qygqw7smq9r6jntxnh6t90jkgydy6l75lvzq484xm6p8jv0rtmdfcaqvv2v7m
+  - [17] https://www.boxybsd.com/status
+  - [18] https://mastodon.bsd.cafe/@BoxyBSD.rss

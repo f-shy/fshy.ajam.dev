@@ -1,0 +1,1694 @@
+# fshy: Egress and tunnels, self-hosted, the last resort, part 2 of 2
+
+> Ways to get traffic out or a service in: tunnels, relays, IPv6 brokers, UDP forwards.
+
+Data as of 2026-11-26, the date of the published data. Version `12288cc5e8c1`: the first 12 hex digits of the SHA-256 of every record's Markdown, topic by topic in the one order (hosted before self-hosted, then verdict, provider name, record id); it changes whenever a record does.
+
+This topic's parts: https://fshy.ajam.dev/t/egress/llms-full.txt. How to read a record: https://fshy.ajam.dev/llms-full.txt.
+
+## iodine
+
+- `egress/iodine` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.939Z (live) | stale on 2026-12-20
+- url https://github.com/yarrick/iodine | page https://fshy.ajam.dev/p/github-yarrick.md
+- price USD 0
+- free tier: Tunnel IPv4 over DNS to reach the internet through restrictive networks where only DNS queries are permitted. ISC License. Written in C. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. IPv4 over DNS; needs a server and a domain.
+- interface detail: not established
+- tooling: The user compiles and runs iodined on a public-IP server and controls a domain; no hosted endpoint is published.
+- reliability: the same as interface detail
+- notes: IPv4 over DNS; needs a server and a domain. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read on 2026-11-19; it requires a user-controlled domain and a public-IP server running iodined, and publishes no hosted endpoint or byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Tunnel IPv4 over DNS to reach the internet through restrictive networks where only DNS queries are permitted. ISC License. Written in C.
+  - [2] 2026-11-19: the first-party README requires the user to supply a domain and a public-IP server, with no hosted endpoint or byte allowance | capture: sha256:09297427043bcf3ef103e570000ac5737d275b0ed1b84ef398135cfce894a25f | quote: To use this tunnel, you need control over a real domain (like `mydomain.com`), and a server with a public IP address to run `iodined` on.
+  - [2] 2026-11-19: the first-party README requires a user-supplied domain and server | capture: sha256:09297427043bcf3ef103e570000ac5737d275b0ed1b84ef398135cfce894a25f | quote: To use this tunnel, you need control over a real domain (like `mydomain.com`), and a server with a public IP address to run `iodined` on.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis | capture: sha256:09297427043bcf3ef103e570000ac5737d275b0ed1b84ef398135cfce894a25f | quote: This is a piece of software that lets you tunnel IPv4 data through a DNS server.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/yarrick/iodine
+
+## jkuri/bore
+
+- `egress/jkuri-bore` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.939Z (live) | stale on 2026-12-20
+- url https://github.com/jkuri/bore | page https://fshy.ajam.dev/p/github-jkuri.md
+- price USD 0
+- free tier: Reverse HTTP/TCP proxy via SSH. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: A hosted bore.digital relay exists but publishes no byte allowance; no free hosted allowance reaches the volume bar. Reverse HTTP/TCP proxy via SSH; the user compiles the software and can run a private bore-server.
+- interface detail: not established
+- tooling: The user compiles and runs the bore client locally and can connect to the hosted bore.digital relay or run a private bore-server; no byte allowance is published.
+- reliability: the same as interface detail
+- notes: Reverse HTTP/TCP proxy via SSH. The first-party README was read on 2026-11-19; it documents a hosted bore.digital relay with no published byte allowance and a self-hosted bore-server option.
+- evidence note: First-party project README read on 2026-11-19; it documents a hosted bore.digital relay with no published byte allowance and a self-hosted server. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Reverse HTTP/TCP proxy via SSH. Written in Go.
+  - [2] 2026-11-19: the first-party README documents a hosted bore.digital server with no published byte allowance | capture: sha256:434fe517908081cf411c9ed29c31c25cb14c4f745ea6498c4616e8a1e715bfbb | quote: Note that for hosted bore you need to specify port in range 55000-65000.
+  - [2] 2026-11-19: the first-party README describes a locally compiled client and a hosted or self-hosted server | capture: sha256:434fe517908081cf411c9ed29c31c25cb14c4f745ea6498c4616e8a1e715bfbb | quote: This will compile and install `bore` client locally.
+  - [2] 2026-11-19: the hosted relay exists but publishes no byte allowance | capture: sha256:434fe517908081cf411c9ed29c31c25cb14c4f745ea6498c4616e8a1e715bfbb | quote: Note that for hosted bore you need to specify port in range 55000-65000.
+  - [2] 2026-11-19: the first-party README establishes the hosted relay and self-host option | capture: sha256:434fe517908081cf411c9ed29c31c25cb14c4f745ea6498c4616e8a1e715bfbb | quote: Reverse HTTP/TCP proxy tunnel via secure SSH connections.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis | capture: sha256:434fe517908081cf411c9ed29c31c25cb14c4f745ea6498c4616e8a1e715bfbb | quote: Note that for hosted bore you need to specify port in range 55000-65000.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/jkuri/bore
+
+## jprq
+
+- `egress/jprq` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:02.939Z (live) | stale on 2026-12-20
+- url https://github.com/azimjohn/jprq | page https://fshy.ajam.dev/p/github-azimjohn.md
+- price USD 0
+- free tier: Proxies over WebSockets. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: A hosted relay exists but offers only a 1-week trial then paid plans, so no free hosted allowance reaches the volume bar. The user installs the software and can run a self-hosted edge.
+- interface detail: not established
+- tooling: The user installs and runs the jprq software and authenticates with a token from the service; the hosted relay offers a 1-week trial then paid plans, and the software can be pointed at a self-hosted edge.
+- reliability: the same as interface detail
+- notes: WebSocket proxy. The first-party site and README were read on 2026-11-19: the hosted relay is a 1-week free trial then paid plans, the README notes members-only hosted use and a free self-host option.
+- evidence note: First-party site and README read on 2026-11-19; the hosted relay offers a 1-week free trial then paid plans and the README notes members-only hosted use with a free self-host option. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Proxies over WebSockets. Written in Go.
+  - [3] 2026-11-19: the first-party site offers only a 1-week trial then a paid plan, with no free hosted byte allowance | capture: sha256:ac097e55d29db6d70271d555456ae0bf8e0529ff441d314a829a5fb8c3a07790 | quote: Yes. JPRQ starts with a 1-week free trial. After that, the self-serve plan is $5 monthly or $42 yearly.
+  - [2] 2026-11-19: the first-party README states a user is user-installed and offers a self-host option alongside the hosted relay | capture: sha256:0a4d5213bc202d60ebbf806e7bb63060de98b1ebe390ecbf24b7b84f1714a470 | quote: it still stays open and free to self-host
+  - [3] 2026-11-19: the hosted relay has no free tier beyond a 1-week trial | capture: sha256:ac097e55d29db6d70271d555456ae0bf8e0529ff441d314a829a5fb8c3a07790 | quote: Yes. JPRQ starts with a 1-week free trial. After that, the self-serve plan is $5 monthly or $42 yearly.
+  - [2] 2026-11-19: the first-party README establishes the hosted relay is members-only | capture: sha256:0a4d5213bc202d60ebbf806e7bb63060de98b1ebe390ecbf24b7b84f1714a470 | quote: jprq is now members-only service
+  - [3] 2026-11-19: the first-party site replaces the list sentence as the basis | capture: sha256:ac097e55d29db6d70271d555456ae0bf8e0529ff441d314a829a5fb8c3a07790 | quote: Yes. JPRQ starts with a 1-week free trial. After that, the self-serve plan is $5 monthly or $42 yearly.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/azimjohn/jprq
+  - [3] https://jprq.io/
+
+## LanEmu/P2PVPN
+
+- `egress/lanemu-p2pvpn` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.341Z (live) | stale on 2026-12-20
+- url https://gitlab.com/Monsterovich/lanemu | page https://fshy.ajam.dev/p/gitlab-monsterovich.md
+- price USD 0
+- free tier: LanEmu is a 2023+ continuation of . It uses Bittorrent trackers for matchmaking/rendezvous, and then routes traffic in a peer-to-peer VLAN via OpenVPN's TAP drivers; effectively a decentralized peer-to-peer mesh VPN. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. TAP-based P2P VLAN over BitTorrent trackers.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: TAP-based P2P VLAN over BitTorrent trackers. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitLab project page read on 2026-11-19; it describes a server-less (decentralized) P2P VPN with no hosted endpoint or published byte allowance, so the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: LanEmu is a 2023+ continuation of . It uses Bittorrent trackers for matchmaking/rendezvous, and then routes traffic in a peer-to-peer VLAN via OpenVPN's TAP dri
+  - [2] 2026-11-19: the first-party project page describes a server-less P2P VPN with no hosted endpoint or byte allowance | capture: sha256:b765ed87c3295783dd2cfa857aa0e5109a216f635d21e65034d9af11f66e9fed | quote: Server-less (decentralized) Virtual Private Network (Open-source alternative to Hamachi, Radmin, ZeroTier, etc.)
+  - [2] 2026-11-19: the first-party page replaces the list sentence as the basis for the egress finding | capture: sha256:b765ed87c3295783dd2cfa857aa0e5109a216f635d21e65034d9af11f66e9fed | quote: Server-less (decentralized) Virtual Private Network (Open-source alternative to Hamachi, Radmin, ZeroTier, etc.)
+  - [2] 2026-11-19: the first-party page describes server-less software with no hosted endpoint | capture: sha256:b765ed87c3295783dd2cfa857aa0e5109a216f635d21e65034d9af11f66e9fed | quote: Server-less (decentralized) Virtual Private Network (Open-source alternative to Hamachi, Radmin, ZeroTier, etc.)
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://gitlab.com/Monsterovich/lanemu
+
+## mmar
+
+- `egress/mmar` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.341Z (live) | stale on 2026-12-20
+- url https://github.com/yusuf-musleh/mmar | page https://fshy.ajam.dev/p/github-yusuf-musleh.md
+- price USD 0
+- free tier: A zero-dependency, self-hostable, cross-platform HTTP tunnel that exposes your localhost to the world on a public URL. AGPL-3.0 License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP tunnel.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: HTTP tunnel. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub README read on 2026-11-19; the tool is self-hosted software the user installs and runs. The README also advertises a free hosted tunnel at mmar.dev with a 10mb request-size limit and 5 tunnels per IP, so a small hosted egress allowance is published; the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A zero-dependency, self-hostable, cross-platform HTTP tunnel that exposes your localhost to the world on a public URL. AGPL-3.0 License. Written in Go.
+  - [2] 2026-11-19: the first-party README describes a self-hosted tunnel the user installs and runs, with no hosted egress the user can rely on | capture: sha256:9eade64f049ffc6bb9ee93e1e9794edcc1bb82203273fb1f114ee0d454585173 | quote: Self-host your own mmar server to have full control
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis and names a hosted tier | capture: sha256:9eade64f049ffc6bb9ee93e1e9794edcc1bb82203273fb1f114ee0d454585173 | quote: Self-host your own mmar server to have full control
+  - [2] 2026-11-19: the first-party README describes self-hosted software the user installs and runs | capture: sha256:9eade64f049ffc6bb9ee93e1e9794edcc1bb82203273fb1f114ee0d454585173 | quote: Self-host your own mmar server to have full control
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/yusuf-musleh/mmar
+
+## Mycoria
+
+- `egress/mycoria` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category ipv6 overlay software (self-hosted routers) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.342Z (live) | stale on 2026-12-20
+- url https://mycoria.org/ | page https://fshy.ajam.dev/p/mycoria.md
+- price USD 0
+- free tier: Mycoria is an open and secure overlay network that connects all participants. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance or hosted relay is published.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: the IPv6 address is the key; no account is described. | country: None
+- interface: cli
+- binding note: Software only: joining the overlay requires a host running the daemon, and the address is not a public ingress for anyone outside the overlay.
+- interface detail: part of binding note
+- tooling: mycoria daemon.
+- reliability: Self-operated routers.
+- notes: Classified from the landing page; no hosted capacity.
+- evidence note: First-party site read on 2026-11-19; it describes an open overlay network with self-operated routers and no hosted relay or byte allowance, so the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance or hosted relay is published.
+  - bytes_transit: overlay-only
+  - transit_note: peer routers
+- evidence:
+  - [1] 2026-10-23: 'open and secure overlay network that connects all participants'
+  - [1] 2026-11-19: the first-party site describes an overlay network of self-operated routers with no hosted relay or published allowance | capture: sha256:59f95b3affd39b6c3a41926235192c832a94844f7ef6dd2cfdb1136fc6901e09 | quote: Mycoria is an open and secure overlay network that connects all participants.
+  - [1] 2026-11-19: the first-party site replaces the list sentence as the basis for the egress finding | capture: sha256:59f95b3affd39b6c3a41926235192c832a94844f7ef6dd2cfdb1136fc6901e09 | quote: Mycoria is an open and secure overlay network that connects all participants.
+  - [1] 2026-11-19: the first-party site describes overlay software with no hosted relay | capture: sha256:59f95b3affd39b6c3a41926235192c832a94844f7ef6dd2cfdb1136fc6901e09 | quote: Mycoria is an open and secure overlay network that connects all participants.
+- sources:
+  - [1] https://mycoria.org/
+
+## n2n
+
+- `egress/n2n` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category overlay network or advanced tunnel tool | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.342Z (live) | stale on 2026-12-20
+- url https://www.ntop.org/products/n2n/ | page https://fshy.ajam.dev/p/ntop.md
+- price USD 0
+- free tier: Built on nodes and supernodes. GPL-3.0 license. Written in C. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. Layer 2 overlay.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: The former vendor product page at www.ntop.org/products/n2n/ answered HTTP 404 on 2026-11-19; the first-party GitHub repository documents a user-run supernode.
+- notes: Layer 2 overlay. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub repository read on 2026-11-19; n2n needs a supernode the user runs on a public server and offers no hosted egress allowance. The former vendor page at www.ntop.org/products/n2n/ was unreachable on 2026-11-19; see the measured reliability note.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Built on nodes and supernodes. GPL-3.0 license. Written in C.
+  - [3] 2026-11-19: the first-party README says the supernode runs on a server the user supplies, with no hosted egress allowance published | capture: sha256:7f6f936ba12e795c81274f0548419685870808af78f3974ead641a4f9a51111a | quote: You can create your own infrastructure by setting up a supernode on a public server (e.g. a VPS).
+  - [3] 2026-11-19: the first-party repository replaces the list sentence as the basis for the egress finding | capture: sha256:7f6f936ba12e795c81274f0548419685870808af78f3974ead641a4f9a51111a | quote: You can create your own infrastructure by setting up a supernode on a public server (e.g. a VPS).
+  - probe:https://www.ntop.org/products/n2n/ 2026-11-19: the vendor product page answered HTTP 404 on 2026-11-19 | capture: sha256:92e713170fe2326e2771f0e43497126cbcf0ebeea6dfa9506f21ba75dbefcaeb | quote: "status": 404
+  - [3] 2026-11-19: the first-party repository describes a user-run supernode with no hosted egress | capture: sha256:7f6f936ba12e795c81274f0548419685870808af78f3974ead641a4f9a51111a | quote: You can create your own infrastructure by setting up a supernode on a public server (e.g. a VPS).
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://www.ntop.org/products/n2n/
+  - [3] https://github.com/ntop/n2n
+
+## Narrowlink
+
+- `egress/narrowlink` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.342Z (live) | stale on 2026-12-20
+- url https://github.com/narrowlink/narrowlink | page https://fshy.ajam.dev/p/github-narrowlink.md
+- price USD 0
+- free tier: Self-hosted zero-trust remote access platform with gateway, agent, and client components, P2P QUIC, fine-grained access control, and automatic ACME certificates when publishing local webservers. MPL-2.0/AGPL-3.0. Written in Rust. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Self-hosted zero-trust access with ACME for published web servers.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Self-hosted zero-trust access with ACME for published web servers. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub README read on 2026-11-19; it describes a self-hosted remote-access platform the user installs and runs, with no hosted endpoint or byte allowance, so the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hosted zero-trust remote access platform with gateway, agent, and client components, P2P QUIC, fine-grained access control, and automatic ACME certificates
+  - [2] 2026-11-19: the first-party README describes self-hosted software the user installs and runs, with no hosted endpoint or byte allowance | capture: sha256:45ae9b467bbeff650dff4e3a90d13b27e5754716f5fcdc3013d1de4a24a0ef65 | quote: Narrowlink is a self-hosted platform that allows you to establish secure remote connections between devices within a network that may be hindered by network address translation (NAT) or firewalls.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:45ae9b467bbeff650dff4e3a90d13b27e5754716f5fcdc3013d1de4a24a0ef65 | quote: Narrowlink is a self-hosted platform that allows you to establish secure remote connections between devices within a network that may be hindered by network address translation (NAT) or firewalls.
+  - [2] 2026-11-19: the first-party README describes self-hosted software with no hosted endpoint | capture: sha256:45ae9b467bbeff650dff4e3a90d13b27e5754716f5fcdc3013d1de4a24a0ef65 | quote: Narrowlink is a self-hosted platform that allows you to establish secure remote connections between devices within a network that may be hindered by network address translation (NAT) or firewalls.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/narrowlink/narrowlink
+
+## Nebula
+
+- `egress/nebula` | self-hosted, last resort | verdict fails-egress | evidence inferred | binding none | category overlay network (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/slackhq/nebula | page https://fshy.ajam.dev/p/github-slackhq.md
+- price USD 0
+- free tier: 'Nebula is a scalable overlay networking tool with a focus on performance, simplicity and security. It lets you seamlessly connect computers anywhere in the network.' Self-hosted; no quota. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance: there is no vendor and no hosted service.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: self-hosted; membership is a signed certificate from the operator's CA | country: None
+- interface: cli
+- binding note: Nothing meters bytes and nothing publishes a port, so no constraint fires at 1 TiB/month because the traffic cannot leave the overlay.
+- interface detail: config files plus a certificate authority the operator runs
+- tooling: nebula and nebula-cert binaries
+- composes with: a private overlay that composes with a public ingress and adds none
+- reliability: self-operated; certificate issuance and lighthouse uptime are local work
+- notes: Included because the supplied list names it and because a reader will confuse it with a WireGuard tool.
+- evidence note: The overlay claim is quoted; the 'no ingress' conclusion is inferred from the description, because a feature that does not exist has no page saying so. Reading the lighthouse documentation would raise this to documented.
+- self hosted: yes
+- extras:
+  - wg_path: unknown
+  - wg_detail: The repository describes 'encryption, security groups, certificates, and tunneling' without naming WireGuard; no protocol page was read, so whether the transport can carry a WireGuard datagram is open.
+  - ingress: none
+  - volume_stated: No allowance: there is no vendor and no hosted service.
+  - bytes_transit: overlay-only
+  - transit_note: peers relay through lighthouses only to find each other; payload goes peer to peer
+- evidence:
+  - [1] 2026-10-23: 'Nebula is a scalable overlay networking tool'; it 'lets you seamlessly connect computers anywhere in the network' and combines 'encryption, security groups, certificates, and tunneling'
+- sources:
+  - [1] https://github.com/slackhq/nebula
+
+## Netmaker
+
+- `egress/netmaker` | self-hosted, last resort | verdict fails-egress | evidence documented | binding request-rate | category WireGuard management (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://www.netmaker.io/pricing | page https://fshy.ajam.dev/p/netmaker.md
+- price USD 0
+- free tier: Community: 'Free', '1 Netmaker Server', '3 users', '10 nodes', '10 external clients', '2 Networks'. | unit: users | metered on: identity-count | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte allowance in any plan; the plans count users, nodes, clients and networks.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: A Netmaker account is required for the hosted console. The Community plan operates on self-hosted infrastructure. | country: None
+- interface: cli
+- limits:
+  - request-rate (binding): The 3-user and 10-node caps are the published meters and the vocabulary has no token for a count; request-rate is the nearest. No byte meter exists and nothing listens publicly. [1]
+- binding note: The 3-user and 10-node caps are the published meters and the vocabulary has no token for a count; request-rate is the nearest. No byte meter exists and nothing listens publicly.
+- interface detail: netclient join, plus the console
+- tooling: netclient, netmaker server, Kubernetes operator
+- composes with: the mesh half of a two-part chain; it needs Caddy, Traefik or Pangolin on a public host to finish the job
+- reliability: the public-facing half of any deployment is a reverse proxy the operator runs, not a Netmaker feature
+- notes: WireGuard mesh overlay platform. Ingress Proxy forwards traffic between Netmaker mesh nodes; exposing services to the public internet requires deploying external reverse proxies.
+- self hosted: yes
+- extras:
+  - wg_path: unknown
+  - wg_detail: The free plan counts '10 external clients', which is the slot where WireGuard configs are handed out, but no page read states that a .conf is issued, so the export path stays unproven.
+  - ingress: none
+  - volume_stated: No byte allowance in any plan; the plans count users, nodes, clients and networks.
+  - bytes_transit: unknown
+  - transit_note: WireGuard peer to peer where possible, with Relay fallback for nodes that cannot connect directly
+- evidence:
+  - [1] 2026-10-23: Community is Free with 1 server, 3 users, 10 nodes, 10 external clients and 2 networks
+  - [2] 2026-10-23: publishing publicly needs a third component: 'deploy a reverse proxy server in the cloud', 'deploy a Netmaker node on that server', and then 'your service will now be accessible to the internet', read through the search index
+  - [3] 2026-10-23: Netmaker's own 'Cluster Ingress' is internal: 'Expose Kubernetes services to devices on your Netmaker network'
+- sources:
+  - [1] https://www.netmaker.io/pricing
+  - [2] https://learn.netmaker.io/how-to-guides/how-to-use-netmaker-with-a-reverse-proxy
+  - [3] https://docs.netmaker.io/docs/features/k8s-operator
+
+## netmask
+
+- `egress/netmask` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.740Z (live) | stale on 2026-12-20
+- url https://github.com/josephdove/netmask | page https://fshy.ajam.dev/p/github-josephdove.md
+- price USD 0
+- free tier: A TCP/UDP self-hostable network tunneling solution that supports IPv4 and IPv6. Client has a GUI. MIT License. Written in Python. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. A TCP/UDP self-hostable network tunnel.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: A TCP/UDP self-hostable network tunnel. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it describes a self-hostable TCP/UDP tunnel with a server the user runs and no hosted endpoint or byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A TCP/UDP self-hostable network tunneling solution that supports IPv4 and IPv6. Client has a GUI. MIT License. Written in Python.
+  - [2] 2026-11-19: the first-party README presents the tool as self-hostable software with no hosted endpoint | capture: sha256:36b06b770560aff48b745acce4cdb18124cfb71d59f1ec02d666f27c18179592 | quote: Netmask is a robust tool designed to facilitate secure and seamless network tunneling, similar to Ngrok, but with the added advantage of supporting TCP/UDP protocols and being entirely self-hostable.
+  - [2] 2026-11-19: the first-party README describes a server the user runs, so the software is installed and run by the user | capture: sha256:36b06b770560aff48b745acce4cdb18124cfb71d59f1ec02d666f27c18179592 | quote: Netmask Server (netmasks): The server component, netmasks, is responsible for listening to incoming connections from clients and managing the tunnels.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:36b06b770560aff48b745acce4cdb18124cfb71d59f1ec02d666f27c18179592 | quote: Netmask is a robust tool designed to facilitate secure and seamless network tunneling, similar to Ngrok, but with the added advantage of supporting TCP/UDP protocols and being entirely self-hostable.
+  - [2] 2026-11-19: the first-party README describes a server the user runs, so the software is installed and run by the user | capture: sha256:36b06b770560aff48b745acce4cdb18124cfb71d59f1ec02d666f27c18179592 | quote: Netmask is a robust tool designed to facilitate secure and seamless network tunneling, similar to Ngrok, but with the added advantage of supporting TCP/UDP protocols and being entirely self-hostable.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/josephdove/netmask
+
+## ngtor
+
+- `egress/ngtor` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.740Z (live) | stale on 2026-12-20
+- url https://github.com/theborakompanioni/ngtor | page https://fshy.ajam.dev/p/github-theborakompanioni.md
+- price USD 0
+- free tier: Easily expose local services via Tor. Written in Java. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Tor hidden services.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: Tor hidden services. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it documents a Java binary the user downloads and runs to serve local ports as Tor hidden services, with no hosted endpoint or byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Easily expose local services via Tor. Written in Java.
+  - [2] 2026-11-19: the first-party README presents the tool as software for exposing local services, with no hosted endpoint | capture: sha256:87d4ca021cd395888d1dda14abd0605c09a4c0d7eb37c0cc1ad1d17815cfc721 | quote: Easily expose local services via Tor
+  - [2] 2026-11-19: the first-party README distributes a binary the user runs locally | capture: sha256:87d4ca021cd395888d1dda14abd0605c09a4c0d7eb37c0cc1ad1d17815cfc721 | quote: Easily expose local services via Tor
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:87d4ca021cd395888d1dda14abd0605c09a4c0d7eb37c0cc1ad1d17815cfc721 | quote: Easily expose local services via Tor
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/theborakompanioni/ngtor
+
+## nostr-vpn
+
+- `egress/nostr-vpn` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.740Z (live) | stale on 2026-12-20
+- url https://github.com/mmalmi/nostr-vpn | page https://fshy.ajam.dev/p/github-mmalmi.md
+- price USD 0
+- free tier: Tailscale-style private mesh VPN using Nostr identities and signed network rosters, with a FIPS-backed data plane. Supports MagicDNS, subnet routes and exit nodes, with a Rust CLI/daemon and native desktop/mobile apps. MIT License. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Tailscale-shaped mesh with a FIPS data plane.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: Tailscale-shaped mesh with a FIPS data plane. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; the mesh is user-installed software on user-supplied machines, and exit access is an experimental byte-metered marketplace paid in Bitcoin through Cashu, so no free hosted egress allowance is published. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Tailscale-style private mesh VPN using Nostr identities and signed network rosters, with a FIPS-backed data plane. Supports MagicDNS, subnet routes and exit nod
+  - [2] 2026-11-19: the first-party README describes exit nodes as an experimental, paid, byte-metered marketplace rather than a free allowance | capture: sha256:6e449b130e74d5400dcd10976a1b7081d42166590f13233b70e22dd3fa34072d | quote: It also includes an experimental marketplace for byte-metered public exit nodes paid in Bitcoin through Cashu.
+  - [2] 2026-11-19: the first-party README presents user-installed software that needs no provider account | capture: sha256:6e449b130e74d5400dcd10976a1b7081d42166590f13233b70e22dd3fa34072d | quote: Connect people, servers, and agent hosts without an email, phone number, or VPN provider account.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:6e449b130e74d5400dcd10976a1b7081d42166590f13233b70e22dd3fa34072d | quote: It also includes an experimental marketplace for byte-metered public exit nodes paid in Bitcoin through Cashu.
+  - [2] 2026-11-19: the first-party README presents user-installed software that needs no provider account | capture: sha256:6e449b130e74d5400dcd10976a1b7081d42166590f13233b70e22dd3fa34072d | quote: It also includes an experimental marketplace for byte-metered public exit nodes paid in Bitcoin through Cashu.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/mmalmi/nostr-vpn
+
+## NPS Enhanced
+
+- `egress/nps-enhanced` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.741Z (live) | stale on 2026-12-20
+- url https://github.com/djylb/nps | page https://fshy.ajam.dev/p/github-djylb.md
+- price USD 0
+- free tier: Self-hosted NAT traversal and reverse proxy with a Web UI, HTTP/HTTPS and TCP/UDP forwarding, and automatic certificate support. GPL-3.0 Licensed. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP/HTTPS and TCP/UDP forwarding in a self-hosted server.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: HTTP/HTTPS and TCP/UDP forwarding in a self-hosted server. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it documents a NAT traversal and reverse proxy server the user deploys via Docker or a Linux/Windows install, with no hosted endpoint or byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hosted NAT traversal and reverse proxy with a Web UI, HTTP/HTTPS and TCP/UDP forwarding, and automatic certificate support. GPL-3.0 Licensed. Written in Go
+  - [2] 2026-11-19: the first-party README presents the tool as user-deployed NAT traversal software with no hosted endpoint | capture: sha256:67b8d86b0cdd6e1b60b6d30cd152c9cee8a2b36e17aabc65c4f39e76bc185903 | quote: NPS is a lightweight and efficient NAT traversal and reverse proxy system for exposing services behind NAT or firewalls.
+  - [2] 2026-11-19: the first-party README documents Docker and Linux/Windows deployment the user performs | capture: sha256:67b8d86b0cdd6e1b60b6d30cd152c9cee8a2b36e17aabc65c4f39e76bc185903 | quote: NPS is a lightweight and efficient NAT traversal and reverse proxy system for exposing services behind NAT or firewalls.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:67b8d86b0cdd6e1b60b6d30cd152c9cee8a2b36e17aabc65c4f39e76bc185903 | quote: NPS is a lightweight and efficient NAT traversal and reverse proxy system for exposing services behind NAT or firewalls.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/djylb/nps
+
+## Octelium
+
+- `egress/octelium` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.741Z (live) | stale on 2026-12-20
+- url https://github.com/octelium/octelium | page https://fshy.ajam.dev/p/github-octelium.md
+- price USD 0
+- free tier: A FOSS self-hosted unified zero trust secure access platform that can operate as a remote access VPN, a ZTNA platform, API/AI/MCP gateway, a PaaS, an and a homelab infrastructure. AGPL-3.0 and Apache-2.0 Licenses. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Self-hosted ZTNA with an ngrok-style HTTP path.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: Self-hosted ZTNA with an ngrok-style HTTP path. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it describes free open-source software designed for single-tenant self-hosting with no proprietary cloud-based control plane, so no hosted endpoint or byte allowance is published. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A FOSS self-hosted unified zero trust secure access platform that can operate as a remote access VPN, a ZTNA platform, API/AI/MCP gateway, a PaaS, an and a home
+  - [2] 2026-11-19: the first-party README states the platform has no hosted control plane and is self-hosted | capture: sha256:438ab42e11f7ca7168804a54eb3780b6d8ece3752a4498450503a2dcd2b0f889 | quote: There is no proprietary cloud-based control plane, nor is this some crippled demo open source version of a separate fully functional SaaS paid service.
+  - [2] 2026-11-19: the first-party README directs the user to install a cluster on a user-supplied VM or machine | capture: sha256:438ab42e11f7ca7168804a54eb3780b6d8ece3752a4498450503a2dcd2b0f889 | quote: There is no proprietary cloud-based control plane, nor is this some crippled demo open source version of a separate fully functional SaaS paid service.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:438ab42e11f7ca7168804a54eb3780b6d8ece3752a4498450503a2dcd2b0f889 | quote: There is no proprietary cloud-based control plane, nor is this some crippled demo open source version of a separate fully functional SaaS paid service.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/octelium/octelium
+
+## onionpipe
+
+- `egress/onionpipe` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:03.741Z (live) | stale on 2026-12-20
+- url https://github.com/cmars/onionpipe | page https://fshy.ajam.dev/p/github-cmars.md
+- price USD 0
+- free tier: Onion addresses for anything. `onionpipe` forwards ports on the local host to remote Onion addresses as Tor hidden services and vice-versa. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Tor hidden services for TCP ports.
+- interface detail: not established
+- tooling: The user installs and runs the software; no hosted endpoint is offered.
+- reliability: the same as interface detail
+- notes: Tor hidden services for TCP ports. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it documents a local binary or container the user builds and runs to forward ports over Tor, with no hosted endpoint or byte allowance. The list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Onion addresses for anything. `onionpipe` forwards ports on the local host to remote Onion addresses as Tor hidden services and vice-versa. Written in Go.
+  - [2] 2026-11-19: the first-party README presents the tool as software the user runs locally, with no hosted endpoint | capture: sha256:8e8205e0a565306af7191a1e1982418794b012db4001f46c211b6c7cf8aecf1b | quote: onionpipe forwards ports on the local host to remote Onion addresses as Tor hidden services and vice-versa.
+  - [2] 2026-11-19: the first-party README documents a binary the user builds or runs in a container | capture: sha256:8e8205e0a565306af7191a1e1982418794b012db4001f46c211b6c7cf8aecf1b | quote: onionpipe forwards ports on the local host to remote Onion addresses as Tor hidden services and vice-versa.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:8e8205e0a565306af7191a1e1982418794b012db4001f46c211b6c7cf8aecf1b | quote: onionpipe forwards ports on the local host to remote Onion addresses as Tor hidden services and vice-versa.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/cmars/onionpipe
+
+## OpenZiti
+
+- `egress/openziti` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category zero trust overlay (private only) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://openziti.io/docs/learn/introduction/ | page https://fshy.ajam.dev/p/openziti.md
+- price USD 0
+- free tier: 'OpenZiti is a free, open-source zero trust networking platform that makes network services invisible to unauthorized users.' Self-hosted; the software imposes no quota. | unit: unlimited | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance: controllers and routers run on self-hosted infrastructure.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: self-hosted; every endpoint is an identity with a certificate issued by the operator's controller | country: None
+- interface: cli, rest
+- binding note: Nothing counts bytes and every service is reachable only by an enrolled identity, so a public reader cannot start a transfer at all.
+- interface detail: ziti CLI and SDKs, plus the controller's REST API
+- tooling: ziti CLI, controller, routers, tunnelers, SDKs
+- composes with: a private fabric under zrok; it composes with a public ingress and adds none
+- reliability: the controller is a single point of failure the operator must run
+- notes: Recorded separately from zrok, which is OpenZiti's hosted share front end and already has two records. The distinction that matters: zrok's 5 GB/day is NetFoundry's controller policy, while OpenZiti itself has no meter and no public listener.
+- evidence note: A public-router configuration read would confirm that no unauthenticated listener exists; the introduction page states the model but not the router options.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - wg_detail: No WireGuard: 'controllers, routers, tunnelers, and SDKs', with 'Every identity requires a certificate'. No .conf exists.
+  - ingress: none
+  - bytes_transit: overlay-only
+  - transit_note: routers relay between authenticated identities
+- evidence:
+  - [1] 2026-10-23: 'a free, open-source zero trust networking platform that makes network services invisible to unauthorized users'; 'Every identity requires a certificate'
+- sources:
+  - [1] https://openziti.io/docs/learn/introduction/
+
+## Orbien
+
+- `egress/orbien` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.144Z (live) | stale on 2026-12-20
+- url https://github.com/orbien-org/orbien | page https://fshy.ajam.dev/p/github-orbien-org.md
+- price USD 0
+- free tier: Lightweight alternative to frp. Supports hot reload. Low resource consumption. Supports TCP (with multiplexing), WebSocket, QUIC and KCP transports, built-in server Web admin UI and native desktop client. Written in Rust. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: the first-party README describes a reverse proxy with TCP, UDP, HTTP, HTTPS, SOCKS5, KCP, WebSocket and QUIC transports that the user runs on a host the user supplies; no hosted endpoint or allowance is offered.
+- interface detail: not established
+- tooling: The user installs and runs the orbien server and client binaries on a host the user supplies.
+- reliability: the same as interface detail
+- notes: TCP with muxing, WebSocket, QUIC and KCP transports. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it describes a user-installed reverse proxy with no hosted endpoint and no byte allowance. The first-party source supersedes the aggregator list sentence as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Lightweight alternative to frp. Supports hot reload. Low resource consumption. Supports TCP (with multiplexing), WebSocket, QUIC and KCP transports, built-in se
+  - [2] 2026-11-19: the first-party README presents a reverse proxy the user runs, with no hosted endpoint or published byte allowance | capture: sha256:e0b970f5bf9d7ff877e3b265a2fc2f8a4c1a7d7222e2dd30eb34d054e8006c79 | quote: Securely expose local services behind a firewall to the public internet.
+  - [2] 2026-11-19: the first-party README gives download and run steps for user-installed binaries | capture: sha256:e0b970f5bf9d7ff877e3b265a2fc2f8a4c1a7d7222e2dd30eb34d054e8006c79 | quote: Download the binary archive for your platform and extract it.
+  - [2] 2026-11-19: the first-party README lists tunnel protocols and presents user-run software | capture: sha256:e0b970f5bf9d7ff877e3b265a2fc2f8a4c1a7d7222e2dd30eb34d054e8006c79 | quote: Tunnel protocols: TCP, UDP, HTTP, HTTPS,SOCKS5 and more
+  - [2] 2026-11-19: the first-party README is the basis for the egress finding | capture: sha256:e0b970f5bf9d7ff877e3b265a2fc2f8a4c1a7d7222e2dd30eb34d054e8006c79 | quote: Securely expose local services behind a firewall to the public internet.
+  - [2] 2026-11-19: the first-party README describes user-run reverse-proxy software with no hosted endpoint | capture: sha256:e0b970f5bf9d7ff877e3b265a2fc2f8a4c1a7d7222e2dd30eb34d054e8006c79 | quote: Securely expose local services behind a firewall to the public internet.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/orbien-org/orbien
+
+## pgrok/pgrok
+
+- `egress/pgrok-pgrok` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.144Z (live) | stale on 2026-12-20
+- url https://github.com/pgrok/pgrok | page https://fshy.ajam.dev/p/github-pgrok.md
+- price USD 0
+- free tier: A multi-tenant HTTP reverse tunnel solution through SSH remote port forwarding. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP reverse tunnel over SSH remote forwarding.
+- interface detail: not established
+- tooling: The user installs and runs the pgrok server and client binaries on infrastructure the user supplies.
+- reliability: the same as interface detail
+- notes: HTTP reverse tunnel over SSH remote forwarding. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it describes self-hosted multi-tenant software that the user runs on their own infrastructure with SSO, and offers no hosted endpoint or byte allowance. The first-party source supersedes the aggregator list sentence.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A multi-tenant HTTP reverse tunnel solution through SSH remote port forwarding.
+  - [2] 2026-11-19: the first-party README states pgrok is self-hosted software with no hosted endpoint or published byte allowance | capture: sha256:8eeb521148053adc5271d747e0c7328ae61f4953931298f7fca2c39fba925843 | quote: pgrok is a self-hosted, multi-tenant networking platform for exposing HTTP services and raw TCP connections through SSH reverse tunnels.
+  - [2] 2026-11-19: the first-party README says the server runs on user-supplied infrastructure | capture: sha256:8eeb521148053adc5271d747e0c7328ae61f4953931298f7fca2c39fba925843 | quote: Run it on your own infrastructure with your own domain and OIDC-compatible SSO provider.
+  - [2] 2026-11-19: the first-party README is the basis for the egress finding | capture: sha256:8eeb521148053adc5271d747e0c7328ae61f4953931298f7fca2c39fba925843 | quote: pgrok is a self-hosted, multi-tenant networking platform for exposing HTTP services and raw TCP connections through SSH reverse tunnels.
+  - [2] 2026-11-19: the first-party README describes self-hosted software with no hosted endpoint | capture: sha256:8eeb521148053adc5271d747e0c7328ae61f4953931298f7fca2c39fba925843 | quote: pgrok is a self-hosted, multi-tenant networking platform for exposing HTTP services and raw TCP connections through SSH reverse tunnels.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/pgrok/pgrok
+
+## piko
+
+- `egress/piko` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.144Z (live) | stale on 2026-12-20
+- url https://github.com/andydunstall/piko | page https://fshy.ajam.dev/p/github-andydunstall.md
+- price USD 0
+- free tier: Piko is an open-source alternative to Ngrok, designed to serve production traffic and be simple to host (particularly on Kubernetes). MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP and TCP in a self-hosted server.
+- interface detail: not established
+- tooling: The user installs and runs the Piko server and agent on a host the user supplies, such as a Kubernetes cluster.
+- reliability: the same as interface detail
+- notes: HTTP and TCP in a self-hosted server. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it describes an open-source reverse proxy the user hosts on their own cluster, with no hosted endpoint or byte allowance. The first-party source supersedes the aggregator list sentence.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Piko is an open-source alternative to Ngrok, designed to serve production traffic and be simple to host (particularly on Kubernetes). MIT License. Written in Go
+  - [2] 2026-11-19: the first-party README describes a self-hosted reverse proxy with no hosted endpoint or published byte allowance | capture: sha256:89c1cdd78d843e723b9f3db2cb5d1d9d4f610ea5b39a168536e62b81df290af1 | quote: Piko is a reverse proxy that provides a secure way to connect to services that aren’t publicly routable, known as tunneling.
+  - [2] 2026-11-19: the first-party README describes hosting the server on infrastructure the user supplies | capture: sha256:89c1cdd78d843e723b9f3db2cb5d1d9d4f610ea5b39a168536e62b81df290af1 | quote: Piko is built to be simple to host on Kubernetes.
+  - [2] 2026-11-19: the first-party README is the basis for the egress finding | capture: sha256:89c1cdd78d843e723b9f3db2cb5d1d9d4f610ea5b39a168536e62b81df290af1 | quote: Piko is a reverse proxy that provides a secure way to connect to services that aren’t publicly routable, known as tunneling.
+  - [2] 2026-11-19: the first-party README describes self-hosted software with no hosted endpoint | capture: sha256:89c1cdd78d843e723b9f3db2cb5d1d9d4f610ea5b39a168536e62b81df290af1 | quote: Piko is a reverse proxy that provides a secure way to connect to services that aren’t publicly routable, known as tunneling.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/andydunstall/piko
+
+## Pilot Protocol
+
+- `egress/pilot-protocol` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category udp-level agent overlay software | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.144Z (live) | stale on 2026-12-20
+- url https://pilotprotocol.network/ | page https://fshy.ajam.dev/p/pilotprotocol.md
+- price USD 0
+- free tier: Pilot is a UDP-level networking stack for autonomous agents. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No hosted free byte allowance is published; the first-party site describes peer-to-peer tunnels with an encrypted relay fallback and a wallet payment layer.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: 'Every agent on Pilot can download a free wallet app'; trust is a per-peer handshake, not an account. | country: None
+- interface: cli
+- binding note: Software and protocol, not a service: there is no hosted public port, and the wallet layer suggests paid relays rather than a free allowance.
+- interface detail: CLI and library
+- tooling: Go library and CLI.
+- composes with: Needs a host.
+- reliability: Relay fallback depends on peers that accept the traffic.
+- notes: UDP-native but not an ingress: peers find each other through STUN and relay.
+- evidence note: The first-party site states the network is peer-to-peer with an encrypted relay fallback, private by default behind a trust handshake, and that the public backbone is run free of charge with self-hosting available; no hosted free byte allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance is published; the network is peer-to-peer with relay fallback and a payment layer.
+  - bytes_transit: overlay-only
+  - transit_note: peer relays
+- evidence:
+  - [1] 2026-10-23: 'UDP-level networking stack for autonomous agents'; 'L3 / L4 - IP - UDP / TCP'; free wallet app
+  - [1] 2026-11-19: the first-party site describes peer-to-peer tunnels with relay fallback and publishes no hosted free byte allowance | capture: sha256:2f592143685c89021aa0c857aaccc9bd3846e0d8c102876cd1a6f907c64c288a | quote: The daemon gets through NAT with STUN and hole punching, and falls back to an encrypted relay.
+  - [1] 2026-11-19: the first-party site describes peer tunnels and relay fallback with no published free byte allowance | capture: sha256:2f592143685c89021aa0c857aaccc9bd3846e0d8c102876cd1a6f907c64c288a | quote: The daemon gets through NAT with STUN and hole punching, and falls back to an encrypted relay.
+  - [1] 2026-11-19: the first-party site describes a free-to-use public backbone run by its operators with a self-hosting option | capture: sha256:2f592143685c89021aa0c857aaccc9bd3846e0d8c102876cd1a6f907c64c288a
+  - [1] 2026-11-19: the first-party site gives install steps for a daemon and CLI the user runs | capture: sha256:2f592143685c89021aa0c857aaccc9bd3846e0d8c102876cd1a6f907c64c288a | quote: Install the daemon and `pilotctl` in one line.
+  - [1] 2026-11-19: the first-party site describes the user-installed daemon and a peer-to-peer network with no hosted byte allowance | capture: sha256:2f592143685c89021aa0c857aaccc9bd3846e0d8c102876cd1a6f907c64c288a | quote: Install the daemon and `pilotctl` in one line.
+- sources:
+  - [1] https://pilotprotocol.network/
+
+## Pomerium
+
+- `egress/pomerium-zero` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category identity-aware access proxy with SSH reverse tunnel (user-run data plane, managed control plane) | tier Zero Personal
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T07:36:39.627Z (live) | stale on 2026-12-04
+- url https://www.pomerium.com/pricing | page https://fshy.ajam.dev/p/pomerium.md
+- free tier: Zero Personal: 'Free'; managed control plane, one Core cluster run by the user, 10 routes, 1 cluster, 1 administrator, 1 custom domain. No byte, bandwidth or traffic allowance is published. | unit: mixed | metered on: none | read on: 2026-11-03 | source: [1] | note: The plan is denominated in routes (10), clusters (1) and administrators (1); the vocabulary has no routes unit, so mixed is the nearest term.
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No byte cap, bandwidth cap or traffic meter is published on the pricing page, the reverse-tunneling page or the native SSH page. Traffic does not pass through the vendor: the data plane runs on a host the user supplies, and the vendor states 'there are no ingress or egress costs'. The only published tolerance is the 30 s default upstream route timeout for HTTP routes. | metered: no | free allowance: none published | source: [1]
+- identity: email | detail: a Pomerium Zero account is required ('Create a (free) Pomerium Zero account'), and the account is associated with an email address; the sign-up form fields are not in the captured page, so whether it asks for more than an email is unverified: behind a sign-up. The open-source Core needs no account.
+- interface: ssh, cli
+- limits note: Zero Personal caps routes at 10, clusters at 1, administrators at 1, service accounts at 2 and custom domains at 1; none is a byte meter and none fits the six kinds. Reverse tunnels carry HTTP (443) and SSH (22) routes only; UDP is not supported.
+- binding note: no byte, request or bandwidth cap is published, because the data plane runs on the user's own host; the route-count caps are not a volume meter
+- interface detail: an OpenSSH client run as `ssh -R 0 HOST` registers as the upstream of an HTTP or SSH route (runtime flag `ssh_upstream_tunnel`); `pomerium-cli` carries TCP routes
+- tooling: the user installs and runs the Pomerium Core data plane on a rented or free machine with a public address; the hosted Zero Console configures it; clients use a stock OpenSSH client
+- composes with: The hosted Zero control plane and starter domain come first; the byte-carrying data plane is software the user installs and runs on a rented or free machine, so a public reader reaches the tunnel only through a host the user supplies, last in any chain.
+- reliability: the reverse-tunneling mode is opt-in behind the `ssh_upstream_tunnel` runtime flag, and an HTTP route times out an upstream request after 30 s by default
+- notes: Fails as a public ingress because no hosted relay exists: every plan runs the data plane on the user's host, and Zero Personal manages only the control plane (configuration, policies, starter domain, certificates). The first paid plan is Zero Business at $9 per user per month billed monthly or $7 billed annually (100 routes, 5 clusters, 20 administrators). The reverse tunnel carries HTTP and SSH routes, not UDP. Pomerium Enterprise has a self-hosted control plane at a custom price.
+- evidence note: first-party pricing, reverse-tunneling and native SSH pages were captured and quoted; no tunnel was run, and the account sign-up form was not seen, so the identity detail is partly unverified
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_stated: No byte allowance is published.
+  - bytes_transit: self-hosted
+  - transit_note: the user's own data plane carries the bytes; the vendor's Zero control plane does not
+- evidence:
+  - [1] 2026-11-03: every plan, Zero Personal included, carries application traffic through a data plane that the user runs, so no hosted relay carries bytes | capture: sha256:9ec58c9bebb1f4bb5796c4350c851887f07bc6ec03a9af51d3444cb797fecd58 | quote: Every plan uses a self-hosted data plane to handle application traffic in your environment.
+  - [1] 2026-11-03: the Zero Personal plan is a managed control plane with one user-run Core cluster | capture: sha256:9ec58c9bebb1f4bb5796c4350c851887f07bc6ec03a9af51d3444cb797fecd58 | quote: Managed control plane. Run one Core cluster in your environment.
+  - [1] 2026-11-03: Zero Personal is free; the first paid plan, Zero Business, is $9 per user per month billed monthly or $7 billed annually | capture: sha256:9ec58c9bebb1f4bb5796c4350c851887f07bc6ec03a9af51d3444cb797fecd58 | quote: | Price Business billing is based on monthly active users. | Free | $7 annual or $9 monthly per user | Custom |
+  - [1] 2026-11-03: Zero Personal allows 10 routes and Zero Business 100; the plan table lists no byte, bandwidth or traffic meter | capture: sha256:9ec58c9bebb1f4bb5796c4350c851887f07bc6ec03a9af51d3444cb797fecd58 | quote: | [Routes](https://www.pomerium.com/docs/reference/routes) Connections to protected applications and services, each with its own access policy. | 10 | 100 | Custom |
+  - [2] 2026-11-03: the reverse tunnel is an OpenSSH reverse port-forward that carries HTTP and SSH routes | capture: sha256:f17abe90d07ac2e4ae477aeb480ce085893b880a5401446abbb7a3e0f48cc549 | quote: Any HTTP or SSH route can be configured to route upstream traffic through authenticated SSH clients using reverse port-forwarding.
+  - [2] 2026-11-03: the reverse tunnel carries TCP-based HTTP and SSH routes only, with no UDP | capture: sha256:f17abe90d07ac2e4ae477aeb480ce085893b880a5401446abbb7a3e0f48cc549 | quote: UDP is not supported.
+  - [2] 2026-11-03: the only two route protocols a reverse tunnel matches are HTTP (443) and SSH (22) | capture: sha256:f17abe90d07ac2e4ae477aeb480ce085893b880a5401446abbb7a3e0f48cc549 | quote: The `port` functions as a protocol selector. If the port is `443`, it will match HTTP routes. If the port is `22`, it will match SSH routes.
+  - [3] 2026-11-03: SSH routes ride the user-run data plane on a configurable port next to the HTTP port | capture: sha256:44b888565ce292b5ee6c6ddf0f36408bce59a644a56c1fc2e5e0d40b03753872 | quote: SSH traffic flows through the Pomerium data plane alongside HTTP traffic, using a separate port (configurable).
+  - [4] 2026-11-03: an HTTP route times out an upstream request after 30 seconds by default; this is the only published time tolerance and no byte cap is published | capture: sha256:375cf34bc044ddd73fb908d2f6142041ad393c8d6ed051e383f03c7b1bee483b | quote: If unset, the route inherits the global [`default_upstream_timeout`](https://www.pomerium.com/docs/reference/global-timeouts) (default `30s`).
+  - [5] 2026-11-03: the free plan needs a Pomerium Zero account | capture: sha256:9ebecd4709a9d0f973321c38c2e969498a2e0b739a780b43fa1ca1b175e39b06 | quote: Create a (free) [Pomerium Zero account](https://console.pomerium.app/create-account)
+  - [5] 2026-11-03: the Zero account is associated with an email address | capture: sha256:9ebecd4709a9d0f973321c38c2e969498a2e0b739a780b43fa1ca1b175e39b06 | quote: a default policy that only grants access if the user's email matches the one associated with your Pomerium Zero account
+  - [6] 2026-11-03: the vendor does not carry the application traffic: the user hosts the proxy | capture: sha256:c2c3e0ec9e691cd42436deb705529d8089ae0114641e311cf9be7e1dfbbb297e | quote: You host the proxy, so we can't see anything you don't want us to.
+  - [6] 2026-11-03: the vendor states there are no ingress or egress costs because traffic does not pass through its hosts | capture: sha256:c2c3e0ec9e691cd42436deb705529d8089ae0114641e311cf9be7e1dfbbb297e | quote: No extra hops means every user's request is faster and also cheaper because there are no ingress or egress costs
+  - [7] 2026-11-03: the Core data plane source is open and the user installs and runs it | capture: sha256:6fef8ffbea20ccf34468e2a62d6f7e0f3f85d1d4e4d9a8482a201518061673a8 | quote: This repository's source code is available under the [Apache License 2.0](https://github.com/pomerium/pomerium/blob/main/LICENSE).
+  - [8] 2026-11-03: the list names Pomerium in its overlay section with a managed control plane | capture: sha256:6397389f25e1417987795f9c2fd203ce677e801e565d43a4bccc2d85d05a2e8a | quote: Open-core; a managed control plane (Pomerium Zero) is available.
+- sources:
+  - [1] https://www.pomerium.com/pricing
+  - [2] https://www.pomerium.com/docs/capabilities/reverse-tunneling
+  - [3] https://www.pomerium.com/docs/capabilities/native-ssh-access
+  - [4] https://www.pomerium.com/docs/reference/routes/timeouts
+  - [5] https://www.pomerium.com/docs/get-started/quickstart
+  - [6] https://console.pomerium.app/create-account
+  - [7] https://github.com/pomerium/pomerium
+  - [8] https://github.com/anderspitman/awesome-tunneling
+
+## Portals for Mac
+
+- `egress/portals-for-mac` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-20T04:02:26.717Z (live) | stale on 2026-12-05
+- url https://github.com/build-trust/ockam/blob/develop/examples/app/portals/README.md | page https://fshy.ajam.dev/p/github-build-trust.md
+- price USD 0
+- free tier: A Mac app that uses the library to privately share a service on your Mac to anyone, anywhere. The service is shared securely over an end-to-end encrypted Ockam Portal. Apache 2.0 License. Written in Rust. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: unverified: the first-party README URL answered HTTP 404 on 2026-11-19; routes tried: a page read, a registered live probe, the raw-file URL, Wayback blob replay and raw snapshots; no first-party page was available to re-check the egress restriction
+- notes: Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: A Mac app that uses the library to privately share a service on your Mac to anyone, anywhere. The service is shared securely over an end-to-end encrypted Ockam
+  - probe:https://github.com/build-trust/ockam/blob/develop/examples/app/portals/README.md 2026-11-19: the first-party README URL answered HTTP 404 on 2026-11-19 | capture: sha256:06fbc6c31482e728771dbaba4274da92d4eb60129f27adf41ad6176f58af71d2 | quote: "status": 404
+  - [2] 2026-11-20: a live 2026-11-20 probe of the first-party Ockam README URL answered HTTP 404 | capture: sha256:22c30861388209443d5c3d422b42a0a1da5386ecd8f7014684a0425946de1f42 | quote: "status": 404
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/build-trust/ockam/blob/develop/examples/app/portals/README.md
+
+## portr
+
+- `egress/portr` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category overlay network or advanced tunnel tool | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.642Z (live) | stale on 2026-12-20
+- url https://portr.dev/ | page https://fshy.ajam.dev/p/portr.md
+- price USD 0
+- free tier: Has a JavaScript/Python admin page and request inspection/replay features. AGPL-3.0 License. Tunneling implemented in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. Tunnel HTTP, TCP and WebSocket connections.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: the same as interface detail
+- notes: Tunnel HTTP, TCP and WebSocket connections. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party site read on 2026-11-19; it describes a self-hosted tunnel the user installs and runs, with the team access and server kept on infrastructure the user controls and no published hosted byte allowance, so the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Has a JavaScript/Python admin page and request inspection/replay features. AGPL-3.0 License. Tunneling implemented in Go.
+  - [2] 2026-11-19: the first-party site describes self-hosted tunnel software the user installs and runs, with no hosted egress allowance stated | capture: sha256:5e8548ad24b279e0624bfb11e1fc3c592b68acb9a88613b44fe927c4f6872107 | quote: Portr is a self-hosted tunnel for teams.
+  - [2] 2026-11-19: the first-party site replaces the list sentence as the basis for the egress finding | capture: sha256:5e8548ad24b279e0624bfb11e1fc3c592b68acb9a88613b44fe927c4f6872107 | quote: Portr is a self-hosted tunnel for teams.
+  - [2] 2026-11-19: the first-party site describes self-hosted tunnel software with no hosted egress allowance | capture: sha256:5e8548ad24b279e0624bfb11e1fc3c592b68acb9a88613b44fe927c4f6872107 | quote: Portr is a self-hosted tunnel for teams.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://portr.dev/
+
+## progrium/localtunnel
+
+- `egress/progrium-localtunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.642Z (live) | stale on 2026-12-20
+- url https://github.com/progrium/localtunnel | page https://fshy.ajam.dev/p/github-progrium.md
+- price USD 0
+- free tier: Open-source local tunnel software under MIT License, written in Go. No hosted service is provided. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Unmaintained HTTP tunnel.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Unmaintained HTTP tunnel. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub README read on 2026-11-19; it states there is no public server and that a Go toolchain is needed to build it, so no hosted egress allowance exists and the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: No longer maintained, but here for posterity. MIT License.
+  - [2] 2026-11-19: the first-party README states there is no public server, so no hosted egress allowance exists | capture: sha256:9c068e5a60ccbf5712a37e61ed38da47dbec5f51ebc9f15ed17b1c94261fd464 | quote: Although usable, there is no public server and the scope of the project is pretty fixed where it is.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:9c068e5a60ccbf5712a37e61ed38da47dbec5f51ebc9f15ed17b1c94261fd464 | quote: Although usable, there is no public server and the scope of the project is pretty fixed where it is.
+  - [2] 2026-11-19: the first-party README states there is no public server, so no hosted egress | capture: sha256:9c068e5a60ccbf5712a37e61ed38da47dbec5f51ebc9f15ed17b1c94261fd464 | quote: Although usable, there is no public server and the scope of the project is pretty fixed where it is.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/progrium/localtunnel
+
+## Punchmole
+
+- `egress/punchmole` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.643Z (live) | stale on 2026-12-20
+- url https://github.com/Degola/punchmole/ | page https://fshy.ajam.dev/p/github-degola.md
+- price USD 0
+- free tier: Can be integrated directly into an existing Node.js project. Written in JavaScript. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Embedded Node.js tunnel.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Embedded Node.js tunnel. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub README read on 2026-11-19; it describes a tool with a locally run client and a server deployed by the user behind a reverse proxy, with no hosted egress allowance, so the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Can be integrated directly into an existing Node.js project. Written in JavaScript.
+  - [2] 2026-11-19: the first-party README describes self-hosted tunnel software the user installs and runs, with no hosted egress allowance stated | capture: sha256:20853012f9b2ce855925e559488a75fa9697a10e4b696dfbc3818bfd0a4ff3d6 | quote: Punchmole is a simple tool to give your locally running HTTP(s) servers a public URL and is an easy to self-host alternative to `ngrok` and/or `tunnelmole`.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:20853012f9b2ce855925e559488a75fa9697a10e4b696dfbc3818bfd0a4ff3d6 | quote: Punchmole is a simple tool to give your locally running HTTP(s) servers a public URL and is an easy to self-host alternative to `ngrok` and/or `tunnelmole`.
+  - [2] 2026-11-19: the first-party README describes self-hosted tunnel software with no hosted egress allowance | capture: sha256:20853012f9b2ce855925e559488a75fa9697a10e4b696dfbc3818bfd0a4ff3d6 | quote: Punchmole is a simple tool to give your locally running HTTP(s) servers a public URL and is an easy to self-host alternative to `ngrok` and/or `tunnelmole`.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/Degola/punchmole/
+
+## rathole
+
+- `egress/rathole` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.643Z (live) | stale on 2026-12-20
+- url https://github.com/rathole-org/rathole | page https://fshy.ajam.dev/p/github-rathole-org.md
+- price USD 0
+- free tier: Similar to frp, including the config format, but with improved performance. Low resource consumption. Hot reload. Written in Rust. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. frp-shaped config; TCP only per the aggregator.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: frp-shaped config; TCP only per the aggregator. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party GitHub README read on 2026-11-19; it states a server with a public IP is needed and that a client program runs on a device behind the NAT, so the user supplies the host and no hosted egress allowance is offered; the list entry is superseded as the basis.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Similar to frp, including the config format, but with improved performance. Low resource consumption. Hot reload. Written in Rust.
+  - [2] 2026-11-19: the first-party README states a server with a public IP is needed, so no hosted egress allowance is offered | capture: sha256:215f9908634e7201ddc4d9dd2c77cf0f13a9e82f5736fc2ec00d41e89384ace7 | quote: To use `rathole`, you need a server with a public IP, and a device behind the NAT, where some services that need to be exposed to the Internet.
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:215f9908634e7201ddc4d9dd2c77cf0f13a9e82f5736fc2ec00d41e89384ace7 | quote: To use `rathole`, you need a server with a public IP, and a device behind the NAT, where some services that need to be exposed to the Internet.
+  - [2] 2026-11-19: the first-party README states the user supplies the server, so no hosted egress exists | capture: sha256:215f9908634e7201ddc4d9dd2c77cf0f13a9e82f5736fc2ec00d41e89384ace7 | quote: To use `rathole`, you need a server with a public IP, and a device behind the NAT, where some services that need to be exposed to the Internet.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/rathole-org/rathole
+
+## remotemoe
+
+- `egress/remotemoe` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/fasmide/remotemoe | page https://fshy.ajam.dev/p/github-fasmide.md
+- price USD 0
+- free tier: SSH-based, with custom golang server. Does some cool unique things. Instead of just plain tunnels, it drops you into a basic CLI UI that offers several useful commands interactively, such as adding a custom hostname. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. SSH-based.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: SSH-based. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: SSH-based, with custom golang server. Does some cool unique things. Instead of just plain tunnels, it drops you into a basic CLI UI that offers several useful c
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/fasmide/remotemoe
+
+## reverse-tunnel
+
+- `egress/reverse-tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.955Z (live) | stale on 2026-12-20
+- url https://github.com/snsinfu/reverse-tunnel | page https://fshy.ajam.dev/p/github-snsinfu.md
+- price USD 0
+- free tier: Support TCP and UDP tunnels. Has docker images. Supports Let's Encrypt. MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. TCP and UDP tunnels, self-hosted.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: TCP and UDP tunnels, self-hosted. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Support TCP and UDP tunnels. Has docker images. Supports Let's Encrypt. MIT License. Written in Go.
+  - [2] 2026-11-19: First-party README: the gateway server is built and run by the user; the project offers no hosted endpoint. | capture: sha256:5dc00ae745696b900dc2d0dba93f0a16fc58f050aecc0c85b37b6dc4f02ff52c | quote: To build your own ones, clone the repository and make:
+  - [2] 2026-11-19: The user creates and runs the gateway server, so the egress host is supplied separately. | capture: sha256:5dc00ae745696b900dc2d0dba93f0a16fc58f050aecc0c85b37b6dc4f02ff52c | quote: Create a configuration file named `rtun-server.yml`:
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/snsinfu/reverse-tunnel
+
+## reverst
+
+- `egress/reverst` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.955Z (live) | stale on 2026-12-20
+- url https://github.com/flipt-io/reverst | page https://fshy.ajam.dev/p/github-flipt-io.md
+- price USD 0
+- free tier: Self-hosted HTTP reverse tunnels over HTTP/3 and QUIC, with load-balanced tunnel groups and host-based routing. Apache-2.0 License. Requires manual TLS/DNS; no formal releases; latest tag v0.2.0 (2024-05-27). | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. HTTP reverse tunnels over HTTP/3.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: HTTP reverse tunnels over HTTP/3. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hosted HTTP reverse tunnels over HTTP/3 and QUIC, with load-balanced tunnel groups and host-based routing. Apache-2.0 License. Requires manual TLS/DNS; no
+  - [2] 2026-11-19: First-party README: the project is a server and library the operator deploys; no hosted endpoint is offered. | capture: sha256:efcd8a8455617ed45b7b95252cfae3055fb6969bfd33b7df5ca8cebaf1cc6dce | quote: Reverst is a (load-balanced) reverse-tunnel server and Go server-client library built on QUIC and HTTP/3.
+  - [2] 2026-11-19: The tunnel binary is deployed by the operator, so the egress host is supplied separately. | capture: sha256:efcd8a8455617ed45b7b95252cfae3055fb6969bfd33b7df5ca8cebaf1cc6dce | quote: The tunnel binary is intended to be deployed on the public internet.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/flipt-io/reverst
+
+## Selfhosted Gateway
+
+- `egress/selfhosted-gateway` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.956Z (live) | stale on 2026-12-20
+- url https://github.com/hintjen/selfhosted-gateway | page https://fshy.ajam.dev/p/github-hintjen.md
+- price USD 0
+- free tier: Self-hosted Docker-native alternative to Cloudflare Tunnel/ngrok. Reverse Proxy-over-VPN (RPoVPN) using WireGuard, Caddy and NGINX to expose local docker-compose services to the Internet with automatic HTTPS. AGPL-3.0 License. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. WireGuard plus Caddy and NGINX; the aggregator says HTTP/TCP/UDP.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: WireGuard plus Caddy and NGINX; the aggregator says HTTP/TCP/UDP. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Self-hosted Docker-native alternative to Cloudflare Tunnel/ngrok. Reverse Proxy-over-VPN (RPoVPN) using WireGuard, Caddy and NGINX to expose local docker-compos
+  - [2] 2026-11-19: First-party README: the gateway is entirely self-hosted and self-managed; no hosted endpoint is offered. | capture: sha256:6db0af8873839b81ce957de30397d0b474d549bd21dd585bf099754ad2b4b46a | quote: Entirely self-hosted and self-managed, includes local and remote tunneling components.
+  - [2] 2026-11-19: The tool provisions tunnels on infrastructure the operator supplies; no hosted allowance is provided. | capture: sha256:6db0af8873839b81ce957de30397d0b474d549bd21dd585bf099754ad2b4b46a | quote: This project automates the provisioning of Reverse Proxy-over-VPN (RPoVPN) WireGuard tunnels with Caddy and NGINX.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/hintjen/selfhosted-gateway
+
+## SirTunnel
+
+- `egress/sirtunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:04.956Z (live) | stale on 2026-12-20
+- url https://github.com/anderspitman/SirTunnel | page https://fshy.ajam.dev/p/github-anderspitman.md
+- price USD 0
+- free tier: Minimal, self-hosted, 0-config alternative to ngrok. Similar to sish but leverages Caddy+OpenSSH rather than custom server code. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Minimal, self-hosted, 0-config alternative to ngrok. Similar to sish but leverages Caddy+OpenSSH rather than custom server code.
+  - [2] 2026-11-19: First-party README: the user runs the SirTunnel server on their own host; no hosted endpoint is offered. | capture: sha256:fe167b6a1526566d5cc6c4ac82c32302c52663e2b9b08713a74e112a8617e932 | quote: Assuming you already have an ssh server running, getting the SirTunnel server going consists of simply downloading a copy of Caddy and running it with the provided config.
+  - [2] 2026-11-19: The server instance runs on a host the user supplies; the egress host is supplied separately. | capture: sha256:fe167b6a1526566d5cc6c4ac82c32302c52663e2b9b08713a74e112a8617e932 | quote: A SirTunnel server instance listening on port 443 of `example.com`.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/anderspitman/SirTunnel
+
+## sish
+
+- `egress/sish` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-05 (live) | stale on 2026-11-20
+- url https://github.com/antoniomika/sish | page https://fshy.ajam.dev/p/github-antoniomika.md
+- price USD 0
+- free tier: Open source ngrok/serveo alternative. SSH-based but uses a custom server written in Go. Supports WebSocket tunneling. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. SSH remote forwarding, HTTP and WebSocket.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the hosted ssi.sh requires password auth or a pre-registered key on ports 22 and 2222, because the authless demo was disabled 'due to abuse'; the authless path exists only self-hosted.
+- notes: SSH remote forwarding, HTTP and WebSocket. Classified from the aggregator's own sentence; no vendor page was fetched for this name. The hosted ssi.sh refuses anonymous users on ports 22 and 2222, so the authless path is self-hosted only (measured 2026-11-05).
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Open source ngrok/serveo alternative. SSH-based but uses a custom server written in Go. Supports WebSocket tunneling.
+  - probe:ssi.sh:22 2026-11-05: the hosted demo requires password auth or a pre-registered key because the authless demo was disabled | capture: sha256:04dbd5acc3aa861bfa07a37171a2f92f873d470b8e48732f5f6e3d5ae81f0396 | quote: due to abuse
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/antoniomika/sish
+
+## specter
+
+- `egress/specter` | self-hosted, last resort | verdict fails-egress | evidence reported | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/zllovesuki/specter | page https://fshy.ajam.dev/p/github-zllovesuki.md
+- price USD 0
+- free tier: Interesting approach utilizing a DHT. QUIC transport. MIT License. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. QUIC over a DHT.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: QUIC over a DHT. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Interesting approach utilizing a DHT. QUIC transport. MIT License. Written in Go.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/zllovesuki/specter
+
+## sshuttle
+
+- `egress/sshuttle` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.296Z (live) | stale on 2026-12-20
+- url https://github.com/sshuttle/sshuttle | page https://fshy.ajam.dev/p/github-sshuttle.md
+- price USD 0
+- free tier: Open source project originally from one of the founders of Tailscale. Server doesn't require root; client does. Explicitly designed to avoid TCP-over-TCP issues. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. VPN over SSH; explicitly avoids TCP-over-TCP, no UDP listener.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: VPN over SSH; explicitly avoids TCP-over-TCP, no UDP listener. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README confirms a self-hosted program that needs remote network access via ssh; no hosted endpoint is offered.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Open source project originally from one of the founders of Tailscale. Server doesn't require root; client does. Explicitly designed to avoid TCP-over-TCP issues
+  - [2] 2026-11-19: the first-party project README describes a program the user runs against a remote network the user already has ssh access to, with no hosted endpoint offered | capture: sha256:10d73699365a44f6fdc88ce9ad0a77564b50ddab65bf76a3b7aa1636d9655fa1 | quote: You don't necessarily have admin access on the remote network.
+  - [2] 2026-11-19: the first-party README requires the user to have ssh access to a remote network, so egress begins with a host the user supplies | capture: sha256:10d73699365a44f6fdc88ce9ad0a77564b50ddab65bf76a3b7aa1636d9655fa1 | quote: You have access to a remote network via ssh.
+  - [2] 2026-11-19: the first-party README confirms a self-hosted program that needs a remote network the user reaches via ssh | capture: sha256:10d73699365a44f6fdc88ce9ad0a77564b50ddab65bf76a3b7aa1636d9655fa1 | quote: You have access to a remote network via ssh.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/sshuttle/sshuttle
+
+## Tinc
+
+- `egress/tinc` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.296Z (live) | stale on 2026-12-20
+- url https://github.com/gsliepen/tinc | page https://fshy.ajam.dev/p/github-gsliepen.md
+- price USD 0
+- free tier: Tinc is a peer-to-peer VPN daemon that supports VPNs with an arbitrary number of nodes. Instead of configuring tunnels, you give Tinc the location and public key of a few nodes in the VPN. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Peer-to-peer VPN daemon; needs nodes.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Peer-to-peer VPN daemon; needs nodes. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README confirms a peer-to-peer VPN daemon distributed for self-hosting; no hosted endpoint is offered.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Tinc is a peer-to-peer VPN daemon that supports VPNs with an arbitrary number of nodes. Instead of configuring tunnels, you give Tinc the location and public ke
+  - [2] 2026-11-19: the first-party project README describes a peer-to-peer VPN daemon the user runs as nodes, with no hosted endpoint offered | capture: sha256:a16c0e3dd0db45c4de2605a0438f27f67579fb84c0685910171eaa39fdec422d | quote: Tinc is a peer-to-peer VPN daemon that supports VPNs with an arbitrary number of nodes.
+  - [2] 2026-11-19: the first-party README has the user supply the VPN nodes, so egress begins with a host the user runs | capture: sha256:a16c0e3dd0db45c4de2605a0438f27f67579fb84c0685910171eaa39fdec422d | quote: Instead of configuring tunnels, you give tinc the location and public key of a few nodes in the VPN.
+  - [2] 2026-11-19: the first-party README confirms a self-hosted peer-to-peer VPN daemon | capture: sha256:a16c0e3dd0db45c4de2605a0438f27f67579fb84c0685910171eaa39fdec422d | quote: Tinc is a peer-to-peer VPN daemon that supports VPNs with an arbitrary number of nodes.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/gsliepen/tinc
+
+## tnnlink
+
+- `egress/tnnlink` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.296Z (live) | stale on 2026-12-20
+- url https://github.com/LiljebergXYZ/tnnlink | page https://fshy.ajam.dev/p/github-liljebergxyz.md
+- price USD 0
+- free tier: SSH-based. Golang. Not maintained. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. SSH-based, unmaintained.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: SSH-based, unmaintained. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README describes the offer as a self-hosted ngrok alternative; no hosted endpoint is offered.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: SSH-based. Golang. Not maintained.
+  - [2] 2026-11-19: the first-party project README labels tnnlink self-hosted software, with no hosted endpoint offered | capture: sha256:6591b6599ba63fcbe59af1328b8263280d0bab6650110325fb705e88246c0e12 | quote: Self-hosted ngrok alternative.
+  - [2] 2026-11-19: the first-party README describes SSH tunneling the user runs, so egress begins with a host the user supplies | capture: sha256:6591b6599ba63fcbe59af1328b8263280d0bab6650110325fb705e88246c0e12 | quote: Simple HTTP tunneling using SSH, authorized using github public keys.
+  - [2] 2026-11-19: the first-party README confirms tnnlink is self-hosted software | capture: sha256:6591b6599ba63fcbe59af1328b8263280d0bab6650110325fb705e88246c0e12 | quote: Self-hosted ngrok alternative.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/LiljebergXYZ/tnnlink
+
+## tunnel
+
+- `egress/tunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.297Z (live) | stale on 2026-12-20
+- url https://github.com/koding/tunnel | page https://fshy.ajam.dev/p/github-koding.md
+- price USD 0
+- free tier: This one is a Golang library, not a program you can just run. However, it looks easy to use for creating custom solutions. Uses a single TCP socket, and for multiplexing. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README describes a server/client package the user hosts; no hosted endpoint is offered.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: This one is a Golang library, not a program you can just run. However, it looks easy to use for creating custom solutions. Uses a single TCP socket, and for mul
+  - [2] 2026-11-19: the first-party project README describes a server/client package the user deploys, with no hosted endpoint offered | capture: sha256:f771a3ab950521702d9187aff9d64fa710fb6e31eddb8b897b807589fa6717b3 | quote: Tunnel is a server/client package that enables to proxy public connections to your local machine over a tunnel connection from the local machine to the public server.
+  - [2] 2026-11-19: the first-party README has the user run the server and client, so egress begins with a host the user supplies | capture: sha256:f771a3ab950521702d9187aff9d64fa710fb6e31eddb8b897b807589fa6717b3 | quote: The tunnel package consists of two parts. The `server` and the `client`.
+  - [2] 2026-11-19: the first-party README confirms a self-hosted server/client package | capture: sha256:f771a3ab950521702d9187aff9d64fa710fb6e31eddb8b897b807589fa6717b3 | quote: Tunnel is a server/client package that enables to proxy public connections to your local machine over a tunnel connection from the local machine to the public server.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/koding/tunnel
+
+## tunneller
+
+- `egress/tunneller` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.706Z (live) | stale on 2026-12-20
+- url https://github.com/skx/tunneller | page https://fshy.ajam.dev/p/github-skx.md
+- price USD 0
+- free tier: Open source. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. SSH-based TCP.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: SSH-based TCP. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README read; it states the project is a self-hosted alternative to ngrok, so the no-hosted-egress-allowance restriction holds.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Open source. Written in Go.
+  - [2] 2026-11-19: the project is a self-hosted tunnel, so no hosted egress allowance exists | capture: sha256:981962c2604ea1027750f679a8367cfb502b27a63b5ff614f255edb562e02417 | quote: In short this project is designed to be a self-hosted alternative to software such as `ngrok`.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/skx/tunneller
+
+## tunwg
+
+- `egress/tunwg` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.706Z (live) | stale on 2026-12-20
+- url https://github.com/ntnj/tunwg | page https://fshy.ajam.dev/p/github-ntnj.md
+- price USD 0
+- free tier: Wireguard in userspace based. Offers end to end encrypted TLS with LetsEncrypt certificates generated automatically by clients, with support for custom domains. Server can be self-hosted and doesn't require storing any data. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. WireGuard in userspace; the aggregator says the server can be self-hosted.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: WireGuard in userspace; the aggregator says the server can be self-hosted. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README read; it states the hosted instance runs on a VPS with very limited resources and may be bandwidth limited, so no hosted egress allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Wireguard in userspace based. Offers end to end encrypted TLS with LetsEncrypt certificates generated automatically by clients, with support for custom domains.
+  - [2] 2026-11-19: the hosted instance is a resource-limited VPS and self-hosting is available; no hosted allowance figure is published | capture: sha256:e12a3a7e0af30c178a3e975a4a15036467b8dabd0900c7e53663f93f1b1e23bc | quote: The instance at `l.tunwg.com` runs on a VPS with very limited resources and may be bandwidth limited.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/ntnj/tunwg
+
+## vgrok
+
+- `egress/vgrok` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.706Z (live) | stale on 2026-12-20
+- url https://github.com/styfle/vgrok | page https://fshy.ajam.dev/p/github-styfle.md
+- price USD 0
+- free tier: ] - CLI to get a secure public URL for your local web server. Built with Vercel Sandbox and written in JavaScript. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Public URL for a local web server.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Public URL for a local web server. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README instructs the user to install the Vercel CLI, log in and link a project, so the tunnel runs on the user's own Vercel account with no hosted egress allowance.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: ] - CLI to get a secure public URL for your local web server. Built with Vercel Sandbox and written in JavaScript.
+  - [2] 2026-11-19: the tunnel runs on the user's own Vercel account after CLI login; no hosted egress allowance is published | capture: sha256:0d5cd9916033de8429ed0c5936d1994320992630dfb5e6bba3f13a55d02145a0 | quote: Next, install vercel cli from npm and login and link to a project:
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/styfle/vgrok
+
+## weron
+
+- `egress/weron` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.707Z (live) | stale on 2026-12-20
+- url https://github.com/pojntfx/weron | page https://fshy.ajam.dev/p/github-pojntfx.md
+- price USD 0
+- free tier: Built on WebRTC. Can create Layer 2 and Layer 3 networks. NAT traversal via STUN and TURN. AGPL-3.0 license. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Layer 2/3 over WebRTC with STUN/TURN.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Layer 2/3 over WebRTC with STUN/TURN. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README describes a hosted signaling server and states that hosting it yourself has benefits including lower latency and better privacy; no hosted egress allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Built on WebRTC. Can create Layer 2 and Layer 3 networks. NAT traversal via STUN and TURN. AGPL-3.0 license. Written in Go.
+  - [2] 2026-11-19: a hosted signaling server exists and self-hosting has benefits; no egress allowance is published | capture: sha256:43f2412e108c87ac95172f78fa1596c28c78cf09e20e96ffe5783a881c733877 | quote: to use the hosted signaling server at `wss://weron.up.railway.app/`, hosting it yourself has many benefits, such as lower latency and even better privacy.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/pojntfx/weron
+
+## wireguard-go
+
+- `egress/wireguard-go` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tool (wireguard transport) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-23
+- url https://github.com/WireGuard/wireguard-go | page https://fshy.ajam.dev/p/github-wireguard.md
+- price USD 0
+- free tier: no service and no account; the reference userspace implementation | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: not applicable; the software states no volume; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account | country: None
+- interface: cli
+- binding note: it creates a TUN interface and speaks UDP; a UDP block stops it, so it adds no egress path
+- interface detail: wireguard-go wg0, configured with wg(8)
+- tooling: go build; wg and wg-quick for configuration
+- composes with: the substrate for the WebSocket forks; on its own it composes only with a peer that accepts UDP.
+- reliability: upstream mirror lags git.zx2c4.com; the Linux kernel module is the faster path where it exists
+- notes: Userspace implementation of WireGuard in Go. Serves as a standard WireGuard network interface on platforms without native kernel support. Standard implementation uses UDP transport.
+- evidence note: the verdict concerns egress only; this is the implementation every WebSocket fork starts from
+- self hosted: yes
+- extras:
+  - wg_path: native-conf
+  - wg_detail: "With wireguard-go, instead simply run: wireguard-go wg0 ... When an interface is running, you may use wg(8) to configure it", so the standard configuration applies unchanged
+  - ingress: none
+  - volume_stated: not applicable; the software states no volume
+  - bytes_transit: yes
+  - transit_note: carries the tunnel over UDP to the configured endpoint
+  - hosting_requirement: none beyond the device; needs a reachable UDP peer
+  - last_release: no GitHub release objects; last push 2026-10-06
+  - stars: 4465
+- evidence:
+  - [1] 2026-10-23: "This is an implementation of WireGuard in Go" and the wireguard-go wg0 / wg(8) usage
+  - [1] 2026-10-23: "Mirror only. Official repository is at https://git.zx2c4.com/wireguard-go"; 4465 stars; last push 2026-10-06; no GitHub releases
+  - [1] 2026-10-23: on Linux the README says to use the kernel module instead, "which is faster and better integrated into the OS"
+- sources:
+  - [1] https://github.com/WireGuard/wireguard-go
+
+## Wiretap
+
+- `egress/wiretap` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel software (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.707Z (live) | stale on 2026-12-20
+- url https://github.com/sandialabs/wiretap | page https://fshy.ajam.dev/p/github-sandialabs.md
+- price USD 0
+- free tier: Transparent tunneling over WireGuard (UDP) using userspace network stack. Root not required on server. Supports multiple clients and servers. Written in Go. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: tcp+udp | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Transparent tunnelling over WireGuard (UDP) with a userspace stack.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: Transparent tunnelling over WireGuard (UDP) with a userspace stack. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README states the exit node is any machine running the Wiretap binary and relaying traffic for clients; no hosted egress allowance is offered.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp+udp
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Transparent tunneling over WireGuard (UDP) using userspace network stack. Root not required on server. Supports multiple clients and servers. Written in Go.
+  - [2] 2026-11-19: the exit node is a user-run Wiretap binary; no hosted egress allowance is offered | capture: sha256:a1c5f0edcd2ce3a551f0909de972048b3140f66820b2e668d9a5211ce3053a5b | quote: A Wiretap Server is any machine where a Wiretap binary is running the `serve` command. Servers receive and relay network traffic on behalf of Wiretap Clients, acting like a VPN "exit node."
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/sandialabs/wiretap
+
+## wsssh
+
+- `egress/wsssh` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category overlay network or advanced tunnel tool | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.707Z (live) | stale on 2026-12-20
+- url https://git.nexlab.net/nexlab/wsssh | page https://fshy.ajam.dev/p/nexlab.md
+- price USD 0
+- free tier: Websocket jump host based SSH/SCP tunnelling with self hosted server. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No allowance is published in the list entry.; ingress: tcp | metered: no | free allowance: none published | source: [2]
+- identity: email | detail: an account on the hosted service, terms not read | country: None
+- interface: cli
+- binding note: No allowance is published, so the byte wall is unknown; the transport column is what the list states. Websocket jump host for SSH/SCP.
+- interface detail: not established
+- tooling: vendor client
+- composes with: Needs an account before any capacity is visible.
+- reliability: the same as interface detail
+- notes: Websocket jump host for SSH/SCP. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party README gives a command to start a self-hosted wssshd daemon; no hosted egress allowance is published.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: tcp
+  - volume_stated: No allowance is published in the list entry.
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Websocket jump host based SSH/SCP tunnelling with self hosted server.
+  - [3] 2026-11-19: the daemon is started by the user; no hosted egress allowance is published | capture: sha256:04e69d0efbfe7b67964674dcff323f09ba672217c47e358ca2dd42d6100ce590 | quote: ./wssshd --host 0.0.0.0 --port 9898 --domain example.com --password mysecret
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://git.nexlab.net/nexlab/wsssh
+  - [3] https://git.nexlab.net/nexlab/wsssh/-/raw/master/README.md
+
+## YTunnel
+
+- `egress/ytunnel` | self-hosted, last resort | verdict fails-egress | evidence documented | binding none | category tunnel client (self-hosted) | tier free
+- needs card no, phone no, ID no, institution no | verified 2026-11-19T21:11:05.926Z (live) | stale on 2026-12-20
+- url https://github.com/yetidevworks/ytunnel | page https://fshy.ajam.dev/p/github-yetidevworks.md
+- price USD 0
+- free tier: MIT Licensed, Rust powered, uses your domains and creates Cloudflare Tunnels with easy to use TUI | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: http-only | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: a client of egress/cloudflare-tunnel: the hosted capacity and its limits are those of Cloudflare Tunnel in the user's own Cloudflare account. Creates Cloudflare Tunnels from a TUI.
+- interface detail: not established
+- tooling: The user installs and runs the ytunnel CLI/TUI and cloudflared, creating Cloudflare Tunnels in the user's own Cloudflare account; no hosted endpoint is offered.
+- composes with: Drives Cloudflare Tunnel in the user's own Cloudflare account; see egress/cloudflare-tunnel.
+- reliability: the same as interface detail
+- notes: Creates Cloudflare Tunnels from a TUI. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: First-party project README read; it presents a TUI-first CLI that manages Cloudflare Tunnels on the user's own Cloudflare domain and account, with no hosted endpoint or published byte allowance. The list entry is superseded as the basis; the egress restriction still holds.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: http-only
+  - bytes_transit: yes
+  - transit_note: the operator's relay
+- evidence:
+  - [1] 2026-10-23: list entry sentence: MIT Licensed, Rust powered, uses your domains and creates Cloudflare Tunnels with easy to use TUI
+  - [2] 2026-11-19: the first-party README presents user-installed software that drives Cloudflare Tunnel on the user's own domain and account, with no hosted egress of its own | capture: sha256:6f7717d2f1ee3f9bc9f1fe1ca285c34afdcea1acde77e619d426ba937c399230 | quote: A TUI-first CLI for managing Cloudflare Tunnels with custom domains. Think ngrok, but using your own Cloudflare domain with persistent URLs and a dashboard to manage them.
+  - [2] 2026-11-19: the first-party README describes a management tool the user installs and runs to drive cloudflared, so there is no hosted endpoint | capture: sha256:6f7717d2f1ee3f9bc9f1fe1ca285c34afdcea1acde77e619d426ba937c399230 | quote: YTunnel is a management tool, not a daemon itself. Here's how the pieces fit together:
+  - [2] 2026-11-19: the first-party README replaces the list sentence as the basis for the egress finding | capture: sha256:6f7717d2f1ee3f9bc9f1fe1ca285c34afdcea1acde77e619d426ba937c399230 | quote: A TUI-first CLI for managing Cloudflare Tunnels with custom domains. Think ngrok, but using your own Cloudflare domain with persistent URLs and a dashboard to manage them.
+  - [2] 2026-11-19: the first-party README describes software the user installs and runs on a host the user supplies | capture: sha256:6f7717d2f1ee3f9bc9f1fe1ca285c34afdcea1acde77e619d426ba937c399230 | quote: You only need to install cloudflared. Do NOT run it as a system service. YTunnel manages cloudflared processes directly.
+  - [2] 2026-11-19: the first-party README describes user-installed software driving the user's own Cloudflare domain, with no hosted endpoint | capture: sha256:6f7717d2f1ee3f9bc9f1fe1ca285c34afdcea1acde77e619d426ba937c399230 | quote: A TUI-first CLI for managing Cloudflare Tunnels with custom domains. Think ngrok, but using your own Cloudflare domain with persistent URLs and a dashboard to manage them.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/yetidevworks/ytunnel
+
+## ngrok-operator (zufardhiyaulhaq)
+
+- `egress/ngrok-operator-zufardhiyaulhaq` | self-hosted, last resort | verdict fails-quota | evidence documented | binding volume-quota | category tunnel software (self-hosted) | tier free
+- needs card yes, phone no, ID no, institution no | verified 2026-11-03T07:36:39.325Z (live) | stale on 2026-12-04
+- url https://github.com/zufardhiyaulhaq/ngrok-operator | page https://fshy.ajam.dev/p/github-zufardhiyaulhaq.md
+- free tier: 1 GB / month of data transfer out, 20,000 HTTP requests / month and 5,000 TCP connections / month, counted by the ngrok free plan that the operator's authtoken belongs to; up to 3 online endpoints | unit: GB | metered on: downloaded-bytes | read on: 2026-11-03 | source: [1] | note: The operator itself meters nothing; the byte cap is the ngrok account plan of the authtoken in the Ngrok resource.
+- per-object cap: not applicable: counted per month rather than per object | source: [1]
+- retention: not applicable | source: [1]
+- egress: metered at 1 GB / month on the free ngrok plan; the first paid plan, Hobbyist, includes 5 GB and adds more against credit; pay-as-you-go is 5 GB included, then $0.10/GB | metered: yes | free allowance: 1 GB / month | price per TB: USD 0.10/GB | source: [2]
+- identity: email | detail: an ngrok account and its authtoken, which the Ngrok resource takes in spec.authtoken; TCP endpoints on the free plan need a valid payment method added to the account; the sign-up form fields are unverified: behind a sign-up
+- interface: rest
+- limits:
+  - volume-quota (binding): 1 GB per month of data transfer out; 20,000 HTTP requests, 5,000 TCP connections, 10,000 log events and 500 webhook verifications per month, on the ngrok free plan [1]
+  - request-rate: 4,000 HTTP requests per minute and 100 TCP connections per minute on the ngrok free plan, separate from the monthly quotas [1]
+- limits note: the allowance is a byte volume over a period, which none of the six kinds names; the number is in egress.free_allowance. Up to 3 online endpoints and 1 development domain on the free plan.
+- binding note: 1 GB per month on the free ngrok plan is about 1,100 times below 1 TiB, so the byte quota fails first; the first paid plan, Hobbyist at $10 monthly, includes 5 GB.
+- interface detail: a Kubernetes custom resource of kind Ngrok (apiVersion ngrok.com/v1alpha1) with protocol http or tcp, applied with kubectl; the operator is installed with Helm
+- tooling: the user installs and runs the operator, a Helm chart, in a Kubernetes cluster that they supply; the tunnels it creates are relayed by ngrok's hosted edge
+- composes with: the byte volume is relayed by the hosted ngrok service (see egress/ngrok-free for its free plan); the operator only creates and renews the tunnel from a cluster
+- reliability: the last commit of the repository is dated 10 March 2023 (a dependency bump) and its example resources point at ngrok.io hostnames; no commit for more than three years
+- notes: MIT licensed. The ngrok project's own Kubernetes operator is a different product that the free plan page lists as included on all plans. This record is the community operator by zufardhiyaulhaq; its tunnel capacity is the ngrok plan of the authtoken.
+- evidence note: Operator behaviour is read from its README and example resource; the byte cap is read from the first-party ngrok plan pages. No tunnel was run, because that needs an ngrok account.
+- self hosted: yes
+- extras:
+  - stale_after_days: 180
+  - bytes_transit: yes
+  - transit_note: the operator runs the ngrok agent in a pod and ngrok's edge relays the bytes, which is what the 1 GB monthly counter counts
+  - ingress: tcp
+- evidence:
+  - [3] 2026-11-03: the project is a Kubernetes operator that creates ngrok tunnels, not a relay of its own | capture: sha256:f2a07b618c73dd2f4d5a75e8fa6ac72c5702c8b2b7033a5be31ee64846af414e | quote: Ngrok operator provide developer easy access to private Kubernetes cluster for testing purpose via ngrok.
+  - [4] 2026-11-03: the operator supports the http and tcp protocols only | capture: sha256:9cc5e2f8bc290129ae65ddfdcb164f1ce441dd88eb52a89a54947468856c0b12 | quote: # protocol used, currently support http & tcp
+  - [4] 2026-11-03: every Ngrok resource carries an ngrok account authtoken | capture: sha256:9cc5e2f8bc290129ae65ddfdcb164f1ce441dd88eb52a89a54947468856c0b12 | quote: # ngrok authtoken
+  - [1] 2026-11-03: the ngrok free plan caps data transfer out at 1 GB per month | capture: sha256:bda9952c9f038f9d45e8edd89b334a88609ce46743ffe1a04db5ed18e0e737f8 | quote: | Data transfer out | 1 GB / month |
+  - [2] 2026-11-03: Free is 1 GB, Hobbyist includes 5 GB, pay-as-you-go is 5 GB then $0.10/GB | capture: sha256:0f015baedf63e3b3903a735bf16512c6305235a783e9c5cceb1c455139d4d56e | quote: | Data Transfer Out | 1 GB | 5 GB included (more with credit) | 5 GB included, then \$0.10/GB (volume discounts) |
+  - [5] 2026-11-03: the Hobbyist card, the first paid plan after Free, is priced at $10 monthly | capture: sha256:7f9d14df7072d369271de115d11329687a4a855e4a73273d19116656ee5b9f50 | quote: $10 monthly
+  - [6] 2026-11-03: TCP tunnels on the free plan need a payment method on the account | capture: sha256:bc2af89f9fd74c5e295d36bd0341738ae6d2297823d46a935a34a2bf317f336d | quote: TCP endpoints are only available on a free plan after [adding a valid payment method](https://dashboard.ngrok.com/settings#id-verification) to your account.
+  - [7] 2026-11-03: the most recent commit listed is dated 10 March 2023 | capture: sha256:ff4c739793a2fead59aa125d96c190d1e2dfec137c3627ead668df82c17d927d | quote: Commits on Mar 10, 2023
+  - [8] 2026-11-03: the operator is under the MIT License | capture: sha256:f4f8b8454bcce9b9e0941d568853081fc1d40bbbadafa861dc67a8f2a78f5108 | quote: MIT License
+  - [1] 2026-11-03: the first-party ngrok Kubernetes Operator is a separate product that every plan includes | capture: sha256:bda9952c9f038f9d45e8edd89b334a88609ce46743ffe1a04db5ed18e0e737f8 | quote: * ngrok Kubernetes Operator
+- sources:
+  - [1] https://ngrok.com/docs/pricing-limits/free-plan-limits
+  - [2] https://ngrok.com/docs/pricing-limits
+  - [3] https://github.com/zufardhiyaulhaq/ngrok-operator
+  - [4] https://raw.githubusercontent.com/zufardhiyaulhaq/ngrok-operator/master/examples/http/full-configuration/ngrok.yaml
+  - [5] https://ngrok.com/pricing
+  - [6] https://ngrok.com/docs/gateway/endpoints/tcp
+  - [7] https://github.com/zufardhiyaulhaq/ngrok-operator/commits/master
+  - [8] https://github.com/zufardhiyaulhaq/ngrok-operator/blob/master/LICENSE
+
+## Greenhouse
+
+- `egress/greenhouse` | self-hosted, last resort | verdict dead | evidence reported | binding none | category port-forwarding software (hosted instance withdrawn) | tier dead
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://git.sequentialread.com/sqr/greenhouse | page https://fshy.ajam.dev/p/sequentialread.md
+- price n/a
+- free tier: the hosted service (greenhouse.server.garden) is currently unavailable and the project appears unmaintained (last activity 2023) | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [1]
+- retention: not applicable | source: [1]
+- egress: No allowance: the hosted instance is gone.; ingress: none | metered: no | free allowance: none published | source: [1]
+- identity: anonymous | detail: no account at the hosted service; self-hosting needs a server. | country: None
+- interface: cli
+- binding note: Nothing binds: the hosted service is unavailable and the code has been untouched since 2023.
+- interface detail: self-hosted
+- tooling: Go binaries.
+- composes with: none
+- reliability: Unmaintained.
+- notes: Classified from the aggregator's own sentence; the repository was not opened.
+- evidence note: Open-source project is unmaintained and public relay infrastructure is inactive.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - volume_stated: No allowance: the hosted instance is gone.
+  - bytes_transit: no
+  - transit_note: n/a
+- evidence:
+  - [2] 2026-10-23: 'the hosted service (greenhouse.server.garden) is currently unavailable and the project appears unmaintained (last activity 2023)'
+- sources:
+  - [1] https://git.sequentialread.com/sqr/greenhouse
+  - [2] https://github.com/anderspitman/awesome-tunneling
+
+## holepunch
+
+- `egress/holepunch` | self-hosted, last resort | verdict dead | evidence reported | binding none | category tunnel software (self-hosted) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-11-03T10:45:51.744Z (live) | stale on 2026-11-18
+- url https://github.com/CypherpunkArmory/holepunch | page https://fshy.ajam.dev/p/github-cypherpunkarmory.md
+- price USD 0
+- free tier: Uses SSH for muxing. Domain has expired. AGP-3.0 Licensed. Written in Python. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the hosted API host api.holepunch.io does not resolve in DNS (checked 2026-11-03); the list entry records that the domain has expired
+- notes: The aggregator records that the domain has expired. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: The aggregator records that the domain has expired. Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Uses SSH for muxing. Domain has expired. AGP-3.0 Licensed. Written in Python.
+  - probe:api.holepunch.io 2026-11-03: api.holepunch.io, the hosted API this code runs, does not resolve in DNS on 2026-11-03 | capture: sha256:38bf9afa49d550d12293fa1e7901c1e8931b07a88f1bc603e4b63bde46932133 | quote: "error": "dns"
+  - [2] 2026-11-03: the repository is the code of a hosted API at api.holepunch.io, not a standalone tunnel offer | capture: sha256:c5151454493ea99594684ff41b068fa377b06228323a0bf065dc57bea7ca0e97 | quote: This is the code used to run [api.holepunch.io](https://api.holepunch.io/)
+  - [1] 2026-11-03: the list entry for holepunch records that its domain has expired | capture: sha256:0b8d7e63a0b5f0d1c151e57df1a8c1833894a0a586959c99a78ac5e6d7c612ab | quote: Uses SSH for muxing. Domain has expired. AGP-3.0 Licensed. Written in Python.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/CypherpunkArmory/holepunch
+
+## hypertunnel
+
+- `egress/hypertunnel` | self-hosted, last resort | verdict dead | evidence reported | binding none | category tunnel software (self-hosted) | tier n/a
+- needs card no, phone no, ID no, institution no | verified 2026-10-23 (live) | stale on 2026-11-07
+- url https://github.com/berstend/hypertunnel | page https://fshy.ajam.dev/p/github-berstend.md
+- price USD 0
+- free tier: Public server appears to be down. MIT Licensed. Written in JavaScript. | unit: none | metered on: none | read on: 2026-10-23 | source: [1]
+- per-object cap: not applicable | source: [2]
+- retention: not applicable | source: [2]
+- egress: No hosted allowance exists: the software runs on a host that is supplied separately.; ingress: none | metered: no | free allowance: none published | source: [2]
+- identity: anonymous | detail: a source checkout | country: None
+- interface: cli
+- binding note: software only: no hosted endpoint is offered, so any egress it provides begins with a host that a user must get from a compute provider. Public server reported down.
+- interface detail: not established
+- tooling: self-hosted binaries
+- reliability: the same as interface detail
+- notes: The aggregator records that the public server appears to be down. Public server reported down. Classified from the aggregator's own sentence; no vendor page was fetched for this name.
+- evidence note: The aggregator records that the public server appears to be down. Read the project README and run a client to raise this to documented; the list sentence is the only evidence here.
+- self hosted: yes
+- extras:
+  - wg_path: none
+  - ingress: none
+  - bytes_transit: no
+  - transit_note: none
+- evidence:
+  - [1] 2026-10-23: list entry sentence: Public server appears to be down. MIT Licensed. Written in JavaScript.
+- sources:
+  - [1] https://github.com/anderspitman/awesome-tunneling
+  - [2] https://github.com/berstend/hypertunnel
